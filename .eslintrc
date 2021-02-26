@@ -1,5 +1,17 @@
 {
   "extends": [
+    "plugin:jest/recommended",
     "@guanghechen/eslint-config"
+  ],
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jest": true,
+    "node": true
+  },
+  "plugins": [
+    "import",
+    "jest"
   ]
 }

@@ -5,6 +5,19 @@
 
 # `@guanghechen/eslint-config`
 
+# Install
+
+* npm
+
+  ```npm
+  npm install --save-dev @guanghechen/eslint-config
+  ```
+
+* yarn
+
+  ```npm
+  yarn add @guanghechen/eslint-config
+  ```
 
 # Usage
 

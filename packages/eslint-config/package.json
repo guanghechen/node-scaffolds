@@ -1,7 +1,7 @@
 {
   "name": "@guanghechen/eslint-config",
   "version": "0.0.0",
-  "description": "eslint config for js and jest",
+  "description": "basic eslint config for js",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -14,9 +14,7 @@
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/eslint-config#readme",
   "keywords": [
     "eslint",
-    "eslint config",
-    "typescript",
-    "jsx"
+    "eslint config"
   ],
   "main": "index.js",
   "license": "MIT",
@@ -31,8 +29,6 @@
     "README.md"
   ],
   "dependencies": {
-    "eslint": "^7.20.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.1.5"
+    "eslint": "^7.20.0"
   }
 }

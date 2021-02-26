@@ -1,8 +1,6 @@
 module.exports = {
   root: true,
-  env: { browser: true, commonjs: true, es6: true, jest: true, node: true },
-  globals: { Atomics: 'readonly', SharedArrayBuffer: 'readonly' },
-  extends: ['eslint:recommended', 'plugin:jest/recommended'],
+  extends: ['eslint:recommended'],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
@@ -11,7 +9,6 @@ module.exports = {
       impliedStrict: true,
     },
   },
-  plugins: ['import', 'jest'],
   rules: {
     'class-methods-use-this': 0,
     'func-call-spacing': ['error', 'never'],
