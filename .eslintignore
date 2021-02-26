@@ -1,0 +1,10 @@
+**/__test__/cases/**
+**/__tmp__/**
+**/coverage/**
+**/demo/**
+**/doc/**
+**/example/**
+**/lib/**
+**/node_modules/**
+**/*.styl.d.ts
+*.tsbuildinfo
