@@ -70,5 +70,5 @@ module.exports = {
     'space-in-parens': ['error', 'never'],
     'space-infix-ops': ['error', { int32Hint: false }],
     'space-unary-ops': ['error', { words: true, nonwords: false }],
-  }
+  },
 }

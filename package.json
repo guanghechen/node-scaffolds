@@ -18,7 +18,8 @@
     ":publish": "yarn format && yarn test && lerna publish",
     "build": "lerna run build --concurrency 1",
     "clean": "lerna clean --yes && yarn install",
-    "format": "run-s format:lint:fix",
+    "format": "run-s format:lint:fix format:prettier",
+    "format:prettier": "prettier . --write",
     "format:lint:fix": "eslint . --fix",
     "prepublishOnly": "pinst --disable",
     "postinstall": "run-p postinstall:**",
@@ -39,6 +40,9 @@
     "@types/jest": "26.0.20",
     "@types/node": "14.14.1",
     "cross-env": "7.0.3",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "8.1.0",
+    "eslint-plugin-prettier": "3.3.1",
     "gitmoji-changelog": "2.2.0",
     "husky": "5.1.1",
     "is-ci": "3.0.0",
@@ -47,6 +51,7 @@
     "lint-staged": "10.5.4",
     "npm-run-all": "4.1.5",
     "pinst": "2.1.6",
+    "prettier": "2.2.1",
     "rimraf": "3.0.2",
     "ts-jest": "26.5.2",
     "ts-node": "9.1.1",
@@ -55,8 +60,9 @@
     "yarn-deduplicate": "3.1.0"
   },
   "lint-staged": {
-    "*.{js,ts}": [
-      "eslint --fix"
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
     ]
   }
 }
