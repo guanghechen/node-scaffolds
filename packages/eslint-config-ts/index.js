@@ -16,6 +16,15 @@ module.exports = {
     allowImportExportEverywhere: true,
   },
   rules: {
+    'default-case': 0, // TypeScript's `noFallthroughCasesInSwitch` option is more robust (#6906)
+    'no-array-constructor': 0,
+    'no-dupe-class-members': 0, // 'tsc' already handles this (https://github.com/typescript-eslint/typescript-eslint/issues/291)
+    'no-redeclare': 0,
+    'no-undef': 0, // 'tsc' already handles this (https://github.com/typescript-eslint/typescript-eslint/issues/477)
+    'no-unused-expressions': 0,
+    'no-unused-vars': 0,
+    'no-use-before-define': 0,
+    'no-useless-constructor': 0,
     '@typescript-eslint/array-type': [
       2,
       {
@@ -32,7 +41,7 @@ module.exports = {
         objectLiteralTypeAssertions: 'allow-as-parameter',
       },
     ],
-    '@typescript-eslint/consistent-type-definitions': 0,
+    '@typescript-eslint/consistent-type-definitions': 1,
     '@typescript-eslint/consistent-type-imports': [
       2,
       {
@@ -77,6 +86,7 @@ module.exports = {
       },
     ],
     '@typescript-eslint/method-signature-style': [2, 'property'],
+    '@typescript-eslint/no-array-constructor': 1,
     '@typescript-eslint/no-confusing-non-null-assertion': 2,
     '@typescript-eslint/no-confusing-void-expression': [
       2,
@@ -108,8 +118,33 @@ module.exports = {
         allowedNames: ['self'], // Allow `const self = this`; `[]` by default
       },
     ],
+    '@typescript-eslint/no-use-before-define': [
+      1,
+      {
+        functions: false,
+        classes: false,
+        variables: false,
+        typedefs: false,
+      },
+    ],
     '@typescript-eslint/no-unnecessary-qualifier': 2,
     '@typescript-eslint/no-unnecessary-type-arguments': 2,
+    '@typescript-eslint/no-unused-expressions': [
+      2,
+      {
+        allowShortCircuit: true,
+        allowTernary: true,
+        allowTaggedTemplates: true,
+      },
+    ],
+    '@typescript-eslint/no-unused-vars': [
+      1,
+      {
+        args: 'none',
+        ignoreRestSiblings: true,
+      },
+    ],
+    '@typescript-eslint/no-useless-constructor': 1,
     '@typescript-eslint/prefer-as-const': 2,
     '@typescript-eslint/prefer-enum-initializers': 2,
     '@typescript-eslint/space-before-function-paren': [
