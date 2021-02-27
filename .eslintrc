@@ -1,12 +1,7 @@
 {
   "root": true,
-  "extends": [
-    "@guanghechen"
-  ],
-  "plugins": [
-    "import",
-    "jest"
-  ],
+  "extends": ["@guanghechen", "plugin:jest/recommended"],
+  "plugins": ["import", "jest"],
   "env": {
     "browser": true,
     "commonjs": true,
@@ -21,5 +16,11 @@
         "allow": ["util"]
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*tsx"],
+      "extends": ["@guanghechen/ts", "plugin:jest/recommended"]
+    }
+  ]
 }

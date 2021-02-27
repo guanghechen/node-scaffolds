@@ -14,7 +14,9 @@
     "pinst",
     "plusplus",
     "postpublish",
-    "singleline"
+    "singleline",
+    "styl",
+    "tsbuildinfo"
   ],
   "files.associations": {
     ".prettierrc": "yaml"
