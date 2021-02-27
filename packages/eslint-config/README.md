@@ -16,7 +16,7 @@
 * yarn
 
   ```npm
-  yarn add @guanghechen/eslint-config
+  yarn add --dev @guanghechen/eslint-config
   ```
 
 # Usage
@@ -27,6 +27,6 @@ eslint config for js + jest project.
 
     ```javascript
     {
-      extends: ['@guanghechen/eslint-config'],
+      extends: ['@guanghechen'],
     }
     ```

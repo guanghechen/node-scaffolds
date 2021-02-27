@@ -1,7 +1,11 @@
 {
+  "root": true,
   "extends": [
-    "plugin:jest/recommended",
-    "@guanghechen/eslint-config"
+    "@guanghechen"
+  ],
+  "plugins": [
+    "import",
+    "jest"
   ],
   "env": {
     "browser": true,
@@ -10,8 +14,12 @@
     "jest": true,
     "node": true
   },
-  "plugins": [
-    "import",
-    "jest"
-  ]
+  "rules": {
+    "import/no-internal-modules": [
+      "error",
+      {
+        "allow": ["util"]
+      }
+    ]
+  }
 }
