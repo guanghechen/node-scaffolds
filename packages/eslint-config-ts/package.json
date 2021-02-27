@@ -1,7 +1,7 @@
 {
   "name": "@guanghechen/eslint-config-ts",
   "version": "0.0.0",
-  "description": "eslint config for ts and jest",
+  "description": "eslint config for ts project",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -15,8 +15,7 @@
   "keywords": [
     "eslint",
     "eslint config",
-    "typescript",
-    "jest"
+    "typescript"
   ],
   "main": "index.js",
   "license": "MIT",

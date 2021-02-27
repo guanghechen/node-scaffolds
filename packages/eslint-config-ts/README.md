@@ -31,3 +31,46 @@ eslint config for ts + jest project.
       extends: ['@guanghechen/ts'],
     }
     ```
+
+# Example
+
+See [.eslintrc](https://github.com/guanghechen/node-scaffolds/blob/master/.eslintrc)
+
+
+```json {28}
+{
+  "root": true,
+  "extends": [
+    "@guanghechen",
+    "@guanghechen/jsx",
+    "plugin:jest/recommended",
+    "prettier"
+  ],
+  "plugins": ["import", "jest", "prettier"],
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jest": true,
+    "node": true
+  },
+  "rules": {
+    "import/no-internal-modules": [
+      2,
+      {
+        "allow": ["util"]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*tsx"],
+      "extends": [
+        "@guanghechen/jsx",
+        "@guanghechen/ts",
+        "plugin:jest/recommended"
+      ]
+    }
+  ]
+}
+```
