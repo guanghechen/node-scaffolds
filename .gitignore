@@ -1,15 +1,14 @@
 .DS_Store
 
 lib/
-build/
+
 coverage/
 dist/
 node_modules/
 release/
 target/
-**/*.styl.d.ts
-
 *.tsbuildinfo
+**/*.styl.d.ts
 tmp/
 
 # local env files
