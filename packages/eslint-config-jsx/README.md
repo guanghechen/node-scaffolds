@@ -6,34 +6,32 @@
 # `@guanghechen/eslint-config-jsx`
 
 
-# Install
+## Install
 
 * npm
 
-  ```npm
+  ```bash
   npm install --save-dev @guanghechen/eslint-config-jsx
   ```
 
 * yarn
 
-  ```npm
+  ```bash
   yarn add --dev @guanghechen/eslint-config-jsx
   ```
 
-# Usage
+## Usage
 
-eslint config for jsx project.
+* Use in .eslintrc.js
 
-  * Use in .eslintrc.js
-
-    ```javascript
-    {
-      extends: ['@guanghechen/jsx'],
-    }
-    ```
+  ```javascript
+  {
+    extends: ['@guanghechen/jsx'],
+  }
+  ```
 
 
-# Example
+## Example
 
 See [.eslintrc](https://github.com/guanghechen/node-scaffolds/blob/master/.eslintrc)
 

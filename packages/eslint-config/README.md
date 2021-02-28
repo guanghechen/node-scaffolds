@@ -5,28 +5,26 @@
 
 # `@guanghechen/eslint-config`
 
-# Install
+## Install
 
 * npm
 
-  ```npm
+  ```bash
   npm install --save-dev @guanghechen/eslint-config
   ```
 
 * yarn
 
-  ```npm
+  ```bash
   yarn add --dev @guanghechen/eslint-config
   ```
 
-# Usage
+## Usage
 
-eslint config for js + jest project.
+* Use in .eslintrc.js
 
-  * Use in .eslintrc.js
-
-    ```javascript
-    {
-      extends: ['@guanghechen'],
-    }
-    ```
+  ```javascript
+  {
+    extends: ['@guanghechen'],
+  }
+  ```

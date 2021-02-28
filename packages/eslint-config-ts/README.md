@@ -6,33 +6,31 @@
 # `@guanghechen/eslint-config-ts`
 
 
-# Install
+## Install
 
 * npm
 
-  ```npm
+  ```bash
   npm install --save-dev @guanghechen/eslint-config-ts
   ```
 
 * yarn
 
-  ```npm
+  ```bash
   yarn add --dev @guanghechen/eslint-config-ts
   ```
 
-# Usage
+## Usage
 
-eslint config for ts + jest project.
+* Use in .eslintrc.js
 
-  * Use in .eslintrc.js
+  ```javascript
+  {
+    extends: ['@guanghechen/ts'],
+  }
+  ```
 
-    ```javascript
-    {
-      extends: ['@guanghechen/ts'],
-    }
-    ```
-
-# Example
+## Example
 
 See [.eslintrc](https://github.com/guanghechen/node-scaffolds/blob/master/.eslintrc)
 
