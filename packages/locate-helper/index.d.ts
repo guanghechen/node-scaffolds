@@ -4,7 +4,7 @@
  */
 export function locateNearestFilepath(
   currentDir: string,
-  filenames: string[],
+  filenames: string | string[],
 ): string | null
 
 /**

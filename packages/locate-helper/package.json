@@ -30,5 +30,8 @@
     "CHANGELOG.md",
     "LICENSE",
     "README.md"
-  ]
+  ],
+  "scripts": {
+    "test": "cross-env jest --config ../../jest.config.js --rootDir . --roots ."
+  }
 }

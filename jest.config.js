@@ -27,11 +27,12 @@ module.exports = {
   },
   testURL: 'http://localhost/',
   testEnvironment: 'node',
-  testRegex: '/(__test__)/[^/]+\\.spec\\.tsx?$',
+  testRegex: '/(__test__)/[^/]+\\.spec\\.[jt]sx?$',
   testPathIgnorePatterns: ['/coverage/', '/lib/', '/node_modules/'],
   collectCoverage: false,
   coverageDirectory: '<rootDir>/coverage/',
   collectCoverageFrom: [
+    '<rootDir>/index.js',
     '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
     '<rootDir>/src/*.{js,jsx,ts,tsx}',
   ],

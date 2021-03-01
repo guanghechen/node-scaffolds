@@ -4,11 +4,19 @@ const path = require('path')
 /**
  * Locate a nearest filepath from the given `currentDir` which name included
  * in the give `filenames`.
+ *
+ * @export
  * @param {string} currentDir
- * @param {string[]} filenames
+ * @param {string|string[]} filenames
  * @returns {string|null}
  */
 function locateNearestFilepath(currentDir, filenames) {
+  // Uniform paramter format.
+  if (!Array.isArray(filenames)) {
+    // eslint-disable-next-line no-param-reassign
+    filenames = [filenames]
+  }
+
   for (const filename of filenames) {
     const filepath = path.join(currentDir, filename)
     if (fs.existsSync(filepath)) return filepath
@@ -24,6 +32,8 @@ function locateNearestFilepath(currentDir, filenames) {
 /**
  * Find a nearest filepath from the give `currentDir`which matched the give
  * tester `testFilepath`.
+ *
+ * @export
  * @param {string} currentDir
  * @param {(filepath: string) => boolean} testFilepath
  * @returns {string|null}
@@ -39,7 +49,7 @@ function findNearestFilepath(currentDir, testFilepath) {
   if (parentDir === currentDir) return null
 
   // Recursively locate.
-  return findNearestFilepath(parentDir, filenames)
+  return findNearestFilepath(parentDir, testFilepath)
 }
 
 module.exports = {
