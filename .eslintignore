@@ -7,6 +7,6 @@
 **/lib/**
 **/node_modules/**
 **/*.styl.d.ts
+**/*/index.d.ts
 *.tsbuildinfo
 
-packages/locate-helper/index.d.ts

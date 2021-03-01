@@ -29,6 +29,7 @@ module.exports = {
     'import/no-named-default': 2,
     'import/no-self-import': 2,
     'import/no-useless-path-segments': [2, { noUselessIndex: true }],
+    'import/no-unresolved': 0,
     'import/order': [
       2,
       {

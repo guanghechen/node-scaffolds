@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "Builtins",
     "cond",
     "editorconfig",
     "eslintconfig",
@@ -14,7 +15,9 @@
     "parens",
     "pinst",
     "plusplus",
+    "postbuild",
     "postpublish",
+    "prebuild",
     "singleline",
     "styl",
     "tsbuildinfo"

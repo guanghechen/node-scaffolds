@@ -10,6 +10,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
+    project: './tsconfig.json',
 
     // typescript-eslint specific options
     warnOnUnsupportedTypeScriptVersion: true,

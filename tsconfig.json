@@ -2,6 +2,7 @@
   "extends": "./tsconfig.settings.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "module": "CommonJS",
     "paths": {}
   }
 }
