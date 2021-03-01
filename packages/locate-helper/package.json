@@ -1,5 +1,5 @@
 {
-  "name": "@guanghechen/util-locate",
+  "name": "@guanghechen/locate-helper",
   "version": "0.0.0",
   "description": "Utils for locate nearest filepath matched the given pattern",
   "author": {
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/node-scaffolds.git",
-    "directory": "packages/util-locate"
+    "directory": "packages/locate-helper"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/util-locate#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/locate-helper#readme",
   "keywords": [
     "util",
     "node.js",

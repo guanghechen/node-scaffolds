@@ -1,9 +1,9 @@
-[![npm version](https://img.shields.io/npm/v/@guanghechen/util-locate.svg)](https://www.npmjs.com/package/@guanghechen/util-locate)
-[![npm download](https://img.shields.io/npm/dm/@guanghechen/util-locate.svg)](https://www.npmjs.com/package/@guanghechen/util-locate)
-[![npm license](https://img.shields.io/npm/l/@guanghechen/util-locate.svg)](https://www.npmjs.com/package/@guanghechen/util-locate)
+[![npm version](https://img.shields.io/npm/v/@guanghechen/locate-helper.svg)](https://www.npmjs.com/package/@guanghechen/locate-helper)
+[![npm download](https://img.shields.io/npm/dm/@guanghechen/locate-helper.svg)](https://www.npmjs.com/package/@guanghechen/locate-helper)
+[![npm license](https://img.shields.io/npm/l/@guanghechen/locate-helper.svg)](https://www.npmjs.com/package/@guanghechen/locate-helper)
 
 
-# `@guanghechen/util-locate`
+# `@guanghechen/locate-helper`
 
 
 ## Install
@@ -11,13 +11,13 @@
 * npm
 
   ```bash
-  npm install --save @guanghechen/util-locate
+  npm install --save @guanghechen/locate-helper
   ```
 
 * yarn
 
   ```bash
-  yarn add @guanghechen/util-locate
+  yarn add @guanghechen/locate-helper
   ```
 
 ## Usage

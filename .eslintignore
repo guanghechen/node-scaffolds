@@ -9,4 +9,4 @@
 **/*.styl.d.ts
 *.tsbuildinfo
 
-packages/util-locate/index.d.ts
+packages/locate-helper/index.d.ts
