@@ -6,11 +6,7 @@
     "plugin:jest/recommended",
     "prettier"
   ],
-  "plugins": [
-    "import",
-    "jest",
-    "prettier"
-  ],
+  "plugins": ["import", "jest"],
   "env": {
     "browser": true,
     "commonjs": true,
@@ -21,14 +17,12 @@
   "rules": {},
   "overrides": [
     {
-      "files": [
-        "**/*.ts",
-        "**/*tsx"
-      ],
+      "files": ["**/*.ts", "**/*tsx"],
       "extends": [
         "@guanghechen/jsx",
         "@guanghechen/ts",
-        "plugin:jest/recommended"
+        "plugin:jest/recommended",
+        "prettier"
       ],
       "rules": {}
     }

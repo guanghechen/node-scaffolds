@@ -22,7 +22,7 @@
     "format:prettier": "prettier . --write",
     "format:lint:fix": "eslint . --fix",
     "prepublishOnly": "pinst --disable",
-    "postinstall": "run-p postinstall:**",
+    "_postinstall": "run-p postinstall:**",
     "postinstall:main": "yarn update:lock",
     "postinstall:dev": "is-ci || husky install",
     "postpublish": "pinst --enable",

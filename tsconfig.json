@@ -3,6 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "module": "CommonJS",
-    "paths": {}
+    "paths": {
+      "@guanghechen/option-helper": [
+        "packages/option-helper"
+      ]
+    }
   }
 }
