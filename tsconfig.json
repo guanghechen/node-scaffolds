@@ -4,9 +4,7 @@
     "baseUrl": ".",
     "module": "CommonJS",
     "paths": {
-      "@guanghechen/option-helper": [
-        "packages/option-helper"
-      ]
+      "@guanghechen/option-helper": ["packages/option-helper"]
     }
   }
 }
