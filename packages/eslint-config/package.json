@@ -1,0 +1,37 @@
+{
+  "name": "@guanghechen/eslint-config",
+  "version": "0.0.0",
+  "description": "basic eslint config for node.js/javascript project",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/node-scaffolds.git",
+    "directory": "packages/eslint-config"
+  },
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/eslint-config#readme",
+  "keywords": [
+    "eslint",
+    "eslint config"
+  ],
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "index.js",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "dependencies": {
+    "eslint-plugin-import": "^2.22.1"
+  },
+  "peerDependencies": {
+    "eslint": ">=7.20.0"
+  }
+}

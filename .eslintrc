@@ -1,0 +1,30 @@
+{
+  "root": true,
+  "extends": [
+    "@guanghechen",
+    "@guanghechen/jsx",
+    "plugin:jest/recommended",
+    "prettier"
+  ],
+  "plugins": ["import", "jest"],
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jest": true,
+    "node": true
+  },
+  "rules": {},
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*tsx"],
+      "extends": [
+        "@guanghechen/jsx",
+        "@guanghechen/ts",
+        "plugin:jest/recommended",
+        "prettier"
+      ],
+      "rules": {}
+    }
+  ]
+}

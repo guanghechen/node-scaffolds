@@ -1,0 +1,44 @@
+{
+  "name": "@guanghechen/eslint-config-jsx",
+  "version": "0.0.0",
+  "description": "eslint config for jsx",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/node-scaffolds.git",
+    "directory": "packages/eslint-config-jsx"
+  },
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/eslint-config-jsx#readme",
+  "keywords": [
+    "eslint",
+    "eslint config",
+    "jsx"
+  ],
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "index.js",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "dependencies": {
+    "@babel/eslint-parser": "^7.13.8",
+    "@guanghechen/eslint-config": "^0.0.0",
+    "confusing-browser-globals": "^1.0.10",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0"
+  },
+  "peerDependencies": {
+    "eslint": ">=7.20.0"
+  }
+}

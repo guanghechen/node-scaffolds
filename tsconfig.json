@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.settings.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "CommonJS",
+    "paths": {
+      "@guanghechen/option-helper": [
+        "packages/option-helper"
+      ]
+    }
+  }
+}

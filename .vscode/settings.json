@@ -1,0 +1,28 @@
+{
+  "cSpell.words": [
+    "Builtins",
+    "cond",
+    "editorconfig",
+    "eslintconfig",
+    "gitmoji",
+    "guanghechen",
+    "lcov",
+    "multiline",
+    "multilines",
+    "multiprop",
+    "nonwords",
+    "paren",
+    "parens",
+    "pinst",
+    "plusplus",
+    "postbuild",
+    "postpublish",
+    "prebuild",
+    "singleline",
+    "styl",
+    "tsbuildinfo"
+  ],
+  "files.associations": {
+    ".prettierrc": "yaml"
+  }
+}

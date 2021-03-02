@@ -1,0 +1,37 @@
+{
+  "name": "@guanghechen/locate-helper",
+  "version": "0.0.0",
+  "description": "Utils for locate nearest filepath matched the given pattern",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/node-scaffolds.git",
+    "directory": "packages/locate-helper"
+  },
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/locate-helper#readme",
+  "keywords": [
+    "util",
+    "node.js",
+    "locate"
+  ],
+  "main": "index.js",
+  "types": "index.d.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "cross-env jest --config ../../jest.config.js --rootDir . --roots ."
+  }
+}

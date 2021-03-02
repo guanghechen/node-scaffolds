@@ -1,0 +1,59 @@
+{
+  "name": "@guanghechen/rollup-config",
+  "version": "0.0.0",
+  "description": "Rollup configs for bundle typescript project",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/node-scaffolds.git",
+    "directory": "packages/rollup-config"
+  },
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/rollup-config#readme",
+  "keywords": [
+    "rollup",
+    "typescript"
+  ],
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/types/index.d.ts",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "lib/",
+    "!lib/**/*.js.map",
+    "!lib/**/*.d.ts.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "run-p build:*",
+    "build:cjs": "tsc -p tsconfig.src.json --outDir lib/cjs --module CommonJS",
+    "build:esm": "tsc -p tsconfig.src.json --outDir lib/esm --module ES6",
+    "postbuild": "rimraf lib/**/*.tsbuildinfo",
+    "prebuild": "rimraf *.tsbuildinfo lib/",
+    "prepublishOnly": "yarn build"
+  },
+  "dependencies": {
+    "@guanghechen/locate-helper": "^0.0.0",
+    "@rollup/plugin-commonjs": "17.1.0",
+    "@rollup/plugin-json": "4.1.0",
+    "@rollup/plugin-node-resolve": "11.2.0",
+    "builtin-modules": "3.2.0",
+    "rollup-plugin-typescript2": "0.30.0"
+  },
+  "peerDependencies": {
+    "fs-extra": "^9.1.0",
+    "rollup": "^2.39.1"
+  },
+  "devDependencies": {
+    "fs-extra": "^9.1.0"
+  }
+}
