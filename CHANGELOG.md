@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="1.0.1"></a>
+## 1.0.1 (2021-03-03)
+
+### Changed
+
+- 🔧 chore: add github actions [[c5befe9](https://github.com/guanghechen/node-scaffolds/commit/c5befe9b5bdb7aeb033c07f0cbfd25a5b934215a)]
+
+### Miscellaneous
+
+- 🔀 Merge branch &#x27;develop&#x27; [[cb8f17c](https://github.com/guanghechen/node-scaffolds/commit/cb8f17c594eae39a4e4d60ac3113d7330bd96c16)]
+- 📝 docs: add README [[127055f](https://github.com/guanghechen/node-scaffolds/commit/127055ff064021c53ff25b5212942d04fddaf171)]
+- 🔨 chore: move rollup config to the top of the repository [[cc7472b](https://github.com/guanghechen/node-scaffolds/commit/cc7472bfb764d11a2ace5b2f40a00c8a99f83dfc)]
+- 🚧 improve: update eslint configs [[916863a](https://github.com/guanghechen/node-scaffolds/commit/916863ad69c2fd6d51981c8db900eac00fb4e89d)]
+- 📝 docs: add CHANGELOG [[6727658](https://github.com/guanghechen/node-scaffolds/commit/67276584ca8165b45f865ae353941f186667c887)]
+
+
 <a name="1.0.0"></a>
 ## 1.0.0 (2021-03-02)
 
