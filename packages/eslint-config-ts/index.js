@@ -30,7 +30,7 @@ module.exports = {
       2,
       {
         default: 'array-simple',
-        readonly: 'array-simple',
+        readonly: 'generic',
       },
     ],
     '@typescript-eslint/class-literal-property-style': [2, 'fields'],
