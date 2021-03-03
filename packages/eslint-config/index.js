@@ -19,7 +19,7 @@ module.exports = {
     'func-call-spacing': [2, 'never'],
     'func-names': 0,
     'key-spacing': 2,
-    'import/prefer-default-export': 2,
+    'import/prefer-default-export': 0,
     'import/first': 2,
     'import/newline-after-import': [2, { count: 1 }],
     'import/no-cycle': [2, { ignoreExternal: true }],
