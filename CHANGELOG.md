@@ -1,5 +1,19 @@
 # Changelog
 
+<a name="1.0.2"></a>
+## 1.0.2 (2021-03-04)
+
+### Added
+
+- ✨ feat: add new package @guanghechen/template-ts-package (migrate from @barusu/template-ts-package) [[e74b600](https://github.com/guanghechen/node-scaffolds/commit/e74b6004cc77173947615b396dfae689444ad935)]
+
+### Miscellaneous
+
+- 🔀 Merge branch &#x27;develop&#x27; [[117863e](https://github.com/guanghechen/node-scaffolds/commit/117863e7720f6f7aeaa1dbfca06749d49234b801)]
+- 🚧 [rollup-config] improve: external peerDependencies and optionalDependencies from bundle [[5baa682](https://github.com/guanghechen/node-scaffolds/commit/5baa682f20485bdca10895fe8d76d2adabe659a5)]
+-  construction: [option-helper] improve: &#x60;cover&#x60; support validate funcs &amp; lazy default value [[e446460](https://github.com/guanghechen/node-scaffolds/commit/e4464600852b96db2c2994a7e5c86f640b4f63dd)]
+
+
 <a name="1.0.1"></a>
 ## 1.0.1 (2021-03-03)
 
@@ -13,7 +27,6 @@
 - 📝 docs: add README [[127055f](https://github.com/guanghechen/node-scaffolds/commit/127055ff064021c53ff25b5212942d04fddaf171)]
 - 🔨 chore: move rollup config to the top of the repository [[cc7472b](https://github.com/guanghechen/node-scaffolds/commit/cc7472bfb764d11a2ace5b2f40a00c8a99f83dfc)]
 - 🚧 improve: update eslint configs [[916863a](https://github.com/guanghechen/node-scaffolds/commit/916863ad69c2fd6d51981c8db900eac00fb4e89d)]
-- 📝 docs: add CHANGELOG [[6727658](https://github.com/guanghechen/node-scaffolds/commit/67276584ca8165b45f865ae353941f186667c887)]
 
 
 <a name="1.0.0"></a>
