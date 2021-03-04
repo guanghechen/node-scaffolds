@@ -1,0 +1,42 @@
+{
+  "name": "@guanghechen/template-ts-package",
+  "version": "1.0.1",
+  "description": "Templates for creating simple typescript project",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/node-scaffolds.git",
+    "directory": "packages/template-ts-package"
+  },
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/template-ts-package#readme",
+  "keywords": [
+    "typescript",
+    "typescript starter",
+    "boilerplate"
+  ],
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "boilerplate",
+    "cli.js",
+    "index.js",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "bin": {
+    "guanghechen-ts-package": "./cli.js"
+  },
+  "dependencies": {
+    "minimist": "^1.2.5",
+    "plop": "^2.7.4",
+    "semver-regex": "^3.1.2"
+  }
+}

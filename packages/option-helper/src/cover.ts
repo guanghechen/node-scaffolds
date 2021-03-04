@@ -1,12 +1,18 @@
 import { convertToBoolean, convertToNumber, convertToString } from './convert'
+import { isFunction } from './is'
 
 /**
  * Cover a defaultValue if the given value is not null / undefined.
  * @param defaultValue
  * @param value
  */
-export function cover<T>(defaultValue: T, value?: T | null): T {
-  return value == null ? defaultValue : value
+export function cover<T>(
+  defaultValue: T | (() => T),
+  value?: T | null,
+  isValid?: (value: T) => boolean,
+): T {
+  if (value != null && (isValid == null || isValid(value))) return value
+  return isFunction(defaultValue) ? defaultValue() : defaultValue
 }
 
 /**
@@ -14,9 +20,13 @@ export function cover<T>(defaultValue: T, value?: T | null): T {
  * @param defaultValue
  * @param value
  */
-export function coverBoolean(defaultValue: boolean, value?: unknown): boolean {
+export function coverBoolean(
+  defaultValue: boolean,
+  value?: unknown,
+  isValid?: (value: boolean) => boolean,
+): boolean {
   const resolvedValue = convertToBoolean(value)
-  return cover(defaultValue, resolvedValue)
+  return cover(defaultValue, resolvedValue, isValid)
 }
 
 /**
@@ -24,9 +34,13 @@ export function coverBoolean(defaultValue: boolean, value?: unknown): boolean {
  * @param defaultValue
  * @param value
  */
-export function coverNumber(defaultValue: number, value?: unknown): number {
+export function coverNumber(
+  defaultValue: number,
+  value?: unknown,
+  isValid?: (value: number) => boolean,
+): number {
   const resolvedValue = convertToNumber(value)
-  return cover(defaultValue, resolvedValue)
+  return cover(defaultValue, resolvedValue, isValid)
 }
 
 /**
@@ -34,7 +48,11 @@ export function coverNumber(defaultValue: number, value?: unknown): number {
  * @param defaultValue
  * @param value
  */
-export function coverString(defaultValue: string, value?: unknown): string {
+export function coverString(
+  defaultValue: string,
+  value?: unknown,
+  isValid?: (value: string) => boolean,
+): string {
   const resolvedValue = convertToString(value)
-  return cover(defaultValue, resolvedValue)
+  return cover(defaultValue, resolvedValue, isValid)
 }

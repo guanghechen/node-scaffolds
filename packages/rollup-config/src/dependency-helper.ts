@@ -12,7 +12,11 @@ import fs from 'fs-extra'
  */
 export function collectAllDependencies(
   packageJsonPath: string | null = null,
-  dependenciesFields: string[] = ['dependencies', 'peerDependencies'],
+  dependenciesFields: string[] = [
+    'dependencies',
+    'peerDependencies',
+    'optionalDependencies',
+  ],
   additionalDependencies: string[] | null = null,
   isAbsentAllowed: ((moduleName: string) => boolean) | null = null,
 ): string[] {

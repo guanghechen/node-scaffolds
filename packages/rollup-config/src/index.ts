@@ -43,14 +43,19 @@ export function createRollupConfig(props: RollupConfigOptions): RollupOptions {
     typescriptOptions,
   } = pluginOptions
 
-  const dependencies = shouldExternalAll
-    ? Object.keys(manifest.dependencies || {})
-    : collectAllDependencies(
-        undefined,
-        undefined,
-        Object.keys(manifest.dependencies || {}),
-        () => true,
-      )
+  let dependencies = [
+    ...Object.keys(manifest.dependencies || {}),
+    ...Object.keys(manifest.optionalDependencies || {}),
+    ...Object.keys(manifest.peerDependencies || {}),
+  ]
+  if (shouldExternalAll) {
+    dependencies = collectAllDependencies(
+      undefined,
+      undefined,
+      [...dependencies],
+      () => true,
+    )
+  }
   const externalSet = new Set(builtinExternals.concat(dependencies))
 
   const config: RollupOptions = {
