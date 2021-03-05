@@ -4,6 +4,7 @@
 !**/*.ts
 !**/*.tsx
 !.eslintrc
+!.rollup.config.js
 !package.json
 !tsconfig.json
 !tsconfig.settings.json

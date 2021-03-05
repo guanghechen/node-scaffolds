@@ -1,0 +1,48 @@
+{
+  "name": "@guanghechen/rollup-config-cli",
+  "version": "1.0.2",
+  "description": "Rollup configs for bundle typescript cli project",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository":   {
+    "type": "git",
+    "url": "https://github.com/guanghechen/node-scaffolds.git",
+    "directory": "packages/rollup-config-cli"
+  },
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/rollup-config-cli#readme",
+  "keywords": [
+    "rollup",
+    "typescript cli"
+  ],
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/types/index.d.ts",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "lib/",
+    "!lib/**/*.js.map",
+    "!lib/**/*.d.ts.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
+    "prebuild": "rimraf lib/",
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build"
+  },
+  "dependencies": {
+    "@guanghechen/rollup-config": "^1.0.2",
+    "@guanghechen/rollup-plugin-copy": "^1.0.2"
+  },
+  "peerDependencies": {
+    "rollup": "^2.40.0"
+  }
+}

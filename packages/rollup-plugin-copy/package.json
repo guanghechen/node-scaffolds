@@ -1,7 +1,7 @@
 {
   "name": "@guanghechen/rollup-plugin-copy",
   "version": "1.0.2",
-  "description": "",
+  "description": "Rollup plugins to copy files and folds (glob supported)",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -12,7 +12,11 @@
     "directory": "packages/rollup-plugin-copy"
   },
   "homepage": "https://github.com/guanghechen/guanghechen/tree/master/packages/rollup-plugin-copy#readme",
-  "keywords": [],
+  "keywords": [
+    "rollup",
+    "rollup plugin",
+    "copy"
+  ],
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "types": "lib/types/index.d.ts",
