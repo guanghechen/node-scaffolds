@@ -51,7 +51,7 @@
   },
   "peerDependencies": {
     "fs-extra": "^9.1.0",
-    "rollup": "^2.39.1"
+    "rollup": "^2.40.0"
   },
   "devDependencies": {
     "fs-extra": "^9.1.0"

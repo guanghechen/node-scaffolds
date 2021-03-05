@@ -9,6 +9,8 @@
 !tsconfig.settings.json
 !tsconfig.src.json
 
+**/__test__/**
+!**/__test__/*.spec.ts
 
 **/.vscode/**
 **/__tmp__/**

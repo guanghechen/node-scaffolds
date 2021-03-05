@@ -4,7 +4,8 @@
     "baseUrl": ".",
     "module": "CommonJS",
     "paths": {
-      "@guanghechen/option-helper": ["packages/option-helper"]
+      "@guanghechen/option-helper": ["packages/option-helper"],
+      "@guanghechen/rollup-plugin-copy": ["packages/rollup-plugin-copy"]
     }
   }
 }

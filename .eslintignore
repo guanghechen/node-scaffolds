@@ -1,4 +1,18 @@
-**/__test__/cases/**
+**/*.*
+!**/*.js
+!**/*.jsx
+!**/*.ts
+!**/*.tsx
+!.eslintrc
+!package.json
+!tsconfig.json
+!tsconfig.settings.json
+!tsconfig.src.json
+
+**/__test__/**
+!**/__test__/*.spec.ts
+
+**/.vscode/**
 **/__tmp__/**
 **/coverage/**
 **/demo/**
@@ -7,6 +21,4 @@
 **/lib/**
 **/node_modules/**
 **/*.styl.d.ts
-**/*/index.d.ts
 *.tsbuildinfo
-
