@@ -86,7 +86,7 @@ module.exports = {
         },
       },
     ],
-    '@typescript-eslint/method-signature-style': [2, 'property'],
+    '@typescript-eslint/method-signature-style': [2, 'method'],
     '@typescript-eslint/no-array-constructor': 1,
     '@typescript-eslint/no-confusing-non-null-assertion': 2,
     '@typescript-eslint/no-confusing-void-expression': [
