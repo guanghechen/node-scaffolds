@@ -44,13 +44,21 @@
 
 Extended from rollup.InputOptions.
 
+* `additionalPlugins`: Additional rollup plugins (appended after the preset plugins).
+
+  - Type: `string[]`
+  - Required: `false`
+  - Default: `[]`
+
 * `shouldSourceMap`: Whether if generate sourcemaps.
 
+  - Type: `boolean`
   - Required: `false`
   - Default: Depends on [Environment Params](#environment)
 
 * `shouldExternalAll`: Whether if make all dependencies external.
 
+  - Type: `boolean`
   - Required: `false`
   - Default: Depends on [Environment Params](#environment)
 
