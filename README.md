@@ -11,14 +11,17 @@ A monorepo contains some utility functions and configs for building `Node.js` / 
 
 ## Overview
 
-Package                             | Description
-:----------------------------------:|:--------------------------
-[@guanghechen/eslint-config][]      | Eslint config for `Node.js` / `Javascript` project
-[@guanghechen/eslint-config-jsx][]  | Eslint config for `Jsx` project
-[@guanghechen/eslint-config-ts][]   | Eslint config for `Typescript` project
-[@guanghechen/locate-helper][]      | A collection of utility functions for locating nearest filepath matched the given pattern
-[@guanghechen/option-helper][]      | A collection of utility functions for processing options
-[@guanghechen/rollup-config][]      | Rollup config for bundle typescript project
+Package                               | Description
+:------------------------------------:|:--------------------------
+[@guanghechen/eslint-config][]        | Eslint config for `Node.js` / `Javascript` project
+[@guanghechen/eslint-config-jsx][]    | Eslint config for `Jsx` project
+[@guanghechen/eslint-config-ts][]     | Eslint config for `Typescript` project
+[@guanghechen/locate-helper][]        | A collection of utility functions for locating nearest filepath matched the given pattern
+[@guanghechen/option-helper][]        | A collection of utility functions for processing options
+[@guanghechen/rollup-config][]        | Rollup config for bundle typescript project
+[@guanghechen/rollup-config-cli][]    | Rollup configs for bundle typescript cli project
+[@guanghechen/rollup-plugin-copy][]   | Rollup plugins to copy files and folds (glob supported)
+[@guanghechen/template-ts-package][]  | Templates for creating simple typescript project
 
 
 ## License
@@ -32,3 +35,4 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/locate-helper]: ./packages/locate-helper
 [@guanghechen/option-helper]: ./packages/option-helper
 [@guanghechen/rollup-config]: ./packages/rollup-config
+[@guanghechen/rollup-config-cli]: ./packages/rollup-config-cli

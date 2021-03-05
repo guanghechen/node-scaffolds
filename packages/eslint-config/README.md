@@ -6,6 +6,8 @@
 
 # `@guanghechen/eslint-config`
 
+Basic eslint config for node.js/javascript project.
+
 ## Install
 
 * npm

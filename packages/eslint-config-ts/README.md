@@ -6,6 +6,7 @@
 
 # `@guanghechen/eslint-config-ts`
 
+Eslint config for ts project.
 
 ## Install
 

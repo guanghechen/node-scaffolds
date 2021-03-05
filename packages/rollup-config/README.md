@@ -5,6 +5,7 @@
 
 # `@guanghechen/rollup-config`
 
+Rollup configs for bundle typescript project.
 
 ## Install
 

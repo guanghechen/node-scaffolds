@@ -5,6 +5,7 @@
 
 # `@guanghechen/locate-helper`
 
+Utils for locate nearest filepath matched the given pattern.
 
 ## Install
 

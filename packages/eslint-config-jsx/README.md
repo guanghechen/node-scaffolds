@@ -6,6 +6,7 @@
 
 # `@guanghechen/eslint-config-jsx`
 
+Eslint config for jsx.
 
 ## Install
 
