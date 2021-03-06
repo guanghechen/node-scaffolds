@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-config",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Rollup configs for bundle typescript project",
   "author": {
     "name": "guanghechen",
@@ -42,7 +42,7 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@guanghechen/locate-helper": "^1.0.7",
+    "@guanghechen/locate-helper": "^1.0.8",
     "@rollup/plugin-commonjs": "17.1.0",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "11.2.0",
