@@ -8,6 +8,7 @@
       "@guanghechen/postcss-modules-dts": ["packages/postcss-modules-dts"],
       "@guanghechen/rollup-config": ["packages/rollup-config"],
       "@guanghechen/rollup-config-cli": ["packages/rollup-config-cli"],
+      "@guanghechen/rollup-config-tsx": ["packages/rollup-config-tsx"],
       "@guanghechen/rollup-plugin-copy": ["packages/rollup-plugin-copy"]
     }
   }

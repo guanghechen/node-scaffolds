@@ -1,0 +1,64 @@
+{
+  "name": "@guanghechen/rollup-config-tsx",
+  "version": "1.0.6",
+  "description": "Rollup configs for bundle typescript + react projects",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/guanghechen.git",
+    "directory": "packages/rollup-config-tsx"
+  },
+  "homepage": "https://github.com/guanghechen/guanghechen/tree/master/packages/rollup-config-tsx#readme",
+  "keywords": [
+    "rollup",
+    "typescript",
+    "react"
+  ],
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/types/index.d.ts",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "lib/",
+    "!lib/**/*.js.map",
+    "!lib/**/*.d.ts.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
+    "prebuild": "rimraf lib/",
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
+    "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
+  },
+  "dependencies": {
+    "@guanghechen/option-helper": "1.0.6",
+    "@guanghechen/postcss-modules-dts": "1.0.6",
+    "@guanghechen/rollup-config": "1.0.6",
+    "@rollup/plugin-multi-entry": "4.0.0",
+    "@types/autoprefixer": "^9.7.2",
+    "@types/postcss-url": "8.0.1",
+    "autoprefixer": "9.8.6",
+    "postcss-flexbugs-fixes": "5.0.2",
+    "postcss-url": "10.0.0",
+    "rollup-plugin-postcss": "4.0.0"
+  },
+  "peerDependencies": {
+    "rollup": "^2.40.0"
+  },
+  "optionalDependencies": {
+    "stylus": "^0.54.8"
+  },
+  "devDependencies": {
+    "stylus": "^0.54.8"
+  }
+}
