@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/eslint-config-jsx",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "eslint config for jsx",
   "author": {
     "name": "guanghechen",
@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "@babel/eslint-parser": "^7.13.8",
-    "@guanghechen/eslint-config": "^1.0.2",
+    "@guanghechen/eslint-config": "^1.0.3",
     "confusing-browser-globals": "^1.0.10",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
