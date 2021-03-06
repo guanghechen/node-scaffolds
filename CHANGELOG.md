@@ -1,5 +1,24 @@
 # Changelog
 
+<a name="1.0.7"></a>
+## 1.0.7 (2021-03-06)
+
+### Added
+
+- ✨ feat: add new sub-package @guanghechen/rollup-config-tsx (migrated from @barusu-react/rollup-config) [[7dfa946](https://github.com/guanghechen/node-scaffolds/commit/7dfa94626177ef91f14b1c360829dacb1595c80d)]
+- ✨ feat: add new sub-package @guanghechen/postcss-modules-dts (migrated from @barusu/rollup-plugin-postcss-dts) [[eabee8f](https://github.com/guanghechen/node-scaffolds/commit/eabee8fc0a1dba1e2571ac883d85b974c1e1be2f)]
+
+### Changed
+
+- 🔧 chore: no test cases yet [[3dfcd6b](https://github.com/guanghechen/node-scaffolds/commit/3dfcd6bed429e422ec75f9c3883ca172873d93e7)]
+
+### Miscellaneous
+
+- 🔀 Merge branch &#x27;develop&#x27; [[5e5fbbf](https://github.com/guanghechen/node-scaffolds/commit/5e5fbbfdba5ae92b5dd794dd1ce69aa378eee3c1)]
+- 🚧 [template-ts-package] improve: update README boilerplates [[500390e](https://github.com/guanghechen/node-scaffolds/commit/500390ee2e13c757eb320e04027253959161741b)]
+- 📝 docs: update CHANGELOG [[b24be9c](https://github.com/guanghechen/node-scaffolds/commit/b24be9c7b04de63469d2e5cf52d9bfc5da922b44)]
+
+
 <a name="1.0.6"></a>
 ## 1.0.6 (2021-03-06)
 
