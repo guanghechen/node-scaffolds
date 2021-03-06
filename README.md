@@ -36,3 +36,5 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/option-helper]: ./packages/option-helper
 [@guanghechen/rollup-config]: ./packages/rollup-config
 [@guanghechen/rollup-config-cli]: ./packages/rollup-config-cli
+[@guanghechen/rollup-plugin-copy]: ./packages/rollup-plugin-copy
+[@guanghechen/template-ts-package]: ./packages/template-ts-package
