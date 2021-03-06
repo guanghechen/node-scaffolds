@@ -20,6 +20,7 @@
     "postbuild",
     "postpublish",
     "prebuild",
+    "rollup",
     "singleline",
     "styl",
     "tsbuildinfo"

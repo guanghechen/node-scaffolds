@@ -15,7 +15,7 @@
     "node": ">= 14.15.0"
   },
   "scripts": {
-    ":publish": "yarn format && yarn test && lerna publish",
+    ":publish": "yarn test && lerna publish",
     "build": "lerna run build --concurrency 1",
     "clean": "lerna clean --yes && yarn install",
     "format": "run-s format:lint:fix format:prettier",
@@ -69,6 +69,9 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,eslintrc}": [
       "prettier --write"
     ]
   }

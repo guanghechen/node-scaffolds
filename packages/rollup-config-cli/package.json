@@ -6,7 +6,7 @@
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
   },
-  "repository":   {
+  "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/node-scaffolds.git",
     "directory": "packages/rollup-config-cli"
