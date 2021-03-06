@@ -32,7 +32,7 @@ export function createRollupConfig(
   const baseConfig = createBaseRollupConfig(baseOptions)
 
   const { plugins = [] } = baseConfig
-  const external = baseConfig as (id: string) => boolean
+  const external = baseConfig.external as (id: string) => boolean
 
   const configs: RollupOptions[] = [
     {
