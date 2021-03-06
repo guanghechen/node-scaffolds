@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="1.0.6"></a>
+## 1.0.6 (2021-03-06)
+
+### Fixed
+
+- 🐛 [eslint-config-jsx] fix: fix &#x27;Cannot find module ./rule-create-react-app&#x27; [[b699d88](https://github.com/guanghechen/node-scaffolds/commit/b699d88e2dad316b06954089f15b286e29a86e4c)]
+
+
 <a name="1.0.5"></a>
 ## 1.0.5 (2021-03-06)
 
