@@ -5,6 +5,7 @@
 
 # `@guanghechen/option-helper`
 
+A collection of utility functions for processing options.
 
 ## Install
 

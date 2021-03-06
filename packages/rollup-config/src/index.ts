@@ -32,6 +32,7 @@ export function createRollupConfig(props: RollupConfigOptions): RollupOptions {
   const {
     manifest,
     pluginOptions = {},
+    additionalPlugins = [],
     shouldSourceMap = defaultShouldSourcemap,
     shouldExternalAll = defaultShouldExternalAll,
   } = props
@@ -113,6 +114,7 @@ export function createRollupConfig(props: RollupConfigOptions): RollupOptions {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         ...commonjsOptions,
       }),
+      ...additionalPlugins,
     ],
   }
   return config

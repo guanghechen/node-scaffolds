@@ -1,10 +1,11 @@
 [![npm version](https://img.shields.io/npm/v/@guanghechen/rollup-config.svg)](https://www.npmjs.com/package/@guanghechen/rollup-config)
 [![npm download](https://img.shields.io/npm/dm/@guanghechen/rollup-config.svg)](https://www.npmjs.com/package/@guanghechen/rollup-config)
 [![npm license](https://img.shields.io/npm/l/@guanghechen/rollup-config.svg)](https://www.npmjs.com/package/@guanghechen/rollup-config)
-
+[![rollup version](https://img.shields.io/npm/dependency-version/@guanghechen/rollup-config/peer/rollup)](https://github.com/rollup/rollup)
 
 # `@guanghechen/rollup-config`
 
+Rollup configs for bundle typescript project.
 
 ## Install
 
@@ -44,13 +45,21 @@
 
 Extended from rollup.InputOptions.
 
+* `additionalPlugins`: Additional rollup plugins (appended after the preset plugins).
+
+  - Type: `string[]`
+  - Required: `false`
+  - Default: `[]`
+
 * `shouldSourceMap`: Whether if generate sourcemaps.
 
+  - Type: `boolean`
   - Required: `false`
   - Default: Depends on [Environment Params](#environment)
 
 * `shouldExternalAll`: Whether if make all dependencies external.
 
+  - Type: `boolean`
   - Required: `false`
   - Default: Depends on [Environment Params](#environment)
 

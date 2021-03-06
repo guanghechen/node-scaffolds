@@ -1,6 +1,7 @@
 import type { RollupCommonJSOptions as CommonJSOptions } from '@rollup/plugin-commonjs'
 import type { RollupJsonOptions as JsonOptions } from '@rollup/plugin-json'
 import type { RollupNodeResolveOptions as NodeResolveOptions } from '@rollup/plugin-node-resolve'
+import type rollup from 'rollup'
 import type { RPT2Options as TypescriptOptions } from 'rollup-plugin-typescript2'
 
 export type { RPT2Options as TypescriptOptions } from 'rollup-plugin-typescript2'
@@ -20,6 +21,10 @@ export interface RollupConfigOptions {
    * Options of the builtin plugin by the @guanghechen/rollup-config.
    */
   pluginOptions?: RollupPluginOptions
+  /**
+   * Additional plugins.
+   */
+  additionalPlugins?: rollup.Plugin[]
   /**
    * Whether if generate sourcemaps.
    * @default true

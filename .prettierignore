@@ -4,11 +4,14 @@
 !**/*.ts
 !**/*.tsx
 !.eslintrc
+!.rollup.config.js
 !package.json
 !tsconfig.json
 !tsconfig.settings.json
 !tsconfig.src.json
 
+**/__test__/**
+!**/__test__/*.spec.ts
 
 **/.vscode/**
 **/__tmp__/**

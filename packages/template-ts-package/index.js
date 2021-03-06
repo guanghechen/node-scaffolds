@@ -12,7 +12,7 @@ module.exports = function (plop) {
         type: 'input',
         name: 'packageName',
         message: 'name',
-        transform: text => text.trim(),
+        transformer: text => text.trim(),
       },
       {
         type: 'input',
@@ -32,40 +32,47 @@ module.exports = function (plop) {
           }
           return undefined
         },
-        transform: text => text.trim(),
+        transformer: text => text.trim(),
       },
       {
         type: 'input',
         name: 'packageVersion',
         message: 'version',
         default: manifest.version,
-        transform: text => text.trim(),
+        transformer: text => text.trim(),
         validate: text => semverRegex().test(text),
       },
       {
         type: 'input',
+        name: 'packageDescription',
+        message: 'description',
+        transformer: text =>
+          text.trim().replace(/^[a-z]/, m => m.toUpperCase()),
+      },
+      {
+        type: 'input',
         name: 'packageLocation',
-        message: ({ packageName }) => 'location of ' + packageName,
+        message: ({ packageName }) => 'location of ' + packageName.trim(),
         default: answers => {
+          const packageName = answers.packageName.trim()
+
           // detect lerna
           if (fs.existsSync(path.resolve(cwd, 'lerna.json'))) {
             // eslint-disable-next-line no-param-reassign
             answers.isLernaProject = true
             // eslint-disable-next-line no-param-reassign
-            answers.projectName = answers.packageName.startsWith('@')
-              ? /^@([^\\/]+)/.exec(answers.packageName)[1]
-              : /^([^-]+)/.exec(answers.packageName)[1]
-            return (
-              'packages/' + answers.packageName.replace(/^[^\\/]+[\\/]/, '')
-            )
+            answers.projectName = packageName.startsWith('@')
+              ? /^@([^\\/]+)/.exec(packageName)[1]
+              : /^([^-]+)/.exec(packageName)[1]
+            return 'packages/' + packageName.replace(/^[^\\/]+[\\/]/, '')
           }
           // eslint-disable-next-line no-param-reassign
-          answers.projectName = answers.packageName
+          answers.projectName = packageName
             .replace(/^@/, '')
             .replace('\\/', '-')
-          return answers.packageName.replace(/^@/, '')
+          return packageName.replace(/^@/, '')
         },
-        transform: text => text.trim(),
+        transformer: text => text.trim(),
       },
     ],
     actions: function (answers) {
@@ -74,6 +81,20 @@ module.exports = function (plop) {
       const resolveTargetPath = p =>
         path.normalize(path.resolve(answers.packageLocation, p))
       const relativePath = path.relative(answers.packageLocation, cwd)
+
+      // eslint-disable-next-line no-param-reassign
+      answers.packageName = answers.packageName.trim()
+      // eslint-disable-next-line no-param-reassign
+      answers.packageAuthor = answers.packageAuthor.trim()
+      // eslint-disable-next-line no-param-reassign
+      answers.packageVersion = answers.packageVersion.trim()
+      // eslint-disable-next-line no-param-reassign
+      answers.packageDescription = answers.packageDescription
+        .trim()
+        .replace(/^[a-z]/, m => m.toUpperCase())
+        .replace(/[.]?$/, '')
+      // eslint-disable-next-line no-param-reassign
+      answers.packageLocation = answers.packageLocation.trim()
       // eslint-disable-next-line no-param-reassign
       answers.tsconfigExtends = answers.isLernaProject
         ? path.join(relativePath, 'tsconfig')
@@ -86,6 +107,10 @@ module.exports = function (plop) {
       answers.nodeModulesPath = path.join(relativePath, 'node_modules')
       // eslint-disable-next-line no-param-reassign
       answers.toolPackageVersion = manifest.version
+      // eslint-disable-next-line no-param-reassign
+      answers.packageUsage = answers.packageDescription
+        ? answers.packageDescription + '.'
+        : ''
 
       return [
         {

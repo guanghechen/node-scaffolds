@@ -5,6 +5,7 @@
 
 # `@guanghechen/template-ts-package`
 
+Templates for creating simple typescript project.
 
 ## Install
 

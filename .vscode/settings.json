@@ -5,6 +5,7 @@
     "editorconfig",
     "eslintconfig",
     "gitmoji",
+    "globby",
     "guanghechen",
     "lcov",
     "multiline",
