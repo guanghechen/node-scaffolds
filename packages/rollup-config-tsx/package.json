@@ -48,7 +48,7 @@
     "@types/postcss-url": "8.0.1",
     "autoprefixer": "9.8.6",
     "postcss-flexbugs-fixes": "5.0.2",
-    "postcss-url": "10.0.0",
+    "postcss-url": "9.0.0",
     "rollup-plugin-postcss": "4.0.0"
   },
   "peerDependencies": {
