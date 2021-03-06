@@ -18,6 +18,7 @@ Package                               | Description
 [@guanghechen/eslint-config-ts][]     | Eslint config for `Typescript` project
 [@guanghechen/locate-helper][]        | A collection of utility functions for locating nearest filepath matched the given pattern
 [@guanghechen/option-helper][]        | A collection of utility functions for processing options
+[@guanghechen/postcss-modules-dts][]  | Generate `*.d.ts` files for style files (such as css, stylus and etc)
 [@guanghechen/rollup-config][]        | Rollup config for bundle typescript project
 [@guanghechen/rollup-config-cli][]    | Rollup configs for bundle typescript cli project
 [@guanghechen/rollup-plugin-copy][]   | Rollup plugins to copy files and folds (glob supported)
@@ -34,6 +35,7 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/eslint-config-ts]: ./packages/eslint-config-ts
 [@guanghechen/locate-helper]: ./packages/locate-helper
 [@guanghechen/option-helper]: ./packages/option-helper
+[@guanghechen/postcss-modules-dts]: ./packages/postcss-modules-dts
 [@guanghechen/rollup-config]: ./packages/rollup-config
 [@guanghechen/rollup-config-cli]: ./packages/rollup-config-cli
 [@guanghechen/rollup-plugin-copy]: ./packages/rollup-plugin-copy
