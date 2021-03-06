@@ -1,4 +1,4 @@
-const { jsxRules } = require('./rule-create-react-app')
+const { jsxRules } = require('./rules/create-react-app')
 
 module.exports = {
   root: true,
