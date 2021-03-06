@@ -1,6 +1,7 @@
 [![npm version](https://img.shields.io/npm/v/@guanghechen/locate-helper.svg)](https://www.npmjs.com/package/@guanghechen/locate-helper)
 [![npm download](https://img.shields.io/npm/dm/@guanghechen/locate-helper.svg)](https://www.npmjs.com/package/@guanghechen/locate-helper)
 [![npm license](https://img.shields.io/npm/l/@guanghechen/locate-helper.svg)](https://www.npmjs.com/package/@guanghechen/locate-helper)
+[![Node Version](https://img.shields.io/node/v/@guanghechen/locate-helper)](https://github.com/nodejs/node)
 
 
 # `@guanghechen/locate-helper`

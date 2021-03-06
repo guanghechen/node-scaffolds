@@ -1,6 +1,7 @@
 [![npm version](https://img.shields.io/npm/v/@guanghechen/eslint-config-jsx.svg)](https://www.npmjs.com/package/@guanghechen/eslint-config-jsx)
 [![npm download](https://img.shields.io/npm/dm/@guanghechen/eslint-config-jsx.svg)](https://www.npmjs.com/package/@guanghechen/eslint-config-jsx)
 [![npm license](https://img.shields.io/npm/l/@guanghechen/eslint-config-jsx.svg)](https://www.npmjs.com/package/@guanghechen/eslint-config-jsx)
+[![Node Version](https://img.shields.io/node/v/@guanghechen/eslint-config-jsx)](https://github.com/nodejs/node)
 [![eslint version](https://img.shields.io/npm/dependency-version/@guanghechen/eslint-config-jsx/peer/eslint)](https://github.com/eslint/eslint)
 
 

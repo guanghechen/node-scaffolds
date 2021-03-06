@@ -1,6 +1,7 @@
 [![npm version](https://img.shields.io/npm/v/@guanghechen/rollup-config-cli.svg)](https://www.npmjs.com/package/@guanghechen/rollup-config-cli)
 [![npm download](https://img.shields.io/npm/dm/@guanghechen/rollup-config-cli.svg)](https://www.npmjs.com/package/@guanghechen/rollup-config-cli)
 [![npm license](https://img.shields.io/npm/l/@guanghechen/rollup-config-cli.svg)](https://www.npmjs.com/package/@guanghechen/rollup-config-cli)
+[![Node Version](https://img.shields.io/node/v/@guanghechen/rollup-config-cli)](https://github.com/nodejs/node)
 [![rollup version](https://img.shields.io/npm/dependency-version/@guanghechen/rollup-config-cli/peer/rollup)](https://github.com/rollup/rollup)
 
 # `@guanghechen/rollup-config-cli`

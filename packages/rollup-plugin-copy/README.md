@@ -1,6 +1,7 @@
 [![npm version](https://img.shields.io/npm/v/@guanghechen/rollup-plugin-copy.svg)](https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy)
 [![npm download](https://img.shields.io/npm/dm/@guanghechen/rollup-plugin-copy.svg)](https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy)
 [![npm license](https://img.shields.io/npm/l/@guanghechen/rollup-plugin-copy.svg)](https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy)
+[![Node Version](https://img.shields.io/node/v/@guanghechen/rollup-plugin-copy)](https://github.com/nodejs/node)
 [![rollup version](https://img.shields.io/npm/dependency-version/@guanghechen/rollup-plugin-copy/peer/rollup)](https://github.com/rollup/rollup)
 
 
