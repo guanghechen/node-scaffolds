@@ -23,6 +23,7 @@
     "node": ">= 14.15.0"
   },
   "files": [
+    "rules/",
     "index.js",
     "package.json",
     "CHANGELOG.md",
