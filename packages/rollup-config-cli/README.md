@@ -41,8 +41,8 @@ Rollup configs for bundle typescript cli project.
       verbose: true,
       targets: [
         {
-          src: resolvePath('src/config/*'),
-          dest: resolvePath('lib/config'),
+          src: 'src/config/*',
+          dest: 'lib/config',
         },
       ],
     },
