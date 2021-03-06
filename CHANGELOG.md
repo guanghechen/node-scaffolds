@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="1.0.5"></a>
+## 1.0.5 (2021-03-06)
+
+### Miscellaneous
+
+- 📝 chore: add node badge [[534f425](https://github.com/guanghechen/node-scaffolds/commit/534f42565cf7f4d55e6224c973dcba54cab5b54e)]
+- 📝 docs: update badges url [[1e0b157](https://github.com/guanghechen/node-scaffolds/commit/1e0b15750d79eccd9fb193929de8c1a769434196)]
+
+
 <a name="1.0.4"></a>
 ## 1.0.4 (2021-03-06)
 
