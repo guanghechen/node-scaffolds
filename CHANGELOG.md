@@ -1,5 +1,41 @@
 # Changelog
 
+<a name="1.0.4"></a>
+## 1.0.4 (2021-03-06)
+
+### Fixed
+
+- 🐛 [rollup-config-cli] fix: fix &#x27;external is not function&#x27; [[9c767d8](https://github.com/guanghechen/node-scaffolds/commit/9c767d8eb18a64d4899fd098c846a64ccf3c884f)]
+
+### Miscellaneous
+
+- 🔀 Merge branch &#x27;develop&#x27; [[0b46e6a](https://github.com/guanghechen/node-scaffolds/commit/0b46e6a54fb747b04b90390d6310c22b0df018b7)]
+
+
+<a name="1.0.3"></a>
+## 1.0.3 (2021-03-06)
+
+### Added
+
+- ✨ feat: add new sub-package @guanghechen/rollup-config-cli [[6d1be9c](https://github.com/guanghechen/node-scaffolds/commit/6d1be9c54cb44c5631207ae71d4ed6746c168b6c)]
+- ✨ feat: add new sub-package @guanghechen/rollup-plugin-copy (migrated from @barusu/rollup-plugin-copy) [[6242b67](https://github.com/guanghechen/node-scaffolds/commit/6242b67b9d56476235dea22d1f5146ed52d23ada)]
+
+### Changed
+
+- 🔧 chore: lint json files before commit [[62e9cb6](https://github.com/guanghechen/node-scaffolds/commit/62e9cb65d42db0ca632df2ef26bf93f34a7a0ef4)]
+- 🔧 chore: add script alias &#x27;new:ts-package&#x27; [[b29e99c](https://github.com/guanghechen/node-scaffolds/commit/b29e99c102034f15334dc2bc16d854de2749a4ad)]
+
+### Miscellaneous
+
+- 🔀 Merge branch &#x27;develop&#x27; [[96d9272](https://github.com/guanghechen/node-scaffolds/commit/96d927221ad530bfb08b54569a7cd1f227435878)]
+- 📝 docs: update references [[4094bf2](https://github.com/guanghechen/node-scaffolds/commit/4094bf27a83419da0b94d3d5767fd01dd88c47a1)]
+- 🚧 [template-ts-package] improve: ask for description in prompt [[9136e53](https://github.com/guanghechen/node-scaffolds/commit/9136e5338b856fdcfa657b7783411aba060a1bd5)]
+- 📝 docs: update READMEs [[8d7402a](https://github.com/guanghechen/node-scaffolds/commit/8d7402afc00c7cb85ff7a30d6e5554c91fa5f6fc)]
+- 🚧 [rollup-config] improve: support new option &#x60;additionalPlugins&#x60; [[e536df1](https://github.com/guanghechen/node-scaffolds/commit/e536df12d70ef024b0a1081748accd286fdf76c9)]
+- 📝 docs: update badges [[8493dd7](https://github.com/guanghechen/node-scaffolds/commit/8493dd7825df4cb5d44d93cefc0d95f52c487b19)]
+- 🚧 [eslint-config-ts] improve: set @typescript-eslint/method-signature-style to &#x27;method&#x27; instead of &#x27;property&#x27; [[2575855](https://github.com/guanghechen/node-scaffolds/commit/25758552157d54433d7bd4049aa644152bc9ac88)]
+
+
 <a name="1.0.2"></a>
 ## 1.0.2 (2021-03-04)
 
