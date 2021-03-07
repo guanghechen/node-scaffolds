@@ -66,14 +66,14 @@ Extended from rollup.InputOptions.
 
 * `manifest`
 
-   property               | type                      | required  | description
-  :----------------------:|:-------------------------:|:---------:|:------------------------
--  `source`               | `string`                  | `true`    | Source entry file
-   `main`                 | `string`                  | `false`   | Target entry file for cjs bundles
-   `module`               | `string`                  | `false`   | Target entry file for es bundles
-   `dependencies`         | `{[key: string]: string}` | `false`   | Dependency list
-   `peerDependencies`     | `{[key: string]: string}` | `false`   | Peer dependency list
-   `optionalDependencies` | `{[key: string]: string}` | `false`   | Optional dependency list
+   property               | type                                | required  | description
+  :----------------------:|:-----------------------------------:|:---------:|:------------------------
+   `source`               | `string`                            | `true`    | Source entry file
+   `main`                 | `string`                            | `false`   | Target entry file for cjs bundles
+   `module`               | `string`                            | `false`   | Target entry file for es bundles
+   `dependencies`         | `Record<string, string> | string[]` | `false`   | Dependency list
+   `peerDependencies`     | `Record<string, string> | string[]` | `false`   | Peer dependency list
+   `optionalDependencies` | `Record<string, string> | string[]` | `false`   | Optional dependency list
 
 
 * `pluginOptions`

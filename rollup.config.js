@@ -9,7 +9,6 @@ const fields = [
   'source',
   'main',
   'module',
-  'types',
   'dependencies',
   'optionalDependencies',
   'peerDependencies',

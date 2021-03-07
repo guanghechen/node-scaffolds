@@ -1,6 +1,10 @@
 import { locateNearestFilepath } from '@guanghechen/locate-helper'
 import fs from 'fs-extra'
 
+export const dependencyKeys: () => ReadonlyArray<
+  'dependencies' | 'optionalDependencies' | 'peerDependencies'
+> = () => ['dependencies', 'optionalDependencies', 'peerDependencies']
+
 /**
  * Collect all dependencies declared in the package.json and the dependency's
  * dependencies and so on.
@@ -11,13 +15,9 @@ import fs from 'fs-extra'
  * @param isAbsentAllowed
  */
 export function collectAllDependencies(
-  packageJsonPath: string | null = null,
-  dependenciesFields: string[] = [
-    'dependencies',
-    'peerDependencies',
-    'optionalDependencies',
-  ],
-  additionalDependencies: string[] | null = null,
+  packageJsonPath: string | null,
+  dependenciesFields: ReadonlyArray<string>,
+  additionalDependencies: ReadonlyArray<string> | null = null,
   isAbsentAllowed: ((moduleName: string) => boolean) | null = null,
 ): string[] {
   const result: string[] = []
