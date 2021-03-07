@@ -56,15 +56,15 @@ export interface RollupManifestOptions {
   /**
    * Dependency list.
    */
-  dependencies?: Record<string, string>
+  dependencies?: Record<string, string> | string[]
   /**
    * Optional dependency list.
    */
-  optionalDependencies?: Record<string, string>
+  optionalDependencies?: Record<string, string> | string[]
   /**
    * Peer dependency list.
    */
-  peerDependencies?: Record<string, string>
+  peerDependencies?: Record<string, string> | string[]
 }
 
 /**

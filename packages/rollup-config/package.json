@@ -34,23 +34,25 @@
     "README.md"
   ],
   "scripts": {
-    "build": "run-p build:*",
-    "build:cjs": "tsc -p tsconfig.src.json --outDir lib/cjs --module CommonJS",
-    "build:esm": "tsc -p tsconfig.src.json --outDir lib/esm --module ES6",
-    "postbuild": "rimraf lib/**/*.tsbuildinfo",
-    "prebuild": "rimraf *.tsbuildinfo lib/",
-    "prepublishOnly": "yarn build"
+    "build": "cross-env NODE_ENV=production rollup -c ./rollup.config.js",
+    "prebuild": "rimraf lib/",
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
+    "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
     "@guanghechen/locate-helper": "^1.0.8",
     "@rollup/plugin-commonjs": "17.1.0",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "11.2.0",
+    "@types/fs-extra": "^9.0.8",
     "builtin-modules": "3.2.0",
+    "fs-extra": "^9.1.0",
     "rollup-plugin-typescript2": "0.30.0"
   },
   "peerDependencies": {
-    "fs-extra": "^9.1.0",
     "rollup": "^2.40.0"
+  },
+  "devDependencies": {
+    "ts-node": "9.1.1"
   }
 }

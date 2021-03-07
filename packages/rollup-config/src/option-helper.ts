@@ -21,10 +21,10 @@ export function coverBoolean(defaultValue: boolean, value?: unknown): boolean {
  * Convert a given value to boolean type.
  * @param value
  */
-export function convertToBoolean(value?: unknown): boolean | null {
-  if (value == null) return null
-  if (typeof value === 'string') {
-    switch (value.toLowerCase()) {
+export function convertToBoolean(v?: unknown): boolean | null {
+  if (v == null) return null
+  if (typeof v === 'string') {
+    switch (v.toLowerCase()) {
       case 'false':
         return false
       case 'true':
@@ -33,5 +33,13 @@ export function convertToBoolean(value?: unknown): boolean | null {
         return null
     }
   }
-  return Boolean(value)
+  return typeof v === 'boolean' ? v : null
+}
+
+/**
+ * Check if the given data is a `Array` type.
+ * @param v
+ */
+export function isArray(v: unknown[] | unknown): v is unknown[] {
+  return Object.prototype.toString.call(v) === '[object Array]'
 }

@@ -11,5 +11,6 @@
       "@guanghechen/rollup-config-tsx": ["packages/rollup-config-tsx"],
       "@guanghechen/rollup-plugin-copy": ["packages/rollup-plugin-copy"]
     }
-  }
+  },
+  "exclude": ["**/__test__/fixtures"]
 }
