@@ -1,5 +1,31 @@
 # Changelog
 
+<a name="1.0.9"></a>
+## 1.0.9 (2021-03-07)
+
+### Added
+
+- ✨ feat: add new sub-package @guanghechen/rollup-config-tsx (migrated from @barusu-react/rollup-config) [[ecbcff6](https://github.com/guanghechen/node-scaffolds/commit/ecbcff6f70c037540f94b7d79bbaa611c41bc630)]
+- ✅ [rollup-config] tests: add tests [[9883d58](https://github.com/guanghechen/node-scaffolds/commit/9883d58328efddf0dd4405d62d76b0124946c6a5)]
+
+### Miscellaneous
+
+-  :harmmer:  [rollup-config] chore: bundle with the exposed configs by self [[7209ce6](https://github.com/guanghechen/node-scaffolds/commit/7209ce61b0a9afb802c8958f285002c6338d436c)]
+- 🚧 [rollup-config] improve: suport &#x60;string[]&#x60; type of option.manifest.*dependencies [[bbfe5cc](https://github.com/guanghechen/node-scaffolds/commit/bbfe5ccc938a32228965314c1b77d9abcf417e23)]
+
+
+<a name="1.0.8"></a>
+## 1.0.8 (2021-03-06)
+
+### Changed
+
+- ⬇️ chore: downgrade postcss-url to v9.0.0 to fix conlict error [[5641533](https://github.com/guanghechen/node-scaffolds/commit/56415337a845e9e2e280824c1c3e4aceb58809c9)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[4da13fb](https://github.com/guanghechen/node-scaffolds/commit/4da13fb0dc65bbeba700bd94a95db58e8318473a)]
+
+
 <a name="1.0.7"></a>
 ## 1.0.7 (2021-03-06)
 
