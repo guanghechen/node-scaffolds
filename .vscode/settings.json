@@ -24,7 +24,8 @@
     "rollup",
     "singleline",
     "styl",
-    "tsbuildinfo"
+    "tsbuildinfo",
+    "tsnode"
   ],
   "files.associations": {
     ".prettierrc": "yaml"

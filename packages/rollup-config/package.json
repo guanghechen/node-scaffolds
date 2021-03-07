@@ -34,12 +34,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "run-p build:*",
-    "build:cjs": "tsc -p tsconfig.src.json --outDir lib/cjs --module CommonJS",
-    "build:esm": "tsc -p tsconfig.src.json --outDir lib/esm --module ES6",
-    "postbuild": "rimraf lib/**/*.tsbuildinfo",
-    "prebuild": "rimraf *.tsbuildinfo lib/",
-    "prepublishOnly": "yarn build"
+    "build": "cross-env NODE_ENV=production rollup -c ./rollup.config.js",
+    "prebuild": "rimraf lib/",
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build"
   },
   "dependencies": {
     "@guanghechen/locate-helper": "^1.0.8",
@@ -53,5 +50,8 @@
   },
   "peerDependencies": {
     "rollup": "^2.40.0"
+  },
+  "devDependencies": {
+    "ts-node": "9.1.1"
   }
 }
