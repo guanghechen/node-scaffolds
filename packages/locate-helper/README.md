@@ -2,6 +2,8 @@
 [![npm download](https://img.shields.io/npm/dm/@guanghechen/locate-helper.svg)](https://www.npmjs.com/package/@guanghechen/locate-helper)
 [![npm license](https://img.shields.io/npm/l/@guanghechen/locate-helper.svg)](https://www.npmjs.com/package/@guanghechen/locate-helper)
 [![Node Version](https://img.shields.io/node/v/@guanghechen/locate-helper)](https://github.com/nodejs/node)
+[![Tested With Jest](https://img.shields.io/badge/tested_with-jest-9c465e.svg)](https://github.com/facebook/jest)
+[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 
 # `@guanghechen/locate-helper`

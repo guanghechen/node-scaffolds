@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": true,
+    "declaration": true,
+    "declarationDir": "lib/types",
+    "declarationMap": false,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "newLine": "LF",
+    "noEmit": false,
+    "noEmitOnError": true,
+    "resolveJsonModule": true,
+    "rootDir": "src",
+    "sourceMap": false,
+    "strict": true,
+    "suppressImplicitAnyIndexErrors": true,
+  },
+  "include": ["src"]
+}

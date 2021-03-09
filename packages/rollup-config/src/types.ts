@@ -10,9 +10,27 @@ export type { RollupJsonOptions as JsonOptions } from '@rollup/plugin-json'
 export type { RollupNodeResolveOptions as NodeResolveOptions } from '@rollup/plugin-node-resolve'
 
 /**
+ * Environment variables.
+ */
+export interface RawRollupConfigEnvs {
+  /**
+   * Whether if generate sourcemaps.
+   * @default true
+   */
+  shouldSourceMap?: boolean
+  /**
+   * Whether if make all dependencies external.
+   * @default true
+   */
+  shouldExternalAll?: boolean
+}
+
+export type RollupConfigEnvs = Required<RawRollupConfigEnvs>
+
+/**
  * Params for creating a rollup config.
  */
-export interface RollupConfigOptions {
+export interface RollupConfigOptions extends RawRollupConfigEnvs {
   /**
    * Main input / output options.
    */
@@ -25,16 +43,6 @@ export interface RollupConfigOptions {
    * Additional plugins.
    */
   additionalPlugins?: rollup.Plugin[]
-  /**
-   * Whether if generate sourcemaps.
-   * @default true
-   */
-  shouldSourceMap?: boolean
-  /**
-   * Whether if make all dependencies external.
-   * @default true
-   */
-  shouldExternalAll?: boolean
 }
 
 /**

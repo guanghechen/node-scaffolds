@@ -3,6 +3,9 @@
 [![npm license](https://img.shields.io/npm/l/@guanghechen/rollup-config.svg)](https://www.npmjs.com/package/@guanghechen/rollup-config)
 [![Node Version](https://img.shields.io/node/v/@guanghechen/rollup-config)](https://github.com/nodejs/node)
 [![rollup version](https://img.shields.io/npm/dependency-version/@guanghechen/rollup-config/peer/rollup)](https://github.com/rollup/rollup)
+[![Tested With Jest](https://img.shields.io/badge/tested_with-jest-9c465e.svg)](https://github.com/facebook/jest)
+[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 
 # `@guanghechen/rollup-config`
 
@@ -42,7 +45,40 @@ Rollup configs for bundle typescript project.
   export default config
   ```
 
-### Options
+* In monorepo such as lerna or yarn, put the following code at the
+  `<Monorepo Root>/rollup.config.js`:
+
+  ```javascript
+  import createRollupConfig from '@guanghechen/rollup-config'
+  import path from 'path'
+
+  async function rollupConfig() {
+    const { default: manifest } = await import(path.resolve('package.json'))
+    const config = createRollupConfig({
+      manifest,
+      pluginOptions: {
+        typescriptOptions: { tsconfig: 'tsconfig.src.json' },
+      },
+    })
+    return config
+  }
+
+  export default rollupConfig()
+  ```
+
+  Then in every package.json of sub-packages, set the scripts field like:
+
+  ```json
+  "scripts" {
+    "prebuild": "rimraf lib/",
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
+  }
+  ```
+
+  The package.json will loaded as `manifest` [option](#option).
+
+### Option
 
 Extended from rollup.InputOptions.
 
@@ -92,7 +128,7 @@ Extended from rollup.InputOptions.
 [rollup-plugin-typescript2]: https://github.com/ezolenko/rollup-plugin-typescript2#readme
 
 
-### Environment
+### Environment Variables
 
   * `ROLLUP_SHOULD_SOURCEMAP`: Determine the default value of `Options.shouldSourceMap`.
 

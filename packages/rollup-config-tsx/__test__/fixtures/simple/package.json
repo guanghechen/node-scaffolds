@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/types/index.d.ts",
+  "source": "src/index.tsx",
+  "optionalDependencies": {
+    "@types/react": "^17.0.3",
+    "clsx": "^1.1.1",
+    "react": "^17.0.1"
+  }
+}
