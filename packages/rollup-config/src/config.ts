@@ -5,17 +5,25 @@ import type { OutputOptions, RollupOptions } from 'rollup'
 import typescript from 'rollup-plugin-typescript2'
 import collectAllDependencies, { dependencyKeys } from './dependency-helper'
 import { convertToBoolean, coverBoolean, isArray } from './option-helper'
-import type { RollupConfigOptions } from './types'
+import type {
+  RawRollupConfigEnvs,
+  RollupConfigEnvs,
+  RollupConfigOptions,
+} from './types'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const builtinModules = require('builtin-modules')
 
 const builtinExternals: string[] = builtinModules.concat(['glob', 'sync'])
 
 /**
- * Create a rollup options.
- * @param props
+ * Resolve RollupConfigEnvs
+ *
+ * @param rawEnv
+ * @returns
  */
-export function createRollupConfig(props: RollupConfigOptions): RollupOptions {
+export function resolveRollupConfigEnvs(
+  rawEnv: RawRollupConfigEnvs,
+): RollupConfigEnvs {
   const defaultShouldSourcemap = coverBoolean(
     true,
     convertToBoolean(process.env.ROLLUP_SHOULD_SOURCEMAP),
@@ -26,12 +34,22 @@ export function createRollupConfig(props: RollupConfigOptions): RollupOptions {
   )
 
   const {
-    manifest,
-    pluginOptions = {},
-    additionalPlugins = [],
     shouldSourceMap = defaultShouldSourcemap,
     shouldExternalAll = defaultShouldExternalAll,
-  } = props
+  } = rawEnv
+  return { shouldSourceMap, shouldExternalAll }
+}
+
+/**
+ * Create a rollup options.
+ * @param options
+ */
+export function createRollupConfig(
+  options: RollupConfigOptions,
+): RollupOptions {
+  const env = resolveRollupConfigEnvs(options)
+
+  const { manifest, pluginOptions = {}, additionalPlugins = [] } = options
 
   const {
     commonjsOptions,
@@ -45,7 +63,7 @@ export function createRollupConfig(props: RollupConfigOptions): RollupOptions {
     const result: string[] = isArray(deps) ? deps : Object.keys(deps || {})
     return acc.concat(result)
   }, [] as string[])
-  if (shouldExternalAll) {
+  if (env.shouldExternalAll) {
     dependencies = collectAllDependencies(
       null,
       dependencyKeys(),
@@ -62,13 +80,13 @@ export function createRollupConfig(props: RollupConfigOptions): RollupOptions {
         file: manifest.main,
         format: 'cjs',
         exports: 'named',
-        sourcemap: shouldSourceMap,
+        sourcemap: env.shouldSourceMap,
       },
       manifest.module && {
         file: manifest.module,
         format: 'es',
         exports: 'named',
-        sourcemap: shouldSourceMap,
+        sourcemap: env.shouldSourceMap,
       },
     ].filter((x): x is OutputOptions | any => Boolean(x)),
     external: function (id: string): boolean {
@@ -101,7 +119,7 @@ export function createRollupConfig(props: RollupConfigOptions): RollupOptions {
         },
         tsconfigOverride: {
           compilerOptions: {
-            declarationMap: shouldSourceMap,
+            declarationMap: env.shouldSourceMap,
           },
         },
         ...typescriptOptions,
