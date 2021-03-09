@@ -1,5 +1,30 @@
 # Changelog
 
+<a name="1.0.10"></a>
+## 1.0.10 (2021-03-09)
+
+### Added
+
+- ✅ [rollup-config-tsx] test: add tests [[3da3389](https://github.com/guanghechen/node-scaffolds/commit/3da3389f16fe647a4b5dd95bbaa3df65def55cde)]
+
+### Changed
+
+- 🔧 chore: use a more elegant way to load package.json under the current sub-package being packaged [[d9c8abf](https://github.com/guanghechen/node-scaffolds/commit/d9c8abf1bc25048e1cdb2b6b23afa0861b60a776)]
+
+### Fixed
+
+- 🐛 [rollup-config-tsx] fix: fix dependency conflicts [[71b4267](https://github.com/guanghechen/node-scaffolds/commit/71b4267280fa01df9447f2beb7cda1d05f0ae2ad)]
+
+### Miscellaneous
+
+- 🔀 Merge branch &#x27;develop&#x27; [[ba1adbf](https://github.com/guanghechen/node-scaffolds/commit/ba1adbf831db72f79be1e7b11c4a79ec834a8257)]
+- 📝 docs: update badges [[f00ecd9](https://github.com/guanghechen/node-scaffolds/commit/f00ecd9bc4c779f753c7664ec34608be6573475a)]
+- 📝 [rollup-config-tsx] docs: update README [[e9fc767](https://github.com/guanghechen/node-scaffolds/commit/e9fc767393554c2c2567a4a5d4bf2b09e98835b7)]
+- 🚧 [rollup-config-tsx] improve: fix bugs &amp; update options [[d85c66a](https://github.com/guanghechen/node-scaffolds/commit/d85c66a4cf8798c7e7f1c4da2e5aa55a6ef26cde)]
+- 🚧 [rollup-config] improve: expose new Function &#x60;resolveRollupConfigEnvs&#x60; &amp; update README [[e344f65](https://github.com/guanghechen/node-scaffolds/commit/e344f658793bddef01d2e6f4fd0347e0594e1d70)]
+- 📝 docs: update CHANGELOG [[1178073](https://github.com/guanghechen/node-scaffolds/commit/1178073b4a50e0faef1349a4670b35941d176489)]
+
+
 <a name="1.0.9"></a>
 ## 1.0.9 (2021-03-07)
 
