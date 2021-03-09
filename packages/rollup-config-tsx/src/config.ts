@@ -72,6 +72,7 @@ export function createRollupConfigs(
   baseOptions.pluginOptions = pluginOptions
   baseOptions.additionalPlugins = [
     postcss({
+      autoModules: false,
       plugins: [
         postcssFlexbugsFixes({}),
         autoprefixer({ ...autoprefixerOptions }),
