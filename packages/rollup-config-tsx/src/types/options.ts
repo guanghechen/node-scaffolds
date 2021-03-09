@@ -7,6 +7,7 @@ import type {
 } from '@guanghechen/rollup-config'
 import type { MultiEntryOptions } from '@rollup/plugin-multi-entry'
 import type { Options as PostcssPluginAutoprefixerOptions } from 'autoprefixer'
+import type { Options as PostcssPluginFlexbugsFixesOptions } from 'postcss-flexbugs-fixes'
 import type { Options as PostcssPluginPostcssUrlOptions } from 'postcss-url'
 import type rollup from 'rollup'
 import type { PostCSSPluginConf as PostcssOptions } from 'rollup-plugin-postcss'
@@ -45,16 +46,21 @@ export interface RollupPluginOptions extends BaseRollupPluginOptions {
    * @see https://github.com/egoist/rollup-plugin-postcss
    */
   postcssOptions?: PostcssOptions & {
-    pluginOptions?: {
-      /**
-       * options for autoprefixer
-       */
-      autoprefixerOptions?: PostcssPluginAutoprefixerOptions
-      /**
-       * options for postcss-url
-       */
-      postcssUrlOptions?: PostcssPluginPostcssUrlOptions
-    }
+    /**
+     * options for autoprefixer
+     * @see https://github.com/postcss/autoprefixer
+     */
+    autoprefixerOptions?: PostcssPluginAutoprefixerOptions
+    /**
+     * options for postcss-flexbugs-fixes
+     * @see https://github.com/luisrudge/postcss-flexbugs-fixes#readme
+     */
+    flexbugsFixesOptions?: PostcssPluginFlexbugsFixesOptions
+    /**
+     * options for postcss-url
+     * @see https://github.com/postcss/postcss-url#readme
+     */
+    postcssUrlOptions?: PostcssPluginPostcssUrlOptions
   }
 }
 
@@ -81,6 +87,11 @@ export interface PreprocessConfigOptions {
     /**
      * options for rollup-plugin-postcss
      */
-    postcssOptions?: PostcssOptions
+    postcssOptions?: PostcssOptions & {
+      /**
+       * options for postcss-url
+       */
+      postcssUrlOptions?: PostcssPluginPostcssUrlOptions
+    }
   }
 }

@@ -1,6 +1,9 @@
 import { isObject } from '@guanghechen/option-helper'
 import dts from '@guanghechen/postcss-modules-dts'
-import createBaseRollupConfig from '@guanghechen/rollup-config'
+import type { RollupConfigEnvs } from '@guanghechen/rollup-config'
+import createBaseRollupConfig, {
+  resolveRollupConfigEnvs,
+} from '@guanghechen/rollup-config'
 import multiEntry from '@rollup/plugin-multi-entry'
 import autoprefixer from 'autoprefixer'
 import postcssFlexbugsFixes from 'postcss-flexbugs-fixes'
@@ -19,6 +22,7 @@ import type {
  */
 export function createPreprocessorConfig(
   options: PreprocessConfigOptions,
+  env: RollupConfigEnvs,
 ): rollup.RollupOptions {
   const {
     input,
@@ -28,7 +32,9 @@ export function createPreprocessorConfig(
     pluginOptions = {},
   } = options
 
-  const { multiEntryOptions, postcssOptions } = pluginOptions
+  const { multiEntryOptions, postcssOptions: _postcssOptions } = pluginOptions
+  const { postcssUrlOptions, ...postcssOptions } = _postcssOptions || {}
+
   let modules: PostcssOptions['modules'] = undefined
   if (isObject(postcssOptions?.modules)) {
     modules = { ...postcssOptions?.modules, ...dts(postcssOptions?.modules) }
@@ -45,6 +51,10 @@ export function createPreprocessorConfig(
         autoModules: false,
         extract: false,
         minimize: false,
+        sourceMap: env.shouldSourceMap,
+        plugins: [postcssUrlOptions && postcssUrl(postcssUrlOptions)].filter(
+          Boolean,
+        ),
         ...postcssOptions,
         modules,
       }),
@@ -61,36 +71,38 @@ export function createRollupConfigs(
   options: RollupConfigOptions,
 ): rollup.RollupOptions[] {
   const { preprocessOptions, ...baseOptions } = options
+  const env = resolveRollupConfigEnvs(options)
+
   const { postcssOptions: _postcssOptions, ...pluginOptions } =
     baseOptions.pluginOptions || {}
-
-  const { pluginOptions: postcssPluginOptions, ...postcssOptions } =
-    _postcssOptions || {}
-  const { autoprefixerOptions, postcssUrlOptions } = ((pluginOptions ||
-    {}) as unknown) as any
+  const {
+    autoprefixerOptions,
+    flexbugsFixesOptions,
+    postcssUrlOptions,
+    ...postcssOptions
+  } = _postcssOptions || {}
 
   baseOptions.pluginOptions = pluginOptions
   baseOptions.additionalPlugins = [
-    postcss({
-      autoModules: false,
-      plugins: [
-        postcssFlexbugsFixes({}),
-        autoprefixer({ ...autoprefixerOptions }),
-        postcssUrl({
-          url: 'inline',
-          ...postcssUrlOptions,
-        }),
-      ],
-      ...postcssOptions,
-    }) as rollup.Plugin,
+    _postcssOptions &&
+      postcss({
+        autoModules: false,
+        sourceMap: env.shouldSourceMap,
+        plugins: [
+          autoprefixer({ ...autoprefixerOptions }),
+          postcssFlexbugsFixes({ ...flexbugsFixesOptions }),
+          postcssUrlOptions && postcssUrl(postcssUrlOptions),
+        ].filter(Boolean),
+        ...postcssOptions,
+      }),
     ...(baseOptions.additionalPlugins || []),
-  ]
+  ].filter((x): x is rollup.Plugin => Boolean(x))
 
   const config = createBaseRollupConfig(baseOptions)
 
   // Resolve preprocess config.
   if (preprocessOptions != null) {
-    const preprocessConfig = createPreprocessorConfig(preprocessOptions)
+    const preprocessConfig = createPreprocessorConfig(preprocessOptions, env)
     return [preprocessConfig, config]
   }
 
