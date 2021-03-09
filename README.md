@@ -1,10 +1,10 @@
 [![License](https://img.shields.io/github/license/guanghechen/node-scaffolds)](#license)
-[![Tested With Jest](https://img.shields.io/badge/tested_with-jest-9c465e.svg)](https://github.com/facebook/jest)
-[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Package version](https://img.shields.io/github/v/tag/guanghechen/node-scaffolds?include_prereleases&sort=semver)](https://github.com/guanghechen/node-scaffolds/tags)
 [![Github Top Language](https://img.shields.io/github/languages/top/guanghechen/node-scaffolds)](https://github.com/guanghechen/node-scaffolds/search?l=typescript)
 [![Node Version](https://img.shields.io/node/v/@guanghechen/rollup-config)](https://github.com/nodejs/node)
 [![CI Workflow](https://github.com/guanghechen/node-scaffolds/workflows/Build/badge.svg?branch=master)](https://github.com/guanghechen/node-scaffolds/actions/workflows/ci.yml)
+[![Tested With Jest](https://img.shields.io/badge/tested_with-jest-9c465e.svg)](https://github.com/facebook/jest)
+[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 
 A monorepo contains some utility functions and configs for building `Node.js` / `Typescript` projects.

@@ -1,9 +1,10 @@
 [![npm version](https://img.shields.io/npm/v/@guanghechen/rollup-config-tsx.svg)](https://www.npmjs.com/package/@guanghechen/rollup-config-tsx)
 [![npm download](https://img.shields.io/npm/dm/@guanghechen/rollup-config-tsx.svg)](https://www.npmjs.com/package/@guanghechen/rollup-config-tsx)
 [![npm license](https://img.shields.io/npm/l/@guanghechen/rollup-config-tsx.svg)](https://www.npmjs.com/package/@guanghechen/rollup-config-tsx)
-[![Tested With Jest](https://img.shields.io/badge/tested_with-jest-9c465e.svg)](https://github.com/facebook/jest)
 [![Node Version](https://img.shields.io/node/v/@guanghechen/rollup-config-tsx)](https://github.com/nodejs/node)
 [![rollup version](https://img.shields.io/npm/dependency-version/@guanghechen/rollup-config-tsx/peer/rollup)](https://github.com/rollup/rollup)
+[![Tested With Jest](https://img.shields.io/badge/tested_with-jest-9c465e.svg)](https://github.com/facebook/jest)
+[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 
 # `@guanghechen/rollup-config-tsx`

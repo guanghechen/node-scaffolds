@@ -3,6 +3,7 @@
 [![npm license](https://img.shields.io/npm/l/@guanghechen/rollup-config-cli.svg)](https://www.npmjs.com/package/@guanghechen/rollup-config-cli)
 [![Node Version](https://img.shields.io/node/v/@guanghechen/rollup-config-cli)](https://github.com/nodejs/node)
 [![rollup version](https://img.shields.io/npm/dependency-version/@guanghechen/rollup-config-cli/peer/rollup)](https://github.com/rollup/rollup)
+[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 # `@guanghechen/rollup-config-cli`
 

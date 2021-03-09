@@ -3,6 +3,7 @@
 [![npm license](https://img.shields.io/npm/l/@guanghechen/eslint-config-ts.svg)](https://www.npmjs.com/package/@guanghechen/eslint-config-ts)
 [![Node Version](https://img.shields.io/node/v/@guanghechen/eslint-config-ts)](https://github.com/nodejs/node)
 [![eslint version](https://img.shields.io/npm/dependency-version/@guanghechen/eslint-config-ts/peer/eslint)](https://github.com/eslint/eslint)
+[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 
 # `@guanghechen/eslint-config-ts`
