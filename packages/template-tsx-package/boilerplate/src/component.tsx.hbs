@@ -1,0 +1,19 @@
+import React from 'react'
+import classes from './style/index.styl'
+
+
+export interface {{{pascalCase componentName}}}Props {
+  content?: string
+}
+
+
+export function {{{pascalCase componentName}}}(props: {{{pascalCase componentName}}}Props): React.ReactElement {
+  return (
+    <div className={ classes.container } >
+      {props.content}
+    </div>
+  )
+}
+
+
+{{{pascalCase componentName}}}.displayName = '{{{pascalCase componentName}}}'

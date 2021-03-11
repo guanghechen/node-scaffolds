@@ -1,0 +1,66 @@
+{
+  "name": "{{{packageName}}}",
+  "version": "{{{lowerCase packageVersion}}}",
+  "description": "{{{packageDescription}}}",
+{{#if packageAuthor}}
+  "author": {
+    "name": "{{{packageAuthor}}}",
+    "url": "https://github.com/{{{packageAuthor}}}/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/{{{packageAuthor}}}/{{{projectName}}}.git"{{#if isMonorepo}},
+    "directory": "{{{packageLocation}}}"
+{{/if}}
+{{/if}}
+  },
+  "homepage": "{{{repositoryHomepage}}}",
+  "keywords": [
+    "react component",
+    "stylus",
+    "typescript"
+  ],
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/types/index.d.ts",
+  "source": "src/index.tsx",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "lib/",
+    "!lib/**/*.js.map",
+    "!lib/**/*.d.ts.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "rollup -w -c rollup.config.js",
+    "build": "cross-env NODE_ENV=production rollup -c rollup.config.js",
+    "postinstall": "yarn build",
+    "prebuild": "rimraf lib/",
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build"{{#if isMonorepo}},
+    "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."{{/if}}
+  },
+  "peerDependencies": {
+    "@types/react": "^17.0.3",
+    "clsx": "^1.1.1",
+    "react": "^17.0.1"
+  },
+  "devDependencies": {
+    "@guanghechen/rollup-config-tsx": "^{{{toolPackageVersion}}}",
+    "@types/react": "^17.0.3",
+    "clsx": "^1.1.1",
+    "react": "^17.0.1",
+    "rollup": "2.40.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR",
+    "> 1%",
+    "ie >= 11"
+  ]
+}

@@ -23,7 +23,8 @@ Package                               | Description
 [@guanghechen/rollup-config][]        | Rollup config for bundle typescript project
 [@guanghechen/rollup-config-cli][]    | Rollup configs for bundle typescript cli project
 [@guanghechen/rollup-plugin-copy][]   | Rollup plugins to copy files and folds (glob supported)
-[@guanghechen/template-ts-package][]  | Templates for creating simple typescript project
+[@guanghechen/template-ts-package][]  | Plop templates for creating simple typescript project
+[@guanghechen/template-tsx-package][] | Plop templates for creating simple typescript + react project
 
 
 ## License
@@ -42,3 +43,4 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/rollup-config-cli]: ./packages/rollup-config-cli
 [@guanghechen/rollup-plugin-copy]: ./packages/rollup-plugin-copy
 [@guanghechen/template-ts-package]: ./packages/template-ts-package
+[@guanghechen/template-tsx-package]: ./packages/template-tsx-package
