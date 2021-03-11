@@ -1,11 +1,42 @@
-[![npm version](https://img.shields.io/npm/v/@guanghechen/plop-helper.svg)](https://www.npmjs.com/package/@guanghechen/plop-helper)
-[![npm download](https://img.shields.io/npm/dm/@guanghechen/plop-helper.svg)](https://www.npmjs.com/package/@guanghechen/plop-helper)
-[![npm license](https://img.shields.io/npm/l/@guanghechen/plop-helper.svg)](https://www.npmjs.com/package/@guanghechen/plop-helper)
-[![Node Version](https://img.shields.io/node/v/@guanghechen/plop-helper)](https://github.com/nodejs/node)
-[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+<header align="center">
+  <h1>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/master/packages/plop-helper#readme">@guanghechen/plop-helper</a>
+  </h1>
+  <div>
+    <a href="https://www.npmjs.com/package/@guanghechen/plop-helper">
+      <img
+        alt="Npm Version"
+        src="https://img.shields.io/npm/v/@guanghechen/plop-helper.svg"
+      />
+    </a>
+    <a href="https://www.npmjs.com/package/@guanghechen/plop-helper">
+      <img
+        alt="Npm Download"
+        src="https://img.shields.io/npm/dm/@guanghechen/plop-helper.svg"
+      />
+    </a>
+    <a href="https://www.npmjs.com/package/@guanghechen/plop-helper">
+      <img
+        alt="Npm License"
+        src="https://img.shields.io/npm/l/@guanghechen/plop-helper.svg"
+      />
+    </a>
+    <a href="https://github.com/nodejs/node">
+      <img
+        alt="Node.js Version"
+        src="https://img.shields.io/node/v/@guanghechen/plop-helper"
+      />
+    </a>
+    <a href="https://github.com/prettier/prettier">
+      <img
+        alt="Code Style: prettier"
+        src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"
+      />
+    </a>
+  </div>
+</header>
+<br />
 
-
-# `@guanghechen/plop-helper`
 
 A collection of utility functions for plop templates.
 
@@ -137,5 +168,6 @@ And the `cli.js` exposed a Node.js CLI script, such as:
 * [inquirer][]
 
 
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/plop-helper#readme
 [inquirer]: https://github.com/SBoudrias/Inquirer.js/
 [@guanghechen/template-ts-package]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/template-ts-package#readme

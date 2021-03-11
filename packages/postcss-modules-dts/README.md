@@ -1,11 +1,42 @@
-[![npm version](https://img.shields.io/npm/v/@guanghechen/postcss-modules-dts.svg)](https://www.npmjs.com/package/@guanghechen/postcss-modules-dts)
-[![npm download](https://img.shields.io/npm/dm/@guanghechen/postcss-modules-dts.svg)](https://www.npmjs.com/package/@guanghechen/postcss-modules-dts)
-[![npm license](https://img.shields.io/npm/l/@guanghechen/postcss-modules-dts.svg)](https://www.npmjs.com/package/@guanghechen/postcss-modules-dts)
-[![Node Version](https://img.shields.io/node/v/@guanghechen/postcss-modules-dts)](https://github.com/nodejs/node)
-[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+<header align="center">
+  <h1>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/master/packages/postcss-modules-dts#readme">@guanghechen/postcss-modules-dts</a>
+  </h1>
+  <div>
+    <a href="https://www.npmjs.com/package/@guanghechen/postcss-modules-dts">
+      <img
+        alt="Npm Version"
+        src="https://img.shields.io/npm/v/@guanghechen/postcss-modules-dts.svg"
+      />
+    </a>
+    <a href="https://www.npmjs.com/package/@guanghechen/postcss-modules-dts">
+      <img
+        alt="Npm Download"
+        src="https://img.shields.io/npm/dm/@guanghechen/postcss-modules-dts.svg"
+      />
+    </a>
+    <a href="https://www.npmjs.com/package/@guanghechen/postcss-modules-dts">
+      <img
+        alt="Npm License"
+        src="https://img.shields.io/npm/l/@guanghechen/postcss-modules-dts.svg"
+      />
+    </a>
+    <a href="https://github.com/nodejs/node">
+      <img
+        alt="Node.js Version"
+        src="https://img.shields.io/node/v/@guanghechen/postcss-modules-dts"
+      />
+    </a>
+    <a href="https://github.com/prettier/prettier">
+      <img
+        alt="Code Style: prettier"
+        src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"
+      />
+    </a>
+  </div>
+</header>
+<br />
 
-
-# `@guanghechen/postcss-modules-dts`
 
 Generate `*.d.ts` files for style files (such as css, stylus and etc), should be worked with [postcss-modules][].
 
@@ -72,7 +103,6 @@ Name                | Type        | Required | Default
   ): Promise<void> | void
   ```
 
-
 ### Examples
 
   * Use within [postcss-modules][]
@@ -96,10 +126,12 @@ Name                | Type        | Required | Default
     postcss({ modules: { ...dts() } })
     ```
 
-## References
+## Related
 
 * [postcss-modules | Github][postcss-modules]
 * [rollup-plugin-postcss | Github][rollup-plugin-postcss]
 
+
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/postcss-modules-dts#readme
 [postcss-modules]: https://github.com/madyankin/postcss-modules
 [rollup-plugin-postcss]: https://github.com/egoist/rollup-plugin-postcss

@@ -1,10 +1,49 @@
-[![License](https://img.shields.io/github/license/guanghechen/node-scaffolds)](#license)
-[![Package version](https://img.shields.io/github/v/tag/guanghechen/node-scaffolds?include_prereleases&sort=semver)](https://github.com/guanghechen/node-scaffolds/tags)
-[![Github Top Language](https://img.shields.io/github/languages/top/guanghechen/node-scaffolds)](https://github.com/guanghechen/node-scaffolds/search?l=typescript)
-[![Node Version](https://img.shields.io/node/v/@guanghechen/rollup-config)](https://github.com/nodejs/node)
-[![CI Workflow](https://github.com/guanghechen/node-scaffolds/workflows/Build/badge.svg?branch=master)](https://github.com/guanghechen/node-scaffolds/actions/workflows/ci.yml)
-[![Tested With Jest](https://img.shields.io/badge/tested_with-jest-9c465e.svg)](https://github.com/facebook/jest)
-[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+<header>
+  <div align="center">
+    <a href="#license">
+      <img
+        alt="License"
+        src="https://img.shields.io/github/license/guanghechen/node-scaffolds"
+      />
+    </a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tags">
+      <img
+        alt="Package Version"
+        src="https://img.shields.io/github/v/tag/guanghechen/node-scaffolds?include_prereleases&sort=semver"
+      />
+    </a>
+    <a href="https://github.com/guanghechen/node-scaffolds/search?l=typescript">
+      <img
+        alt="Github Top Language"
+        src="https://img.shields.io/github/languages/top/guanghechen/node-scaffolds"
+      />
+    </a>
+    <a href="https://github.com/nodejs/node">
+      <img
+        alt="Node.js Version"
+        src="https://img.shields.io/node/v/@guanghechen/rollup-config-tsx"
+      />
+    </a>
+    <a href="https://github.com/guanghechen/node-scaffolds/actions/workflows/ci.yml">
+      <img
+        alt="CI Workflow"
+        src="https://github.com/guanghechen/node-scaffolds/workflows/Build/badge.svg?branch=master"
+      />
+    </a>
+    <a href="https://github.com/facebook/jest">
+      <img
+        alt="Tested with Jest"
+        src="https://img.shields.io/badge/tested_with-jest-9c465e.svg"
+      />
+    </a>
+    <a href="https://github.com/prettier/prettier">
+      <img
+        alt="Code Style: prettier"
+        src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"
+      />
+    </a>
+  </div>
+</header>
 
 
 A monorepo contains some utility functions and configs for building `Node.js` / `Typescript` projects.
@@ -32,6 +71,7 @@ Package                               | Description
 node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/blob/master/LICENSE).
 
 
+[homepage]: https://github.com/guanghechen/node-scaffolds
 [@guanghechen/eslint-config]: ./packages/eslint-config
 [@guanghechen/eslint-config-jsx]: ./packages/eslint-config-jsx
 [@guanghechen/eslint-config-ts]: ./packages/eslint-config-ts

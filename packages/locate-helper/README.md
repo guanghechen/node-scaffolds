@@ -1,12 +1,48 @@
-[![npm version](https://img.shields.io/npm/v/@guanghechen/locate-helper.svg)](https://www.npmjs.com/package/@guanghechen/locate-helper)
-[![npm download](https://img.shields.io/npm/dm/@guanghechen/locate-helper.svg)](https://www.npmjs.com/package/@guanghechen/locate-helper)
-[![npm license](https://img.shields.io/npm/l/@guanghechen/locate-helper.svg)](https://www.npmjs.com/package/@guanghechen/locate-helper)
-[![Node Version](https://img.shields.io/node/v/@guanghechen/locate-helper)](https://github.com/nodejs/node)
-[![Tested With Jest](https://img.shields.io/badge/tested_with-jest-9c465e.svg)](https://github.com/facebook/jest)
-[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+<header align="center">
+  <h1>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/master/packages/locate-helper#readme">@guanghechen/locate-helper</a>
+  </h1>
+  <div>
+    <a href="https://www.npmjs.com/package/@guanghechen/locate-helper">
+      <img
+        alt="Npm Version"
+        src="https://img.shields.io/npm/v/@guanghechen/locate-helper.svg"
+      />
+    </a>
+    <a href="https://www.npmjs.com/package/@guanghechen/locate-helper">
+      <img
+        alt="Npm Download"
+        src="https://img.shields.io/npm/dm/@guanghechen/locate-helper.svg"
+      />
+    </a>
+    <a href="https://www.npmjs.com/package/@guanghechen/locate-helper">
+      <img
+        alt="Npm License"
+        src="https://img.shields.io/npm/l/@guanghechen/locate-helper.svg"
+      />
+    </a>
+    <a href="https://github.com/nodejs/node">
+      <img
+        alt="Node.js Version"
+        src="https://img.shields.io/node/v/@guanghechen/locate-helper"
+      />
+    </a>
+    <a href="https://github.com/facebook/jest">
+      <img
+        alt="Tested with Jest"
+        src="https://img.shields.io/badge/tested_with-jest-9c465e.svg"
+      />
+    </a>
+    <a href="https://github.com/prettier/prettier">
+      <img
+        alt="Code Style: prettier"
+        src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"
+      />
+    </a>
+  </div>
+</header>
+<br />
 
-
-# `@guanghechen/locate-helper`
 
 Utils for locate nearest filepath matched the given pattern.
 
@@ -58,3 +94,6 @@ tester `testFilepath`.
   * `currentDir`: The starting directory of the searching.
 
   * `testFilepath`: Test if a given filepath is an expected one.
+
+
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/locate-helper#readme
