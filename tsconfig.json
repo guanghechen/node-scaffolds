@@ -4,12 +4,12 @@
     "baseUrl": ".",
     "module": "CommonJS",
     "paths": {
-      "@guanghechen/option-helper": ["packages/option-helper"],
-      "@guanghechen/postcss-modules-dts": ["packages/postcss-modules-dts"],
-      "@guanghechen/rollup-config": ["packages/rollup-config"],
-      "@guanghechen/rollup-config-cli": ["packages/rollup-config-cli"],
-      "@guanghechen/rollup-config-tsx": ["packages/rollup-config-tsx"],
-      "@guanghechen/rollup-plugin-copy": ["packages/rollup-plugin-copy"]
+      "@guanghechen/option-helper": ["packages/option-helper/src"],
+      "@guanghechen/postcss-modules-dts": ["packages/postcss-modules-dts/src"],
+      "@guanghechen/rollup-config": ["packages/rollup-config/src"],
+      "@guanghechen/rollup-config-cli": ["packages/rollup-config-cli/src"],
+      "@guanghechen/rollup-config-tsx": ["packages/rollup-config-tsx/src"],
+      "@guanghechen/rollup-plugin-copy": ["packages/rollup-plugin-copy/src"]
     }
   },
   "exclude": ["**/__test__/fixtures"]

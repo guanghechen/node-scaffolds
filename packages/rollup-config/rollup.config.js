@@ -1,5 +1,4 @@
-/* eslint-disable import/first */
-/* eslint-disable import/order */
+/* eslint-disable import/first, import/order */
 import tsnode from 'ts-node'
 import manifest from './package.json'
 
@@ -7,7 +6,7 @@ import manifest from './package.json'
 tsnode.register({
   dir: __dirname,
   files: true,
-  project: 'tsconfig.src.json',
+  project: 'tsconfig.json',
 })
 
 const { createRollupConfig } = require('./src/index.ts')
