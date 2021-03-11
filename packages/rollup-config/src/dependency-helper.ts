@@ -61,7 +61,6 @@ export function collectAllDependencies(
       return
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     collectDependencies(nextPackageJsonPath)
   }
 
