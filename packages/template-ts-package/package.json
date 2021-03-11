@@ -32,11 +32,10 @@
     "README.md"
   ],
   "bin": {
-    "guanghechen-ts-package": "./cli.js"
+    "ghc-ts-package": "./cli.js"
   },
   "dependencies": {
-    "minimist": "^1.2.5",
-    "plop": "^2.7.4",
-    "semver-regex": "^3.1.2"
+    "@guanghechen/plop-helper": "^1.0.10",
+    "plop": "^2.7.4"
   }
 }

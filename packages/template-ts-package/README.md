@@ -7,7 +7,7 @@
 
 # `@guanghechen/template-ts-package`
 
-Templates for creating simple typescript project.
+Templates powered by [plop][] for creating simple typescript project.
 
 ## Install
 
@@ -25,8 +25,10 @@ Templates for creating simple typescript project.
 
 ## Usage
 
-* Create a typescript project
+* Used in command line
 
   ```shell
-  guanghechen-ts-package [package-name]
+  ghc-ts-package [package-name]
   ```
+
+[plop]: https://github.com/plopjs/plop

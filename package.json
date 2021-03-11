@@ -21,7 +21,7 @@
     "format": "run-s format:lint:fix format:prettier",
     "format:prettier": "prettier . --write",
     "format:lint:fix": "eslint . --fix",
-    "new:ts-package": "node ./node_modules/@guanghechen/template-ts-package/cli.js",
+    "new:ts-package": "node ./packages/template-ts-package/cli.js",
     "prepublishOnly": "pinst --disable",
     "postinstall": "run-p postinstall:**",
     "postinstall:main": "yarn update:lock",
