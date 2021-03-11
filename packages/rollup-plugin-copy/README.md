@@ -1,13 +1,53 @@
-[![npm version](https://img.shields.io/npm/v/@guanghechen/rollup-plugin-copy.svg)](https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy)
-[![npm download](https://img.shields.io/npm/dm/@guanghechen/rollup-plugin-copy.svg)](https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy)
-[![npm license](https://img.shields.io/npm/l/@guanghechen/rollup-plugin-copy.svg)](https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy)
-[![Node Version](https://img.shields.io/node/v/@guanghechen/rollup-plugin-copy)](https://github.com/nodejs/node)
-[![rollup version](https://img.shields.io/npm/dependency-version/@guanghechen/rollup-plugin-copy/peer/rollup)](https://github.com/rollup/rollup)
-[![Tested With Jest](https://img.shields.io/badge/tested_with-jest-9c465e.svg)](https://github.com/facebook/jest)
-[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
-
-# `@guanghechen/rollup-plugin-copy`
+<header align="center">
+  <h1>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/master/packages/rollup-plugin-copy#readme">@guanghechen/rollup-plugin-copy</a>
+  </h1>
+  <div>
+    <a href="https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy">
+      <img
+        alt="Npm Version"
+        src="https://img.shields.io/npm/v/@guanghechen/rollup-plugin-copy.svg"
+      />
+    </a>
+    <a href="https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy">
+      <img
+        alt="Npm Download"
+        src="https://img.shields.io/npm/dm/@guanghechen/rollup-plugin-copy.svg"
+      />
+    </a>
+    <a href="https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy">
+      <img
+        alt="Npm License"
+        src="https://img.shields.io/npm/l/@guanghechen/rollup-plugin-copy.svg"
+      />
+    </a>
+    <a href="https://github.com/nodejs/node">
+      <img
+        alt="Node.js Version"
+        src="https://img.shields.io/node/v/@guanghechen/rollup-plugin-copy"
+      />
+    </a>
+    <a href="https://github.com/rollup/rollup">
+      <img
+        alt="Rollup Version"
+        src="https://img.shields.io/npm/dependency-version/@guanghechen/rollup-plugin-copy/peer/rollup"
+      />
+    </a>
+    <a href="https://github.com/facebook/jest">
+      <img
+        alt="Tested with Jest"
+        src="https://img.shields.io/badge/tested_with-jest-9c465e.svg"
+      />
+    </a>
+    <a href="https://github.com/prettier/prettier">
+      <img
+        alt="Code Style: prettier"
+        src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"
+      />
+    </a>
+  </div>
+</header>
+<br />
 
 
 This project is modified from https://github.com/vladshcherbin/rollup-plugin-copy. (Migrated from https://www.npmjs.com/package/@barusu/rollup-plugin-copy).
@@ -256,7 +296,21 @@ All other options are passed to packages, used inside:
   - [globby](https://github.com/sindresorhus/globby)
   - [fs-extra copy function](https://github.com/jprichardson/node-fs-extra/blob/7.0.0/docs/copy.md)
 
-# Thanks Original Authors
+## Thanks Original Authors
 
   * [Cédric Meuter](https://github.com/meuter)
   * [vladshcherbin](https://github.com/vladshcherbin)
+
+## Related
+
+* [@guanghechen/rollup-config][]
+* [@guanghechen/rollup-config-cli][]
+* [@guanghechen/rollup-config-tsx][]
+
+
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/rollup-plugin-copy#readme
+[@guanghechen/rollup-config]: https://www.npmjs.com/package/@guanghechen/rollup-config
+[@guanghechen/rollup-config-cli]: https://www.npmjs.com/package/@guanghechen/rollup-config-cli
+[@guanghechen/rollup-config-tsx]: https://www.npmjs.com/package/@guanghechen/rollup-config-tsx
+[@guanghechen/rollup-plugin-copy]: https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy
+

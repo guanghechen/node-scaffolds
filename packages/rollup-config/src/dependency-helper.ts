@@ -44,13 +44,15 @@ export function collectAllDependencies(
         'package.json',
       )
     } catch (e) {
-      if (e.code !== 'MODULE_NOT_FOUND') {
-        console.error(e)
-        return
-      }
-
-      if (isAbsentAllowed!(dependency)) {
-        return
+      switch (e.code) {
+        case 'MODULE_NOT_FOUND':
+          if (isAbsentAllowed!(dependency)) return
+          break
+        case 'ERR_PACKAGE_PATH_NOT_EXPORTED':
+          return
+        default:
+          console.error(e)
+          return
       }
     }
 
@@ -59,7 +61,6 @@ export function collectAllDependencies(
       return
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     collectDependencies(nextPackageJsonPath)
   }
 

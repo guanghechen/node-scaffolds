@@ -1,12 +1,48 @@
-[![npm version](https://img.shields.io/npm/v/@guanghechen/eslint-config.svg)](https://www.npmjs.com/package/@guanghechen/eslint-config)
-[![npm download](https://img.shields.io/npm/dm/@guanghechen/eslint-config.svg)](https://www.npmjs.com/package/@guanghechen/eslint-config)
-[![npm license](https://img.shields.io/npm/l/@guanghechen/eslint-config.svg)](https://www.npmjs.com/package/@guanghechen/eslint-config)
-[![Node Version](https://img.shields.io/node/v/@guanghechen/eslint-config)](https://github.com/nodejs/node)
-[![eslint version](https://img.shields.io/npm/dependency-version/@guanghechen/eslint-config/peer/eslint)](https://github.com/eslint/eslint)
-[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+<header align="center">
+  <h1>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/master/packages/eslint-config#readme">@guanghechen/eslint-config</a>
+  </h1>
+  <div>
+    <a href="https://www.npmjs.com/package/@guanghechen/eslint-config">
+      <img
+        alt="Npm Version"
+        src="https://img.shields.io/npm/v/@guanghechen/eslint-config.svg"
+      />
+    </a>
+    <a href="https://www.npmjs.com/package/@guanghechen/eslint-config">
+      <img
+        alt="Npm Download"
+        src="https://img.shields.io/npm/dm/@guanghechen/eslint-config.svg"
+      />
+    </a>
+    <a href="https://www.npmjs.com/package/@guanghechen/eslint-config">
+      <img
+        alt="Npm License"
+        src="https://img.shields.io/npm/l/@guanghechen/eslint-config.svg"
+      />
+    </a>
+    <a href="https://github.com/nodejs/node">
+      <img
+        alt="Node.js Version"
+        src="https://img.shields.io/node/v/@guanghechen/eslint-config"
+      />
+    </a>
+    <a href="https://github.com/eslint/eslint">
+      <img
+        alt="Eslint Version"
+        src="https://img.shields.io/npm/dependency-version/@guanghechen/eslint-config/peer/eslint"
+      />
+    </a>
+    <a href="https://github.com/prettier/prettier">
+      <img
+        alt="Code Style: prettier"
+        src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"
+      />
+    </a>
+  </div>
+</header>
+<br />
 
-
-# `@guanghechen/eslint-config`
 
 Basic eslint config for node.js/javascript project.
 
@@ -33,3 +69,14 @@ Basic eslint config for node.js/javascript project.
     extends: ['@guanghechen'],
   }
   ```
+
+## Related
+
+* [@guanghechen/eslint-config-jsx][]
+* [@guanghechen/eslint-config-ts][]
+
+
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/eslint-config#readme
+[@guanghechen/eslint-config]: https://www.npmjs.com/package/@guanghechen/eslint-config
+[@guanghechen/eslint-config-jsx]: https://www.npmjs.com/package/@guanghechen/eslint-config-jsx
+[@guanghechen/eslint-config-ts]: https://www.npmjs.com/package/@guanghechen/eslint-config-ts

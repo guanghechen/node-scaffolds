@@ -7,7 +7,7 @@ const manifest = require('./package.json')
 
 module.exports = function (plop) {
   const cwd = path.resolve(process.cwd())
-  plop.setGenerator('ts-package', {
+  plop.setGenerator('tsx-package', {
     description: 'create template typescript project',
     prompts: [
       ...createNpmPackagePrompts(cwd, {
@@ -23,6 +23,9 @@ module.exports = function (plop) {
         path.normalize(path.resolve(answers.packageLocation, p))
       const relativePath = path.relative(answers.packageLocation, cwd)
 
+      answers.componentName = answers.packageName.startsWith('@')
+        ? /^@[^\\/\s]+[\\/]([^\\/\s]+)/.exec(answers.packageName)[1]
+        : /^([^\-\s]+)/.exec(answers.packageName)[1]
       answers.tsconfigExtends = answers.isMonorepo
         ? path.join(relativePath, 'tsconfig')
         : './tsconfig.settings'
@@ -68,8 +71,18 @@ module.exports = function (plop) {
         },
         {
           type: 'add',
-          path: resolveTargetPath('src/index.ts'),
-          templateFile: resolveSourcePath('src/index.ts.hbs'),
+          path: resolveTargetPath('src/index.tsx'),
+          templateFile: resolveSourcePath('src/index.tsx.hbs'),
+        },
+        {
+          type: 'add',
+          path: resolveTargetPath('src/component.tsx'),
+          templateFile: resolveSourcePath('src/component.tsx.hbs'),
+        },
+        {
+          type: 'add',
+          path: resolveTargetPath('src/style/index.styl'),
+          templateFile: resolveSourcePath('src/style/index.styl.hbs'),
         },
       ].filter(Boolean)
     },

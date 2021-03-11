@@ -1,25 +1,21 @@
 {
-  "name": "@guanghechen/postcss-modules-dts",
+  "name": "@guanghechen/plop-helper",
   "version": "1.0.10",
-  "description": "Generate `*.d.ts` files for style files (such as css, stylus and etc)",
+  "description": "A collection of utility functions for plop templates",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/guanghechen.git",
-    "directory": "packages/postcss-modules-dts"
+    "url": "https://github.com/guanghechen/node-scaffolds.git",
+    "directory": "packages/plop-helper"
   },
-  "homepage": "https://github.com/guanghechen/guanghechen/tree/master/packages/postcss-modules-dts#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/plop-helper#readme",
   "keywords": [
-    "postcss",
-    "typescript",
-    "css",
-    "d.ts"
+    "plop"
   ],
   "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -42,12 +38,13 @@
   },
   "dependencies": {
     "@guanghechen/option-helper": "^1.0.10",
-    "@types/reserved-words": "0.1.0",
-    "reserved-words": "0.1.2"
+    "@types/fs-extra": "^9.0.8",
+    "fs-extra": "^9.1.0",
+    "minimist": "^1.2.5",
+    "semver-regex": "^3.1.2"
   },
   "peerDependencies": {
-    "@types/fs-extra": "^9.0.8",
-    "fs-extra": "^9.1.0"
+    "plop": "^2.7.4"
   },
   "devDependencies": {
     "@guanghechen/rollup-config": "^1.0.10"

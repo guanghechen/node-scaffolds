@@ -1,11 +1,48 @@
-[![npm version](https://img.shields.io/npm/v/@guanghechen/rollup-config-cli.svg)](https://www.npmjs.com/package/@guanghechen/rollup-config-cli)
-[![npm download](https://img.shields.io/npm/dm/@guanghechen/rollup-config-cli.svg)](https://www.npmjs.com/package/@guanghechen/rollup-config-cli)
-[![npm license](https://img.shields.io/npm/l/@guanghechen/rollup-config-cli.svg)](https://www.npmjs.com/package/@guanghechen/rollup-config-cli)
-[![Node Version](https://img.shields.io/node/v/@guanghechen/rollup-config-cli)](https://github.com/nodejs/node)
-[![rollup version](https://img.shields.io/npm/dependency-version/@guanghechen/rollup-config-cli/peer/rollup)](https://github.com/rollup/rollup)
-[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+<header align="center">
+  <h1>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/master/packages/rollup-config-cli#readme">@guanghechen/rollup-config-cli</a>
+  </h1>
+  <div>
+    <a href="https://www.npmjs.com/package/@guanghechen/rollup-config-cli">
+      <img
+        alt="Npm Version"
+        src="https://img.shields.io/npm/v/@guanghechen/rollup-config-cli.svg"
+      />
+    </a>
+    <a href="https://www.npmjs.com/package/@guanghechen/rollup-config-cli">
+      <img
+        alt="Npm Download"
+        src="https://img.shields.io/npm/dm/@guanghechen/rollup-config-cli.svg"
+      />
+    </a>
+    <a href="https://www.npmjs.com/package/@guanghechen/rollup-config-cli">
+      <img
+        alt="Npm License"
+        src="https://img.shields.io/npm/l/@guanghechen/rollup-config-cli.svg"
+      />
+    </a>
+    <a href="https://github.com/nodejs/node">
+      <img
+        alt="Node.js Version"
+        src="https://img.shields.io/node/v/@guanghechen/rollup-config-cli"
+      />
+    </a>
+    <a href="https://github.com/rollup/rollup">
+      <img
+        alt="Rollup Version"
+        src="https://img.shields.io/npm/dependency-version/@guanghechen/rollup-config-cli/peer/rollup"
+      />
+    </a>
+    <a href="https://github.com/prettier/prettier">
+      <img
+        alt="Code Style: prettier"
+        src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"
+      />
+    </a>
+  </div>
+</header>
+<br />
 
-# `@guanghechen/rollup-config-cli`
 
 Rollup configs for bundle typescript cli project.
 
@@ -69,5 +106,15 @@ Extended from `RollupConfigOptions` of [@guanghechen/rollup-config][].
 * `targets`: `{src: string, target: string}[]`: Node.js bin targets.
 
 
-[@guanghechen/rollup-config]: https://github.com/guanghechen/node-scaffolds/packages/rollup-config#options
-[@guanghechen/rollup-plugin-copy]: https://github.com/guanghechen/node-scaffolds/packages/rollup-plugin-copy#Configuration
+## Related
+
+* [@guanghechen/rollup-config][]
+* [@guanghechen/rollup-config-tsx][]
+* [@guanghechen/rollup-plugin-copy][]
+
+
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/rollup-config-cli#readme
+[@guanghechen/rollup-config]: https://www.npmjs.com/package/@guanghechen/rollup-config
+[@guanghechen/rollup-config-cli]: https://www.npmjs.com/package/@guanghechen/rollup-config-cli
+[@guanghechen/rollup-config-tsx]: https://www.npmjs.com/package/@guanghechen/rollup-config-tsx
+[@guanghechen/rollup-plugin-copy]: https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy

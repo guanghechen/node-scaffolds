@@ -1,7 +1,7 @@
 {
-  "name": "@guanghechen/template-ts-package",
+  "name": "@guanghechen/template-tsx-package",
   "version": "1.0.10",
-  "description": "Templates for creating simple typescript project",
+  "description": "Templates for creating simple typescript + react package",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -9,12 +9,13 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/node-scaffolds.git",
-    "directory": "packages/template-ts-package"
+    "directory": "packages/template-tsx-package"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/template-ts-package#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/template-tsx-package#readme",
   "keywords": [
     "typescript",
-    "typescript starter",
+    "react",
+    "typescript + react component",
     "boilerplate"
   ],
   "main": "index.js",
@@ -32,7 +33,7 @@
     "README.md"
   ],
   "bin": {
-    "ghc-ts-package": "./cli.js"
+    "ghc-tsx-package": "./cli.js"
   },
   "dependencies": {
     "@guanghechen/plop-helper": "^1.0.10",

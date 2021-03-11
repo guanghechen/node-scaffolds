@@ -1,0 +1,53 @@
+import createRollupConfigs from '@guanghechen/rollup-config-tsx'
+import path from 'path'
+import manifest from './package.json'
+
+const configs = createRollupConfigs({
+  shouldSourceMap: false,
+  preprocessOptions: {
+    input: ['src/style/index.styl'],
+    pluginOptions: {
+      multiEntryOptions: {
+        exports: false,
+      },
+      postcssOptions: {
+        modules: {
+          localsConvention: 'camelCase',
+          generateScopedName: 'ghc-[local]',
+        },
+        postcssUrlOptions: {
+          url: 'inline',
+          maxSize: 0.5, // 0.5 KB
+          assetsPath: path.join(__dirname, 'lib'),
+          fallback: 'copy',
+          basePath: [path.join(__dirname, 'src')],
+          useHash: false,
+        },
+      },
+    },
+  },
+  manifest,
+  pluginOptions: {
+    typescriptOptions: { tsconfig: 'tsconfig.src.json' },
+    postcssOptions: {
+      extract: 'index.css',
+      minimize: false,
+      sourceMap: false,
+      modules: {
+        localsConvention: 'camelCase',
+        generateScopedName: 'ghc-[local]',
+      },
+      postcssUrlOptions: {
+        url: 'inline',
+        maxSize: 0.5, // 0.5 KB
+        basePath: [path.join(__dirname, 'src')],
+        fallback: function (asset) {
+          const url = asset.url.replace(/^[/]assets[/]/, '../assets/')
+          return url
+        },
+      },
+    },
+  },
+})
+
+export default configs
