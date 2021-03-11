@@ -1,0 +1,52 @@
+{
+  "name": "@guanghechen/plop-helper",
+  "version": "1.0.10",
+  "description": "A collection of utility functions for plop templates",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/node-scaffolds.git",
+    "directory": "packages/plop-helper"
+  },
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/plop-helper#readme",
+  "keywords": [
+    "plop"
+  ],
+  "main": "lib/cjs/index.js",
+  "types": "lib/types/index.d.ts",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "lib/",
+    "!lib/**/*.js.map",
+    "!lib/**/*.d.ts.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
+    "prebuild": "rimraf lib/",
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build"
+  },
+  "dependencies": {
+    "@guanghechen/option-helper": "^1.0.10",
+    "@types/fs-extra": "^9.0.8",
+    "fs-extra": "^9.1.0",
+    "minimist": "^1.2.5",
+    "semver-regex": "^3.1.2"
+  },
+  "peerDependencies": {
+    "plop": "^2.7.4"
+  },
+  "devDependencies": {
+    "@guanghechen/rollup-config": "^1.0.10"
+  }
+}
