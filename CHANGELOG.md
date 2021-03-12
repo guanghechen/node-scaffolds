@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="1.0.12"></a>
+## 1.0.12 (2021-03-12)
+
+### Changed
+
+- 🎨 [plop-helper] improve: deduplicate codes with the features of @guanghechen/option-helper [[1099f9f](https://github.com/guanghechen/node-scaffolds/commit/1099f9f85fd9fcafeda1b110eb97c5240dbb22de)]
+- 🔧 chore: update lint configs &amp; lint codes [[c00517c](https://github.com/guanghechen/node-scaffolds/commit/c00517c30f3ceace3d0d13ef793ca1a518302241)]
+
+### Miscellaneous
+
+- 🔀 Merge branch &#x27;develop&#x27; [[83e1275](https://github.com/guanghechen/node-scaffolds/commit/83e12750b0209ef2663af2ae22085e13b81e3570)]
+- 🚧 [option-helper] feat: expose new utility class &#x27;TextTransfomerBuilder&#x27; [[ffe780e](https://github.com/guanghechen/node-scaffolds/commit/ffe780eeed453b9cf1f558dbc15abb57a86c511d)]
+- 🚧 [eslint-config] improve: enable sort/imports to sort imports members in default [[5c85921](https://github.com/guanghechen/node-scaffolds/commit/5c85921042919e402d48fa52d3f3bb1c4df3f416)]
+- 📝 docs: update CHANGELOG [[ba22655](https://github.com/guanghechen/node-scaffolds/commit/ba226553a771a13fb3314f8dee525b448693e969)]
+
+
 <a name="1.0.11"></a>
 ## 1.0.11 (2021-03-11)
 
