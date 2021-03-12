@@ -1,7 +1,9 @@
 import {
+  TextTransformerBuilder,
   coverBoolean,
   isNotEmptyArray,
   isString,
+  textTransformers,
 } from '@guanghechen/option-helper'
 import fs from 'fs-extra'
 import type { InputQuestion } from 'inquirer'
@@ -50,6 +52,14 @@ export interface NpmPackagePromptsAnswers {
   isMonorepo: boolean
 }
 
+const transformers = {
+  packageName: textTransformers.trim,
+  packageAuthor: textTransformers.trim,
+  packageVersion: textTransformers.trim,
+  packageDescription: new TextTransformerBuilder().trim.capital.build(),
+  packageLocation: textTransformers.trim,
+}
+
 export function createNpmPackagePrompts(
   cwd: string,
   defaultAnswers: Partial<NpmPackagePromptsAnswers> = {},
@@ -60,7 +70,7 @@ export function createNpmPackagePrompts(
       name: 'packageName',
       message: 'name',
       default: defaultAnswers.packageName,
-      transformer: (text: string): string => text.trim(),
+      transformer: transformers.packageName,
     },
     {
       type: 'input',
@@ -79,14 +89,14 @@ export function createNpmPackagePrompts(
         }
         return defaultAnswers.packageAuthor
       },
-      transformer: (text: string): string => text.trim(),
+      transformer: transformers.packageAuthor,
     },
     {
       type: 'input',
       name: 'packageVersion',
       message: 'version',
       default: defaultAnswers.packageVersion,
-      transformer: (text: string): string => text.trim(),
+      transformer: transformers.packageVersion,
       validate: (text: string): boolean => semverRegex().test(text),
     },
     {
@@ -94,8 +104,7 @@ export function createNpmPackagePrompts(
       name: 'packageDescription',
       message: 'description',
       default: defaultAnswers.packageDescription,
-      transformer: (text: string): string =>
-        text.trim().replace(/^[a-z]/, m => m.toUpperCase()),
+      transformer: transformers.packageDescription,
     },
     {
       type: 'input',
@@ -136,7 +145,7 @@ export function createNpmPackagePrompts(
           .replace('\\/', '-')
         return packageName.replace(/^@/, '')
       },
-      transformer: (text: string): string => text.trim(),
+      transformer: transformers.packageLocation,
     },
   ]
 
@@ -152,17 +161,22 @@ export function createNpmPackagePrompts(
 export function resolveNpmPackageAnswers(
   answers: NpmPackagePromptsAnswers,
 ): NpmPackagePromptsAnswers {
-  const packageName: string = answers.packageName.trim()
-  const packageAuthor: string = answers.packageAuthor.trim()
-  const packageVersion: string = answers.packageVersion.trim()
-  const packageDescription: string = answers.packageDescription
-    .trim()
-    .replace(/^[a-z]/, m => m.toUpperCase())
+  const packageName: string = transformers.packageName(answers.packageName)
+  const packageAuthor: string = transformers.packageAuthor(
+    answers.packageAuthor,
+  )
+  const packageVersion: string = transformers.packageVersion(
+    answers.packageVersion,
+  )
+  const packageDescription: string = transformers
+    .packageDescription(answers.packageDescription)
     .replace(/[.]?$/, '')
   const packageUsage: string = packageDescription
     ? packageDescription + '.'
     : ''
-  const packageLocation: string = answers.packageLocation.trim()
+  const packageLocation: string = transformers.packageLocation(
+    answers.packageLocation,
+  )
   const repositoryName: string = answers.repositoryName.trim()
   const isMonorepo: boolean = answers.isMonorepo
   const repositoryHomepage: string = answers.isMonorepo
