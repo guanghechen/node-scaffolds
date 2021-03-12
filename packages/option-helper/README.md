@@ -92,18 +92,30 @@ A collection of utility functions for processing options.
 
     Name                  | Description
     :--------------------:|:---------------------------------------
-    `toLowerCase`         | `'TEST STRING' => 'test string'`
-    `toUpperCase`         | `'test string' => 'TEST STRING'`
-    `toCapitalCase`       | `'test string' => 'Test String'`
-    `toPascalCase`        | `'test string' => 'TestString'`
     `toCamelCase`         | `'test string' => 'testString'`
+    `toCapitalCase`       | `'test string' => 'Test String'`
     `toConstantCase`      | `'test string' => 'TEST_STRING'`
+    `toDotCase`           | `'test string' => 'test.string'`
     `toKebabCase`         | `'test string' => 'test-string'`
-    `toSnakeCase`         | `'test string' => 'test_string'`
+    `toLowerCase`         | `'TEST STRING' => 'test string'`
+    `toPascalCase`        | `'test string' => 'TestString'`
     `toPathCase`          | `'test string' => 'test/string'`
     `toSentenceCase`      | `'testString' => 'Test string'`
+    `toSnakeCase`         | `'test string' => 'test_string'`
     `toTitleCase`         | `'a simple test' => 'A Simple Test'`
-    `toDotCase`           | `'test string' => 'test.string'`
+    `toUpperCase`         | `'test string' => 'TEST STRING'`
+
+
+    - `TextTransformBuilder`
+
+      ```typescript
+      import { TextTransformBuilder } from '@guanghechen/option-helper'
+
+      const transformer = new TextTransformBuilder().trim.kebab.build()
+
+      let text: string = transformer(' TeSt_StrinG ')
+      // => 'test-string'
+      ```
 
   * `cover` utilities
 
