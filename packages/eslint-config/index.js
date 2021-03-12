@@ -37,11 +37,11 @@ module.exports = {
           order: 'asc',
           caseInsensitive: true,
         },
-        groups: [['builtin', 'external'], 'parent', 'sibling'],
+        groups: [['builtin', 'external'], 'internal', 'parent', 'sibling'],
         pathGroups: [
           {
             pattern: '@*/**',
-            group: 'external',
+            group: 'internal',
             position: 'after',
           },
         ],
@@ -88,6 +88,14 @@ module.exports = {
     'prefer-destructuring': 0,
     quotes: [2, 'single'],
     semi: [2, 'never'],
+    'sort-imports': [
+      2,
+      {
+        ignoreCase: false,
+        ignoreDeclarationSort: true,
+        ignoreMemberSort: false,
+      },
+    ],
     'space-before-blocks': [
       2,
       {
