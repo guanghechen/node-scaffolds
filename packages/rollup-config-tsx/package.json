@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-config-tsx",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Rollup configs for bundle typescript + react projects",
   "author": {
     "name": "guanghechen",
@@ -45,9 +45,9 @@
     "postcss-modules": "^3.2.2"
   },
   "dependencies": {
-    "@guanghechen/option-helper": "^1.0.11",
-    "@guanghechen/postcss-modules-dts": "^1.0.11",
-    "@guanghechen/rollup-config": "^1.0.11",
+    "@guanghechen/option-helper": "^1.0.12",
+    "@guanghechen/postcss-modules-dts": "^1.0.12",
+    "@guanghechen/rollup-config": "^1.0.12",
     "@rollup/plugin-multi-entry": "4.0.0",
     "@types/autoprefixer": "^9.7.2",
     "@types/postcss-url": "8.0.1",

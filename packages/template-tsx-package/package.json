@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/template-tsx-package",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Templates for creating simple typescript + react package",
   "author": {
     "name": "guanghechen",
@@ -36,7 +36,7 @@
     "ghc-tsx-package": "./cli.js"
   },
   "dependencies": {
-    "@guanghechen/plop-helper": "^1.0.11",
+    "@guanghechen/plop-helper": "^1.0.12",
     "plop": "^2.7.4"
   }
 }

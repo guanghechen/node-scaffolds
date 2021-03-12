@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/locate-helper",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Utils for locate nearest filepath matched the given pattern",
   "author": {
     "name": "guanghechen",
