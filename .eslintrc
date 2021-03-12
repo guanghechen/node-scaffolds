@@ -6,7 +6,6 @@
     "plugin:jest/recommended",
     "prettier"
   ],
-  "plugins": ["import"],
   "env": {
     "browser": true,
     "commonjs": true,
@@ -19,6 +18,7 @@
     {
       "files": ["**/*.ts", "**/*tsx"],
       "extends": [
+        "@guanghechen",
         "@guanghechen/jsx",
         "@guanghechen/ts",
         "plugin:jest/recommended",
