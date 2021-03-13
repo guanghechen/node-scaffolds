@@ -46,7 +46,6 @@
 
 ### Miscellaneous
 
--  sparkles: feat: add new sub-package @guanghechen/template-tsx-package [[8127516](https://github.com/guanghechen/node-scaffolds/commit/8127516730c2ee19a4a7c3e7c10d46e09567b368)]
 - 📝 docs: update READMEs [[bc666b3](https://github.com/guanghechen/node-scaffolds/commit/bc666b35102472fa067b29ef560421962d8ad9e3)]
 - 🚧 [template-ts-package] improve: use @guanghechen/plop-helper to deduplicate codes &amp; rename exposed bin name to &#x27;ghc-ts-package&#x27; [[05b921a](https://github.com/guanghechen/node-scaffolds/commit/05b921ac281cf647ef332f26de6615a12c33acde)]
 - 📝 docs: update CHANGELOG [[79be5f8](https://github.com/guanghechen/node-scaffolds/commit/79be5f84e5846fc0c45def6c4c86501005b30a24)]
