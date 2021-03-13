@@ -14,8 +14,12 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
     ecmaFeatures: {
+      globalReturn: false,
+      impliedStrict: true,
       jsx: true,
     },
+
+    // @babel/eslint-parser specific options
     requireConfigFile: false,
     allowImportExportEverywhere: true,
   },

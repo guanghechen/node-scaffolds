@@ -81,6 +81,7 @@ module.exports = {
     'no-multi-spaces': [2, { ignoreEOLComments: true }],
     'no-param-reassign': [2, { props: true }],
     'no-plusplus': [2, { allowForLoopAfterthoughts: true }],
+    'no-prototype-builtins': 1,
     'no-restricted-syntax': 0,
     'no-return-assign': [2, 'always'],
     'no-throw-literal': 0,
