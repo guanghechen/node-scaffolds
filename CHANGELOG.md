@@ -1,5 +1,19 @@
 # Changelog
 
+<a name="1.0.13"></a>
+## 1.0.13 (2021-03-13)
+
+### Added
+
+- ➕ chore: add missed peerDependencies [[8cfa03c](https://github.com/guanghechen/node-scaffolds/commit/8cfa03c78c3ae27b6cf8b7fd926f06c2896e0efe)]
+
+### Miscellaneous
+
+- 🚧 [eslint-config*] feat: update parserOptions and rules [[2bdf33e](https://github.com/guanghechen/node-scaffolds/commit/2bdf33eed499ec57ab4e32a4bb92768b5e92b73e)]
+- 📝 docs: update READMEs [[4a69754](https://github.com/guanghechen/node-scaffolds/commit/4a69754b2f07dd29ff76c9521c3356b070c4ff9b)]
+- 📝 docs: update CHANGELOG [[fa66e37](https://github.com/guanghechen/node-scaffolds/commit/fa66e37c49c6a34b79b59561076b6e5abed4809a)]
+
+
 <a name="1.0.12"></a>
 ## 1.0.12 (2021-03-12)
 
