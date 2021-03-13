@@ -1,8 +1,8 @@
-<header align="center">
-  <h1>
+<header>
+  <h1 align="center">
     <a href="https://github.com/guanghechen/node-scaffolds/tree/master/packages/rollup-config#readme">@guanghechen/rollup-config</a>
   </h1>
-  <div>
+  <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/rollup-config">
       <img
         alt="Npm Version"
