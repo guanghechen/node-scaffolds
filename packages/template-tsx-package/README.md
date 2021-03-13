@@ -35,7 +35,7 @@
     </a>
   </div>
 </header>
-<br />
+<br/>
 
 
 Templates powered by [plop][] for creating simple typescript + react project.

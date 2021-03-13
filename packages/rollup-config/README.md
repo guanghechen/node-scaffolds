@@ -47,7 +47,7 @@
     </a>
   </div>
 </header>
-<br />
+<br/>
 
 
 Rollup configs for bundle typescript project.

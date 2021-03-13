@@ -35,7 +35,7 @@
     </a>
   </div>
 </header>
-<br />
+<br/>
 
 
 A collection of utility functions for plop templates.

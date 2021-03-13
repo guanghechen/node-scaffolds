@@ -35,7 +35,7 @@
     </a>
   </div>
 </header>
-<br />
+<br/>
 
 
 Generate `*.d.ts` files for style files (such as css, stylus and etc), should be worked with [postcss-modules][].

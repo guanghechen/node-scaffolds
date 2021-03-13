@@ -47,7 +47,7 @@
     </a>
   </div>
 </header>
-<br />
+<br/>
 
 
 This project is modified from https://github.com/vladshcherbin/rollup-plugin-copy. (Migrated from https://www.npmjs.com/package/@barusu/rollup-plugin-copy).

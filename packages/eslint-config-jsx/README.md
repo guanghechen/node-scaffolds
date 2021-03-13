@@ -41,7 +41,7 @@
     </a>
   </div>
 </header>
-<br />
+<br/>
 
 
 Eslint config for jsx.

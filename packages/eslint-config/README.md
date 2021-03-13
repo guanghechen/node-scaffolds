@@ -41,7 +41,7 @@
     </a>
   </div>
 </header>
-<br />
+<br/>
 
 
 Basic eslint config for node.js/javascript project.
