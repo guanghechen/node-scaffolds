@@ -1,21 +1,21 @@
 const {
-  resolveNpmPackageAnswers,
   createNpmPackagePrompts,
+  resolveNpmPackageAnswers,
+  resolveNpmPackagePreAnswers,
 } = require('@guanghechen/plop-helper')
 const path = require('path')
 const manifest = require('./package.json')
 
 module.exports = function (plop) {
-  const cwd = path.resolve(process.cwd())
+  const preAnswers = resolveNpmPackagePreAnswers()
+  const defaultAnswers = { packageVersion: manifest.version }
+  const { cwd, isMonorepo } = preAnswers
+
   plop.setGenerator('tsx-package', {
     description: 'create template typescript project',
-    prompts: [
-      ...createNpmPackagePrompts(cwd, {
-        packageVersion: manifest.version,
-      }),
-    ],
+    prompts: [...createNpmPackagePrompts(preAnswers, defaultAnswers)],
     actions: function (_answers) {
-      const answers = resolveNpmPackageAnswers(_answers)
+      const answers = resolveNpmPackageAnswers(_answers, preAnswers)
 
       const resolveSourcePath = p =>
         path.normalize(path.resolve(__dirname, 'boilerplate', p))
@@ -54,7 +54,7 @@ module.exports = function (plop) {
           path: resolveTargetPath('rollup.config.js'),
           templateFile: resolveSourcePath('rollup.config.js.hbs'),
         },
-        !answers.isMonorepo && {
+        !isMonorepo && {
           type: 'add',
           path: resolveTargetPath('tsconfig.settings.json'),
           templateFile: resolveSourcePath('tsconfig.settings.json.hbs'),

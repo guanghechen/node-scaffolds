@@ -60,7 +60,14 @@ This package exposed some [inquirer][] question and answer resolver.
 
 ### Npm package
 
-* `NpmPackagePromptsAnswers`
+* `NpmPackagePreAnswers`:
+
+  Name                  | Type      | Description
+  :--------------------:|:---------:|:-----------------:
+  `cwd`                 | `string`  | Current workspace directory
+  `isMonorepo`          | `boolean` | Whether if this package under a monorepo
+
+* `NpmPackagePromptsAnswers`:
 
   Name                  | Type      | Description
   :--------------------:|:---------:|:-----------------:
@@ -68,18 +75,25 @@ This package exposed some [inquirer][] question and answer resolver.
   `packageAuthor`       | `string`  | Package author
   `packageVersion`      | `string`  | Package version
   `packageDescription`  | `string`  | Package description
-  `packageUsage`        | `string`  | Package usage
   `packageLocation`     | `string`  | Package location (path relative to the current directory)
+
+* `NpmPackageData`:
+
+  Extended `NpmPackagePreAnswers` and `NpmPackagePromptsAnswers` With following
+  Additional properties.
+
+  Name                  | Type      | Description
+  :--------------------:|:---------:|:-----------------:
+  `packageUsage`        | `string`  | Package usage
   `repositoryName`      | `string`  | Git repository name
   `repositoryHomepage`  | `string`  | Git repository homepage
-  `isMonorepo`          | `boolean` | Whether if this package under a monorepo
 
 ### Example
 
 I recommend you use the following template directory structure:
 
 ```
-├── boilerplate
+├── boilerplate/
 │   ├── package.json.hbs
 │   ├── README.md.hbs
 │   ├── rollup.config.js.hbs
@@ -88,9 +102,9 @@ I recommend you use the following template directory structure:
 │   ├── tsconfig.json.hbs
 │   ├── tsconfig.settings.json.hbs
 │   └── tsconfig.src.json.hbs
+├── node_modules/
 ├── cli.js
 ├── index.js
-├── node_modules
 ├── package.json
 └── README.md
 ```
@@ -99,51 +113,53 @@ Where the `index.js` exposed a default plop config, such as:
 
   ```javascript
   const {
-    resolveNpmPackageAnswers,
     createNpmPackagePrompts,
+    resolveNpmPackageAnswers,
+    resolveNpmPackagePreAnswers,
   } = require('@guanghechen/plop-helper')
   const path = require('path')
   const manifest = require('./package.json')
 
   module.exports = function (plop) {
-  const cwd = path.resolve(process.cwd())
-  plop.setGenerator('ts-package', {
-    description: 'create template typescript project',
-    prompts: [
-      ...createNpmPackagePrompts(cwd, {
-        packageVersion: manifest.version,
-      }),
-    ],
-    actions: function (_answers) {
-      const answers = resolveNpmPackageAnswers(_answers)
-      answers.toolPackageVersion = manifest.version
+    const preAnswers = resolveNpmPackagePreAnswers()
+    const defaultAnswers = { packageVersion: manifest.version }
+    const { cwd, isMonorepo } = preAnswers
 
-      // Assign resolved data into plop templates.
-      Object.assign(_answers, answers)
+    plop.setGenerator('ts-package', {
+      description: 'create template typescript project',
+      prompts: [...createNpmPackagePrompts(preAnswers, defaultAnswers)],
+      actions: function (_answers) {
+        const answers = resolveNpmPackageAnswers(_answers)
+        answers.toolPackageVersion = manifest.version
 
-      const resolveSourcePath = p =>
-        path.normalize(path.resolve(__dirname, 'boilerplate', p))
-      const resolveTargetPath = p =>
-        path.normalize(path.resolve(answers.packageLocation, p))
-      const relativePath = path.relative(answers.packageLocation, cwd)
+        // Assign resolved data into plop templates.
+        Object.assign(_answers, answers)
 
-      return [
-        {
-          type: 'add',
-          path: resolveTargetPath('package.json'),
-          templateFile: resolveSourcePath('package.json.hbs'),
-        },
-        {
-          type: 'add',
-          path: resolveTargetPath('README.md'),
-          templateFile: resolveSourcePath('README.md.hbs'),
-        },
-        !answers.isMonorepo && {
-          type: 'add',
-          path: resolveTargetPath('rollup.config.js'),
-          templateFile: resolveSourcePath('rollup.config.js.hbs'),
-        },
-      ]
+        const resolveSourcePath = p =>
+          path.normalize(path.resolve(__dirname, 'boilerplate', p))
+        const resolveTargetPath = p =>
+          path.normalize(path.resolve(answers.packageLocation, p))
+        const relativePath = path.relative(answers.packageLocation, cwd)
+
+        return [
+          {
+            type: 'add',
+            path: resolveTargetPath('package.json'),
+            templateFile: resolveSourcePath('package.json.hbs'),
+          },
+          {
+            type: 'add',
+            path: resolveTargetPath('README.md'),
+            templateFile: resolveSourcePath('README.md.hbs'),
+          },
+          !isMonorepo && {
+            type: 'add',
+            path: resolveTargetPath('rollup.config.js'),
+            templateFile: resolveSourcePath('rollup.config.js.hbs'),
+          },
+        ].filter(Boolean)
+      },
+    })
   }
   ```
 
@@ -165,9 +181,11 @@ And the `cli.js` exposed a Node.js CLI script, such as:
 ## Related
 
 * [@guanghechen/template-ts-package][]
+* [@guanghechen/template-tsx-package][]
 * [inquirer][]
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/plop-helper#readme
 [inquirer]: https://github.com/SBoudrias/Inquirer.js/
 [@guanghechen/template-ts-package]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/template-ts-package#readme
+[@guanghechen/template-tsx-package]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/template-ts-package#readme

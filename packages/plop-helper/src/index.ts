@@ -1,2 +1,2 @@
 export * from './cli'
-export * from './prompts/npm-package'
+export * from './npm-prompts'
