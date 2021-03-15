@@ -42,10 +42,8 @@
     "@types/fs-extra": "^9.0.8",
     "fs-extra": "^9.1.0",
     "minimist": "^1.2.5",
+    "plop": "^2.7.4",
     "semver-regex": "^3.1.2"
-  },
-  "peerDependencies": {
-    "plop": "^2.7.4"
   },
   "devDependencies": {
     "@guanghechen/rollup-config": "^1.0.13"
