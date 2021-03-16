@@ -1,5 +1,36 @@
 # Changelog
 
+<a name="1.1.0"></a>
+## 1.1.0 (2021-03-16)
+
+### Added
+
+- ✅ test(template-ts-package,template-tsx-package): update jest configs &amp; update tests [[5bd8b77](https://github.com/guanghechen/node-scaffolds/commit/5bd8b77b6f6bb6e2eca5ab145361f9858af316ca)]
+- ✅ test(jest-helper): add tests [[3816006](https://github.com/guanghechen/node-scaffolds/commit/38160060531325a6691645fe03dd99fa6d381353)]
+- ✨ feat: add new sub-package @guanghechen/jest-helper [[e61c869](https://github.com/guanghechen/node-scaffolds/commit/e61c869211790770e307eca1e941605f69d09b93)]
+- ➕ chore(plop-helper): make plop as a package dependency [[c6b0a58](https://github.com/guanghechen/node-scaffolds/commit/c6b0a58820cbc31782af554dcc5e1b0b19cd01e1)]
+
+### Changed
+
+- 🔧 chore: perform build in @guanghechen/rollup-config and @guanghechen/plop-helper before run test [[c939cb9](https://github.com/guanghechen/node-scaffolds/commit/c939cb9b09be3506a8676eeca89c6c112da6f179)]
+- 🎨 improve(plop-helper): split prompts into smaller pieces &amp; update README [[89cfaed](https://github.com/guanghechen/node-scaffolds/commit/89cfaedb4033c225c27b5473f34093bc16627aad)]
+
+### Fixed
+
+- 🐛 fix(template-tsx-package): fix bugs in package.json.hbs [[9d5a703](https://github.com/guanghechen/node-scaffolds/commit/9d5a7035b735311b7e03af178aebfce5199d8811)]
+
+### Miscellaneous
+
+- 🚧 feat(plop-helper): update due to the previous change &amp; expose new test utility func &#x27;runPromptsWithMock&#x27; &amp; update tests [[ef94c91](https://github.com/guanghechen/node-scaffolds/commit/ef94c912e3078f722a807800826352f4bcd12bc6)]
+-  :feat(option-helper):  remove TextTransformerBuilder and expose composeTextTransformers instead &amp; update tests [[bf9aba0](https://github.com/guanghechen/node-scaffolds/commit/bf9aba0e9f71b20a4d57c5ace168b7ccf67e8c04)]
+- 📝 docs: update README [[f390171](https://github.com/guanghechen/node-scaffolds/commit/f3901713c9f15debf948bc7c1313f666c88f294b)]
+- 🚧 feat(plop-helper): support node-plop api &amp; utility funcs for testing plop &amp; update tests [[788a47d](https://github.com/guanghechen/node-scaffolds/commit/788a47db79e48719483eab3ac8097c815b1753cf)]
+- 🚧 improve(template-ts*-package): update README.md.hbs [[135f2d1](https://github.com/guanghechen/node-scaffolds/commit/135f2d1b9afed9ec94cb7aa186766ec51ba7bfc5)]
+- 📝 style: format READMEs [[3bc7ae8](https://github.com/guanghechen/node-scaffolds/commit/3bc7ae877157aea254f352f0f25ce98ee73b5d9f)]
+- 📝 docs: update CHANGELOG [[e72a64e](https://github.com/guanghechen/node-scaffolds/commit/e72a64eaee22c9e0d824865505afeafe2b532e69)]
+- 📝 docs: update CHANGELOG [[085d617](https://github.com/guanghechen/node-scaffolds/commit/085d61737d0a924e1dafd1d3c67eb07ae0a3074d)]
+
+
 <a name="1.0.13"></a>
 ## 1.0.13 (2021-03-13)
 
