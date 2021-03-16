@@ -15,7 +15,7 @@ module.exports = function (plop) {
     description: 'create template typescript project',
     prompts: [...createNpmPackagePrompts(preAnswers, defaultAnswers)],
     actions: function (_answers) {
-      const answers = resolveNpmPackageAnswers(_answers, preAnswers)
+      const answers = resolveNpmPackageAnswers(preAnswers, _answers)
 
       const resolveSourcePath = p =>
         path.normalize(path.resolve(__dirname, 'boilerplate', p))

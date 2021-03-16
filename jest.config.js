@@ -1,20 +1,27 @@
+const fs = require('fs-extra')
 const path = require('path')
-const { compilerOptions } = require('./tsconfig')
 
 const moduleNameMapper = {}
-for (const moduleName of Object.getOwnPropertyNames(compilerOptions.paths)) {
-  const paths = compilerOptions.paths[moduleName].map(p =>
-    path.resolve(__dirname, p),
-  )
-  let pattern = '^' + moduleName.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&') + '$'
-  moduleNameMapper[pattern] = paths.length === 1 ? paths[0] : paths
+const hasTsconfig = fs.existsSync('./tsconfig.json')
+
+if (hasTsconfig) {
+  const { compilerOptions } = require('./tsconfig')
+  for (const moduleName of Object.getOwnPropertyNames(compilerOptions.paths)) {
+    const paths = compilerOptions.paths[moduleName].map(p =>
+      path.resolve(__dirname, p),
+    )
+    let pattern = '^' + moduleName.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&') + '$'
+    moduleNameMapper[pattern] = paths.length === 1 ? paths[0] : paths
+  }
 }
 
 module.exports = {
   bail: true,
   verbose: true,
   errorOnDeprecated: true,
-  roots: ['<rootDir>/src', '<rootDir>/__test__'],
+  roots: ['src', '__test__']
+    .filter(p => fs.existsSync(p))
+    .map(p => `<rootDir>/${p}`),
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper,
   globals: {

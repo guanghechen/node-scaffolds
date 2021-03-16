@@ -5,6 +5,7 @@
 **/dist/
 **/doc/
 **/example/
+**/fixtures
 **/lib/
 **/node_modules/
 **/resource/
@@ -12,11 +13,11 @@
 **/*.styl.d.ts
 *.tsbuildinfo
 
-**/__test__/**
-!**/__test__/*.spec.ts
-
 **/*.*
-!**/__test__/*.spec.ts
+!**/__test__/*.js
+!**/__test__/*.jsx
+!**/__test__/*.ts
+!**/__test__/*.ts
 !**/src/**/*.js
 !**/src/**/*.jsx
 !**/src/**/*.ts
@@ -25,3 +26,6 @@
 !**/index.js
 !**/plop.js
 !**/rollup.config.js
+!.eslintrc
+!rollup.config.js
+!jest.config.js

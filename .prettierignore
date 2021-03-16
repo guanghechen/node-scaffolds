@@ -5,6 +5,7 @@
 **/dist/
 **/doc/
 **/example/
+**/fixtures
 **/lib/
 **/node_modules/
 **/resource/
@@ -12,21 +13,22 @@
 **/*.styl.d.ts
 *.tsbuildinfo
 
-**/__test__/**
-!**/__test__/*.spec.ts
-
 **/*.*
-!**/__test__/*.spec.ts
+!**/__test__/*.js
+!**/__test__/*.jsx
+!**/__test__/*.ts
+!**/__test__/*.tsx
 !**/src/**/*.js
 !**/src/**/*.jsx
 !**/src/**/*.ts
 !**/src/**/*.tsx
-!**/.eslintrc
 !**/cli.js
 !**/index.js
 !**/package.json
 !**/plop.js
-!**/rollup.config.js
 !**/tsconfig.json
 !**/tsconfig.settings.json
 !**/tsconfig.src.json
+!.eslintrc
+!rollup.config.js
+!jest.config.js
