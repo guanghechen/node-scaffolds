@@ -1,8 +1,10 @@
+import type { TextTransformer } from '@guanghechen/option-helper'
 import {
-  TextTransformerBuilder,
+  composeTextTransformers,
   cover,
   isNonBlankString,
-  textTransformers,
+  toSentenceCase,
+  toTrim,
 } from '@guanghechen/option-helper'
 import type { InputQuestion } from 'inquirer'
 import path from 'path'
@@ -21,12 +23,12 @@ import type {
 import { detectMonorepo, resolveRepositoryName } from './util'
 
 // Transformers for npm-package prompts
-export const npmPackageTransformers = {
-  packageName: textTransformers.trim,
-  packageAuthor: textTransformers.trim,
-  packageVersion: textTransformers.trim,
-  packageDescription: new TextTransformerBuilder().trim.capital.build(),
-  packageLocation: textTransformers.trim,
+export const npmPackageTransformers: Record<string, TextTransformer> = {
+  packageName: toTrim,
+  packageAuthor: toTrim,
+  packageVersion: toTrim,
+  packageDescription: composeTextTransformers(toTrim, toSentenceCase),
+  packageLocation: toTrim,
 }
 
 /**
@@ -98,13 +100,13 @@ export function resolveNpmPackagePreAnswers(
 /**
  * Resolve answers.
  *
- * @param answers     Prompts answers
  * @param preAnswers  Pre calculated answers
+ * @param answers     Prompts answers
  * @returns
  */
 export function resolveNpmPackageAnswers(
-  answers: NpmPackagePromptsAnswers,
   preAnswers: NpmPackagePreAnswers,
+  answers: NpmPackagePromptsAnswers,
 ): NpmPackageData {
   const { cwd, isMonorepo } = preAnswers
 

@@ -129,17 +129,17 @@ Where the `index.js` exposed a default plop config, such as:
       description: 'create template typescript project',
       prompts: [...createNpmPackagePrompts(preAnswers, defaultAnswers)],
       actions: function (_answers) {
-        const answers = resolveNpmPackageAnswers(_answers)
+        const answers = resolveNpmPackageAnswers(preAnswers, _answers)
         answers.toolPackageVersion = manifest.version
-
-        // Assign resolved data into plop templates.
-        Object.assign(_answers, answers)
 
         const resolveSourcePath = p =>
           path.normalize(path.resolve(__dirname, 'boilerplate', p))
         const resolveTargetPath = p =>
           path.normalize(path.resolve(answers.packageLocation, p))
         const relativePath = path.relative(answers.packageLocation, cwd)
+
+        // Assign resolved data into plop templates.
+        Object.assign(_answers, answers)
 
         return [
           {

@@ -1,19 +1,47 @@
+import {
+  composeStringDesensitizers,
+  createFilepathDesensitizer,
+  createJsonDesensitizer,
+  createPackageVersionDesensitizer,
+  fileSnapshot,
+} from '@guanghechen/jest-helper'
 import fs from 'fs-extra'
+import type { InputQuestion } from 'inquirer'
 import path from 'path'
-import type { NpmPackageData } from '../src'
-import { testPlop } from '../src'
+import manifest from '../package.json'
+import {
+  createNpmPackagePrompts,
+  resolveNpmPackageAnswers,
+  resolveNpmPackagePreAnswers,
+  runPlopWithMock,
+  runPromptsWithMock,
+} from '../src'
 
 const initialCwd = process.cwd()
 const outputDir = path.join(__dirname, 'output')
 
 beforeEach(async function () {
   jest.setTimeout(10000)
+  if (!fs.existsSync(outputDir)) fs.mkdirpSync(outputDir)
   process.chdir(outputDir)
 })
 
 afterEach(async function () {
-  fs.emptyDirSync(outputDir)
+  fs.removeSync(outputDir)
   process.chdir(initialCwd)
+})
+
+const desensitizers = {
+  filepath: createFilepathDesensitizer(__dirname),
+  packageVersion: createPackageVersionDesensitizer(
+    (packageName, packageVersion) => {
+      if (/^@guanghechen\//.test(packageName)) return manifest.version
+      return packageVersion
+    },
+  ),
+}
+const jsonDesensitizer = createJsonDesensitizer({
+  string: desensitizers.filepath,
 })
 
 describe('runPlop', function () {
@@ -24,27 +52,53 @@ describe('runPlop', function () {
     plopBypass: string[],
     mockInputs: string[],
     defaultAnswers: Record<string, unknown>,
-    expectedPromptsAnswers: NpmPackageData & any,
+    expectedPackageLocation: string,
   ): Promise<void> {
-    const spy = jest.spyOn(console, 'debug').mockImplementation()
+    const logDataList: unknown[] = []
+    const debugSpy = jest
+      .spyOn(console, 'debug')
+      .mockImplementation((...args: any[]) =>
+        args.forEach(arg => logDataList.push(jsonDesensitizer(arg))),
+      )
+    const logSpy = jest
+      .spyOn(console, 'log')
+      .mockImplementation((...args: any[]) =>
+        args.forEach(arg => logDataList.push(jsonDesensitizer(arg))),
+      )
 
-    await testPlop(templateConfig, plopBypass, mockInputs, defaultAnswers)
+    await runPlopWithMock(
+      templateConfig,
+      plopBypass,
+      mockInputs,
+      defaultAnswers,
+    )
 
-    expect(spy).toHaveBeenCalledWith('promptsAnswers:', expectedPromptsAnswers)
+    expect(logDataList).toMatchSnapshot('log data')
 
-    const targetDir = path.resolve(expectedPromptsAnswers.packageLocation)
-    expect(fs.existsSync(path.join(targetDir, 'src/index.ts'))).toBeTruthy()
-    expect(fs.existsSync(path.join(targetDir, 'rollup.config.js'))).toBeTruthy()
-    expect(fs.existsSync(path.join(targetDir, 'tsconfig.json'))).toBeTruthy()
-    expect(
-      fs.existsSync(path.join(targetDir, 'tsconfig.settings.json')),
-    ).toBeTruthy()
-    expect(
-      fs.existsSync(path.join(targetDir, 'tsconfig.src.json')),
-    ).toBeTruthy()
-    expect(fs.existsSync(path.join(targetDir, 'README.md'))).toBeTruthy()
+    const targetDir = path.resolve(expectedPackageLocation)
+    fileSnapshot(
+      targetDir,
+      [
+        'src/index.ts',
+        'rollup.config.js',
+        'tsconfig.json',
+        'tsconfig.settings.json',
+        'tsconfig.src.json',
+      ],
+      desensitizers.filepath,
+    )
 
-    spy.mockRestore()
+    fileSnapshot(
+      targetDir,
+      ['README.md'],
+      composeStringDesensitizers(
+        desensitizers.filepath,
+        desensitizers.packageVersion,
+      ),
+    )
+
+    debugSpy.mockRestore()
+    logSpy.mockRestore()
   }
 
   test('simple', async function () {
@@ -53,21 +107,37 @@ describe('runPlop', function () {
       ['@guanghechen/waw'],
       ['', '', 'some descriptions', ''],
       defaultAnswers,
-      {
-        ...defaultAnswers,
-        cwd: process.cwd(),
-        isMonorepo: true,
-        packageName: '@guanghechen/waw',
-        packageAuthor: 'guanghechen',
-        packageVersion: '1.0.0-alpha',
-        packageDescription: 'Some Descriptions',
-        packageLocation: 'packages/waw',
-        packageUsage: 'Some Descriptions.',
-        repositoryName: 'guanghechen',
-        repositoryHomepage:
-          'https://github.com/guanghechen/guanghechen/tree/master/packages/waw#readme',
-        toolPackageVersion: '1.0.0-alpha',
-      },
+      'packages/waw',
     )
+  })
+})
+
+describe('runPrompts', function () {
+  test('npm-package', function () {
+    const preAnswers = resolveNpmPackagePreAnswers()
+    const defaultAnswers = { packageVersion: '1.0.0-alpha' }
+    const prompts = createNpmPackagePrompts(preAnswers, defaultAnswers)
+
+    const calc = (
+      bypass: string[],
+      mockInputs: string[],
+    ): Record<string, unknown> => {
+      const answers: any = runPromptsWithMock(
+        prompts as InputQuestion[],
+        bypass,
+        mockInputs,
+      )
+      const resolvedAnswers = resolveNpmPackageAnswers(preAnswers, answers)
+      return jsonDesensitizer(resolvedAnswers) as Record<string, unknown>
+    }
+
+    expect(calc(['@guanghechen/waw'], [])).toMatchSnapshot()
+    expect(
+      calc(
+        ['@guanghechen/waw'],
+        ['', '1.0.1', 'some description', 'packages/waw2'],
+      ),
+    ).toMatchSnapshot()
+    expect(calc([], ['@guanghechen/waw'])).toMatchSnapshot()
   })
 })

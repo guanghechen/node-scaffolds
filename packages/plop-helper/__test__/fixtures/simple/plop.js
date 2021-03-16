@@ -17,7 +17,7 @@ module.exports = function (plop) {
     description: 'create template typescript project',
     prompts: [...createNpmPackagePrompts(preAnswers, defaultAnswers)],
     actions: function (_answers) {
-      const answers = resolveNpmPackageAnswers(_answers, preAnswers)
+      const answers = resolveNpmPackageAnswers(preAnswers, _answers)
       answers.toolPackageVersion = manifest.version
 
       const resolveSourcePath = p =>
@@ -28,7 +28,8 @@ module.exports = function (plop) {
       // Assign resolved data into plop templates.
       Object.assign(_answers, answers)
 
-      console.debug('promptsAnswers:', _answers)
+      // promptsAnswers:
+      console.debug(_answers)
       return [
         {
           type: 'add',

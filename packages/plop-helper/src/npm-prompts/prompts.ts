@@ -1,6 +1,7 @@
 import {
-  TextTransformerBuilder,
-  textTransformers,
+  composeTextTransformers,
+  toSentenceCase,
+  toTrim,
 } from '@guanghechen/option-helper'
 import type { TextTransformer } from '@guanghechen/option-helper'
 import type { InputQuestion } from 'inquirer'
@@ -16,7 +17,7 @@ import { detectPackageAuthor } from './util'
  */
 export const createPackageNamePrompt = (
   defaultAnswer?: string,
-  transformer: TextTransformer = textTransformers.trim,
+  transformer: TextTransformer = toTrim,
 ): InputQuestion<Pick<NpmPackagePromptsAnswers, 'packageName'>> => {
   const prompt: InputQuestion = {
     type: 'input',
@@ -38,7 +39,7 @@ export const createPackageNamePrompt = (
 export const createPackageAuthorPrompt = (
   cwd: string,
   defaultAnswer?: string,
-  transformer: TextTransformer = textTransformers.trim,
+  transformer: TextTransformer = toTrim,
 ): InputQuestion<Pick<NpmPackagePromptsAnswers, 'packageAuthor'>> => {
   const prompt: InputQuestion = {
     type: 'input',
@@ -62,7 +63,7 @@ export const createPackageAuthorPrompt = (
  */
 export const createPackageVersionPrompt = (
   defaultAnswer?: string,
-  transformer: TextTransformer = textTransformers.trim,
+  transformer: TextTransformer = toTrim,
 ): InputQuestion<Pick<NpmPackagePromptsAnswers, 'packageVersion'>> => {
   const prompt: InputQuestion = {
     type: 'input',
@@ -83,7 +84,10 @@ export const createPackageVersionPrompt = (
  */
 export const createPackageDescriptionPrompt = (
   defaultAnswer?: string,
-  transformer: TextTransformer = new TextTransformerBuilder().trim.capital.build(),
+  transformer: TextTransformer = composeTextTransformers(
+    toTrim,
+    toSentenceCase,
+  ),
 ): InputQuestion<Pick<NpmPackagePromptsAnswers, 'packageDescription'>> => {
   const prompt: InputQuestion = {
     type: 'input',
@@ -104,7 +108,7 @@ export const createPackageDescriptionPrompt = (
 export const createPackageLocationPrompt = (
   isMonorepo: boolean,
   defaultAnswer?: string,
-  transformer: TextTransformer = new TextTransformerBuilder().trim.capital.build(),
+  transformer: TextTransformer = toTrim,
 ): InputQuestion<Pick<NpmPackagePromptsAnswers, 'packageDescription'>> => {
   type Answers = Pick<
     NpmPackagePromptsAnswers,

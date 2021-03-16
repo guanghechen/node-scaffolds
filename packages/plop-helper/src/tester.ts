@@ -1,3 +1,9 @@
+import {
+  coverString,
+  isFunction,
+  isNonBlankString,
+} from '@guanghechen/option-helper'
+import type { InputQuestion } from 'inquirer'
 import mockStdin from 'mock-stdin'
 import nodePlop from 'node-plop'
 import { runPlop } from './run'
@@ -10,7 +16,7 @@ import { runPlop } from './run'
  * @param mockAnswers     mock inputs
  * @param defaultAnswers  default answers
  */
-export async function testPlop(
+export async function runPlopWithMock(
   templateConfig: string,
   plopBypass: string[],
   mockAnswers: string[],
@@ -58,4 +64,42 @@ export async function testPlop(
     stdin.end()
     stdin.restore()
   }
+}
+
+/**
+ * Run prompts with mock inputs.
+ *
+ * @param prompts     inquirer prompts
+ * @param bypass      bypass inputs
+ * @param mockInputs  inputs from stdin
+ * @returns
+ */
+export function runPromptsWithMock(
+  prompts: Array<InputQuestion<any>>,
+  bypass: string[] = [],
+  mockInputs: string[] = [],
+): Record<string, unknown> {
+  const results: Record<string, unknown> = {}
+
+  let i = 0
+  let j = 0
+  for (const prompt of prompts) {
+    if (i < bypass.length) {
+      results[prompt.name!] = bypass[i]
+      i += 1
+      continue
+    }
+
+    results[prompt.name!] = coverString(
+      '',
+      coverString(
+        isFunction(prompt.default) ? prompt.default(results) : prompt.default,
+        mockInputs[j],
+        isNonBlankString,
+      ),
+    )
+    j += 1
+  }
+
+  return results
 }
