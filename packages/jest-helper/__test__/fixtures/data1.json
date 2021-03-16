@@ -1,0 +1,16 @@
+{
+  "name": "test data",
+  "value": "somethings",
+  "array": [
+    "this is an array",
+    "this is an array",
+    "this is an array",
+    "this is an array"
+  ],
+  "object": {
+    "key": "value",
+    "key2": "value2",
+    "key3": "value3",
+    "key4": "value4"
+  }
+}
