@@ -1,0 +1,45 @@
+{
+  "name": "@guanghechen/jest-helper",
+  "version": "1.0.13",
+  "description": "A collection of utility functions for jest tests",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/guanghechen.git",
+    "directory": "packages/jest-helper"
+  },
+  "homepage": "https://github.com/guanghechen/guanghechen/tree/master/packages/jest-helper#readme",
+  "keywords": [],
+  "main": "lib/cjs/index.js",
+  "types": "lib/types/index.d.ts",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "lib/",
+    "!lib/**/*.js.map",
+    "!lib/**/*.d.ts.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
+    "prebuild": "rimraf lib/",
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build"
+  },
+  "dependencies": {
+    "@guanghechen/option-helper": "^1.0.13"
+  },
+  "peerDependencies": {
+    "@types/fs-extra": "^9.0.8",
+    "fs-extra": "^9.1.0",
+    "jest": "^26.6.3"
+  }
+}

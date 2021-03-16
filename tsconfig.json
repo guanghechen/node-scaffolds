@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "module": "CommonJS",
     "paths": {
+      "@guanghechen/jest-helper": ["packages/jest-helper/src"],
       "@guanghechen/option-helper": ["packages/option-helper/src"],
       "@guanghechen/plop-helper": ["packages/plop-helper/src"],
       "@guanghechen/postcss-modules-dts": ["packages/postcss-modules-dts/src"],
