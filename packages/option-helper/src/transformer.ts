@@ -1,134 +1,161 @@
-import {
-  toCamelCase,
-  toCapitalCase,
-  toConstantCase,
-  toDotCase,
-  toKebabCase,
-  toLowerCase,
-  toPascalCase,
-  toPathCase,
-  toSentenceCase,
-  toSnakeCase,
-  toTitleCase,
-  toUpperCase,
-} from './string'
-import type { TextTransformer } from './types'
-
-// Text transform operation types
-export type TextTransformTypes =
-  | 'camel'
-  | 'capital'
-  | 'constant'
-  | 'dot'
-  | 'kebab'
-  | 'lower'
-  | 'pascal'
-  | 'path'
-  | 'sentence'
-  | 'snake'
-  | 'title'
-  | 'trim'
-  | 'upper'
-
-// Text transformer map.
-export const textTransformers: Readonly<
-  Record<TextTransformTypes, TextTransformer>
-> = {
-  camel: toCamelCase,
-  capital: toCapitalCase,
-  constant: toConstantCase,
-  dot: toDotCase,
-  kebab: toKebabCase,
-  lower: toLowerCase,
-  pascal: toPascalCase,
-  path: toPathCase,
-  sentence: toSentenceCase,
-  snake: toSnakeCase,
-  title: toTitleCase,
-  trim: text => text.trim(),
-  upper: toUpperCase,
-}
+import * as changeCase from 'change-case'
+import { lowerCase } from 'lower-case'
+import { titleCase } from 'title-case'
+import { upperCase } from 'upper-case'
 
 /**
- * TextTransformer builder
+ * Text transformer.
  */
-export class TextTransformerBuilder {
-  protected operations: TextTransformTypes[] = []
+export type TextTransformer = (text: string) => string
 
-  // Mark it need `camel` transform operation.
-  public get camel(): this {
-    this.operations.push('camel')
-    return this
-  }
+/**
+ * Transform into a string with the separator
+ * denoted by the next word capitalized.
+ *
+ *   'test string' => 'testString'
+ *
+ * @param text
+ * @see https://github.com/blakeembrey/change-case#camelcase
+ */
+export const toCamelCase: TextTransformer = text => changeCase.camelCase(text)
 
-  // Mark it need `capital` transform operation.
-  public get capital(): this {
-    this.operations.push('capital')
-    return this
-  }
+/**
+ * Transform into a space separated string with each word capitalized.
+ *
+ *    'test string' => 'Test String'
+ *
+ * @param text
+ * @see https://github.com/blakeembrey/change-case#capitalCase
+ */
+export const toCapitalCase: TextTransformer = text =>
+  changeCase.capitalCase(text)
 
-  // Mark it need `dot` transform operation.
-  public get dot(): this {
-    this.operations.push('dot')
-    return this
-  }
+/**
+ * Transform into upper case string with an underscore between words.
+ *
+ *    'test string' => 'TEST_STRING'
+ *
+ * @param text
+ * @see https://github.com/blakeembrey/change-case#constantCase
+ */
+export const toConstantCase: TextTransformer = text =>
+  changeCase.constantCase(text)
 
-  // Mark it need `kebab` transform operation.
-  public get kebab(): this {
-    this.operations.push('kebab')
-    return this
-  }
+/**
+ * Transform into a lower case string with a period between words.
+ *
+ *    'test string' => 'test.string'
+ *
+ * @param text
+ * @see https://github.com/blakeembrey/change-case#dotcase
+ */
+export const toDotCase: TextTransformer = text => changeCase.dotCase(text)
 
-  // Mark it need `lower` transform operation.
-  public get lower(): this {
-    this.operations.push('lower')
-    return this
-  }
+/**
+ * Transform into a lower cased string with dashes between words.
+ *
+ *    'test string' => 'test-string'
+ *
+ * @param text
+ * @see https://github.com/blakeembrey/change-case#paramcase
+ */
+export const toKebabCase: TextTransformer = text => changeCase.paramCase(text)
 
-  // Mark it need `pascal` transform operation.
-  public get pascal(): this {
-    this.operations.push('pascal')
-    return this
-  }
+/**
+ * Transforms the string to lower case.
+ *
+ *    'TEST STRING' => 'test string'
+ *
+ * @param text
+ * @see https://github.com/blakeembrey/change-case#lowerCase
+ */
+export const toLowerCase: TextTransformer = text => lowerCase(text)
 
-  // Mark it need `path` transform operation.
-  public get path(): this {
-    this.operations.push('path')
-    return this
-  }
+/**
+ * Transform into a string of capitalized words without separators.
+ *
+ *    'test string' => 'TestString'
+ *
+ * @param text
+ * @see https://github.com/blakeembrey/change-case#pascalcase
+ */
+export const toPascalCase: TextTransformer = text => changeCase.pascalCase(text)
 
-  // Mark it need `snake` transform operation.
-  public get snake(): this {
-    this.operations.push('snake')
-    return this
-  }
+/**
+ * Transform into a lower case string with slashes between words.
+ *
+ *    'test string' => 'test/string'
+ *
+ * @param text
+ * @see https://github.com/blakeembrey/change-case#pathcase
+ */
+export const toPathCase: TextTransformer = text => changeCase.pathCase(text)
 
-  // Mark it need trim operation.
-  public get trim(): this {
-    this.operations.push('trim')
-    return this
-  }
+/**
+ * Transform into a lower case with spaces between words,
+ * then capitalize the string.
+ *
+ *    'testString' => 'Test string'
+ *
+ * @param text
+ * @see https://github.com/blakeembrey/change-case#sentencecase
+ */
+export const toSentenceCase: TextTransformer = text =>
+  changeCase.sentenceCase(text)
 
-  // Mark it need `upper` transform operation.
-  public get upper(): this {
-    this.operations.push('upper')
-    return this
-  }
+/**
+ * Transform into a lower case string with underscores between words.
+ *
+ *    'test string' => 'test_string'
+ *
+ * @param text
+ * @see https://github.com/blakeembrey/change-case#snakeCase
+ */
+export const toSnakeCase: TextTransformer = text => changeCase.snakeCase(text)
 
-  /**
-   * Create a text transformer
-   * @returns
-   */
-  public build(): TextTransformer {
-    const self = this
-    const operations = self.operations.slice()
-    const transformer: TextTransformer = (text: string): string => {
-      let result = text
-      for (const operation of operations) {
-        result = textTransformers[operation](result)
-      }
-      return result
+/**
+ * Transform a string into title case following English rules.
+ *
+ *    'a simple test' => 'A Simple Test'
+ *
+ * @param text
+ * @see https://github.com/blakeembrey/change-case#titlecase
+ */
+export const toTitleCase: TextTransformer = text => titleCase(text)
+
+/**
+ * Perform trim operation
+ *
+ *    ' a simple test  ' => 'a simple test'
+ *
+ * @param text
+ * @returns
+ */
+export const toTrim: TextTransformer = text => text.trim()
+
+/**
+ * Transforms the string to upper case.
+ *
+ *    'test string' => 'TEST STRING'
+ *
+ * @param text
+ * @see https://github.com/blakeembrey/change-case#upperCase
+ */
+export const toUpperCase: TextTransformer = text => upperCase(text)
+
+/**
+ * Compose multiple TextTransformer into one.
+ * @param transformers
+ * @returns
+ */
+export function composeTextTransformers(
+  ...transformers: ReadonlyArray<TextTransformer>
+): TextTransformer {
+  return text => {
+    let result = text
+    for (const transformer of transformers) {
+      result = transformer(result)
     }
-    return transformer
+    return result
   }
 }

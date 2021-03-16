@@ -106,14 +106,21 @@ A collection of utility functions for processing options.
     `toUpperCase`         | `'test string' => 'TEST STRING'`
 
 
-    - `TextTransformBuilder`
+    - `composeTextTransformers`: Compose multiple TextTransformer into one.
 
       ```typescript
-      import { TextTransformBuilder } from '@guanghechen/option-helper'
+      import {
+        composeTextTransformers,
+        toKebabCase,
+        toTrim,
+      } from '@guanghechen/option-helper'
 
-      const transformer = new TextTransformBuilder().trim.kebab.build()
+      // function composeTextTransformers (
+      //   ...transformers: ReadonlyArray<TextTransformer>
+      // ): TextTransformer
 
-      let text: string = transformer(' TeSt_StrinG ')
+      const transform = composeTextTransformers(toTrim, toKebabCase)
+      const text: string = transform(' TeSt_StrinG ')
       // => 'test-string'
       ```
 

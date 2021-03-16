@@ -1,6 +1,22 @@
-import { coverBoolean, coverNumber, coverString } from '../src'
+import { cover, coverBoolean, coverNumber, coverString } from '../src'
 
 describe('cover', function () {
+  test('lazy defaultValue', function () {
+    const fn = jest.fn(() => 'alpha')
+    expect(cover<string>(fn, 'beta')).toEqual('beta')
+    expect(fn.mock.calls.length).toBe(0)
+
+    expect(cover<string>(fn, null)).toEqual('alpha')
+    expect(fn.mock.calls.length).toBe(1)
+  })
+
+  test('validation', function () {
+    const validator = (text: string): boolean => /^alpha|beta$/i.test(text)
+    expect(cover<string>('alpha', 'theta', validator)).toEqual('alpha')
+    expect(cover<string>('alpha', 'beta', validator)).toEqual('beta')
+    expect(cover<string>('alpha', 'AlPha', validator)).toEqual('AlPha')
+  })
+
   describe('coverBoolean', function () {
     test('(true, undefined) => true', () =>
       expect(coverBoolean(true, undefined)).toEqual(true))
