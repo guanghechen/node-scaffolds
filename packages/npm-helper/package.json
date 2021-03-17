@@ -1,0 +1,39 @@
+{
+  "name": "@guanghechen/npm-helper",
+  "version": "1.1.0",
+  "description": "",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/guanghechen.git",
+    "directory": "packages/npm-helper"
+  },
+  "homepage": "https://github.com/guanghechen/guanghechen/tree/master/packages/npm-helper#readme",
+  "keywords": [],
+  "main": "index.js",
+  "types": "index.d.ts",
+  "source": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "src/",
+    "index.js",
+    "index.d.ts",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "cross-env jest --config ../../jest.config.js --rootDir . --roots ."
+  },
+  "dependencies": {
+    "@guanghechen/locate-helper": "^1.1.0",
+    "fs-extra": "^9.1.0"
+  }
+}

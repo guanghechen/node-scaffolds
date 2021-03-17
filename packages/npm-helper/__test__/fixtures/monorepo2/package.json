@@ -1,0 +1,12 @@
+{
+  "author": {
+    "name": "waw"
+  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "@babel/core": "*"
+  }
+}

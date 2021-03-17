@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dependency collectAllDependencies: current repo 1`] = `
+Array [
+  "@guanghechen/locate-helper",
+  "fs-extra",
+  "at-least-node",
+  "graceful-fs",
+  "jsonfile",
+  "universalify",
+]
+`;
+
+exports[`dependency collectAllDependencies: monorepo2 1`] = `
+Array [
+  "@babel/core",
+  "@babel/code-frame",
+  "@babel/highlight",
+  "@babel/helper-validator-identifier",
+  "chalk",
+  "ansi-styles",
+  "color-convert",
+  "color-name",
+  "supports-color",
+  "has-flag",
+  "js-tokens",
+  "@babel/generator",
+  "@babel/types",
+  "lodash",
+  "to-fast-properties",
+  "jsesc",
+  "source-map",
+  "@babel/helper-compilation-targets",
+  "@babel/compat-data",
+  "@babel/helper-validator-option",
+  "browserslist",
+  "caniuse-lite",
+  "colorette",
+  "electron-to-chromium",
+  "escalade",
+  "node-releases",
+  "semver",
+  "lru-cache",
+  "yallist",
+  "@babel/helper-module-transforms",
+  "@babel/helper-module-imports",
+  "@babel/helper-replace-supers",
+  "@babel/helper-member-expression-to-functions",
+  "@babel/helper-optimise-call-expression",
+  "@babel/traverse",
+  "@babel/helper-function-name",
+  "@babel/helper-get-function-arity",
+  "@babel/template",
+  "@babel/parser",
+  "@babel/helper-split-export-declaration",
+  "debug",
+  "ms",
+  "globals",
+  "type-fest",
+  "@babel/helper-simple-access",
+  "@babel/helpers",
+  "convert-source-map",
+  "safe-buffer",
+  "gensync",
+  "json5",
+  "minimist",
+  "rollup",
+  "fsevents",
+]
+`;
+
+exports[`dependency collectAllDependencies: normal-repo -- warnings 1`] = `
+Array [
+  "cannot find package.json for '@guanghechen/not-existed-repo'",
+]
+`;
+
+exports[`dependency collectAllDependencies: normal-repo 1`] = `
+Array [
+  "@guanghechen/not-existed-repo",
+  "rollup",
+]
+`;
