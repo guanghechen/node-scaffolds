@@ -1,3 +1,4 @@
+import { detectMonorepo } from '@guanghechen/npm-helper'
 import type { TextTransformer } from '@guanghechen/option-helper'
 import {
   composeTextTransformers,
@@ -20,7 +21,7 @@ import type {
   NpmPackagePreAnswers,
   NpmPackagePromptsAnswers,
 } from './types'
-import { detectMonorepo, resolveRepositoryName } from './util'
+import { resolveRepositoryName } from './util'
 
 // Transformers for npm-package prompts
 export const npmPackageTransformers: Record<string, TextTransformer> = {

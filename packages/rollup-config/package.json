@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@guanghechen/locate-helper": "^1.1.0",
+    "@guanghechen/npm-helper": "^1.1.0",
     "@rollup/plugin-commonjs": "17.1.0",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "11.2.0",

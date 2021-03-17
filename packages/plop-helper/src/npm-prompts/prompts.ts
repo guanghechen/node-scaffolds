@@ -1,3 +1,4 @@
+import { detectPackageAuthor } from '@guanghechen/npm-helper'
 import {
   composeTextTransformers,
   toSentenceCase,
@@ -7,7 +8,6 @@ import type { TextTransformer } from '@guanghechen/option-helper'
 import type { InputQuestion } from 'inquirer'
 import semverRegex from 'semver-regex'
 import type { NpmPackagePromptsAnswers } from './types'
-import { detectPackageAuthor } from './util'
 
 /**
  * Create an inquirer prompt to ask for npm package name.
@@ -45,7 +45,7 @@ export const createPackageAuthorPrompt = (
     type: 'input',
     name: 'packageAuthor',
     message: 'author',
-    default: (): string | undefined => {
+    default: (): string | null => {
       if (defaultAnswer != null) return defaultAnswer
       const packageAuthor = detectPackageAuthor(cwd)
       return packageAuthor
