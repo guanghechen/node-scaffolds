@@ -1,5 +1,7 @@
+import type { Desensitizer } from '@guanghechen/jest-helper'
 import {
   composeStringDesensitizers,
+  createConsoleMock,
   createFilepathDesensitizer,
   createJsonDesensitizer,
   createPackageVersionDesensitizer,
@@ -58,17 +60,10 @@ describe('runPlop', function () {
     defaultAnswers: Record<string, unknown>,
     expectedPackageLocation: string,
   ): Promise<void> {
-    const logDataList: unknown[] = []
-    const debugSpy = jest
-      .spyOn(console, 'debug')
-      .mockImplementation((...args: any[]) =>
-        args.forEach(arg => logDataList.push(jsonDesensitizer(arg))),
-      )
-    const logSpy = jest
-      .spyOn(console, 'log')
-      .mockImplementation((...args: any[]) =>
-        args.forEach(arg => logDataList.push(jsonDesensitizer(arg))),
-      )
+    const consoleMock = createConsoleMock(
+      ['log', 'debug'],
+      jsonDesensitizer as Desensitizer<unknown[]>,
+    )
 
     await runPlopWithMock(
       templateConfig,
@@ -77,7 +72,7 @@ describe('runPlop', function () {
       defaultAnswers,
     )
 
-    expect(logDataList).toMatchSnapshot('log data')
+    expect(consoleMock.getIndiscriminateAll()).toMatchSnapshot('console')
 
     const targetDir = path.resolve(expectedPackageLocation)
     fileSnapshot(
@@ -101,8 +96,7 @@ describe('runPlop', function () {
       ),
     )
 
-    debugSpy.mockRestore()
-    logSpy.mockRestore()
+    consoleMock.restore()
   }
 
   test('simple', async function () {

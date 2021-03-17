@@ -73,22 +73,24 @@ Some descriptions.
 "
 `;
 
-exports[`runPlop simple: log data 1`] = `
+exports[`runPlop simple: console 1`] = `
 Array [
-  Object {
-    "cwd": "<WORKSPACE>/output",
-    "isMonorepo": true,
-    "nickname": "jojo",
-    "packageAuthor": "guanghechen",
-    "packageDescription": "Some descriptions",
-    "packageLocation": "packages/waw",
-    "packageName": "@guanghechen/waw",
-    "packageUsage": "Some descriptions.",
-    "packageVersion": "1.0.0-alpha",
-    "repositoryHomepage": "https://github.com/guanghechen/guanghechen/tree/master/packages/waw#readme",
-    "repositoryName": "guanghechen",
-    "toolPackageVersion": "1.0.0-alpha",
-  },
+  Array [
+    Object {
+      "cwd": "<WORKSPACE>/output",
+      "isMonorepo": true,
+      "nickname": "jojo",
+      "packageAuthor": "guanghechen",
+      "packageDescription": "Some descriptions",
+      "packageLocation": "packages/waw",
+      "packageName": "@guanghechen/waw",
+      "packageUsage": "Some descriptions.",
+      "packageVersion": "1.0.0-alpha",
+      "repositoryHomepage": "https://github.com/guanghechen/guanghechen/tree/master/packages/waw#readme",
+      "repositoryName": "guanghechen",
+      "toolPackageVersion": "1.0.0-alpha",
+    },
+  ],
 ]
 `;
 
