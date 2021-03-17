@@ -1,5 +1,27 @@
 # Changelog
 
+<a name="1.2.0"></a>
+## 1.2.0 (2021-03-17)
+
+### Added
+
+- ✨ feat: add new sub-package @guanghechen/npm-helper [[92ad2c5](https://github.com/guanghechen/node-scaffolds/commit/92ad2c5aa9920e3cb6bb0eeb0e1917901a9cae45)]
+- ✅ test(plop-helper): use @guanghechen/jest-util to simplify codes [[ea7f6a8](https://github.com/guanghechen/node-scaffolds/commit/ea7f6a8606e7605bcbfcf2ee7faf554ddfd3089e)]
+- ✅ test(option-helper): add missing expect to fix lint warnings [[5da1872](https://github.com/guanghechen/node-scaffolds/commit/5da187221c7ce01cdab86fd805110994521a1927)]
+- ✅ test: fix failed tests [[b328f34](https://github.com/guanghechen/node-scaffolds/commit/b328f349f01f11d46d52cc5f6931b7bce4aa74dd)]
+
+### Changed
+
+- 🔧 chore: update pretest script [[4f1d463](https://github.com/guanghechen/node-scaffolds/commit/4f1d463c5dc53a7fbdf6862210fdfeac183d2614)]
+- 🎨 improve: simplify codes with @guanghechen/npm-helper [[07b8ca9](https://github.com/guanghechen/node-scaffolds/commit/07b8ca950f6b3591cdfe5df2ed6889962b599a9f)]
+
+### Miscellaneous
+
+- 🚧 feat(locate-helper): expose new utility func &#x60;locateLatestPackageJson&#x60; [[b04e1c6](https://github.com/guanghechen/node-scaffolds/commit/b04e1c6386cb423b76aea76a0191a22f7e5367a3)]
+- 🚧 feat(jest-helper): expose new utility func &#x60;createConsoleMock&#x60; [[02768b4](https://github.com/guanghechen/node-scaffolds/commit/02768b48315e2bb72d1673d074ee2fc1e767eadc)]
+- 📝 docs: update CHANGELOG [[5da7431](https://github.com/guanghechen/node-scaffolds/commit/5da743130b22b42b0b90b572e2ad11c1a754a5ba)]
+
+
 <a name="1.1.0"></a>
 ## 1.1.0 (2021-03-16)
 
