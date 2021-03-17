@@ -29,7 +29,7 @@
     "postinstall:dev": "is-ci || husky install",
     "postpublish": "pinst --enable",
     "rebuild": "run-s clean build",
-    "pretest": "(cd packages/rollup-config && yarn build) && (cd packages/plop-helper && yarn build)",
+    "pretest": "lerna run build --concurrency 1 --scope @guanghechen/rollup-config --scope @guanghechen/plop-helper",
     "test": "lerna run test --parallel",
     "test:coverage": "lerna run test --parallel -- --coverage",
     "update:changelog": "gitmoji-changelog update",
