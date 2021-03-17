@@ -15,3 +15,8 @@ export function findNearestFilepath(
   currentDir: string,
   testFilepath: (filepath: string) => boolean,
 ): string | null
+
+/**
+ * Find the latest package.json under the give {currentDir} or its ancestor path.
+ */
+export function locateLatestPackageJson(currentDir: string): string | null

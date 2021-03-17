@@ -78,7 +78,6 @@ in the give `filenames`.
 
   * `filenames`: The file name list of the file to be searched, the first existed filepath in the list will be returned as the result.
 
-
 ### `findNearestFilepath`
 
 ```typescript
@@ -95,5 +94,14 @@ tester `testFilepath`.
 
   * `testFilepath`: Test if a given filepath is an expected one.
 
+### `locateLatestPackageJson`
+
+```typescript
+export function locateLatestPackageJson(currentDir: string): string | null
+```
+
+Find the latest `package.json` under the give `currentDir` or its ancestor path.
+
+  * `currentDir`: The starting directory of the locating.
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/locate-helper#readme

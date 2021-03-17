@@ -52,7 +52,18 @@ function findNearestFilepath(currentDir, testFilepath) {
   return findNearestFilepath(parentDir, testFilepath)
 }
 
+/**
+ * Find the latest package.json under the give {currentDir} or its ancestor path.
+ *
+ * @param {string} currentDir
+ * @returns {string|null}
+ */
+function locateLatestPackageJson(currentDir) {
+  return locateNearestFilepath(currentDir, 'package.json')
+}
+
 module.exports = {
+  locateLatestPackageJson,
   locateNearestFilepath,
   findNearestFilepath,
 }
