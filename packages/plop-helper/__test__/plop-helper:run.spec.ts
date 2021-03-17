@@ -35,7 +35,11 @@ const desensitizers = {
   filepath: createFilepathDesensitizer(__dirname),
   packageVersion: createPackageVersionDesensitizer(
     (packageName, packageVersion) => {
-      if (/^@guanghechen\//.test(packageName)) return manifest.version
+      if (/^(@guanghechen\/|version$)/.test(packageName)) {
+        // eslint-disable-next-line jest/no-standalone-expect
+        expect(packageVersion).toEqual(manifest.version)
+        return '<LATEST>'
+      }
       return packageVersion
     },
   ),
