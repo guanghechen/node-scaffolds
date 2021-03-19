@@ -12,9 +12,7 @@ export function detectPackageAuthor(currentDir: string): string | null
  * Default dependency fields.
  */
 export function createDependencyFields(): ReadonlyArray<
-  |'dependencies'
-  |'optionalDependencies'
-  |'peerDependencies'
+  'dependencies' | 'optionalDependencies' | 'peerDependencies'
 >
 
 /**
