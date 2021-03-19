@@ -1,5 +1,22 @@
 # Changelog
 
+<a name="1.2.1"></a>
+## 1.2.1 (2021-03-19)
+
+### Added
+
+- ✨ feat: add new sub-package @guanghechen/jest-config [[7051ad4](https://github.com/guanghechen/node-scaffolds/commit/7051ad426ec235f666c29047f8cd970c45ecd7e5)]
+
+### Changed
+
+- 🔧 chore: update lint configs &amp; lint codes [[eaaec6a](https://github.com/guanghechen/node-scaffolds/commit/eaaec6a029634342cd6ebe2fd1c99d8a5303805e)]
+
+### Miscellaneous
+
+- 🚧 feat(eslint-config): turn off options which are expensive to execute [[81b930f](https://github.com/guanghechen/node-scaffolds/commit/81b930f007710baefa8fa7e2c0ec8c34729d8314)]
+- 📝 docs: update CHANGELOG [[380249c](https://github.com/guanghechen/node-scaffolds/commit/380249c7e294679e21ecf6dde999b5a8ceb90667)]
+
+
 <a name="1.2.0"></a>
 ## 1.2.0 (2021-03-17)
 
