@@ -55,6 +55,7 @@ Package                               | Description
 [@guanghechen/eslint-config][]        | Eslint config for `Node.js` / `Javascript` project
 [@guanghechen/eslint-config-jsx][]    | Eslint config for `Jsx` project
 [@guanghechen/eslint-config-ts][]     | Eslint config for `Typescript` project
+[@guanghechen/jest-config][]          | Basic jest configs for typescript monorepo
 [@guanghechen/jest-helper][]          | A collection of utility functions for jest tests
 [@guanghechen/locate-helper][]        | A collection of utility functions for locating nearest filepath matched the given pattern
 [@guanghechen/option-helper][]        | A collection of utility functions for processing options
@@ -76,6 +77,7 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/eslint-config]: ./packages/eslint-config
 [@guanghechen/eslint-config-jsx]: ./packages/eslint-config-jsx
 [@guanghechen/eslint-config-ts]: ./packages/eslint-config-ts
+[@guanghechen/jest-config]: ./packages/jest-config
 [@guanghechen/jest-helper]: ./packages/jest-helper
 [@guanghechen/locate-helper]: ./packages/locate-helper
 [@guanghechen/option-helper]: ./packages/option-helper

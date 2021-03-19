@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`resolveModuleNameMapper basic: basic 1`] = `
+Object {
+  "^@/(.+)$": "<WORKSPACE>/fixtures/basic/src/$1",
+}
+`;
+
+exports[`resolveModuleNameMapper custom tsconfig name: custom-tsconfig-name 1`] = `
+Object {
+  "^@/(.+)$": Array [
+    "<WORKSPACE>/fixtures/custom-tsconfig-name/src/$1",
+    "<WORKSPACE>/fixtures/custom-tsconfig-name/script/$1",
+  ],
+}
+`;
+
+exports[`tsMonorepoConfig 1`] = `
+Object {
+  "bail": true,
+  "collectCoverage": false,
+  "collectCoverageFrom": Array [
+    "<rootDir>/cli.js",
+    "<rootDir>/index.js",
+    "<rootDir>/src/*.{js,jsx,ts,tsx}",
+    "<rootDir>/src/**/*.{js,jsx,ts,tsx}",
+  ],
+  "coverageDirectory": "<rootDir>/coverage/",
+  "coveragePathIgnorePatterns": Array [],
+  "coverageReporters": Array [
+    "lcov",
+    "text",
+    "text-summary",
+  ],
+  "coverageThreshold": Object {
+    "global": Object {
+      "branches": 80,
+      "functions": 80,
+      "lines": 80,
+      "statements": 80,
+    },
+  },
+  "errorOnDeprecated": true,
+  "globals": Object {
+    "ts-jest": Object {
+      "tsconfig": "<rootDir>/tsconfig.json",
+    },
+  },
+  "moduleFileExtensions": Array [
+    "ts",
+    "tsx",
+    "js",
+    "jsx",
+    "json",
+    "node",
+  ],
+  "moduleNameMapper": Object {
+    "^@/(.+)$": "<WORKSPACE>/fixtures/basic/src/$1",
+  },
+  "roots": Array [
+    "<rootDir>/src",
+  ],
+  "testEnvironment": "node",
+  "testPathIgnorePatterns": Array [
+    "/coverage/",
+    "/lib/",
+    "/node_modules/",
+  ],
+  "testRegex": "/(__test__)/[^/]+\\\\.spec\\\\.[jt]sx?$",
+  "testURL": "http://localhost/",
+  "transform": Object {
+    "^.+\\\\.tsx?$": "ts-jest",
+  },
+  "verbose": true,
+}
+`;

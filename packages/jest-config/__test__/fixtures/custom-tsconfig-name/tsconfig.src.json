@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "declarationDir": "lib/types",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*", "script/*"]
+    }
+  },
+  "include": ["src"]
+}
