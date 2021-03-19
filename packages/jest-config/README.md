@@ -27,11 +27,6 @@
         src="https://img.shields.io/node/v/@guanghechen/jest-config"
       />
     </a>
-      <img
-        alt="Eslint Version"
-        src="https://img.shields.io/npm/dependency-version/@guanghechen/jest-config/peer/eslint"
-      />
-    </a>
     <a href="https://github.com/prettier/prettier">
       <img
         alt="Code Style: prettier"
