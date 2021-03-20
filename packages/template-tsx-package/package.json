@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/template-tsx-package",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Templates for creating simple typescript + react package",
   "author": {
     "name": "guanghechen",
@@ -39,10 +39,10 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/plop-helper": "^1.2.1"
+    "@guanghechen/plop-helper": "^1.3.0"
   },
   "devDependencies": {
-    "@guanghechen/jest-helper": "^1.2.1",
+    "@guanghechen/jest-helper": "^1.3.0",
     "fs-extra": "^9.1.0"
   }
 }
