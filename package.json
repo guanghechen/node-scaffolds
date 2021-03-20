@@ -31,8 +31,8 @@
     "rebuild": "run-s clean build",
     "test": "lerna run test --parallel",
     "test:coverage": "lerna run test --parallel -- --coverage",
+    "test:update": "lerna run test --parallel -- -u",
     "update:changelog": "gitmoji-changelog update",
-    "update:test": "lerna run answer --parallel",
     "update:lock": "yarn-deduplicate"
   },
   "workspaces": [

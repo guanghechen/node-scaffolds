@@ -36,18 +36,19 @@ afterEach(async function () {
 const desensitizers = {
   filepath: createFilepathDesensitizer(__dirname),
   packageVersion: createPackageVersionDesensitizer(
-    (packageName, packageVersion) => {
-      if (/^(@guanghechen\/|version$)/.test(packageName)) {
-        // eslint-disable-next-line jest/no-standalone-expect
-        expect(packageVersion).toEqual(manifest.version)
-        return '<LATEST>'
-      }
-      return packageVersion
+    packageVersion => {
+      // eslint-disable-next-line jest/no-standalone-expect
+      expect(packageVersion).toEqual(manifest.version)
+      return '<LATEST>'
     },
+    packageName => /^(@guanghechen\/|version$)/.test(packageName),
   ),
 }
 const jsonDesensitizer = createJsonDesensitizer({
-  string: desensitizers.filepath,
+  string: composeStringDesensitizers(
+    desensitizers.filepath,
+    desensitizers.packageVersion,
+  ),
 })
 
 describe('runPlop', function () {

@@ -23,6 +23,18 @@ afterEach(async function () {
   process.chdir(initialCwd)
 })
 
+const desensitizers = {
+  filepath: createFilepathDesensitizer(__dirname),
+  packageVersion: createPackageVersionDesensitizer(
+    packageVersion => {
+      // eslint-disable-next-line jest/no-standalone-expect
+      expect(packageVersion).toEqual(manifest.version)
+      return '<LATEST>'
+    },
+    packageName => /^(@guanghechen\/|version$)/.test(packageName),
+  ),
+}
+
 describe('tsx-package', function () {
   const templateConfig = path.join(__dirname, '../index.js')
 
@@ -40,20 +52,6 @@ describe('tsx-package', function () {
     )
 
     const targetDir = path.resolve(expectedPackageLocation)
-    const desensitizers = {
-      filepath: createFilepathDesensitizer(__dirname),
-      packageVersion: createPackageVersionDesensitizer(
-        (packageName, packageVersion) => {
-          if (/^(@guanghechen\/|version$)/.test(packageName)) {
-            // eslint-disable-next-line jest/no-standalone-expect
-            expect(packageVersion).toEqual(manifest.version)
-            return '<LATEST>'
-          }
-          return packageVersion
-        },
-      ),
-    }
-
     fileSnapshot(
       targetDir,
       [

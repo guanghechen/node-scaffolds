@@ -22,10 +22,8 @@ describe('createFilepathDesensitizer', function () {
 describe('createPackageVersionDesensitizer', function () {
   test('basic', function () {
     const desensitize = createPackageVersionDesensitizer(
-      (packageName, packageVersion) => {
-        if (/^@guanghechen\/test/.test(packageName)) return '1.0.0-alpha'
-        return packageVersion
-      },
+      () => '1.0.0-alpha',
+      packageName => /^@guanghechen\/test/.test(packageName),
     )
 
     expect(desensitize(`"@guanghechen/test-waw": "^0.1.0"`)).toEqual(
