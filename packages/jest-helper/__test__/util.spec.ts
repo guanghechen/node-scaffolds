@@ -15,6 +15,6 @@ describe('sleep', function () {
     const currentTime = Date.now()
     const duration = 500
     await sleep(duration)
-    expect(Date.now() - currentTime).toBeGreaterThanOrEqual(duration)
+    expect(Date.now() - currentTime + 2).toBeGreaterThanOrEqual(duration)
   })
 })
