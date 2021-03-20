@@ -76,7 +76,7 @@ A collection of utility functions for jest tests.
 
 ### Desensitizers
 
-  * `StringDesensitizer`: `(text: string) => string`
+  * `StringDesensitizer`: `(text: string, key?: string) => string`
 
     - `composeStringDesensitizers`: Compose multiple desensitizers into one.
 
@@ -112,7 +112,7 @@ A collection of utility functions for jest tests.
           `/([\^><~]=?)?/`)
         - `@returns`:
 
-  * `JsonDesensitizer`: `(json: unknown) => unknown`
+  * `JsonDesensitizer`: `(json: unknown, key?: string) => unknown`
 
     - `createJsonDesensitizer`: Create a desensitizer to eliminate sensitive
       json data.

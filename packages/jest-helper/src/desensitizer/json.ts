@@ -41,15 +41,17 @@ export function createJsonDesensitizer(
     fallback,
   }
 
-  const desensitize = (json: any): any => {
-    if (isString(json)) return desensitizers.string(json)
-    if (isNumber(json)) return desensitizers.number(json)
-    if (isArray(json)) return json.map(desensitize)
+  const desensitize = (json: any, key?: string): any => {
+    if (isString(json)) return desensitizers.string(json, key)
+    if (isNumber(json)) return desensitizers.number(json, key)
+    if (isArray(json)) {
+      return json.map((value, index) => desensitize(value, '' + index))
+    }
     if (isObject(json)) {
       const results: Record<string, unknown> = {}
       for (const _key of Object.keys(json)) {
         const key: string = desensitizers.key(_key)
-        results[key] = desensitize(json[_key])
+        results[key] = desensitize(json[_key], _key)
       }
       return results
     }

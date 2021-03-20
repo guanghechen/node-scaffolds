@@ -27,14 +27,37 @@ export function createFilepathDesensitizer(
  * @returns
  */
 export function createPackageVersionDesensitizer(
-  replaceVersion: (packageName: string, packageVersion: string) => string,
+  nextVersion: (packageVersion: string, packageName: string) => string,
+  testPackageName?: (packageName: string) => boolean,
 ): StringDesensitizer {
-  const regex = /"((?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*)"\s*:\s*"([\^><~]=?)?\s*([a-zA-Z\d\-._ ]+)"/g
-  return text => {
+  // /"((?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*)"\s*:\s*"([\^><~]=?)?\s*([a-zA-Z\d\-._ ]+)"/g
+  const namePattern = /((?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*)/
+    .source
+  const versionPattern = /([\^><~]=?)?\s*([a-zA-Z\d\-._ ]+)/.source
+
+  const versionRegex = new RegExp('^' + versionPattern + '$')
+  const regex = new RegExp(
+    '"' + namePattern + '"\\s*:\\s*"' + versionPattern + '"',
+    'g',
+  )
+
+  return (text, key) => {
+    if (key != null) {
+      if (testPackageName == null || testPackageName(key)) {
+        const m = versionRegex.exec(text)
+        if (m != null) {
+          const version = nextVersion(key, m[2])
+          return m[1] + version
+        }
+      }
+      return text
+    }
+
     const result = text.replace(
       regex,
       (_, packageName, versionFlag = '', packageVersion) => {
-        const version = replaceVersion(packageName, packageVersion)
+        if (testPackageName != null && !testPackageName(packageName)) return _
+        const version = nextVersion(packageVersion, packageName)
         return `"${packageName}": "${versionFlag}${version}"`
       },
     )
@@ -50,10 +73,10 @@ export function createPackageVersionDesensitizer(
 export function composeStringDesensitizers(
   ...desensitizers: ReadonlyArray<StringDesensitizer>
 ): StringDesensitizer {
-  return text => {
+  return (text: string, key?: string): string => {
     let result = text
     for (const desensitize of desensitizers) {
-      result = desensitize(result)
+      result = desensitize(result, key)
     }
     return result
   }
