@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.3.1"></a>
+## 1.3.1 (2021-03-20)
+
+### Fixed
+
+- 🐛 fix(jest-helper): misplaced the arguments of nextVersion of createPackageVersionDesensitizer [[53ad338](https://github.com/guanghechen/node-scaffolds/commit/53ad338569bd36720669d0ec11d1643fab916145)]
+
+### Miscellaneous
+
+- 📝 docs: udpate CHANGELOG [[6ae3092](https://github.com/guanghechen/node-scaffolds/commit/6ae30922a4099b5ece3dce9337d5ec4c26b39e70)]
+
+
 <a name="1.3.0"></a>
 ## 1.3.0 (2021-03-20)
 
