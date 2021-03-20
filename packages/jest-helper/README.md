@@ -101,16 +101,23 @@ A collection of utility functions for jest tests.
 
       ```typescript
       function createPackageVersionDesensitizer(
-        replaceVersion: (packageName: string, packageVersion: string) => string,
+        nextVersion: (packageVersion: string, packageName: string) => string,
+        testPackageName?: (packageName: string) => boolean,
       ): StringDesensitizer
       ```
 
-      * `replaceVersion`:
+      * `nextVersion`: Determine the new version of the given
+        `{packageName}` package.
 
-        - `@param packageName`: Matched packageName
-        - `@param packageVersion`: Matched packageVersion (without prefix
+        - `@param packageVersion`: packageVersion (without prefix)
+        - `@param packageName`: packageName
           `/([\^><~]=?)?/`)
         - `@returns`:
+
+      * `testPackageName`: Test if the version should be change of the
+        `{packageName}` package.
+
+        - `@param packageName`:
 
   * `JsonDesensitizer`: `(json: unknown, key?: string) => unknown`
 
