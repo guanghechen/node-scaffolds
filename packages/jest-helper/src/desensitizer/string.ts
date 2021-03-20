@@ -46,8 +46,8 @@ export function createPackageVersionDesensitizer(
       if (testPackageName == null || testPackageName(key)) {
         const m = versionRegex.exec(text)
         if (m != null) {
-          const version = nextVersion(key, m[2])
-          return m[1] + version
+          const version = nextVersion(m[2], key)
+          return (m[1] || '') + version
         }
       }
       return text
