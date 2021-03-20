@@ -1,5 +1,25 @@
 # Changelog
 
+<a name="1.3.0"></a>
+## 1.3.0 (2021-03-20)
+
+### Added
+
+- ✅ test: update tests [[5229cd3](https://github.com/guanghechen/node-scaffolds/commit/5229cd30e84046efe14bdf57c0498f2f834a24f4)]
+- ✅ test(jest-helper): fix failed test [[722f960](https://github.com/guanghechen/node-scaffolds/commit/722f960f5192a34f1c1392b44c5258ac8863be42)]
+
+### Fixed
+
+- 🐛 fix(template-ts-package): update boilaptes [[3209b00](https://github.com/guanghechen/node-scaffolds/commit/3209b005d87d5bc083f98c0f66b9695a015f6bd7)]
+
+### Miscellaneous
+
+- 📝 docs: update REAWDME [[eef40f4](https://github.com/guanghechen/node-scaffolds/commit/eef40f4fab9da09a39a50ca77c9ab69ed00124f4)]
+- 🚧 feat(jest-helper): desentizer accept potential &#x60;key&#x60; as the second parameter [[76fc1ca](https://github.com/guanghechen/node-scaffolds/commit/76fc1ca073833f8b05756dbaf7dcb4b9f61e4bf3)]
+- 📝 docs: update badges [[b298cd6](https://github.com/guanghechen/node-scaffolds/commit/b298cd6b331adc29a10a1749caba04bb88a804c9)]
+- 📝 docs: update CHANGELOG [[107ee69](https://github.com/guanghechen/node-scaffolds/commit/107ee69158e37e9b8f51cf4838500217deac0290)]
+
+
 <a name="1.2.1"></a>
 ## 1.2.1 (2021-03-19)
 
