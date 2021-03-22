@@ -32,6 +32,6 @@
     "eslint-plugin-import": "^2.22.1"
   },
   "peerDependencies": {
-    "eslint": ">=7.20.0"
+    "eslint": ">=7.22.0"
   }
 }

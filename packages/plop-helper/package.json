@@ -46,7 +46,7 @@
     "minimist": "^1.2.5",
     "mock-stdin": "^1.0.0",
     "node-plop": "^0.26.2",
-    "ora": "^5.3.0",
+    "ora": "^5.4.0",
     "plop": "^2.7.4",
     "semver-regex": "^3.1.2"
   },
