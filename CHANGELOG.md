@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="1.4.0"></a>
+## 1.4.0 (2021-03-27)
+
+### Added
+
+- ✨ feat: add new sub-package @guanghechen/utility-types [[3df8c6a](https://github.com/guanghechen/node-scaffolds/commit/3df8c6aff7f9b41a015c7d89d90c64d11a04fb20)]
+
+### Changed
+
+- ⬆️ chore: upgrade dependencies [[5e5182d](https://github.com/guanghechen/node-scaffolds/commit/5e5182d44f8907c864aeaea4497e67ad890aebbc)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[ca21186](https://github.com/guanghechen/node-scaffolds/commit/ca21186f2e5b25ac784886aa3c8a3fd09c630823)]
+
+
 <a name="1.3.1"></a>
 ## 1.3.1 (2021-03-20)
 
