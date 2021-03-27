@@ -66,6 +66,7 @@ Package                               | Description
 [@guanghechen/rollup-plugin-copy][]   | Rollup plugins to copy files and folds (glob supported)
 [@guanghechen/template-ts-package][]  | Plop templates for creating simple typescript project
 [@guanghechen/template-tsx-package][] | Plop templates for creating simple typescript + react project
+[@guanghechen/utility-types][]        | Collection of typescript utility types
 
 
 ## License
@@ -88,3 +89,4 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/rollup-plugin-copy]: ./packages/rollup-plugin-copy
 [@guanghechen/template-ts-package]: ./packages/template-ts-package
 [@guanghechen/template-tsx-package]: ./packages/template-tsx-package
+[@guanghechen/utility-types]: ./packages/utility-types
