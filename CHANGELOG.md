@@ -1,5 +1,22 @@
 # Changelog
 
+<a name="1.4.1"></a>
+## 1.4.1 (2021-04-03)
+
+### Miscellaneous
+
+- 🚧 [option-helper] feat: expose new utility func &#x27;isDate&#x27; [[9a49e36](https://github.com/guanghechen/node-scaffolds/commit/9a49e36e3905df8a2cabac77665a69c397b6533e)]
+- 📝 docs: update CHANGELOG [[8a44ef2](https://github.com/guanghechen/node-scaffolds/commit/8a44ef2eaafec3e3612e478ff6fb6cb9b5e65339)]
+
+
+<a name="0.0.0"></a>
+## 0.0.0 (2021-04-03)
+
+### Changed
+
+- 🔧 chore: update lint ignore patterns [[3fec6b2](https://github.com/guanghechen/node-scaffolds/commit/3fec6b2f3593f246e839aee878f4b239518bb612)]
+
+
 <a name="1.4.0"></a>
 ## 1.4.0 (2021-03-27)
 
