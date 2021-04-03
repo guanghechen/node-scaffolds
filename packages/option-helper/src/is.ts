@@ -23,6 +23,14 @@ export function isBoolean(v: boolean | unknown): v is boolean {
 }
 
 /**
+ * Checks whether the given value is an object of type Date.
+ * @param value
+ */
+export const isDate = (value: unknown): value is Date => {
+  return Object.prototype.toString.call(value) === '[object Date]'
+}
+
+/**
  * Check if the given data is a `Function` type.
  * @param v
  */

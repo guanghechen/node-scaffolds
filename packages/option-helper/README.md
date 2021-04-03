@@ -70,6 +70,7 @@ A collection of utility functions for processing options.
     `isArray`             | Check if the given data is a `Array` type
     `isBigint`            | Check if the given data is a `bigint` type
     `isBoolean`           | Check if the given data is a `boolean` / `Boolean` type
+    `isDate`              | Check if the given data is a `Date` type
     `isFunction`          | Check if the given data is a `Function` type
     `isInteger`           | Check if the given data is a `Integer` type
     `isNumber`            | Check if the given data is a `number` / `Number` type

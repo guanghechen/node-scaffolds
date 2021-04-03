@@ -5,6 +5,7 @@ import {
   isArray,
   isBigint,
   isBoolean,
+  isDate,
   isEmptyObject,
   isFunction,
   isInteger,
@@ -61,6 +62,15 @@ describe('is', function () {
       expect(isBoolean([])).toBeFalsy())
     test('empty object is not a boolean type', () =>
       expect(isBoolean({})).toBeFalsy())
+  })
+
+  describe('isDate', function () {
+    test('Instance of Date is a date', () =>
+      expect(isDate(new Date())).toBeTruthy())
+    test('Date string is not a date', () =>
+      expect(isDate('2021-04-03T07:49:56.260Z')).toBeFalsy())
+    test('null is not a date', () => expect(isDate(null)).toBeFalsy())
+    test('undefined is not a date', () => expect(isDate(undefined)).toBeFalsy())
   })
 
   describe('isNumber', function () {
