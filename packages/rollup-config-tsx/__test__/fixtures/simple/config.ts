@@ -39,11 +39,23 @@ export default {
       },
       postcssUrlOptions: {
         url: 'inline',
-        maxSize: 0.5, // 0.5 KB
+        maxSize: 2, // 2 KB
         basePath: [path.join(__dirname, 'src')],
         fallback: function (asset: Parameters<url.CustomTransformFunction>[0]) {
-          const url = asset.url.replace(/^[/]assets[/]/, '../assets/')
-          return url
+          type Asset = {
+            url: string
+            originUrl: string
+            pathname: string
+            absolutePath: string
+            relativePath: string
+            search: string
+            hash: string
+          }
+
+          if (/^[/]assets[/]/.test((asset as unknown as Asset).originUrl)) {
+            return ('../' + asset.relativePath).replace(/[/\\]+/, '/')
+          }
+          return asset.url
         },
       },
     },

@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "module": "CommonJS",
+    "sourceMap": true,
     "paths": {
       "@guanghechen/jest-helper": ["packages/jest-helper/src"],
       "@guanghechen/option-helper": ["packages/option-helper/src"],

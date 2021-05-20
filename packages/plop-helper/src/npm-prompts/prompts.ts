@@ -4,10 +4,13 @@ import {
   toSentenceCase,
   toTrim,
 } from '@guanghechen/option-helper'
-import semverRegex from 'semver-regex'
 import type { TextTransformer } from '@guanghechen/option-helper'
 import type { NpmPackagePromptsAnswers } from './types'
 import type { InputQuestion } from 'inquirer'
+
+// @see https://github.com/sindresorhus/semver-regex
+const semverRegex =
+  /(?<=^v?|\sv?)(?:(?:0|[1-9]\d*)\.){2}(?:0|[1-9]\d*)(?:-(?:0|[1-9]\d*|[\da-z-]*[a-z-][\da-z-]*)(?:\.(?:0|[1-9]\d*|[\da-z-]*[a-z-][\da-z-]*))*)?(?:\+[\da-z-]+(?:\.[\da-z-]+)*)?\b/i
 
 /**
  * Create an inquirer prompt to ask for npm package name.
@@ -71,7 +74,7 @@ export const createPackageVersionPrompt = (
     message: 'version',
     default: defaultAnswer,
     transformer,
-    validate: (text: string): boolean => semverRegex().test(text),
+    validate: (text: string): boolean => semverRegex.test(text),
   }
   return prompt
 }

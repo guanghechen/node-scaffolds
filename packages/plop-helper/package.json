@@ -46,8 +46,7 @@
     "mock-stdin": "^1.0.0",
     "node-plop": "^0.26.2",
     "ora": "^5.4.0",
-    "plop": "^2.7.4",
-    "semver-regex": "^4.0.0"
+    "plop": "^2.7.4"
   },
   "devDependencies": {
     "@guanghechen/jest-helper": "^1.4.1",
