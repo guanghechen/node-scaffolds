@@ -134,7 +134,7 @@ export function resolveNpmPackageAnswers(
     : ''
   const repositoryName: string = resolveRepositoryName(isMonorepo, packageName)
   const repositoryHomepage: string = isMonorepo
-    ? `https://github.com/${packageAuthor}/${repositoryName}/tree/master/${packageLocation}#readme`
+    ? `https://github.com/${packageAuthor}/${repositoryName}/tree/main/${packageLocation}#readme`
     : `https://github.com/${packageAuthor}/${repositoryName}#readme`
 
   const result: NpmPackageData = {

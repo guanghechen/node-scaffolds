@@ -11,7 +11,7 @@
     "url": "https://github.com/guanghechen/node-scaffolds.git",
     "directory": "packages/rollup-config-cli"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/rollup-config-cli#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/rollup-config-cli#readme",
   "keywords": [
     "rollup",
     "typescript cli"

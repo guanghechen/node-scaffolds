@@ -11,7 +11,7 @@
     "url": "https://github.com/guanghechen/node-scaffolds.git",
     "directory": "packages/locate-helper"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/locate-helper#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/locate-helper#readme",
   "keywords": [
     "util",
     "node.js",

@@ -3,7 +3,7 @@
 exports[`ts-package simple: README.md 1`] = `
 "<header>
   <h1 align=\\"center\\">
-    <a href=\\"https://github.com/guanghechen/guanghechen/tree/master/packages/waw#readme\\">@guanghechen/waw</a>
+    <a href=\\"https://github.com/guanghechen/guanghechen/tree/main/packages/waw#readme\\">@guanghechen/waw</a>
   </h1>
   <div align=\\"center\\">
     <a href=\\"https://www.npmjs.com/package/@guanghechen/waw\\">
@@ -69,7 +69,7 @@ Some descriptions.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/guanghechen/tree/master/packages/waw#readme
+[homepage]: https://github.com/guanghechen/guanghechen/tree/main/packages/waw#readme
 "
 `;
 
@@ -87,7 +87,7 @@ exports[`ts-package simple: package.json 1`] = `
     \\"url\\": \\"https://github.com/guanghechen/guanghechen.git\\",
     \\"directory\\": \\"packages/waw\\"
   },
-  \\"homepage\\": \\"https://github.com/guanghechen/guanghechen/tree/master/packages/waw#readme\\",
+  \\"homepage\\": \\"https://github.com/guanghechen/guanghechen/tree/main/packages/waw#readme\\",
   \\"keywords\\": [],
   \\"main\\": \\"lib/cjs/index.js\\",
   \\"module\\": \\"lib/esm/index.js\\",

@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/master/packages/locate-helper#readme">@guanghechen/locate-helper</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/locate-helper#readme">@guanghechen/locate-helper</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/locate-helper">
@@ -104,4 +104,4 @@ Find the latest `package.json` under the give `currentDir` or its ancestor path.
 
   * `currentDir`: The starting directory of the locating.
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/locate-helper#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/locate-helper#readme

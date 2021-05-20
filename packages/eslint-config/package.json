@@ -11,7 +11,7 @@
     "url": "https://github.com/guanghechen/node-scaffolds.git",
     "directory": "packages/eslint-config"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/eslint-config#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/eslint-config#readme",
   "keywords": [
     "eslint",
     "eslint config"

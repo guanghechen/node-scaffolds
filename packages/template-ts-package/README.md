@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/master/packages/template-ts-package#readme">@guanghechen/template-ts-package</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/template-ts-package#readme">@guanghechen/template-ts-package</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/template-ts-package">
@@ -68,7 +68,7 @@ Templates powered by [plop][] for creating simple typescript project.
 * [@guanghechen/template-tsx-package][]
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/template-ts-package#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/template-ts-package#readme
 [@guanghechen/template-ts-package]: https://www.npmjs.com/package/@guanghechen/template-ts-package
 [@guanghechen/template-tsx-package]: https://www.npmjs.com/package/@guanghechen/template-tsx-package
 [plop]: https://github.com/plopjs/plop

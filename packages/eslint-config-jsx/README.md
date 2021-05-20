@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/master/packages/eslint-config-jsx#readme">@guanghechen/eslint-config-jsx</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/eslint-config-jsx#readme">@guanghechen/eslint-config-jsx</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/eslint-config-jsx">
@@ -73,7 +73,7 @@ Eslint config for jsx.
 
 ## Example
 
-See [.eslintrc](https://github.com/guanghechen/node-scaffolds/blob/master/.eslintrc)
+See [.eslintrc](https://github.com/guanghechen/node-scaffolds/blob/main/.eslintrc)
 
 ```json {5,29}
 {
@@ -119,7 +119,7 @@ See [.eslintrc](https://github.com/guanghechen/node-scaffolds/blob/master/.eslin
 * [@guanghechen/eslint-config-ts][]
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/eslint-config-jsx#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/eslint-config-jsx#readme
 [@guanghechen/eslint-config]: https://www.npmjs.com/package/@guanghechen/eslint-config
 [@guanghechen/eslint-config-jsx]: https://www.npmjs.com/package/@guanghechen/eslint-config-jsx
 [@guanghechen/eslint-config-ts]: https://www.npmjs.com/package/@guanghechen/eslint-config-ts

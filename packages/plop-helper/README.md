@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/master/packages/plop-helper#readme">@guanghechen/plop-helper</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/plop-helper#readme">@guanghechen/plop-helper</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/plop-helper">
@@ -185,7 +185,7 @@ And the `cli.js` exposed a Node.js CLI script, such as:
 * [inquirer][]
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/plop-helper#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/plop-helper#readme
 [inquirer]: https://github.com/SBoudrias/Inquirer.js/
-[@guanghechen/template-ts-package]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/template-ts-package#readme
-[@guanghechen/template-tsx-package]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/template-ts-package#readme
+[@guanghechen/template-ts-package]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/template-ts-package#readme
+[@guanghechen/template-tsx-package]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/template-ts-package#readme

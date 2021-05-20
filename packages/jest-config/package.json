@@ -11,7 +11,7 @@
     "url": "https://github.com/guanghechen/node-scaffolds.git",
     "directory": "packages/jest-config"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/master/packages/jest-config#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/jest-config#readme",
   "keywords": [
     "eslint",
     "eslint config"

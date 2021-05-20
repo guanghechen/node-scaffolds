@@ -11,7 +11,7 @@
     "url": "https://github.com/guanghechen/guanghechen.git",
     "directory": "packages/npm-helper"
   },
-  "homepage": "https://github.com/guanghechen/guanghechen/tree/master/packages/npm-helper#readme",
+  "homepage": "https://github.com/guanghechen/guanghechen/tree/main/packages/npm-helper#readme",
   "keywords": [],
   "main": "index.js",
   "types": "index.d.ts",

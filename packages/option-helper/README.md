@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/master/packages/option-helper#readme">@guanghechen/option-helper</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/option-helper#readme">@guanghechen/option-helper</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/option-helper">
@@ -143,4 +143,4 @@ A collection of utility functions for processing options.
     `convertToString`     | -
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/option-helper#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/option-helper#readme

@@ -3,7 +3,7 @@
 exports[`runPlop simple: README.md 1`] = `
 "<header>
   <h1 align=\\"center\\">
-    <a href=\\"https://github.com/guanghechen/guanghechen/tree/master/packages/waw#readme\\">@guanghechen/waw</a>
+    <a href=\\"https://github.com/guanghechen/guanghechen/tree/main/packages/waw#readme\\">@guanghechen/waw</a>
   </h1>
   <div align=\\"center\\">
     <a href=\\"https://www.npmjs.com/package/@guanghechen/waw\\">
@@ -69,7 +69,7 @@ Some descriptions.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/guanghechen/tree/master/packages/waw#readme
+[homepage]: https://github.com/guanghechen/guanghechen/tree/main/packages/waw#readme
 "
 `;
 
@@ -86,7 +86,7 @@ Array [
       "packageName": "@guanghechen/waw",
       "packageUsage": "Some descriptions.",
       "packageVersion": "1.0.0-alpha",
-      "repositoryHomepage": "https://github.com/guanghechen/guanghechen/tree/master/packages/waw#readme",
+      "repositoryHomepage": "https://github.com/guanghechen/guanghechen/tree/main/packages/waw#readme",
       "repositoryName": "guanghechen",
       "toolPackageVersion": "1.0.0-alpha",
     },
@@ -186,7 +186,7 @@ Object {
   "packageName": "@guanghechen/waw",
   "packageUsage": "",
   "packageVersion": "1.0.0-alpha",
-  "repositoryHomepage": "https://github.com/guanghechen/guanghechen/tree/master/packages/waw#readme",
+  "repositoryHomepage": "https://github.com/guanghechen/guanghechen/tree/main/packages/waw#readme",
   "repositoryName": "guanghechen",
 }
 `;
@@ -201,7 +201,7 @@ Object {
   "packageName": "@guanghechen/waw",
   "packageUsage": "Some description.",
   "packageVersion": "1.0.1",
-  "repositoryHomepage": "https://github.com/guanghechen/guanghechen/tree/master/packages/waw2#readme",
+  "repositoryHomepage": "https://github.com/guanghechen/guanghechen/tree/main/packages/waw2#readme",
   "repositoryName": "guanghechen",
 }
 `;
@@ -216,7 +216,7 @@ Object {
   "packageName": "@guanghechen/waw",
   "packageUsage": "",
   "packageVersion": "1.0.0-alpha",
-  "repositoryHomepage": "https://github.com/guanghechen/guanghechen/tree/master/packages/waw#readme",
+  "repositoryHomepage": "https://github.com/guanghechen/guanghechen/tree/main/packages/waw#readme",
   "repositoryName": "guanghechen",
 }
 `;

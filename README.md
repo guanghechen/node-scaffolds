@@ -27,7 +27,7 @@
     <a href="https://github.com/guanghechen/node-scaffolds/actions/workflows/ci.yml">
       <img
         alt="CI Workflow"
-        src="https://github.com/guanghechen/node-scaffolds/workflows/Build/badge.svg?branch=master"
+        src="https://github.com/guanghechen/node-scaffolds/workflows/Build/badge.svg?branch=main"
       />
     </a>
     <a href="https://github.com/facebook/jest">
@@ -71,7 +71,7 @@ Package                               | Description
 
 ## License
 
-node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/blob/master/LICENSE).
+node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/blob/main/LICENSE).
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds

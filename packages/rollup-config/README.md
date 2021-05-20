@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/master/packages/rollup-config#readme">@guanghechen/rollup-config</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/rollup-config#readme">@guanghechen/rollup-config</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/rollup-config">
@@ -163,9 +163,9 @@ Extended from rollup.InputOptions.
    `typescriptOptions`  | `object`  | `false`   | Options for [rollup-plugin-typescript2][]
 
 
-[@rollup/plugin-commonjs]: https://github.com/rollup/plugins/tree/master/packages/commonjs#readme
-[@rollup/plugin-json]: https://github.com/rollup/plugins/tree/master/packages/json#readme
-[@rollup/plugin-node-resolve]: https://github.com/rollup/plugins/tree/master/packages/node-resolve#readme
+[@rollup/plugin-commonjs]: https://github.com/rollup/plugins/tree/main/packages/commonjs#readme
+[@rollup/plugin-json]: https://github.com/rollup/plugins/tree/main/packages/json#readme
+[@rollup/plugin-node-resolve]: https://github.com/rollup/plugins/tree/main/packages/node-resolve#readme
 [rollup-plugin-typescript2]: https://github.com/ezolenko/rollup-plugin-typescript2#readme
 
 
@@ -187,7 +187,7 @@ Extended from rollup.InputOptions.
 * [@guanghechen/rollup-plugin-copy][]
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/master/packages/rollup-config#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/rollup-config#readme
 [@guanghechen/rollup-config]: https://www.npmjs.com/package/@guanghechen/rollup-config
 [@guanghechen/rollup-config-cli]: https://www.npmjs.com/package/@guanghechen/rollup-config-cli
 [@guanghechen/rollup-config-tsx]: https://www.npmjs.com/package/@guanghechen/rollup-config-tsx

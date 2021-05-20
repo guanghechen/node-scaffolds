@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/guanghechen/tree/master/packages/npm-helper#readme">@guanghechen/npm-helper</a>
+    <a href="https://github.com/guanghechen/guanghechen/tree/main/packages/npm-helper#readme">@guanghechen/npm-helper</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/npm-helper">
@@ -113,4 +113,4 @@ A collection of utility functions for npm packages.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/guanghechen/tree/master/packages/npm-helper#readme
+[homepage]: https://github.com/guanghechen/guanghechen/tree/main/packages/npm-helper#readme
