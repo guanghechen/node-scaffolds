@@ -1,15 +1,15 @@
 import chalk from 'chalk'
-import type { CopyOptions } from 'fs-extra'
 import fs from 'fs-extra'
 import globby from 'globby'
 import { isPlainObject } from 'is-plain-object'
 import path from 'path'
-import type rollup from 'rollup'
+import { generateCopyTarget, stringify } from './util'
 import type {
   RollupPluginCopyOptions,
   RollupPluginCopyTargetItem,
 } from './types'
-import { generateCopyTarget, stringify } from './util'
+import type { CopyOptions } from 'fs-extra'
+import type rollup from 'rollup'
 
 /**
  *

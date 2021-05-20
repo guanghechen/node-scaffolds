@@ -1,5 +1,4 @@
 import { detectMonorepo } from '@guanghechen/npm-helper'
-import type { TextTransformer } from '@guanghechen/option-helper'
 import {
   composeTextTransformers,
   cover,
@@ -7,8 +6,8 @@ import {
   toSentenceCase,
   toTrim,
 } from '@guanghechen/option-helper'
-import type { InputQuestion } from 'inquirer'
 import path from 'path'
+import type { TextTransformer } from '@guanghechen/option-helper'
 import {
   createPackageAuthorPrompt,
   createPackageDescriptionPrompt,
@@ -16,12 +15,13 @@ import {
   createPackageNamePrompt,
   createPackageVersionPrompt,
 } from './prompts'
+import { resolveRepositoryName } from './util'
 import type {
   NpmPackageData,
   NpmPackagePreAnswers,
   NpmPackagePromptsAnswers,
 } from './types'
-import { resolveRepositoryName } from './util'
+import type { InputQuestion } from 'inquirer'
 
 // Transformers for npm-package prompts
 export const npmPackageTransformers: Record<string, TextTransformer> = {

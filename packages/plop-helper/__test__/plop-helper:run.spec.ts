@@ -1,4 +1,3 @@
-import type { Desensitizer } from '@guanghechen/jest-helper'
 import {
   composeStringDesensitizers,
   createConsoleMock,
@@ -8,8 +7,8 @@ import {
   fileSnapshot,
 } from '@guanghechen/jest-helper'
 import fs from 'fs-extra'
-import type { InputQuestion } from 'inquirer'
 import path from 'path'
+import type { Desensitizer } from '@guanghechen/jest-helper'
 import manifest from '../package.json'
 import {
   createNpmPackagePrompts,
@@ -18,6 +17,7 @@ import {
   runPlopWithMock,
   runPromptsWithMock,
 } from '../src'
+import type { InputQuestion } from 'inquirer'
 
 const initialCwd = process.cwd()
 const outputDir = path.join(__dirname, 'output')

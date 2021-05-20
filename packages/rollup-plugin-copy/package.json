@@ -41,10 +41,9 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@types/fs-extra": "^9.0.8",
     "chalk": "^4.1.0",
-    "fs-extra": "^9.1.0",
-    "globby": "^11.0.2",
+    "fs-extra": "^10.0.0",
+    "globby": "^11.0.3",
     "is-plain-object": "^5.0.0"
   },
   "peerDependencies": {
@@ -53,6 +52,6 @@
   "devDependencies": {
     "@guanghechen/rollup-config": "^1.4.1",
     "replace-in-file": "^6.2.0",
-    "rollup": "^2.42.2"
+    "rollup": "^2.48.0"
   }
 }

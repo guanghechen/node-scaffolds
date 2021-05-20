@@ -4,10 +4,10 @@ import {
   toSentenceCase,
   toTrim,
 } from '@guanghechen/option-helper'
-import type { TextTransformer } from '@guanghechen/option-helper'
-import type { InputQuestion } from 'inquirer'
 import semverRegex from 'semver-regex'
+import type { TextTransformer } from '@guanghechen/option-helper'
 import type { NpmPackagePromptsAnswers } from './types'
+import type { InputQuestion } from 'inquirer'
 
 /**
  * Create an inquirer prompt to ask for npm package name.

@@ -2,9 +2,9 @@ import { bold, green, yellow } from 'chalk'
 import fs from 'fs-extra'
 import path from 'path'
 import { replaceInFile as replace } from 'replace-in-file'
-import type { CustomPluginOptions } from 'rollup'
 import { rollup, watch } from 'rollup'
 import copy from '../src'
+import type { CustomPluginOptions } from 'rollup'
 
 process.chdir(`${__dirname}/fixtures`)
 

@@ -1,6 +1,6 @@
 import chalk from 'chalk'
-import type { PlopGenerator, PlopGeneratorConfig } from 'node-plop'
 import nodePlop from 'node-plop'
+import type { PlopGenerator, PlopGeneratorConfig } from 'node-plop'
 
 /**
  * Convert a literal change type description to a symbolic description.

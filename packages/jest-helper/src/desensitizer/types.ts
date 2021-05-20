@@ -17,5 +17,5 @@ export type StringDesensitizer = Desensitizer<string>
  * Desensitize object type values
  */
 export type ObjectDesensitizer<
-  T extends Record<string, unknown> = Record<string, unknown>
+  T extends Record<string, unknown> = Record<string, unknown>,
 > = Desensitizer<T>

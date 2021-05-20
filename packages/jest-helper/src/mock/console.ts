@@ -44,11 +44,9 @@ export function createConsoleMock(
   ],
   desensitize: (args: ReadonlyArray<unknown>) => unknown[] = noop as any,
 ): ConsoleMock {
-  const mockFnMap: Record<
-    ConsoleMethodField,
-    jest.MockInstance<any, any>
-  > = {} as any
-  let allData: unknown[][] = []
+  const mockFnMap: Record<ConsoleMethodField, jest.MockInstance<any, any>> =
+    {} as any
+  const allData: unknown[][] = []
   const dataMap: Record<ConsoleMethodField, unknown[][]> = {} as any
 
   for (const field of methodNames) {
@@ -66,7 +64,7 @@ export function createConsoleMock(
     get: field => dataMap[field],
     getIndiscriminateAll: () => allData,
     reset: () => {
-      allData = []
+      allData.splice(0, allData.length)
       for (const field of methodNames) dataMap[field] = []
     },
     restore: () => {

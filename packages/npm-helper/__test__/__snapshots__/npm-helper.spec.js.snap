@@ -4,7 +4,6 @@ exports[`dependency collectAllDependencies: current repo 1`] = `
 Array [
   "@guanghechen/locate-helper",
   "fs-extra",
-  "at-least-node",
   "graceful-fs",
   "jsonfile",
   "universalify",
@@ -26,7 +25,6 @@ Array [
   "js-tokens",
   "@babel/generator",
   "@babel/types",
-  "lodash",
   "to-fast-properties",
   "jsesc",
   "source-map",

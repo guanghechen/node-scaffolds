@@ -40,15 +40,14 @@
   "dependencies": {
     "@guanghechen/npm-helper": "^1.4.1",
     "@guanghechen/option-helper": "^1.4.1",
-    "@types/fs-extra": "^9.0.8",
     "chalk": "^4.1.0",
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.0.0",
     "minimist": "^1.2.5",
     "mock-stdin": "^1.0.0",
     "node-plop": "^0.26.2",
     "ora": "^5.4.0",
     "plop": "^2.7.4",
-    "semver-regex": "^3.1.2"
+    "semver-regex": "^4.0.0"
   },
   "devDependencies": {
     "@guanghechen/jest-helper": "^1.4.1",

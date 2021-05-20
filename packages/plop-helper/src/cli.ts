@@ -1,6 +1,6 @@
-import type { LaunchOptions } from 'liftoff'
 import minimist from 'minimist'
 import { Plop, run } from 'plop'
+import type { LaunchOptions } from 'liftoff'
 
 /**
  * Call the Plop.launch
