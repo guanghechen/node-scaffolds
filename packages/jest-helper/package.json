@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/jest-helper",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "A collection of utility functions for jest tests",
   "author": {
     "name": "guanghechen",
@@ -36,7 +36,7 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/option-helper": "^1.4.1",
+    "@guanghechen/option-helper": "^1.5.0",
     "fs-extra": "^10.0.0"
   },
   "peerDependencies": {

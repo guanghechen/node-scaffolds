@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/utility-types",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Collection of typescript utility types",
   "author": {
     "name": "guanghechen",
@@ -36,6 +36,6 @@
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config": "^1.4.1"
+    "@guanghechen/rollup-config": "^1.5.0"
   }
 }
