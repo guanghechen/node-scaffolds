@@ -1,5 +1,24 @@
 # Changelog
 
+<a name="1.5.0"></a>
+## 1.5.0 (2021-05-20)
+
+### Changed
+
+- 🎨 style: upgrade dev dependencies &amp; lint codes [[701c8fa](https://github.com/guanghechen/node-scaffolds/commit/701c8fa0e3bf75e8c0f74e1a6fad725fc2f009f0)]
+- 🔧 chore: rename default branch to &#x27;main&#x27; instead of &#x27;master&#x27; [[d673779](https://github.com/guanghechen/node-scaffolds/commit/d67377941bdb90545c518aa0039101a36c0b9c9e)]
+- 🔧 chore: update lint ignore patterns [[3fec6b2](https://github.com/guanghechen/node-scaffolds/commit/3fec6b2f3593f246e839aee878f4b239518bb612)]
+
+### Breaking changes
+
+- 💥 improve: upgrade postcss to v8 [[9fae3c1](https://github.com/guanghechen/node-scaffolds/commit/9fae3c18af67d8fe2f865415aa6e43a6403372e9)]
+
+### Miscellaneous
+
+- 🔨 chore: trigger ci on creating new release tag instead of pushing to main branch [[4a98d45](https://github.com/guanghechen/node-scaffolds/commit/4a98d452844037f8e05e7727cc609fb21f2f5005)]
+- 📝 docs: update CHANGELOG [[598787d](https://github.com/guanghechen/node-scaffolds/commit/598787d3c4664dd08937ae1af1667c138b90af36)]
+
+
 <a name="1.4.1"></a>
 ## 1.4.1 (2021-04-03)
 
