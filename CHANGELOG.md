@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="1.5.1"></a>
+## 1.5.1 (2021-05-21)
+
+### Miscellaneous
+
+- 🚧 feat(option-helper): support new utility func &#x27;convertToInteger&#x27; and &#x27;coverInteger&#x27; [[958eb4a](https://github.com/guanghechen/node-scaffolds/commit/958eb4a56454dba5efa3155808bd619cab0f52e4)]
+- 📝 docs: update CHANGELOG [[7adc829](https://github.com/guanghechen/node-scaffolds/commit/7adc82916614a0b8d0eeb4be05cedd31af876c46)]
+
+
 <a name="1.5.0"></a>
 ## 1.5.0 (2021-05-20)
 
