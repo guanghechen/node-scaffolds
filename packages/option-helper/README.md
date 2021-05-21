@@ -131,6 +131,7 @@ A collection of utility functions for processing options.
     :--------------------:|:---------------------------------------
     `cover`               | -
     `coverBoolean`        | -
+    `coverInteger`        | -
     `coverNumber`         | -
     `coverString`         | -
 
@@ -139,6 +140,7 @@ A collection of utility functions for processing options.
     Name                  | Description
     :--------------------:|:---------------------------------------
     `convertToBoolean`    | -
+    `convertToInteger`    | -
     `convertToNumber`     | -
     `convertToString`     | -
 

@@ -1,4 +1,10 @@
-import { cover, coverBoolean, coverNumber, coverString } from '../src'
+import {
+  cover,
+  coverBoolean,
+  coverInteger,
+  coverNumber,
+  coverString,
+} from '../src'
 
 describe('cover', function () {
   test('lazy defaultValue', function () {
@@ -36,11 +42,30 @@ describe('cover', function () {
       expect(coverBoolean(false, 'FaLse')).toEqual(false))
   })
 
+  describe('coverInteger', function () {
+    test('(3, undefined) => 3', () =>
+      expect(coverInteger(3, undefined)).toEqual(3))
+    test('(3, null) => 3', () => expect(coverInteger(3, null)).toEqual(3))
+    test('(3, 0) => 0', () => expect(coverInteger(3, 0)).toEqual(0))
+    test('(3, 23.23) => 23', () => expect(coverInteger(3, 23.23)).toEqual(23))
+    test('(3, -23.23) => -23', () =>
+      expect(coverInteger(3, -23.23)).toEqual(-23))
+    test('(3, true) => 3', () => expect(coverInteger(3, true)).toEqual(3))
+    test('(3, false) => 3', () => expect(coverInteger(3, false)).toEqual(3))
+    test('(3, []) => 3', () => expect(coverInteger(3, [])).toEqual(3))
+    test('(3, {}) => 3', () => expect(coverInteger(3, {})).toEqual(3))
+    test("(3, '5') => 5", () => expect(coverInteger(3, '5')).toEqual(5))
+    test("(3, '') => 3", () => expect(coverInteger(3, '')).toEqual(3))
+  })
+
   describe('coverNumber', function () {
     test('(3, undefined) => 3', () =>
       expect(coverNumber(3, undefined)).toEqual(3))
     test('(3, null) => 3', () => expect(coverNumber(3, null)).toEqual(3))
     test('(3, 0) => 0', () => expect(coverNumber(3, 0)).toEqual(0))
+    test('(3, 23.23) => 23', () => expect(coverNumber(3, 23.23)).toEqual(23.23))
+    test('(3, -23.23) => -23', () =>
+      expect(coverNumber(3, -23.23)).toEqual(-23.23))
     test('(3, true) => 3', () => expect(coverNumber(3, true)).toEqual(3))
     test('(3, false) => 3', () => expect(coverNumber(3, false)).toEqual(3))
     test('(3, []) => 3', () => expect(coverNumber(3, [])).toEqual(3))

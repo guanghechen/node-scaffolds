@@ -1,4 +1,9 @@
-import { convertToBoolean, convertToNumber, convertToString } from './convert'
+import {
+  convertToBoolean,
+  convertToInteger,
+  convertToNumber,
+  convertToString,
+} from './convert'
 import { isFunction } from './is'
 
 /**
@@ -30,7 +35,7 @@ export function coverBoolean(
 }
 
 /**
- * Cover the defaultValue with a value converted to a boolean type.
+ * Cover the defaultValue with a value converted to a number type.
  * @param defaultValue
  * @param value
  */
@@ -44,7 +49,21 @@ export function coverNumber(
 }
 
 /**
- * Cover the defaultValue with a value converted to a boolean type.
+ * Cover the defaultValue with a value converted to a integer type.
+ * @param defaultValue
+ * @param value
+ */
+export function coverInteger(
+  defaultValue: number,
+  value?: unknown,
+  isValid?: (value: number) => boolean,
+): number {
+  const resolvedValue = convertToInteger(value)
+  return cover(defaultValue, resolvedValue, isValid)
+}
+
+/**
+ * Cover the defaultValue with a value converted to a string type.
  * @param defaultValue
  * @param value
  */

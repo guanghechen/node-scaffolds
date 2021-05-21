@@ -45,11 +45,11 @@ export function convertToBoolean(v?: unknown): boolean | null {
  *
  *  * String type
  *
- *    - "12323" ==> 12323
- *    - "x232y" ==> null
- *    - "     " ==> null
+ *    - "12323"     ==> 12323
+ *    - "x232y"     ==> null
+ *    - "     "     ==> null
  *
- *  * Other type ==> null
+ *  * Other type    ==> null
  * @param v
  */
 export function convertToNumber(v?: unknown): number | null {
@@ -60,6 +60,29 @@ export function convertToNumber(v?: unknown): number | null {
     return Number.isNaN(x) ? null : x
   }
   return isNumber(v) ? v : null
+}
+
+/**
+ * Convert a given value to integer type.
+ *
+ *  * Number type
+ *
+ *    - 123         ==> 123
+ *    - 132132.23   ==> 132132
+ *    - -132132.23  ==> -132132
+ *
+ *  * String type
+ *
+ *    - "12323" ==> 12323
+ *    - "x232y" ==> null
+ *    - "     " ==> null
+ *
+ *  * Other type ==> null
+ * @param v
+ */
+export function convertToInteger(v?: unknown): number | null {
+  const v2 = convertToNumber(v)
+  return v2 == null ? null : Math.trunc(v2)
 }
 
 /**

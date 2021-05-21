@@ -1,4 +1,9 @@
-import { convertToBoolean, convertToNumber, convertToString } from '../src'
+import {
+  convertToBoolean,
+  convertToInteger,
+  convertToNumber,
+  convertToString,
+} from '../src'
 
 describe('convert', function () {
   describe('convertToBoolean', function () {
@@ -19,9 +24,35 @@ describe('convert', function () {
     test("'' ==> null", () => expect(convertToBoolean('')).toBeNull())
   })
 
+  describe('convertToInteger', function () {
+    test('0 ==> 0', () => expect(convertToInteger(0)).toEqual(0))
+    test('1 ==> 1', () => expect(convertToInteger(1)).toEqual(1))
+    test('123132.23 ==> 123132', () =>
+      expect(convertToInteger(123132)).toEqual(123132))
+    test('-123132.23 ==> -123132', () =>
+      expect(convertToInteger(-123132)).toEqual(-123132))
+    test("'0' ==> 0", () => expect(convertToInteger('0')).toEqual(0))
+    test("'1' ==> 1", () => expect(convertToInteger('1')).toEqual(1))
+    test("'-1' ==> -1", () => expect(convertToInteger('-1')).toEqual(-1))
+    test("'1xxx_y' ==> null", () =>
+      expect(convertToInteger('1xxx_y')).toBeNull())
+    test('true ==> null', () => expect(convertToInteger(true)).toBeNull())
+    test('false ==> null', () => expect(convertToInteger(false)).toBeNull())
+    test('undefined ==> null', () =>
+      expect(convertToInteger(undefined)).toBeNull())
+    test('null ==> null', () => expect(convertToInteger(null)).toBeNull())
+    test('[] ==> null', () => expect(convertToInteger([])).toBeNull())
+    test('{} ==> null', () => expect(convertToInteger({})).toBeNull())
+    test("'' ==> null", () => expect(convertToInteger('')).toBeNull())
+  })
+
   describe('convertToNumber', function () {
     test('0 ==> 0', () => expect(convertToNumber(0)).toEqual(0))
     test('1 ==> 1', () => expect(convertToNumber(1)).toEqual(1))
+    test('123132.23 ==> 123132.23', () =>
+      expect(convertToNumber(123132.23)).toEqual(123132.23))
+    test('-123132.23 ==> -123132.23', () =>
+      expect(convertToNumber(-123132.23)).toEqual(-123132.23))
     test("'0' ==> 0", () => expect(convertToNumber('0')).toEqual(0))
     test("'1' ==> 1", () => expect(convertToNumber('1')).toEqual(1))
     test("'-1' ==> -1", () => expect(convertToNumber('-1')).toEqual(-1))
