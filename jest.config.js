@@ -1,7 +1,13 @@
 const { tsMonorepoConfig } = require('@guanghechen/jest-config')
 
+const baseConfig = tsMonorepoConfig(__dirname)
+
 module.exports = {
-  ...tsMonorepoConfig(__dirname),
+  ...baseConfig,
+  collectCoverageFrom: [
+    ...baseConfig.collectCoverageFrom,
+    '<rootDir>/gatsby-node.js',
+  ],
   coverageThreshold: {
     global: {
       branches: 20,
