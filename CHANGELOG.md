@@ -1,5 +1,20 @@
 # Changelog
 
+<a name="1.5.2"></a>
+## 1.5.2 (2021-06-08)
+
+### Changed
+
+- 🔧 chore: use Typescript under the node_modules/ instead of the one vscode built-in [[3e16cba](https://github.com/guanghechen/node-scaffolds/commit/3e16cbabb14033b1c7a755d38bacf87ac7d32a10)]
+- 🔧 chore(jest-helper): update peer dependencies [[a7ad5f2](https://github.com/guanghechen/node-scaffolds/commit/a7ad5f270ca197fc169a1387c329757501dd72eb)]
+- 🔧 chore: update configs [[d59c5f3](https://github.com/guanghechen/node-scaffolds/commit/d59c5f3a036fd7b01a90c6bb01a5120eb6c25b15)]
+- ⬆️ chore: upgrade dependencies [[807e04b](https://github.com/guanghechen/node-scaffolds/commit/807e04b53eb168075357bda611612ebb2a1f48b6)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[5414cf4](https://github.com/guanghechen/node-scaffolds/commit/5414cf4f89c4842cc9952febf840052496ed1cbd)]
+
+
 <a name="1.5.1"></a>
 ## 1.5.1 (2021-05-21)
 
