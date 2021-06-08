@@ -5,8 +5,8 @@ import {
   toTrim,
 } from '@guanghechen/option-helper'
 import type { TextTransformer } from '@guanghechen/option-helper'
-import type { NpmPackagePromptsAnswers } from './types'
 import type { InputQuestion } from 'inquirer'
+import type { NpmPackagePromptsAnswers } from './types'
 
 // @see https://github.com/sindresorhus/semver-regex
 const semverRegex =

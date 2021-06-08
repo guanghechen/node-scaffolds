@@ -3,8 +3,8 @@ import fs from 'fs-extra'
 import path from 'path'
 import { replaceInFile as replace } from 'replace-in-file'
 import { rollup, watch } from 'rollup'
-import copy from '../src'
 import type { CustomPluginOptions } from 'rollup'
+import copy from '../src'
 
 process.chdir(`${__dirname}/fixtures`)
 

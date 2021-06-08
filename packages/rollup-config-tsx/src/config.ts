@@ -3,18 +3,18 @@ import dts from '@guanghechen/postcss-modules-dts'
 import createBaseRollupConfig, {
   resolveRollupConfigEnvs,
 } from '@guanghechen/rollup-config'
+import type { RollupConfigEnvs } from '@guanghechen/rollup-config'
 import multiEntry from '@rollup/plugin-multi-entry'
 import autoprefixer from 'autoprefixer'
 import postcssFlexbugsFixes from 'postcss-flexbugs-fixes'
 import postcssUrl from 'postcss-url'
+import type rollup from 'rollup'
 import postcss from 'rollup-plugin-postcss'
-import type { RollupConfigEnvs } from '@guanghechen/rollup-config'
 import type {
   PostcssOptions,
   PreprocessConfigOptions,
   RollupConfigOptions,
 } from './types/options'
-import type rollup from 'rollup'
 
 /**
  * Create rollup config for preprocessor

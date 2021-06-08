@@ -3,10 +3,10 @@ import {
   isFunction,
   isNonBlankString,
 } from '@guanghechen/option-helper'
+import type { InputQuestion } from 'inquirer'
 import mockStdin from 'mock-stdin'
 import nodePlop from 'node-plop'
 import { runPlop } from './run'
-import type { InputQuestion } from 'inquirer'
 
 /**
  * A utility funcs for testing plop with boilerplates.

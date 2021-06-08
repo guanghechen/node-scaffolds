@@ -44,8 +44,10 @@ export function createConsoleMock(
   ],
   desensitize: (args: ReadonlyArray<unknown>) => unknown[] = noop as any,
 ): ConsoleMock {
-  const mockFnMap: Record<ConsoleMethodField, jest.MockInstance<any, any>> =
-    {} as any
+  const mockFnMap: Record<
+    ConsoleMethodField,
+    jest.MockInstance<any, any>
+  > = {} as any
   const allData: unknown[][] = []
   const dataMap: Record<ConsoleMethodField, unknown[][]> = {} as any
 

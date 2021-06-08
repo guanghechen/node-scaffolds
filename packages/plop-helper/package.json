@@ -45,7 +45,7 @@
     "minimist": "^1.2.5",
     "mock-stdin": "^1.0.0",
     "node-plop": "^0.26.2",
-    "ora": "^5.4.0",
+    "ora": "^5.4.1",
     "plop": "^2.7.4"
   },
   "devDependencies": {

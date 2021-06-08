@@ -29,7 +29,7 @@
     "README.md"
   ],
   "dependencies": {
-    "eslint-plugin-import": "^2.22.1"
+    "eslint-plugin-import": "^2.23.4"
   },
   "peerDependencies": {
     "eslint": ">=7.22.0"

@@ -5,6 +5,7 @@ import {
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
+import type { OutputOptions, RollupOptions } from 'rollup'
 import typescript from 'rollup-plugin-typescript2'
 import { convertToBoolean, coverBoolean, isArray } from './option-helper'
 import type {
@@ -12,7 +13,6 @@ import type {
   RollupConfigEnvs,
   RollupConfigOptions,
 } from './types'
-import type { OutputOptions, RollupOptions } from 'rollup'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const builtinModules = require('builtin-modules')
 

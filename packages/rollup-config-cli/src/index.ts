@@ -1,6 +1,6 @@
 import createBaseRollupConfig from '@guanghechen/rollup-config'
-import copy from '@guanghechen/rollup-plugin-copy'
 import type { RollupConfigOptions as BaseRollupConfigOptions } from '@guanghechen/rollup-config'
+import copy from '@guanghechen/rollup-plugin-copy'
 import type { RollupPluginCopyOptions } from '@guanghechen/rollup-plugin-copy'
 import type { RollupOptions } from 'rollup'
 

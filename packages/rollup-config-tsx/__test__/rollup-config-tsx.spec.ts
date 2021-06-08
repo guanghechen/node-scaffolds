@@ -1,8 +1,8 @@
 import fs from 'fs-extra'
 import path from 'path'
 import { rollup } from 'rollup'
-import createRollupConfigs from '../src'
 import type { OutputOptions, RollupOutput } from 'rollup'
+import createRollupConfigs from '../src'
 
 // Resolve absolute dirPath of case
 const resolveCaseDir = (title: string): string =>

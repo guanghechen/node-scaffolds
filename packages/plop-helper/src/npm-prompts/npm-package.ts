@@ -6,8 +6,9 @@ import {
   toSentenceCase,
   toTrim,
 } from '@guanghechen/option-helper'
-import path from 'path'
 import type { TextTransformer } from '@guanghechen/option-helper'
+import type { InputQuestion } from 'inquirer'
+import path from 'path'
 import {
   createPackageAuthorPrompt,
   createPackageDescriptionPrompt,
@@ -15,13 +16,12 @@ import {
   createPackageNamePrompt,
   createPackageVersionPrompt,
 } from './prompts'
-import { resolveRepositoryName } from './util'
 import type {
   NpmPackageData,
   NpmPackagePreAnswers,
   NpmPackagePromptsAnswers,
 } from './types'
-import type { InputQuestion } from 'inquirer'
+import { resolveRepositoryName } from './util'
 
 // Transformers for npm-package prompts
 export const npmPackageTransformers: Record<string, TextTransformer> = {

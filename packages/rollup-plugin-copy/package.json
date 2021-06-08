@@ -52,6 +52,6 @@
   "devDependencies": {
     "@guanghechen/rollup-config": "^1.5.1",
     "replace-in-file": "^6.2.0",
-    "rollup": "^2.48.0"
+    "rollup": "^2.51.1"
   }
 }
