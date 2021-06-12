@@ -105,6 +105,7 @@ module.exports = {
       },
     ],
     '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/no-floating-promises': 2,
     '@typescript-eslint/no-non-null-assertion': 0,
     '@typescript-eslint/no-redeclare': [
       1,
