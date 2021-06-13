@@ -54,7 +54,6 @@ Array [
   "debug",
   "ms",
   "globals",
-  "type-fest",
   "@babel/helper-simple-access",
   "@babel/helpers",
   "convert-source-map",
