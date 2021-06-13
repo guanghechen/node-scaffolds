@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="1.5.3"></a>
+## 1.5.3 (2021-06-13)
+
+### Changed
+
+- ⬆️ chore: upgrade dev dependencies [[7fa4cc8](https://github.com/guanghechen/node-scaffolds/commit/7fa4cc8c466b824d614fce730d3a4f3c783dd3f2)]
+
+### Miscellaneous
+
+- 🚧 improve(eslint-config-ts): enable lint rule &#x27;@typescript-eslint/no-floating-promises&#x27; [[503c1d3](https://github.com/guanghechen/node-scaffolds/commit/503c1d30b9aa36cba33941f5bacb327a382a05e8)]
+- 📝 docs: update CHANGELOG [[465cc48](https://github.com/guanghechen/node-scaffolds/commit/465cc48548a16b872a20f81c05f7881b3c977eea)]
+
+
 <a name="1.5.2"></a>
 ## 1.5.2 (2021-06-08)
 
