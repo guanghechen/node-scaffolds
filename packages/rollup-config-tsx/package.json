@@ -54,8 +54,8 @@
     "rollup-plugin-postcss": "^4.0.0"
   },
   "peerDependencies": {
-    "postcss": "^8.2.15",
-    "rollup": "^2.40.2"
+    "postcss": "^8.3.5",
+    "rollup": "^2.52.1"
   },
   "optionalDependencies": {
     "stylus": "^0.54.8"
