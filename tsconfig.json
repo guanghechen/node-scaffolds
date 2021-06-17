@@ -7,6 +7,7 @@
     "paths": {
       "@guanghechen/jest-helper": ["packages/jest-helper/src"],
       "@guanghechen/option-helper": ["packages/option-helper/src"],
+      "@guanghechen/parse-lineno": ["packages/parse-lineno/src"],
       "@guanghechen/plop-helper": ["packages/plop-helper/src"],
       "@guanghechen/postcss-modules-dts": ["packages/postcss-modules-dts/src"],
       "@guanghechen/rollup-config": ["packages/rollup-config/src"],
