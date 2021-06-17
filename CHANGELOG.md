@@ -1,5 +1,24 @@
 # Changelog
 
+<a name="1.5.4"></a>
+## 1.5.4 (2021-06-17)
+
+### Added
+
+- ✨ feat: implements new sub-package &#x27;@guanghechen/parse-lineno&#x27; [[9160afb](https://github.com/guanghechen/node-scaffolds/commit/9160afb39953b542548f95d1056e3415c942b5c8)]
+- ✅ test: update snapshots [[a9b9987](https://github.com/guanghechen/node-scaffolds/commit/a9b9987c2843884e78adb5f5de14789a991795b9)]
+
+### Changed
+
+- ⬆️ chore: upgrade dependencies [[b8beb51](https://github.com/guanghechen/node-scaffolds/commit/b8beb5118dcd57e5c1aa79eb71e67f8e75f61a10)]
+- 🔧 chore: don&#x27;t run &#x27;yarn-deduplicate&#x27; in ci environment [[3d9107a](https://github.com/guanghechen/node-scaffolds/commit/3d9107aa86732cbcb19d8b8cfb6dacf5a941e151)]
+- 🔧 chore: update yarn.lock [[29787c0](https://github.com/guanghechen/node-scaffolds/commit/29787c0904ccf8aca5c76e24b1b9b261aadedb3e)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[c0ebbf6](https://github.com/guanghechen/node-scaffolds/commit/c0ebbf63e99c4f6f84f13780e0b830a855195a5d)]
+
+
 <a name="1.5.3"></a>
 ## 1.5.3 (2021-06-13)
 
