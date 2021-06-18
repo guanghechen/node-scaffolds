@@ -13,31 +13,12 @@ const lineNoRegex = /(\d+)(?:-(\d+))?/g
  * @param text
  */
 export function collectNumbers(text: string): number[] {
-  const linenos: number[] = []
-
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    const match = lineNoRegex.exec(text)
-    if (match == null) break
-
-    const [, lft, rht] = match
-
-    // A single number.
-    if (rht == null) linenos.push(Number(lft))
-
-    // A number range.
-    let x = Number(lft)
-    let y = Number(rht)
-    if (x > y) {
-      const t = x
-      x = y
-      y = t
-    }
-
-    for (let i = x; i <= y; ++i) linenos.push(i)
+  const intervals: Array<[number, number]> = collectIntervals(text)
+  const result: number[] = []
+  for (const interval of intervals) {
+    const [x, y] = interval
+    for (let i = x; i <= y; ++i) result.push(i)
   }
-
-  const result: number[] = Array.from(new Set(linenos)).sort((x, y) => x - y)
   return result
 }
 
