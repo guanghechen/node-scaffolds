@@ -67,6 +67,7 @@ Parse something like '1,3-10' to numbers or intervals.
   ```typescript
   import { collectNumbers } from '@guanghechen/parse-lineno'
 
+  collectNumbers('')              // => []
   collectNumbers('1')             // => [1]
   collectNumbers('1-3')           // => [1, 2, 3]
   collectNumbers('3,1-2,2,2')     // => [1, 2, 3]
@@ -82,6 +83,7 @@ Parse something like '1,3-10' to numbers or intervals.
   ```typescript
   import { collectIntervals } from '@guanghechen/parse-lineno'
 
+  collectIntervals('')              // => []
   collectIntervals('1')             // => [[1, 1]]
   collectIntervals('1-3')           // => [[1, 3]]
   collectIntervals('3,1-2,2,2')     // => [[1, 3]]
@@ -90,6 +92,14 @@ Parse something like '1,3-10' to numbers or intervals.
   collectIntervals('4,1-3')         // => [[1, 4]]
   collectIntervals('2-4,1-3,5-9')   // => [[1, 9]]
   collectIntervals('2-4,1-3,6-9')   // => [[1, 4], [6, 9]]
+  ```
+
+* Custom Separator (default is `/[,\s]+/`)
+
+  ```typescript
+  collectNumbers('2#4-5#5-8', /#/)    // => [2, 4, 5, 6, 7, 8]
+
+  collectIntervals('2#4-5#5-8', /#/)  // => [[2, 2], [4, 8]]
   ```
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/parse-lineno#readme

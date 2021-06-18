@@ -1,6 +1,8 @@
-const lineNoRegex = /(\d+)(?:-(\d+))?/g
+const intervalRegex = /^(\d+)(?:-(\d+))?$/
+const defaultSeparator = /[,\s]+/
 
 /**
+ * - ''             => []
  * - '1'            => [1]
  * - '1-3'          => [1, 2, 3]
  * - '3,1-2,2,2'    => [1, 2, 3]
@@ -12,8 +14,11 @@ const lineNoRegex = /(\d+)(?:-(\d+))?/g
  *
  * @param text
  */
-export function collectNumbers(text: string): number[] {
-  const intervals: Array<[number, number]> = collectIntervals(text)
+export function collectNumbers(
+  text: string,
+  separator = defaultSeparator,
+): number[] {
+  const intervals: Array<[number, number]> = collectIntervals(text, separator)
   const result: number[] = []
   for (const interval of intervals) {
     const [x, y] = interval
@@ -23,6 +28,7 @@ export function collectNumbers(text: string): number[] {
 }
 
 /**
+ * - ''             => []
  * - '1'            => [[1, 1]]
  * - '1-3'          => [[1, 3]]
  * - '3,1-2,2,2'    => [[1, 3]]
@@ -35,13 +41,16 @@ export function collectNumbers(text: string): number[] {
  * @param text
  * @returns
  */
-export function collectIntervals(text: string): Array<[number, number]> {
+export function collectIntervals(
+  text: string,
+  separator = defaultSeparator,
+): Array<[number, number]> {
   const intervals: Array<[number, number]> = []
+  const tokens: string[] = text.split(new RegExp(separator, 'g'))
 
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    const match = lineNoRegex.exec(text)
-    if (match == null) break
+  for (const token of tokens) {
+    const match = intervalRegex.exec(token)
+    if (match == null) continue
 
     const [, lft, rht] = match
 
@@ -67,6 +76,8 @@ export function collectIntervals(text: string): Array<[number, number]> {
     const d = x[0] - y[0]
     return d === 0 ? x[1] - y[1] : d
   })
+
+  if (intervals.length <= 0) return []
 
   const result: Array<[number, number]> = [intervals[0]]
   for (let i = 1; i < intervals.length; ++i) {
