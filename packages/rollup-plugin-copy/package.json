@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-plugin-copy",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "Rollup plugins to copy files and folds (glob supported)",
   "author": {
     "name": "guanghechen",
@@ -50,7 +50,7 @@
     "rollup": "^2.52.1"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config": "^1.5.4",
+    "@guanghechen/rollup-config": "^1.5.5",
     "replace-in-file": "^6.2.0",
     "rollup": "^2.52.1"
   }
