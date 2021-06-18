@@ -77,7 +77,7 @@ export function collectIntervals(
     return d === 0 ? x[1] - y[1] : d
   })
 
-  if (intervals.length <= 0) return []
+  if (intervals.length <= 1) return intervals
 
   const result: Array<[number, number]> = [intervals[0]]
   for (let i = 1; i < intervals.length; ++i) {
