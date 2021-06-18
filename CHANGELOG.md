@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="1.5.5"></a>
+## 1.5.5 (2021-06-18)
+
+### Added
+
+- ✨ feat(parse-lineno): support custom separator [[c460cd0](https://github.com/guanghechen/node-scaffolds/commit/c460cd02380b81807aedc5ca791cacca8a6124f1)]
+
+### Changed
+
+- ⚡ improve(parse-lineno): avoid performance problems caused by repeated large intervals [[266c46f](https://github.com/guanghechen/node-scaffolds/commit/266c46fa73a332f3faf1555289cf0507e43b6c4e)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[e9ece23](https://github.com/guanghechen/node-scaffolds/commit/e9ece232ce6b65eca04ee09104896e0254e2f4e2)]
+
+
 <a name="1.5.4"></a>
 ## 1.5.4 (2021-06-17)
 
