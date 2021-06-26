@@ -1,4 +1,4 @@
-/* eslint-disable import/first, import/order */
+/* eslint-disable import/first, import/order, import/no-extraneous-dependencies */
 import tsnode from 'ts-node'
 import manifest from './package.json'
 
