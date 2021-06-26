@@ -57,8 +57,8 @@ describe('build', function () {
       const data = output.code != null ? output.code : output
       expect(data).toMatchSnapshot(`rollup ${format}`)
     }
-    expect(
-      fs.existsSync(path.join(caseDir, 'lib/types/index.d.ts')),
-    ).toBeTruthy()
+    // expect(
+    //   fs.existsSync(path.join(caseDir, 'lib/types/index.d.ts')),
+    // ).toBeTruthy()
   })
 })

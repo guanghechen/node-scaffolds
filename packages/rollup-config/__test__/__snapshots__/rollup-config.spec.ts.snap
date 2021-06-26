@@ -18,12 +18,6 @@ var data$1 = {
   data: data
 };
 
-/**
- * Check if the given filepath is an existed path of file.
- *
- * @param filepath
- * @returns
- */
 function isFileSync(filepath) {
     if (!fs__default['default'].existsSync(filepath))
         return false;
@@ -49,12 +43,6 @@ var data$1 = {
   data: data
 };
 
-/**
- * Check if the given filepath is an existed path of file.
- *
- * @param filepath
- * @returns
- */
 function isFileSync(filepath) {
     if (!fs.existsSync(filepath))
         return false;
