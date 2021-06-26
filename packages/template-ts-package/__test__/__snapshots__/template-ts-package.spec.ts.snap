@@ -114,7 +114,7 @@ exports[`ts-package simple: package.json 1`] = `
   },
   \\"devDependencies\\": {
     \\"@guanghechen/rollup-config\\": \\"^<LATEST>\\",
-    \\"rollup\\": \\"2.40.0\\"
+    \\"rollup\\": \\"^2.52.1\\"
   }
 }
 "
