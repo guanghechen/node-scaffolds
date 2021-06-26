@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="1.6.1"></a>
+## 1.6.1 (2021-06-26)
+
+### Added
+
+- ✅ test: update snapshots [[805f3f9](https://github.com/guanghechen/node-scaffolds/commit/805f3f97366bfc8ce4dcaeb59d306d92364dad8f)]
+
+### Changed
+
+- 🔧 chore: clip devDependencies [[5e9c636](https://github.com/guanghechen/node-scaffolds/commit/5e9c636be47ae02d4330403b4f47d840b998b8fb)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[42c4ef2](https://github.com/guanghechen/node-scaffolds/commit/42c4ef2655be61eee5c09b100eb0e40b4575b848)]
+
+
 <a name="1.6.0"></a>
 ## 1.6.0 (2021-06-26)
 
