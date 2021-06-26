@@ -41,7 +41,6 @@
     "@guanghechen/plop-helper": "^1.6.0"
   },
   "devDependencies": {
-    "@guanghechen/jest-helper": "^1.6.0",
-    "fs-extra": "^10.0.0"
+    "@guanghechen/jest-helper": "^1.6.0"
   }
 }
