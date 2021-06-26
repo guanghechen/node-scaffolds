@@ -7,14 +7,13 @@ import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import type { OutputOptions, RollupOptions } from 'rollup'
 import typescript from 'rollup-plugin-typescript2'
+import builtinModules from './builtin-modules.json'
 import { convertToBoolean, coverBoolean, isArray } from './option-helper'
 import type {
   RawRollupConfigEnvs,
   RollupConfigEnvs,
   RollupConfigOptions,
 } from './types'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const builtinModules = require('builtin-modules')
 
 const builtinExternals: string[] = builtinModules.concat(['glob', 'sync'])
 
