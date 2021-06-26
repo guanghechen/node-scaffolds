@@ -1,8 +1,8 @@
 import type { RollupCommonJSOptions as CommonJSOptions } from '@rollup/plugin-commonjs'
 import type { RollupJsonOptions as JsonOptions } from '@rollup/plugin-json'
 import type { RollupNodeResolveOptions as NodeResolveOptions } from '@rollup/plugin-node-resolve'
+import type { RollupTypescriptOptions as TypescriptOptions } from '@rollup/plugin-typescript'
 import type rollup from 'rollup'
-import type { RPT2Options as TypescriptOptions } from 'rollup-plugin-typescript2'
 
 export type { RPT2Options as TypescriptOptions } from 'rollup-plugin-typescript2'
 export type { RollupCommonJSOptions as CommonJSOptions } from '@rollup/plugin-commonjs'

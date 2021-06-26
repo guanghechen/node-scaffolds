@@ -5,8 +5,8 @@ import {
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
+import typescript from '@rollup/plugin-typescript'
 import type { OutputOptions, RollupOptions } from 'rollup'
-import typescript from 'rollup-plugin-typescript2'
 import builtinModules from './builtin-modules.json'
 import { convertToBoolean, coverBoolean, isArray } from './option-helper'
 import type {
@@ -109,22 +109,15 @@ export function createRollupConfig(
         ...jsonOptions,
       }),
       typescript({
-        clean: true,
-        useTsconfigDeclarationDir: true,
+        // compilerOptions
+        declaration: true,
+        declarationMap: env.shouldSourceMap,
+        declarationDir: 'lib/types',
+        outDir: 'lib',
+        removeComments: true,
+        sourceMap: env.shouldSourceMap,
+
         include: ['**/*.tsx', '**/*.ts'],
-        tsconfigDefaults: {
-          compilerOptions: {
-            declaration: true,
-            declarationMap: true,
-            declarationDir: 'lib/types',
-            outDir: 'lib',
-          },
-        },
-        tsconfigOverride: {
-          compilerOptions: {
-            declarationMap: env.shouldSourceMap,
-          },
-        },
         ...typescriptOptions,
       }),
       commonjs({
