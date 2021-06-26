@@ -1,5 +1,27 @@
 # Changelog
 
+<a name="1.6.0"></a>
+## 1.6.0 (2021-06-26)
+
+### Added
+
+- ✅ test: update snapshots [[409502a](https://github.com/guanghechen/node-scaffolds/commit/409502a67cfc06154b912fb62ba22b51d10edbab)]
+
+### Changed
+
+- ⬆️ chore: upgrade dependencies [[5ab55f3](https://github.com/guanghechen/node-scaffolds/commit/5ab55f3f233a673ecebd857919741a54080ea7b9)]
+- ⚡ improve(parse-lineno): no de-duplicate needed if there is only one interval [[1dd23b3](https://github.com/guanghechen/node-scaffolds/commit/1dd23b3da8d748c8a2d4440d86e79a66ad61ac01)]
+
+### Removed
+
+- ➖ improve(rollup-config): remove dependencies [[9ca1fff](https://github.com/guanghechen/node-scaffolds/commit/9ca1fffe10a9309f48eb5d3a0229714fc95f83c8)]
+
+### Miscellaneous
+
+-  feat: use @rollup/plugin-typescript instead of rollup-plugin-typescript2 (the types files is no longer generated through the rollup config) [[91a7c6c](https://github.com/guanghechen/node-scaffolds/commit/91a7c6ca9eb5f889c11ed5bc15edc32edd8fc499)]
+- 📝 docs: update CHANGELOG [[0a9680e](https://github.com/guanghechen/node-scaffolds/commit/0a9680ec8eaa0f92d5aa61c4fcf60c2cb943000e)]
+
+
 <a name="1.5.5"></a>
 ## 1.5.5 (2021-06-18)
 
