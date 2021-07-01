@@ -5,8 +5,10 @@
     "browserslist",
     "clsx",
     "cond",
+    "dirpath",
     "editorconfig",
     "eslintconfig",
+    "execa",
     "flexbugs",
     "funcs",
     "gitmoji",
@@ -14,10 +16,12 @@
     "guanghechen",
     "lcov",
     "linenos",
+    "mkdirs",
     "multiline",
     "multilines",
     "multiprop",
     "nonwords",
+    "parastic",
     "paren",
     "parens",
     "pinst",
@@ -29,8 +33,10 @@
     "rollup",
     "singleline",
     "styl",
+    "tada",
     "tsbuildinfo",
-    "tsnode"
+    "tsnode",
+    "ymal"
   ],
   "files.associations": {
     ".prettierrc": "yaml"

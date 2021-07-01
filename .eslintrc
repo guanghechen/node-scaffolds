@@ -19,7 +19,7 @@
       ]
     },
     {
-      "files": ["**/__test__/*.spec.ts"],
+      "files": ["**/__test__/*.spec.ts", "**/__test__/util.ts"],
       "extends": [
         "@guanghechen",
         "@guanghechen/ts",

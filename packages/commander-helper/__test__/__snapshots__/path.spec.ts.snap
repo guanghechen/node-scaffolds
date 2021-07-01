@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`absoluteOfWorkspace basic 1`] = `"<$WORKSPACE$>/packages/commander-helper/__test__/a/b/c.txt"`;
+
+exports[`absoluteOfWorkspace basic 2`] = `"/a/b/c.txt"`;
+
+exports[`absoluteOfWorkspace basic 3`] = `"<$WORKSPACE$>/packages/commander-helper/__test__/a/b/c.txt"`;
+
+exports[`relativeOfWorkspace basic 1`] = `"a/b/c.txt"`;
+
+exports[`relativeOfWorkspace basic 2`] = `"../a/b/c.txt"`;
+
+exports[`relativeOfWorkspace basic 3`] = `"../.."`;

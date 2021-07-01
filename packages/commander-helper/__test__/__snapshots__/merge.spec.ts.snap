@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`merge replace 1`] = `
+Object {
+  "a": Object {
+    "b": Object {
+      "d": "waw",
+    },
+  },
+  "b": "dfe",
+  "c": Array [
+    "x",
+    "y",
+    "a",
+    "b",
+  ],
+  "d": "d",
+}
+`;
+
+exports[`merge replace 2`] = `
+Object {
+  "a": Object {
+    "b": Object {
+      "d": "waw",
+    },
+  },
+  "b": "dfe",
+  "c": Array [
+    "a",
+    "b",
+  ],
+  "d": "d",
+}
+`;

@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`collectAllFilesSync collect from file 1`] = `
+Array [
+  "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic/config.json",
+]
+`;
+
+exports[`collectAllFilesSync json file only 1`] = `
+Array [
+  "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic/config.json",
+]
+`;
+
+exports[`collectAllFilesSync null predicate 1`] = `
+Array [
+  "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic/child/a.txt",
+  "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic/config.json",
+  "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic/config.json-unknown",
+  "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic/config.yaml",
+  "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic/config.yml",
+]
+`;
+
+exports[`loadJsonOrYaml .json 1`] = `
+Object {
+  "name": "ghc-cli",
+  "version": "1.0.11",
+}
+`;
+
+exports[`loadJsonOrYaml .yaml 1`] = `
+Object {
+  "name": "ghc-cli",
+  "version": "1.0.1",
+}
+`;
+
+exports[`loadJsonOrYaml .yml 1`] = `
+Object {
+  "name": "ghc-cli",
+  "version": "1.0.1",
+}
+`;
+
+exports[`loadJsonOrYamlSync .json 1`] = `
+Object {
+  "name": "ghc-cli",
+  "version": "1.0.11",
+}
+`;
+
+exports[`loadJsonOrYamlSync .yaml 1`] = `
+Object {
+  "name": "ghc-cli",
+  "version": "1.0.1",
+}
+`;
+
+exports[`loadJsonOrYamlSync .yml 1`] = `
+Object {
+  "name": "ghc-cli",
+  "version": "1.0.1",
+}
+`;
+
+exports[`mkdirsIfNotExists mkdirs logger 1`] = `
+Array [
+  Array [
+    "[[38;2;114;201;204mverbo[39m] [38;2;114;201;204mmkdirs: <$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic--non-existed--2[39m
+[38;2;114;201;204m[39m",
+  ],
+]
+`;

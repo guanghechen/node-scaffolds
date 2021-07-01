@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`resolveCommandConfigurationOptions basic 1`] = `
+Object {
+  "a": Array [
+    1,
+    2,
+    3,
+  ],
+  "color": false,
+  "configPath": Array [
+    "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2/demo.config.yml",
+  ],
+  "cwd": "<$WORKSPACE$>/packages/commander-helper",
+  "date": false,
+  "logLevel": "debug",
+  "parasticConfigEntry": "@guanghechen/tool-demo",
+  "parasticConfigPath": "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2/package.json",
+  "workspace": "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2",
+}
+`;
+
+exports[`resolveCommandConfigurationOptions basic 2`] = `
+Array [
+  Array [
+    "[debug] cwd: <$WORKSPACE$>/packages/commander-helper
+",
+  ],
+  Array [
+    "[debug] workspace: <$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2
+",
+  ],
+  Array [
+    "[debug] configPath: [
+  \\"<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2/demo.config.yml\\"
+]
+",
+  ],
+  Array [
+    "[debug] parasticConfigPath: <$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2/package.json
+",
+  ],
+  Array [
+    "[debug] parasticConfigEntry: @guanghechen/tool-demo
+",
+  ],
+]
+`;
+
+exports[`resolveCommandConfigurationOptions no sub-command 1`] = `
+Object {
+  "a": Array [
+    1,
+    2,
+    3,
+  ],
+  "color": true,
+  "configPath": Array [],
+  "cwd": "<$WORKSPACE$>/packages/commander-helper",
+  "date": false,
+  "generate": Object {
+    "date": true,
+    "logLevel": "debug",
+  },
+  "init": Object {
+    "color": true,
+    "logLevel": "verbose",
+  },
+  "logLevel": "warn",
+  "parasticConfigEntry": "@guanghechen/tool-demo",
+  "parasticConfigPath": "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2/package.json",
+  "workspace": "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2",
+}
+`;
+
+exports[`resolveCommandConfigurationOptions no sub-command 2`] = `Array []`;
+
+exports[`resolveCommandConfigurationOptions with config 1`] = `
+Object {
+  "a": Array [
+    1,
+    2,
+    3,
+  ],
+  "color": true,
+  "configPath": Array [],
+  "cwd": "<$WORKSPACE$>/packages/commander-helper",
+  "date": true,
+  "logLevel": "debug",
+  "parasticConfigEntry": "@guanghechen/tool-demo",
+  "parasticConfigPath": "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2/package.json",
+  "workspace": "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2",
+}
+`;
+
+exports[`resolveCommandConfigurationOptions with config 2`] = `
+Array [
+  Array [
+    "[debug] cwd: <$WORKSPACE$>/packages/commander-helper
+",
+  ],
+  Array [
+    "[debug] workspace: <$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2
+",
+  ],
+  Array [
+    "[debug] configPath: []
+",
+  ],
+  Array [
+    "[debug] parasticConfigPath: <$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2/package.json
+",
+  ],
+  Array [
+    "[debug] parasticConfigEntry: @guanghechen/tool-demo
+",
+  ],
+]
+`;

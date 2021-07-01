@@ -6,6 +6,7 @@
     "sourceMap": true,
     "paths": {
       "@guanghechen/chalk-logger": ["packages/chalk-logger/src"],
+      "@guanghechen/commander-helper": ["packages/commander-helper/src"],
       "@guanghechen/invariant": ["packages/invariant/src"],
       "@guanghechen/jest-helper": ["packages/jest-helper/src"],
       "@guanghechen/option-helper": ["packages/option-helper/src"],

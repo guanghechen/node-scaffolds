@@ -1,0 +1,10 @@
+__globalOptions__:
+  logLevel: info
+
+init:
+  logLevel: debug
+  color: false
+
+generate:
+  logLevel: debug
+  date: true
