@@ -73,7 +73,7 @@ A few months ago I submitted a [pr](https://github.com/vladshcherbin/rollup-plug
 
 ```js
 // rollup.config.js
-import copy from '@barusu/rollup-plugin-copy'
+import copy from '@guanghechen/rollup-plugin-copy'
 
 export default {
   input: 'src/index.js',

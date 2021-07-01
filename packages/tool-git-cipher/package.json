@@ -1,7 +1,7 @@
 {
-  "name": "@guanghechen/commander-helper",
+  "name": "@guanghechen/tool-git-cipher",
   "version": "1.6.1",
-  "description": "Utils for creating node.js command line program",
+  "description": "A cli tool to cipher git repository",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/guanghechen.git",
-    "directory": "packages/commander-helper"
+    "directory": "packages/tool-git-cipher"
   },
-  "homepage": "https://github.com/guanghechen/guanghechen/tree/main/packages/commander-helper#readme",
+  "homepage": "https://github.com/guanghechen/guanghechen/tree/main/packages/tool-git-cipher#readme",
   "keywords": [],
   "main": "lib/cjs/index.js",
   "types": "lib/types/index.d.ts",
@@ -29,25 +29,25 @@
     "LICENSE",
     "README.md"
   ],
+  "bin": {
+    "ghc-git-cipher": "./lib/cjs/cli.js"
+  },
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
     "prebuild": "rimraf lib/ && tsc -p tsconfig.src.json --emitDeclarationOnly",
-    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
-    "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build"
   },
   "dependencies": {
     "@guanghechen/chalk-logger": "^1.6.1",
-    "@guanghechen/invariant": "^1.6.1",
-    "@guanghechen/locate-helper": "^1.6.1",
+    "@guanghechen/commander-helper": "^1.6.1",
+    "@guanghechen/event-bus": "^1.6.1",
     "@guanghechen/option-helper": "^1.6.1",
+    "@guanghechen/plop-helper": "^1.6.1",
     "command-exists": "^1.2.9",
     "execa": "^5.1.1",
     "fs-extra": "^10.0.0",
     "inquirer": "^8.1.1",
-    "js-yaml": "^4.1.0"
-  },
-  "peerDependencies": {
-    "commander": "^7.2.0"
+    "node-plop": "~0.26.2"
   },
   "devDependencies": {
     "@guanghechen/rollup-config": "^1.6.1"
