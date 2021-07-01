@@ -47,7 +47,7 @@
   },
   "peerDependencies": {
     "@guanghechen/chalk-logger": "^1.6.1",
-    "commander": "^8.0.0"
+    "commander": "^7.2.0"
   },
   "devDependencies": {
     "@guanghechen/rollup-config": "^1.6.1"

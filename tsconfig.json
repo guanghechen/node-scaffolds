@@ -18,6 +18,7 @@
       "@guanghechen/rollup-config-cli": ["packages/rollup-config-cli/src"],
       "@guanghechen/rollup-config-tsx": ["packages/rollup-config-tsx/src"],
       "@guanghechen/rollup-plugin-copy": ["packages/rollup-plugin-copy/src"],
+      "@guanghechen/tool-git-cipher": ["packages/tool-git-cipher/src"],
       "@guanghechen/utility-types": ["packages/utility-types/src"]
     }
   },
