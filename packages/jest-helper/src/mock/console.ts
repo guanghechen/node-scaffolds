@@ -63,8 +63,8 @@ export function createConsoleMock(
   }
 
   return {
-    get: field => dataMap[field],
-    getIndiscriminateAll: () => allData,
+    get: field => dataMap[field].slice(),
+    getIndiscriminateAll: () => allData.slice(),
     reset: () => {
       allData.splice(0, allData.length)
       for (const field of methodNames) dataMap[field] = []
