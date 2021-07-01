@@ -10,13 +10,11 @@ export function createFilepathDesensitizer(
   baseDir: string,
   replaceString = '<WORKSPACE>',
 ): StringDesensitizer {
-  const source =
-    '(?<=^|[\\b\\s])' +
-    baseDir
-      .replace(/[\\/]*$/, '') // Remove tailing filepath delimiter
-      .replace(/[/\\]+/g, '/') // Remove unused filepath delimiter
-      .replace(/([.+*?=^!:${}()[\]|/\\])/g, '\\$1') // Escape special regexp characters
-      .replace(/\\\//g, '[\\\\|/]')
+  const source = baseDir
+    .replace(/[\\/]*$/, '') // Remove tailing filepath delimiter
+    .replace(/[/\\]+/g, '/') // Remove unused filepath delimiter
+    .replace(/([.+*?=^!:${}()[\]|/\\])/g, '\\$1') // Escape special regexp characters
+    .replace(/\\\//g, '[\\\\|/]')
   const regex = new RegExp(source, 'g')
   return text => text.replace(regex, replaceString)
 }
