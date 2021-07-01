@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`calcFilePartItemsByCount basic 1`] = `
+Array [
+  Object {
+    "end": 1336,
+    "sid": 1,
+    "start": 0,
+  },
+  Object {
+    "end": 2672,
+    "sid": 2,
+    "start": 1336,
+  },
+  Object {
+    "end": 4008,
+    "sid": 3,
+    "start": 2672,
+  },
+  Object {
+    "end": 5341,
+    "sid": 4,
+    "start": 4008,
+  },
+]
+`;
+
+exports[`calcFilePartItemsBySize basic 1`] = `
+Array [
+  Object {
+    "end": 1024,
+    "sid": 1,
+    "start": 0,
+  },
+  Object {
+    "end": 2048,
+    "sid": 2,
+    "start": 1024,
+  },
+  Object {
+    "end": 3072,
+    "sid": 3,
+    "start": 2048,
+  },
+  Object {
+    "end": 4096,
+    "sid": 4,
+    "start": 3072,
+  },
+  Object {
+    "end": 5120,
+    "sid": 5,
+    "start": 4096,
+  },
+  Object {
+    "end": 5341,
+    "sid": 6,
+    "start": 5120,
+  },
+]
+`;
