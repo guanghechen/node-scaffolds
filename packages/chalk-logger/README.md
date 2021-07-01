@@ -379,11 +379,11 @@ loggerMock.restore()
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/chalk-logger#readme
 [@yozora/jest-helper]: https://www.npmjs.com/package/@guanghechen/jest-helper
-[demo1.1.png]: https://raw.githubusercontent.com/guanghechen/barusu/main/packages/chalk-logger/screenshots/demo1.1.png
-[demo2.1.png]: https://raw.githubusercontent.com/guanghechen/barusu/main/packages/chalk-logger/screenshots/demo2.1.png
-[demo3.1.png]: https://raw.githubusercontent.com/guanghechen/barusu/main/packages/chalk-logger/screenshots/demo3.1.png
-[demo4.1.png]: https://raw.githubusercontent.com/guanghechen/barusu/main/packages/chalk-logger/screenshots/demo4.1.png
-[demo5.1.png]: https://raw.githubusercontent.com/guanghechen/barusu/main/packages/chalk-logger/screenshots/demo5.1.png
-[demo6.1.png]: https://raw.githubusercontent.com/guanghechen/barusu/main/packages/chalk-logger/screenshots/demo6.1.png
+[demo1.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo1.1.png
+[demo2.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo2.1.png
+[demo3.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo3.1.png
+[demo4.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo4.1.png
+[demo5.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo5.1.png
+[demo6.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo6.1.png
 [chalk]: https://github.com/chalk/chalk
 [commander.js]: https://github.com/tj/commander.js
