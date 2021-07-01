@@ -1,23 +1,9 @@
-import type { Desensitizer } from '@guanghechen/jest-helper'
-import {
-  composeStringDesensitizers,
-  createFilepathDesensitizer,
-  createJsonDesensitizer,
-  createLoggerMock,
-} from '@guanghechen/jest-helper'
-import path from 'path'
+import { createLoggerMock } from '@guanghechen/jest-helper'
+import { desensitize } from 'jest.setup'
 import { colorToChalk } from '../src/color'
 import { DEBUG, Level, VERBOSE } from '../src/level'
 import type { LoggerOptions } from '../src/logger'
 import { Logger } from '../src/logger'
-
-const workspaceRootDir = path.resolve(__dirname, '../../../')
-const desensitize: Desensitizer<unknown[]> = createJsonDesensitizer({
-  string: composeStringDesensitizers(
-    createFilepathDesensitizer(workspaceRootDir, '<$WORKSPACE$>'),
-    text => text.replace(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/, '<$Date$>'),
-  ),
-}) as Desensitizer<unknown[]>
 
 describe('Logger', function () {
   const levels: string[] = [

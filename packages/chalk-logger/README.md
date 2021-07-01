@@ -21,6 +21,12 @@
         src="https://img.shields.io/npm/l/@guanghechen/chalk-logger.svg"
       />
     </a>
+    <a href="#install">
+      <img
+        alt="Module Formats: cjs"
+        src="https://img.shields.io/badge/module_formats-cjs-green.svg"
+      />
+    </a>
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"

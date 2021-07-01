@@ -32,7 +32,7 @@ describe('Copy', () => {
   test('No config passed', async () => {
     await build()
 
-    expect(await fs.pathExists('dist/asset-1.js')).toBe(false)
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
   })
 
   test('Empty array as target', async () => {
@@ -40,7 +40,7 @@ describe('Copy', () => {
       targets: [],
     })
 
-    expect(await fs.pathExists('dist/asset-1.js')).toBe(false)
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
   })
 
   test('Files', async () => {
@@ -53,8 +53,8 @@ describe('Copy', () => {
       ],
     })
 
-    expect(await fs.pathExists('dist/asset-1.js')).toBe(true)
-    expect(await fs.pathExists('dist/asset-2.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/asset-2.js')).toBe(true)
   })
 
   test('Folders', async () => {
@@ -67,14 +67,14 @@ describe('Copy', () => {
       ],
     })
 
-    expect(await fs.pathExists('dist/css')).toBe(true)
-    expect(await fs.pathExists('dist/css/css-1.css')).toBe(true)
-    expect(await fs.pathExists('dist/css/css-2.css')).toBe(true)
-    expect(await fs.pathExists('dist/scss')).toBe(true)
-    expect(await fs.pathExists('dist/scss/scss-1.scss')).toBe(true)
-    expect(await fs.pathExists('dist/scss/scss-2.scss')).toBe(true)
-    expect(await fs.pathExists('dist/scss/nested')).toBe(true)
-    expect(await fs.pathExists('dist/scss/nested/scss-3.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css/css-1.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css/css-2.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss/scss-1.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss/scss-2.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss/nested')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss/nested/scss-3.scss')).toBe(true)
   })
 
   test('Glob', async () => {
@@ -92,12 +92,12 @@ describe('Copy', () => {
       ],
     })
 
-    expect(await fs.pathExists('dist/asset-1.js')).toBe(true)
-    expect(await fs.pathExists('dist/asset-2.js')).toBe(true)
-    expect(await fs.pathExists('dist/css-1.css')).toBe(false)
-    expect(await fs.pathExists('dist/css-2.css')).toBe(true)
-    expect(await fs.pathExists('dist/scss-1.scss')).toBe(true)
-    expect(await fs.pathExists('dist/scss-2.scss')).toBe(false)
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/asset-2.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/css-1.css')).toBe(false)
+    expect(fs.pathExistsSync('dist/css-2.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss-1.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss-2.scss')).toBe(false)
   })
 
   test('Multiple objects as targets', async () => {
@@ -108,13 +108,13 @@ describe('Copy', () => {
       ],
     })
 
-    expect(await fs.pathExists('dist/asset-1.js')).toBe(true)
-    expect(await fs.pathExists('dist/asset-2.js')).toBe(true)
-    expect(await fs.pathExists('dist/css')).toBe(true)
-    expect(await fs.pathExists('dist/css/css-1.css')).toBe(true)
-    expect(await fs.pathExists('dist/css/css-2.css')).toBe(true)
-    expect(await fs.pathExists('build/css-1.css')).toBe(true)
-    expect(await fs.pathExists('build/css-2.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/asset-2.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css/css-1.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css/css-2.css')).toBe(true)
+    expect(fs.pathExistsSync('build/css-1.css')).toBe(true)
+    expect(fs.pathExistsSync('build/css-2.css')).toBe(true)
   })
 
   test('Multiple destinations', async () => {
@@ -131,16 +131,16 @@ describe('Copy', () => {
       ],
     })
 
-    expect(await fs.pathExists('dist/asset-1.js')).toBe(true)
-    expect(await fs.pathExists('dist/css')).toBe(true)
-    expect(await fs.pathExists('dist/css/css-1.css')).toBe(true)
-    expect(await fs.pathExists('dist/css/css-2.css')).toBe(true)
-    expect(await fs.pathExists('dist/scss-1.scss')).toBe(true)
-    expect(await fs.pathExists('build/asset-1.js')).toBe(true)
-    expect(await fs.pathExists('build/css')).toBe(true)
-    expect(await fs.pathExists('build/css/css-1.css')).toBe(true)
-    expect(await fs.pathExists('build/css/css-2.css')).toBe(true)
-    expect(await fs.pathExists('build/scss-1.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css/css-1.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css/css-2.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss-1.scss')).toBe(true)
+    expect(fs.pathExistsSync('build/asset-1.js')).toBe(true)
+    expect(fs.pathExistsSync('build/css')).toBe(true)
+    expect(fs.pathExistsSync('build/css/css-1.css')).toBe(true)
+    expect(fs.pathExistsSync('build/css/css-2.css')).toBe(true)
+    expect(fs.pathExistsSync('build/scss-1.scss')).toBe(true)
   })
 
   test('Same target', async () => {
@@ -155,10 +155,10 @@ describe('Copy', () => {
       ],
     })
 
-    expect(await fs.pathExists('dist/css')).toBe(true)
-    expect(await fs.pathExists('dist/css/css-1.css')).toBe(true)
-    expect(await fs.pathExists('dist/css/css-2.css')).toBe(true)
-    expect(await fs.pathExists('build/asset-1.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css/css-1.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css/css-2.css')).toBe(true)
+    expect(fs.pathExistsSync('build/asset-1.js')).toBe(true)
   })
 
   test('Throw if target is not an object', async () => {
@@ -230,31 +230,29 @@ describe('Copy', () => {
       ],
     })
 
-    expect(await fs.pathExists('dist/asset-1-renamed.js')).toBe(true)
-    expect(await fs.pathExists('dist/css-renamed')).toBe(true)
-    expect(await fs.pathExists('dist/css-renamed/css-1.css')).toBe(true)
-    expect(await fs.pathExists('dist/css-renamed/css-2.css')).toBe(true)
-    expect(await fs.pathExists('dist/css-multiple/css-1.css')).toBe(true)
-    expect(await fs.pathExists('dist/css-multiple/css-2.css')).toBe(false)
-    expect(await fs.pathExists('dist/asset-2-renamed.js')).toBe(true)
-    expect(await fs.pathExists('dist/scss-renamed')).toBe(true)
-    expect(await fs.pathExists('dist/scss-renamed/scss-1.scss')).toBe(true)
-    expect(await fs.pathExists('dist/scss-renamed/scss-2.scss')).toBe(true)
-    expect(await fs.pathExists('dist/scss-renamed/nested')).toBe(true)
-    expect(await fs.pathExists('dist/scss-renamed/nested/scss-3.scss')).toBe(
+    expect(fs.pathExistsSync('dist/asset-1-renamed.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/css-renamed')).toBe(true)
+    expect(fs.pathExistsSync('dist/css-renamed/css-1.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css-renamed/css-2.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css-multiple/css-1.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css-multiple/css-2.css')).toBe(false)
+    expect(fs.pathExistsSync('dist/asset-2-renamed.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss-renamed')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss-renamed/scss-1.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss-renamed/scss-2.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss-renamed/nested')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss-renamed/nested/scss-3.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss-multiple/scss-1-renamed.scss')).toBe(
       true,
     )
-    expect(await fs.pathExists('dist/scss-multiple/scss-1-renamed.scss')).toBe(
+    expect(fs.pathExistsSync('dist/scss-multiple/scss-2-renamed.scss')).toBe(
       true,
     )
-    expect(await fs.pathExists('dist/scss-multiple/scss-2-renamed.scss')).toBe(
-      true,
-    )
-    expect(await fs.pathExists('dist/scss-multiple/nested-renamed')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss-multiple/nested-renamed')).toBe(true)
     expect(
       await fs.pathExists('dist/scss-multiple/nested-renamed/scss-3.scss'),
     ).toBe(true)
-    expect(await fs.pathExists('dist/asset-3.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/asset-3.js')).toBe(true)
   })
 
   test('Throw if transform target is not a file', async () => {
@@ -303,27 +301,27 @@ describe('Copy', () => {
       ],
     })
 
-    expect(await fs.pathExists('dist/css-1.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css-1.css')).toBe(true)
     expect(await readFile('dist/css-1.css')).toEqual(
       expect.stringContaining('red'),
     )
-    expect(await fs.pathExists('build/css-1.css')).toBe(true)
+    expect(fs.pathExistsSync('build/css-1.css')).toBe(true)
     expect(await readFile('build/css-1.css')).toEqual(
       expect.stringContaining('red'),
     )
-    expect(await fs.pathExists('dist/scss-1.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss-1.scss')).toBe(true)
     expect(await readFile('dist/scss-1.scss')).toEqual(
       expect.not.stringContaining('background-color'),
     )
-    expect(await fs.pathExists('dist/scss-2.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss-2.scss')).toBe(true)
     expect(await readFile('dist/scss-2.scss')).toEqual(
       expect.not.stringContaining('background-color'),
     )
-    expect(await fs.pathExists('dist/scss-3.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss-3.scss')).toBe(true)
     expect(await readFile('dist/scss-3.scss')).toEqual(
       expect.not.stringContaining('background-color'),
     )
-    expect(await fs.pathExists('dist/css/css-1.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css/css-1.css')).toBe(true)
     expect(await readFile('dist/css/css-1.css')).toEqual(
       expect.stringContaining('coral'),
     )
@@ -475,10 +473,10 @@ describe('Options', () => {
       hook: 'buildStart',
     })
 
-    expect(await fs.pathExists('dist/asset-1.js')).toBe(true)
-    expect(await fs.pathExists('dist/css')).toBe(true)
-    expect(await fs.pathExists('dist/css/css-1.css')).toBe(true)
-    expect(await fs.pathExists('dist/css/css-2.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css/css-1.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/css/css-2.css')).toBe(true)
   })
 
   test('Copy once', async () => {
@@ -498,11 +496,11 @@ describe('Options', () => {
 
     await sleep(1000)
 
-    expect(await fs.pathExists('dist/asset-1.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
 
     await fs.remove('dist')
 
-    expect(await fs.pathExists('dist/asset-1.js')).toBe(false)
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
 
     await replace({
       files: 'src/index.js',
@@ -512,7 +510,7 @@ describe('Options', () => {
 
     await sleep(1000)
 
-    expect(await fs.pathExists('dist/asset-1.js')).toBe(false)
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
 
     watcher.close()
 
@@ -544,16 +542,12 @@ describe('Options', () => {
       flatten: false,
     })
 
-    expect(await fs.pathExists('dist/assets/asset-1.js')).toBe(true)
-    expect(await fs.pathExists('dist/assets/asset-2.js')).toBe(true)
-    expect(await fs.pathExists('dist/assets/css/css-1.css')).toBe(true)
-    expect(await fs.pathExists('dist/assets/css/css-2.css')).toBe(true)
-    expect(await fs.pathExists('dist/assets/scss/scss-1-renamed.scss')).toBe(
-      true,
-    )
-    expect(await fs.pathExists('dist/assets/scss/scss-2-renamed.scss')).toBe(
-      true,
-    )
+    expect(fs.pathExistsSync('dist/assets/asset-1.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/assets/asset-2.js')).toBe(true)
+    expect(fs.pathExistsSync('dist/assets/css/css-1.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/assets/css/css-2.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/assets/scss/scss-1-renamed.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/assets/scss/scss-2-renamed.scss')).toBe(true)
     expect(
       await fs.pathExists('dist/assets/scss/nested/scss-3-renamed.scss'),
     ).toBe(true)
@@ -565,7 +559,7 @@ describe('Options', () => {
       ignore: ['**/asset-1.js'],
     })
 
-    expect(await fs.pathExists('dist/asset-1.js')).toBe(false)
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
   })
 
   test('Rest target options', async () => {
@@ -579,6 +573,6 @@ describe('Options', () => {
       ],
     })
 
-    expect(await fs.pathExists('dist/asset-1.js')).toBe(false)
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
   })
 })

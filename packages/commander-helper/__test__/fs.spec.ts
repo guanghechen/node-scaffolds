@@ -1,6 +1,7 @@
 import { ChalkLogger, VERBOSE } from '@guanghechen/chalk-logger'
 import { createLoggerMock } from '@guanghechen/jest-helper'
 import fs from 'fs-extra'
+import { desensitize, locateFixtures } from 'jest.setup'
 import {
   collectAllFilesSync,
   ensureCriticalFilepathExistsSync,
@@ -12,7 +13,6 @@ import {
   loadJsonOrYamlSync,
   mkdirsIfNotExists,
 } from '../src'
-import { desensitize, locateFixtures } from './util'
 
 describe('isFile', function () {
   test('truthy', async function () {

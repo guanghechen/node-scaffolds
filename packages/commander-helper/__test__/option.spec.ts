@@ -1,7 +1,7 @@
 import ChalkLogger, { DEBUG } from '@guanghechen/chalk-logger'
 import { resolveCommandConfigurationOptions } from '@guanghechen/commander-helper'
 import { createLoggerMock } from '@guanghechen/jest-helper'
-import { desensitize, locateFixtures } from './util'
+import { desensitize, locateFixtures } from 'jest.setup'
 
 describe('resolveCommandConfigurationOptions', function () {
   const logger = new ChalkLogger({ level: DEBUG, colorful: false })

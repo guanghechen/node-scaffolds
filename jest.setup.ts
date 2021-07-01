@@ -7,13 +7,12 @@ import {
 import fs from 'fs-extra'
 import path from 'path'
 
-export const locateFixtures = (...p: string[]): string =>
-  path.join(__dirname, 'fixtures', ...p)
+export const workspaceRootDir = __dirname
+export const testRootDior = path.resolve()
 
-export const loadFixtures = (...p: string[]): string =>
-  fs.readFileSync(locateFixtures(...p), 'utf-8')
-
-const workspaceRootDir = path.resolve(__dirname, '../../../')
+/**
+ * Desensitize test data.
+ */
 export const desensitize: Desensitizer<any> & Desensitizer<string> =
   createJsonDesensitizer({
     string: composeStringDesensitizers(
@@ -21,3 +20,19 @@ export const desensitize: Desensitizer<any> & Desensitizer<string> =
       text => text.replace(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/, '<$Date$>'),
     ),
   }) as Desensitizer<any>
+
+/**
+ * Locate fixture filepath.
+ * @param p
+ * @returns
+ */
+export const locateFixtures = (...p: string[]): string =>
+  path.join(testRootDior, '__test__/fixtures', ...p)
+
+/**
+ * Load fixture filepath.
+ * @param p
+ * @returns
+ */
+export const loadFixtures = (...p: string[]): string =>
+  fs.readFileSync(locateFixtures(...p), 'utf-8')

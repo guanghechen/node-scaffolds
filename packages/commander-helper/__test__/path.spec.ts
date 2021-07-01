@@ -1,6 +1,6 @@
+import { desensitize } from 'jest.setup'
 import path from 'path'
 import { absoluteOfWorkspace, relativeOfWorkspace } from '../src'
-import { desensitize } from './util'
 
 describe('absoluteOfWorkspace', function () {
   test('null / undefined', function () {

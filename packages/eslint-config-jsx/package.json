@@ -30,6 +30,9 @@
     "LICENSE",
     "README.md"
   ],
+  "scripts": {
+    "test": "echo 'no test needed.'"
+  },
   "dependencies": {
     "@babel/eslint-parser": "^7.14.7",
     "@guanghechen/eslint-config": "^1.6.1",
