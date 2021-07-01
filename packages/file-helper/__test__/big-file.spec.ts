@@ -1,6 +1,25 @@
 import fs from 'fs-extra'
 import { desensitize, locateFixtures } from 'jest.setup'
-import { BigFileHelper, bigFileHelper, calcFilePartItemsByCount } from '../src'
+import {
+  BigFileHelper,
+  bigFileHelper,
+  calcFilePartItemsByCount,
+  calcFilePartItemsBySize,
+} from '../src'
+
+describe('calcFilePartItemsByCount', function () {
+  test('basic', function () {
+    const filepath = locateFixtures('a.md')
+    expect(calcFilePartItemsByCount(filepath, 4)).toMatchSnapshot()
+  })
+})
+
+describe('calcFilePartItemsBySize', function () {
+  test('basic', function () {
+    const filepath = locateFixtures('a.md')
+    expect(calcFilePartItemsBySize(filepath, 1024)).toMatchSnapshot()
+  })
+})
 
 describe('BigFileHelper', function () {
   const filepath = locateFixtures('a.md')

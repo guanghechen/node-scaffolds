@@ -78,10 +78,9 @@ export class BigFileHelper {
       // Save part
       const task = new Promise<void>((resolve, reject) => {
         const writer = fs.createWriteStream(partFilepath)
-        reader.on('error', reject)
-        reader.on('finish', resolve)
-        reader.on('close', resolve)
-        reader.pipe(writer)
+        const pipe = reader.pipe(writer)
+        pipe.on('error', reject)
+        pipe.on('finish', resolve)
       })
 
       // The operation of splitting the source file can be processed in parallel.

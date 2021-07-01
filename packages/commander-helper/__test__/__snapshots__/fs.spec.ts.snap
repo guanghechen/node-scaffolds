@@ -63,12 +63,3 @@ Object {
   "version": "1.0.1",
 }
 `;
-
-exports[`mkdirsIfNotExists mkdirs logger 1`] = `
-Array [
-  Array [
-    "[[38;2;114;201;204mverbo[39m] [38;2;114;201;204mmkdirs: <$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic--non-existed--2[39m
-[38;2;114;201;204m[39m",
-  ],
-]
-`;

@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@guanghechen/chalk-logger": "^1.6.1",
+    "@guanghechen/file-helper": "^1.6.1",
     "@guanghechen/invariant": "^1.6.1",
     "@guanghechen/locate-helper": "^1.6.1",
     "@guanghechen/option-helper": "^1.6.1",

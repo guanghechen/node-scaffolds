@@ -1,73 +1,86 @@
+import type { ChalkLogger } from '@guanghechen/chalk-logger'
 import invariant from '@guanghechen/invariant'
 import fs from 'fs-extra'
-import type { FilePartItem } from './types'
+import path from 'path'
 
 /**
- * Generate file part items by part size.
+ * Create a path of directories.
  *
- * @param filepath
- * @param _partSize
- * @returns
+ * @param filepath  the give file path
+ * @param isDir     Whether the given path is a directory
  */
-export function calcFilePartItemsBySize(
+export function mkdirsIfNotExists(
   filepath: string,
-  _partSize: number,
-): FilePartItem[] {
-  invariant(_partSize >= 1, 'Part size should be a positive integer!')
+  isDir: boolean,
+  logger?: ChalkLogger,
+): void {
+  const dirPath = isDir ? filepath : path.dirname(filepath)
+  if (fs.existsSync(dirPath)) return
 
-  const stat = fs.statSync(filepath)
-  invariant(stat.isFile(), `'${filepath}' is not a file!`)
-  invariant(stat.size > 0, `'${filepath}' is empty!`)
-
-  const totalSize = stat.size
-  const partSize = Math.round(_partSize)
-  const partTotal = Math.ceil(totalSize / partSize)
-  invariant(partTotal > 0, 'Part size is too small!')
-
-  const parts: FilePartItem[] = []
-  for (let i = 0; i < partTotal; ++i) {
-    parts.push({
-      sid: i + 1,
-      start: i * partSize,
-      end: (i + 1) * partSize,
-    })
+  // Print verbose log.
+  if (logger != null && logger.verbose != null) {
+    logger.verbose(`mkdirs: ${dirPath}`)
   }
 
-  // Resize the size of the last part.
-  parts[parts.length - 1].end = totalSize
-  return parts
+  fs.mkdirsSync(dirPath)
 }
 
 /**
- * Generate file part items by total of parts.
+ * Ensure critical filepath exists, otherwise, kill the process (synchronizing)
  *
  * @param filepath
- * @param _partTotal
- * @returns
  */
-export function calcFilePartItemsByCount(
-  filepath: string,
-  _partTotal: number,
-): FilePartItem[] {
-  invariant(_partTotal >= 1, 'Total of part should be a positive integer!')
+export function ensureCriticalFilepathExistsSync(
+  filepath: string | null,
+): void | never {
+  let errMsg: string | null = null
 
-  const stat = fs.statSync(filepath)
-  invariant(stat.isFile(), `'${filepath}' is not a file!`)
-  invariant(stat.size > 0, `'${filepath}' is empty!`)
-
-  const totalSize = stat.size
-  const partTotal = Math.round(_partTotal)
-  const partSize = Math.ceil(totalSize / partTotal)
-  const parts: FilePartItem[] = []
-  for (let i = 0; i < partTotal; ++i) {
-    parts.push({
-      sid: i + 1,
-      start: i * partSize,
-      end: (i + 1) * partSize,
-    })
+  if (filepath == null) {
+    errMsg = `Invalid path: ${filepath}.`
+  } else if (!fs.existsSync(filepath!)) {
+    errMsg = `Not found: ${filepath}.`
+  } else if (!fs.statSync(filepath).isFile()) {
+    errMsg = `Not a file: ${filepath}.`
   }
 
-  // Resize the size of the last part.
-  parts[parts.length - 1].end = totalSize
-  return parts
+  invariant(errMsg == null, errMsg)
+}
+
+/**
+ * Check whether if the dirPath is a non-existent path or empty folder.
+ * (synchronizing)
+ *
+ * @param dirpath   directory path
+ */
+export function isNonExistentOrEmpty(dirpath: string | null): boolean {
+  if (dirpath == null) return false
+  if (!fs.existsSync(dirpath)) return true
+  const stat = fs.statSync(dirpath)
+  if (!stat.isDirectory()) return false
+  const files: string[] = fs.readdirSync(dirpath)
+  return files.length <= 0
+}
+
+/**
+ * Check whether if the dirpath is a directory path. (synchronizing)
+ *
+ * @param dirpath   directory path
+ */
+export function isDirectorySync(dirpath: string | null): boolean {
+  if (dirpath == null) return false
+  if (!fs.existsSync(dirpath)) return false
+  const stat = fs.statSync(dirpath)
+  return stat.isDirectory()
+}
+
+/**
+ * Check whether if the filepath is a file path. (synchronizing)
+ *
+ * @param filepath   file path
+ */
+export function isFileSync(filepath: string | null): boolean {
+  if (filepath == null) return false
+  if (!fs.existsSync(filepath)) return false
+  const stat = fs.statSync(filepath)
+  return stat.isFile()
 }
