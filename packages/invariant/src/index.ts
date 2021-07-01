@@ -10,7 +10,7 @@ const prefix = 'Invariant failed'
  */
 export function invariant(
   condition: boolean,
-  message?: string | (() => string),
+  message?: (() => string) | string | null,
 ): asserts condition {
   if (condition) return
 
