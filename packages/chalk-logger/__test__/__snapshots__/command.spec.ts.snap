@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`command funcs registerCommanderOptions: registered options 1`] = `
+Array [
+  Array [
+    "--log-level <level>",
+    "specify logger's level.",
+  ],
+  Array [
+    "--log-name <name>",
+    "specify logger's name.",
+  ],
+  Array [
+    "--log-mode <'normal' | 'loose'>",
+    "specify logger's name.",
+  ],
+  Array [
+    "--log-flag <option>",
+    "specify logger' option. [[no-]<date|title|colorful|inline>]",
+    [Function],
+    Array [],
+  ],
+  Array [
+    "--log-filepath <filepath>",
+    "specify logger' output path.",
+  ],
+  Array [
+    "--log-encoding <encoding>",
+    "specify output file encoding.",
+  ],
+]
+`;
