@@ -1,6 +1,7 @@
 import invariant from '@guanghechen/invariant'
 import fs from 'fs-extra'
 import type { FilePartItem } from './types'
+import { consumeStreams } from './util/stream'
 
 export interface BigFileHelperOptions {
   /**
@@ -8,6 +9,12 @@ export interface BigFileHelperOptions {
    * @default '.ghc-part'
    */
   readonly partSuffix?: string
+
+  /**
+   * Buffer encoding.
+   * @default undefined
+   */
+  readonly encoding?: BufferEncoding
 }
 
 /**
@@ -15,9 +22,11 @@ export interface BigFileHelperOptions {
  */
 export class BigFileHelper {
   public readonly partSuffix: string
+  public readonly encoding?: BufferEncoding
 
   constructor(options: BigFileHelperOptions = {}) {
     this.partSuffix = options.partSuffix ?? '.ghc-part'
+    this.encoding = options.encoding
   }
 
   /**
@@ -71,6 +80,7 @@ export class BigFileHelper {
 
       // Create a range in the specified range of the file.
       const reader = fs.createReadStream(filepath, {
+        encoding: this.encoding,
         start: part.start,
         end: part.end - 1,
       })
@@ -78,9 +88,7 @@ export class BigFileHelper {
       // Save part
       const task = new Promise<void>((resolve, reject) => {
         const writer = fs.createWriteStream(partFilepath)
-        const pipe = reader.pipe(writer)
-        pipe.on('error', reject)
-        pipe.on('finish', resolve)
+        reader.on('error', reject).on('end', resolve).pipe(writer)
       })
 
       // The operation of splitting the source file can be processed in parallel.
@@ -103,17 +111,19 @@ export class BigFileHelper {
   ): Promise<void> {
     invariant(inputFilepaths.length > 0, 'Input file list is empty!')
 
-    const writer = fs.createWriteStream(outputFilepath, {})
-    for (const filepath of inputFilepaths) {
-      // The operation of merging files could not be processed in parallel.
-      await new Promise<void>((resolve, reject) => {
-        const reader = fs.createReadStream(filepath, {})
-        reader.on('error', reject)
-        reader.on('finish', resolve)
-        reader.on('close', resolve)
-        reader.pipe(writer, { end: false })
-      })
-    }
+    const streams: fs.ReadStream[] = inputFilepaths.map(filepath =>
+      fs.createReadStream(filepath, {
+        encoding: this.encoding,
+      }),
+    )
+
+    const writer: fs.WriteStream = fs.createWriteStream(outputFilepath, {
+      encoding: this.encoding,
+    })
+
+    // The operation of merging files could not be processed in parallel.
+    await consumeStreams(streams, writer)
+
     writer.close()
   }
 }

@@ -1,6 +1,6 @@
 import invariant from '@guanghechen/invariant'
 import fs from 'fs-extra'
-import type { FilePartItem } from './types'
+import type { FilePartItem } from '../types'
 
 /**
  * Generate file part items by part size.

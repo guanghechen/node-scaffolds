@@ -85,12 +85,18 @@
 
 ### Overview
 
-Name                          | Description
-:----------------------------:|:----------------------------:
-`calcFilePartItemsBySize`     | Generate file part items by part size
-`calcFilePartItemsByCount`    | Generate file part items by total of parts
-`BigFileHelper`               | A utility class for split / merging big files
-`bigFileHelper`               | Default instance of `BigFleHelper`
+Name                                | Description
+:----------------------------------:|:----------------------------:
+`BigFileHelper`                     | A utility class for split / merging big files
+`bigFileHelper`                     | Default instance of `BigFleHelper`
+`calcFilePartItemsBySize`           | Generate file part items by part size
+`calcFilePartItemsByCount`          | Generate file part items by total of parts
+`consumeStreams`                    | Consume multiple streams serially
+`ensureCriticalFilepathExistsSync`  | Ensure critical filepath exists
+`isDirectorySync`                   | Check whether if the dirpath is a directory path
+`isFileSync`                        | Check whether if the filepath is a file path
+`isNonExistentOrEmpty`              | Check whether if the dirPath is a non-existent path or empty folder
+`mkdirsIfNotExists`                 | Create a path of directories
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/file-helper#readme

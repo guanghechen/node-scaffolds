@@ -26,6 +26,7 @@ describe('BigFileHelper', function () {
   const outputFilepath = filepath + Math.random()
   const parts = calcFilePartItemsByCount(filepath, 5)
   const partFilepaths = bigFileHelper.calcPartFilepaths(filepath, parts)
+  const originalContent = fs.readFileSync(filepath, bigFileHelper.encoding)
 
   afterEach(() => {
     if (fs.existsSync(outputFilepath)) fs.unlinkSync(outputFilepath)
@@ -82,5 +83,8 @@ describe('BigFileHelper', function () {
 
     await bigFileHelper.merge(partFilepaths, outputFilepath)
     expect(fs.existsSync(outputFilepath)).toBe(true)
+    expect(fs.readFileSync(outputFilepath, bigFileHelper.encoding)).toEqual(
+      originalContent,
+    )
   })
 })

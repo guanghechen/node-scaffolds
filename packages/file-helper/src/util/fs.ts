@@ -26,7 +26,7 @@ export function mkdirsIfNotExists(
 }
 
 /**
- * Ensure critical filepath exists, otherwise, kill the process (synchronizing)
+ * Ensure critical filepath exists.
  *
  * @param filepath
  */

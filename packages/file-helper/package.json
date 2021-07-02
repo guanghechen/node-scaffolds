@@ -13,8 +13,9 @@
   },
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/file-helper#readme",
   "keywords": [
-    "logger",
-    "colorful logger"
+    "file helper",
+    "split file",
+    "merge streams"
   ],
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
