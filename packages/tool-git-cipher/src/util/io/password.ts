@@ -1,5 +1,5 @@
+import { destroyBuffer } from '@guanghechen/cipher-helper'
 import crypto from 'crypto'
-import { destroyBuffer } from '../buffer'
 import type { CustomError } from '../events'
 import { ErrorCode } from '../events'
 import { input } from './input'

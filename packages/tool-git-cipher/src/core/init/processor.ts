@@ -1,10 +1,12 @@
+import type { CipherHelper } from '@guanghechen/cipher-helper'
+import { AESCipherHelper } from '@guanghechen/cipher-helper'
 import {
   absoluteOfWorkspace,
   createInitialCommit,
   installDependencies,
-  mkdirsIfNotExists,
   relativeOfWorkspace,
 } from '@guanghechen/commander-helper'
+import { mkdirsIfNotExists } from '@guanghechen/file-helper'
 import { isNonBlankString, toLowerCase } from '@guanghechen/option-helper'
 import { runPlop } from '@guanghechen/plop-helper'
 import commandExists from 'command-exists'
@@ -15,8 +17,6 @@ import { packageVersion } from '../../env/constant'
 import { logger } from '../../env/logger'
 import { resolveTemplateFilepath } from '../../env/util'
 import { WorkspaceCatalog } from '../../util/catalog'
-import type { Cipher } from '../../util/cipher'
-import { AESCipher } from '../../util/cipher'
 import { SecretMaster } from '../../util/secret'
 import type { GitCipherInitContext } from './context'
 
@@ -27,7 +27,7 @@ export class GitCipherInitProcessor {
   constructor(context: GitCipherInitContext) {
     this.context = context
     this.secretMaster = new SecretMaster({
-      cipherFactory: { create: () => new AESCipher() },
+      cipherHelperCreator: { create: () => new AESCipherHelper() },
       secretFileEncoding: context.secretFileEncoding,
       secretContentEncoding: 'hex',
       showAsterisk: context.showAsterisk,
@@ -159,7 +159,7 @@ export class GitCipherInitProcessor {
    */
   protected async createIndexFile(): Promise<void> {
     const { context, secretMaster } = this
-    const cipher: Cipher = secretMaster.getCipher()
+    const cipher: CipherHelper = secretMaster.getCipher()
     const catalog = new WorkspaceCatalog({
       cipher,
       indexFileEncoding: context.indexFileEncoding,

@@ -1,3 +1,5 @@
+import type { CipherHelper } from '@guanghechen/cipher-helper'
+import { AESCipherHelper } from '@guanghechen/cipher-helper'
 import {
   absoluteOfWorkspace,
   relativeOfWorkspace,
@@ -6,8 +8,6 @@ import { coverString } from '@guanghechen/option-helper'
 import commandExists from 'command-exists'
 import { logger } from '../../env/logger'
 import { WorkspaceCatalog } from '../../util/catalog'
-import type { Cipher } from '../../util/cipher'
-import { AESCipher } from '../../util/cipher'
 import { SecretMaster } from '../../util/secret'
 import type { GitCipherDecryptContext } from './context'
 
@@ -18,7 +18,7 @@ export class GitCipherDecryptProcessor {
   constructor(context: GitCipherDecryptContext) {
     this.context = context
     this.secretMaster = new SecretMaster({
-      cipherFactory: { create: () => new AESCipher() },
+      cipherHelperCreator: { create: () => new AESCipherHelper() },
       secretFileEncoding: context.secretFileEncoding,
       secretContentEncoding: 'hex',
       showAsterisk: context.showAsterisk,
@@ -36,7 +36,7 @@ export class GitCipherDecryptProcessor {
     const { context, secretMaster } = this
     await secretMaster.load(context.secretFilepath)
 
-    const cipher: Cipher = secretMaster.getCipher()
+    const cipher: CipherHelper = secretMaster.getCipher()
     const catalog = new WorkspaceCatalog({
       cipher,
       indexFileEncoding: context.indexFileEncoding,
@@ -59,7 +59,7 @@ export class GitCipherDecryptProcessor {
    * @param ciphertextFilepaths
    */
   protected async decryptFiles(
-    cipher: Cipher,
+    cipher: CipherHelper,
     catalog: WorkspaceCatalog,
     outRootDir: string,
   ): Promise<void> {

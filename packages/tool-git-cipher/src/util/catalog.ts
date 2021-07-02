@@ -1,3 +1,5 @@
+import { destroyBuffer } from '@guanghechen/cipher-helper'
+import type { CipherHelper } from '@guanghechen/cipher-helper'
 import {
   collectAllFilesSync,
   relativeOfWorkspace,
@@ -7,8 +9,6 @@ import crypto from 'crypto'
 import fs from 'fs-extra'
 import path from 'path'
 import { logger } from '../env/logger'
-import { destroyBuffer } from './buffer'
-import type { Cipher } from './cipher'
 import { ErrorCode } from './events'
 
 /**
@@ -51,20 +51,24 @@ export interface WorkspaceCatalogParams {
   /**
    * A collect of util funcs for encryption / decryption
    */
-  readonly cipher: Cipher
+  readonly cipher: CipherHelper
+
   /**
    * Root directory of plaintext files
    */
   readonly plaintextRootDir: string
+
   /**
    * Root directory of ciphertext files
    */
   readonly ciphertextRootDir: string
+
   /**
    * Encoding of index file
    * @default 'utf-8'
    */
   readonly indexFileEncoding?: string
+
   /**
    * Encoding of index file content
    * @default 'base64'
@@ -76,7 +80,7 @@ export interface WorkspaceCatalogParams {
  * Index table of the ciphertext workspace
  */
 export class WorkspaceCatalog {
-  protected readonly cipher: Cipher
+  protected readonly cipher: CipherHelper
   protected readonly plaintextRootDir: string
   protected readonly ciphertextRootDir: string
   protected readonly indexFileEncoding: string
