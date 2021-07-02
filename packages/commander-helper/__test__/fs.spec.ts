@@ -1,5 +1,5 @@
-import { desensitize, locateFixtures } from 'jest.setup'
-import { collectAllFilesSync, loadJsonOrYaml, loadJsonOrYamlSync } from '../src'
+import { locateFixtures } from 'jest.setup'
+import { loadJsonOrYaml, loadJsonOrYamlSync } from '../src'
 
 describe('loadJsonOrYaml', function () {
   test('.json', async function () {
@@ -64,29 +64,5 @@ describe('loadJsonOrYamlSync', function () {
     expect(() =>
       loadJsonOrYamlSync(locateFixtures('basic/config.json-non-exist')),
     ).toThrow('is an invalid file path')
-  })
-})
-
-describe('collectAllFilesSync', function () {
-  test('null predicate', function () {
-    expect(
-      desensitize(collectAllFilesSync(locateFixtures('basic'), null)),
-    ).toMatchSnapshot()
-  })
-
-  test('json file only', function () {
-    expect(
-      desensitize(
-        collectAllFilesSync(locateFixtures('basic'), p => /\.json$/.test(p)),
-      ),
-    ).toMatchSnapshot()
-  })
-
-  test('collect from file', function () {
-    expect(
-      desensitize(
-        collectAllFilesSync(locateFixtures('basic/config.json'), null),
-      ),
-    ).toMatchSnapshot()
   })
 })

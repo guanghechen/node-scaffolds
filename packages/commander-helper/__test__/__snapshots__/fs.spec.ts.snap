@@ -1,27 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`collectAllFilesSync collect from file 1`] = `
-Array [
-  "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic/config.json",
-]
-`;
-
-exports[`collectAllFilesSync json file only 1`] = `
-Array [
-  "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic/config.json",
-]
-`;
-
-exports[`collectAllFilesSync null predicate 1`] = `
-Array [
-  "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic/child/a.txt",
-  "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic/config.json",
-  "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic/config.json-unknown",
-  "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic/config.yaml",
-  "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic/config.yml",
-]
-`;
-
 exports[`loadJsonOrYaml .json 1`] = `
 Object {
   "name": "ghc-cli",

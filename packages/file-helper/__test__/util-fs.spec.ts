@@ -3,6 +3,7 @@ import { createLoggerMock } from '@guanghechen/jest-helper'
 import fs from 'fs-extra'
 import { desensitize, locateFixtures } from 'jest.setup'
 import {
+  collectAllFilesSync,
   ensureCriticalFilepathExistsSync,
   isDirectorySync,
   isFileSync,
@@ -76,7 +77,7 @@ describe('mkdirsIfNotExists', function () {
   })
 
   test('mkdirs logger', function () {
-    const logger = new ChalkLogger({ level: VERBOSE })
+    const logger = new ChalkLogger({ level: VERBOSE, colorful: false })
     const loggerMock = createLoggerMock({ logger, desensitize })
 
     const dirpath = locateFixtures('basic--non-existed--2')
@@ -119,5 +120,29 @@ describe('ensureCriticalFilepathExistsSync', function () {
           locateFixtures('basic/config.yml'),
         ),
     ).not.toThrow()
+  })
+})
+
+describe('collectAllFilesSync', function () {
+  test('default predicate', function () {
+    expect(
+      desensitize(collectAllFilesSync(locateFixtures('basic'))),
+    ).toMatchSnapshot()
+  })
+
+  test('yaml file only', function () {
+    expect(
+      desensitize(
+        collectAllFilesSync(locateFixtures('basic'), p =>
+          /\.(?:yml|yaml)$/.test(p),
+        ),
+      ),
+    ).toMatchSnapshot()
+  })
+
+  test('collect start from file', function () {
+    expect(
+      desensitize(collectAllFilesSync(locateFixtures('basic/config.yml'))),
+    ).toMatchSnapshot()
   })
 })

@@ -84,3 +84,33 @@ export function isFileSync(filepath: string | null): boolean {
   const stat = fs.statSync(filepath)
   return stat.isFile()
 }
+
+/**
+ * Collect all files under the given directory.
+ *
+ * @param dir
+ * @param predicate
+ */
+export function collectAllFilesSync(
+  dir: string,
+  predicate: (p: string) => boolean = () => true,
+): string[] {
+  const results: string[] = []
+  collect(dir)
+  return results
+
+  function collect(filepath: string): void {
+    const stat = fs.statSync(filepath)
+    if (stat.isDirectory()) {
+      const filenames = fs.readdirSync(filepath)
+      for (const filename of filenames) {
+        const nextFilepath = path.join(filepath, filename)
+        collect(nextFilepath)
+      }
+      return
+    }
+    if (stat.isFile()) {
+      if (predicate(filepath)) results.push(filepath)
+    }
+  }
+}

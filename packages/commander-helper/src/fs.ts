@@ -82,29 +82,3 @@ export function loadJsonOrYamlSync(
   }
   return result
 }
-
-/**
- * Collect all files under the directory
- *
- * @param dir
- * @param predicate
- */
-export function collectAllFilesSync(
-  dir: string,
-  predicate: ((p: string) => boolean) | null,
-): string[] {
-  const stat = fs.statSync(dir)
-  const results: string[] = []
-  if (stat.isDirectory()) {
-    const files = fs.readdirSync(dir)
-    for (const file of files) {
-      const absFile = path.join(dir, file)
-      results.push(...collectAllFilesSync(absFile, predicate))
-    }
-  } else if (stat.isFile()) {
-    if (predicate == null || predicate(dir)) {
-      results.push(dir)
-    }
-  }
-  return results
-}
