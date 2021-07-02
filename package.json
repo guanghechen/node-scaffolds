@@ -46,6 +46,7 @@
     "@guanghechen/eslint-config-ts": "*",
     "@guanghechen/jest-config": "*",
     "@guanghechen/rollup-config": "*",
+    "@guanghechen/rollup-config-cli": "*",
     "@types/command-exists": "^1.2.0",
     "@types/fs-extra": "^9.0.8",
     "@types/jest": "26.0.23",
