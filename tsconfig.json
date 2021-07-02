@@ -6,6 +6,7 @@
     "sourceMap": true,
     "paths": {
       "@guanghechen/chalk-logger": ["packages/chalk-logger/src"],
+      "@guanghechen/cipher-helper": ["packages/cipher-helper/src"],
       "@guanghechen/commander-helper": ["packages/commander-helper/src"],
       "@guanghechen/event-bus": ["packages/event-bus/src"],
       "@guanghechen/file-helper": ["packages/file-helper/src"],
