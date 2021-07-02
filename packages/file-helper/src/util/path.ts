@@ -11,21 +11,21 @@ export function absoluteOfWorkspace(
   targetPath?: string | null,
 ): string {
   if (targetPath == null) return workspace
-  const absoluteDir: string = path.resolve(workspace, targetPath)
-  return absoluteDir
+  const filepath: string = path.resolve(workspace, targetPath)
+  return path.normalize(filepath)
 }
 
 /**
  * Calc relative path to workspace
  *
  * @param workspace
- * @param targetDir
+ * @param targetPath
  */
 export function relativeOfWorkspace(
   workspace: string,
-  targetDir: string,
+  targetPath: string,
 ): string {
-  const absoluteDir = absoluteOfWorkspace(workspace, targetDir)
-  const relativeDir: string = path.relative(workspace, absoluteDir)
-  return path.normalize(relativeDir)
+  const absoluteDir = absoluteOfWorkspace(workspace, targetPath)
+  const filepath: string = path.relative(workspace, absoluteDir)
+  return path.normalize(filepath)
 }

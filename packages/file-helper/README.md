@@ -87,6 +87,7 @@
 
 Name                                | Description
 :----------------------------------:|:----------------------------:
+`absoluteOfWorkspace`               | Calc absolute path of p under the workspace
 `BigFileHelper`                     | A utility class for split / merging big files
 `bigFileHelper`                     | Default instance of `BigFleHelper`
 `calcFilePartItemsBySize`           | Generate file part items by part size
@@ -97,6 +98,7 @@ Name                                | Description
 `isFileSync`                        | Check whether if the filepath is a file path
 `isNonExistentOrEmpty`              | Check whether if the dirPath is a non-existent path or empty folder
 `mkdirsIfNotExists`                 | Create a path of directories
+`relativeOfWorkspace`               | Calc relative path to workspace
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/file-helper#readme

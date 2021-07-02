@@ -9,10 +9,10 @@ import {
   isNotEmptyObject,
 } from '@guanghechen/option-helper'
 import path from 'path'
+import { absoluteOfWorkspace } from '../../file-helper/src/util/path'
 import { loadJsonOrYamlSync } from './fs'
 import type { MergeStrategy } from './merge'
 import { defaultMergeStrategies, merge } from './merge'
-import { absoluteOfWorkspace } from './path'
 
 export interface CommandConfigurationFlatOpts {
   /**
