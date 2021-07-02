@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-config",
-  "version": "1.6.1",
+  "version": "1.7.0-alpha.0",
   "description": "Rollup configs for bundle typescript project",
   "author": {
     "name": "guanghechen",
@@ -40,8 +40,8 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/locate-helper": "^1.6.1",
-    "@guanghechen/npm-helper": "^1.6.1",
+    "@guanghechen/locate-helper": "^1.7.0-alpha.0",
+    "@guanghechen/npm-helper": "^1.7.0-alpha.0",
     "@rollup/plugin-commonjs": "19.0.0",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "13.0.0",
