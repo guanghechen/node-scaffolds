@@ -33,12 +33,10 @@ export function destroyBuffers(buffers: Array<Buffer | null> | null): void {
  * string.
  *
  * @param stream
- * @param safeMode If true, the temporary chunks middle will be destroyed
  * @returns
  */
 export async function streams2buffer(
   streams: fs.ReadStream[],
-  safeMode = true,
 ): Promise<Buffer> {
   const chunks: Buffer[] = []
   for (const stream of streams) {
@@ -51,6 +49,6 @@ export async function streams2buffer(
   }
 
   const result = Buffer.concat(chunks)
-  if (safeMode) destroyBuffers(chunks)
+  destroyBuffers(chunks)
   return result
 }

@@ -68,12 +68,4 @@ describe('streams2buffer', function () {
     const buffer: Buffer = await streams2buffer(streams)
     expect(buffer.toString(encoding)).toEqual(originalContent)
   })
-
-  test('unsafe mode', async function () {
-    const streams: fs.ReadStream[] = partFilepaths.map(p =>
-      fs.createReadStream(p),
-    )
-    const buffer: Buffer = await streams2buffer(streams, false)
-    expect(buffer.toString(encoding)).toEqual(originalContent)
-  })
 })

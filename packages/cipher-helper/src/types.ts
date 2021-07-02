@@ -3,14 +3,24 @@
  */
 export interface CipherHelper {
   /**
-   * Encrypt plainData
+   * Encrypt plain data
    */
   encrypt(plainData: Readonly<Buffer>): Buffer
 
   /**
-   * Decrypt cipherData
+   * Decrypt cipher data
    */
   decrypt(cipherData: Readonly<Buffer>): Buffer
+
+  /**
+   * Encrypt plain data from plain files.
+   */
+  encryptFromFiles(plainFilepaths: string[]): Promise<Buffer>
+
+  /**
+   * Decrypt cipher data from ciphered files.
+   */
+  decryptFromFiles(cipherFilepaths: string[]): Promise<Buffer>
 
   /**
    * Encrypt contents from plainFilepath, and save into cipherFilepath.

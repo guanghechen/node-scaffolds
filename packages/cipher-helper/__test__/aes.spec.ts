@@ -36,6 +36,40 @@ describe('AESCipher', function () {
       expect(cipher.decrypt(cipherData)).toEqual(plainData)
     })
 
+    test('encrypt from files', async function () {
+      for (let i = 0; i < 3; ++i) {
+        const cipherData: Buffer = await cipher.encryptFromFiles(partFilepaths)
+        const plainData: Buffer = cipher.decrypt(cipherData)
+        expect(plainData).toEqual(originalContent)
+      }
+    })
+
+    test('decrypt from files', async function () {
+      for (let i = 0; i < 3; ++i) {
+        const cipherFilepath = sourceFilepath + '.cipher.' + Math.random()
+        let cipherPartFilepaths: string[] | null = null
+
+        try {
+          expect(fs.existsSync(cipherFilepath)).toBe(false)
+          await cipher.encryptFile(sourceFilepath, cipherFilepath)
+          expect(fs.existsSync(cipherFilepath)).toBe(true)
+
+          cipherPartFilepaths = await fileHelper.split(
+            cipherFilepath,
+            calcFilePartItemsByCount(cipherFilepath, 5),
+          )
+          expect(cipherPartFilepaths.length).toEqual(5)
+
+          const plainData: Buffer = await cipher.decryptFromFiles(
+            cipherPartFilepaths,
+          )
+          expect(plainData).toEqual(originalContent)
+        } finally {
+          unlinkSync(cipherFilepath, cipherPartFilepaths)
+        }
+      }
+    })
+
     test('encrypt file', async function () {
       for (const filepath of partFilepaths) {
         const plainFilepath = filepath + '.plain.' + Math.random()

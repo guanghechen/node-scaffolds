@@ -19,80 +19,110 @@ export abstract class BaseCipherHelper implements CipherHelper {
   public encrypt(plainData: Readonly<Buffer>): Buffer | never {
     const encipher = this.encipher()
     const cipherDataPieces: Buffer[] = []
+    let cipherData: Buffer
 
     try {
-      // encrypt data
+      // Collect and encrypt data
       cipherDataPieces.push(encipher.update(plainData))
       cipherDataPieces.push(encipher.final())
-
-      // collect encrypted data pieces
-      const cipherData: Buffer = Buffer.concat(cipherDataPieces)
-      return cipherData
+      cipherData = Buffer.concat(cipherDataPieces)
     } finally {
       destroyBuffers(cipherDataPieces)
     }
+
+    return cipherData
   }
 
   // override
   public decrypt(cipherData: Readonly<Buffer>): Buffer | never {
     const decipher = this.decipher()
     const plainDataPieces: Buffer[] = []
+    let plainData: Buffer
 
     try {
-      // decrypt data
+      // Collect and decrypt data
       plainDataPieces.push(decipher.update(cipherData))
       plainDataPieces.push(decipher.final())
-
-      // collect decrypted data pieces
-      const plainData: Buffer = Buffer.concat(plainDataPieces)
-      return plainData
+      plainData = Buffer.concat(plainDataPieces)
     } finally {
       destroyBuffers(plainDataPieces)
     }
+
+    return plainData
   }
 
-  // @override
-  public async encryptFile(
-    plainFilepath: string,
-    cipherFilepath: string,
-  ): Promise<void> {
-    mkdirsIfNotExists(cipherFilepath, false, this.logger)
-
+  // override
+  public async encryptFromFiles(plainFilepaths: string[]): Promise<Buffer> {
     const encipher: Cipher = this.encipher()
-    const reader: fs.ReadStream = fs.createReadStream(plainFilepath)
-    const writer: fs.WriteStream = fs.createWriteStream(cipherFilepath)
+    const cipherDataPieces: Buffer[] = []
+    let cipherData: Buffer
 
-    const pipe = encipher.pipe(writer, { end: false })
-    await new Promise((resolve, reject) => {
-      reader
-        .on('data', chunk => encipher.write(chunk))
-        .on('error', reject)
-        .on('end', resolve)
-    })
-    pipe.close()
-    writer.close()
+    try {
+      for (const filepath of plainFilepaths) {
+        const reader: fs.ReadStream = fs.createReadStream(filepath)
+        await new Promise((resolve, reject) => {
+          reader
+            .on(
+              'data',
+              chunk => void cipherDataPieces.push(encipher.update(chunk)),
+            )
+            .on('error', reject)
+            .on('end', resolve)
+        })
+      }
+
+      cipherDataPieces.push(encipher.final())
+      cipherData = Buffer.concat(cipherDataPieces)
+    } finally {
+      destroyBuffers(cipherDataPieces)
+    }
+
+    return cipherData
+  }
+
+  // override
+  public async decryptFromFiles(cipherFilepaths: string[]): Promise<Buffer> {
+    const decipher: Cipher = this.decipher()
+    const plainDataPieces: Buffer[] = []
+    let plainData: Buffer
+
+    try {
+      for (const filepath of cipherFilepaths) {
+        const reader: fs.ReadStream = fs.createReadStream(filepath)
+        await new Promise((resolve, reject) => {
+          reader
+            .on(
+              'data',
+              chunk => void plainDataPieces.push(decipher.update(chunk)),
+            )
+            .on('error', reject)
+            .on('end', resolve)
+        })
+      }
+
+      plainDataPieces.push(decipher.final())
+      plainData = Buffer.concat(plainDataPieces)
+    } finally {
+      destroyBuffers(plainDataPieces)
+    }
+
+    return plainData
   }
 
   // @override
-  public async decryptFile(
+  public encryptFile(
+    plainFilepath: string,
+    cipherFilepath: string,
+  ): Promise<void> {
+    return this.encryptFiles([plainFilepath], cipherFilepath)
+  }
+
+  // @override
+  public decryptFile(
     cipherFilepath: string,
     plainFilepath: string,
   ): Promise<void> {
-    mkdirsIfNotExists(plainFilepath, false, this.logger)
-
-    const decipher: Cipher = this.decipher()
-    const reader: fs.ReadStream = fs.createReadStream(cipherFilepath)
-    const writer: fs.WriteStream = fs.createWriteStream(plainFilepath)
-
-    const pipe = decipher.pipe(writer, { end: false })
-    await new Promise((resolve, reject) => {
-      reader
-        .on('data', chunk => decipher.write(chunk))
-        .on('error', reject)
-        .on('end', resolve)
-    })
-    pipe.close()
-    writer.close()
+    return this.decryptFiles([cipherFilepath], plainFilepath)
   }
 
   // override
