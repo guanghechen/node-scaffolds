@@ -1,5 +1,5 @@
 import fs from 'fs-extra'
-import { desensitize, locateFixtures } from 'jest.setup'
+import { desensitize, locateFixtures, unlinkSync } from 'jest.setup'
 import {
   BigFileHelper,
   bigFileHelper,
@@ -29,11 +29,7 @@ describe('BigFileHelper', function () {
   const originalContent = fs.readFileSync(filepath, bigFileHelper.encoding)
 
   afterEach(() => {
-    if (fs.existsSync(outputFilepath)) fs.unlinkSync(outputFilepath)
-    for (const filepath of partFilepaths) {
-      if (!fs.existsSync(filepath)) continue
-      fs.unlinkSync(filepath)
-    }
+    unlinkSync(outputFilepath, partFilepaths)
   })
 
   describe('calcPartFilepaths', function () {
