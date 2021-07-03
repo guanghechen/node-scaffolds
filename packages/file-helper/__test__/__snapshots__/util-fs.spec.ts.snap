@@ -1,5 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`collectAllFiles collect start from file 1`] = `
+Array [
+  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/basic/config.yml",
+]
+`;
+
+exports[`collectAllFiles default predicate 1`] = `
+Array [
+  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/basic/1.md",
+  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/basic/2.md",
+  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/basic/config.yml",
+]
+`;
+
+exports[`collectAllFiles yaml file only 1`] = `
+Array [
+  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/basic/config.yml",
+]
+`;
+
+exports[`collectAllFiles yaml file only 2`] = `
+Array [
+  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/basic/config.yml",
+]
+`;
+
 exports[`collectAllFilesSync collect start from file 1`] = `
 Array [
   "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/basic/config.yml",

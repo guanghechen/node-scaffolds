@@ -3,6 +3,7 @@ import { createLoggerMock } from '@guanghechen/jest-helper'
 import fs from 'fs-extra'
 import { desensitize, locateFixtures } from 'jest.setup'
 import {
+  collectAllFiles,
   collectAllFilesSync,
   ensureCriticalFilepathExistsSync,
   isDirectorySync,
@@ -120,6 +121,38 @@ describe('ensureCriticalFilepathExistsSync', function () {
           locateFixtures('basic/config.yml'),
         ),
     ).not.toThrow()
+  })
+})
+
+describe('collectAllFiles', function () {
+  test('default predicate', async function () {
+    expect(
+      desensitize(await collectAllFiles(locateFixtures('basic'))),
+    ).toMatchSnapshot()
+  })
+
+  test('yaml file only', async function () {
+    expect(
+      desensitize(
+        await collectAllFiles(locateFixtures('basic'), p =>
+          /\.(?:yml|yaml)$/.test(p),
+        ),
+      ),
+    ).toMatchSnapshot()
+
+    expect(
+      desensitize(
+        await collectAllFiles(locateFixtures('basic'), p =>
+          Promise.resolve(/\.(?:yml|yaml)$/.test(p)),
+        ),
+      ),
+    ).toMatchSnapshot()
+  })
+
+  test('collect start from file', async function () {
+    expect(
+      desensitize(await collectAllFiles(locateFixtures('basic/config.yml'))),
+    ).toMatchSnapshot()
   })
 })
 
