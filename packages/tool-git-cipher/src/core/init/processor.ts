@@ -29,7 +29,7 @@ export class GitCipherInitProcessor {
     this.context = context
     this.secretMaster = new SecretMaster({
       cipherHelperCreator: { create: () => new AESCipherHelper() },
-      secretFileEncoding: context.secretFileEncoding,
+      secretFileEncoding: context.encoding,
       secretContentEncoding: 'hex',
       showAsterisk: context.showAsterisk,
       minPasswordLength: context.minPasswordLength,
@@ -121,12 +121,11 @@ export class GitCipherInitProcessor {
         context.workspace,
         context.secretFilepath,
       ),
-      secretFileEncoding: context.secretFileEncoding,
       indexFilepath: relativeOfWorkspace(
         context.workspace,
         context.indexFilepath,
       ),
-      indexFileEncoding: context.indexFileEncoding,
+      cipheredIndexEncoding: context.cipheredIndexEncoding,
       ciphertextRootDir: relativeOfWorkspace(
         context.workspace,
         context.ciphertextRootDir,

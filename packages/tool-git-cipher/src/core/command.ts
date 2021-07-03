@@ -16,16 +16,12 @@ export function createProgram(): Command {
     )
     .option('--secret-filepath <secretFilepath>', 'path of secret file')
     .option(
-      '--secret-file-encoding <secretFileEncoding>',
-      'encoding of secret file',
-    )
-    .option(
       '--index-filepath <indexFilepath>',
       'path of index file of ciphertext files',
     )
     .option(
-      '--index-file-encoding <indexFileEncoding>',
-      'encoding of index file',
+      '--ciphered-index-encoding <cipheredIndexEncoding>',
+      'encoding of ciphered index file',
     )
     .option(
       '--ciphertext-root-dir <ciphertextRootDir>',

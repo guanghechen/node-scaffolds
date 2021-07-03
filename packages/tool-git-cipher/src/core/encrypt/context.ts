@@ -19,17 +19,13 @@ export interface GitCipherEncryptContext {
    */
   readonly secretFilepath: string
   /**
-   * encoding of secret file
-   */
-  readonly secretFileEncoding: string
-  /**
    * path of index file of ciphertext files
    */
   readonly indexFilepath: string
   /**
-   * encoding of index file
+   * Encoding of ciphered index file
    */
-  readonly indexFileEncoding: string
+  readonly cipheredIndexEncoding: string
   /**
    * the directory where the encrypted files are stored
    */
@@ -84,17 +80,13 @@ interface Params {
    */
   readonly secretFilepath: string
   /**
-   * encoding of secret file
-   */
-  readonly secretFileEncoding: string
-  /**
    * path of index file of ciphertext files
    */
   readonly indexFilepath: string
   /**
-   * encoding of index file
+   * Encoding of ciphered index file
    */
-  readonly indexFileEncoding: string
+  readonly cipheredIndexEncoding: string
   /**
    * the directory where the encrypted files are stored
    */
@@ -144,9 +136,8 @@ export async function createGitCipherEncryptContext(
     workspace: params.workspace,
     encoding: params.encoding,
     secretFilepath: params.secretFilepath,
-    secretFileEncoding: params.secretFileEncoding,
     indexFilepath: params.indexFilepath,
-    indexFileEncoding: params.indexFileEncoding,
+    cipheredIndexEncoding: params.cipheredIndexEncoding,
     ciphertextRootDir: params.ciphertextRootDir,
     plaintextRootDir: params.plaintextRootDir,
     showAsterisk: params.showAsterisk,

@@ -13,7 +13,7 @@ export class GitCipherDecryptProcessor {
     this.context = context
     this.secretMaster = new SecretMaster({
       cipherHelperCreator: { create: () => new AESCipherHelper() },
-      secretFileEncoding: context.secretFileEncoding,
+      secretFileEncoding: context.encoding,
       secretContentEncoding: 'hex',
       showAsterisk: context.showAsterisk,
       minPasswordLength: context.minPasswordLength,

@@ -128,9 +128,8 @@ Options:
   --parastic-config-entry <parastic config filepath>
   --encoding <encoding>                               default encoding of files in the workspace
   --secret-filepath <secretFilepath>                  path of secret file
-  --secret-file-encoding <secretFileEncoding>         encoding of secret file
   --index-filepath <indexFilepath>                    path of index file of ciphertext files
-  --index-file-encoding <indexFileEncoding>           encoding of index file
+  --ciphered-index-encoding <cipheredIndexEncoding>   encoding of ciphered index file
   --ciphertext-root-dir <ciphertextRootDir>           the directory where the encrypted files are stored
   --plaintext-root-dir <plaintextRootDir>             the directory where the source plaintext files are stored
   --show-asterisk                                     whether to print password asterisks
@@ -202,11 +201,10 @@ Options:
     "@guanghechen/tool-git-cipher": {
       "__globalOptions__": {
         "logLevel": "info",
-        "encoding": "utf-8",
+        "encoding": "utf8",
         "secretFilepath": ".ghc-secret",
-        "secretFileEncoding": "utf-8",
         "indexFilepath": ".ghc-index",
-        "indexFileEncoding": "utf-8",
+        "cipheredIndexEncoding": "base64",
         "ciphertextRootDir": "ghc-ciphertext",
         "plaintextRootDir": "ghc-plaintext",
         "showAsterisk": true,
