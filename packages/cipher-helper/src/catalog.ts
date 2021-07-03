@@ -453,6 +453,11 @@ export class CipherCatalog {
       parts,
     )
 
+    // Remove the original big target file.
+    if (partFilepaths.length > 1) {
+      await fs.unlink(absoluteTargetFilepath)
+    }
+
     // Update target parts.
     const targetParts: string[] = partFilepaths.map(p =>
       this.calcRelativeTargetFilepath(p),
