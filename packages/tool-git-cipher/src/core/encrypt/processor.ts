@@ -5,6 +5,7 @@ import { collectAllFilesSync } from '@guanghechen/file-helper'
 import commandExists from 'command-exists'
 import execa from 'execa'
 import fs from 'fs-extra'
+import inquirer from 'inquirer'
 import path from 'path'
 import { logger } from '../../env/logger'
 import { SecretMaster } from '../../util/secret'
@@ -112,8 +113,18 @@ export class GitCipherEncryptProcessor {
     const { context } = this
 
     // Empty ciphertextRootDir and index file.
-    logger.verbose('empty directory {}', context.ciphertextRootDir)
-    await fs.emptyDir(context.ciphertextRootDir)
+    const { shouldEmptyOutDir } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'shouldEmptyOutDir',
+        default: false,
+        message: `Empty ${context.ciphertextRootDir}`,
+      },
+    ])
+    if (shouldEmptyOutDir) {
+      logger.info('Emptying {}...', context.ciphertextRootDir)
+      await fs.emptyDir(context.ciphertextRootDir)
+    }
 
     // Reset catalog.
     catalog.reset()

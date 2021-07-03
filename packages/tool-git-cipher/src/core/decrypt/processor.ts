@@ -2,6 +2,9 @@ import type { CipherHelper } from '@guanghechen/cipher-helper'
 import { AESCipherHelper, CipherCatalog } from '@guanghechen/cipher-helper'
 import { coverString } from '@guanghechen/option-helper'
 import commandExists from 'command-exists'
+import fs from 'fs-extra'
+import inquirer from 'inquirer'
+import { logger } from '../../env/logger'
 import { SecretMaster } from '../../util/secret'
 import type { GitCipherDecryptContext } from './context'
 
@@ -41,6 +44,20 @@ export class GitCipherDecryptProcessor {
 
     // decrypt files
     const outRootDir = coverString(context.plaintextRootDir, context.outDir)
+
+    const { shouldEmptyOutDir } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'shouldEmptyOutDir',
+        default: false,
+        message: `Empty ${outRootDir}`,
+      },
+    ])
+    if (shouldEmptyOutDir) {
+      logger.info('Emptying {}...', outRootDir)
+      await fs.emptyDir(outRootDir)
+    }
+
     await catalog.decryptAll(outRootDir)
   }
 }
