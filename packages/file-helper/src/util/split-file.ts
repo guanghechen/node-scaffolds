@@ -17,9 +17,10 @@ export function calcFilePartItemsBySize(
 
   const stat = fs.statSync(filepath)
   invariant(stat.isFile(), `'${filepath}' is not a file!`)
-  invariant(stat.size > 0, `'${filepath}' is empty!`)
 
   const totalSize = stat.size
+  if (totalSize <= 0) return []
+
   const partSize = Math.round(_partSize)
   const partTotal = Math.ceil(totalSize / partSize)
   invariant(partTotal > 0, 'Part size is too small!')
@@ -53,9 +54,10 @@ export function calcFilePartItemsByCount(
 
   const stat = fs.statSync(filepath)
   invariant(stat.isFile(), `'${filepath}' is not a file!`)
-  invariant(stat.size > 0, `'${filepath}' is empty!`)
 
   const totalSize = stat.size
+  if (totalSize <= 0) return []
+
   const partTotal = Math.round(_partTotal)
   const partSize = Math.ceil(totalSize / partTotal)
   const parts: FilePartItem[] = []
