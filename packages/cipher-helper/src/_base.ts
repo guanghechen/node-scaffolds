@@ -28,6 +28,7 @@ export abstract class BaseCipherHelper implements CipherHelper {
       cipherData = Buffer.concat(cipherDataPieces)
     } finally {
       destroyBuffers(cipherDataPieces)
+      encipher.destroy()
     }
 
     return cipherData
@@ -46,6 +47,7 @@ export abstract class BaseCipherHelper implements CipherHelper {
       plainData = Buffer.concat(plainDataPieces)
     } finally {
       destroyBuffers(plainDataPieces)
+      decipher.destroy()
     }
 
     return plainData
@@ -75,6 +77,7 @@ export abstract class BaseCipherHelper implements CipherHelper {
       cipherData = Buffer.concat(cipherDataPieces)
     } finally {
       destroyBuffers(cipherDataPieces)
+      encipher.destroy()
     }
 
     return cipherData
@@ -104,6 +107,7 @@ export abstract class BaseCipherHelper implements CipherHelper {
       plainData = Buffer.concat(plainDataPieces)
     } finally {
       destroyBuffers(plainDataPieces)
+      decipher.destroy()
     }
 
     return plainData
@@ -114,7 +118,18 @@ export abstract class BaseCipherHelper implements CipherHelper {
     plainFilepath: string,
     cipherFilepath: string,
   ): Promise<void> {
-    return this.encryptFiles([plainFilepath], cipherFilepath)
+    mkdirsIfNotExists(cipherFilepath, false, this.logger)
+
+    const encipher: Cipher = this.encipher()
+    const reader = fs.createReadStream(plainFilepath)
+    const writer = fs.createWriteStream(cipherFilepath)
+    return new Promise<void>((resolve, reject) => {
+      reader
+        .pipe(encipher)
+        .pipe(writer)
+        .on('error', reject)
+        .on('finish', resolve)
+    })
   }
 
   // @override
@@ -122,7 +137,18 @@ export abstract class BaseCipherHelper implements CipherHelper {
     cipherFilepath: string,
     plainFilepath: string,
   ): Promise<void> {
-    return this.decryptFiles([cipherFilepath], plainFilepath)
+    mkdirsIfNotExists(plainFilepath, false, this.logger)
+
+    const decipher: Cipher = this.decipher()
+    const reader = fs.createReadStream(cipherFilepath)
+    const writer = fs.createWriteStream(plainFilepath)
+    return new Promise<void>((resolve, reject) => {
+      reader
+        .pipe(decipher)
+        .pipe(writer)
+        .on('error', reject)
+        .on('finish', resolve)
+    })
   }
 
   // override
@@ -130,12 +156,18 @@ export abstract class BaseCipherHelper implements CipherHelper {
     plainFilepaths: string[],
     cipherFilepath: string,
   ): Promise<void> {
+    if (plainFilepaths.length <= 0) return
+    if (plainFilepaths.length === 1) {
+      await this.encryptFile(plainFilepaths[0], cipherFilepath)
+      return
+    }
+
     mkdirsIfNotExists(cipherFilepath, false, this.logger)
 
     const writer: fs.WriteStream = fs.createWriteStream(cipherFilepath)
     const encipher: Cipher = this.encipher()
+    const pipe = encipher.pipe(writer)
 
-    const pipe = encipher.pipe(writer, { end: false })
     for (const filepath of plainFilepaths) {
       const reader: fs.ReadStream = fs.createReadStream(filepath)
       await new Promise((resolve, reject) => {
@@ -145,8 +177,12 @@ export abstract class BaseCipherHelper implements CipherHelper {
           .on('end', resolve)
       })
     }
-    pipe.close()
-    writer.close()
+
+    encipher.end()
+    await new Promise((resolve, reject) => {
+      pipe.on('error', reject).on('finish', resolve).on('end', resolve)
+    })
+    encipher.destroy()
   }
 
   // override
@@ -154,23 +190,33 @@ export abstract class BaseCipherHelper implements CipherHelper {
     cipherFilepaths: string[],
     plainFilepath: string,
   ): Promise<void> {
+    if (cipherFilepaths.length <= 0) return
+    if (cipherFilepaths.length === 1) {
+      await this.decryptFile(cipherFilepaths[0], plainFilepath)
+      return
+    }
+
     mkdirsIfNotExists(plainFilepath, false, this.logger)
 
     const writer: fs.WriteStream = fs.createWriteStream(plainFilepath)
     const decipher: Cipher = this.decipher()
-
     const pipe = decipher.pipe(writer)
+
     for (const filepath of cipherFilepaths) {
       const reader: fs.ReadStream = fs.createReadStream(filepath)
-      await new Promise((resolve, reject) => {
+      await new Promise<void>((resolve, reject) => {
         reader
           .on('data', chunk => decipher.write(chunk))
           .on('error', reject)
           .on('end', resolve)
       })
     }
-    pipe.close()
-    writer.close()
+
+    decipher.end()
+    await new Promise((resolve, reject) => {
+      pipe.on('error', reject).on('finish', resolve).on('end', resolve)
+    })
+    decipher.destroy()
   }
 
   protected abstract encipher(): Cipher

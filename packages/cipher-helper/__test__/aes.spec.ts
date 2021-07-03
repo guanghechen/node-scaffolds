@@ -98,6 +98,27 @@ describe('AESCipher', function () {
     })
 
     test('encrypt files', async function () {
+      await expect(cipher.encryptFiles([], 'a.txt')).resolves.not.toThrow()
+      for (let i = 0; i < 3; ++i) {
+        const plainFilepath = sourceFilepath + '.plain.' + Math.random()
+        const cipherFilepath = sourceFilepath + '.cipher.' + Math.random()
+
+        try {
+          expect(plainFilepath).not.toEqual(cipherFilepath)
+          expect(fs.existsSync(plainFilepath)).toBe(false)
+          expect(fs.existsSync(cipherFilepath)).toBe(false)
+
+          await cipher.encryptFiles([sourceFilepath], cipherFilepath)
+          await cipher.decryptFile(cipherFilepath, plainFilepath)
+
+          expect(fs.existsSync(plainFilepath)).toBe(true)
+          expect(fs.existsSync(cipherFilepath)).toBe(true)
+          expect(fs.readFileSync(plainFilepath)).toEqual(originalContent)
+        } finally {
+          unlinkSync(plainFilepath, cipherFilepath)
+        }
+      }
+
       for (let i = 0; i < 3; ++i) {
         const plainFilepath = sourceFilepath + '.plain.' + Math.random()
         const cipherFilepath = sourceFilepath + '.cipher.' + Math.random()
@@ -120,6 +141,27 @@ describe('AESCipher', function () {
     })
 
     test('decrypt files', async function () {
+      await expect(cipher.decryptFiles([], 'a.txt')).resolves.not.toThrow()
+      for (let i = 0; i < 3; ++i) {
+        const plainFilepath = sourceFilepath + '.plain.' + Math.random()
+        const cipherFilepath = sourceFilepath + '.cipher.' + Math.random()
+
+        try {
+          expect(plainFilepath).not.toEqual(cipherFilepath)
+          expect(fs.existsSync(plainFilepath)).toBe(false)
+          expect(fs.existsSync(cipherFilepath)).toBe(false)
+
+          await cipher.encryptFile(sourceFilepath, cipherFilepath)
+          await cipher.decryptFiles([cipherFilepath], plainFilepath)
+
+          expect(fs.existsSync(plainFilepath)).toBe(true)
+          expect(fs.existsSync(cipherFilepath)).toBe(true)
+          expect(fs.readFileSync(plainFilepath)).toEqual(originalContent)
+        } finally {
+          unlinkSync(plainFilepath, cipherFilepath)
+        }
+      }
+
       for (let i = 0; i < 3; ++i) {
         const plainFilepath = sourceFilepath + '.plain.' + Math.random()
         const plainFilepath2 = sourceFilepath + '.plain2.' + Math.random()
