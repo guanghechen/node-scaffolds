@@ -33,6 +33,8 @@ export class GitCipherEncryptProcessor {
     }
 
     const { context, secretMaster } = this
+    logger.debug('context:', context)
+
     await secretMaster.load(context.secretFilepath)
 
     const cipher: CipherHelper = secretMaster.getCipher()
@@ -127,7 +129,6 @@ export class GitCipherEncryptProcessor {
   /**
    * Encrypt specified files
    *
-   * @param cipher
    * @param catalog
    * @param plaintextFilepaths
    */
@@ -135,14 +136,10 @@ export class GitCipherEncryptProcessor {
     catalog: CipherCatalog,
     plaintextFilepaths: string[],
   ): Promise<void> {
-    if (plaintextFilepaths.length <= 0) return
-
-    const tasks: Array<Promise<void>> = []
     for (const filepath of plaintextFilepaths) {
-      const task: Promise<void> = catalog.register(filepath)
-      tasks.push(task)
+      logger.debug('encrypt file:', filepath)
+      await catalog.register(filepath)
     }
-    await Promise.all(tasks)
   }
 
   /**

@@ -91,7 +91,7 @@ export class SecretMaster {
     this.secretCipher = params.cipherHelperCreator.create()
     this.cipherHelperCreator = params.cipherHelperCreator
     this.secretFileEncoding = coverString(
-      'utf-8',
+      'utf8',
       params.secretFileEncoding,
       isNonBlankString,
     )
