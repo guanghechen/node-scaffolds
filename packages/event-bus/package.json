@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/event-bus",
-  "version": "1.7.0-alpha.2",
+  "version": "1.7.0-alpha.3",
   "description": "Simple event bus",
   "author": {
     "name": "guanghechen",
@@ -39,6 +39,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "devDependencies": {
-    "@guanghechen/rollup-config": "^1.7.0-alpha.2"
+    "@guanghechen/rollup-config": "^1.7.0-alpha.3"
   }
 }
