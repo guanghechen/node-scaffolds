@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/invariant",
-  "version": "1.7.0-alpha.3",
+  "version": "1.7.0",
   "description": "Invariant function",
   "author": {
     "name": "guanghechen",
@@ -36,6 +36,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "devDependencies": {
-    "@guanghechen/rollup-config": "^1.7.0-alpha.3"
+    "@guanghechen/rollup-config": "^1.7.0"
   }
 }

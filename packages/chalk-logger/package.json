@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/chalk-logger",
-  "version": "1.7.0-alpha.3",
+  "version": "1.7.0",
   "description": "A simple colorful logger",
   "author": {
     "name": "guanghechen",
@@ -45,6 +45,6 @@
     "fs-extra": "^10.0.0"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config": "^1.7.0-alpha.3"
+    "@guanghechen/rollup-config": "^1.7.0"
   }
 }
