@@ -1,5 +1,106 @@
 # Changelog
 
+<a name="1.7.0"></a>
+## 1.7.0 (2021-07-03)
+
+### Changed
+
+- ♿ improve(tool-git-cipher): ask for confirming before empty target directory [[1133b68](https://github.com/guanghechen/node-scaffolds/commit/1133b6884e250d23ee569ee4e1e7064cdcd08f0f)]
+
+### Fixed
+
+- 🐛 fix(cipher-helper): trigger and wait for the end of the writer stream when merging multiple file streams. [[70e9375](https://github.com/guanghechen/node-scaffolds/commit/70e937531e52e087667eb82ffa56d649a9d75bd1)]
+
+### Miscellaneous
+
+-  improve(tool-git-cipher): add debug infos [[e6917da](https://github.com/guanghechen/node-scaffolds/commit/e6917da1c0dfbea14b798e628b4d6331d34c5bef)]
+
+
+<a name="1.7.0-alpha.3"></a>
+## 1.7.0-alpha.3 (2021-07-03)
+
+### Fixed
+
+- 🐛 fix: create an empty sourceRootDir when run sub-command &#x27;init&#x27; [[d227ca3](https://github.com/guanghechen/node-scaffolds/commit/d227ca377d42b49875a273dc88540215a3e963ba)]
+
+### Miscellaneous
+
+-  feat(tool-git-cipher): BREAKING change options [[77fe4ee](https://github.com/guanghechen/node-scaffolds/commit/77fe4eebd66f65efe87c754c553f920408c2e1fc)]
+-  improve(tool-git-cipher): create new catalog index file if it&#x27;s not existed when run sub-command &#x27;encrypt&#x27; [[a40bbea](https://github.com/guanghechen/node-scaffolds/commit/a40bbea2cb119f11c11188991e6b6aa37e416516)]
+-  improve(cipher-helper): remove original big target file when it splited into multiple parts [[328152c](https://github.com/guanghechen/node-scaffolds/commit/328152c2d5d90a38aaf6f62a1c77e38ce2159624)]
+-  improve(file-helper): allow empty files [[23c4620](https://github.com/guanghechen/node-scaffolds/commit/23c46200fcb82cd68bc68eeba031ee0e7fa6bdfc)]
+
+
+<a name="1.7.0-alpha.2"></a>
+## 1.7.0-alpha.2 (2021-07-03)
+
+### Added
+
+- ✨ feat(tool-git-cipher): support specify max target file size [[52736d9](https://github.com/guanghechen/node-scaffolds/commit/52736d96646d17cf1d31c0a8ce4b88c09064faa0)]
+- ✨ feat(cipher-helper): implement &#x27;CipherCatalog&#x27; [[7bcf91b](https://github.com/guanghechen/node-scaffolds/commit/7bcf91b5ee539267c3d08a1ba42164259dcbb223)]
+- ✨ feat(file-helper): provide new fs utility func &#x27;collectAllFiles&#x27; [[2a1a9a2](https://github.com/guanghechen/node-scaffolds/commit/2a1a9a25f795a5acc7400472d5832a4f95e26423)]
+
+### Changed
+
+- 🎨 improve: use @guanghechen/cipher-helper to simplify codes [[5ace87d](https://github.com/guanghechen/node-scaffolds/commit/5ace87dc830acba3bcc6fd4ef9182f2e45cbb17a)]
+- 🚚 refactor: move &#x27;collectAllFilesSync&#x27; from @guanghechen/commander-helper to @guanghechen/file-helper [[2b0c656](https://github.com/guanghechen/node-scaffolds/commit/2b0c656a69b61030e6d23bf3ecc50b708a5bd749)]
+- 🚚 refactor: move &#x27;absoluteOfWorkspace&#x27; and &#x27;relativeOfWorkspace&#x27; from @guanghechen/commander-helper to @guanghechen/file-helper [[80d933a](https://github.com/guanghechen/node-scaffolds/commit/80d933ad4287cc82f3abdf5b3038778ddfa1ab29)]
+
+### Miscellaneous
+
+- 🔨 chore(commander-helper): add dependencies [[fec52bf](https://github.com/guanghechen/node-scaffolds/commit/fec52bf52f1934a8f07503bf3fe484ef30b2d5ab)]
+
+
+<a name="1.7.0-alpha.1"></a>
+## 1.7.0-alpha.1 (2021-07-02)
+
+### Changed
+
+- 🎨 improve(cipher-helper): support encrypt / decrypt contents from source files into Buffer [[685a9a6](https://github.com/guanghechen/node-scaffolds/commit/685a9a690c6bddcfb0ccd2cec132b92ab4553a9a)]
+
+### Miscellaneous
+
+- 🔨 chore: bundle cli.js for @guanghechen/tool-git-cipher [[886f12b](https://github.com/guanghechen/node-scaffolds/commit/886f12b85403cdd354701ba2fe2007cb6a1f0928)]
+
+
+<a name="1.7.0-alpha.0"></a>
+## 1.7.0-alpha.0 (2021-07-02)
+
+### Added
+
+- ✨ feat: implement new sub-package &#x27;@yozora/cipher-helper&#x27; [[3eb59a8](https://github.com/guanghechen/node-scaffolds/commit/3eb59a81d5dc85172fc0fb6fc31231b6331cba6a)]
+- ✅ test: simplify test codes [[6a25607](https://github.com/guanghechen/node-scaffolds/commit/6a25607ddd22f14f99a7b648ce8a29acdaa98ac3)]
+- ✨ feat(file-helper): implement stream utils [[3425d47](https://github.com/guanghechen/node-scaffolds/commit/3425d47a75ccf61416af615fd12e881866baa53f)]
+- ✨ feat: implements new sub-package @guanghechen/file-helper [[906caa7](https://github.com/guanghechen/node-scaffolds/commit/906caa70ad846b92185faac0103a41225a92a60e)]
+- ✅ test: update test configs [[fa1a5c6](https://github.com/guanghechen/node-scaffolds/commit/fa1a5c62eb0bf185bf8fc61b9c83a9524d31b33f)]
+- ✨ feat: implements new sub-package/tool-git-cipher (migrated from @barusu/tool-git-cipher) [[6edc56d](https://github.com/guanghechen/node-scaffolds/commit/6edc56d49aabb32b055d90ce1b36d23183ac90ff)]
+- ✨ feat: implements new sub-package @guanghechen/event-bus (migrated from @barusu/event-bus) [[b66e1fd](https://github.com/guanghechen/node-scaffolds/commit/b66e1fd92cb85609548cfbf5c7a9dda0746ed7c3)]
+- ✨ feat: implements new sub-package @guanghechen/commander-helper (migrated from @barusu/util-cli) [[1c10b50](https://github.com/guanghechen/node-scaffolds/commit/1c10b50258a6a5debda8e7e50026118d358cd1c1)]
+- ✨ feat: implements new sub-package @guanghechen/invariant [[13eab1e](https://github.com/guanghechen/node-scaffolds/commit/13eab1e0ce1706f10ea88b7dc8a484b7f19c94a4)]
+- ✨ feat: add @guanghechen/chalk-logger (migrated from @barusu/chalk-logger) [[b343c23](https://github.com/guanghechen/node-scaffolds/commit/b343c236e30ae6085adc7684bc04fe6747c12e81)]
+- ✨ feat(jest-helper): add logger mock util [[97005b2](https://github.com/guanghechen/node-scaffolds/commit/97005b28b06d47256fe6141d273d21a52228071b)]
+
+### Changed
+
+- 🎨 improve: simplify codes with @yozora/cipher-helper [[f92544a](https://github.com/guanghechen/node-scaffolds/commit/f92544a195df3841e5856cdf5507dc00f69130b4)]
+- 🚚 refactor: move fs utils from @guanghechen/commander-helper to @guanghechen/file-helper [[a4ea316](https://github.com/guanghechen/node-scaffolds/commit/a4ea3163275ec33513af81e921bd0f0a721c8313)]
+- ⬇️ chore: downgrade commander from v8.0.0 to v7.2.0 [[64547c8](https://github.com/guanghechen/node-scaffolds/commit/64547c834e00a9d9dd87f2d922a2e5568e633a6a)]
+- 🎨 improve(invariant): accept null type of message [[cbcf592](https://github.com/guanghechen/node-scaffolds/commit/cbcf592cec8b487c63ec2ca6d271dab04018cdf9)]
+- ⬆️ chore: upgrade dependencies [[4ab8a9a](https://github.com/guanghechen/node-scaffolds/commit/4ab8a9ad0886188cb575866e51e469cbf960e262)]
+
+### Fixed
+
+- 🐛 fix(jest-helper): &#x27;reateFilepathDesensitizer&#x27; baseDir is no need to immediately follow a whitespace. [[2b12d3a](https://github.com/guanghechen/node-scaffolds/commit/2b12d3a2f415f7f4f8b4d3a0c48b60224c29abcc)]
+
+### Miscellaneous
+
+- 📝 docs: update descriptions [[2af6d2c](https://github.com/guanghechen/node-scaffolds/commit/2af6d2cda26c431b65dfe1050ebdc82d2c607eb2)]
+-  improve(eslint-config-ts): apply rule &#x27;@typescript-eslint/no-misused-promises&#x27; [[38d8512](https://github.com/guanghechen/node-scaffolds/commit/38d851285a39e0e2d81b5552de1f7ad08d938843)]
+- 📝 docs(chalk-logger): add demo and screenshots [[abaf7fa](https://github.com/guanghechen/node-scaffolds/commit/abaf7fafdf38e7ecefd7bdfd0d411dd3255d71ef)]
+-  style: fix lint errors [[1d59600](https://github.com/guanghechen/node-scaffolds/commit/1d596002c0ea4d827b5131f59b222bf9281eb811)]
+- 📝 docs: update CHANGELOG [[bee6a04](https://github.com/guanghechen/node-scaffolds/commit/bee6a04a03eb6171d30f26d969382fec74dbcad9)]
+
+
 <a name="1.6.1"></a>
 ## 1.6.1 (2021-06-26)
 
