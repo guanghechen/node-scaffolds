@@ -105,6 +105,7 @@ export async function createGitCipherDecryptContextFromOptions(
     showAsterisk: options.showAsterisk,
     minPasswordLength: options.minPasswordLength,
     maxPasswordLength: options.maxPasswordLength,
+    maxTargetFileSize: options.maxTargetFileSize,
     outDir: options.outDir,
   })
   return context

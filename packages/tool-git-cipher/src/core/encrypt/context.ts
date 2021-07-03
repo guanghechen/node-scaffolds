@@ -60,10 +60,10 @@ export interface GitCipherEncryptContext {
    */
   readonly updateBeforeEncrypt: boolean
   /**
-   * Max size of target file, once the file size exceeds this value, the target
-   * file is split into multiple files.
+   * Max size (byte) of target file, once the file size exceeds this value,
+   * the target file is split into multiple files.
    */
-  readonly maxTargetFileSize: number
+  readonly maxTargetFileSize?: number
 }
 
 interface Params {
@@ -125,12 +125,8 @@ interface Params {
    */
   readonly updateBeforeEncrypt: boolean
   /**
-   * Max size of target file, once the file size exceeds this value, the target
-   * file is split into multiple files.
-   *
-   * For safety, this value should be greater than or equal to 1024.
-   *
-   * @default Number.MAX_SAFE_INTEGER
+   * Max size (byte) of target file, once the file size exceeds this value,
+   * the target file is split into multiple files.
    */
   readonly maxTargetFileSize?: number
 }
@@ -158,10 +154,7 @@ export async function createGitCipherEncryptContext(
     maxPasswordLength: params.maxPasswordLength,
     full: params.full,
     updateBeforeEncrypt: params.updateBeforeEncrypt,
-    maxTargetFileSize: Math.max(
-      1024,
-      params.maxTargetFileSize ?? Number.MAX_SAFE_INTEGER,
-    ),
+    maxTargetFileSize: params.maxTargetFileSize,
   }
   return context
 }

@@ -209,7 +209,8 @@ Options:
         "indexFileEncoding": "utf-8",
         "ciphertextRootDir": "ghc-ciphertext",
         "plaintextRootDir": "ghc-plaintext",
-        "showAsterisk": true
+        "showAsterisk": true,
+        "maxTargetFileSize": 104857600  // 100 MB
       },
       "encrypt": {
         "updateBeforeEncrypt": true

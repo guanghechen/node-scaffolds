@@ -67,6 +67,11 @@ export interface GlobalCommandOptions extends CommandConfigurationOptions {
    * @default 100
    */
   maxPasswordLength: number
+  /**
+   * Max size (byte) of target file, once the file size exceeds this value,
+   * the target file is split into multiple files.
+   */
+  readonly maxTargetFileSize?: number
 }
 
 /**
@@ -83,6 +88,7 @@ export const __defaultGlobalCommandOptions: GlobalCommandOptions = {
   showAsterisk: true,
   minPasswordLength: 6,
   maxPasswordLength: 100,
+  maxTargetFileSize: undefined,
 }
 
 /**
@@ -204,6 +210,13 @@ export function resolveGlobalCommandOptions<C extends Record<string, unknown>>(
   )
   logger.debug('maxPasswordLength:', maxPasswordLength)
 
+  // resolve maxTargetFileSize
+  const maxTargetFileSize: number | undefined = cover<number | undefined>(
+    resolvedDefaultOptions.maxTargetFileSize,
+    convertToNumber(options.maxTargetFileSize),
+  )
+  logger.debug('maxTargetFileSize:', maxTargetFileSize)
+
   return {
     ...resolvedDefaultOptions,
     encoding,
@@ -216,5 +229,6 @@ export function resolveGlobalCommandOptions<C extends Record<string, unknown>>(
     showAsterisk,
     minPasswordLength,
     maxPasswordLength,
+    maxTargetFileSize,
   }
 }

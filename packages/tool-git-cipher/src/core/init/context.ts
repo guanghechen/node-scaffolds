@@ -50,6 +50,11 @@ export interface GitCipherInitContext {
    * the maximum size required of password
    */
   readonly maxPasswordLength: number
+  /**
+   * Max size (byte) of target file, once the file size exceeds this value,
+   * the target file is split into multiple files.
+   */
+  readonly maxTargetFileSize?: number
 }
 
 interface Params {
@@ -101,6 +106,11 @@ interface Params {
    * the maximum size required of password
    */
   readonly maxPasswordLength: number
+  /**
+   * Max size (byte) of target file, once the file size exceeds this value,
+   * the target file is split into multiple files.
+   */
+  readonly maxTargetFileSize?: number
 }
 
 /**
@@ -124,6 +134,7 @@ export async function createGitCipherInitContext(
     showAsterisk: params.showAsterisk,
     minPasswordLength: params.minPasswordLength,
     maxPasswordLength: params.maxPasswordLength,
+    maxTargetFileSize: params.maxTargetFileSize,
   }
   return context
 }

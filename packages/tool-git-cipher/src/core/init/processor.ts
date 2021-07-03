@@ -165,6 +165,7 @@ export class GitCipherInitProcessor {
       cipher,
       sourceRootDir: context.plaintextRootDir,
       targetRootDir: context.ciphertextRootDir,
+      maxTargetFileSize: context.maxTargetFileSize,
     })
     await catalog.save(context.indexFilepath)
   }

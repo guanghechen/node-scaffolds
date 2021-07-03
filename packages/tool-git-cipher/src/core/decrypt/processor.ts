@@ -35,6 +35,7 @@ export class GitCipherDecryptProcessor {
       cipher,
       sourceRootDir: context.plaintextRootDir,
       targetRootDir: context.ciphertextRootDir,
+      maxTargetFileSize: context.maxTargetFileSize,
     })
     await catalog.loadFromFile(context.indexFilepath)
 

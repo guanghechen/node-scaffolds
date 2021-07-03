@@ -40,6 +40,7 @@ export class GitCipherEncryptProcessor {
       cipher,
       sourceRootDir: context.plaintextRootDir,
       targetRootDir: context.ciphertextRootDir,
+      maxTargetFileSize: context.maxTargetFileSize,
     })
 
     let commitMessage = ''

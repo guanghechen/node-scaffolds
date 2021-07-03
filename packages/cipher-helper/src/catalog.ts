@@ -45,8 +45,8 @@ export interface CipherCatalogOptions {
   readonly cipheredIndexEncoding?: BufferEncoding
 
   /**
-   * Max size of target file, once the file size exceeds this value, the target
-   * file is split into multiple files.
+   * Max size (byte) of target file, once the file size exceeds this value,
+   * the target file is split into multiple files.
    *
    * For safety, this value should be greater than or equal to 1024.
    *

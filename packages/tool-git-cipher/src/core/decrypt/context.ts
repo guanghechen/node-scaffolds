@@ -54,6 +54,11 @@ export interface GitCipherDecryptContext {
    * Root dir of outputs (decrypted files)
    */
   readonly outDir: string | null
+  /**
+   * Max size (byte) of target file, once the file size exceeds this value,
+   * the target file is split into multiple files.
+   */
+  readonly maxTargetFileSize?: number
 }
 
 interface Params {
@@ -109,6 +114,11 @@ interface Params {
    * Root dir of outputs (decrypted files)
    */
   readonly outDir: string | null
+  /**
+   * Max size (byte) of target file, once the file size exceeds this value,
+   * the target file is split into multiple files.
+   */
+  readonly maxTargetFileSize?: number
 }
 
 /**
@@ -132,6 +142,7 @@ export async function createGitCipherDecryptContext(
     showAsterisk: params.showAsterisk,
     minPasswordLength: params.minPasswordLength,
     maxPasswordLength: params.maxPasswordLength,
+    maxTargetFileSize: params.maxTargetFileSize,
     outDir: params.outDir,
   }
   return context

@@ -111,6 +111,7 @@ export async function createGitCipherEncryptContextFromOptions(
     showAsterisk: options.showAsterisk,
     minPasswordLength: options.minPasswordLength,
     maxPasswordLength: options.maxPasswordLength,
+    maxTargetFileSize: options.maxTargetFileSize,
     full: options.full,
     updateBeforeEncrypt: options.updateBeforeEncrypt,
   })
