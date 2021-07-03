@@ -1,5 +1,6 @@
 import { Level } from '@guanghechen/chalk-logger'
 import type { ChalkLogger } from '@guanghechen/chalk-logger'
+import { absoluteOfWorkspace } from '@guanghechen/file-helper'
 import { locateNearestFilepath } from '@guanghechen/locate-helper'
 import {
   cover,
@@ -9,7 +10,6 @@ import {
   isNotEmptyObject,
 } from '@guanghechen/option-helper'
 import path from 'path'
-import { absoluteOfWorkspace } from '../../file-helper/src/util/path'
 import { loadJsonOrYamlSync } from './fs'
 import type { MergeStrategy } from './merge'
 import { defaultMergeStrategies, merge } from './merge'

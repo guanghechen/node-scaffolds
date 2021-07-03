@@ -59,6 +59,11 @@ export interface GitCipherEncryptContext {
    * Perform `git fetch --all` before encrypt
    */
   readonly updateBeforeEncrypt: boolean
+  /**
+   * Max size of target file, once the file size exceeds this value, the target
+   * file is split into multiple files.
+   */
+  readonly maxTargetFileSize: number
 }
 
 interface Params {
@@ -119,6 +124,15 @@ interface Params {
    * Perform `git fetch --all` before encrypt
    */
   readonly updateBeforeEncrypt: boolean
+  /**
+   * Max size of target file, once the file size exceeds this value, the target
+   * file is split into multiple files.
+   *
+   * For safety, this value should be greater than or equal to 1024.
+   *
+   * @default Number.MAX_SAFE_INTEGER
+   */
+  readonly maxTargetFileSize?: number
 }
 
 /**
@@ -144,6 +158,10 @@ export async function createGitCipherEncryptContext(
     maxPasswordLength: params.maxPasswordLength,
     full: params.full,
     updateBeforeEncrypt: params.updateBeforeEncrypt,
+    maxTargetFileSize: Math.max(
+      1024,
+      params.maxTargetFileSize ?? Number.MAX_SAFE_INTEGER,
+    ),
   }
   return context
 }

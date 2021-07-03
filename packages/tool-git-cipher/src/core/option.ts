@@ -3,10 +3,8 @@ import type {
   CommandConfigurationOptions,
   MergeStrategy,
 } from '@guanghechen/commander-helper'
-import {
-  absoluteOfWorkspace,
-  resolveCommandConfigurationOptions,
-} from '@guanghechen/commander-helper'
+import { resolveCommandConfigurationOptions } from '@guanghechen/commander-helper'
+import { absoluteOfWorkspace } from '@guanghechen/file-helper'
 import {
   convertToBoolean,
   convertToNumber,

@@ -1,12 +1,14 @@
 import type { CipherHelper } from '@guanghechen/cipher-helper'
-import { AESCipherHelper } from '@guanghechen/cipher-helper'
+import { AESCipherHelper, CipherCatalog } from '@guanghechen/cipher-helper'
 import {
-  absoluteOfWorkspace,
   createInitialCommit,
   installDependencies,
-  relativeOfWorkspace,
 } from '@guanghechen/commander-helper'
-import { mkdirsIfNotExists } from '@guanghechen/file-helper'
+import {
+  absoluteOfWorkspace,
+  mkdirsIfNotExists,
+  relativeOfWorkspace,
+} from '@guanghechen/file-helper'
 import { isNonBlankString, toLowerCase } from '@guanghechen/option-helper'
 import { runPlop } from '@guanghechen/plop-helper'
 import commandExists from 'command-exists'
@@ -16,7 +18,6 @@ import nodePlop from 'node-plop'
 import { packageVersion } from '../../env/constant'
 import { logger } from '../../env/logger'
 import { resolveTemplateFilepath } from '../../env/util'
-import { WorkspaceCatalog } from '../../util/catalog'
 import { SecretMaster } from '../../util/secret'
 import type { GitCipherInitContext } from './context'
 
@@ -160,12 +161,10 @@ export class GitCipherInitProcessor {
   protected async createIndexFile(): Promise<void> {
     const { context, secretMaster } = this
     const cipher: CipherHelper = secretMaster.getCipher()
-    const catalog = new WorkspaceCatalog({
+    const catalog = new CipherCatalog({
       cipher,
-      indexFileEncoding: context.indexFileEncoding,
-      indexContentEncoding: 'base64',
-      plaintextRootDir: context.plaintextRootDir,
-      ciphertextRootDir: context.ciphertextRootDir,
+      sourceRootDir: context.plaintextRootDir,
+      targetRootDir: context.ciphertextRootDir,
     })
     await catalog.save(context.indexFilepath)
   }

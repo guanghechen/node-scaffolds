@@ -2,7 +2,8 @@ import type {
   CommandConfigurationFlatOpts,
   SubCommandProcessor,
 } from '@guanghechen/commander-helper'
-import { Command, absoluteOfWorkspace } from '@guanghechen/commander-helper'
+import { Command } from '@guanghechen/commander-helper'
+import { absoluteOfWorkspace } from '@guanghechen/file-helper'
 import { cover } from '@guanghechen/option-helper'
 import { packageName } from '../../env/constant'
 import { logger } from '../../env/logger'
