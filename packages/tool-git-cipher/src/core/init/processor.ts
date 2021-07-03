@@ -161,6 +161,8 @@ export class GitCipherInitProcessor {
   protected async createIndexFile(): Promise<void> {
     const { context, secretMaster } = this
     const cipher: CipherHelper = secretMaster.getCipher()
+
+    mkdirsIfNotExists(context.plaintextRootDir, true)
     const catalog = new CipherCatalog({
       cipher,
       sourceRootDir: context.plaintextRootDir,
