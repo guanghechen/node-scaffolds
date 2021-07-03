@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CipherCatalog preserve basic 1`] = `
+Array [
+  Object {
+    "fingerprint": "51eca7cd4b2e00b0ebea5b1f12c89ba8191d3d22",
+    "mtime": "2021-07-03T03:18:08.101Z",
+    "size": 10294,
+    "sourceFilepath": "1.json",
+    "targetFilename": "c8ce553149b9632066e5267c6f1f5efb645b87895a86aceda9a5db86129dcf4c",
+    "targetParts": Array [
+      "c8ce553149b9632066e5267c6f1f5efb645b87895a86aceda9a5db86129dcf4c",
+    ],
+  },
+  Object {
+    "fingerprint": "55a714c90180c22ad3034a1114164a73020138df",
+    "mtime": "2021-07-03T03:18:08.101Z",
+    "size": 11925,
+    "sourceFilepath": "2.json",
+    "targetFilename": "230f16fcf9aee9cc5a858e020a9a8d146a70f862ca53dd9e44d048d635a12f6a",
+    "targetParts": Array [
+      "230f16fcf9aee9cc5a858e020a9a8d146a70f862ca53dd9e44d048d635a12f6a",
+    ],
+  },
+]
+`;

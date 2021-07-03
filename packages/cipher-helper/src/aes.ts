@@ -3,7 +3,7 @@ import invariant from '@guanghechen/invariant'
 import type { Cipher } from 'crypto'
 import crypto from 'crypto'
 import { BaseCipherHelper } from './_base'
-import type { CipherHelper } from './types'
+import type { CipherHelper } from './types/cipher-helper'
 import { destroyBuffer } from './util/buffer'
 import { createRandomIv, createRandomKey } from './util/key'
 
