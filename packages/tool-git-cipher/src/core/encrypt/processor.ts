@@ -53,11 +53,11 @@ export class GitCipherEncryptProcessor {
 
       if (context.full) {
         // full quantity update
-        await this.fullQuantityUpdate(cipher, catalog)
+        await this.fullQuantityUpdate(catalog)
         commitMessage = 'feat: full quantity update'
       } else {
         // incremental update
-        await this.incrementalUpdate(cipher, catalog)
+        await this.incrementalUpdate(catalog)
         commitMessage = 'feat: incremental update'
       }
     } finally {
@@ -82,12 +82,15 @@ export class GitCipherEncryptProcessor {
   /**
    * Incremental update
    */
-  public async incrementalUpdate(
-    cipher: CipherHelper,
-    catalog: CipherCatalog,
-  ): Promise<void> {
+  public async incrementalUpdate(catalog: CipherCatalog): Promise<void> {
     const { context } = this
-    await catalog.loadFromFile(context.indexFilepath)
+
+    // Load from or Create a catalog index file.
+    if (fs.existsSync(context.indexFilepath)) {
+      await catalog.loadFromFile(context.indexFilepath)
+    } else {
+      await catalog.save(context.indexFilepath)
+    }
 
     // Remove files that deleted
     catalog.cleanup()
@@ -103,10 +106,7 @@ export class GitCipherEncryptProcessor {
   /**
    * Full quantity update
    */
-  public async fullQuantityUpdate(
-    cipher: CipherHelper,
-    catalog: CipherCatalog,
-  ): Promise<void> {
+  public async fullQuantityUpdate(catalog: CipherCatalog): Promise<void> {
     const { context } = this
 
     // Empty ciphertextRootDir and index file.
