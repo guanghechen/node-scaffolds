@@ -38,6 +38,7 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
+    "@guanghechen/invariant": "^1.7.0",
     "@guanghechen/npm-helper": "^1.7.0",
     "@guanghechen/option-helper": "^1.7.0",
     "chalk": "^4.1.0",

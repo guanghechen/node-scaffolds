@@ -15,5 +15,5 @@ export function resolveRepositoryName(
       : /^([^-]+)/.exec(packageName)![1]
     return repositoryName
   }
-  return packageName.replace(/^@/, '').replace('\\/', '-')
+  return packageName.replace(/^(@[^\\/]+[\\/])/, '').replace(/[\\/]/g, '-')
 }

@@ -1,3 +1,4 @@
+import invariant from '@guanghechen/invariant'
 import { detectMonorepo } from '@guanghechen/npm-helper'
 import {
   composeTextTransformers,
@@ -115,7 +116,7 @@ export function resolveNpmPackageAnswers(
   const packageName: string = npmPackageTransformers.packageName(
     answers.packageName,
   )
-  const packageAuthor: string = npmPackageTransformers.packageAuthor(
+  let packageAuthor: string = npmPackageTransformers.packageAuthor(
     answers.packageAuthor,
   )
   const packageVersion: string = npmPackageTransformers.packageVersion(
@@ -127,6 +128,13 @@ export function resolveNpmPackageAnswers(
   const packageLocation: string = npmPackageTransformers.packageLocation(
     answers.packageLocation,
   )
+
+  if (!packageAuthor) {
+    const m = /^@([\w.]+)[/\\][^/\\]+$/.exec(packageName)
+    if (m != null) packageAuthor = m[1]
+  }
+
+  invariant(Boolean(packageAuthor), 'Cannot resolve package author name!!')
 
   // Resolve additional data.
   const packageUsage: string = isNonBlankString(packageDescription)
