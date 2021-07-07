@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/template-ts-package",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Templates for creating simple typescript project",
   "author": {
     "name": "guanghechen",
@@ -38,9 +38,9 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/plop-helper": "^1.7.0"
+    "@guanghechen/plop-helper": "^1.7.1"
   },
   "devDependencies": {
-    "@guanghechen/jest-helper": "^1.7.0"
+    "@guanghechen/jest-helper": "^1.7.1"
   }
 }
