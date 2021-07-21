@@ -1,5 +1,23 @@
 # Changelog
 
+<a name="1.8.0"></a>
+## 1.8.0 (2021-07-21)
+
+### Added
+
+- ✨ feat: add sub-package &#x27;@guanghechen/redux-actions&#x27; (migrated from @barusu/redux-actions) [[b23228f](https://github.com/guanghechen/node-scaffolds/commit/b23228fb4119ab598a0dcb00d00d85e86560e277)]
+- ✨ feat: add sub-package &#x27;@guanghechen/blob-helper&#x27; (migrated from @baurusu/blob-helper) [[d879fe9](https://github.com/guanghechen/node-scaffolds/commit/d879fe9b0fd531cbc193b8a5a9b2fba91a238f63)]
+
+
+<a name="1.7.1"></a>
+## 1.7.1 (2021-07-07)
+
+### Miscellaneous
+
+-  improve(plop-helper): throw error if author is not detected [[87b43f0](https://github.com/guanghechen/node-scaffolds/commit/87b43f0df7945dbbb250c230baccafee017bd40f)]
+- 📝 docs: update CHANGELOG [[45e28b5](https://github.com/guanghechen/node-scaffolds/commit/45e28b564f3a74e61d822d7d4c1e3c711811c671)]
+
+
 <a name="1.7.0"></a>
 ## 1.7.0 (2021-07-03)
 
