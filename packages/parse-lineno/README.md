@@ -21,6 +21,12 @@
         src="https://img.shields.io/npm/l/@guanghechen/parse-lineno.svg"
       />
     </a>
+    <a href="#install">
+      <img
+        alt="Module Formats: cjs, esm"
+        src="https://img.shields.io/badge/module_formats-cjs%2C%20esm-green.svg"
+      />
+    </a>
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"

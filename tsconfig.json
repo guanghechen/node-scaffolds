@@ -5,6 +5,7 @@
     "module": "CommonJS",
     "sourceMap": true,
     "paths": {
+      "@guanghechen/blob-helper": ["packages/blob-helper/src"],
       "@guanghechen/chalk-logger": ["packages/chalk-logger/src"],
       "@guanghechen/cipher-helper": ["packages/cipher-helper/src"],
       "@guanghechen/commander-helper": ["packages/commander-helper/src"],
