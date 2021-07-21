@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/blob-helper",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "Utility funcs for handling blob objects (Such as download / create a blob from dataUrl)",
   "author": {
     "name": "guanghechen",
@@ -39,6 +39,6 @@
     "test": "echo 'no test yet.'"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config": "^1.7.1"
+    "@guanghechen/rollup-config": "^1.8.0"
   }
 }
