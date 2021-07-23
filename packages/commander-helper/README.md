@@ -56,7 +56,7 @@
 <br/>
 
 
-A collection of utility functions for jest tests.
+Utility functions for creating command programs tools based on [commander.js][].
 
 ## Install
 
@@ -75,6 +75,9 @@ A collection of utility functions for jest tests.
 
 ## Related
 
+* [commander.js][]
 
 
 [homepage]: https://github.com/guanghechen/guanghechen/tree/main/packages/commander-helper#readme
+[commander.js]: https://github.com/tj/commander.js/
+

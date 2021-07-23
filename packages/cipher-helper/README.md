@@ -49,6 +49,8 @@
 </header>
 <br/>
 
+Utility functions for cipher contents or files.
+
 
 ## Install
 

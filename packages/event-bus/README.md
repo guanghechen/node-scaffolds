@@ -50,6 +50,9 @@
 <br/>
 
 
+A simple event bus.
+
+
 ## Install
 
   ```bash

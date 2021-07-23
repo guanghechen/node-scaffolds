@@ -49,6 +49,9 @@
 </header>
 <br/>
 
+A collection of utility functions for handling files, such as split big file or
+merge multiple small files.
+
 
 ## Install
 
