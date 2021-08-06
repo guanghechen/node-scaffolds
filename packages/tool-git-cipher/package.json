@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/tool-git-cipher",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "A cli tool to cipher git repository",
   "author": {
     "name": "guanghechen",
@@ -39,13 +39,13 @@
     "test": "echo 'no test needed.'"
   },
   "dependencies": {
-    "@guanghechen/chalk-logger": "^1.8.0",
-    "@guanghechen/cipher-helper": "^1.8.0",
-    "@guanghechen/commander-helper": "^1.8.0",
-    "@guanghechen/event-bus": "^1.8.0",
-    "@guanghechen/file-helper": "^1.8.0",
-    "@guanghechen/option-helper": "^1.8.0",
-    "@guanghechen/plop-helper": "^1.8.0",
+    "@guanghechen/chalk-logger": "^1.8.1",
+    "@guanghechen/cipher-helper": "^1.8.1",
+    "@guanghechen/commander-helper": "^1.8.1",
+    "@guanghechen/event-bus": "^1.8.1",
+    "@guanghechen/file-helper": "^1.8.1",
+    "@guanghechen/option-helper": "^1.8.1",
+    "@guanghechen/plop-helper": "^1.8.1",
     "command-exists": "^1.2.9",
     "execa": "^5.1.1",
     "fs-extra": "^10.0.0",
@@ -53,6 +53,6 @@
     "node-plop": "~0.26.2"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config": "^1.8.0"
+    "@guanghechen/rollup-config": "^1.8.1"
   }
 }
