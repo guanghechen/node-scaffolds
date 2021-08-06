@@ -41,7 +41,7 @@
     "@guanghechen/invariant": "^1.8.0",
     "@guanghechen/npm-helper": "^1.8.0",
     "@guanghechen/option-helper": "^1.8.0",
-    "chalk": "^4.1.0",
+    "chalk": "^4.1.2",
     "fs-extra": "^10.0.0",
     "minimist": "^1.2.5",
     "mock-stdin": "^1.0.0",
