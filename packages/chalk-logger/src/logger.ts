@@ -18,7 +18,7 @@ export interface LoggerOptions {
   title?: boolean
   inline?: boolean
   colorful?: boolean
-  encoding?: string
+  encoding?: BufferEncoding
   filepath?: string
   write?(text: string): void
   dateChalk?: Chalk | Color

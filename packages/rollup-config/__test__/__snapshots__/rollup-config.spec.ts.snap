@@ -28,7 +28,7 @@ console.log('data:', data$1);
 console.log(isFileSync(__filename));
 var index = (function () { return data$1; });
 
-exports.default = index;
+exports['default'] = index;
 exports.isFileSync = isFileSync;
 "
 `;
@@ -53,7 +53,6 @@ console.log('data:', data$1);
 console.log(isFileSync(__filename));
 var index = (function () { return data$1; });
 
-export default index;
-export { isFileSync };
+export { index as default, isFileSync };
 "
 `;

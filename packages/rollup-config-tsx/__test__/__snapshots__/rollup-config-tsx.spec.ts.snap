@@ -31,7 +31,7 @@ function Greet(props) {
 var index = (function () { return React__default['default'].createElement(Greet, { name: data.name }); });
 
 exports.Greet = Greet;
-exports.default = index;
+exports['default'] = index;
 "
 `;
 
@@ -104,8 +104,7 @@ function Greet(props) {
 
 var index = (function () { return React.createElement(Greet, { name: data.name }); });
 
-export default index;
-export { Greet };
+export { Greet, index as default };
 "
 `;
 

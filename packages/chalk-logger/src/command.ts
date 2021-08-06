@@ -28,7 +28,7 @@ interface CommanderOptions {
   /**
    * encoding of log file
    */
-  logEncoding?: string
+  logEncoding?: BufferEncoding
 }
 
 interface Command {
@@ -164,7 +164,7 @@ export function calcLoggerOptionsFromArgs(args: string[]): LoggerOptions {
     key = key.toLowerCase()
     switch (key) {
       case 'encoding':
-        options.logEncoding = val
+        options.logEncoding = val as BufferEncoding
         break
       case 'filepath':
         options.logFilepath = val
