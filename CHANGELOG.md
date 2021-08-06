@@ -1,5 +1,24 @@
 # Changelog
 
+<a name="1.8.1"></a>
+## 1.8.1 (2021-08-06)
+
+### Added
+
+- ✅ test: update snapshots and types [[b4f862a](https://github.com/guanghechen/node-scaffolds/commit/b4f862a9ee19cc61f80511a274d3d5a7c6794a7a)]
+- ✨ feat(tool-git-cipher): support new config property &#x60;sensitiveDirectories&#x60; for sub-command &#x60;encrypt&#x60; [[7e37655](https://github.com/guanghechen/node-scaffolds/commit/7e3765597e613a8307fccf13db4f9dcdcbcf8f5d)]
+
+### Changed
+
+- ⬆️ chore: upgrade dependencies [[4d05155](https://github.com/guanghechen/node-scaffolds/commit/4d05155649c588371dea129b2df8553f4dec5342)]
+
+### Miscellaneous
+
+- 📝 docs: update READMEs [[c4c7d8e](https://github.com/guanghechen/node-scaffolds/commit/c4c7d8e24e12734197b3a92b7ac17d6dc68b71cb)]
+- 🚧 improve(blob-helper): perform clear actions after downloaded [[5887f04](https://github.com/guanghechen/node-scaffolds/commit/5887f04f7204aa549fefecf40d2ec1634f476bff)]
+- 📝 docs: update CHANGELOG [[ace2e3d](https://github.com/guanghechen/node-scaffolds/commit/ace2e3df521646824ca4a8180e277570a27cdea8)]
+
+
 <a name="1.8.0"></a>
 ## 1.8.0 (2021-07-21)
 
