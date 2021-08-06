@@ -167,6 +167,12 @@ Options:
   -h, --help               display help for command
 ```
 
+Additional configs:
+
+Name                    | Default   | Description
+:----------------------:|:---------:|:----------------------:
+`sensitiveDirectories`  | `['git']` | List of directories that needed to be encrypted under the `plaintextRootDir`
+
 ### decrypt
 
 ```shell

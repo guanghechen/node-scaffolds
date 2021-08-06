@@ -35,6 +35,10 @@ export interface GitCipherEncryptContext {
    */
   readonly plaintextRootDir: string
   /**
+   * List of directories to encrypt
+   */
+  readonly sensitiveDirectories: string[]
+  /**
    * whether to print password asterisks
    */
   readonly showAsterisk: boolean
@@ -96,6 +100,10 @@ interface Params {
    */
   readonly plaintextRootDir: string
   /**
+   * List of directories to encrypt
+   */
+  readonly sensitiveDirectories: string[]
+  /**
    * whether to print password asterisks
    */
   readonly showAsterisk: boolean
@@ -140,6 +148,7 @@ export async function createGitCipherEncryptContext(
     cipheredIndexEncoding: params.cipheredIndexEncoding,
     ciphertextRootDir: params.ciphertextRootDir,
     plaintextRootDir: params.plaintextRootDir,
+    sensitiveDirectories: params.sensitiveDirectories,
     showAsterisk: params.showAsterisk,
     minPasswordLength: params.minPasswordLength,
     maxPasswordLength: params.maxPasswordLength,

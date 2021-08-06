@@ -99,10 +99,14 @@ export class GitCipherEncryptProcessor {
     catalog.cleanup()
 
     // Encrypt modified files only.
-    const modifiedFilepaths: string[] = collectAllFilesSync(
-      path.join(context.plaintextRootDir, '.git'),
-      (p, stat) => catalog.isModified(p, stat),
-    )
+    const modifiedFilepaths: string[] = context.sensitiveDirectories
+      .map(dirName =>
+        collectAllFilesSync(
+          path.join(context.plaintextRootDir, dirName),
+          (p, stat) => catalog.isModified(p, stat),
+        ),
+      )
+      .flat()
     await this.encryptFiles(catalog, modifiedFilepaths)
   }
 
@@ -131,9 +135,11 @@ export class GitCipherEncryptProcessor {
     await catalog.save(context.indexFilepath)
 
     // Encrypt all files.
-    const modifiedFilepaths = collectAllFilesSync(
-      path.join(context.plaintextRootDir, '.git'),
-    )
+    const modifiedFilepaths: string[] = context.sensitiveDirectories
+      .map(dirName =>
+        collectAllFilesSync(path.join(context.plaintextRootDir, dirName)),
+      )
+      .flat()
     await this.encryptFiles(catalog, modifiedFilepaths)
   }
 

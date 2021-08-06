@@ -1,6 +1,11 @@
 import type { CommandConfigurationFlatOpts } from '@guanghechen/commander-helper'
 import { Command } from '@guanghechen/commander-helper'
-import { coverBoolean } from '@guanghechen/option-helper'
+import {
+  cover,
+  coverBoolean,
+  isNotEmptyArray,
+} from '@guanghechen/option-helper'
+import path from 'path'
 import { packageName } from '../../env/constant'
 import { logger } from '../../env/logger'
 import type { GlobalCommandOptions } from '../option'
@@ -21,12 +26,18 @@ interface SubCommandOptions extends GlobalCommandOptions {
    * Perform `git fetch --all` before encrypt
    */
   readonly updateBeforeEncrypt: boolean
+  /**
+   * List of directories to encrypt
+   * @default ['.git']
+   */
+  readonly sensitiveDirectories: string[]
 }
 
 const __defaultCommandOptions: SubCommandOptions = {
   ...__defaultGlobalCommandOptions,
   full: false,
   updateBeforeEncrypt: false,
+  sensitiveDirectories: ['.git'],
 }
 
 export type SubCommandEncryptOptions = SubCommandOptions &
@@ -77,10 +88,23 @@ export const createSubCommandEncrypt = function (
       )
       logger.debug('updateBeforeEncrypt:', updateBeforeEncrypt)
 
+      // resolve sensitiveDirectories
+      const sensitiveDirectories: string[] = [
+        ...new Set<string>(
+          cover<string[]>(
+            defaultOptions.sensitiveDirectories.slice(),
+            options.sensitiveDirectories,
+            isNotEmptyArray,
+          ).map(p => path.normalize(p)),
+        ),
+      ]
+      logger.debug('sensitiveDirectories:', sensitiveDirectories)
+
       const resolvedOptions: SubCommandEncryptOptions = {
         ...defaultOptions,
         full,
         updateBeforeEncrypt,
+        sensitiveDirectories,
       }
 
       if (handle != null) {
@@ -107,6 +131,7 @@ export async function createGitCipherEncryptContextFromOptions(
     cipheredIndexEncoding: options.cipheredIndexEncoding,
     ciphertextRootDir: options.ciphertextRootDir,
     plaintextRootDir: options.plaintextRootDir,
+    sensitiveDirectories: options.sensitiveDirectories,
     showAsterisk: options.showAsterisk,
     minPasswordLength: options.minPasswordLength,
     maxPasswordLength: options.maxPasswordLength,
