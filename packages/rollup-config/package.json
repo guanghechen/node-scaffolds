@@ -46,7 +46,7 @@
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "13.0.4",
     "@rollup/plugin-typescript": "8.2.5",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.1"
   },
   "peerDependencies": {
     "rollup": "^2.52.1"
