@@ -69,6 +69,7 @@ Package                               | Description
 [@guanghechen/option-helper][]        | A collection of utility functions for processing options
 [@guanghechen/plop-helper][]          | A collection of utility functions for plop templates
 [@guanghechen/postcss-modules-dts][]  | Generate `*.d.ts` files for style files (such as css, stylus and etc)
+[@guanghechen/react-hooks][]          | Custom React hooks.
 [@guanghechen/redux-actions][]        | Utility functions for creating async actions.
 [@guanghechen/rollup-config][]        | Rollup config for bundle typescript project.
 [@guanghechen/rollup-config-cli][]    | Rollup configs for bundle typescript cli project.
@@ -103,6 +104,7 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/option-helper]: ./packages/option-helper
 [@guanghechen/plop-helper]: ./packages/plop-helper
 [@guanghechen/postcss-modules-dts]: ./packages/postcss-modules-dts
+[@guanghechen/react-hooks]: ./packages/react-hooks
 [@guanghechen/redux-actions]: ./packages/redux-actions
 [@guanghechen/rollup-config]: ./packages/rollup-config
 [@guanghechen/rollup-config-cli]: ./packages/rollup-config-cli
