@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="1.8.2"></a>
+## 1.8.2 (2021-08-14)
+
+### Added
+
+- ✨ feat: add new sub-package &#x27;@guanghechen/react-hooks&#x27; [[7724209](https://github.com/guanghechen/node-scaffolds/commit/7724209c69b95ddac8055786bf2e80a5b599b21c)]
+
+### Changed
+
+- ⬆️ chore: upgrade dependencies [[4d0261c](https://github.com/guanghechen/node-scaffolds/commit/4d0261c014b759c43e7e20b8b5e2cde5e34332dc)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[1e161a9](https://github.com/guanghechen/node-scaffolds/commit/1e161a9ba893c7c757afd7054ab3618fb4e8fbf1)]
+
+
 <a name="1.8.1"></a>
 ## 1.8.1 (2021-08-06)
 
