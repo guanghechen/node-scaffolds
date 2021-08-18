@@ -12,10 +12,13 @@ export function useInterval(callback: Callback, delay: number): void {
 
   useEffect(() => {
     callbackRef.current = callback
-  }, [])
+  }, [callback])
 
   useEffect(() => {
-    const tick: Callback = () => void callbackRef.current()
+    const tick: Callback = () => {
+      if (callbackRef.current === undefined) return
+      callbackRef.current()
+    }
     const id = setInterval(tick, delay)
     return () => clearInterval(id)
   }, [delay])
