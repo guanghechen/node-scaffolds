@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/npm-helper",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "description": "",
   "author": {
     "name": "guanghechen",
@@ -33,7 +33,7 @@
     "test": "cross-env jest --config ../../jest.config.js --rootDir . --roots ."
   },
   "dependencies": {
-    "@guanghechen/locate-helper": "^1.8.2",
+    "@guanghechen/locate-helper": "^1.8.3",
     "fs-extra": "^10.0.0"
   }
 }

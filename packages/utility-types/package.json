@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/utility-types",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "description": "Collection of typescript utility types",
   "author": {
     "name": "guanghechen",
@@ -37,6 +37,6 @@
     "test": "echo 'no test needed.'"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config": "^1.8.2"
+    "@guanghechen/rollup-config": "^1.8.3"
   }
 }

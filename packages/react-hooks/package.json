@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/react-hooks",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "description": "Custom react hooks.",
   "author": {
     "name": "guanghechen",
@@ -51,6 +51,6 @@
     "fast-deep-equal": "^3.1.3"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config": "^1.8.2"
+    "@guanghechen/rollup-config": "^1.8.3"
   }
 }
