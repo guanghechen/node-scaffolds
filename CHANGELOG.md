@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.8.3"></a>
+## 1.8.3 (2021-08-18)
+
+### Fixed
+
+- 🐛 fix(react-hooks): update callback when the passed one changed [[fe45c03](https://github.com/guanghechen/node-scaffolds/commit/fe45c033e2b137bf178dfbe76858aae47137c840)]
+
+### Miscellaneous
+
+- 📝 update CHANGELOG [[1406a7d](https://github.com/guanghechen/node-scaffolds/commit/1406a7d194d8874a27bcfc050489fb9b51d9e3e1)]
+
+
 <a name="1.8.2"></a>
 ## 1.8.2 (2021-08-14)
 
