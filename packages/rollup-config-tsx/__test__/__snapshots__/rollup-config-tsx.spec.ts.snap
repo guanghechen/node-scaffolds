@@ -22,16 +22,16 @@ var classes = {\\"container\\":\\"ghc-container\\",\\"name\\":\\"ghc-name\\"};
 
 function Greet(props) {
     var _a = props.name, name = _a === void 0 ? 'world' : _a;
-    return (React__default['default'].createElement(\\"div\\", { className: cn__default['default'](classes.container) },
+    return (React__default[\\"default\\"].createElement(\\"div\\", { className: cn__default[\\"default\\"](classes.container) },
         \\"Hello, \\",
-        React__default['default'].createElement(\\"span\\", { className: cn__default['default'](classes.name) }, name),
+        React__default[\\"default\\"].createElement(\\"span\\", { className: cn__default[\\"default\\"](classes.name) }, name),
         \\"!\\"));
 }
 
-var index = (function () { return React__default['default'].createElement(Greet, { name: data.name }); });
+var index = (function () { return React__default[\\"default\\"].createElement(Greet, { name: data.name }); });
 
 exports.Greet = Greet;
-exports['default'] = index;
+exports[\\"default\\"] = index;
 "
 `;
 

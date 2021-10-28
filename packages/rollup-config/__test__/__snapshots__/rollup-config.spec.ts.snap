@@ -19,16 +19,16 @@ var data$1 = {
 };
 
 function isFileSync(filepath) {
-    if (!fs__default['default'].existsSync(filepath))
+    if (!fs__default[\\"default\\"].existsSync(filepath))
         return false;
-    return fs__default['default'].statSync(filepath).isFile();
+    return fs__default[\\"default\\"].statSync(filepath).isFile();
 }
 
 console.log('data:', data$1);
 console.log(isFileSync(__filename));
 var index = (function () { return data$1; });
 
-exports['default'] = index;
+exports[\\"default\\"] = index;
 exports.isFileSync = isFileSync;
 "
 `;
