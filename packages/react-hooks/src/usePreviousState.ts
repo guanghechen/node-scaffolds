@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react'
  * @param value
  * @returns
  */
-export function usePreviousState<T extends unknown = any>(value: T): T {
+export function usePreviousState<T = any>(value: T): T {
   const ref = useRef<T>(value)
   useEffect(() => {
     ref.current = value

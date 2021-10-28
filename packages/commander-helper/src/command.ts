@@ -161,7 +161,7 @@ export function createTopCommand(
  */
 export type SubCommandProcessor<
   O extends CommandConfigurationOptions,
-  V extends unknown = void,
+  V = void,
 > = (options: O) => V | Promise<V>
 
 /**
@@ -169,7 +169,7 @@ export type SubCommandProcessor<
  */
 export type SubCommandCreator<
   O extends CommandConfigurationOptions,
-  V extends unknown = void,
+  V = void,
 > = (
   handle?: SubCommandProcessor<O, V>,
   commandName?: string,
@@ -195,7 +195,7 @@ export type SubCommandMounter = (
  * @param {string[]}  args
  * @returns {Promise}
  */
-export type SubCommandExecutor<V extends unknown = void> = (
+export type SubCommandExecutor<V = void> = (
   parentCommand: Command,
   args: string[],
 ) => Promise<V>
@@ -208,7 +208,7 @@ export type SubCommandExecutor<V extends unknown = void> = (
  */
 export function createSubCommandMounter<
   O extends CommandConfigurationOptions,
-  V extends unknown = void,
+  V = void,
 >(
   create: SubCommandCreator<O, V>,
   handle: SubCommandProcessor<O, V>,
@@ -229,7 +229,7 @@ export function createSubCommandMounter<
  */
 export function createSubCommandExecutor<
   O extends CommandConfigurationOptions,
-  V extends unknown = void,
+  V = void,
 >(
   create: SubCommandCreator<O, V>,
   handle: SubCommandProcessor<O, V>,
@@ -256,7 +256,7 @@ export function createSubCommandExecutor<
  */
 export type MainCommandProcessor<
   O extends CommandConfigurationOptions,
-  V extends unknown = void,
+  V = void,
 > = (options: O) => V | Promise<V>
 
 /**
@@ -264,7 +264,7 @@ export type MainCommandProcessor<
  */
 export type MainCommandCreator<
   O extends CommandConfigurationOptions,
-  V extends unknown = void,
+  V = void,
 > = (handle?: MainCommandProcessor<O, V>) => Command
 
 /**
@@ -285,9 +285,7 @@ export type MainCommandMounter = (
  * @param {string[]}  args
  * @returns {Promise}
  */
-export type MainCommandExecutor<V extends unknown = void> = (
-  args: string[],
-) => Promise<V>
+export type MainCommandExecutor<V = void> = (args: string[]) => Promise<V>
 
 /**
  * Create main command mounter
@@ -297,7 +295,7 @@ export type MainCommandExecutor<V extends unknown = void> = (
  */
 export function createMainCommandMounter<
   O extends CommandConfigurationOptions,
-  V extends unknown = void,
+  V = void,
 >(
   create: MainCommandCreator<O, V>,
   handle: MainCommandProcessor<O, V>,
@@ -319,7 +317,7 @@ export function createMainCommandMounter<
  */
 export function createMainCommandExecutor<
   O extends CommandConfigurationOptions,
-  V extends unknown = void,
+  V = void,
 >(
   create: MainCommandCreator<O, V>,
   handle: MainCommandProcessor<O, V>,

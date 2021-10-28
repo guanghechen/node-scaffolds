@@ -6,8 +6,8 @@
  */
 export function downloadBlob(blob: Blob, filename: string): void {
   // For ie browser
-  if (window.navigator.msSaveBlob != null) {
-    window.navigator.msSaveBlob(blob, filename)
+  if ((window.navigator as any).msSaveBlob != null) {
+    ;(window.navigator as any).msSaveBlob(blob, filename)
     return
   }
 

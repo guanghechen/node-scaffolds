@@ -1,7 +1,4 @@
-export type Desensitizer<T extends unknown> = (
-  data: Readonly<T>,
-  key?: string,
-) => T
+export type Desensitizer<T> = (data: Readonly<T>, key?: string) => T
 
 /**
  * Desensitize number type values.

@@ -3,9 +3,7 @@
  * @param data
  * @returns
  */
-export function noop<T extends unknown = unknown>(
-  data?: T,
-): T extends undefined ? never : T {
+export function noop<T = unknown>(data?: T): T extends undefined ? never : T {
   return data as any
 }
 

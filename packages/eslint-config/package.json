@@ -32,7 +32,7 @@
     "test": "echo 'no test needed.'"
   },
   "dependencies": {
-    "eslint-plugin-import": "^2.24.0"
+    "eslint-plugin-import": "^2.25.2"
   },
   "peerDependencies": {
     "eslint": ">=7.22.0"

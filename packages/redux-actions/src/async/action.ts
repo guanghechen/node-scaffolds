@@ -41,7 +41,7 @@ export interface AsyncFailureResponse {
  */
 export interface AsyncAction<
   T extends symbol | string,
-  P extends unknown,
+  P,
   S extends AsyncActionStatus,
 > extends Action<T, P> {
   /**
@@ -63,7 +63,7 @@ export interface AsyncAction<
  */
 export type AsyncRequestedAction<
   T extends string | symbol,
-  P extends unknown = unknown,
+  P = unknown,
 > = AsyncAction<T, P, AsyncActionStatus.REQUESTED>
 
 /**
@@ -71,7 +71,7 @@ export type AsyncRequestedAction<
  */
 export type AsyncSucceedAction<
   T extends string | symbol,
-  P extends unknown = unknown,
+  P = unknown,
 > = Required<AsyncAction<T, P, AsyncActionStatus.SUCCEED>>
 
 /**
@@ -87,8 +87,8 @@ export type AsyncFailedAction<
  */
 export interface AsyncActions<
   T extends string | symbol,
-  RP extends unknown = unknown,
-  SP extends unknown = unknown,
+  RP = unknown,
+  SP = unknown,
   FP extends AsyncFailureResponse = AsyncFailureResponse,
 > {
   request: AsyncRequestedAction<T, RP> // Requested action
