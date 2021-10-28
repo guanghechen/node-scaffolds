@@ -1,5 +1,33 @@
 # Changelog
 
+<a name="1.8.4"></a>
+## 1.8.4 (2021-10-28)
+
+### Added
+
+- 👷‍♂️ chore: update ci configs [[0dab3fc](https://github.com/guanghechen/node-scaffolds/commit/0dab3fc6df0e4a4bdb54c5e328812adc45e45815)]
+- ✅ test: update snapshots [[d9f13ee](https://github.com/guanghechen/node-scaffolds/commit/d9f13ee15ade1df358a1dff566942932281e17f4)]
+
+### Changed
+
+- 🔧 chore: upgrade peerDependencies [[aa6d178](https://github.com/guanghechen/node-scaffolds/commit/aa6d1787a75eacf65490a370ec5289b160f029a7)]
+- 🔧 chore: update yarn.lock [[eac3b3c](https://github.com/guanghechen/node-scaffolds/commit/eac3b3c028e83c4c8d518755b840a71b80aa7ee1)]
+- ⬆️ chore: upgrade dependencies [[6e9db81](https://github.com/guanghechen/node-scaffolds/commit/6e9db8190fa712ac995640102b3f1844e0b5c7c1)]
+
+### Miscellaneous
+
+-  feat: update eslint rules [[e5d7583](https://github.com/guanghechen/node-scaffolds/commit/e5d7583597fd507d4fd36d17463951dbec79c06e)]
+- 📝 docs: update CHANGELOG [[5e57561](https://github.com/guanghechen/node-scaffolds/commit/5e57561f2fdbdda9772e988571ac3d2ece055145)]
+
+
+<a name="0.0.0"></a>
+## 0.0.0 (2021-10-28)
+
+### Added
+
+- 👷‍♂️ chore: update ci configs [[67c4a89](https://github.com/guanghechen/node-scaffolds/commit/67c4a89ff0f17538e7e74dc075598971efa525ee)]
+
+
 <a name="1.8.3"></a>
 ## 1.8.3 (2021-08-18)
 
