@@ -56,7 +56,7 @@ module.exports = {
     'react/jsx-filename-extension': [
       2,
       {
-        extensions: ['.jsx', '.tsx'],
+        extensions: ['.jsx', '.tsx', '.js', '.ts'],
       },
     ],
     'react/jsx-first-prop-new-line': [2, 'multiline-multiprop'],

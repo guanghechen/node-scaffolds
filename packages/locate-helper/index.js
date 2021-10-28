@@ -11,7 +11,7 @@ const path = require('path')
  * @returns {string|null}
  */
 function locateNearestFilepath(currentDir, filenames) {
-  // Uniform paramter format.
+  // Uniform parameter format.
   if (!Array.isArray(filenames)) {
     // eslint-disable-next-line no-param-reassign
     filenames = [filenames]

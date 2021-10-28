@@ -127,6 +127,7 @@ module.exports = {
         allowedNames: ['self'], // Allow `const self = this`; `[]` by default
       },
     ],
+    '@typescript-eslint/no-empty-interface': 1,
     '@typescript-eslint/no-use-before-define': [
       1,
       {
