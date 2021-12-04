@@ -19,5 +19,6 @@ export function useDeepCompareMemo<T>(
   }
   prevDeps.current = deps
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   return useMemo(fn, [signal.current])
 }

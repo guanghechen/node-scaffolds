@@ -19,5 +19,6 @@ export function useDeepCompareCallback<T extends (...args: any[]) => any>(
   }
   prevDeps.current = deps
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   return useCallback(fn, [signal.current])
 }
