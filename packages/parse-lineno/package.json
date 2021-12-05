@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/parse-lineno",
-  "version": "1.8.4",
+  "version": "1.8.5",
   "description": "Parse something like '1,3-10' to numbers or intervals",
   "author": {
     "name": "guanghechen",
@@ -40,6 +40,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "devDependencies": {
-    "@guanghechen/rollup-config": "^1.8.4"
+    "@guanghechen/rollup-config": "^1.8.5"
   }
 }
