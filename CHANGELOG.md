@@ -1,5 +1,24 @@
 # Changelog
 
+<a name="1.8.5"></a>
+## 1.8.5 (2021-12-05)
+
+### Added
+
+- ✨ feat: add useReactiveRef [[da80d82](https://github.com/guanghechen/node-scaffolds/commit/da80d825703bff5fe4322790712818c11d946093)]
+- 👷‍♂️ chore: update ci configs [[67c4a89](https://github.com/guanghechen/node-scaffolds/commit/67c4a89ff0f17538e7e74dc075598971efa525ee)]
+
+### Changed
+
+- ⬆️ chore: upgrade dependencies [[af9ac75](https://github.com/guanghechen/node-scaffolds/commit/af9ac751a0c6da97025953b65afaffe5a2fba405)]
+- 🔧 chore: github action don&#x27;t support diff colors [[19cc7c5](https://github.com/guanghechen/node-scaffolds/commit/19cc7c5c51c6c8fe88823a3a4ebc29d4810a8b12)]
+
+### Miscellaneous
+
+- 📝 docs: update badge url [[3db8165](https://github.com/guanghechen/node-scaffolds/commit/3db81653ff780a204d54b157ed2b5ea4df99cbb7)]
+- 📝 docs: update CHANGELOG [[7c3f93b](https://github.com/guanghechen/node-scaffolds/commit/7c3f93bf2d0b9af7bc82585893a8c39ebe0758e2)]
+
+
 <a name="1.8.4"></a>
 ## 1.8.4 (2021-10-28)
 
