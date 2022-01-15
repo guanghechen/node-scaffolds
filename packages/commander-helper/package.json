@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/commander-helper",
-  "version": "1.8.5",
+  "version": "1.8.6",
   "description": "Utils for creating node.js command line program",
   "author": {
     "name": "guanghechen",
@@ -36,11 +36,11 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/chalk-logger": "^1.8.5",
-    "@guanghechen/file-helper": "^1.8.5",
-    "@guanghechen/invariant": "^1.8.5",
-    "@guanghechen/locate-helper": "^1.8.5",
-    "@guanghechen/option-helper": "^1.8.5",
+    "@guanghechen/chalk-logger": "^1.8.6",
+    "@guanghechen/file-helper": "^1.8.6",
+    "@guanghechen/invariant": "^1.8.6",
+    "@guanghechen/locate-helper": "^1.8.6",
+    "@guanghechen/option-helper": "^1.8.6",
     "command-exists": "^1.2.9",
     "commander": "^8.3.0",
     "execa": "^5.1.1",
@@ -49,6 +49,6 @@
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config": "^1.8.5"
+    "@guanghechen/rollup-config": "^1.8.6"
   }
 }
