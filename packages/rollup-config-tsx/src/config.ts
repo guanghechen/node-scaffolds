@@ -1,8 +1,6 @@
 import { isObject } from '@guanghechen/option-helper'
 import dts from '@guanghechen/postcss-modules-dts'
-import createBaseRollupConfig, {
-  resolveRollupConfigEnvs,
-} from '@guanghechen/rollup-config'
+import createBaseRollupConfig, { resolveRollupConfigEnvs } from '@guanghechen/rollup-config'
 import type { RollupConfigEnvs } from '@guanghechen/rollup-config'
 import multiEntry from '@rollup/plugin-multi-entry'
 import autoprefixer from 'autoprefixer'
@@ -10,11 +8,7 @@ import postcssFlexbugsFixes from 'postcss-flexbugs-fixes'
 import postcssUrl from 'postcss-url'
 import type rollup from 'rollup'
 import postcss from 'rollup-plugin-postcss'
-import type {
-  PostcssOptions,
-  PreprocessConfigOptions,
-  RollupConfigOptions,
-} from './types/options'
+import type { PostcssOptions, PreprocessConfigOptions, RollupConfigOptions } from './types/options'
 
 /**
  * Create rollup config for preprocessor
@@ -52,9 +46,7 @@ export function createPreprocessorConfig(
         extract: false,
         minimize: false,
         sourceMap: env.shouldSourceMap,
-        plugins: [postcssUrlOptions && postcssUrl(postcssUrlOptions)].filter(
-          Boolean,
-        ),
+        plugins: [postcssUrlOptions && postcssUrl(postcssUrlOptions)].filter(Boolean),
         ...postcssOptions,
         modules,
       }),
@@ -67,20 +59,13 @@ export function createPreprocessorConfig(
  * Create rollup config for handle react component
  * @param options
  */
-export function createRollupConfigs(
-  options: RollupConfigOptions,
-): rollup.RollupOptions[] {
+export function createRollupConfigs(options: RollupConfigOptions): rollup.RollupOptions[] {
   const { preprocessOptions, ...baseOptions } = options
   const env = resolveRollupConfigEnvs(options)
 
-  const { postcssOptions: _postcssOptions, ...pluginOptions } =
-    baseOptions.pluginOptions || {}
-  const {
-    autoprefixerOptions,
-    flexbugsFixesOptions,
-    postcssUrlOptions,
-    ...postcssOptions
-  } = _postcssOptions || {}
+  const { postcssOptions: _postcssOptions, ...pluginOptions } = baseOptions.pluginOptions || {}
+  const { autoprefixerOptions, flexbugsFixesOptions, postcssUrlOptions, ...postcssOptions } =
+    _postcssOptions || {}
 
   baseOptions.pluginOptions = pluginOptions
   baseOptions.additionalPlugins = [

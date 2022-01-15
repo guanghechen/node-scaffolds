@@ -1,11 +1,5 @@
 import { locateFixtures } from 'jest.setup'
-import {
-  calcFingerprint,
-  calcMac,
-  calcMacFromFile,
-  createRandomIv,
-  createRandomKey,
-} from '../src'
+import { calcFingerprint, calcMac, calcMacFromFile, createRandomIv, createRandomKey } from '../src'
 
 describe('createRandomIv', function () {
   test('basic', function () {

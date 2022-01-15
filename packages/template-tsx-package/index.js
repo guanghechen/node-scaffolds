@@ -17,10 +17,8 @@ module.exports = function (plop) {
     actions: function (_answers) {
       const answers = resolveNpmPackageAnswers(preAnswers, _answers)
 
-      const resolveSourcePath = p =>
-        path.normalize(path.resolve(__dirname, 'boilerplate', p))
-      const resolveTargetPath = p =>
-        path.normalize(path.resolve(answers.packageLocation, p))
+      const resolveSourcePath = p => path.normalize(path.resolve(__dirname, 'boilerplate', p))
+      const resolveTargetPath = p => path.normalize(path.resolve(answers.packageLocation, p))
       const relativePath = path.relative(answers.packageLocation, cwd)
 
       answers.componentName = answers.packageName.startsWith('@')

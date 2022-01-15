@@ -40,9 +40,7 @@ export function colorToChalk(color: Color, fg: boolean): Chalk {
       return fg ? chalk.hex(color) : chalk.bgHex(color)
     }
   }
-  return fg
-    ? chalk.rgb(color[0], color[1], color[2])
-    : chalk.bgRgb(color[0], color[1], color[2])
+  return fg ? chalk.rgb(color[0], color[1], color[2]) : chalk.bgRgb(color[0], color[1], color[2])
 }
 
 export class ColorfulChalk {

@@ -35,9 +35,7 @@ describe('util', function () {
 
   test('detectPackageAuthor', function () {
     expect(detectPackageAuthor(__dirname)).toEqual('guanghechen')
-    expect(detectPackageAuthor(resolveFixturePath('monorepo1'))).toEqual(
-      'guanghechen',
-    )
+    expect(detectPackageAuthor(resolveFixturePath('monorepo1'))).toEqual('guanghechen')
     expect(detectPackageAuthor(resolveFixturePath('monorepo2'))).toEqual('waw')
     expect(detectPackageAuthor(resolveFixturePath('normal-repo'))).toBeNull()
   })
@@ -53,9 +51,9 @@ describe('dependency', function () {
   })
 
   test('collectAllDependencies', function () {
-    expect(
-      collectAllDependencies(path.join(__dirname, '../package.json')),
-    ).toMatchSnapshot('current repo')
+    expect(collectAllDependencies(path.join(__dirname, '../package.json'))).toMatchSnapshot(
+      'current repo',
+    )
     expect(
       collectAllDependencies(
         resolveFixturePath('monorepo2/package.json'),
@@ -70,9 +68,7 @@ describe('dependency', function () {
       .spyOn(console, 'warn')
       .mockImplementation((...args) => void warningDataList.push(...args))
     expect(
-      collectAllDependencies(resolveFixturePath('normal-repo/package.json'), [
-        'peerDependencies',
-      ]),
+      collectAllDependencies(resolveFixturePath('normal-repo/package.json'), ['peerDependencies']),
     ).toMatchSnapshot('normal-repo')
     expect(warningDataList).toMatchSnapshot('normal-repo -- warnings')
     warnSpy.mockRestore()

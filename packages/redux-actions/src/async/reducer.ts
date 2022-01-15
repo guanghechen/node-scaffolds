@@ -11,18 +11,12 @@ type Reducer<
   S extends AsyncStateItem<unknown>,
   T extends string | symbol,
   As extends AsyncActions<T>,
-> = (
-  state: S | undefined,
-  action: As['request'] | As['success'] | As['failure'],
-) => S
+> = (state: S | undefined, action: As['request'] | As['success'] | As['failure']) => S
 
 export type AsyncActionHandler<
   S extends AsyncStateItem<unknown>,
   T extends string | symbol,
-  A extends
-    | AsyncRequestedAction<T>
-    | AsyncSucceedAction<T>
-    | AsyncFailedAction<T>,
+  A extends AsyncRequestedAction<T> | AsyncSucceedAction<T> | AsyncFailedAction<T>,
 > = (state: S, action: A) => S
 
 export interface AsyncActionReducer<
@@ -38,11 +32,7 @@ export interface AsyncActionReducer<
    * @param state   StateItem
    * @param action  async actions for this state item
    */
-  process: AsyncActionHandler<
-    S,
-    T,
-    As['request'] | As['success'] | As['failure']
-  >
+  process: AsyncActionHandler<S, T, As['request'] | As['success'] | As['failure']>
 }
 
 /**
@@ -139,11 +129,7 @@ export function createAsyncActionReducer<
 export function assembleActionReducers<
   S extends AsyncStateItem<unknown>,
   T extends string | symbol,
-  R extends AsyncActionReducer<S, T, AsyncActions<T>> = AsyncActionReducer<
-    S,
-    T,
-    AsyncActions<T>
-  >,
+  R extends AsyncActionReducer<S, T, AsyncActions<T>> = AsyncActionReducer<S, T, AsyncActions<T>>,
 >(initialState: S, actionReducers: R[]): Reducer<S, T, AsyncActions<T>> {
   type As = AsyncActions<T>
   type A = As['request'] | As['success'] | As['failure']

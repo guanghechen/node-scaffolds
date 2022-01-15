@@ -97,9 +97,7 @@ export function resolveGlobalCommandOptions<C extends Record<string, unknown>>(
   defaultOptions: C,
   workspaceDir: string,
   options: C & GlobalCommandOptions,
-  strategies: Partial<
-    Record<keyof (C & GlobalCommandOptions), MergeStrategy>
-  > = {},
+  strategies: Partial<Record<keyof (C & GlobalCommandOptions), MergeStrategy>> = {},
 ): C & GlobalCommandOptions & CommandConfigurationFlatOpts {
   type R = C & GlobalCommandOptions & CommandConfigurationFlatOpts
   const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<

@@ -1,7 +1,4 @@
-import {
-  collectAllDependencies,
-  createDependencyFields,
-} from '@guanghechen/npm-helper'
+import { collectAllDependencies, createDependencyFields } from '@guanghechen/npm-helper'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
@@ -9,11 +6,7 @@ import typescript from '@rollup/plugin-typescript'
 import type { OutputOptions, RollupOptions } from 'rollup'
 import builtinModules from './builtin-modules.json'
 import { convertToBoolean, coverBoolean, isArray } from './option-helper'
-import type {
-  RawRollupConfigEnvs,
-  RollupConfigEnvs,
-  RollupConfigOptions,
-} from './types'
+import type { RawRollupConfigEnvs, RollupConfigEnvs, RollupConfigOptions } from './types'
 
 const builtinExternals: string[] = builtinModules.concat(['glob', 'sync'])
 
@@ -23,9 +16,7 @@ const builtinExternals: string[] = builtinModules.concat(['glob', 'sync'])
  * @param rawEnv
  * @returns
  */
-export function resolveRollupConfigEnvs(
-  rawEnv: RawRollupConfigEnvs,
-): RollupConfigEnvs {
+export function resolveRollupConfigEnvs(rawEnv: RawRollupConfigEnvs): RollupConfigEnvs {
   const defaultShouldSourcemap = coverBoolean(
     true,
     convertToBoolean(process.env.ROLLUP_SHOULD_SOURCEMAP),
@@ -35,10 +26,8 @@ export function resolveRollupConfigEnvs(
     convertToBoolean(process.env.ROLLUP_EXTERNAL_ALL_DEPENDENCIES),
   )
 
-  const {
-    shouldSourceMap = defaultShouldSourcemap,
-    shouldExternalAll = defaultShouldExternalAll,
-  } = rawEnv
+  const { shouldSourceMap = defaultShouldSourcemap, shouldExternalAll = defaultShouldExternalAll } =
+    rawEnv
   return { shouldSourceMap, shouldExternalAll }
 }
 
@@ -46,19 +35,12 @@ export function resolveRollupConfigEnvs(
  * Create a rollup options.
  * @param options
  */
-export function createRollupConfig(
-  options: RollupConfigOptions,
-): RollupOptions {
+export function createRollupConfig(options: RollupConfigOptions): RollupOptions {
   const env = resolveRollupConfigEnvs(options)
 
   const { manifest, pluginOptions = {}, additionalPlugins = [] } = options
 
-  const {
-    commonjsOptions,
-    jsonOptions,
-    nodeResolveOptions,
-    typescriptOptions,
-  } = pluginOptions
+  const { commonjsOptions, jsonOptions, nodeResolveOptions, typescriptOptions } = pluginOptions
 
   const dependencyFields = createDependencyFields()
   let dependencies: string[] = dependencyFields.reduce((acc, key) => {
@@ -67,12 +49,7 @@ export function createRollupConfig(
     return acc.concat(result)
   }, [] as string[])
   if (env.shouldExternalAll) {
-    dependencies = collectAllDependencies(
-      null,
-      dependencyFields,
-      dependencies,
-      () => true,
-    )
+    dependencies = collectAllDependencies(null, dependencyFields, dependencies, () => true)
   }
   const externalSet = new Set(builtinExternals.concat(dependencies))
 

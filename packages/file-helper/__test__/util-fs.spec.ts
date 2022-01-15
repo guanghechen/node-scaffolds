@@ -41,9 +41,7 @@ describe('isDirectorySync', function () {
 describe('isNonExistentOrEmpty', function () {
   test('truthy', function () {
     expect(isNonExistentOrEmpty(locateFixtures('basic-non-exist'))).toBe(true)
-    expect(
-      isNonExistentOrEmpty(locateFixtures('basic/config.yml-non-exist')),
-    ).toBe(true)
+    expect(isNonExistentOrEmpty(locateFixtures('basic/config.yml-non-exist'))).toBe(true)
   })
 
   test('falsy', function () {
@@ -102,42 +100,31 @@ describe('ensureCriticalFilepathExistsSync', function () {
   test('not found', function () {
     expect(
       () =>
-        void ensureCriticalFilepathExistsSync(
-          locateFixtures('basic/config.json-non-existed---22'),
-        ),
+        void ensureCriticalFilepathExistsSync(locateFixtures('basic/config.json-non-existed---22')),
     ).toThrow('Invariant failed: Not found:')
   })
 
   test('not a file', function () {
-    expect(
-      () => void ensureCriticalFilepathExistsSync(locateFixtures('basic/')),
-    ).toThrow('Invariant failed: Not a file:')
+    expect(() => void ensureCriticalFilepathExistsSync(locateFixtures('basic/'))).toThrow(
+      'Invariant failed: Not a file:',
+    )
   })
 
   test('valid', function () {
     expect(
-      () =>
-        void ensureCriticalFilepathExistsSync(
-          locateFixtures('basic/config.yml'),
-        ),
+      () => void ensureCriticalFilepathExistsSync(locateFixtures('basic/config.yml')),
     ).not.toThrow()
   })
 })
 
 describe('collectAllFiles', function () {
   test('default predicate', async function () {
-    expect(
-      desensitize(await collectAllFiles(locateFixtures('basic'))),
-    ).toMatchSnapshot()
+    expect(desensitize(await collectAllFiles(locateFixtures('basic')))).toMatchSnapshot()
   })
 
   test('yaml file only', async function () {
     expect(
-      desensitize(
-        await collectAllFiles(locateFixtures('basic'), p =>
-          /\.(?:yml|yaml)$/.test(p),
-        ),
-      ),
+      desensitize(await collectAllFiles(locateFixtures('basic'), p => /\.(?:yml|yaml)$/.test(p))),
     ).toMatchSnapshot()
 
     expect(
@@ -150,32 +137,22 @@ describe('collectAllFiles', function () {
   })
 
   test('collect start from file', async function () {
-    expect(
-      desensitize(await collectAllFiles(locateFixtures('basic/config.yml'))),
-    ).toMatchSnapshot()
+    expect(desensitize(await collectAllFiles(locateFixtures('basic/config.yml')))).toMatchSnapshot()
   })
 })
 
 describe('collectAllFilesSync', function () {
   test('default predicate', function () {
-    expect(
-      desensitize(collectAllFilesSync(locateFixtures('basic'))),
-    ).toMatchSnapshot()
+    expect(desensitize(collectAllFilesSync(locateFixtures('basic')))).toMatchSnapshot()
   })
 
   test('yaml file only', function () {
     expect(
-      desensitize(
-        collectAllFilesSync(locateFixtures('basic'), p =>
-          /\.(?:yml|yaml)$/.test(p),
-        ),
-      ),
+      desensitize(collectAllFilesSync(locateFixtures('basic'), p => /\.(?:yml|yaml)$/.test(p))),
     ).toMatchSnapshot()
   })
 
   test('collect start from file', function () {
-    expect(
-      desensitize(collectAllFilesSync(locateFixtures('basic/config.yml'))),
-    ).toMatchSnapshot()
+    expect(desensitize(collectAllFilesSync(locateFixtures('basic/config.yml')))).toMatchSnapshot()
   })
 })

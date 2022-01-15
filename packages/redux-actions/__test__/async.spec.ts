@@ -62,9 +62,7 @@ describe('creator', function () {
         payload: { username: 'alice' },
       })
 
-      expect(
-        fetchUserActionCreators.success({ username: 'alice', age: 32 }),
-      ).toEqual({
+      expect(fetchUserActionCreators.success({ username: 'alice', age: 32 })).toEqual({
         type: 'fetch-user',
         status: AsyncActionStatus.SUCCEED,
         payload: { username: 'alice', age: 32 },
@@ -146,9 +144,7 @@ describe('reducer', function () {
 
       expect(reducer.process(state, { type: 'waw' } as any)).toEqual(state)
 
-      expect(
-        reducer.process(state, { type: actionType, status: 'waw' } as any),
-      ).toEqual(state)
+      expect(reducer.process(state, { type: actionType, status: 'waw' } as any)).toEqual(state)
     }
   })
 
@@ -159,9 +155,7 @@ describe('reducer', function () {
 
     type T = typeof actionType
     type S = typeof initialState
-    const actionReducer = createAsyncActionReducer<S, T, AsyncActions<T>>(
-      actionType,
-    )
+    const actionReducer = createAsyncActionReducer<S, T, AsyncActions<T>>(actionType)
     const reducer = assembleActionReducers<S, T>(initialState, [actionReducer])
 
     for (const state of [undefined, initialState]) {
@@ -198,9 +192,7 @@ describe('reducer', function () {
 
       expect(reducer(state, { type: 'waw' } as any)).toEqual(initialState)
 
-      expect(
-        reducer(state, { type: actionType, status: 'waw' } as any),
-      ).toEqual(initialState)
+      expect(reducer(state, { type: actionType, status: 'waw' } as any)).toEqual(initialState)
     }
   })
 })

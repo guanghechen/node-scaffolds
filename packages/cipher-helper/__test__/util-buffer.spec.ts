@@ -1,7 +1,4 @@
-import {
-  BigFileHelper,
-  calcFilePartItemsByCount,
-} from '@guanghechen/file-helper'
+import { BigFileHelper, calcFilePartItemsByCount } from '@guanghechen/file-helper'
 import fs from 'fs-extra'
 import { locateFixtures, unlinkSync } from 'jest.setup'
 import { destroyBuffer, destroyBuffers, streams2buffer } from '../src'
@@ -62,9 +59,7 @@ describe('streams2buffer', function () {
   })
 
   test('basic', async function () {
-    const streams: fs.ReadStream[] = partFilepaths.map(p =>
-      fs.createReadStream(p),
-    )
+    const streams: fs.ReadStream[] = partFilepaths.map(p => fs.createReadStream(p))
     const buffer: Buffer = await streams2buffer(streams)
     expect(buffer.toString(encoding)).toEqual(originalContent)
   })

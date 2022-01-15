@@ -1,9 +1,6 @@
 import type { CipherHelper } from '@guanghechen/cipher-helper'
 import { AESCipherHelper, CipherCatalog } from '@guanghechen/cipher-helper'
-import {
-  createInitialCommit,
-  installDependencies,
-} from '@guanghechen/commander-helper'
+import { createInitialCommit, installDependencies } from '@guanghechen/commander-helper'
 import {
   absoluteOfWorkspace,
   mkdirsIfNotExists,
@@ -94,10 +91,7 @@ export class GitCipherInitProcessor {
     // resolve plaintextRepositoryUrl
     if (isNonBlankString(plaintextRepositoryUrl)) {
       if (/^[.]/.test(plaintextRepositoryUrl)) {
-        plaintextRepositoryUrl = absoluteOfWorkspace(
-          context.workspace,
-          plaintextRepositoryUrl,
-        )
+        plaintextRepositoryUrl = absoluteOfWorkspace(context.workspace, plaintextRepositoryUrl)
       }
     }
     logger.debug('plaintextRepositoryUrl:', plaintextRepositoryUrl)
@@ -117,23 +111,11 @@ export class GitCipherInitProcessor {
       workspace: context.workspace,
       templateVersion: packageVersion,
       encoding: context.encoding,
-      secretFilepath: relativeOfWorkspace(
-        context.workspace,
-        context.secretFilepath,
-      ),
-      indexFilepath: relativeOfWorkspace(
-        context.workspace,
-        context.indexFilepath,
-      ),
+      secretFilepath: relativeOfWorkspace(context.workspace, context.secretFilepath),
+      indexFilepath: relativeOfWorkspace(context.workspace, context.indexFilepath),
       cipheredIndexEncoding: context.cipheredIndexEncoding,
-      ciphertextRootDir: relativeOfWorkspace(
-        context.workspace,
-        context.ciphertextRootDir,
-      ),
-      plaintextRootDir: relativeOfWorkspace(
-        context.workspace,
-        context.plaintextRootDir,
-      ),
+      ciphertextRootDir: relativeOfWorkspace(context.workspace, context.ciphertextRootDir),
+      plaintextRootDir: relativeOfWorkspace(context.workspace, context.plaintextRootDir),
       plaintextRepositoryUrl,
       showAsterisk: context.showAsterisk,
       minPasswordLength: context.minPasswordLength,
@@ -175,19 +157,13 @@ export class GitCipherInitProcessor {
    * Clone from remote plaintext repository
    * @param plaintextRepositoryUrl  url of remote source repository
    */
-  protected async cloneFromRemote(
-    plaintextRepositoryUrl: string,
-  ): Promise<void> {
+  protected async cloneFromRemote(plaintextRepositoryUrl: string): Promise<void> {
     const { context } = this
 
     mkdirsIfNotExists(context.plaintextRootDir, true, logger)
-    await execa(
-      'git',
-      ['clone', plaintextRepositoryUrl, context.plaintextRootDir],
-      {
-        stdio: 'inherit',
-        cwd: context.plaintextRootDir,
-      },
-    )
+    await execa('git', ['clone', plaintextRepositoryUrl, context.plaintextRootDir], {
+      stdio: 'inherit',
+      cwd: context.plaintextRootDir,
+    })
   }
 }

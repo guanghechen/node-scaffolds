@@ -101,9 +101,8 @@ export class GitCipherEncryptProcessor {
     // Encrypt modified files only.
     const modifiedFilepaths: string[] = context.sensitiveDirectories
       .map(dirName =>
-        collectAllFilesSync(
-          path.join(context.plaintextRootDir, dirName),
-          (p, stat) => catalog.isModified(p, stat),
+        collectAllFilesSync(path.join(context.plaintextRootDir, dirName), (p, stat) =>
+          catalog.isModified(p, stat),
         ),
       )
       .flat()
@@ -136,9 +135,7 @@ export class GitCipherEncryptProcessor {
 
     // Encrypt all files.
     const modifiedFilepaths: string[] = context.sensitiveDirectories
-      .map(dirName =>
-        collectAllFilesSync(path.join(context.plaintextRootDir, dirName)),
-      )
+      .map(dirName => collectAllFilesSync(path.join(context.plaintextRootDir, dirName)))
       .flat()
     await this.encryptFiles(catalog, modifiedFilepaths)
   }

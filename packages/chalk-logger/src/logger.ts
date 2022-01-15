@@ -102,24 +102,17 @@ export class Logger {
     // set log write function
     if (write != null) self.write = write
     else if (filepath != null) {
-      self.write = (text: string) =>
-        fs.appendFileSync(filepath!, text, encoding)
+      self.write = (text: string) => fs.appendFileSync(filepath!, text, encoding)
     }
 
     // set dateChalk
     if (dateChalk != null) {
-      self.dateChalk =
-        typeof dateChalk === 'function'
-          ? dateChalk
-          : colorToChalk(dateChalk, true)
+      self.dateChalk = typeof dateChalk === 'function' ? dateChalk : colorToChalk(dateChalk, true)
     }
 
     // set nameChalk
     if (nameChalk != null) {
-      self.nameChalk =
-        typeof nameChalk === 'function'
-          ? nameChalk
-          : colorToChalk(nameChalk, true)
+      self.nameChalk = typeof nameChalk === 'function' ? nameChalk : colorToChalk(nameChalk, true)
     }
   }
 

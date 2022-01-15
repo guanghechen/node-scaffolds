@@ -29,15 +29,11 @@ export function createPackageVersionDesensitizer(
   testPackageName?: (packageName: string) => boolean,
 ): StringDesensitizer {
   // /"((?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*)"\s*:\s*"([\^><~]=?)?\s*([a-zA-Z\d\-._ ]+)"/g
-  const namePattern = /((?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*)/
-    .source
+  const namePattern = /((?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*)/.source
   const versionPattern = /([\^><~]=?)?\s*([a-zA-Z\d\-._ ]+)/.source
 
   const versionRegex = new RegExp('^' + versionPattern + '$')
-  const regex = new RegExp(
-    '"' + namePattern + '"\\s*:\\s*"' + versionPattern + '"',
-    'g',
-  )
+  const regex = new RegExp('"' + namePattern + '"\\s*:\\s*"' + versionPattern + '"', 'g')
 
   return (text, key) => {
     if (key != null) {
@@ -51,14 +47,11 @@ export function createPackageVersionDesensitizer(
       return text
     }
 
-    const result = text.replace(
-      regex,
-      (_, packageName, versionFlag = '', packageVersion) => {
-        if (testPackageName != null && !testPackageName(packageName)) return _
-        const version = nextVersion(packageVersion, packageName)
-        return `"${packageName}": "${versionFlag}${version}"`
-      },
-    )
+    const result = text.replace(regex, (_, packageName, versionFlag = '', packageVersion) => {
+      if (testPackageName != null && !testPackageName(packageName)) return _
+      const version = nextVersion(packageVersion, packageName)
+      return `"${packageName}": "${versionFlag}${version}"`
+    })
     return result
   }
 }

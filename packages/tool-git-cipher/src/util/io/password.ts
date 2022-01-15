@@ -21,10 +21,7 @@ export async function inputPassword(
 ): Promise<Buffer> {
   let hint: string
   const isValidPassword = (password: Buffer | null): boolean => {
-    if (
-      password == null ||
-      (minimumSize > 0 && password.length < minimumSize)
-    ) {
+    if (password == null || (minimumSize > 0 && password.length < minimumSize)) {
       hint = `At least ${minimumSize} ascii non-space characters needed`
       return false
     }

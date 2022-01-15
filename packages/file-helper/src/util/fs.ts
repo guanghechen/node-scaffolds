@@ -9,11 +9,7 @@ import path from 'path'
  * @param filepath  the give file path
  * @param isDir     Whether the given path is a directory
  */
-export function mkdirsIfNotExists(
-  filepath: string,
-  isDir: boolean,
-  logger?: ChalkLogger,
-): void {
+export function mkdirsIfNotExists(filepath: string, isDir: boolean, logger?: ChalkLogger): void {
   const dirPath = isDir ? filepath : path.dirname(filepath)
   if (fs.existsSync(dirPath)) return
 
@@ -30,9 +26,7 @@ export function mkdirsIfNotExists(
  *
  * @param filepath
  */
-export function ensureCriticalFilepathExistsSync(
-  filepath: string | null,
-): void | never {
+export function ensureCriticalFilepathExistsSync(filepath: string | null): void | never {
   let errMsg: string | null = null
 
   if (filepath == null) {
@@ -93,9 +87,7 @@ export function isFileSync(filepath: string | null): boolean {
  */
 export async function collectAllFiles(
   dir: string,
-  predicate?:
-    | ((p: string, stat: fs.Stats) => Promise<boolean> | boolean)
-    | null,
+  predicate?: ((p: string, stat: fs.Stats) => Promise<boolean> | boolean) | null,
 ): Promise<string[]> {
   const results: string[] = []
   await collect(dir)

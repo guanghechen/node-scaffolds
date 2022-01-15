@@ -4,11 +4,7 @@ const fs = require('fs-extra')
 /**
  * default Dependency fields
  */
-const createDependencyFields = () => [
-  'dependencies',
-  'optionalDependencies',
-  'peerDependencies',
-]
+const createDependencyFields = () => ['dependencies', 'optionalDependencies', 'peerDependencies']
 
 /**
  * Collect all dependencies declared in the package.json and the dependency's

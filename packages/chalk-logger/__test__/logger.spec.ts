@@ -6,22 +6,8 @@ import type { LoggerOptions } from '../src/logger'
 import { Logger } from '../src/logger'
 
 describe('Logger', function () {
-  const levels: string[] = [
-    'debug',
-    'verbose',
-    'info',
-    'warn',
-    'error',
-    'fatal',
-  ]
-  const methods: string[] = [
-    'debug',
-    'verbose',
-    'info',
-    'warn',
-    'error',
-    'fatal',
-  ]
+  const levels: string[] = ['debug', 'verbose', 'info', 'warn', 'error', 'fatal']
+  const methods: string[] = ['debug', 'verbose', 'info', 'warn', 'error', 'fatal']
 
   describe('base', function () {
     for (const mode of ['normal', 'loose']) {
@@ -99,26 +85,8 @@ describe('Logger', function () {
     const loggerMock = createLoggerMock({ logger, desensitize })
 
     const log = logger.debug.bind(logger)
-    log(
-      '{}, {}, {}, {}, {}, {}, {}',
-      1,
-      'ooo',
-      null,
-      true,
-      false,
-      undefined,
-      () => 'a\nb\n',
-    )
-    log(
-      '<>, <>, <>, <>, <>, <>, <>',
-      1,
-      'ooo',
-      null,
-      true,
-      false,
-      undefined,
-      () => 'a\nb\n',
-    )
+    log('{}, {}, {}, {}, {}, {}, {}', 1, 'ooo', null, true, false, undefined, () => 'a\nb\n')
+    log('<>, <>, <>, <>, <>, <>, <>', 1, 'ooo', null, true, false, undefined, () => 'a\nb\n')
     log('user(<>)', {
       username: 'lemon-clown',
       avatar:
@@ -126,11 +94,7 @@ describe('Logger', function () {
     })
 
     // Error is hard to test
-    log(
-      'bad argument (<>). error({})',
-      { username: 123 },
-      new Error('username is invalid').message,
-    )
+    log('bad argument (<>). error({})', { username: 123 }, new Error('username is invalid').message)
 
     log('a: {}, b: {}', 1, 2, 3)
 

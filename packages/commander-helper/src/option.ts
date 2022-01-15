@@ -70,9 +70,7 @@ export interface CommandConfigurationOptions extends Record<string, unknown> {
   readonly parasticConfigEntry?: string | null
 }
 
-export interface CommandConfiguration<
-  Options extends CommandConfigurationOptions,
-> {
+export interface CommandConfiguration<Options extends CommandConfigurationOptions> {
   /**
    * Global options shared by all sub-commands
    */
@@ -87,9 +85,7 @@ export interface CommandConfiguration<
 /**
  * Flat defaultOptions with configs from package.json
  */
-export function flatOptionsFromConfiguration<
-  C extends CommandConfigurationOptions,
->(
+export function flatOptionsFromConfiguration<C extends CommandConfigurationOptions>(
   defaultOptions: C,
   flatOpts: CommandConfigurationFlatOpts,
   subCommandName: string | false,
@@ -104,11 +100,7 @@ export function flatOptionsFromConfiguration<
       const config = loadJsonOrYamlSync(filepath) as CommandConfiguration<C>
       configs.push(config)
     }
-    resolvedConfig = merge<CommandConfiguration<C>>(
-      configs,
-      {},
-      defaultMergeStrategies.replace,
-    )
+    resolvedConfig = merge<CommandConfiguration<C>>(configs, {}, defaultMergeStrategies.replace)
   } else {
     // otherwise, load from parastic config
     if (
@@ -116,8 +108,7 @@ export function flatOptionsFromConfiguration<
       isNonBlankString(flatOpts.parasticConfigEntry)
     ) {
       const config = loadJsonOrYamlSync(flatOpts.parasticConfigPath) as any
-      resolvedConfig =
-        (config[flatOpts.parasticConfigEntry] as CommandConfiguration<C>) || {}
+      resolvedConfig = (config[flatOpts.parasticConfigEntry] as CommandConfiguration<C>) || {}
     }
   }
 
@@ -139,10 +130,7 @@ export function flatOptionsFromConfiguration<
     }
 
     // merge specified sub-command option
-    if (
-      isNonBlankString(subCommandName) &&
-      typeof resolvedConfig[subCommandName] == 'object'
-    ) {
+    if (isNonBlankString(subCommandName) && typeof resolvedConfig[subCommandName] == 'object') {
       result = merge<C>(
         [result, resolvedConfig[subCommandName]],
         strategies,
@@ -179,19 +167,14 @@ export function resolveCommandConfigurationOptions<
 ): D & CommandConfigurationFlatOpts {
   const cwd: string = path.resolve()
   const workspace: string = path.resolve(cwd, workspaceDir)
-  const configPath: string[] = (
-    options.configPath ??
-    defaultOptions.configPath ??
-    []
-  ).map((p: string) => absoluteOfWorkspace(workspace, p))
+  const configPath: string[] = (options.configPath ?? defaultOptions.configPath ?? []).map(
+    (p: string) => absoluteOfWorkspace(workspace, p),
+  )
   const parasticConfigPath: string | null | undefined = cover<string | null>(
     () => locateNearestFilepath(workspace, 'package.json'),
     options.parasticConfigPath,
   )
-  const parasticConfigEntry: string = coverString(
-    commandName,
-    options.parasticConfigEntry,
-  )
+  const parasticConfigEntry: string = coverString(commandName, options.parasticConfigEntry)
   const flatOpts: CommandConfigurationFlatOpts = {
     cwd,
     workspace,
@@ -208,10 +191,7 @@ export function resolveCommandConfigurationOptions<
   )
 
   // reset log-level
-  const logLevel = cover<string | undefined>(
-    resolvedOptions.logLevel,
-    options.logLevel,
-  )
+  const logLevel = cover<string | undefined>(resolvedOptions.logLevel, options.logLevel)
   if (logLevel != null) {
     const level = Level.valueOf(logLevel)
     if (level != null) logger.setLevel(level)

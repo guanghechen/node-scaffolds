@@ -11,10 +11,7 @@ export type EventPayload = number | string | symbol | Record<string, any>
 /**
  * Event
  */
-export interface Event<
-  T extends EventType = EventType,
-  P extends EventPayload = EventPayload,
-> {
+export interface Event<T extends EventType = EventType, P extends EventPayload = EventPayload> {
   /**
    * Type of Event
    */

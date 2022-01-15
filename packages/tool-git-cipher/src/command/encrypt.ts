@@ -3,10 +3,7 @@ import type {
   SubCommandMounter,
   SubCommandProcessor,
 } from '@guanghechen/commander-helper'
-import {
-  createSubCommandExecutor,
-  createSubCommandMounter,
-} from '@guanghechen/commander-helper'
+import { createSubCommandExecutor, createSubCommandMounter } from '@guanghechen/commander-helper'
 import type { SubCommandEncryptOptions } from '../core/encrypt/command'
 import {
   createGitCipherEncryptContextFromOptions,
@@ -25,8 +22,9 @@ import { handleError } from './_util'
 export const processSubCommandEncrypt: SubCommandProcessor<SubCommandEncryptOptions> =
   async function (options: SubCommandEncryptOptions): Promise<void> {
     try {
-      const context: GitCipherEncryptContext =
-        await createGitCipherEncryptContextFromOptions(options)
+      const context: GitCipherEncryptContext = await createGitCipherEncryptContextFromOptions(
+        options,
+      )
       const processor = new GitCipherEncryptProcessor(context)
       await processor.encrypt()
     } catch (error) {

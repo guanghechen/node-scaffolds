@@ -149,9 +149,7 @@ export function isNotEmptyObject(
  * Check if the given data is an empty `Object` type.
  * @param v
  */
-export function isEmptyObject(
-  v: Record<string, unknown> | unknown,
-): v is Record<string, unknown> {
+export function isEmptyObject(v: Record<string, unknown> | unknown): v is Record<string, unknown> {
   return isObject(v) && Object.getOwnPropertyNames(v).length <= 0
 }
 
@@ -159,9 +157,7 @@ export function isEmptyObject(
  * Check if the given data is an `number` / `Number` or number like `string` type.
  * @param v
  */
-export function isNumberLike(
-  v: number | string | unknown,
-): v is number | string {
+export function isNumberLike(v: number | string | unknown): v is number | string {
   if (isNumber(v)) return true
   return isNonBlankString(v) && !Number.isNaN(Number(v))
 }

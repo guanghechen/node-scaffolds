@@ -13,18 +13,13 @@ export const testRootDior = path.resolve()
 /**
  * Desensitize test data.
  */
-export const desensitize: Desensitizer<any> & Desensitizer<string> =
-  createJsonDesensitizer({
-    string: composeStringDesensitizers(
-      createFilepathDesensitizer(workspaceRootDir, '<$WORKSPACE$>'),
-      text => text.replace(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/, '<$Date$>'),
-      text =>
-        text.replace(
-          /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/,
-          '<$ISO-Date$>',
-        ),
-    ),
-  }) as Desensitizer<any>
+export const desensitize: Desensitizer<any> & Desensitizer<string> = createJsonDesensitizer({
+  string: composeStringDesensitizers(
+    createFilepathDesensitizer(workspaceRootDir, '<$WORKSPACE$>'),
+    text => text.replace(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/, '<$Date$>'),
+    text => text.replace(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/, '<$ISO-Date$>'),
+  ),
+}) as Desensitizer<any>
 
 /**
  * Locate fixture filepath.
@@ -46,9 +41,7 @@ export const loadFixtures = (...p: string[]): string =>
  * Remove filepaths
  * @param filepaths
  */
-export const unlinkSync = (
-  ...filepaths: Array<string | null | undefined | string[]>
-): void => {
+export const unlinkSync = (...filepaths: Array<string | null | undefined | string[]>): void => {
   for (let filepath of filepaths) {
     if (filepath == null) continue
     if (!Array.isArray(filepath)) filepath = [filepath]

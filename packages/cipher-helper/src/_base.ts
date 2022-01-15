@@ -64,10 +64,7 @@ export abstract class BaseCipherHelper implements CipherHelper {
         const reader: fs.ReadStream = fs.createReadStream(filepath)
         await new Promise((resolve, reject) => {
           reader
-            .on(
-              'data',
-              chunk => void cipherDataPieces.push(encipher.update(chunk)),
-            )
+            .on('data', chunk => void cipherDataPieces.push(encipher.update(chunk)))
             .on('error', reject)
             .on('end', resolve)
         })
@@ -94,10 +91,7 @@ export abstract class BaseCipherHelper implements CipherHelper {
         const reader: fs.ReadStream = fs.createReadStream(filepath)
         await new Promise((resolve, reject) => {
           reader
-            .on(
-              'data',
-              chunk => void plainDataPieces.push(decipher.update(chunk)),
-            )
+            .on('data', chunk => void plainDataPieces.push(decipher.update(chunk)))
             .on('error', reject)
             .on('end', resolve)
         })
@@ -114,48 +108,31 @@ export abstract class BaseCipherHelper implements CipherHelper {
   }
 
   // @override
-  public encryptFile(
-    plainFilepath: string,
-    cipherFilepath: string,
-  ): Promise<void> {
+  public encryptFile(plainFilepath: string, cipherFilepath: string): Promise<void> {
     mkdirsIfNotExists(cipherFilepath, false, this.logger)
 
     const encipher: Cipher = this.encipher()
     const reader = fs.createReadStream(plainFilepath)
     const writer = fs.createWriteStream(cipherFilepath)
     return new Promise<void>((resolve, reject) => {
-      reader
-        .pipe(encipher)
-        .pipe(writer)
-        .on('error', reject)
-        .on('finish', resolve)
+      reader.pipe(encipher).pipe(writer).on('error', reject).on('finish', resolve)
     })
   }
 
   // @override
-  public decryptFile(
-    cipherFilepath: string,
-    plainFilepath: string,
-  ): Promise<void> {
+  public decryptFile(cipherFilepath: string, plainFilepath: string): Promise<void> {
     mkdirsIfNotExists(plainFilepath, false, this.logger)
 
     const decipher: Cipher = this.decipher()
     const reader = fs.createReadStream(cipherFilepath)
     const writer = fs.createWriteStream(plainFilepath)
     return new Promise<void>((resolve, reject) => {
-      reader
-        .pipe(decipher)
-        .pipe(writer)
-        .on('error', reject)
-        .on('finish', resolve)
+      reader.pipe(decipher).pipe(writer).on('error', reject).on('finish', resolve)
     })
   }
 
   // override
-  public async encryptFiles(
-    plainFilepaths: string[],
-    cipherFilepath: string,
-  ): Promise<void> {
+  public async encryptFiles(plainFilepaths: string[], cipherFilepath: string): Promise<void> {
     if (plainFilepaths.length <= 0) return
     if (plainFilepaths.length === 1) {
       await this.encryptFile(plainFilepaths[0], cipherFilepath)
@@ -186,10 +163,7 @@ export abstract class BaseCipherHelper implements CipherHelper {
   }
 
   // override
-  public async decryptFiles(
-    cipherFilepaths: string[],
-    plainFilepath: string,
-  ): Promise<void> {
+  public async decryptFiles(cipherFilepaths: string[], plainFilepath: string): Promise<void> {
     if (cipherFilepaths.length <= 0) return
     if (cipherFilepaths.length === 1) {
       await this.decryptFile(cipherFilepaths[0], plainFilepath)

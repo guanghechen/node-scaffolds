@@ -25,9 +25,7 @@ export interface RollupConfigOptions extends BaseRollupConfigOptions {
   }>
 }
 
-export function createRollupConfig(
-  options: RollupConfigOptions,
-): RollupOptions[] {
+export function createRollupConfig(options: RollupConfigOptions): RollupOptions[] {
   const { resources, targets, ...baseOptions } = options
   const baseConfig = createBaseRollupConfig(baseOptions)
 

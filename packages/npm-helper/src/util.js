@@ -1,7 +1,4 @@
-const {
-  locateLatestPackageJson,
-  locateNearestFilepath,
-} = require('@guanghechen/locate-helper')
+const { locateLatestPackageJson, locateNearestFilepath } = require('@guanghechen/locate-helper')
 const fs = require('fs-extra')
 
 /**

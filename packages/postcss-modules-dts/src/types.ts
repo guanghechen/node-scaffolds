@@ -46,9 +46,5 @@ export interface CSSDtsProcessorProps extends GetCSSTokenHook {
    * @param json            css class name map
    * @param outputFilepath  filepath of the ts declaration file
    */
-  shouldIgnore?(
-    cssPath: string,
-    json: Record<string, string>,
-    outputFilePath: string,
-  ): boolean
+  shouldIgnore?(cssPath: string, json: Record<string, string>, outputFilePath: string): boolean
 }

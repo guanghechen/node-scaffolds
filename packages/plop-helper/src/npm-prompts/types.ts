@@ -41,9 +41,7 @@ export interface NpmPackagePromptsAnswers {
 /**
  * Answers for prompts defined in this file.
  */
-export interface NpmPackageData
-  extends NpmPackagePreAnswers,
-    NpmPackagePromptsAnswers {
+export interface NpmPackageData extends NpmPackagePreAnswers, NpmPackagePromptsAnswers {
   /**
    * Package usage.
    */

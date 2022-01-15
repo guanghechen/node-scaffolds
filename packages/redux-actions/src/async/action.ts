@@ -39,11 +39,8 @@ export interface AsyncFailureResponse {
 /**
  * Async action passed in redux Flow
  */
-export interface AsyncAction<
-  T extends symbol | string,
-  P,
-  S extends AsyncActionStatus,
-> extends Action<T, P> {
+export interface AsyncAction<T extends symbol | string, P, S extends AsyncActionStatus>
+  extends Action<T, P> {
   /**
    * Action type
    */
@@ -61,18 +58,18 @@ export interface AsyncAction<
 /**
  * Requested action
  */
-export type AsyncRequestedAction<
-  T extends string | symbol,
-  P = unknown,
-> = AsyncAction<T, P, AsyncActionStatus.REQUESTED>
+export type AsyncRequestedAction<T extends string | symbol, P = unknown> = AsyncAction<
+  T,
+  P,
+  AsyncActionStatus.REQUESTED
+>
 
 /**
  * Request succeed action
  */
-export type AsyncSucceedAction<
-  T extends string | symbol,
-  P = unknown,
-> = Required<AsyncAction<T, P, AsyncActionStatus.SUCCEED>>
+export type AsyncSucceedAction<T extends string | symbol, P = unknown> = Required<
+  AsyncAction<T, P, AsyncActionStatus.SUCCEED>
+>
 
 /**
  * Request failed action

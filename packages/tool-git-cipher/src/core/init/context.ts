@@ -110,9 +110,7 @@ interface Params {
  *
  * @param params
  */
-export async function createGitCipherInitContext(
-  params: Params,
-): Promise<GitCipherInitContext> {
+export async function createGitCipherInitContext(params: Params): Promise<GitCipherInitContext> {
   const context: GitCipherInitContext = {
     cwd: params.cwd,
     workspace: params.workspace,

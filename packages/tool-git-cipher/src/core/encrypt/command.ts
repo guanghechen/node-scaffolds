@@ -1,18 +1,11 @@
 import type { CommandConfigurationFlatOpts } from '@guanghechen/commander-helper'
 import { Command } from '@guanghechen/commander-helper'
-import {
-  cover,
-  coverBoolean,
-  isNotEmptyArray,
-} from '@guanghechen/option-helper'
+import { cover, coverBoolean, isNotEmptyArray } from '@guanghechen/option-helper'
 import path from 'path'
 import { packageName } from '../../env/constant'
 import { logger } from '../../env/logger'
 import type { GlobalCommandOptions } from '../option'
-import {
-  __defaultGlobalCommandOptions,
-  resolveGlobalCommandOptions,
-} from '../option'
+import { __defaultGlobalCommandOptions, resolveGlobalCommandOptions } from '../option'
 import type { GitCipherEncryptContext } from './context'
 import { createGitCipherEncryptContext } from './context'
 
@@ -40,8 +33,7 @@ const __defaultCommandOptions: SubCommandOptions = {
   sensitiveDirectories: ['.git'],
 }
 
-export type SubCommandEncryptOptions = SubCommandOptions &
-  CommandConfigurationFlatOpts
+export type SubCommandEncryptOptions = SubCommandOptions & CommandConfigurationFlatOpts
 
 /**
  * create Sub-command: encrypt (e)
@@ -58,24 +50,17 @@ export const createSubCommandEncrypt = function (
     .aliases(aliases)
     .arguments('<workspace>')
     .option('--full', 'full quantity update')
-    .option(
-      '--update-before-encrypt',
-      "perform 'git fetch --all' before run encryption",
-    )
-    .action(async function (
-      [_workspaceDir],
-      options: SubCommandEncryptOptions,
-    ) {
+    .option('--update-before-encrypt', "perform 'git fetch --all' before run encryption")
+    .action(async function ([_workspaceDir], options: SubCommandEncryptOptions) {
       logger.setName(commandName)
 
-      const defaultOptions: SubCommandEncryptOptions =
-        resolveGlobalCommandOptions(
-          packageName,
-          commandName,
-          __defaultCommandOptions,
-          _workspaceDir,
-          options,
-        )
+      const defaultOptions: SubCommandEncryptOptions = resolveGlobalCommandOptions(
+        packageName,
+        commandName,
+        __defaultCommandOptions,
+        _workspaceDir,
+        options,
+      )
 
       // resolve full
       const full: boolean = coverBoolean(defaultOptions.full, options.full)

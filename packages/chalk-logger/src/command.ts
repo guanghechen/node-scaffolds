@@ -32,17 +32,8 @@ interface CommanderOptions {
 }
 
 interface Command {
-  option(
-    flags: string,
-    description?: string,
-    defaultValue?: string | boolean,
-  ): this
-  option(
-    flags: string,
-    description: string,
-    regexp: RegExp,
-    defaultValue?: string | boolean,
-  ): this
+  option(flags: string, description?: string, defaultValue?: string | boolean): this
+  option(flags: string, description: string, regexp: RegExp, defaultValue?: string | boolean): this
   option<T>(
     flags: string,
     description: string,

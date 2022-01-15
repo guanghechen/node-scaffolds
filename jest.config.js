@@ -4,10 +4,7 @@ const baseConfig = tsMonorepoConfig(__dirname)
 
 module.exports = {
   ...baseConfig,
-  collectCoverageFrom: [
-    ...baseConfig.collectCoverageFrom,
-    '<rootDir>/gatsby-node.js',
-  ],
+  collectCoverageFrom: [...baseConfig.collectCoverageFrom, '<rootDir>/gatsby-node.js'],
   coveragePathIgnorePatterns: [
     'packages/commander-helper/src/command.ts',
     'packages/commander-helper/src/git.ts',

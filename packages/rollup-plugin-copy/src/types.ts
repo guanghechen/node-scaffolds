@@ -75,9 +75,7 @@ import type { WriteFileOptions } from 'fs-extra'
  *    })
  *    ```
  */
-export interface RollupPluginCopyTargetOption
-  extends WriteFileOptions,
-    RollupPluginCopyOptions {
+export interface RollupPluginCopyTargetOption extends WriteFileOptions, RollupPluginCopyOptions {
   /**
    * Path or glob of what to copy
    */

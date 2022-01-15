@@ -8,18 +8,14 @@ export class CSSDtsProcessor implements GetCSSTokenHook {
   public readonly semicolon: string
   public readonly encoding: string
   public readonly dtsForCompiledCss: boolean
-  public readonly shouldIgnore: Exclude<
-    CSSDtsProcessorProps['shouldIgnore'],
-    undefined
-  >
+  public readonly shouldIgnore: Exclude<CSSDtsProcessorProps['shouldIgnore'], undefined>
 
   constructor(props: CSSDtsProcessorProps) {
     this.indent = coverString('  ', props.indent)
     this.semicolon = coverBoolean(false, props.semicolon) ? ';' : ''
     this.encoding = coverString('utf-8', props.encoding)
     this.dtsForCompiledCss = coverBoolean(false, props.dtsForCompiledCss)
-    this.shouldIgnore =
-      props.shouldIgnore != null ? props.shouldIgnore : () => false
+    this.shouldIgnore = props.shouldIgnore != null ? props.shouldIgnore : () => false
   }
 
   /**
@@ -70,10 +66,7 @@ export class CSSDtsProcessor implements GetCSSTokenHook {
    * @param classNames
    * @returns filePath of .d.ts created
    */
-  protected async writeFile(
-    cssPath: string,
-    dtsContent: string,
-  ): Promise<string> {
+  protected async writeFile(cssPath: string, dtsContent: string): Promise<string> {
     const dtsFilePath: string = cssPath + '.d.ts'
     await fs.writeFile(dtsFilePath, dtsContent, this.encoding)
     return dtsFilePath

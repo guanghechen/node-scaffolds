@@ -107,10 +107,7 @@ export class Command extends commander.Command {
   }
 
   // override
-  public override addCommand(
-    command: Command,
-    opts?: commander.CommandOptions,
-  ): this {
+  public override addCommand(command: Command, opts?: commander.CommandOptions): this {
     super.addCommand(command, opts)
     return this
   }
@@ -124,10 +121,7 @@ export { commander }
  * @param version
  * @param logger
  */
-export function createTopCommand(
-  commandName: string,
-  version: string,
-): Command {
+export function createTopCommand(commandName: string, version: string): Command {
   const program = new Command()
 
   program.storeOptionsAsProperties(false).version(version).name(commandName)
@@ -141,14 +135,8 @@ export function createTopCommand(
       (val, acc: string[]) => acc.concat(val),
       [],
     )
-    .option(
-      '--parastic-config-path <parasticConfigFilepath>',
-      'parastic config filepath',
-    )
-    .option(
-      '--parastic-config-entry <parasticConfigFilepath>',
-      'parastic config filepath',
-    )
+    .option('--parastic-config-path <parasticConfigFilepath>', 'parastic config filepath')
+    .option('--parastic-config-entry <parasticConfigFilepath>', 'parastic config filepath')
 
   return program
 }
@@ -159,18 +147,14 @@ export function createTopCommand(
  * @param options
  * @returns {V|Promise<V>}
  */
-export type SubCommandProcessor<
-  O extends CommandConfigurationOptions,
-  V = void,
-> = (options: O) => V | Promise<V>
+export type SubCommandProcessor<O extends CommandConfigurationOptions, V = void> = (
+  options: O,
+) => V | Promise<V>
 
 /**
  * Create sub-command
  */
-export type SubCommandCreator<
-  O extends CommandConfigurationOptions,
-  V = void,
-> = (
+export type SubCommandCreator<O extends CommandConfigurationOptions, V = void> = (
   handle?: SubCommandProcessor<O, V>,
   commandName?: string,
   aliases?: string[],
@@ -183,10 +167,7 @@ export type SubCommandCreator<
  * @param {commander.CommandOptions} opts
  * @returns {void}
  */
-export type SubCommandMounter = (
-  parentCommand: Command,
-  opts?: commander.CommandOptions,
-) => void
+export type SubCommandMounter = (parentCommand: Command, opts?: commander.CommandOptions) => void
 
 /**
  * Execute sub-command
@@ -195,10 +176,7 @@ export type SubCommandMounter = (
  * @param {string[]}  args
  * @returns {Promise}
  */
-export type SubCommandExecutor<V = void> = (
-  parentCommand: Command,
-  args: string[],
-) => Promise<V>
+export type SubCommandExecutor<V = void> = (parentCommand: Command, args: string[]) => Promise<V>
 
 /**
  * Create sub-command mounter
@@ -206,10 +184,7 @@ export type SubCommandExecutor<V = void> = (
  * @param create  sub command creator
  * @param handle  sub command processor
  */
-export function createSubCommandMounter<
-  O extends CommandConfigurationOptions,
-  V = void,
->(
+export function createSubCommandMounter<O extends CommandConfigurationOptions, V = void>(
   create: SubCommandCreator<O, V>,
   handle: SubCommandProcessor<O, V>,
 ): SubCommandMounter {
@@ -227,10 +202,7 @@ export function createSubCommandMounter<
  * @param commandName   sub-command name
  * @param aliases       sub-command aliases
  */
-export function createSubCommandExecutor<
-  O extends CommandConfigurationOptions,
-  V = void,
->(
+export function createSubCommandExecutor<O extends CommandConfigurationOptions, V = void>(
   create: SubCommandCreator<O, V>,
   handle: SubCommandProcessor<O, V>,
   commandName?: string,
@@ -254,18 +226,16 @@ export function createSubCommandExecutor<
 /**
  * Process main command
  */
-export type MainCommandProcessor<
-  O extends CommandConfigurationOptions,
-  V = void,
-> = (options: O) => V | Promise<V>
+export type MainCommandProcessor<O extends CommandConfigurationOptions, V = void> = (
+  options: O,
+) => V | Promise<V>
 
 /**
  * Create main command
  */
-export type MainCommandCreator<
-  O extends CommandConfigurationOptions,
-  V = void,
-> = (handle?: MainCommandProcessor<O, V>) => Command
+export type MainCommandCreator<O extends CommandConfigurationOptions, V = void> = (
+  handle?: MainCommandProcessor<O, V>,
+) => Command
 
 /**
  * Mount main command
@@ -274,10 +244,7 @@ export type MainCommandCreator<
  * @param {commander.CommandOptions} opts
  * @returns {void}
  */
-export type MainCommandMounter = (
-  parentCommand: Command,
-  opts?: commander.CommandOptions,
-) => void
+export type MainCommandMounter = (parentCommand: Command, opts?: commander.CommandOptions) => void
 
 /**
  * Execute main command
@@ -293,10 +260,7 @@ export type MainCommandExecutor<V = void> = (args: string[]) => Promise<V>
  * @param create  main command creator
  * @param handle  main command processor
  */
-export function createMainCommandMounter<
-  O extends CommandConfigurationOptions,
-  V = void,
->(
+export function createMainCommandMounter<O extends CommandConfigurationOptions, V = void>(
   create: MainCommandCreator<O, V>,
   handle: MainCommandProcessor<O, V>,
 ): MainCommandMounter {
@@ -315,10 +279,7 @@ export function createMainCommandMounter<
  * @param create  main command creator
  * @param handle  main command processor
  */
-export function createMainCommandExecutor<
-  O extends CommandConfigurationOptions,
-  V = void,
->(
+export function createMainCommandExecutor<O extends CommandConfigurationOptions, V = void>(
   create: MainCommandCreator<O, V>,
   handle: MainCommandProcessor<O, V>,
 ): MainCommandExecutor<V> {

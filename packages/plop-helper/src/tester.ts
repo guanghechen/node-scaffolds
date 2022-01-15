@@ -1,8 +1,4 @@
-import {
-  coverString,
-  isFunction,
-  isNonBlankString,
-} from '@guanghechen/option-helper'
+import { coverString, isFunction, isNonBlankString } from '@guanghechen/option-helper'
 import type { InputQuestion } from 'inquirer'
 import mockStdin from 'mock-stdin'
 import nodePlop from 'node-plop'

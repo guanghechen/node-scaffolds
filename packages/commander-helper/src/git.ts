@@ -9,10 +9,7 @@ import inquirer from 'inquirer'
  * @param execaOptions
  * @param message
  */
-export async function createCommitAll(
-  execaOptions: execa.Options,
-  message: string,
-): Promise<void> {
+export async function createCommitAll(execaOptions: execa.Options, message: string): Promise<void> {
   await execa('git', ['add', '-A'], execaOptions)
   await execa('git', ['commit', '-m', message], execaOptions)
 }
@@ -39,10 +36,7 @@ export async function createInitialCommit(
   let doInitialCommit: boolean
   if (plopBypass.length > 0) {
     const booleanString = plopBypass.shift()!.toLowerCase()
-    doInitialCommit =
-      booleanString === 'true' ||
-      booleanString === 'yes' ||
-      booleanString === 'y'
+    doInitialCommit = booleanString === 'true' || booleanString === 'yes' || booleanString === 'y'
   } else {
     doInitialCommit = (
       await inquirer.prompt([

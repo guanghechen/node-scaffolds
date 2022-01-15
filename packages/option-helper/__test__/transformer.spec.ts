@@ -1,9 +1,4 @@
-import {
-  composeTextTransformers,
-  toKebabCase,
-  toLowerCase,
-  toTrim,
-} from '../src'
+import { composeTextTransformers, toKebabCase, toLowerCase, toTrim } from '../src'
 
 describe('composeTextTransformers', function () {
   test('trim and lower, then kebab', function () {

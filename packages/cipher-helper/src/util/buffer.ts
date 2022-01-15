@@ -35,9 +35,7 @@ export function destroyBuffers(buffers: Array<Buffer | null> | null): void {
  * @param stream
  * @returns
  */
-export async function streams2buffer(
-  streams: fs.ReadStream[],
-): Promise<Buffer> {
+export async function streams2buffer(streams: fs.ReadStream[]): Promise<Buffer> {
   const chunks: Buffer[] = []
   for (const stream of streams) {
     await new Promise<void>((resolve, reject) => {

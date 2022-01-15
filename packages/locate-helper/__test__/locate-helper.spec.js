@@ -18,31 +18,29 @@ describe('locateNearestFilepath', function () {
       path.join(__dirname, '../package.json'),
     )
 
-    expect(
-      locateNearestFilepath(__dirname, ['package.json', 'yarn.lock']),
-    ).toBe(path.join(__dirname, '../package.json'))
+    expect(locateNearestFilepath(__dirname, ['package.json', 'yarn.lock'])).toBe(
+      path.join(__dirname, '../package.json'),
+    )
 
-    expect(
-      locateNearestFilepath(__dirname, ['yarn.lock', 'package.json']),
-    ).toBe(path.join(__dirname, '../package.json'))
+    expect(locateNearestFilepath(__dirname, ['yarn.lock', 'package.json'])).toBe(
+      path.join(__dirname, '../package.json'),
+    )
 
-    expect(
-      locateNearestFilepath(__dirname, ['yarn.lock', '.editorconfig']),
-    ).toBe(path.join(__dirname, '../../../yarn.lock'))
+    expect(locateNearestFilepath(__dirname, ['yarn.lock', '.editorconfig'])).toBe(
+      path.join(__dirname, '../../../yarn.lock'),
+    )
   })
 
   test('not found', function () {
-    expect(
-      locateNearestFilepath(__dirname, '.xx.yy.zz....xxx' + Math.random()),
-    ).toBeNull()
+    expect(locateNearestFilepath(__dirname, '.xx.yy.zz....xxx' + Math.random())).toBeNull()
   })
 })
 
 describe('findNearestFilepath', function () {
   test('basic', function () {
-    expect(
-      findNearestFilepath(__dirname, p => path.basename(p) === 'package.json'),
-    ).toBe(path.join(__dirname, '../package.json'))
+    expect(findNearestFilepath(__dirname, p => path.basename(p) === 'package.json')).toBe(
+      path.join(__dirname, '../package.json'),
+    )
   })
 
   test('not found', function () {
@@ -52,8 +50,6 @@ describe('findNearestFilepath', function () {
 
 describe('locateLatestPackageJson', function () {
   test('basic', function () {
-    expect(locateLatestPackageJson(__dirname)).toBe(
-      path.join(__dirname, '../package.json'),
-    )
+    expect(locateLatestPackageJson(__dirname)).toBe(path.join(__dirname, '../package.json'))
   })
 })

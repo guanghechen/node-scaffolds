@@ -121,11 +121,7 @@ describe('Copy', () => {
     await build({
       targets: [
         {
-          src: [
-            'src/assets/asset-1.js',
-            'src/assets/css',
-            'src/assets/scss/scss-?(1).scss',
-          ],
+          src: ['src/assets/asset-1.js', 'src/assets/css', 'src/assets/scss/scss-?(1).scss'],
           dest: ['dist', 'build'],
         },
       ],
@@ -207,8 +203,7 @@ describe('Copy', () => {
         {
           src: 'src/assets/asset-2.js',
           dest: 'dist',
-          rename: (name: string, extension: string) =>
-            `${name}-renamed.${extension}`,
+          rename: (name: string, extension: string) => `${name}-renamed.${extension}`,
         },
         {
           src: 'src/assets/scss',
@@ -242,16 +237,10 @@ describe('Copy', () => {
     expect(fs.pathExistsSync('dist/scss-renamed/scss-2.scss')).toBe(true)
     expect(fs.pathExistsSync('dist/scss-renamed/nested')).toBe(true)
     expect(fs.pathExistsSync('dist/scss-renamed/nested/scss-3.scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss-multiple/scss-1-renamed.scss')).toBe(
-      true,
-    )
-    expect(fs.pathExistsSync('dist/scss-multiple/scss-2-renamed.scss')).toBe(
-      true,
-    )
+    expect(fs.pathExistsSync('dist/scss-multiple/scss-1-renamed.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/scss-multiple/scss-2-renamed.scss')).toBe(true)
     expect(fs.pathExistsSync('dist/scss-multiple/nested-renamed')).toBe(true)
-    expect(
-      await fs.pathExists('dist/scss-multiple/nested-renamed/scss-3.scss'),
-    ).toBe(true)
+    expect(await fs.pathExists('dist/scss-multiple/nested-renamed/scss-3.scss')).toBe(true)
     expect(fs.pathExistsSync('dist/asset-3.js')).toBe(true)
   })
 
@@ -267,9 +256,7 @@ describe('Copy', () => {
           },
         ],
       }),
-    ).rejects.toThrow(
-      '"transform" option works only on files: \'src/assets/css\' must be a file',
-    )
+    ).rejects.toThrow('"transform" option works only on files: \'src/assets/css\' must be a file')
   })
 
   test('Transform target', async () => {
@@ -278,8 +265,7 @@ describe('Copy', () => {
         {
           src: 'src/assets/css/css-1.css',
           dest: ['dist', 'build'],
-          transform: (contents: string | ArrayBuffer) =>
-            contents.toString().replace('blue', 'red'),
+          transform: (contents: string | ArrayBuffer) => contents.toString().replace('blue', 'red'),
         },
         {
           src: 'src/assets/scss/**/*.scss',
@@ -291,24 +277,15 @@ describe('Copy', () => {
           src: 'src/assets/css/css-1.css',
           dest: 'dist/css',
           transform: (contents: string | ArrayBuffer, srcPath: string) =>
-            contents
-              .toString()
-              .replace(
-                'blue',
-                path.basename(srcPath).replace('ss-1.css', 'oral'),
-              ),
+            contents.toString().replace('blue', path.basename(srcPath).replace('ss-1.css', 'oral')),
         },
       ],
     })
 
     expect(fs.pathExistsSync('dist/css-1.css')).toBe(true)
-    expect(await readFile('dist/css-1.css')).toEqual(
-      expect.stringContaining('red'),
-    )
+    expect(await readFile('dist/css-1.css')).toEqual(expect.stringContaining('red'))
     expect(fs.pathExistsSync('build/css-1.css')).toBe(true)
-    expect(await readFile('build/css-1.css')).toEqual(
-      expect.stringContaining('red'),
-    )
+    expect(await readFile('build/css-1.css')).toEqual(expect.stringContaining('red'))
     expect(fs.pathExistsSync('dist/scss-1.scss')).toBe(true)
     expect(await readFile('dist/scss-1.scss')).toEqual(
       expect.not.stringContaining('background-color'),
@@ -322,9 +299,7 @@ describe('Copy', () => {
       expect.not.stringContaining('background-color'),
     )
     expect(fs.pathExistsSync('dist/css/css-1.css')).toBe(true)
-    expect(await readFile('dist/css/css-1.css')).toEqual(
-      expect.stringContaining('coral'),
-    )
+    expect(await readFile('dist/css/css-1.css')).toEqual(expect.stringContaining('coral'))
   })
 })
 
@@ -336,12 +311,7 @@ describe('Options', () => {
     await build({
       targets: [
         {
-          src: [
-            'src/assets/asset-1.js',
-            'src/assets/css/*',
-            'src/assets/scss',
-            'src/not-exist',
-          ],
+          src: ['src/assets/asset-1.js', 'src/assets/css/*', 'src/assets/scss', 'src/not-exist'],
           dest: 'dist',
         },
       ],
@@ -354,14 +324,10 @@ describe('Options', () => {
       green(`  ${bold('src/assets/asset-1.js')} → ${bold('dist/asset-1.js')}`),
     )
     expect(console.log).toHaveBeenCalledWith(
-      green(
-        `  ${bold('src/assets/css/css-1.css')} → ${bold('dist/css-1.css')}`,
-      ),
+      green(`  ${bold('src/assets/css/css-1.css')} → ${bold('dist/css-1.css')}`),
     )
     expect(console.log).toHaveBeenCalledWith(
-      green(
-        `  ${bold('src/assets/css/css-2.css')} → ${bold('dist/css-2.css')}`,
-      ),
+      green(`  ${bold('src/assets/css/css-2.css')} → ${bold('dist/css-2.css')}`),
     )
     expect(console.log).toHaveBeenCalledWith(
       green(`  ${bold('src/assets/scss')} → ${bold('dist/scss')}`),
@@ -403,11 +369,9 @@ describe('Options', () => {
     expect(console.log).toHaveBeenCalledTimes(5)
     expect(console.log).toHaveBeenCalledWith(green('copied:'))
     expect(console.log).toHaveBeenCalledWith(
-      `${green(
-        `  ${bold('src/assets/asset-1.js')} → ${bold(
-          'dist/asset-1-renamed.js',
-        )}`,
-      )} ${yellow('[R]')}`,
+      `${green(`  ${bold('src/assets/asset-1.js')} → ${bold('dist/asset-1-renamed.js')}`)} ${yellow(
+        '[R]',
+      )}`,
     )
     expect(console.log).toHaveBeenCalledWith(
       `${green(
@@ -425,9 +389,7 @@ describe('Options', () => {
     )
     expect(console.log).toHaveBeenCalledWith(
       `${green(
-        `  ${bold('src/assets/scss/nested')} → ${bold(
-          'dist/scss-multiple/nested-renamed',
-        )}`,
+        `  ${bold('src/assets/scss/nested')} → ${bold('dist/scss-multiple/nested-renamed')}`,
       )} ${yellow('[R]')}`,
     )
   })
@@ -450,14 +412,14 @@ describe('Options', () => {
     expect(console.log).toHaveBeenCalledTimes(3)
     expect(console.log).toHaveBeenCalledWith(green('copied:'))
     expect(console.log).toHaveBeenCalledWith(
-      `${green(
-        `  ${bold('src/assets/css/css-1.css')} → ${bold('dist/css-1.css')}`,
-      )} ${yellow('[T]')}`,
+      `${green(`  ${bold('src/assets/css/css-1.css')} → ${bold('dist/css-1.css')}`)} ${yellow(
+        '[T]',
+      )}`,
     )
     expect(console.log).toHaveBeenCalledWith(
-      `${green(
-        `  ${bold('src/assets/css/css-2.css')} → ${bold('dist/css-2.css')}`,
-      )} ${yellow('[T]')}`,
+      `${green(`  ${bold('src/assets/css/css-2.css')} → ${bold('dist/css-2.css')}`)} ${yellow(
+        '[T]',
+      )}`,
     )
   })
   /* eslint-enable no-console */
@@ -535,8 +497,7 @@ describe('Options', () => {
         {
           src: '**/*.scss',
           dest: 'dist',
-          rename: (name: string, extension: string) =>
-            `${name}-renamed.${extension}`,
+          rename: (name: string, extension: string) => `${name}-renamed.${extension}`,
         },
       ],
       flatten: false,
@@ -548,9 +509,7 @@ describe('Options', () => {
     expect(fs.pathExistsSync('dist/assets/css/css-2.css')).toBe(true)
     expect(fs.pathExistsSync('dist/assets/scss/scss-1-renamed.scss')).toBe(true)
     expect(fs.pathExistsSync('dist/assets/scss/scss-2-renamed.scss')).toBe(true)
-    expect(
-      await fs.pathExists('dist/assets/scss/nested/scss-3-renamed.scss'),
-    ).toBe(true)
+    expect(await fs.pathExists('dist/assets/scss/nested/scss-3-renamed.scss')).toBe(true)
   })
 
   test('Rest options', async () => {

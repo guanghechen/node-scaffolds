@@ -1,9 +1,5 @@
 import { detectPackageAuthor } from '@guanghechen/npm-helper'
-import {
-  composeTextTransformers,
-  toSentenceCase,
-  toTrim,
-} from '@guanghechen/option-helper'
+import { composeTextTransformers, toSentenceCase, toTrim } from '@guanghechen/option-helper'
 import type { TextTransformer } from '@guanghechen/option-helper'
 import type { InputQuestion } from 'inquirer'
 import type { NpmPackagePromptsAnswers } from './types'
@@ -87,10 +83,7 @@ export const createPackageVersionPrompt = (
  */
 export const createPackageDescriptionPrompt = (
   defaultAnswer?: string,
-  transformer: TextTransformer = composeTextTransformers(
-    toTrim,
-    toSentenceCase,
-  ),
+  transformer: TextTransformer = composeTextTransformers(toTrim, toSentenceCase),
 ): InputQuestion<Pick<NpmPackagePromptsAnswers, 'packageDescription'>> => {
   const prompt: InputQuestion = {
     type: 'input',
@@ -113,16 +106,12 @@ export const createPackageLocationPrompt = (
   defaultAnswer?: string,
   transformer: TextTransformer = toTrim,
 ): InputQuestion<Pick<NpmPackagePromptsAnswers, 'packageDescription'>> => {
-  type Answers = Pick<
-    NpmPackagePromptsAnswers,
-    'packageName' | 'packageDescription'
-  >
+  type Answers = Pick<NpmPackagePromptsAnswers, 'packageName' | 'packageDescription'>
 
   const prompt: InputQuestion<any> = {
     type: 'input',
     name: 'packageLocation',
-    message: ({ packageName }: Answers): string =>
-      'location of ' + packageName.trim(),
+    message: ({ packageName }: Answers): string => 'location of ' + packageName.trim(),
     default: ({ packageName }: Answers): string => {
       if (defaultAnswer != null) return defaultAnswer
       return isMonorepo

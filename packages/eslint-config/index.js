@@ -1,10 +1,6 @@
 module.exports = {
   root: true,
-  extends: [
-    'eslint:recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings',
-  ],
+  extends: ['eslint:recommended', 'plugin:import/errors', 'plugin:import/warnings'],
   plugins: ['import'],
   parserOptions: {
     ecmaVersion: 2018,

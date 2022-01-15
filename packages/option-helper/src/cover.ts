@@ -1,9 +1,4 @@
-import {
-  convertToBoolean,
-  convertToInteger,
-  convertToNumber,
-  convertToString,
-} from './convert'
+import { convertToBoolean, convertToInteger, convertToNumber, convertToString } from './convert'
 import { isFunction } from './is'
 
 /**

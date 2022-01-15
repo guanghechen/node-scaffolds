@@ -5,10 +5,7 @@
  * @param packageName
  * @returns
  */
-export function resolveRepositoryName(
-  isMonorepo: boolean,
-  packageName: string,
-): string {
+export function resolveRepositoryName(isMonorepo: boolean, packageName: string): string {
   if (isMonorepo) {
     const repositoryName: string = packageName.startsWith('@')
       ? /^@([^\\/]+)/.exec(packageName)![1]

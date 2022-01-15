@@ -36,9 +36,7 @@ describe('BigFileHelper', function () {
     test('basic', function () {
       expect(desensitize(partFilepaths)).toMatchSnapshot()
       expect(bigFileHelper.calcPartFilepaths(filepath, [])).toEqual([filepath])
-      expect(bigFileHelper.calcPartFilepaths(filepath, [{} as any])).toEqual([
-        filepath,
-      ])
+      expect(bigFileHelper.calcPartFilepaths(filepath, [{} as any])).toEqual([filepath])
     })
 
     test('custom part name', function () {
@@ -79,8 +77,6 @@ describe('BigFileHelper', function () {
 
     await bigFileHelper.merge(partFilepaths, outputFilepath)
     expect(fs.existsSync(outputFilepath)).toBe(true)
-    expect(fs.readFileSync(outputFilepath, bigFileHelper.encoding)).toEqual(
-      originalContent,
-    )
+    expect(fs.readFileSync(outputFilepath, bigFileHelper.encoding)).toEqual(originalContent)
   })
 })

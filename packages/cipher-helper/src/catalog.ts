@@ -74,10 +74,7 @@ export class CipherCatalog {
     const targetRootDir = options.targetRootDir
     const sourceEncoding = options.sourceEncoding ?? 'utf8'
     const cipheredIndexEncoding = options.cipheredIndexEncoding ?? 'base64'
-    const maxTargetFileSize = Math.max(
-      1024,
-      options.maxTargetFileSize ?? Number.MAX_SAFE_INTEGER,
-    )
+    const maxTargetFileSize = Math.max(1024, options.maxTargetFileSize ?? Number.MAX_SAFE_INTEGER)
 
     invariant(
       fs.existsSync(sourceRootDir),
@@ -106,10 +103,7 @@ export class CipherCatalog {
    */
   public load(cipheredContent: string): void {
     const { cipheredIndexEncoding } = this
-    const cipherData: Buffer = Buffer.from(
-      cipheredContent,
-      cipheredIndexEncoding,
-    )
+    const cipherData: Buffer = Buffer.from(cipheredContent, cipheredIndexEncoding)
 
     // Decrypt data.
     const plainContent = this.cipher.decrypt(cipherData)
@@ -120,11 +114,7 @@ export class CipherCatalog {
     // parse the content
     const { items, lastCheckTime } = JSON.parse(content) as CatalogIndex
 
-    const {
-      sourceFilepathMap: sfm,
-      targetFilepathSet: tfs,
-      targetPartPathSet: tps,
-    } = this
+    const { sourceFilepathMap: sfm, targetFilepathSet: tfs, targetPartPathSet: tps } = this
 
     this.reset()
     this.lastCheckTime = lastCheckTime
@@ -140,13 +130,7 @@ export class CipherCatalog {
    * Dump catalog data
    */
   public dump(): string {
-    const {
-      cipher,
-      items,
-      lastCheckTime,
-      sourceEncoding,
-      cipheredIndexEncoding,
-    } = this
+    const { cipher, items, lastCheckTime, sourceEncoding, cipheredIndexEncoding } = this
 
     const data: CatalogIndex = { lastCheckTime, items }
     const plaintextContent: string = JSON.stringify(data)
@@ -156,9 +140,7 @@ export class CipherCatalog {
 
     // save into the index file
     const sourceData: Buffer = Buffer.from(content, sourceEncoding)
-    const cipherData = cipher
-      .encrypt(sourceData)
-      .toString(cipheredIndexEncoding)
+    const cipherData = cipher.encrypt(sourceData).toString(cipheredIndexEncoding)
 
     destroyBuffer(sourceData)
     return cipherData
@@ -207,19 +189,12 @@ export class CipherCatalog {
    * Delete invalid entries on the catalog and clean up unregistered target files.
    */
   public cleanup(): void {
-    const {
-      items,
-      sourceFilepathMap: sfm,
-      targetFilepathSet: tfs,
-      targetPartPathSet: tps,
-    } = this
+    const { items, sourceFilepathMap: sfm, targetFilepathSet: tfs, targetPartPathSet: tps } = this
 
     // Delete invalid entries on the catalog.
     for (let i = 0, _size = items.length; i < _size; ) {
       const item = items[i]
-      const absoluteSourceFilepath = this.calcAbsoluteSourceFilepath(
-        item.sourceFilepath,
-      )
+      const absoluteSourceFilepath = this.calcAbsoluteSourceFilepath(item.sourceFilepath)
 
       if (fs.existsSync(absoluteSourceFilepath)) {
         i += 1
@@ -259,10 +234,7 @@ export class CipherCatalog {
     for (const item of this.items) {
       for (const part of item.targetParts) {
         const filepath = this.calcAbsoluteTargetFilepath(part)
-        invariant(
-          fs.existsSync(filepath),
-          `[INTEGRITY DAMAGE] cannot found ${filepath}`,
-        )
+        invariant(fs.existsSync(filepath), `[INTEGRITY DAMAGE] cannot found ${filepath}`)
       }
     }
 
@@ -283,11 +255,8 @@ export class CipherCatalog {
    * @returns
    */
   public async register(_sourceFilepath: string): Promise<void> {
-    const absoluteSourceFilepath =
-      this.calcAbsoluteSourceFilepath(_sourceFilepath)
-    const sourceFilepath = this.calcRelativeSourceFilepath(
-      absoluteSourceFilepath,
-    )
+    const absoluteSourceFilepath = this.calcAbsoluteSourceFilepath(_sourceFilepath)
+    const sourceFilepath = this.calcRelativeSourceFilepath(absoluteSourceFilepath)
 
     const { sourceFilepathMap: sfm, targetFilepathSet: tfs } = this
     const stat: fs.Stats = await fs.stat(absoluteSourceFilepath)
@@ -346,20 +315,14 @@ export class CipherCatalog {
   public isModified(_sourceFilepath: string, _stat?: fs.Stats): boolean {
     if (this.lastCheckTime == null) return true
 
-    const absoluteSourceFilepath =
-      this.calcAbsoluteSourceFilepath(_sourceFilepath)
-    const sourceFilepath = this.calcRelativeSourceFilepath(
-      absoluteSourceFilepath,
-    )
+    const absoluteSourceFilepath = this.calcAbsoluteSourceFilepath(_sourceFilepath)
+    const sourceFilepath = this.calcRelativeSourceFilepath(absoluteSourceFilepath)
 
-    const item: CatalogItem | undefined =
-      this.sourceFilepathMap.get(sourceFilepath)
+    const item: CatalogItem | undefined = this.sourceFilepathMap.get(sourceFilepath)
     if (item === undefined) return true
 
     const stat = _stat ?? fs.statSync(absoluteSourceFilepath)
-    return (
-      stat.size !== item.size || this.lastCheckTime < stat.mtime.toISOString()
-    )
+    return stat.size !== item.size || this.lastCheckTime < stat.mtime.toISOString()
   }
 
   /**
@@ -382,10 +345,7 @@ export class CipherCatalog {
    * @param absoluteSourceFilepath
    */
   public calcRelativeSourceFilepath(absoluteSourceFilepath: string): string {
-    const filepath = relativeOfWorkspace(
-      this.sourceRootDir,
-      absoluteSourceFilepath,
-    )
+    const filepath = relativeOfWorkspace(this.sourceRootDir, absoluteSourceFilepath)
     return filepath.replace(/[/\\]+/g, '/')
   }
 
@@ -403,10 +363,7 @@ export class CipherCatalog {
    * @param absoluteTargetFilepath
    */
   public calcRelativeTargetFilepath(absoluteTargetFilepath: string): string {
-    const filepath = relativeOfWorkspace(
-      this.targetRootDir,
-      absoluteTargetFilepath,
-    )
+    const filepath = relativeOfWorkspace(this.targetRootDir, absoluteTargetFilepath)
     return filepath.replace(/[/\\]+/g, '/')
   }
 
@@ -426,32 +383,17 @@ export class CipherCatalog {
    * @param item
    */
   protected async writeTargets(item: CatalogItem): Promise<void> {
-    const {
-      cipher,
-      fileHelper,
-      targetPartPathSet: tps,
-      maxTargetFileSize,
-    } = this
+    const { cipher, fileHelper, targetPartPathSet: tps, maxTargetFileSize } = this
 
-    const absoluteSourceFilepath = this.calcAbsoluteSourceFilepath(
-      item.sourceFilepath,
-    )
-    const absoluteTargetFilepath = this.calcAbsoluteTargetFilepath(
-      item.targetFilename,
-    )
+    const absoluteSourceFilepath = this.calcAbsoluteSourceFilepath(item.sourceFilepath)
+    const absoluteTargetFilepath = this.calcAbsoluteTargetFilepath(item.targetFilename)
 
     // Encrypt source file.
     await cipher.encryptFile(absoluteSourceFilepath, absoluteTargetFilepath)
 
     // Split target file.
-    const parts: FilePartItem[] = calcFilePartItemsBySize(
-      absoluteTargetFilepath,
-      maxTargetFileSize,
-    )
-    const partFilepaths: string[] = await fileHelper.split(
-      absoluteTargetFilepath,
-      parts,
-    )
+    const parts: FilePartItem[] = calcFilePartItemsBySize(absoluteTargetFilepath, maxTargetFileSize)
+    const partFilepaths: string[] = await fileHelper.split(absoluteTargetFilepath, parts)
 
     // Remove the original big target file.
     if (partFilepaths.length > 1) {
@@ -459,9 +401,7 @@ export class CipherCatalog {
     }
 
     // Update target parts.
-    const targetParts: string[] = partFilepaths.map(p =>
-      this.calcRelativeTargetFilepath(p),
-    )
+    const targetParts: string[] = partFilepaths.map(p => this.calcRelativeTargetFilepath(p))
     for (const filepath of item.targetParts) tps.delete(filepath)
     for (const filepath of targetParts) tps.add(filepath)
     for (const filepath of item.targetParts) {

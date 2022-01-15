@@ -8,10 +8,7 @@ import { cover } from '@guanghechen/option-helper'
 import { packageName } from '../../env/constant'
 import { logger } from '../../env/logger'
 import type { GlobalCommandOptions } from '../option'
-import {
-  __defaultGlobalCommandOptions,
-  resolveGlobalCommandOptions,
-} from '../option'
+import { __defaultGlobalCommandOptions, resolveGlobalCommandOptions } from '../option'
 import type { GitCipherDecryptContext } from './context'
 import { createGitCipherDecryptContext } from './context'
 
@@ -28,8 +25,7 @@ const __defaultCommandOptions: SubCommandOptions = {
   outDir: null,
 }
 
-export type SubCommandDecryptOptions = SubCommandOptions &
-  CommandConfigurationFlatOpts
+export type SubCommandDecryptOptions = SubCommandOptions & CommandConfigurationFlatOpts
 
 /**
  * create Sub-command: decrypt (e)
@@ -46,27 +42,20 @@ export const createSubCommandDecrypt = function (
     .aliases(aliases)
     .arguments('<workspace>')
     .option('--out-dir <outDir>', 'root dir of outputs (decrypted files)')
-    .action(async function (
-      [_workspaceDir],
-      options: SubCommandDecryptOptions,
-    ) {
+    .action(async function ([_workspaceDir], options: SubCommandDecryptOptions) {
       logger.setName(commandName)
 
-      const defaultOptions: SubCommandDecryptOptions =
-        resolveGlobalCommandOptions(
-          packageName,
-          commandName,
-          __defaultCommandOptions,
-          _workspaceDir,
-          options,
-        )
+      const defaultOptions: SubCommandDecryptOptions = resolveGlobalCommandOptions(
+        packageName,
+        commandName,
+        __defaultCommandOptions,
+        _workspaceDir,
+        options,
+      )
 
       // resolve outDir
       const outDir: string | null = (() => {
-        const _rawOutDir = cover<string | null>(
-          defaultOptions.outDir,
-          options.outDir,
-        )
+        const _rawOutDir = cover<string | null>(defaultOptions.outDir, options.outDir)
         if (_rawOutDir == null) return null
         return absoluteOfWorkspace(defaultOptions.workspace, _rawOutDir)
       })()

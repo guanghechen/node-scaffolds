@@ -5,8 +5,7 @@ import type { OutputOptions, RollupOutput } from 'rollup'
 import createRollupConfig from '../src'
 
 // Resolve absolute dirPath of case
-const resolveCaseDir = (title: string): string =>
-  path.resolve(__dirname, 'fixtures', title)
+const resolveCaseDir = (title: string): string => path.resolve(__dirname, 'fixtures', title)
 
 async function build(dependencies: string[]): Promise<RollupOutput[]> {
   // Create rollup config

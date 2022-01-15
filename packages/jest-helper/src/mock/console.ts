@@ -35,31 +35,20 @@ export interface ConsoleMock {
  * @returns
  */
 export function createConsoleMock(
-  methodNames: ReadonlyArray<ConsoleMethodField> = [
-    'debug',
-    'log',
-    'info',
-    'warn',
-    'error',
-  ],
+  methodNames: ReadonlyArray<ConsoleMethodField> = ['debug', 'log', 'info', 'warn', 'error'],
   desensitize: (args: ReadonlyArray<unknown>) => unknown[] = noop as any,
 ): ConsoleMock {
-  const mockFnMap: Record<
-    ConsoleMethodField,
-    jest.MockInstance<any, any>
-  > = {} as any
+  const mockFnMap: Record<ConsoleMethodField, jest.MockInstance<any, any>> = {} as any
   const allData: unknown[][] = []
   const dataMap: Record<ConsoleMethodField, unknown[][]> = {} as any
 
   for (const field of methodNames) {
     dataMap[field] = []
-    mockFnMap[field] = jest
-      .spyOn(console, field)
-      .mockImplementation((...args: unknown[]) => {
-        const data = desensitize(args)
-        dataMap[field].push(data)
-        allData.push(data)
-      })
+    mockFnMap[field] = jest.spyOn(console, field).mockImplementation((...args: unknown[]) => {
+      const data = desensitize(args)
+      dataMap[field].push(data)
+      allData.push(data)
+    })
   }
 
   return {

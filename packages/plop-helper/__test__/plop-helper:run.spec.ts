@@ -45,10 +45,7 @@ const desensitizers = {
   ),
 }
 const jsonDesensitizer = createJsonDesensitizer({
-  string: composeStringDesensitizers(
-    desensitizers.filepath,
-    desensitizers.packageVersion,
-  ),
+  string: composeStringDesensitizers(desensitizers.filepath, desensitizers.packageVersion),
 })
 
 describe('runPlop', function () {
@@ -66,12 +63,7 @@ describe('runPlop', function () {
       jsonDesensitizer as Desensitizer<unknown[]>,
     )
 
-    await runPlopWithMock(
-      templateConfig,
-      plopBypass,
-      mockInputs,
-      defaultAnswers,
-    )
+    await runPlopWithMock(templateConfig, plopBypass, mockInputs, defaultAnswers)
 
     expect(consoleMock.getIndiscriminateAll()).toMatchSnapshot('console')
 
@@ -91,10 +83,7 @@ describe('runPlop', function () {
     fileSnapshot(
       targetDir,
       ['README.md'],
-      composeStringDesensitizers(
-        desensitizers.filepath,
-        desensitizers.packageVersion,
-      ),
+      composeStringDesensitizers(desensitizers.filepath, desensitizers.packageVersion),
     )
 
     consoleMock.restore()
@@ -117,25 +106,15 @@ describe('runPrompts', function () {
     const defaultAnswers = { packageVersion: '1.0.0-alpha' }
     const prompts = createNpmPackagePrompts(preAnswers, defaultAnswers)
 
-    const calc = (
-      bypass: string[],
-      mockInputs: string[],
-    ): Record<string, unknown> => {
-      const answers: any = runPromptsWithMock(
-        prompts as InputQuestion[],
-        bypass,
-        mockInputs,
-      )
+    const calc = (bypass: string[], mockInputs: string[]): Record<string, unknown> => {
+      const answers: any = runPromptsWithMock(prompts as InputQuestion[], bypass, mockInputs)
       const resolvedAnswers = resolveNpmPackageAnswers(preAnswers, answers)
       return jsonDesensitizer(resolvedAnswers) as Record<string, unknown>
     }
 
     expect(calc(['@guanghechen/waw'], [])).toMatchSnapshot()
     expect(
-      calc(
-        ['@guanghechen/waw'],
-        ['', '1.0.1', 'some description', 'packages/waw2'],
-      ),
+      calc(['@guanghechen/waw'], ['', '1.0.1', 'some description', 'packages/waw2']),
     ).toMatchSnapshot()
     expect(calc([], ['@guanghechen/waw'])).toMatchSnapshot()
   })

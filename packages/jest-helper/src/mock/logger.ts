@@ -78,10 +78,7 @@ export function createLoggerMock(options: CreateLoggerMockOptions): LoggerMock {
     .spyOn(logger, 'write')
     .mockImplementation(collectLog)
 
-  const consoleMockFnMap: Record<
-    ConsoleMethodField,
-    jest.MockInstance<any, any>
-  > = {} as any
+  const consoleMockFnMap: Record<ConsoleMethodField, jest.MockInstance<any, any>> = {} as any
   if (spyOnGlobalConsole) {
     for (const field of consoleMethods) {
       consoleMockFnMap[field] = jest
@@ -101,8 +98,7 @@ export function createLoggerMock(options: CreateLoggerMockOptions): LoggerMock {
     restore: () => {
       if (writeMock != null) writeMock.mockRestore()
       if (spyOnGlobalConsole) {
-        for (const field of consoleMethods)
-          consoleMockFnMap[field].mockRestore()
+        for (const field of consoleMethods) consoleMockFnMap[field].mockRestore()
       }
     },
   }

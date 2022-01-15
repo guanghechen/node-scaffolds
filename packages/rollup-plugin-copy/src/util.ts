@@ -1,10 +1,7 @@
 import fs from 'fs-extra'
 import path from 'path'
 import util from 'util'
-import type {
-  RollupPluginCopyTargetItem,
-  RollupPluginCopyTargetOption,
-} from './types'
+import type { RollupPluginCopyTargetItem, RollupPluginCopyTargetOption } from './types'
 
 /**
  * Stringify data
@@ -30,10 +27,7 @@ export async function isFile(filePath: string): Promise<boolean> {
  */
 export function renameTarget(
   targetFilePath: string,
-  rename:
-    | string
-    | ((name: string, ext: string, srcPath: string) => string)
-    | undefined,
+  rename: string | ((name: string, ext: string, srcPath: string) => string) | undefined,
   srcPath: string,
 ): string {
   const parsedPath = path.parse(targetFilePath)
@@ -60,19 +54,14 @@ export async function generateCopyTarget(
 ): Promise<RollupPluginCopyTargetItem> {
   const { flatten, rename, transform } = options
   if (transform != null && !(await isFile(src))) {
-    throw new Error(
-      `"transform" option works only on files: '${src}' must be a file`,
-    )
+    throw new Error(`"transform" option works only on files: '${src}' must be a file`)
   }
 
   const { base, dir } = path.parse(src)
   const destinationFolder =
     flatten || (!flatten && !dir) ? dest : dir.replace(dir.split('/')[0], dest)
 
-  const destFilePath = path.join(
-    destinationFolder,
-    renameTarget(base, rename, src),
-  )
+  const destFilePath = path.join(destinationFolder, renameTarget(base, rename, src))
   const result: RollupPluginCopyTargetItem = {
     src,
     dest: destFilePath,

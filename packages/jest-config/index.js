@@ -12,10 +12,7 @@ function resolveModuleNameMapper(rootDir, tsconfigFilename = 'tsconfig.json') {
   if (!fs.existsSync(tsconfigFilepath)) return {}
 
   const tsconfig = require(tsconfigFilepath)
-  if (
-    tsconfig.compilerOptions == null ||
-    tsconfig.compilerOptions.paths == null
-  ) {
+  if (tsconfig.compilerOptions == null || tsconfig.compilerOptions.paths == null) {
     return {}
   }
 
@@ -31,11 +28,7 @@ function resolveModuleNameMapper(rootDir, tsconfigFilename = 'tsconfig.json') {
       })
     })
     let pattern =
-      '^' +
-      moduleName
-        .replace(/[-\\^$+?.()|[\]{}]/g, '\\$&')
-        .replace(/[*]/g, '(.+)') +
-      '$'
+      '^' + moduleName.replace(/[-\\^$+?.()|[\]{}]/g, '\\$&').replace(/[*]/g, '(.+)') + '$'
     mapper[pattern] = paths.length === 1 ? paths[0] : paths
   }
   return mapper
@@ -55,9 +48,7 @@ function tsMonorepoConfig(repositoryRootDir) {
     bail: true,
     verbose: true,
     errorOnDeprecated: true,
-    roots: ['src', '__test__']
-      .filter(p => fs.existsSync(p))
-      .map(p => `<rootDir>/${p}`),
+    roots: ['src', '__test__'].filter(p => fs.existsSync(p)).map(p => `<rootDir>/${p}`),
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     moduleNameMapper,
     globals: {

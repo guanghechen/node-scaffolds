@@ -32,9 +32,7 @@ describe('createPackageVersionDesensitizer', function () {
     expect(desensitize(`"@guanghechen/test-waw": "0.1.0"`)).toEqual(
       `"@guanghechen/test-waw": "1.0.0-alpha"`,
     )
-    expect(desensitize(`"@guanghechen/waw": "^0.1.0"`)).toEqual(
-      `"@guanghechen/waw": "^0.1.0"`,
-    )
+    expect(desensitize(`"@guanghechen/waw": "^0.1.0"`)).toEqual(`"@guanghechen/waw": "^0.1.0"`)
   })
 })
 

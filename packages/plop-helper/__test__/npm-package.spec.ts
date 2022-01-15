@@ -17,9 +17,7 @@ describe('resolveNpmPackageAnswers', function () {
       packageLocation: 'waw-helper',
     }
 
-    expect(
-      desensitize(resolveNpmPackageAnswers(preAnswers, answers)),
-    ).toMatchObject({
+    expect(desensitize(resolveNpmPackageAnswers(preAnswers, answers))).toMatchObject({
       cwd: '<$WORKSPACE$>/packages/plop-helper/__test__',
       isMonorepo: false,
       packageAuthor: 'guanghechen',

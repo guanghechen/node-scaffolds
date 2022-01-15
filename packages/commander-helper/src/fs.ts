@@ -13,11 +13,9 @@ export async function loadJsonOrYaml(
   filepath: string,
   encoding = 'utf-8',
 ): Promise<unknown | never> {
-  if (!isFileSync(filepath))
-    throw new Error(`${filepath} is an invalid file path`)
+  if (!isFileSync(filepath)) throw new Error(`${filepath} is an invalid file path`)
 
-  const loadContent = (): Promise<string> =>
-    fs.readFile(filepath, encoding as BufferEncoding)
+  const loadContent = (): Promise<string> => fs.readFile(filepath, encoding as BufferEncoding)
 
   let result: unknown
   const extname = path.extname(filepath)
@@ -49,15 +47,10 @@ export async function loadJsonOrYaml(
  * @param filepath
  * @param logger
  */
-export function loadJsonOrYamlSync(
-  filepath: string,
-  encoding = 'utf-8',
-): unknown | never {
-  if (!isFileSync(filepath))
-    throw new Error(`${filepath} is an invalid file path`)
+export function loadJsonOrYamlSync(filepath: string, encoding = 'utf-8'): unknown | never {
+  if (!isFileSync(filepath)) throw new Error(`${filepath} is an invalid file path`)
 
-  const loadContent = (): string =>
-    fs.readFileSync(filepath, encoding as BufferEncoding)
+  const loadContent = (): string => fs.readFileSync(filepath, encoding as BufferEncoding)
 
   let result: unknown
   const extname = path.extname(filepath)

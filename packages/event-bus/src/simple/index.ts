@@ -56,11 +56,7 @@ export class SimpleEventBus<T extends SimpleEventType> {
    * @param type
    * @param handle
    */
-  public addEventListener(
-    type: T,
-    handle: SimpleEventHandler<T>,
-    once: boolean,
-  ): this {
+  public addEventListener(type: T, handle: SimpleEventHandler<T>, once: boolean): this {
     const listeners = this.listeners[type] || []
 
     // An event listener can only be registered once for each particular event

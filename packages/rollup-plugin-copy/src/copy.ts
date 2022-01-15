@@ -5,10 +5,7 @@ import globby from 'globby'
 import { isPlainObject } from 'is-plain-object'
 import path from 'path'
 import type rollup from 'rollup'
-import type {
-  RollupPluginCopyOptions,
-  RollupPluginCopyTargetItem,
-} from './types'
+import type { RollupPluginCopyOptions, RollupPluginCopyTargetItem } from './types'
 import { generateCopyTarget, stringify } from './util'
 
 /**
@@ -64,20 +61,12 @@ export function copy(options: RollupPluginCopyOptions = {}): rollup.Plugin {
         const { dest, rename, src, transform, ...restTargetOptions } = target
 
         if (!src || !dest) {
-          throw new Error(
-            `${stringify(target)} target must have "src" and "dest" properties`,
-          )
+          throw new Error(`${stringify(target)} target must have "src" and "dest" properties`)
         }
 
-        if (
-          rename &&
-          typeof rename !== 'string' &&
-          typeof rename !== 'function'
-        ) {
+        if (rename && typeof rename !== 'string' && typeof rename !== 'function') {
           throw new Error(
-            `${stringify(
-              target,
-            )} target's "rename" property must be a string or a function`,
+            `${stringify(target)} target's "rename" property must be a string or a function`,
           )
         }
 
@@ -119,10 +108,7 @@ export function copy(options: RollupPluginCopyOptions = {}): rollup.Plugin {
    * Do copy operation
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async function handleCopy(
-    context: rollup.PluginContext,
-    ...args: unknown[]
-  ): Promise<void> {
+  async function handleCopy(context: rollup.PluginContext, ...args: unknown[]): Promise<void> {
     if (copyOnce && copied) {
       return
     }
@@ -140,14 +126,9 @@ export function copy(options: RollupPluginCopyOptions = {}): rollup.Plugin {
         }
 
         log.verbose(() => {
-          let message = chalk.green(
-            `  ${chalk.bold(src)} → ${chalk.bold(dest)}`,
-          )
+          let message = chalk.green(`  ${chalk.bold(src)} → ${chalk.bold(dest)}`)
           const flags = Object.entries(copyTarget)
-            .filter(
-              ([key, value]) =>
-                ['renamed', 'transformed'].includes(key) && value,
-            )
+            .filter(([key, value]) => ['renamed', 'transformed'].includes(key) && value)
             .map(([key]) => key.charAt(0).toUpperCase())
 
           if (flags.length) {

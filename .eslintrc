@@ -11,21 +11,11 @@
   "overrides": [
     {
       "files": ["**/*.ts", "**/*tsx"],
-      "extends": [
-        "@guanghechen",
-        "@guanghechen/jsx",
-        "@guanghechen/ts",
-        "prettier"
-      ]
+      "extends": ["@guanghechen", "@guanghechen/jsx", "@guanghechen/ts", "prettier"]
     },
     {
       "files": ["**/__test__/*.spec.ts", "jest.setup.ts"],
-      "extends": [
-        "@guanghechen",
-        "@guanghechen/ts",
-        "plugin:jest/recommended",
-        "prettier"
-      ],
+      "extends": ["@guanghechen", "@guanghechen/ts", "plugin:jest/recommended", "prettier"],
       "rules": {
         "import/no-extraneous-dependencies": 0,
         "jest/expect-expect": 0

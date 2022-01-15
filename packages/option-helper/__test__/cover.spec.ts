@@ -1,10 +1,4 @@
-import {
-  cover,
-  coverBoolean,
-  coverInteger,
-  coverNumber,
-  coverString,
-} from '../src'
+import { cover, coverBoolean, coverInteger, coverNumber, coverString } from '../src'
 
 describe('cover', function () {
   test('lazy defaultValue', function () {
@@ -24,32 +18,23 @@ describe('cover', function () {
   })
 
   describe('coverBoolean', function () {
-    test('(true, undefined) => true', () =>
-      expect(coverBoolean(true, undefined)).toEqual(true))
-    test('(true, null) => true', () =>
-      expect(coverBoolean(true, null)).toEqual(true))
+    test('(true, undefined) => true', () => expect(coverBoolean(true, undefined)).toEqual(true))
+    test('(true, null) => true', () => expect(coverBoolean(true, null)).toEqual(true))
     test('(true, 0) => true', () => expect(coverBoolean(true, 0)).toEqual(true))
     test('(false) => true', () => expect(coverBoolean(false)).toEqual(false))
-    test('(false, []) => false', () =>
-      expect(coverBoolean(false, [])).toEqual(false))
-    test('(false, {}) => false', () =>
-      expect(coverBoolean(false, {})).toEqual(false))
-    test('(false, true) => true', () =>
-      expect(coverBoolean(false, true)).toEqual(true))
-    test("(false, 'true') => true", () =>
-      expect(coverBoolean(false, 'true')).toEqual(true))
-    test("(true, 'FaLse') => false", () =>
-      expect(coverBoolean(false, 'FaLse')).toEqual(false))
+    test('(false, []) => false', () => expect(coverBoolean(false, [])).toEqual(false))
+    test('(false, {}) => false', () => expect(coverBoolean(false, {})).toEqual(false))
+    test('(false, true) => true', () => expect(coverBoolean(false, true)).toEqual(true))
+    test("(false, 'true') => true", () => expect(coverBoolean(false, 'true')).toEqual(true))
+    test("(true, 'FaLse') => false", () => expect(coverBoolean(false, 'FaLse')).toEqual(false))
   })
 
   describe('coverInteger', function () {
-    test('(3, undefined) => 3', () =>
-      expect(coverInteger(3, undefined)).toEqual(3))
+    test('(3, undefined) => 3', () => expect(coverInteger(3, undefined)).toEqual(3))
     test('(3, null) => 3', () => expect(coverInteger(3, null)).toEqual(3))
     test('(3, 0) => 0', () => expect(coverInteger(3, 0)).toEqual(0))
     test('(3, 23.23) => 23', () => expect(coverInteger(3, 23.23)).toEqual(23))
-    test('(3, -23.23) => -23', () =>
-      expect(coverInteger(3, -23.23)).toEqual(-23))
+    test('(3, -23.23) => -23', () => expect(coverInteger(3, -23.23)).toEqual(-23))
     test('(3, true) => 3', () => expect(coverInteger(3, true)).toEqual(3))
     test('(3, false) => 3', () => expect(coverInteger(3, false)).toEqual(3))
     test('(3, []) => 3', () => expect(coverInteger(3, [])).toEqual(3))
@@ -59,13 +44,11 @@ describe('cover', function () {
   })
 
   describe('coverNumber', function () {
-    test('(3, undefined) => 3', () =>
-      expect(coverNumber(3, undefined)).toEqual(3))
+    test('(3, undefined) => 3', () => expect(coverNumber(3, undefined)).toEqual(3))
     test('(3, null) => 3', () => expect(coverNumber(3, null)).toEqual(3))
     test('(3, 0) => 0', () => expect(coverNumber(3, 0)).toEqual(0))
     test('(3, 23.23) => 23', () => expect(coverNumber(3, 23.23)).toEqual(23.23))
-    test('(3, -23.23) => -23', () =>
-      expect(coverNumber(3, -23.23)).toEqual(-23.23))
+    test('(3, -23.23) => -23', () => expect(coverNumber(3, -23.23)).toEqual(-23.23))
     test('(3, true) => 3', () => expect(coverNumber(3, true)).toEqual(3))
     test('(3, false) => 3', () => expect(coverNumber(3, false)).toEqual(3))
     test('(3, []) => 3', () => expect(coverNumber(3, [])).toEqual(3))
@@ -75,17 +58,13 @@ describe('cover', function () {
   })
 
   describe('coverString', function () {
-    test("('x', undefined) => 'x'", () =>
-      expect(coverString('x', undefined)).toEqual('x'))
-    test("('x', null) => 'x'", () =>
-      expect(coverString('x', null)).toEqual('x'))
+    test("('x', undefined) => 'x'", () => expect(coverString('x', undefined)).toEqual('x'))
+    test("('x', null) => 'x'", () => expect(coverString('x', null)).toEqual('x'))
     test("('x', 'y') => 'y'", () => expect(coverString('x', 'y')).toEqual('y'))
     test("('x', 0) => '0'", () => expect(coverString('x', 0)).toEqual('0'))
     test("('x', []) => 'x'", () => expect(coverString('x', [])).toEqual('x'))
     test("('x', {}) => 'x'", () => expect(coverString('x', {})).toEqual('x'))
-    test("('x', true) => 'x'", () =>
-      expect(coverString('x', true)).toEqual('true'))
-    test("('x', false) => 'x'", () =>
-      expect(coverString('x', false)).toEqual('false'))
+    test("('x', true) => 'x'", () => expect(coverString('x', true)).toEqual('true'))
+    test("('x', false) => 'x'", () => expect(coverString('x', false)).toEqual('false'))
   })
 })

@@ -9,10 +9,7 @@ import type { FilePartItem } from '../types'
  * @param _partSize
  * @returns
  */
-export function calcFilePartItemsBySize(
-  filepath: string,
-  _partSize: number,
-): FilePartItem[] {
+export function calcFilePartItemsBySize(filepath: string, _partSize: number): FilePartItem[] {
   invariant(_partSize >= 1, 'Part size should be a positive integer!')
 
   const stat = fs.statSync(filepath)
@@ -46,10 +43,7 @@ export function calcFilePartItemsBySize(
  * @param _partTotal
  * @returns
  */
-export function calcFilePartItemsByCount(
-  filepath: string,
-  _partTotal: number,
-): FilePartItem[] {
+export function calcFilePartItemsByCount(filepath: string, _partTotal: number): FilePartItem[] {
   invariant(_partTotal >= 1, 'Total of part should be a positive integer!')
 
   const stat = fs.statSync(filepath)

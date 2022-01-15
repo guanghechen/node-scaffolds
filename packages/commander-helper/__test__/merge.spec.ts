@@ -30,13 +30,9 @@ describe('defaultMergeStrategies', function () {
       d: 'dfe',
     })
 
-    expect(defaultMergeStrategies.replace(prevOptions, null)).toEqual(
-      prevOptions,
-    )
+    expect(defaultMergeStrategies.replace(prevOptions, null)).toEqual(prevOptions)
 
-    expect(defaultMergeStrategies.replace(prevOptions, undefined)).toEqual(
-      prevOptions,
-    )
+    expect(defaultMergeStrategies.replace(prevOptions, undefined)).toEqual(prevOptions)
   })
 
   test('retain', function () {
@@ -51,25 +47,15 @@ describe('defaultMergeStrategies', function () {
       }),
     ).toEqual(prevOptions)
 
-    expect(defaultMergeStrategies.retain(prevOptions, null)).toEqual(
-      prevOptions,
-    )
+    expect(defaultMergeStrategies.retain(prevOptions, null)).toEqual(prevOptions)
 
-    expect(defaultMergeStrategies.retain(prevOptions, undefined)).toEqual(
-      prevOptions,
-    )
+    expect(defaultMergeStrategies.retain(prevOptions, undefined)).toEqual(prevOptions)
   })
 
   test('concat', function () {
-    expect(defaultMergeStrategies.concat(prevOptions, { a: 1 } as any)).toEqual(
-      prevOptions,
-    )
+    expect(defaultMergeStrategies.concat(prevOptions, { a: 1 } as any)).toEqual(prevOptions)
 
-    expect(defaultMergeStrategies.concat(['a', 'b'], ['c'])).toEqual([
-      'a',
-      'b',
-      'c',
-    ])
+    expect(defaultMergeStrategies.concat(['a', 'b'], ['c'])).toEqual(['a', 'b', 'c'])
 
     expect(defaultMergeStrategies.concat(['a', 'b'], [])).toEqual(['a', 'b'])
 

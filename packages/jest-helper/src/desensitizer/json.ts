@@ -1,15 +1,6 @@
-import {
-  isArray,
-  isNumber,
-  isObject,
-  isString,
-} from '@guanghechen/option-helper'
+import { isArray, isNumber, isObject, isString } from '@guanghechen/option-helper'
 import { noop } from '../util'
-import type {
-  Desensitizer,
-  NumberDesensitizer,
-  StringDesensitizer,
-} from './types'
+import type { Desensitizer, NumberDesensitizer, StringDesensitizer } from './types'
 
 /**
  * Create a desensitizer to eliminate sensitive json data.
@@ -28,16 +19,11 @@ export function createJsonDesensitizer(
   const fallback: Desensitizer<unknown> =
     valDesensitizers.fallback == null ? noop : valDesensitizers.fallback
   const desensitizers = {
-    key:
-      keyDesensitizer == null ? (noop as StringDesensitizer) : keyDesensitizer,
+    key: keyDesensitizer == null ? (noop as StringDesensitizer) : keyDesensitizer,
     string:
-      valDesensitizers.string == null
-        ? (fallback as StringDesensitizer)
-        : valDesensitizers.string,
+      valDesensitizers.string == null ? (fallback as StringDesensitizer) : valDesensitizers.string,
     number:
-      valDesensitizers.number == null
-        ? (fallback as NumberDesensitizer)
-        : valDesensitizers.number,
+      valDesensitizers.number == null ? (fallback as NumberDesensitizer) : valDesensitizers.number,
     fallback,
   }
 

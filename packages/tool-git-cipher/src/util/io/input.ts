@@ -40,8 +40,7 @@ export function inputOneLine(
     // on data
     const onData = (chunk: Buffer): void => {
       let pieceTot: number = chunkAcc == null ? 0 : chunkAcc.length
-      const piece: Buffer =
-        chunkAcc == null ? chunk : Buffer.concat([chunkAcc, chunk])
+      const piece: Buffer = chunkAcc == null ? chunk : Buffer.concat([chunkAcc, chunk])
       for (let i = 0; i < chunk.length; ++i) {
         switch (chunk[i]) {
           case 0x03: // Ctrl-c
@@ -131,11 +130,7 @@ export async function input(
     destroyBuffer(answer)
     answer = null
 
-    answer = await inputOneLine(
-      questionWithHint,
-      isValidCharacter,
-      showAsterisk,
-    )
+    answer = await inputOneLine(questionWithHint, isValidCharacter, showAsterisk)
     if (!isValidAnswer || isValidAnswer(answer)) break
   }
   return answer

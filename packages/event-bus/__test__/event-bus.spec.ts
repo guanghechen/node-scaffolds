@@ -82,11 +82,7 @@ describe('simple-bus', function () {
       ])
 
       expect(
-        () =>
-          void eventBus.removeEventListener(
-            'invalid-event-type' as any,
-            () => {},
-          ),
+        () => void eventBus.removeEventListener('invalid-event-type' as any, () => {}),
       ).not.toThrow()
     })
 
@@ -248,10 +244,7 @@ describe('simple-bus', function () {
   })
 })
 
-function createEventHandler(): [
-  Array<SimpleEvent<EventTypes>>,
-  SimpleEventHandler<EventTypes>,
-] {
+function createEventHandler(): [Array<SimpleEvent<EventTypes>>, SimpleEventHandler<EventTypes>] {
   const messages: Array<SimpleEvent<EventTypes>> = []
   const handle = (evt: SimpleEvent<EventTypes>): unknown => messages.push(evt)
   return [messages, handle]

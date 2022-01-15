@@ -17,11 +17,7 @@ import {
   createPackageNamePrompt,
   createPackageVersionPrompt,
 } from './prompts'
-import type {
-  NpmPackageData,
-  NpmPackagePreAnswers,
-  NpmPackagePromptsAnswers,
-} from './types'
+import type { NpmPackageData, NpmPackagePreAnswers, NpmPackagePromptsAnswers } from './types'
 import { resolveRepositoryName } from './util'
 
 // Transformers for npm-package prompts
@@ -46,10 +42,7 @@ export function createNpmPackagePrompts(
   defaultAnswers: Partial<NpmPackagePromptsAnswers> = {},
 ): InputQuestion<NpmPackagePromptsAnswers> {
   const prompts: InputQuestion<NpmPackagePromptsAnswers> = [
-    createPackageNamePrompt(
-      defaultAnswers.packageName,
-      npmPackageTransformers.packageName,
-    ),
+    createPackageNamePrompt(defaultAnswers.packageName, npmPackageTransformers.packageName),
     createPackageAuthorPrompt(
       preAnswers.cwd,
       defaultAnswers.packageAuthor,
@@ -82,15 +75,9 @@ export function createNpmPackagePrompts(
 export function resolveNpmPackagePreAnswers(
   preAnswers: Partial<NpmPackagePreAnswers> = {},
 ): NpmPackagePreAnswers {
-  const cwd: string = cover<string>(
-    () => path.resolve(process.cwd()),
-    preAnswers.cwd,
-  )
+  const cwd: string = cover<string>(() => path.resolve(process.cwd()), preAnswers.cwd)
 
-  const isMonorepo: boolean = cover<boolean>(
-    () => detectMonorepo(cwd),
-    preAnswers.isMonorepo,
-  )
+  const isMonorepo: boolean = cover<boolean>(() => detectMonorepo(cwd), preAnswers.isMonorepo)
 
   const result: NpmPackagePreAnswers = {
     cwd,
@@ -113,21 +100,13 @@ export function resolveNpmPackageAnswers(
   const { cwd, isMonorepo } = preAnswers
 
   // Resolve prompts answers.
-  const packageName: string = npmPackageTransformers.packageName(
-    answers.packageName,
-  )
-  let packageAuthor: string = npmPackageTransformers.packageAuthor(
-    answers.packageAuthor,
-  )
-  const packageVersion: string = npmPackageTransformers.packageVersion(
-    answers.packageVersion,
-  )
+  const packageName: string = npmPackageTransformers.packageName(answers.packageName)
+  let packageAuthor: string = npmPackageTransformers.packageAuthor(answers.packageAuthor)
+  const packageVersion: string = npmPackageTransformers.packageVersion(answers.packageVersion)
   const packageDescription: string = npmPackageTransformers
     .packageDescription(answers.packageDescription)
     .replace(/[.]?$/, '')
-  const packageLocation: string = npmPackageTransformers.packageLocation(
-    answers.packageLocation,
-  )
+  const packageLocation: string = npmPackageTransformers.packageLocation(answers.packageLocation)
 
   if (!packageAuthor) {
     const m = /^@([\w.]+)[/\\][^/\\]+$/.exec(packageName)
@@ -137,9 +116,7 @@ export function resolveNpmPackageAnswers(
   invariant(Boolean(packageAuthor), 'Cannot resolve package author name!!')
 
   // Resolve additional data.
-  const packageUsage: string = isNonBlankString(packageDescription)
-    ? packageDescription + '.'
-    : ''
+  const packageUsage: string = isNonBlankString(packageDescription) ? packageDescription + '.' : ''
   const repositoryName: string = resolveRepositoryName(isMonorepo, packageName)
   const repositoryHomepage: string = isMonorepo
     ? `https://github.com/${packageAuthor}/${repositoryName}/tree/main/${packageLocation}#readme`

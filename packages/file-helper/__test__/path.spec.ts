@@ -15,16 +15,10 @@ describe('absoluteOfWorkspace', function () {
   })
 
   test('basic', function () {
+    expect(desensitize(absoluteOfWorkspace(__dirname, 'a/b/c.txt'))).toMatchSnapshot()
+    expect(desensitize(absoluteOfWorkspace(__dirname, '/a/b/c.txt'))).toMatchSnapshot()
     expect(
-      desensitize(absoluteOfWorkspace(__dirname, 'a/b/c.txt')),
-    ).toMatchSnapshot()
-    expect(
-      desensitize(absoluteOfWorkspace(__dirname, '/a/b/c.txt')),
-    ).toMatchSnapshot()
-    expect(
-      desensitize(
-        absoluteOfWorkspace(__dirname, path.join(__dirname, '/a/b/c.txt')),
-      ),
+      desensitize(absoluteOfWorkspace(__dirname, path.join(__dirname, '/a/b/c.txt'))),
     ).toMatchSnapshot()
   })
 })
@@ -32,19 +26,13 @@ describe('absoluteOfWorkspace', function () {
 describe('relativeOfWorkspace', function () {
   test('basic', function () {
     expect(
-      desensitize(
-        relativeOfWorkspace(__dirname, path.join(__dirname, 'a/b/c.txt')),
-      ),
+      desensitize(relativeOfWorkspace(__dirname, path.join(__dirname, 'a/b/c.txt'))),
     ).toMatchSnapshot()
     expect(
-      desensitize(
-        relativeOfWorkspace(__dirname, path.join(__dirname, '../a/b/c.txt')),
-      ),
+      desensitize(relativeOfWorkspace(__dirname, path.join(__dirname, '../a/b/c.txt'))),
     ).toMatchSnapshot()
     expect(
-      desensitize(
-        relativeOfWorkspace(__dirname, path.join(__dirname, '../..')),
-      ),
+      desensitize(relativeOfWorkspace(__dirname, path.join(__dirname, '../..'))),
     ).toMatchSnapshot()
   })
 })

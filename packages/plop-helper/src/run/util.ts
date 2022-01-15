@@ -48,12 +48,10 @@ export function choosePlopGenerator(
       {
         type: 'list',
         name: 'generator',
-        message:
-          message || chalk.blue('[PLOP]') + ' Please choose a generator.',
+        message: message || chalk.blue('[PLOP]') + ' Please choose a generator.',
         choices: plopList.map(function (p) {
           return {
-            name:
-              p.name + chalk.gray(p.description ? ' - ' + p.description : ''),
+            name: p.name + chalk.gray(p.description ? ' - ' + p.description : ''),
             value: p.name,
           }
         }),

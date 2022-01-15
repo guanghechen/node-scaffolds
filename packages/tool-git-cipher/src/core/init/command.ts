@@ -3,10 +3,7 @@ import { Command } from '@guanghechen/commander-helper'
 import { packageName } from '../../env/constant'
 import { logger } from '../../env/logger'
 import type { GlobalCommandOptions } from '../option'
-import {
-  __defaultGlobalCommandOptions,
-  resolveGlobalCommandOptions,
-} from '../option'
+import { __defaultGlobalCommandOptions, resolveGlobalCommandOptions } from '../option'
 import type { GitCipherInitContext } from './context'
 import { createGitCipherInitContext } from './context'
 
@@ -16,8 +13,7 @@ const __defaultCommandOptions: SubCommandOptions = {
   ...__defaultGlobalCommandOptions,
 }
 
-export type SubCommandInitOptions = SubCommandOptions &
-  CommandConfigurationFlatOpts
+export type SubCommandInitOptions = SubCommandOptions & CommandConfigurationFlatOpts
 
 /**
  * create Sub-command: init (i)

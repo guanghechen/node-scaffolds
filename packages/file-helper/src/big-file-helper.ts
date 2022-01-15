@@ -65,10 +65,7 @@ export class BigFileHelper {
    * @param parts
    * @returns
    */
-  public async split(
-    filepath: string,
-    parts: FilePartItem[],
-  ): Promise<string[]> {
+  public async split(filepath: string, parts: FilePartItem[]): Promise<string[]> {
     if (parts.length <= 1) return [filepath]
 
     const tasks: Array<Promise<void>> = []
@@ -105,10 +102,7 @@ export class BigFileHelper {
    * @param inputFilepaths
    * @param outputFilepath
    */
-  public async merge(
-    inputFilepaths: string[],
-    outputFilepath: string,
-  ): Promise<void> {
+  public async merge(inputFilepaths: string[], outputFilepath: string): Promise<void> {
     invariant(inputFilepaths.length > 0, 'Input file list is empty!')
 
     const streams: fs.ReadStream[] = inputFilepaths.map(filepath =>

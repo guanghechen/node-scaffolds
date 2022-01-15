@@ -21,8 +21,7 @@ export function fileSnapshot(
     expect(fs.existsSync(filepath)).toBeTruthy()
 
     const content: string = fs.readFileSync(filepath, encoding)
-    const desensitizedContent =
-      desensitize != null ? desensitize(content) : content
+    const desensitizedContent = desensitize != null ? desensitize(content) : content
     expect(desensitizedContent).toMatchSnapshot(filename)
   }
 }

@@ -90,11 +90,7 @@ export class SecretMaster {
   constructor(params: SecretMasterParams) {
     this.secretCipher = params.cipherHelperCreator.create()
     this.cipherHelperCreator = params.cipherHelperCreator
-    this.secretFileEncoding = coverString(
-      'utf8',
-      params.secretFileEncoding,
-      isNonBlankString,
-    )
+    this.secretFileEncoding = coverString('utf8', params.secretFileEncoding, isNonBlankString)
     this.secretContentEncoding = coverString(
       'hex',
       params.secretContentEncoding,
@@ -119,16 +115,8 @@ export class SecretMaster {
       }
     }
 
-    const {
-      secretCipher,
-      cipherHelperCreator,
-      secretContentEncoding,
-      secretFileEncoding,
-    } = this
-    const secretContent: string = await fs.readFile(
-      secretFilepath,
-      secretFileEncoding,
-    )
+    const { secretCipher, cipherHelperCreator, secretContentEncoding, secretFileEncoding } = this
+    const secretContent: string = await fs.readFile(secretFilepath, secretFileEncoding)
     const secretSepIndex = secretContent.indexOf('.')
     const encryptedSecret: Buffer = Buffer.from(
       secretContent.slice(0, secretSepIndex),
@@ -170,18 +158,12 @@ export class SecretMaster {
    * @param secretFilepath absolute filepath of secret file
    */
   public async save(secretFilepath: string): Promise<void | never> {
-    const {
-      encryptedSecret,
-      encryptedSecretMac,
-      secretContentEncoding,
-      secretFileEncoding,
-    } = this
+    const { encryptedSecret, encryptedSecretMac, secretContentEncoding, secretFileEncoding } = this
 
     if (encryptedSecret == null || encryptedSecretMac == null) {
       throw {
         code: ErrorCode.NULL_POINTER_ERROR,
-        message:
-          '[save] encryptedSecret / encryptedSecretMac are not specified',
+        message: '[save] encryptedSecret / encryptedSecretMac are not specified',
       }
     }
 
@@ -195,9 +177,7 @@ export class SecretMaster {
   /**
    * create a new secret key
    */
-  public async recreate(
-    params: Partial<SecretMasterParams> = {},
-  ): Promise<SecretMaster> {
+  public async recreate(params: Partial<SecretMasterParams> = {}): Promise<SecretMaster> {
     const {
       cipherHelperCreator,
       secretContentEncoding,
@@ -280,12 +260,7 @@ export class SecretMaster {
    * Request password
    */
   protected async askPassword(): Promise<Buffer | null> {
-    const {
-      maxRetryTimes,
-      showAsterisk,
-      minPasswordLength,
-      maxPasswordLength,
-    } = this
+    const { maxRetryTimes, showAsterisk, minPasswordLength, maxPasswordLength } = this
     let password: Buffer | null = null
     for (let i = 0; i <= maxRetryTimes; ++i) {
       const question = i > 0 ? '(Retry) Password: ' : 'Password: '
@@ -310,9 +285,7 @@ export class SecretMaster {
   protected testPassword(password: Buffer): boolean {
     const { cipherHelperCreator, encryptedSecret, encryptedSecretMac } = this
     if (encryptedSecret == null || encryptedSecretMac == null) {
-      logger.error(
-        '[testPassword] encryptedSecret / encryptedSecretMac are not specified',
-      )
+      logger.error('[testPassword] encryptedSecret / encryptedSecretMac are not specified')
       return false
     }
 

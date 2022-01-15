@@ -1,8 +1,5 @@
 import ChalkLogger from '@guanghechen/chalk-logger'
-import {
-  BigFileHelper,
-  calcFilePartItemsByCount,
-} from '@guanghechen/file-helper'
+import { BigFileHelper, calcFilePartItemsByCount } from '@guanghechen/file-helper'
 import fs from 'fs-extra'
 import { locateFixtures, unlinkSync } from 'jest.setup'
 import { AESCipherHelper, calcMac } from '../src'
@@ -60,9 +57,7 @@ describe('AESCipher', function () {
           )
           expect(cipherPartFilepaths.length).toEqual(5)
 
-          const plainData: Buffer = await cipher.decryptFromFiles(
-            cipherPartFilepaths,
-          )
+          const plainData: Buffer = await cipher.decryptFromFiles(cipherPartFilepaths)
           expect(plainData).toEqual(originalContent)
         } finally {
           unlinkSync(cipherFilepath, cipherPartFilepaths)
@@ -88,9 +83,7 @@ describe('AESCipher', function () {
 
           expect(fs.existsSync(plainFilepath)).toBe(true)
           expect(fs.existsSync(cipherFilepath)).toBe(true)
-          expect(fs.readFileSync(plainFilepath)).toEqual(
-            fs.readFileSync(filepath),
-          )
+          expect(fs.readFileSync(plainFilepath)).toEqual(fs.readFileSync(filepath))
         } finally {
           unlinkSync(plainFilepath, cipherFilepath)
         }
@@ -261,9 +254,7 @@ describe('AESCipher', function () {
 
           expect(fs.existsSync(plainFilepath)).toBe(true)
           expect(fs.existsSync(cipherFilepath)).toBe(true)
-          expect(fs.readFileSync(plainFilepath)).toEqual(
-            fs.readFileSync(filepath),
-          )
+          expect(fs.readFileSync(plainFilepath)).toEqual(fs.readFileSync(filepath))
         } finally {
           unlinkSync(plainFilepath, cipherFilepath)
         }

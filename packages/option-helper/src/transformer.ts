@@ -27,8 +27,7 @@ export const toCamelCase: TextTransformer = text => changeCase.camelCase(text)
  * @param text
  * @see https://github.com/blakeembrey/change-case#capitalCase
  */
-export const toCapitalCase: TextTransformer = text =>
-  changeCase.capitalCase(text)
+export const toCapitalCase: TextTransformer = text => changeCase.capitalCase(text)
 
 /**
  * Transform into upper case string with an underscore between words.
@@ -38,8 +37,7 @@ export const toCapitalCase: TextTransformer = text =>
  * @param text
  * @see https://github.com/blakeembrey/change-case#constantCase
  */
-export const toConstantCase: TextTransformer = text =>
-  changeCase.constantCase(text)
+export const toConstantCase: TextTransformer = text => changeCase.constantCase(text)
 
 /**
  * Transform into a lower case string with a period between words.
@@ -100,8 +98,7 @@ export const toPathCase: TextTransformer = text => changeCase.pathCase(text)
  * @param text
  * @see https://github.com/blakeembrey/change-case#sentencecase
  */
-export const toSentenceCase: TextTransformer = text =>
-  changeCase.sentenceCase(text)
+export const toSentenceCase: TextTransformer = text => changeCase.sentenceCase(text)
 
 /**
  * Transform into a lower case string with underscores between words.

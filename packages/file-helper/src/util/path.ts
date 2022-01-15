@@ -6,10 +6,7 @@ import path from 'path'
  * @param workspace
  * @param targetPath
  */
-export function absoluteOfWorkspace(
-  workspace: string,
-  targetPath?: string | null,
-): string {
+export function absoluteOfWorkspace(workspace: string, targetPath?: string | null): string {
   if (targetPath == null) return workspace
   const filepath: string = path.resolve(workspace, targetPath)
   return path.normalize(filepath)
@@ -21,10 +18,7 @@ export function absoluteOfWorkspace(
  * @param workspace
  * @param targetPath
  */
-export function relativeOfWorkspace(
-  workspace: string,
-  targetPath: string,
-): string {
+export function relativeOfWorkspace(workspace: string, targetPath: string): string {
   const absoluteDir = absoluteOfWorkspace(workspace, targetPath)
   const filepath: string = path.relative(workspace, absoluteDir)
   return path.normalize(filepath)

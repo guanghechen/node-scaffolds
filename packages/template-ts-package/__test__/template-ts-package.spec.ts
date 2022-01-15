@@ -44,32 +44,19 @@ describe('ts-package', function () {
     defaultAnswers: Record<string, unknown>,
     expectedPackageLocation: string,
   ): Promise<void> {
-    await runPlopWithMock(
-      templateConfig,
-      plopBypass,
-      mockInputs,
-      defaultAnswers,
-    )
+    await runPlopWithMock(templateConfig, plopBypass, mockInputs, defaultAnswers)
 
     const targetDir = path.resolve(expectedPackageLocation)
     fileSnapshot(
       targetDir,
-      [
-        'src/index.ts',
-        'rollup.config.js',
-        'tsconfig.json',
-        'tsconfig.src.json',
-      ],
+      ['src/index.ts', 'rollup.config.js', 'tsconfig.json', 'tsconfig.src.json'],
       desensitizers.filepath,
     )
 
     fileSnapshot(
       targetDir,
       ['package.json', 'README.md'],
-      composeStringDesensitizers(
-        desensitizers.filepath,
-        desensitizers.packageVersion,
-      ),
+      composeStringDesensitizers(desensitizers.filepath, desensitizers.packageVersion),
     )
   }
 

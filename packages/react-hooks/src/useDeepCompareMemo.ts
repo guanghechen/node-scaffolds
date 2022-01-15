@@ -7,10 +7,7 @@ import { useMemo, useRef } from 'react'
  * @param fn
  * @param deps
  */
-export function useDeepCompareMemo<T>(
-  fn: () => T,
-  deps: React.DependencyList,
-): T {
+export function useDeepCompareMemo<T>(fn: () => T, deps: React.DependencyList): T {
   const signal = useRef<number>(0)
   const prevDeps = useRef<React.DependencyList>(deps)
 

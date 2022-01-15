@@ -5,9 +5,7 @@ import path from 'path'
 import { AESCipherHelper, CipherCatalog } from '../src'
 
 function expectEqual(catalog1: CipherCatalog, catalog2: CipherCatalog): void {
-  expect(desensitize((catalog1 as any).items)).toEqual(
-    desensitize((catalog2 as any).items),
-  )
+  expect(desensitize((catalog1 as any).items)).toEqual(desensitize((catalog2 as any).items))
 }
 
 describe('CipherCatalog', function () {
@@ -29,9 +27,7 @@ describe('CipherCatalog', function () {
         targetRootDir: catalog1.targetRootDir,
       })
 
-      const catalogIndexFilepath = locateFixtures(
-        'catalog/catalog.load-or-save.txt',
-      )
+      const catalogIndexFilepath = locateFixtures('catalog/catalog.load-or-save.txt')
 
       catalog1.cleanup()
       const files = collectAllFilesSync(catalog1.sourceRootDir)
@@ -60,10 +56,7 @@ describe('CipherCatalog', function () {
 
       catalog.cleanup()
 
-      const tmpSourceFilepath = path.join(
-        catalog.sourceRootDir,
-        'xx-' + Math.random(),
-      )
+      const tmpSourceFilepath = path.join(catalog.sourceRootDir, 'xx-' + Math.random())
       fs.writeFileSync(tmpSourceFilepath, 'ss')
 
       expect(collectAllFilesSync(catalog.targetRootDir).length).toEqual(0)
@@ -77,9 +70,7 @@ describe('CipherCatalog', function () {
 
       expect(() => catalog.checkIntegrity()).not.toThrow()
       fs.unlinkSync(targetFilepaths[0])
-      expect(() => catalog.checkIntegrity()).toThrow(
-        '[INTEGRITY DAMAGE] cannot found',
-      )
+      expect(() => catalog.checkIntegrity()).toThrow('[INTEGRITY DAMAGE] cannot found')
 
       expect((catalog as any).lastCheckTime).toEqual(null)
 
@@ -154,9 +145,7 @@ describe('CipherCatalog', function () {
       const bakSourceFiles = collectAllFilesSync(sourceBakRootDir).sort()
       expect(sourceFiles.length).toEqual(bakSourceFiles.length)
       for (let i = 0; i < sourceFiles.length; ++i) {
-        expect(fs.readFileSync(sourceFiles[i])).toEqual(
-          fs.readFileSync(bakSourceFiles[i]),
-        )
+        expect(fs.readFileSync(sourceFiles[i])).toEqual(fs.readFileSync(bakSourceFiles[i]))
       }
     })
   })

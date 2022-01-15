@@ -43,9 +43,7 @@ describe('ConsoleMock', function () {
   })
 
   test('with desensitize', function () {
-    const mock = createConsoleMock(undefined, args =>
-      args.map(arg => 'ghc: ' + arg),
-    )
+    const mock = createConsoleMock(undefined, args => args.map(arg => 'ghc: ' + arg))
 
     console.debug('debug waw1')
     console.log('log waw2')
@@ -102,10 +100,7 @@ describe('LoggerMock', function () {
     console.error('error waw4')
     logger.write('logger waw5')
 
-    expect(mock.getIndiscriminateAll()).toEqual([
-      ['logger waw0'],
-      ['logger waw5'],
-    ])
+    expect(mock.getIndiscriminateAll()).toEqual([['logger waw0'], ['logger waw5']])
 
     mock.restore()
   })
@@ -115,17 +110,10 @@ describe('LoggerMock', function () {
 
     logger.write('logger waw0')
     console.debug('debug waw1')
-    expect(mock.getIndiscriminateAll()).toEqual([
-      ['logger waw0'],
-      ['debug waw1'],
-    ])
+    expect(mock.getIndiscriminateAll()).toEqual([['logger waw0'], ['debug waw1']])
 
     console.log('log waw2')
-    expect(mock.getIndiscriminateAll()).toEqual([
-      ['logger waw0'],
-      ['debug waw1'],
-      ['log waw2'],
-    ])
+    expect(mock.getIndiscriminateAll()).toEqual([['logger waw0'], ['debug waw1'], ['log waw2']])
 
     // reset mock
     mock.reset()
@@ -133,11 +121,7 @@ describe('LoggerMock', function () {
     console.info('info waw3')
     console.error('error waw4')
     logger.write('logger waw5')
-    expect(mock.getIndiscriminateAll()).toEqual([
-      ['info waw3'],
-      ['error waw4'],
-      ['logger waw5'],
-    ])
+    expect(mock.getIndiscriminateAll()).toEqual([['info waw3'], ['error waw4'], ['logger waw5']])
 
     mock.restore()
   })

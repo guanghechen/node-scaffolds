@@ -14,10 +14,7 @@ const defaultSeparator = /[,\s]+/
  *
  * @param text
  */
-export function collectNumbers(
-  text: string,
-  separator = defaultSeparator,
-): number[] {
+export function collectNumbers(text: string, separator = defaultSeparator): number[] {
   const intervals: Array<[number, number]> = collectIntervals(text, separator)
   const result: number[] = []
   for (const interval of intervals) {

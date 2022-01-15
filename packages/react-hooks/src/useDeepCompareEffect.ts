@@ -7,10 +7,7 @@ import { useEffect, useRef } from 'react'
  * @param fn
  * @param deps
  */
-export function useDeepCompareEffect(
-  fn: React.EffectCallback,
-  deps: React.DependencyList,
-): void {
+export function useDeepCompareEffect(fn: React.EffectCallback, deps: React.DependencyList): void {
   const signal = useRef<number>(0)
   const prevDeps = useRef<React.DependencyList>(deps)
 
