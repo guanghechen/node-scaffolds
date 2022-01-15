@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="1.8.6"></a>
+## 1.8.6 (2022-01-15)
+
+### Changed
+
+- 🎨 improve: set print width to 100 (80 is old) [[3a46483](https://github.com/guanghechen/node-scaffolds/commit/3a46483b4c6cb6f5efe0263d6ba5848c6201de59)]
+- ⬆️ chore: upgrade dependencies and peerDependencies [[a67ef3d](https://github.com/guanghechen/node-scaffolds/commit/a67ef3d7f292c9c1ecff733ee79dc61c89f8ff21)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[f3ec386](https://github.com/guanghechen/node-scaffolds/commit/f3ec386e0c70c4ac553e662e2ea2796163565d68)]
+
+
 <a name="1.8.5"></a>
 ## 1.8.5 (2021-12-05)
 
