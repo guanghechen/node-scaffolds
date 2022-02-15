@@ -70,7 +70,8 @@ export async function generateCopyTarget(
   }
 
   if (transform) {
-    result.contents = await transform(await fs.readFile(src), src, destFilePath)
+    const contents = await fs.readFile(src)
+    result.contents = await transform(contents, src, destFilePath)
     result.transformed = true
   }
   return result

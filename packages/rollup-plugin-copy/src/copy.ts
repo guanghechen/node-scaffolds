@@ -8,10 +8,6 @@ import type rollup from 'rollup'
 import type { RollupPluginCopyOptions, RollupPluginCopyTargetItem } from './types'
 import { generateCopyTarget, stringify } from './util'
 
-/**
- *
- * @param options
- */
 export function copy(options: RollupPluginCopyOptions = {}): rollup.Plugin {
   const {
     targets = [],
@@ -24,17 +20,11 @@ export function copy(options: RollupPluginCopyOptions = {}): rollup.Plugin {
   } = options
 
   const log = {
-    /**
-     * print verbose messages
-     * @param message
-     */
+    // print verbose messages
     verbose(message: string | (() => string)) {
       if (!shouldBeVerbose) return
-      if (typeof message === 'function') {
-        // eslint-disable-next-line no-param-reassign
-        message = message()
-      }
-      console.log(message)
+      const details: string = typeof message === 'function' ? message() : message
+      console.log(details)
     },
   }
 
@@ -46,9 +36,7 @@ export function copy(options: RollupPluginCopyOptions = {}): rollup.Plugin {
     context: rollup.PluginContext,
     ...args: unknown[]
   ): Promise<void> {
-    if (copyOnce && copied) {
-      return
-    }
+    if (copyOnce && copied) return
 
     // Recollect copyTargets
     copyTargets = []
@@ -78,26 +66,23 @@ export function copy(options: RollupPluginCopyOptions = {}): rollup.Plugin {
         })
 
         if (matchedPaths.length) {
+          const options = { flatten, rename, transform }
           for (const matchedPath of matchedPaths) {
             const destinations = Array.isArray(dest) ? dest : [dest]
-            const generatedCopyTargets = await Promise.all(
-              destinations.map(destination =>
-                generateCopyTarget(matchedPath, destination, {
-                  flatten,
-                  rename,
-                  transform,
-                }),
-              ),
-            )
-            copyTargets.push(...generatedCopyTargets)
+            for (const destination of destinations) {
+              const copyTarget: RollupPluginCopyTargetItem = await generateCopyTarget(
+                matchedPath,
+                destination,
+                options,
+              )
+              copyTargets.push(copyTarget)
+            }
           }
         }
       }
     }
 
-    /**
-     * Watching source files
-     */
+    // Watching source files
     for (const target of copyTargets) {
       const srcPath = path.resolve(target.src)
       context.addWatchFile(srcPath)
@@ -109,9 +94,7 @@ export function copy(options: RollupPluginCopyOptions = {}): rollup.Plugin {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async function handleCopy(context: rollup.PluginContext, ...args: unknown[]): Promise<void> {
-    if (copyOnce && copied) {
-      return
-    }
+    if (copyOnce && copied) return
 
     if (copyTargets.length) {
       log.verbose(chalk.green('copied:'))
@@ -126,15 +109,17 @@ export function copy(options: RollupPluginCopyOptions = {}): rollup.Plugin {
         }
 
         log.verbose(() => {
+          const flagKeys: ReadonlyArray<keyof RollupPluginCopyTargetItem> = [
+            'renamed',
+            'transformed',
+          ]
+
+          const flags: string[] = flagKeys
+            .filter(key => copyTarget[key])
+            .map(key => key.charAt(0).toUpperCase())
+
           let message = chalk.green(`  ${chalk.bold(src)} → ${chalk.bold(dest)}`)
-          const flags = Object.entries(copyTarget)
-            .filter(([key, value]) => ['renamed', 'transformed'].includes(key) && value)
-            .map(([key]) => key.charAt(0).toUpperCase())
-
-          if (flags.length) {
-            message = `${message} ${chalk.yellow(`[${flags.join(', ')}]`)}`
-          }
-
+          if (flags.length) message = `${message} ${chalk.yellow(`[${flags.join(', ')}]`)}`
           return message
         })
       }
@@ -152,9 +137,7 @@ export function copy(options: RollupPluginCopyOptions = {}): rollup.Plugin {
       const context: rollup.PluginContext = this as any
       await collectAndWatchingTargets(context, ...args)
 
-      /**
-       * Merge handleCopy and collectAndWatchingTargets
-       */
+      // Merge handleCopy and collectAndWatchingTargets
       if (hook === watchHook) {
         await handleCopy(context, ...args)
       }
