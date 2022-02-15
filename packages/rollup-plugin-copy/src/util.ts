@@ -1,4 +1,7 @@
 import fs from 'fs-extra'
+import type { GlobbyOptions } from 'globby'
+import globby from 'globby'
+import { isPlainObject } from 'is-plain-object'
 import path from 'path'
 import util from 'util'
 import type { RollupPluginCopyTargetItem, RollupPluginCopyTargetOption } from './types'
@@ -75,4 +78,61 @@ export async function generateCopyTarget(
     result.transformed = true
   }
   return result
+}
+
+/**
+ * Collect copyTargets
+ */
+export async function collectAndWatchingTargets(
+  targets: ReadonlyArray<RollupPluginCopyTargetOption>,
+  flatten: boolean,
+  additionalGlobbyOptions: Partial<GlobbyOptions> & {
+    encoding?: string | null | undefined
+    flag?: string | undefined
+    mode?: number | undefined
+  },
+): Promise<RollupPluginCopyTargetItem[]> {
+  const copyTargets: RollupPluginCopyTargetItem[] = []
+  if (Array.isArray(targets) && targets.length) {
+    for (const target of targets) {
+      if (!isPlainObject(target)) {
+        throw new Error(`${stringify(target)} target must be an object`)
+      }
+
+      const { dest, rename, src, transform, ...restTargetOptions } = target
+
+      if (!src || !dest) {
+        throw new Error(`${stringify(target)} target must have "src" and "dest" properties`)
+      }
+
+      if (rename && typeof rename !== 'string' && typeof rename !== 'function') {
+        throw new Error(
+          `${stringify(target)} target's "rename" property must be a string or a function`,
+        )
+      }
+
+      const matchedPaths: string[] = await globby(src, {
+        expandDirectories: false,
+        onlyFiles: false,
+        ...additionalGlobbyOptions,
+        ...restTargetOptions,
+      } as GlobbyOptions)
+
+      if (matchedPaths.length) {
+        const options = { flatten, rename, transform }
+        for (const matchedPath of matchedPaths) {
+          const destinations = Array.isArray(dest) ? dest : [dest]
+          for (const destination of destinations) {
+            const copyTarget: RollupPluginCopyTargetItem = await generateCopyTarget(
+              matchedPath,
+              destination,
+              options,
+            )
+            copyTargets.push(copyTarget)
+          }
+        }
+      }
+    }
+  }
+  return copyTargets
 }
