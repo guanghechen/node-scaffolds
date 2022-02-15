@@ -1,7 +1,7 @@
 import type { WriteFileOptions } from 'fs-extra'
 
 /**
- * Copy target option
+ * Options of @guanghechen/rollup-plugin-copy
  *
  * # Examples
  *
@@ -75,42 +75,12 @@ import type { WriteFileOptions } from 'fs-extra'
  *    })
  *    ```
  */
-export interface RollupPluginCopyTargetOption extends WriteFileOptions, RollupPluginCopyOptions {
-  /**
-   * Path or glob of what to copy
-   */
-  src: string | string[]
-  /**
-   * One or more destinations where to copy
-   */
-  dest: string | string[]
-  /**
-   * Change destination file or folder name
-   */
-  rename?: string | ((name: string, ext: string) => string)
-  /**
-   * Modify file contents
-   *
-   * @param content   content of srcPath
-   * @param srcPath   source filepath
-   * @param dstPath   target filepath
-   */
-  transform?(
-    content: string | ArrayBuffer,
-    srcPath: string,
-    dstPath: string,
-  ): Promise<string | ArrayBuffer>
-}
-
-/**
- * Options of @guanghechen/rollup-plugin-copy
- */
-export interface RollupPluginCopyOptions extends WriteFileOptions {
+export interface IOptions extends WriteFileOptions {
   /**
    * Array of targets to copy.
    * @default []
    */
-  targets?: RollupPluginCopyTargetOption[]
+  targets?: IOptionTarget[]
   /**
    * Copy items once. Useful in watch mode
    * @default false
@@ -143,28 +113,42 @@ export interface RollupPluginCopyOptions extends WriteFileOptions {
   watchHook?: string
 }
 
-/**
- * Copy target item
- */
-export interface RollupPluginCopyTargetItem {
+// Type of elements of copyOptions.targets.
+export interface IOptionTarget extends Exclude<IOptions, 'hook' | 'watchHook'> {
   /**
    * Path or glob of what to copy
    */
-  src: string
+  src: string | string[]
   /**
-   * Destinations where to copy
+   * One or more destinations where to copy
    */
-  dest: string
+  dest: string | string[]
   /**
-   * Renamed
+   * Change destination file or folder name
    */
-  renamed: boolean
+  rename?: IOptionRename
   /**
-   * Transformed
+   * Modify file contents
    */
-  transformed: boolean
-  /**
-   * Source contents
-   */
-  contents?: string | ArrayBuffer
+  transform?: IOptionTransform
 }
+
+/**
+ * Rename the target filename.
+ *
+ * @param name
+ */
+export type IOptionRename = ((name: string, ext: string, srcPath: string) => string) | string
+
+/**
+ * Modify file contents
+ *
+ * @param content   content of srcPath
+ * @param srcPath   source filepath
+ * @param dstPath   target filepath
+ */
+export type IOptionTransform = (
+  content: string | ArrayBuffer,
+  srcPath: string,
+  dstPath: string,
+) => Promise<string | ArrayBuffer>

@@ -4,7 +4,7 @@ import globby from 'globby'
 import { isPlainObject } from 'is-plain-object'
 import path from 'path'
 import util from 'util'
-import type { RollupPluginCopyTargetItem, RollupPluginCopyTargetOption } from './types'
+import type { ICopyTargetItem, IOptionRename, IOptionTarget, IOptionTransform } from './types'
 
 /**
  * Stringify data
@@ -21,6 +21,19 @@ export function stringify(value: unknown): string {
 export async function isFile(filePath: string): Promise<boolean> {
   const fileStats = await fs.stat(filePath)
   return fileStats.isFile()
+}
+
+/**
+ * Normalize `rename` option.
+ * @param rename
+ * @returns
+ */
+export function normalizeRename(
+  rename: IOptionRename,
+): Exclude<IOptionRename, 'string'> | undefined {
+  if (typeof rename === 'string') return () => rename
+  if (typeof rename === 'function') return rename
+  return undefined
 }
 
 /**
@@ -51,10 +64,10 @@ export async function generateCopyTarget(
   dest: string,
   options: {
     flatten: boolean
-    rename?: RollupPluginCopyTargetOption['rename']
-    transform?: RollupPluginCopyTargetOption['transform']
+    rename?: IOptionRename
+    transform?: IOptionTransform
   },
-): Promise<RollupPluginCopyTargetItem> {
+): Promise<ICopyTargetItem> {
   const { flatten, rename, transform } = options
   if (transform != null && !(await isFile(src))) {
     throw new Error(`"transform" option works only on files: '${src}' must be a file`)
@@ -65,7 +78,7 @@ export async function generateCopyTarget(
     flatten || (!flatten && !dir) ? dest : dir.replace(dir.split('/')[0], dest)
 
   const destFilePath = path.join(destinationFolder, renameTarget(base, rename, src))
-  const result: RollupPluginCopyTargetItem = {
+  const result: ICopyTargetItem = {
     src,
     dest: destFilePath,
     renamed: Boolean(rename),
@@ -84,15 +97,15 @@ export async function generateCopyTarget(
  * Collect copyTargets
  */
 export async function collectAndWatchingTargets(
-  targets: ReadonlyArray<RollupPluginCopyTargetOption>,
+  targets: ReadonlyArray<IOptionTarget>,
   flatten: boolean,
   additionalGlobbyOptions: Partial<GlobbyOptions> & {
     encoding?: string | null | undefined
     flag?: string | undefined
     mode?: number | undefined
   },
-): Promise<RollupPluginCopyTargetItem[]> {
-  const copyTargets: RollupPluginCopyTargetItem[] = []
+): Promise<ICopyTargetItem[]> {
+  const copyTargets: ICopyTargetItem[] = []
   if (Array.isArray(targets) && targets.length) {
     for (const target of targets) {
       if (!isPlainObject(target)) {
@@ -105,7 +118,7 @@ export async function collectAndWatchingTargets(
         throw new Error(`${stringify(target)} target must have "src" and "dest" properties`)
       }
 
-      if (rename && typeof rename !== 'string' && typeof rename !== 'function') {
+      if (rename != null && typeof rename !== 'string' && typeof rename !== 'function') {
         throw new Error(
           `${stringify(target)} target's "rename" property must be a string or a function`,
         )
@@ -123,7 +136,7 @@ export async function collectAndWatchingTargets(
         for (const matchedPath of matchedPaths) {
           const destinations = Array.isArray(dest) ? dest : [dest]
           for (const destination of destinations) {
-            const copyTarget: RollupPluginCopyTargetItem = await generateCopyTarget(
+            const copyTarget: ICopyTargetItem = await generateCopyTarget(
               matchedPath,
               destination,
               options,

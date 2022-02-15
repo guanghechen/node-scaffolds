@@ -3,10 +3,10 @@ import fs from 'fs-extra'
 import type { CopyOptions } from 'fs-extra'
 import path from 'path'
 import type rollup from 'rollup'
-import type { RollupPluginCopyOptions, RollupPluginCopyTargetItem } from './types'
+import type { ICopyTargetItem, IOptions } from './types'
 import { collectAndWatchingTargets } from './util'
 
-export function copy(options: RollupPluginCopyOptions = {}): rollup.Plugin {
+export function copy(options: IOptions = {}): rollup.Plugin {
   const {
     targets = [],
     copyOnce = false,
@@ -27,7 +27,7 @@ export function copy(options: RollupPluginCopyOptions = {}): rollup.Plugin {
   }
 
   let copied = false
-  let copyTargets: RollupPluginCopyTargetItem[] = []
+  let copyTargets: ICopyTargetItem[] = []
 
   /**
    * Do copy operation
@@ -46,7 +46,7 @@ export function copy(options: RollupPluginCopyOptions = {}): rollup.Plugin {
       }
 
       log.verbose(() => {
-        const flagKeys: ReadonlyArray<keyof RollupPluginCopyTargetItem> = ['renamed', 'transformed']
+        const flagKeys: ReadonlyArray<keyof ICopyTargetItem> = ['renamed', 'transformed']
 
         const flags: string[] = flagKeys
           .filter(key => copyTarget[key])
@@ -70,6 +70,11 @@ export function copy(options: RollupPluginCopyOptions = {}): rollup.Plugin {
 
       if (!copyOnce || !copied) {
         copyTargets = await collectAndWatchingTargets(targets, flatten, restOptions)
+
+        const srcMap: Map<string, ICopyTargetItem> = new Map()
+        for (const target of copyTargets) {
+          srcMap.set(target.src, target)
+        }
 
         // Watching source files
         for (const target of copyTargets) {
