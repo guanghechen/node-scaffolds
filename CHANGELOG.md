@@ -1,5 +1,30 @@
 # Changelog
 
+<a name="1.9.0-alpha.0"></a>
+## 1.9.0-alpha.0 (2022-02-16)
+
+### Changed
+
+- ⚡ improve: fix bugs &amp; merge copying operations [[eeb19a3](https://github.com/guanghechen/node-scaffolds/commit/eeb19a33cbff3548e843738aeda56ae4218a642c)]
+- 🎨 improve: extract codes for copy single CopyItem [[cfee9a9](https://github.com/guanghechen/node-scaffolds/commit/cfee9a97a7163dbd1d0953ac5ddb7e9ef448fc63)]
+- 🎨 refactor: refactor codes [[fa7befe](https://github.com/guanghechen/node-scaffolds/commit/fa7befe42f86df6188676db21923131c5fd309e7)]
+- 🎨 [BREAKING] feat(rollup-plugin-copy): refactor options [[9a300b8](https://github.com/guanghechen/node-scaffolds/commit/9a300b8cd03ceda8ab22603e363edae2c7ea6443)]
+- 🎨 refactor: rename types [[754ffe0](https://github.com/guanghechen/node-scaffolds/commit/754ffe0e0d21d187d82498d6fcee0a91973028d5)]
+- 🎨 refactor(rollup-plugin-copy): refactor codes [[71bfea2](https://github.com/guanghechen/node-scaffolds/commit/71bfea2cf058e48e7614be2367212e8cdece6a25)]
+- 🎨 refactor(rollup-plugin-copy): refactor codes [[26ec3ad](https://github.com/guanghechen/node-scaffolds/commit/26ec3ad17f35c4311dbcc80bda9f9a5f21ad1583)]
+
+### Fixed
+
+- 🐛 fix: fix type errors [[cf93f24](https://github.com/guanghechen/node-scaffolds/commit/cf93f243324af242f4c8ad0a7087009624827eb1)]
+- 🐛 fix: check if renamed through comparing oldName and newName [[38a928a](https://github.com/guanghechen/node-scaffolds/commit/38a928ad48ab5a0bcf91937ec9ada5ee2f4c5df1)]
+
+### Miscellaneous
+
+-  feat: use chokidar to supprot watch mode [[aefc24b](https://github.com/guanghechen/node-scaffolds/commit/aefc24b98248516b26982f7cb7f669387b870533)]
+- 📝 docs: update README [[d4d33d1](https://github.com/guanghechen/node-scaffolds/commit/d4d33d1add87324d07835702fd253549a81196ae)]
+- 📝 docs: update CHANGELOG [[9f5d3c1](https://github.com/guanghechen/node-scaffolds/commit/9f5d3c152a5dd9ea52145b868cb97ae417f8ddd7)]
+
+
 <a name="1.8.6"></a>
 ## 1.8.6 (2022-01-15)
 
