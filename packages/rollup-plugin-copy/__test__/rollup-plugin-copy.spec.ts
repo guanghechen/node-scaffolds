@@ -6,6 +6,7 @@ import { rollup, watch } from 'rollup'
 import type { CustomPluginOptions } from 'rollup'
 import copy from '../src'
 
+const encoding = 'utf-8'
 process.chdir(`${__dirname}/fixtures`)
 
 function sleep(ms: number): Promise<void> {
@@ -13,7 +14,7 @@ function sleep(ms: number): Promise<void> {
 }
 
 function readFile(filePath: string): Promise<string> {
-  return fs.readFile(filePath, 'utf-8')
+  return fs.readFile(filePath, encoding)
 }
 
 async function build(pluginOptions?: CustomPluginOptions): Promise<void> {
@@ -457,6 +458,18 @@ describe('Options', () => {
     })
 
     await sleep(1000)
+
+    const originalContent = fs.readFileSync('src/assets/asset-1.js', encoding)
+    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(originalContent)
+
+    const newContent = `export const message = "waw"`
+    fs.writeFileSync('src/assets/asset-1.js', newContent, encoding)
+    await sleep(1000)
+    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(originalContent)
+
+    // Recover src/assets/asset-1.js
+    await sleep(1000)
+    fs.writeFileSync('src/assets/asset-1.js', originalContent, encoding)
 
     expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
 
