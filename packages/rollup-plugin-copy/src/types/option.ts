@@ -1,4 +1,5 @@
-import type { WriteFileOptions } from 'fs-extra'
+import type { CopyOptions, WriteFileOptions } from 'fs-extra'
+import type { GlobbyOptions } from 'globby'
 
 /**
  * Options of @guanghechen/rollup-plugin-copy
@@ -75,7 +76,7 @@ import type { WriteFileOptions } from 'fs-extra'
  *    })
  *    ```
  */
-export interface IOptions extends WriteFileOptions {
+export interface IOptions {
   /**
    * Array of targets to copy.
    * @default []
@@ -93,7 +94,7 @@ export interface IOptions extends WriteFileOptions {
   flatten?: boolean
   /**
    * Output copied items to console.
-   * @default true
+   * @default false
    */
   verbose?: boolean
   /**
@@ -111,10 +112,21 @@ export interface IOptions extends WriteFileOptions {
    * @default buildStart
    */
   watchHook?: string
+  /**
+   * Default options of 'globby'.
+   */
+  globbyOptions?: GlobbyOptions
+  /**
+   * Default options of 'fs-extra'.
+   */
+  fsExtraOptions?: {
+    copy?: CopyOptions
+    outputFile?: WriteFileOptions | BufferEncoding | string
+  }
 }
 
 // Type of elements of copyOptions.targets.
-export interface IOptionTarget extends Exclude<IOptions, 'hook' | 'watchHook'> {
+export interface IOptionTarget {
   /**
    * Path or glob of what to copy
    */
@@ -131,6 +143,32 @@ export interface IOptionTarget extends Exclude<IOptions, 'hook' | 'watchHook'> {
    * Modify file contents
    */
   transform?: IOptionTransform
+  /**
+   * Copy items once. Useful in watch mode
+   * @default false
+   */
+  copyOnce?: boolean
+  /**
+   * Remove the directory structure of copied files.
+   * @default true
+   */
+  flatten?: boolean
+  /**
+   * Output copied items to console.
+   * @default true
+   */
+  verbose?: boolean
+  /**
+   * Default options of 'globby'.
+   */
+  globbyOptions?: GlobbyOptions
+  /**
+   * Default options of 'fs-extra'.
+   */
+  fsExtraOptions?: {
+    copy?: CopyOptions
+    outputFile?: WriteFileOptions | BufferEncoding | string
+  }
 }
 
 /**

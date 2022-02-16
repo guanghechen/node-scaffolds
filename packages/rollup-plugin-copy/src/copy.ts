@@ -1,21 +1,22 @@
 import chalk from 'chalk'
 import fs from 'fs-extra'
-import type { CopyOptions } from 'fs-extra'
 import path from 'path'
 import type rollup from 'rollup'
 import type { ICopyTargetItem, IOptions } from './types'
-import { collectAndWatchingTargets } from './util'
+import { collectAndWatchingTargets, normalizeOptions } from './util'
 
 export function copy(options: IOptions = {}): rollup.Plugin {
+  const config = normalizeOptions(options)
   const {
-    targets = [],
-    copyOnce = false,
-    flatten = true,
-    hook = 'buildEnd',
-    watchHook = 'buildStart',
-    verbose: shouldBeVerbose = false,
-    ...restOptions
-  } = options
+    targets,
+    copyOnce,
+    flatten,
+    hook,
+    watchHook,
+    verbose: shouldBeVerbose,
+    globbyOptions,
+    fsExtraOptions,
+  } = config
 
   const log = {
     // print verbose messages
@@ -40,9 +41,9 @@ export function copy(options: IOptions = {}): rollup.Plugin {
       const { contents, dest, src, transformed } = copyTarget
 
       if (transformed) {
-        await fs.outputFile(dest, contents, restOptions)
+        await fs.outputFile(dest, contents, fsExtraOptions.outputFile)
       } else {
-        await fs.copy(src, dest, restOptions as CopyOptions)
+        await fs.copy(src, dest, fsExtraOptions.copy)
       }
 
       log.verbose(() => {
@@ -69,7 +70,7 @@ export function copy(options: IOptions = {}): rollup.Plugin {
       const context: rollup.PluginContext = this as any
 
       if (!copyOnce || !copied) {
-        copyTargets = await collectAndWatchingTargets(targets, flatten, restOptions)
+        copyTargets = await collectAndWatchingTargets(targets, flatten, globbyOptions)
 
         const srcMap: Map<string, ICopyTargetItem> = new Map()
         for (const target of copyTargets) {

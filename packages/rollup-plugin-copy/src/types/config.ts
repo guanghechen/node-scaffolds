@@ -1,10 +1,10 @@
-import type { WriteFileOptions } from 'fs'
+import type { CopyOptions, WriteFileOptions } from 'fs-extra'
+import type { GlobbyOptions } from 'globby'
 import type { IOptionRename, IOptionTransform } from './option'
 
 export interface IConfig {
   /**
    * Array of targets to copy.
-   * @default []
    */
   targets: IConfigTarget[]
   /**
@@ -33,12 +33,19 @@ export interface IConfig {
    */
   watchHook: string
   /**
-   * Options for fs.write / fs.copy
+   * Default options of 'globby'.
    */
-  writeFileOptions: WriteFileOptions
+  globbyOptions: GlobbyOptions
+  /**
+   * Default options of 'fs-extra'.
+   */
+  fsExtraOptions: {
+    copy: CopyOptions
+    outputFile?: WriteFileOptions | BufferEncoding | string
+  }
 }
 
-export interface IConfigTarget extends Exclude<IConfigTransform, 'hook' | 'watchHook'> {
+export interface IConfigTarget {
   /**
    * Path or glob of what to copy.
    */
@@ -50,13 +57,39 @@ export interface IConfigTarget extends Exclude<IConfigTransform, 'hook' | 'watch
   /**
    * Specify the rule to change destination file or folder name.
    */
-  rename: IConfigRename
+  rename?: IConfigRename
   /**
    * Modify file contents
    */
   transform?: IConfigTransform
+  /**
+   * Copy items once. Useful in watch mode
+   * @default false
+   */
+  copyOnce?: boolean
+  /**
+   * Remove the directory structure of copied files.
+   * @default true
+   */
+  flatten?: boolean
+  /**
+   * Output copied items to console.
+   * @default true
+   */
+  verbose?: boolean
+  /**
+   * Default options of 'globby'.
+   */
+  globbyOptions: GlobbyOptions
+  /**
+   * Default options of 'fs-extra'.
+   */
+  fsExtraOptions: {
+    copy: CopyOptions
+    outputFile?: WriteFileOptions | BufferEncoding | string
+  }
 }
 
-export type IConfigRename = Exclude<IOptionRename, 'string'>
+export type IConfigRename = Exclude<IOptionRename, string>
 
 export type IConfigTransform = IOptionTransform

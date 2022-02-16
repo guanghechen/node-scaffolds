@@ -509,13 +509,15 @@ describe('Options', () => {
     expect(fs.pathExistsSync('dist/assets/css/css-2.css')).toBe(true)
     expect(fs.pathExistsSync('dist/assets/scss/scss-1-renamed.scss')).toBe(true)
     expect(fs.pathExistsSync('dist/assets/scss/scss-2-renamed.scss')).toBe(true)
-    expect(await fs.pathExists('dist/assets/scss/nested/scss-3-renamed.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/assets/scss/nested/scss-3-renamed.scss')).toBe(true)
   })
 
   test('Rest options', async () => {
     await build({
       targets: [{ src: 'src/assets/asset-1.js', dest: 'dist' }],
-      ignore: ['**/asset-1.js'],
+      globbyOptions: {
+        ignore: ['**/asset-1.js'],
+      },
     })
 
     expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
@@ -527,7 +529,9 @@ describe('Options', () => {
         {
           src: 'src/assets/asset-1.js',
           dest: 'dist',
-          ignore: ['**/asset-1.js'],
+          globbyOptions: {
+            ignore: ['**/asset-1.js'],
+          },
         },
       ],
     })
