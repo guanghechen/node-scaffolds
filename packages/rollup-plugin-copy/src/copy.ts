@@ -1,14 +1,12 @@
 import chalk from 'chalk'
-import fs from 'fs-extra'
 import path from 'path'
 import type rollup from 'rollup'
 import type { ICopyTargetItem, IOptions } from './types'
-import { collectAndWatchingTargets, normalizeOptions } from './util'
-import { logger } from './util/logger'
+import { collectAndWatchingTargets, copySingleItem, logger, normalizeOptions } from './util'
 
 export function copy(options: IOptions = {}): rollup.Plugin {
   const config = normalizeOptions(options)
-  const { targets, copyOnce, flatten, hook, watchHook, globbyOptions, fsExtraOptions } = config
+  const { targets, copyOnce, hook, watchHook } = config
 
   logger.shouldBeVerbose = config.verbose
   let copied = false
@@ -22,25 +20,7 @@ export function copy(options: IOptions = {}): rollup.Plugin {
     if (copyOnce && copied) return
 
     for (const copyTarget of copyTargets) {
-      const { contents, destPath: dest, srcPath: src, transformed } = copyTarget
-
-      if (transformed) {
-        await fs.outputFile(dest, contents, fsExtraOptions.outputFile)
-      } else {
-        await fs.copy(src, dest, fsExtraOptions.copy)
-      }
-
-      logger.verbose(() => {
-        const flagKeys: ReadonlyArray<keyof ICopyTargetItem> = ['renamed', 'transformed']
-
-        const flags: string[] = flagKeys
-          .filter(key => copyTarget[key])
-          .map(key => key.charAt(0).toUpperCase())
-
-        let message = chalk.green(`  ${chalk.bold(src)} → ${chalk.bold(dest)}`)
-        if (flags.length) message = `${message} ${chalk.yellow(`[${flags.join(', ')}]`)}`
-        return message
-      })
+      await copySingleItem(copyTarget)
     }
 
     copied = true
@@ -55,7 +35,7 @@ export function copy(options: IOptions = {}): rollup.Plugin {
       const context: rollup.PluginContext = this as any
 
       if (!copyOnce || !copied) {
-        copyTargets = await collectAndWatchingTargets(targets, flatten, globbyOptions)
+        copyTargets = await collectAndWatchingTargets(targets)
 
         for (const target of copyTargets) {
           srcMap.set(target.srcPath, target)

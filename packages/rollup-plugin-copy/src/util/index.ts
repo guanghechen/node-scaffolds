@@ -1,11 +1,12 @@
 import fs from 'fs-extra'
-import type { GlobbyOptions } from 'globby'
 import globby from 'globby'
 import path from 'path'
-import type { IConfigRename, IConfigTarget, IConfigTransform, ICopyTargetItem } from '../types'
+import type { IConfigTarget, ICopyTargetItem } from '../types'
 import { isFile, renameTarget } from './common'
 
 export * from './common'
+export * from './copy'
+export * from './logger'
 export * from './option'
 
 /**
@@ -52,17 +53,14 @@ export async function generateCopyTarget(
  */
 export async function collectAndWatchingTargets(
   targets: ReadonlyArray<IConfigTarget>,
-  flatten: boolean,
-  defaultGlobbyOptions: GlobbyOptions,
 ): Promise<ICopyTargetItem[]> {
   const copyTargets: ICopyTargetItem[] = []
   for (const target of targets) {
-    const { dest, rename, src, transform, globbyOptions } = target
+    const { dest, src, globbyOptions } = target
 
     const matchedPaths: string[] = await globby(src, {
       expandDirectories: false,
       onlyFiles: false,
-      ...defaultGlobbyOptions,
       ...globbyOptions,
     })
 
