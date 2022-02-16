@@ -27,15 +27,15 @@ export async function generateCopyTarget(
     throw new Error(`"transform" option works only on files: '${srcPath}' must be a file`)
   }
 
-  const { base, dir } = path.parse(srcPath)
+  const { base: oldFileName, dir } = path.parse(srcPath)
   const destinationFolder =
     flatten || (!flatten && !dir) ? dest : dir.replace(dir.split('/')[0], dest)
-
-  const destFilePath = path.join(destinationFolder, renameTarget(base, rename, srcPath))
+  const newFileName: string = renameTarget(oldFileName, rename, srcPath)
+  const destFilePath = path.join(destinationFolder, newFileName)
   const result: ICopyTargetItem = {
     srcPath,
     destPath: destFilePath,
-    renamed: !!rename,
+    renamed: oldFileName !== newFileName,
     transformed: false,
     target,
   }
