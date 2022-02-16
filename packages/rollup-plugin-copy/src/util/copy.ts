@@ -3,7 +3,17 @@ import fs from 'fs-extra'
 import type { ICopyTargetItem } from '../types'
 import { logger } from './logger'
 
+const copyingQueue: Array<{ timestamp: number; item: ICopyTargetItem }> = []
+
 export async function copySingleItem(item: ICopyTargetItem): Promise<void> {
+  if (item.copying) {
+    const timestamp: number = Date.now()
+    // eslint-disable-next-line no-param-reassign
+    item.queueingTimestamp = timestamp
+    copyingQueue.push({ timestamp, item })
+    return
+  }
+
   const { contents, destPath, srcPath, transformed, target } = item
 
   if (transformed) {
@@ -23,4 +33,9 @@ export async function copySingleItem(item: ICopyTargetItem): Promise<void> {
     if (flags.length) message = `${message} ${chalk.yellow(`[${flags.join(', ')}]`)}`
     return message
   }, target.verbose)
+
+  const nextItem = copyingQueue.shift()
+  if (nextItem && nextItem.timestamp === nextItem.item.queueingTimestamp) {
+    await copySingleItem(nextItem.item)
+  }
 }

@@ -67,6 +67,8 @@ export async function generateCopyTarget(
     destPath: destFilePath,
     renamed: oldFileName !== newFileName,
     transformed: false,
+    copying: false,
+    queueingTimestamp: 0,
     target,
   }
 

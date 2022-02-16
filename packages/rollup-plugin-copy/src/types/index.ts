@@ -24,6 +24,14 @@ export interface ICopyTargetItem {
    */
   transformed: boolean
   /**
+   * This item is processing
+   */
+  copying: boolean
+  /**
+   * When the target pushed into the processing queue.
+   */
+  queueingTimestamp: number
+  /**
    * Source contents
    */
   contents?: string | ArrayBuffer

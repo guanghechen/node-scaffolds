@@ -14,40 +14,31 @@ export function copy(options: IOptions = {}): rollup.Plugin {
   const config = normalizeOptions(options)
   const { targets, copyOnce, hook, watchHook } = config
 
-  const watchingFiles: Set<string> = new Set()
-
   logger.shouldBeVerbose = config.verbose
   let copied = false
   let copyTargets: ReadonlyArray<ICopyTargetItem> | undefined
+
+  let isWatchMode = false
   let watcher: CopyWatcher | undefined
 
-  async function fullCopy(copyTargets: ReadonlyArray<ICopyTargetItem>): Promise<void> {
+  async function fullCopy(): Promise<void> {
+    if (copyTargets === undefined) copyTargets = await collectAndWatchingTargets(targets)
     for (const copyTarget of copyTargets) await copySingleItem(copyTarget)
     copied = true
     logger.verbose(copyTargets.length ? chalk.green('copied:') : chalk.yellow('no items to copy'))
   }
 
-  function addWatchFile(context: rollup.PluginContext, filepath: string): void {
-    const srcPath = path.resolve(filepath)
-    if (watchingFiles.has(srcPath)) return
-    watchingFiles.add(srcPath)
-    context.addWatchFile(srcPath)
-  }
-
   async function clean(): Promise<void> {
     await watcher?.close()
-    watchingFiles.clear()
   }
 
+  /**
+   * If we have performed the fullCopy once the watcher is created,
+   * then we shouldn't to run fullCopy any more.
+   */
   async function handleCopy(): Promise<void> {
-    // If we have performed the fullCopy once the watcher is created,
-    // then we shouldn't to run fullCopy any more.
     if (copied && (copyOnce || watcher)) return
-
-    if (copyTargets === undefined) {
-      copyTargets = await collectAndWatchingTargets(targets)
-    }
-    await fullCopy(copyTargets)
+    await fullCopy()
   }
 
   const plugin: rollup.Plugin = {
@@ -58,9 +49,20 @@ export function copy(options: IOptions = {}): rollup.Plugin {
       const context: rollup.PluginContext = this as any
 
       if (!copyOnce) {
-        copyTargets = await collectAndWatchingTargets(targets)
-        for (const target of copyTargets) addWatchFile(context, target.srcPath)
-        watcher?.watchTargets(targets).watchCopyTargets(copyTargets)
+        if (!isWatchMode) {
+          copyTargets = await collectAndWatchingTargets(targets)
+          for (const target of copyTargets) context.addWatchFile(target.srcPath)
+        }
+
+        if (isWatchMode) {
+          if (watcher === undefined) {
+            watcher = new CopyWatcher(path.resolve())
+            await fullCopy()
+          }
+
+          if (copyTargets === undefined) copyTargets = await collectAndWatchingTargets(targets)
+          watcher?.watchTargets(targets).watchCopyTargets(copyTargets)
+        }
       }
 
       // Merge handleCopy and collectAndWatchingTargets
@@ -69,9 +71,7 @@ export function copy(options: IOptions = {}): rollup.Plugin {
       }
     },
     watchChange: () => {
-      if (!copyOnce && watcher === undefined) {
-        watcher = new CopyWatcher(path.resolve())
-      }
+      isWatchMode = true
     },
     closeWatcher: clean,
   }

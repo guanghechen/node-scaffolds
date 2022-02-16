@@ -496,6 +496,59 @@ describe('Options', () => {
     })
   })
 
+  test('Watch', async () => {
+    const watcher = watch({
+      input: 'src/index.js',
+      output: {
+        dir: 'build',
+        format: 'esm',
+      },
+      plugins: [
+        copy({
+          targets: [{ src: 'src/assets/asset-1.js', dest: 'dist' }],
+          copyOnce: false,
+        }),
+      ],
+    })
+
+    await sleep(1000)
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
+
+    const originalContent = fs.readFileSync('src/assets/asset-1.js', encoding)
+    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(originalContent)
+
+    const newContent = originalContent + `\nexport const message = "waw";`
+    fs.writeFileSync('src/assets/asset-1.js', newContent, encoding)
+    await sleep(1000)
+    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(newContent)
+
+    // Recover src/assets/asset-1.js
+    fs.writeFileSync('src/assets/asset-1.js', originalContent, encoding)
+    await sleep(1000)
+    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(originalContent)
+
+    await fs.remove('dist')
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
+
+    await replace({
+      files: 'src/index.js',
+      from: 'hey',
+      to: 'ho',
+    })
+
+    await sleep(1000)
+
+    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
+
+    watcher.close()
+
+    await replace({
+      files: 'src/index.js',
+      from: 'ho',
+      to: 'hey',
+    })
+  })
+
   test('Flatten', async () => {
     await build({
       targets: [
