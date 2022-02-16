@@ -20,10 +20,15 @@ export function normalizeRename(rename: IOptionRename): IConfigRename {
 
 /**
  * Normalize element of `options.targets`.
+ *
+ * @param config
  * @param target
  * @returns
  */
-export function normalizeTarget(target: IOptionTarget): IConfigTarget | never {
+export function normalizeTarget(
+  config: Exclude<IConfig, 'targets'>,
+  target: IOptionTarget,
+): IConfigTarget | never {
   if (!isPlainObject(target)) {
     throw new Error(`${stringify(target)} target must be an object`)
   }
@@ -45,13 +50,19 @@ export function normalizeTarget(target: IOptionTarget): IConfigTarget | never {
     dest: Array.isArray(dest) ? dest : [dest],
     rename: rename ? normalizeRename(rename) : undefined,
     transform: target.transform,
-    copyOnce: target.copyOnce,
-    flatten: target.flatten,
-    verbose: target.verbose,
-    globbyOptions: target.globbyOptions ?? {},
+    copyOnce: target.copyOnce ?? config.copyOnce,
+    flatten: target.flatten ?? config.flatten,
+    verbose: target.verbose ?? config.verbose,
+    globbyOptions: {
+      ...config.globbyOptions,
+      ...target.globbyOptions,
+    },
     fsExtraOptions: {
-      copy: target.fsExtraOptions?.copy ?? {},
-      outputFile: target.fsExtraOptions?.outputFile,
+      copy: {
+        ...config.fsExtraOptions.copy,
+        ...target.fsExtraOptions?.copy,
+      },
+      outputFile: target.fsExtraOptions?.outputFile ?? config.fsExtraOptions?.outputFile,
     },
   }
   return configTarget
@@ -70,7 +81,7 @@ export function normalizeOptions(options: IOptions): IConfig {
   } = options
 
   const config: IConfig = {
-    targets: targets ? targets.map(normalizeTarget) : [],
+    targets: [],
     copyOnce,
     flatten,
     verbose,
@@ -82,5 +93,6 @@ export function normalizeOptions(options: IOptions): IConfig {
       outputFile: fsExtraOptions.outputFile,
     },
   }
+  config.targets = targets ? targets.map(target => normalizeTarget(config, target)) : []
   return config
 }

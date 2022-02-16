@@ -4,31 +4,15 @@ import path from 'path'
 import type rollup from 'rollup'
 import type { ICopyTargetItem, IOptions } from './types'
 import { collectAndWatchingTargets, normalizeOptions } from './util'
+import { logger } from './util/logger'
 
 export function copy(options: IOptions = {}): rollup.Plugin {
   const config = normalizeOptions(options)
-  const {
-    targets,
-    copyOnce,
-    flatten,
-    hook,
-    watchHook,
-    verbose: shouldBeVerbose,
-    globbyOptions,
-    fsExtraOptions,
-  } = config
+  const { targets, copyOnce, flatten, hook, watchHook, globbyOptions, fsExtraOptions } = config
 
-  const log = {
-    // print verbose messages
-    verbose(message: string | (() => string)) {
-      if (!shouldBeVerbose) return
-      const details: string = typeof message === 'function' ? message() : message
-      console.log(details)
-    },
-  }
-
+  logger.shouldBeVerbose = config.verbose
   let copied = false
-  let copyTargets: ICopyTargetItem[] = []
+  let copyTargets: ReadonlyArray<ICopyTargetItem> = []
 
   /**
    * Do copy operation
@@ -38,7 +22,7 @@ export function copy(options: IOptions = {}): rollup.Plugin {
     if (copyOnce && copied) return
 
     for (const copyTarget of copyTargets) {
-      const { contents, dest, src, transformed } = copyTarget
+      const { contents, destPath: dest, srcPath: src, transformed } = copyTarget
 
       if (transformed) {
         await fs.outputFile(dest, contents, fsExtraOptions.outputFile)
@@ -46,7 +30,7 @@ export function copy(options: IOptions = {}): rollup.Plugin {
         await fs.copy(src, dest, fsExtraOptions.copy)
       }
 
-      log.verbose(() => {
+      logger.verbose(() => {
         const flagKeys: ReadonlyArray<keyof ICopyTargetItem> = ['renamed', 'transformed']
 
         const flags: string[] = flagKeys
@@ -60,9 +44,10 @@ export function copy(options: IOptions = {}): rollup.Plugin {
     }
 
     copied = true
-    log.verbose(copyTargets.length ? chalk.green('copied:') : chalk.yellow('no items to copy'))
+    logger.verbose(copyTargets.length ? chalk.green('copied:') : chalk.yellow('no items to copy'))
   }
 
+  const srcMap: Map<string, ICopyTargetItem> = new Map()
   const plugin: rollup.Plugin = {
     name: 'copy',
     async [watchHook](...args: unknown[]) {
@@ -72,14 +57,13 @@ export function copy(options: IOptions = {}): rollup.Plugin {
       if (!copyOnce || !copied) {
         copyTargets = await collectAndWatchingTargets(targets, flatten, globbyOptions)
 
-        const srcMap: Map<string, ICopyTargetItem> = new Map()
         for (const target of copyTargets) {
-          srcMap.set(target.src, target)
+          srcMap.set(target.srcPath, target)
         }
 
         // Watching source files
         for (const target of copyTargets) {
-          const srcPath = path.resolve(target.src)
+          const srcPath = path.resolve(target.srcPath)
           context.addWatchFile(srcPath)
         }
       }

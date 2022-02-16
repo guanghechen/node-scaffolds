@@ -64,19 +64,16 @@ export interface IConfigTarget {
   transform?: IConfigTransform
   /**
    * Copy items once. Useful in watch mode
-   * @default false
    */
-  copyOnce?: boolean
+  copyOnce: boolean
   /**
    * Remove the directory structure of copied files.
-   * @default true
    */
-  flatten?: boolean
+  flatten: boolean
   /**
    * Output copied items to console.
-   * @default true
    */
-  verbose?: boolean
+  verbose: boolean
   /**
    * Default options of 'globby'.
    */

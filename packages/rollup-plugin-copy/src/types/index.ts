@@ -1,3 +1,5 @@
+import type { IConfigTarget } from './config'
+
 export * from './config'
 export * from './option'
 
@@ -8,11 +10,11 @@ export interface ICopyTargetItem {
   /**
    * Source filepath.
    */
-  src: string
+  srcPath: string
   /**
    * Target filepath.
    */
-  dest: string
+  destPath: string
   /**
    * Renamed
    */
@@ -25,4 +27,8 @@ export interface ICopyTargetItem {
    * Source contents
    */
   contents?: string | ArrayBuffer
+  /**
+   * Related target item.
+   */
+  target: Readonly<IConfigTarget>
 }

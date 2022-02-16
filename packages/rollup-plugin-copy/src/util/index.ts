@@ -3,63 +3,45 @@ import type { GlobbyOptions } from 'globby'
 import globby from 'globby'
 import path from 'path'
 import type { IConfigRename, IConfigTarget, IConfigTransform, ICopyTargetItem } from '../types'
-import { isFile } from './common'
+import { isFile, renameTarget } from './common'
 
 export * from './common'
 export * from './option'
 
 /**
- * Calc new name of target filepath
- * @param targetFilePath
- * @param rename
- */
-export function renameTarget(
-  targetFilePath: string,
-  rename: IConfigRename | undefined,
-  srcPath: string,
-): string {
-  const parsedPath = path.parse(targetFilePath)
-  return rename
-    ? rename(parsedPath.name, parsedPath.ext.replace(/^(\.)?/, ''), srcPath)
-    : targetFilePath
-}
-
-/**
  * Generate copy target item
  *
- * @param src
+ * @param srcPattern
+ * @param srcPath
  * @param dest
  * @param options
  */
 export async function generateCopyTarget(
-  src: string,
+  srcPath: string,
   dest: string,
-  options: {
-    flatten: boolean
-    rename?: IConfigRename
-    transform?: IConfigTransform
-  },
+  target: Readonly<IConfigTarget>,
 ): Promise<ICopyTargetItem> {
-  const { flatten, rename, transform } = options
-  if (transform != null && !(await isFile(src))) {
-    throw new Error(`"transform" option works only on files: '${src}' must be a file`)
+  const { flatten, rename, transform } = target
+  if (transform != null && !(await isFile(srcPath))) {
+    throw new Error(`"transform" option works only on files: '${srcPath}' must be a file`)
   }
 
-  const { base, dir } = path.parse(src)
+  const { base, dir } = path.parse(srcPath)
   const destinationFolder =
     flatten || (!flatten && !dir) ? dest : dir.replace(dir.split('/')[0], dest)
 
-  const destFilePath = path.join(destinationFolder, renameTarget(base, rename, src))
+  const destFilePath = path.join(destinationFolder, renameTarget(base, rename, srcPath))
   const result: ICopyTargetItem = {
-    src,
-    dest: destFilePath,
-    renamed: Boolean(rename),
+    srcPath,
+    destPath: destFilePath,
+    renamed: !!rename,
     transformed: false,
+    target,
   }
 
   if (transform) {
-    const contents = await fs.readFile(src)
-    result.contents = await transform(contents, src, destFilePath)
+    const contents = await fs.readFile(srcPath)
+    result.contents = await transform(contents, srcPath, destFilePath)
     result.transformed = true
   }
   return result
@@ -85,14 +67,13 @@ export async function collectAndWatchingTargets(
     })
 
     if (matchedPaths.length) {
-      const options = { flatten, rename, transform }
       for (const matchedPath of matchedPaths) {
         const destinations: string[] = dest
         for (const destination of destinations) {
           const copyTarget: ICopyTargetItem = await generateCopyTarget(
             matchedPath,
             destination,
-            options,
+            target,
           )
           copyTargets.push(copyTarget)
         }
