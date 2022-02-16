@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/option-helper",
-  "version": "1.8.6",
+  "version": "1.9.0-alpha.0",
   "description": "a collection of utility functions for processing options",
   "author": {
     "name": "guanghechen",
@@ -46,6 +46,6 @@
     "upper-case": "^2.0.1"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config": "^1.8.6"
+    "@guanghechen/rollup-config": "^1.9.0-alpha.0"
   }
 }
