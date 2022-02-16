@@ -292,9 +292,34 @@ copy({
 })
 ```
 
-All other options are passed to packages, used inside:
-  - [globby](https://github.com/sindresorhus/globby)
-  - [fs-extra copy function](https://github.com/jprichardson/node-fs-extra/blob/7.0.0/docs/copy.md)
+### globbyOptions
+
+See [globby](https://github.com/sindresorhus/globby)
+
+```js
+copy({
+  targets: [{ src: 'src/assets/**/*.js', dest: 'dist' }],
+  globbyOptions: {
+    ignore: ['**/asset-1.js'],
+  },
+})
+```
+
+### fsExtraOptions
+
+See [fs-extra copy function](https://github.com/jprichardson/node-fs-extra/blob/7.0.0/docs/copy.md)
+
+```js
+copy({
+  targets: [{ src: 'src/assets/**/*.js', dest: 'dist' }],
+  fsExtraOptions: {
+    copy: {} // Options of 'fs-extra'.copy
+    outputFile: { // Options of 'fs-extra'.outputFile
+      encoding: 'utf-8'
+    }
+  }
+})
+```
 
 ## Thanks Original Authors
 
