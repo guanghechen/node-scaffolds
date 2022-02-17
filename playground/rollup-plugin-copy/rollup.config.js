@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 // eslint-disable-next-line import/no-extraneous-dependencies
 import copy from '@guanghechen/rollup-plugin-copy'
 
@@ -15,6 +16,10 @@ export default {
         {
           src: 'assets/data/*.json',
           dest: 'dist/packs',
+          rename: name => `${name}.txt`,
+          transform: async function (source) {
+            return 'Author: guanghechen\n' + source.toString()
+          },
         },
       ],
     }),
