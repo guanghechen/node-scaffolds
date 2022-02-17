@@ -1,5 +1,27 @@
 # Changelog
 
+<a name="1.9.0"></a>
+## 1.9.0 (2022-02-17)
+
+### Changed
+
+- 🍱 asset: update playground/rollup-plugin-copy [[9347501](https://github.com/guanghechen/node-scaffolds/commit/9347501a9f5e33602acf3a789275e94dcffd636d)]
+- 🎨 imprvoe: set stabilityThreshold for awaitWriteFinish option [[a13c046](https://github.com/guanghechen/node-scaffolds/commit/a13c04668c590b6301b2f93ec780a9e486fde95f)]
+- 🎨 improve: retry if the read operation is failed &amp; update tests [[d111446](https://github.com/guanghechen/node-scaffolds/commit/d11144684f22b14946d8920e5f2fed7823a915b1)]
+- 🍱 asset: add playground for rollup-plugin-copy [[2fdb86e](https://github.com/guanghechen/node-scaffolds/commit/2fdb86e6b7c347d73a16a713dcfdac6d6bc18ba7)]
+
+### Fixed
+
+- 🐛 fix([#1](https://github.com/guanghechen/node-scaffolds/issues/1)): wait write finish before trying to read [[f5133f5](https://github.com/guanghechen/node-scaffolds/commit/f5133f5098791c6e28e3b0ed51d66c4ac1e8597d)]
+- 🐛 fix(#issue-1): transform is not re-trigered [[334551d](https://github.com/guanghechen/node-scaffolds/commit/334551d75ab101a9dd48bff4d001dd4675da2c23)]
+- 🐛 fix: fix weird message printing [[12159ba](https://github.com/guanghechen/node-scaffolds/commit/12159baaef188c9086610865c3c4c08893dd8542)]
+
+### Miscellaneous
+
+- 📝 docs: update README [[0cb4b78](https://github.com/guanghechen/node-scaffolds/commit/0cb4b7883d629d45a75b0c4a18be44d055f7e119)]
+- 📝 docs: update CHANGELOG [[a7e4fb7](https://github.com/guanghechen/node-scaffolds/commit/a7e4fb71ec59df9699c9ec19420b54ec252f0b6d)]
+
+
 <a name="1.9.0-alpha.0"></a>
 ## 1.9.0-alpha.0 (2022-02-16)
 
