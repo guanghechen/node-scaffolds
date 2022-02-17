@@ -37,16 +37,11 @@
     "update:lock": "yarn-deduplicate"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "playground/*"
   ],
   "devDependencies": {
     "@babel/core": "7.16.7",
-    "@guanghechen/eslint-config": "*",
-    "@guanghechen/eslint-config-jsx": "*",
-    "@guanghechen/eslint-config-ts": "*",
-    "@guanghechen/jest-config": "*",
-    "@guanghechen/rollup-config": "*",
-    "@guanghechen/rollup-config-cli": "*",
     "@types/command-exists": "^1.2.0",
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "27.4.0",

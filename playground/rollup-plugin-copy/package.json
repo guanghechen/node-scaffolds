@@ -1,0 +1,26 @@
+{
+  "name": "@guanghechen-playground/rollup-plugin-copy",
+  "version": "0.0.0",
+  "private": true,
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/guanghechen.git",
+    "directory": "playground/rollup-plugin-copy"
+  },
+  "homepage": "https://github.com/guanghechen/guanghechen/tree/main/playground/rollup-plugin-copy#readme",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "package.json"
+  ],
+  "scripts": {
+    "watch": "rollup -c rollup.config.js -w",
+    "test": "echo 'no test needed.'"
+  }
+}

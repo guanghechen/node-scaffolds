@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { tsMonorepoConfig } = require('@guanghechen/jest-config')
 
 const baseConfig = tsMonorepoConfig(__dirname)

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import createRollupConfig from '@guanghechen/rollup-config-cli'
 import path from 'path'
 
