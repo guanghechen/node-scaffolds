@@ -3,23 +3,25 @@ import fs from 'fs-extra'
 import type { ICopyTargetItem } from '../types'
 import { logger } from './logger'
 
-const copyingQueue: Array<{ timestamp: number; item: ICopyTargetItem }> = []
-
 export async function copySingleItem(item: ICopyTargetItem): Promise<void> {
   if (item.copying) {
-    const timestamp: number = Date.now()
-    // eslint-disable-next-line no-param-reassign
-    item.queueingTimestamp = timestamp
-    copyingQueue.push({ timestamp, item })
+    enqueue(item)
     return
   }
 
   const { destPath, srcPath, target } = item
 
   if (target.transform) {
-    const rawContents = await fs.readFile(srcPath)
-    const contents = await target.transform(rawContents, srcPath, destPath)
-    await fs.outputFile(destPath, contents, target.fsExtraOptions.outputFile)
+    try {
+      const rawContents = await fs.readFile(srcPath)
+      const contents = await target.transform(rawContents, srcPath, destPath)
+      await fs.outputFile(destPath, contents, target.fsExtraOptions.outputFile)
+    } catch (error) {
+      console.error(error)
+      enqueue(item)
+      await consume()
+      return
+    }
   } else {
     await fs.copy(srcPath, destPath, target.fsExtraOptions.copy)
   }
@@ -34,6 +36,18 @@ export async function copySingleItem(item: ICopyTargetItem): Promise<void> {
     return message
   }, target.verbose)
 
+  await consume()
+}
+
+const copyingQueue: Array<{ timestamp: number; item: ICopyTargetItem }> = []
+function enqueue(item: ICopyTargetItem): void {
+  const timestamp: number = Date.now()
+  // eslint-disable-next-line no-param-reassign
+  item.queueingTimestamp = timestamp
+  copyingQueue.push({ timestamp, item })
+}
+
+async function consume(): Promise<void> {
   const nextItem = copyingQueue.shift()
   if (nextItem && nextItem.timestamp === nextItem.item.queueingTimestamp) {
     await copySingleItem(nextItem.item)

@@ -189,4 +189,4 @@ export type IOptionTransform = (
   content: string | ArrayBuffer,
   srcPath: string,
   dstPath: string,
-) => Promise<string | ArrayBuffer>
+) => string | ArrayBuffer | Promise<string | ArrayBuffer>

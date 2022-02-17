@@ -497,6 +497,9 @@ describe('Options', () => {
   })
 
   test('Watch', async () => {
+    const transform = (source: string | ArrayBuffer): string =>
+      'Author: guanghechen\n' + source.toString()
+
     const watcher = watch({
       input: 'src/index.js',
       output: {
@@ -505,7 +508,13 @@ describe('Options', () => {
       },
       plugins: [
         copy({
-          targets: [{ src: 'src/assets/asset-1.js', dest: 'dist' }],
+          targets: [
+            {
+              src: 'src/assets/asset-1.js',
+              dest: 'dist',
+              transform,
+            },
+          ],
           copyOnce: false,
         }),
       ],
@@ -515,17 +524,17 @@ describe('Options', () => {
     expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
 
     const originalContent = fs.readFileSync('src/assets/asset-1.js', encoding)
-    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(originalContent)
+    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(transform(originalContent))
 
     const newContent = originalContent + `\nexport const message = "waw";`
     fs.writeFileSync('src/assets/asset-1.js', newContent, encoding)
     await sleep(1000)
-    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(newContent)
+    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(transform(newContent))
 
     // Recover src/assets/asset-1.js
     fs.writeFileSync('src/assets/asset-1.js', originalContent, encoding)
-    await sleep(1000)
-    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(originalContent)
+    await sleep(3000)
+    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(transform(originalContent))
 
     await fs.remove('dist')
     expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
@@ -547,7 +556,7 @@ describe('Options', () => {
       from: 'ho',
       to: 'hey',
     })
-  })
+  }, 10000)
 
   test('Flatten', async () => {
     await build({
