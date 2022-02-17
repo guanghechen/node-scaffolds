@@ -25,6 +25,8 @@ export class CopyWatcher {
     const watcher: chokidar.FSWatcher = chokidar.watch(workspace, {
       cwd: workspace,
       ignoreInitial: true,
+      // See https://stackoverflow.com/a/65044648
+      awaitWriteFinish: true,
     })
 
     watcher.on('all', (_event, filepath): void => {
