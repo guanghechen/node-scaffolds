@@ -26,7 +26,9 @@ export class CopyWatcher {
       cwd: workspace,
       ignoreInitial: true,
       // See https://stackoverflow.com/a/65044648
-      awaitWriteFinish: true,
+      awaitWriteFinish: {
+        stabilityThreshold: 500,
+      },
     })
 
     watcher.on('all', (_event, filepath): void => {
