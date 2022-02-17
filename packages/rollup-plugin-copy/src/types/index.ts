@@ -20,10 +20,6 @@ export interface ICopyTargetItem {
    */
   renamed: boolean
   /**
-   * Transformed
-   */
-  transformed: boolean
-  /**
    * This item is processing
    */
   copying: boolean
@@ -31,10 +27,6 @@ export interface ICopyTargetItem {
    * When the target pushed into the processing queue.
    */
   queueingTimestamp: number
-  /**
-   * Source contents
-   */
-  contents?: string | ArrayBuffer
   /**
    * Related target item.
    */

@@ -66,16 +66,9 @@ export async function generateCopyTarget(
     srcPath,
     destPath: destFilePath,
     renamed: oldFileName !== newFileName,
-    transformed: false,
     copying: false,
     queueingTimestamp: 0,
     target,
-  }
-
-  if (transform) {
-    const contents = await fs.readFile(srcPath)
-    result.contents = await transform(contents, srcPath, destFilePath)
-    result.transformed = true
   }
   return result
 }
