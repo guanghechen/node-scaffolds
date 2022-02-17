@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/file-helper",
-  "version": "1.9.0-alpha.0",
+  "version": "1.9.0",
   "description": "File helper",
   "author": {
     "name": "guanghechen",
@@ -40,10 +40,10 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/invariant": "^1.9.0-alpha.0",
+    "@guanghechen/invariant": "^1.9.0",
     "fs-extra": "^10.0.0"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config": "^1.9.0-alpha.0"
+    "@guanghechen/rollup-config": "^1.9.0"
   }
 }
