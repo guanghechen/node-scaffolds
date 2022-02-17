@@ -23,9 +23,13 @@ export function copy(options: IOptions = {}): rollup.Plugin {
 
   async function fullCopy(): Promise<void> {
     if (copyTargets === undefined) copyTargets = await collectAndWatchingTargets(targets)
-    for (const copyTarget of copyTargets) await copySingleItem(copyTarget)
+    if (copyTargets.length) {
+      logger.verbose(chalk.green('copied:'))
+      for (const copyTarget of copyTargets) await copySingleItem(copyTarget)
+    } else {
+      logger.verbose(chalk.yellow('no items to copy'))
+    }
     copied = true
-    logger.verbose(copyTargets.length ? chalk.green('copied:') : chalk.yellow('no items to copy'))
   }
 
   async function clean(): Promise<void> {

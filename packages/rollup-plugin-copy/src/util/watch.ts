@@ -1,7 +1,9 @@
+import chalk from 'chalk'
 import chokidar from 'chokidar'
 import path from 'path'
 import type { IConfigTarget, ICopyTargetItem } from '../types'
 import { copySingleItem } from './copy'
+import { logger } from './logger'
 
 export class CopyWatcher {
   public readonly resolvePath: (filepath: string) => string
@@ -9,6 +11,7 @@ export class CopyWatcher {
   protected readonly watchedPatterns: Set<string[]>
   protected readonly watcher: chokidar.FSWatcher
   protected readonly workspace: string
+  protected copying: boolean
   protected _isClosed: boolean
 
   constructor(workspace: string) {
@@ -24,11 +27,18 @@ export class CopyWatcher {
       ignoreInitial: true,
     })
 
-    watcher.on('all', function (_event, filepath) {
+    watcher.on('all', (_event, filepath): void => {
       const srcPath = resolvePath(filepath)
       const item = srcMap.get(srcPath)
       if (item) {
-        void copySingleItem(item)
+        if (!this.copying) {
+          logger.verbose(chalk.green('copied:'))
+        }
+
+        this.copying = true
+        void copySingleItem(item).finally(() => {
+          this.copying = false
+        })
       }
     })
 
@@ -38,6 +48,7 @@ export class CopyWatcher {
     this.watcher = watcher
     this.watchedPatterns = new Set()
     this._isClosed = false
+    this.copying = false
   }
 
   public watchTargets(targets: ReadonlyArray<IConfigTarget>): this {
