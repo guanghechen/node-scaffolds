@@ -1,0 +1,6 @@
+{
+  "name": "carol",
+  "male": "female",
+  "age": 32,
+  "this file is being matched by a glob pattern, which results in it being put directly into the destination directory instead of preserving the directory structure": true
+}
