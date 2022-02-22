@@ -21,6 +21,14 @@ export default {
             return 'Author: guanghechen\n' + source.toString()
           },
         },
+        {
+          src: 'assets/data/some-folder',
+          dest: 'dist/packs',
+        },
+        {
+          src: 'assets/data/some/**/*.json',
+          dest: 'dist/packs',
+        },
       ],
     }),
   ],
