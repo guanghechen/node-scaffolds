@@ -33,10 +33,8 @@ export function isFileSync(filePath: string): boolean {
  * @returns
  */
 export function renameTarget(oldFileName: string, srcPath: string, rename?: IConfigRename): string {
-  const parsedPath = path.parse(oldFileName)
-  return rename
-    ? rename(parsedPath.name, parsedPath.ext.replace(/^(\.)?/, ''), srcPath)
-    : oldFileName
+  const { name, ext } = path.parse(oldFileName)
+  return rename ? rename(name, ext.replace(/^(\.)?/, ''), srcPath) : oldFileName
 }
 
 /**
@@ -62,10 +60,11 @@ export function generateCopyTarget(
   }
 
   const { base: oldFileName, dir } = path.parse(srcPath)
-  const destinationFolder =
-    flatten || (!flatten && !dir) ? resolvePath(dest, dir) : dir.replace(/^([^/\\])+/, dest)
+  const destinationFolder = flatten
+    ? path.join(dest, dir)
+    : relativePath(workspace, path.dirname(filepath)).replace(/^([^/\\]+)?/, dest)
   const newFileName: string = renameTarget(oldFileName, srcPath, rename)
-  const destFilePath = path.join(destinationFolder, newFileName)
+  const destFilePath = resolvePath(workspace, destinationFolder, newFileName)
   const result: ICopyTargetItem = {
     srcPath: filepath,
     destPath: destFilePath,
@@ -92,6 +91,7 @@ export function collectCopyTargets(
   targets: ReadonlyArray<IConfigTarget>,
 ): ICopyTargetItem[] {
   const results: ICopyTargetItem[] = []
+  const duplicated: Set<string> = new Set<string>()
   for (const target of targets) {
     if (isMatch(workspace, srcPath, target.watchPatterns)) {
       for (const destination of target.dest) {
@@ -101,6 +101,9 @@ export function collectCopyTargets(
           destination,
           target,
         )
+
+        if (duplicated.has(copyTarget.destPath)) continue
+        duplicated.add(copyTarget.destPath)
         results.push(copyTarget)
       }
     }

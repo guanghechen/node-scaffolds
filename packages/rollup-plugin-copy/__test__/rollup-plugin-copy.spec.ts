@@ -295,8 +295,8 @@ describe('Copy', () => {
     expect(await readFile('dist/scss-2.scss')).toEqual(
       expect.not.stringContaining('background-color'),
     )
-    expect(fs.pathExistsSync('dist/scss-3.scss')).toBe(true)
-    expect(await readFile('dist/scss-3.scss')).toEqual(
+    expect(fs.pathExistsSync('dist/nested/scss-3.scss')).toBe(true)
+    expect(await readFile('dist/nested/scss-3.scss')).toEqual(
       expect.not.stringContaining('background-color'),
     )
     expect(fs.pathExistsSync('dist/css/css-1.css')).toBe(true)

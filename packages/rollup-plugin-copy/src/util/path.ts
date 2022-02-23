@@ -8,8 +8,8 @@ import path from 'path'
  * @param srcPath
  * @returns
  */
-export const resolvePath = (workspace: string, srcPath: string): string => {
-  const filepath = path.resolve(workspace, srcPath)
+export const resolvePath = (workspace: string, ...srcPath: string[]): string => {
+  const filepath = path.resolve(workspace, ...srcPath)
   return filepath
 }
 
