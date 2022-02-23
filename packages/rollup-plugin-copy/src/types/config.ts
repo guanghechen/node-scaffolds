@@ -91,6 +91,6 @@ export interface IConfigTarget {
   }
 }
 
-export type IConfigRename = Exclude<IOptionRename, string>
+export type IConfigRename = IOptionRename
 
 export type IConfigTransform = IOptionTransform

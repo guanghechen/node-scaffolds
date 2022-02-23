@@ -2,8 +2,14 @@ import fs from 'fs-extra'
 import globby from 'globby'
 import path from 'path'
 import util from 'util'
-import type { IConfigRename, IConfigTarget, ICopyTargetItem } from '../types'
-import { findExpandedPath, isMatch, relativePath, resolvePath } from './path'
+import type { IConfigTarget, ICopyTargetItem } from '../types'
+import {
+  findEarliestAncestralDirpath,
+  findExpandedFilepath,
+  isMatch,
+  relativePath,
+  resolvePath,
+} from './path'
 
 export { isPlainObject } from 'is-plain-object'
 
@@ -25,19 +31,6 @@ export function isFileSync(filePath: string): boolean {
 }
 
 /**
- * Calc new name of target filepath
- *
- * @param oldFileName
- * @param srcPath
- * @param rename
- * @returns
- */
-export function renameTarget(oldFileName: string, srcPath: string, rename?: IConfigRename): string {
-  const { name, ext } = path.parse(oldFileName)
-  return rename ? rename(name, ext.replace(/^(\.)?/, ''), srcPath) : oldFileName
-}
-
-/**
  * Generate copy target item
  *
  * @param workspace
@@ -51,8 +44,8 @@ export function generateCopyTarget(
   dest: string,
   target: Readonly<IConfigTarget>,
 ): ICopyTargetItem {
-  const { flatten, rename, transform } = target
-  const srcPath: string = findExpandedPath(workspace, filepath, target.watchPatterns)
+  const { flatten, rename, transform, watchPatterns: patterns } = target
+  const srcPath: string = findExpandedFilepath(workspace, filepath, patterns)
 
   if (transform && !isFileSync(filepath)) {
     const prettierPath: string = relativePath(workspace, filepath)
@@ -63,17 +56,41 @@ export function generateCopyTarget(
   const destinationFolder = flatten
     ? path.join(dest, dir)
     : relativePath(workspace, path.dirname(filepath)).replace(/^([^/\\]+)?/, dest)
-  const newFileName: string = renameTarget(oldFileName, srcPath, rename)
-  const destFilePath = resolvePath(workspace, destinationFolder, newFileName)
+  const originalDestPath = resolvePath(workspace, destinationFolder, oldFileName)
+  const newDestFilePath = renameTarget(oldFileName, srcPath)
   const result: ICopyTargetItem = {
     srcPath: filepath,
-    destPath: destFilePath,
-    renamed: oldFileName !== newFileName,
+    destPath: newDestFilePath,
+    renamed: newDestFilePath !== originalDestPath,
     copying: false,
     queueingTimestamp: 0,
     target,
   }
   return result
+
+  /**
+   * Calc new name of target filepath
+   *
+   * @param oldFileName
+   * @param srcPath
+   * @returns
+   */
+  function renameTarget(oldFileName: string, srcPath: string): string {
+    if (!rename) return originalDestPath
+
+    if (typeof rename === 'string') {
+      const dirname: string = isFileSync(filepath) ? path.dirname(filepath) : filepath
+      const baseDirname: string | null = findEarliestAncestralDirpath(workspace, dirname, patterns)
+      if (baseDirname) return path.join(dest, srcPath.replace(baseDirname, rename))
+
+      const newFilename: string = rename
+      return resolvePath(workspace, destinationFolder, newFilename)
+    }
+
+    const { name, ext } = path.parse(oldFileName)
+    const newFilename: string = rename(name, ext.replace(/^(\.)?/, ''), srcPath)
+    return resolvePath(workspace, destinationFolder, newFilename)
+  }
 }
 
 /**
