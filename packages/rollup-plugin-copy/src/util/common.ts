@@ -3,7 +3,7 @@ import globby from 'globby'
 import path from 'path'
 import util from 'util'
 import type { IConfigRename, IConfigTarget, ICopyTargetItem } from '../types'
-import { relativePath } from './path'
+import { relativePath, resolvePath } from './path'
 
 export { isPlainObject } from 'is-plain-object'
 
@@ -56,12 +56,13 @@ export function generateCopyTarget(
 ): ICopyTargetItem {
   const { flatten, rename, transform } = target
   if (transform != null && !isFileSync(srcPath)) {
-    throw new Error(`"transform" option works only on files: '${srcPath}' must be a file`)
+    const filepath: string = relativePath(workspace, srcPath)
+    throw new Error(`"transform" option works only on files: '${filepath}' must be a file`)
   }
 
   const { base: oldFileName, dir: _dir } = path.parse(srcPath)
-  const dir = relativePath(workspace, _dir)
-  const destinationFolder = flatten ? dest : dir.replace(/^([^/\\]+)/, dest)
+  const dir = relativePath(target.srcStructureRoot, _dir)
+  const destinationFolder = flatten ? dest : resolvePath(dest, dir)
   const newFileName: string = renameTarget(oldFileName, rename, srcPath)
   const destFilePath = path.join(destinationFolder, newFileName)
   const result: ICopyTargetItem = {
@@ -123,6 +124,7 @@ export async function collectAndWatchingTargets(
     const { dest, src, globbyOptions } = target
 
     const matchedPaths: string[] = await globby(src, {
+      absolute: true,
       expandDirectories: false,
       onlyFiles: false,
       ...globbyOptions,

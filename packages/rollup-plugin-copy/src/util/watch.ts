@@ -40,9 +40,11 @@ export class CopyWatcher {
         }
 
         this.copying = true
-        void Promise.allSettled<void>(items.map(item => copySingleItem(item))).finally(() => {
-          this.copying = false
-        })
+        void Promise.allSettled<void>(items.map(item => copySingleItem(workspace, item))).finally(
+          () => {
+            this.copying = false
+          },
+        )
       }
     })
 

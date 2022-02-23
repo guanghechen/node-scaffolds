@@ -11,9 +11,9 @@ import {
 } from './util'
 
 export function copy(options: IOptions = {}): rollup.Plugin {
-  const config = normalizeOptions(options)
-  const { targets, copyOnce, hook, watchHook } = config
   const workspace: string = path.resolve()
+  const config = normalizeOptions(workspace, options)
+  const { targets, copyOnce, hook, watchHook } = config
 
   logger.shouldBeVerbose = config.verbose
   let copied = false
@@ -26,7 +26,7 @@ export function copy(options: IOptions = {}): rollup.Plugin {
     if (copyTargets === undefined) copyTargets = await collectAndWatchingTargets(workspace, targets)
     if (copyTargets.length) {
       logger.verbose(chalk.green('copied:'))
-      for (const copyTarget of copyTargets) await copySingleItem(copyTarget)
+      for (const copyTarget of copyTargets) await copySingleItem(workspace, copyTarget)
     } else {
       logger.verbose(chalk.yellow('no items to copy'))
     }

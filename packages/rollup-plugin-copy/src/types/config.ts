@@ -59,6 +59,10 @@ export interface IConfigTarget {
    */
   dest: string[]
   /**
+   * To preserve the structure of src to destination, we need a relative root path for the source files.
+   */
+  srcStructureRoot: string
+  /**
    * Specify the rule to change destination file or folder name.
    */
   rename?: IConfigRename
