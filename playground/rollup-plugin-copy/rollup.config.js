@@ -14,7 +14,7 @@ export default {
       verbose: true,
       targets: [
         {
-          src: 'assets/data/*.json',
+          src: 'assets/data/guanghechen/*.json',
           dest: 'dist/packs',
           rename: name => `${name}.txt`,
           transform: async function (source) {
@@ -23,11 +23,13 @@ export default {
         },
         {
           src: 'assets/data/some-folder',
-          dest: 'dist/packs/some-folder',
+          dest: 'dist/packs',
         },
         {
           src: 'assets/data/some/**/*.json',
           dest: 'dist/packs',
+          srcStructure: 'assets/data',
+          flatten: false,
         },
       ],
     }),
