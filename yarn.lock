@@ -1600,6 +1600,11 @@
   resolved "https://registry.npmjs.org/@types/command-exists/-/command-exists-1.2.0.tgz#d97e0ed10097090e4ab0367ed425b0312fad86f3"
   integrity sha512-ugsxEJfsCuqMLSuCD4PIJkp5Uk2z6TCMRCgYVuhRo5cYQY3+1xXTQkSlPtkpGHuvWMjS2KTeVQXxkXRACMbM6A==
 
+"@types/dir-glob@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/@types/dir-glob/-/dir-glob-2.0.1.tgz#36da41b6ce0f21a8717cd7efe485e66ecac6c9ba"
+  integrity sha512-4LClJMcgR7UaV55YKFtb1EiRA/+rVKyTb1LAHjdstSrI6+3+qRLgXrjPEG2OzDAiAutDqLBnxqE5gJ3cx+Jiag==
+
 "@types/estree@*":
   version "0.0.50"
   resolved "https://registry.npmjs.org/@types/estree/-/estree-0.0.50.tgz#1e0caa9364d3fccd2931c3ed96fdbeaa5d4cca83"

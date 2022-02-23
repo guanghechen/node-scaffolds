@@ -1,3 +1,4 @@
+import dirGlob from 'dir-glob'
 import type {
   IConfig,
   IConfigRename,
@@ -45,8 +46,13 @@ export function normalizeTarget(
     )
   }
 
+  const targetSrc: string[] = Array.isArray(src) ? src : [src]
+  const targetSrcPattens: string[] = dirGlob
+    .sync(targetSrc)
+    .map(pattern => (/\/[*]{2}$/.test(pattern) ? pattern + '/*' : pattern))
   const configTarget: IConfigTarget = {
-    src: Array.isArray(src) ? src : [src],
+    src: targetSrc,
+    srcPatterns: targetSrcPattens,
     dest: Array.isArray(dest) ? dest : [dest],
     rename: rename ? normalizeRename(rename) : undefined,
     transform: target.transform,
