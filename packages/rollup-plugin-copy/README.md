@@ -127,6 +127,20 @@ Array of targets to copy. A target is an object with properties:
   ): Promise<string | ArrayBuffer>
   ```
 
+- **srcStructureRoot** (`string|undefined`): To preserve the structure of src to destination, we need a relative root path for the source files.
+  To enable it, you must set the `flatten` to `false`.
+
+- **copyOnce** (`boolean|undefined`): *Override the outer option.*
+
+- **flatten** (`boolean|undefined`): *Override the outer option.*
+
+- **verbose** (`boolean|undefined`): *Override the outer option.*
+
+- **globbyOptions** (`GlobbyOptions`): *Override the outer option.*
+
+- **fsExtraOptions** (options of `fs-extra`): *Override the outer option.*
+
+
 Each object should have **src** and **dest** properties, **rename** and **transform** are optional. [globby](https://github.com/sindresorhus/globby) is used inside, check it for [glob pattern](https://github.com/sindresorhus/globby#globbing-patterns) examples.
 
 #### File
@@ -285,9 +299,11 @@ Type: `boolean` | Default: `true`
 
 Remove the directory structure of copied files.
 
+It is recommended to specify the `srcStructureRoot` when the `flatten` set to `false`
+
 ```js
 copy({
-  targets: [{ src: 'assets/**/*', dest: 'dist/public' }],
+  targets: [{ src: 'assets/**/*', dest: 'dist/public', srcStructureRoot: 'assets' }],
   flatten: false
 })
 ```
