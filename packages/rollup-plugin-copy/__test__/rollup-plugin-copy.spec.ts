@@ -564,18 +564,15 @@ describe('Options', () => {
         {
           src: ['src/assets/asset-1.js', 'src/assets/asset-2.js'],
           dest: 'dist',
-          srcStructureRoot: 'src',
         },
         {
           src: 'src/**/*.css',
           dest: 'dist',
-          srcStructureRoot: 'src',
         },
         {
           src: '**/*.scss',
           dest: 'dist',
           rename: (name: string, extension: string) => `${name}-renamed.${extension}`,
-          srcStructureRoot: 'src',
         },
       ],
       flatten: false,
@@ -615,24 +612,5 @@ describe('Options', () => {
     })
 
     expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
-  })
-
-  test('preserve structure', async () => {
-    await build({
-      targets: [
-        {
-          src: ['src/assets/**/*.scss', 'src/assets/**/*.css'],
-          dest: 'dist/styles',
-          srcStructureRoot: 'src/assets',
-          flatten: false,
-        },
-      ],
-    })
-
-    expect(fs.pathExistsSync('dist/styles/css/css-1.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/styles/css/css-2.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/styles/scss/scss-1.scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/styles/scss/scss-2.scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/styles/scss/nested/scss-3.scss')).toBe(true)
   })
 })

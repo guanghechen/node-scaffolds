@@ -12,7 +12,7 @@ import {
 
 export function copy(options: IOptions = {}): rollup.Plugin {
   const workspace: string = path.resolve()
-  const config = normalizeOptions(workspace, options)
+  const config = normalizeOptions(options)
   const { targets, copyOnce, hook, watchHook } = config
 
   logger.shouldBeVerbose = config.verbose

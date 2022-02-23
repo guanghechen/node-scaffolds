@@ -8,7 +8,6 @@ import type {
   IOptions,
 } from '../types'
 import { isPlainObject, stringify } from './common'
-import { resolvePath } from './path'
 
 /**
  * Normalize `options.targets.$.rename`.
@@ -23,13 +22,11 @@ export function normalizeRename(rename: IOptionRename): IConfigRename {
 /**
  * Normalize element of `options.targets`.
  *
- * @param workspace
  * @param config
  * @param target
  * @returns
  */
 export function normalizeTarget(
-  workspace: string,
   config: Exclude<IConfig, 'targets'>,
   target: IOptionTarget,
 ): IConfigTarget | never {
@@ -60,7 +57,6 @@ export function normalizeTarget(
     src: targetSrc,
     watchPatterns,
     dest: Array.isArray(dest) ? dest : [dest],
-    srcStructureRoot: resolvePath(workspace, target.srcStructureRoot ?? workspace),
     rename: rename ? normalizeRename(rename) : undefined,
     transform: target.transform,
     copyOnce: target.copyOnce ?? config.copyOnce,
@@ -84,11 +80,10 @@ export function normalizeTarget(
 /**
  * Normalize plugin options.
  *
- * @param workspace
  * @param options
  * @returns
  */
-export function normalizeOptions(workspace: string, options: IOptions): IConfig {
+export function normalizeOptions(options: IOptions): IConfig {
   const {
     targets,
     copyOnce = false,
@@ -113,6 +108,6 @@ export function normalizeOptions(workspace: string, options: IOptions): IConfig 
       outputFile: fsExtraOptions.outputFile,
     },
   }
-  config.targets = targets ? targets.map(target => normalizeTarget(workspace, config, target)) : []
+  config.targets = targets ? targets.map(target => normalizeTarget(config, target)) : []
   return config
 }

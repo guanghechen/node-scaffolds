@@ -136,14 +136,6 @@ export interface IOptionTarget {
    */
   dest: string | string[]
   /**
-   * To preserve the structure of src to destination, we need a relative root path for the source files.
-   *
-   * To enable this, you need set the `flatten` to false.
-   *
-   * @default <path.resolve()>
-   */
-  srcStructureRoot?: string
-  /**
    * Change destination file or folder name
    */
   rename?: IOptionRename

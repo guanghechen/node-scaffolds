@@ -121,12 +121,12 @@ export async function collectAndWatchingTargets(
 ): Promise<ICopyTargetItem[]> {
   const copyTargets: ICopyTargetItem[] = []
   for (const target of targets) {
-    const { dest, watchPatterns, globbyOptions } = target
+    const { dest, src: patterns, globbyOptions } = target
 
-    const matchedPaths: string[] = await globby(watchPatterns, {
+    const matchedPaths: string[] = await globby(patterns, {
       absolute: true,
       expandDirectories: false,
-      onlyFiles: true,
+      onlyFiles: false,
       ...globbyOptions,
     })
 
