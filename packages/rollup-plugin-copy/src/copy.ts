@@ -63,9 +63,7 @@ export function copy(options: IOptions = {}): rollup.Plugin {
             watcher = new CopyWatcher(path.resolve())
             await fullCopy()
           }
-
-          if (copyTargets === undefined) copyTargets = await collectAndWatchingTargets(targets)
-          watcher?.watchTargets(targets).watchCopyTargets(copyTargets)
+          watcher?.watchTargets(targets)
         }
       }
 

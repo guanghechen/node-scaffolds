@@ -18,8 +18,8 @@ export function stringify(value: unknown): string {
  * Determine if it is a file
  * @param filePath
  */
-export async function isFile(filePath: string): Promise<boolean> {
-  const fileStats = await fs.stat(filePath)
+export function isFileSync(filePath: string): boolean {
+  const fileStats = fs.statSync(filePath)
   return fileStats.isFile()
 }
 
@@ -42,18 +42,17 @@ export function renameTarget(
 /**
  * Generate copy target item
  *
- * @param srcPattern
  * @param srcPath
  * @param dest
- * @param options
+ * @param target
  */
-export async function generateCopyTarget(
+export function generateCopyTarget(
   srcPath: string,
   dest: string,
   target: Readonly<IConfigTarget>,
-): Promise<ICopyTargetItem> {
+): ICopyTargetItem {
   const { flatten, rename, transform } = target
-  if (transform != null && !(await isFile(srcPath))) {
+  if (transform != null && !isFileSync(srcPath)) {
     throw new Error(`"transform" option works only on files: '${srcPath}' must be a file`)
   }
 
@@ -70,6 +69,31 @@ export async function generateCopyTarget(
     target,
   }
   return result
+}
+
+/**
+ * Collect copy target items.
+ *
+ * @param srcPath
+ * @param targets
+ * @param isMatch
+ * @returns
+ */
+export function collectCopyTargets(
+  srcPath: string,
+  targets: ReadonlyArray<IConfigTarget>,
+  isMatch: (filepath: string, patterns: string[]) => boolean,
+): ICopyTargetItem[] {
+  const results: ICopyTargetItem[] = []
+  for (const target of targets) {
+    if (isMatch(srcPath, target.src)) {
+      for (const destination of target.dest) {
+        const copyTarget: ICopyTargetItem = generateCopyTarget(srcPath, destination, target)
+        results.push(copyTarget)
+      }
+    }
+  }
+  return results
 }
 
 /**
@@ -92,11 +116,7 @@ export async function collectAndWatchingTargets(
       for (const matchedPath of matchedPaths) {
         const destinations: string[] = dest
         for (const destination of destinations) {
-          const copyTarget: ICopyTargetItem = await generateCopyTarget(
-            matchedPath,
-            destination,
-            target,
-          )
+          const copyTarget: ICopyTargetItem = generateCopyTarget(matchedPath, destination, target)
           copyTargets.push(copyTarget)
         }
       }
