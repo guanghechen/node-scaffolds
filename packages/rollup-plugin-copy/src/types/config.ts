@@ -51,9 +51,9 @@ export interface IConfigTarget {
    */
   src: string[]
   /**
-   * Source glob patterns.
+   * Watching glob patterns.
    */
-  srcPatterns: string[]
+  watchPatterns: string[]
   /**
    * Multiple destinations.
    */

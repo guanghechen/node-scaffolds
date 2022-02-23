@@ -47,12 +47,12 @@ export function normalizeTarget(
   }
 
   const targetSrc: string[] = Array.isArray(src) ? src : [src]
-  const targetSrcPattens: string[] = dirGlob
+  const watchPatterns: string[] = dirGlob
     .sync(targetSrc)
     .map(pattern => (/\/[*]{2}$/.test(pattern) ? pattern + '/*' : pattern))
   const configTarget: IConfigTarget = {
     src: targetSrc,
-    srcPatterns: targetSrcPattens,
+    watchPatterns,
     dest: Array.isArray(dest) ? dest : [dest],
     rename: rename ? normalizeRename(rename) : undefined,
     transform: target.transform,

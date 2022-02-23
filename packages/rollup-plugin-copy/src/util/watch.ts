@@ -58,10 +58,10 @@ export class CopyWatcher {
   public watchTargets(targets: ReadonlyArray<IConfigTarget>): this {
     if (this._isClosed) return this
     const { watcher, watchedPatterns } = this
-    for (const { srcPatterns } of targets) {
-      if (!watchedPatterns.has(srcPatterns)) {
-        watchedPatterns.add(srcPatterns)
-        watcher.add(srcPatterns)
+    for (const { watchPatterns } of targets) {
+      if (!watchedPatterns.has(watchPatterns)) {
+        watchedPatterns.add(watchPatterns)
+        watcher.add(watchPatterns)
       }
     }
     return this

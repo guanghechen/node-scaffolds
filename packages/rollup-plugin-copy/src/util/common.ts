@@ -58,7 +58,7 @@ export async function generateCopyTarget(
   }
 
   const { base: oldFileName, dir } = path.parse(srcPath)
-  const destinationFolder = flatten || (!flatten && !dir) ? dest : dir.replace(/^[^/\\]+/, dest)
+  const destinationFolder = flatten || (!flatten && !dir) ? dest : dir.replace(/^([^/\\]+)/, dest)
   const newFileName: string = renameTarget(oldFileName, rename, srcPath)
   const destFilePath = path.join(destinationFolder, newFileName)
   const result: ICopyTargetItem = {
@@ -80,9 +80,9 @@ export async function collectAndWatchingTargets(
 ): Promise<ICopyTargetItem[]> {
   const copyTargets: ICopyTargetItem[] = []
   for (const target of targets) {
-    const { dest, srcPatterns, globbyOptions } = target
+    const { dest, src, globbyOptions } = target
 
-    const matchedPaths: string[] = await globby(srcPatterns, {
+    const matchedPaths: string[] = await globby(src, {
       expandDirectories: false,
       onlyFiles: false,
       ...globbyOptions,
