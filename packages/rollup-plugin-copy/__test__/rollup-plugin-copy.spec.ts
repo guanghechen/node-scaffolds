@@ -3,7 +3,7 @@ import fs from 'fs-extra'
 import path from 'path'
 import { replaceInFile as replace } from 'replace-in-file'
 import { rollup, watch } from 'rollup'
-import type { CustomPluginOptions } from 'rollup'
+import type { IOptions } from '../src'
 import copy from '../src'
 
 const encoding = 'utf-8'
@@ -17,7 +17,7 @@ function readFile(filePath: string): Promise<string> {
   return fs.readFile(filePath, encoding)
 }
 
-async function build(pluginOptions?: CustomPluginOptions): Promise<void> {
+async function build(pluginOptions?: IOptions): Promise<void> {
   await rollup({
     input: 'src/index.js',
     plugins: [copy(pluginOptions)],
@@ -161,7 +161,7 @@ describe('Copy', () => {
   test('Throw if target is not an object', async () => {
     await expect(
       build({
-        targets: ['src/assets/asset-1.js'],
+        targets: ['src/assets/asset-1.js'] as any,
       }),
     ).rejects.toThrow("'src/assets/asset-1.js' target must be an object")
   })
@@ -169,7 +169,7 @@ describe('Copy', () => {
   test("Throw if target object doesn't have required properties", async () => {
     await expect(
       build({
-        targets: [{ src: 'src/assets/asset-1.js' }],
+        targets: [{ src: 'src/assets/asset-1.js' }] as any,
       }),
     ).rejects.toThrow(
       '{ src: \'src/assets/asset-1.js\' } target must have "src" and "dest" properties',
@@ -179,7 +179,7 @@ describe('Copy', () => {
   test('Throw if target object "rename" property is of wrong type', async () => {
     await expect(
       build({
-        targets: [{ src: 'src/assets/asset-1.js', dest: 'dist', rename: [] }],
+        targets: [{ src: 'src/assets/asset-1.js', dest: 'dist', rename: [] as any }],
       }),
     ).rejects.toThrow(
       "{ src: 'src/assets/asset-1.js', dest: 'dist', rename: [] }" +
@@ -564,15 +564,18 @@ describe('Options', () => {
         {
           src: ['src/assets/asset-1.js', 'src/assets/asset-2.js'],
           dest: 'dist',
+          srcStructureRoot: 'src',
         },
         {
           src: 'src/**/*.css',
           dest: 'dist',
+          srcStructureRoot: 'src',
         },
         {
           src: '**/*.scss',
           dest: 'dist',
           rename: (name: string, extension: string) => `${name}-renamed.${extension}`,
+          srcStructureRoot: 'src',
         },
       ],
       flatten: false,
@@ -612,5 +615,24 @@ describe('Options', () => {
     })
 
     expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
+  })
+
+  test('preserve structure', async () => {
+    await build({
+      targets: [
+        {
+          src: ['src/assets/**/*.scss', 'src/assets/**/*.css'],
+          dest: 'dist/styles',
+          srcStructureRoot: 'src/assets',
+          flatten: false,
+        },
+      ],
+    })
+
+    expect(fs.pathExistsSync('dist/styles/css/css-1.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/styles/css/css-2.css')).toBe(true)
+    expect(fs.pathExistsSync('dist/styles/scss/scss-1.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/styles/scss/scss-2.scss')).toBe(true)
+    expect(fs.pathExistsSync('dist/styles/scss/nested/scss-3.scss')).toBe(true)
   })
 })
