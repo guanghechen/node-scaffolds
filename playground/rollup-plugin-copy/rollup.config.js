@@ -23,7 +23,7 @@ export default {
         },
         {
           src: 'assets/data/some-folder',
-          dest: 'dist/packs',
+          dest: 'dist/packs/some-folder',
         },
         {
           src: 'assets/data/some/**/*.json',
