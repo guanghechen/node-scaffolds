@@ -1,5 +1,38 @@
 # Changelog
 
+<a name="1.9.1"></a>
+## 1.9.1 (2022-02-23)
+
+### Added
+
+- ✅ test([#2](https://github.com/guanghechen/node-scaffolds/issues/2)): update tests [[5eb2db5](https://github.com/guanghechen/node-scaffolds/commit/5eb2db5b9da30b0ffdfaf5ce92380a4b079460b2)]
+- ✨ feat([#2](https://github.com/guanghechen/node-scaffolds/issues/2)): support to preserve the source structure [[5c2e136](https://github.com/guanghechen/node-scaffolds/commit/5c2e136c793072c69c5ad7974640a754b4ed8b5b)]
+
+### Changed
+
+- 🍱 assets([#2](https://github.com/guanghechen/node-scaffolds/issues/2)): update demo assets [[2dd133c](https://github.com/guanghechen/node-scaffolds/commit/2dd133cd62cd64000277bbca00dfef7a80c905b8)]
+- 🍱 asset([#2](https://github.com/guanghechen/node-scaffolds/issues/2)): update assets [[8767395](https://github.com/guanghechen/node-scaffolds/commit/87673955d66de3a2fae44b421b0be7d7d8aed1b7)]
+- 🎨 improve: revert the new option &#x27;srcStructureRoot&#x27; [[71d0578](https://github.com/guanghechen/node-scaffolds/commit/71d05783f0a6b68eccc7d7f341b682cfa3e8c8fb)]
+- 🍱 asset: update rollup config [[c03ce24](https://github.com/guanghechen/node-scaffolds/commit/c03ce241d0ba28d0a0ed08dfba1f6ae13dd92488)]
+- 🍱 asset: additional examples in playground/rollup-plugin-copy [[0d1d720](https://github.com/guanghechen/node-scaffolds/commit/0d1d720bb3e1e93af4dfa2dadbddd9f8d6435a26)]
+
+### Fixed
+
+- 🐛 fix([#2](https://github.com/guanghechen/node-scaffolds/issues/2)): fix inconsistent behavior on build and watch mode when &#x27;rename&#x27; option is specified [[7d7038e](https://github.com/guanghechen/node-scaffolds/commit/7d7038e86d52ce162d5049fd882c76a8b06dc637)]
+- 🐛 fix([#2](https://github.com/guanghechen/node-scaffolds/issues/2)): fix failed tests [[11c86e4](https://github.com/guanghechen/node-scaffolds/commit/11c86e4a8454738093f6a7592055b7965dd71a69)]
+- 🐛 fix([#2](https://github.com/guanghechen/node-scaffolds/issues/2)): compatible with the previous behavior when &quot;flatten&quot; is set to &#x60;true&#x60; [[9868e95](https://github.com/guanghechen/node-scaffolds/commit/9868e955d5e35b68c210bcce14899b0743c0e38a)]
+- 🐛 fix([#2](https://github.com/guanghechen/node-scaffolds/issues/2)): fix weird dest filepath when &#x27;flatten&#x27; is set to false [[2ee79f7](https://github.com/guanghechen/node-scaffolds/commit/2ee79f7c8c4f269919447d923be2e78a877d183f)]
+- 🐛 fix([#2](https://github.com/guanghechen/node-scaffolds/issues/2)): use micromatch to match the glob patterns [[09e2237](https://github.com/guanghechen/node-scaffolds/commit/09e22379aff925afe4d27eb2164eb04fb4dc907c)]
+- 🐛 fix([#2](https://github.com/guanghechen/node-scaffolds/issues/2)): fix weird behaviors [[48ef3a1](https://github.com/guanghechen/node-scaffolds/commit/48ef3a1ab20a839aaddf143dba835d78720aee53)]
+- 🐛 fix([#2](https://github.com/guanghechen/node-scaffolds/issues/2)): try to expand the glob pattern to match the directories [[85e31e1](https://github.com/guanghechen/node-scaffolds/commit/85e31e10f9b8577c5560c2bcd75737061425898a)]
+
+### Miscellaneous
+
+- 📝 docs([#2](https://github.com/guanghechen/node-scaffolds/issues/2)): update README [[de9ad5c](https://github.com/guanghechen/node-scaffolds/commit/de9ad5c4dbbbb6f5d14efd90adc61a69a65fabea)]
+-  Merge pull request [#3](https://github.com/guanghechen/node-scaffolds/issues/3) from ghost91-/main [[8af8363](https://github.com/guanghechen/node-scaffolds/commit/8af836375375c78ed2fd736064ba09db9f800b38)]
+- 📝 docs: update CHANGELOG [[4107775](https://github.com/guanghechen/node-scaffolds/commit/4107775c719a9f7579998956718c923cfbbccb29)]
+
+
 <a name="1.9.0"></a>
 ## 1.9.0 (2022-02-17)
 
