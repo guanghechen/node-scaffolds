@@ -3,6 +3,7 @@ import globby from 'globby'
 import path from 'path'
 import util from 'util'
 import type { IConfigRename, IConfigTarget, ICopyTargetItem } from '../types'
+import { relativePath } from './path'
 
 export { isPlainObject } from 'is-plain-object'
 
@@ -42,11 +43,13 @@ export function renameTarget(
 /**
  * Generate copy target item
  *
+ * @param workspace
  * @param srcPath
  * @param dest
  * @param target
  */
 export function generateCopyTarget(
+  workspace: string,
   srcPath: string,
   dest: string,
   target: Readonly<IConfigTarget>,
@@ -56,8 +59,9 @@ export function generateCopyTarget(
     throw new Error(`"transform" option works only on files: '${srcPath}' must be a file`)
   }
 
-  const { base: oldFileName, dir } = path.parse(srcPath)
-  const destinationFolder = flatten || (!flatten && !dir) ? dest : dir.replace(/^([^/\\]+)/, dest)
+  const { base: oldFileName, dir: _dir } = path.parse(srcPath)
+  const dir = relativePath(workspace, _dir)
+  const destinationFolder = flatten ? dest : dir.replace(/^([^/\\]+)/, dest)
   const newFileName: string = renameTarget(oldFileName, rename, srcPath)
   const destFilePath = path.join(destinationFolder, newFileName)
   const result: ICopyTargetItem = {
@@ -74,21 +78,28 @@ export function generateCopyTarget(
 /**
  * Collect copy target items.
  *
+ * @param workspace
  * @param srcPath
  * @param targets
  * @param isMatch
  * @returns
  */
 export function collectCopyTargets(
+  workspace: string,
   srcPath: string,
   targets: ReadonlyArray<IConfigTarget>,
   isMatch: (filepath: string, patterns: string[]) => boolean,
 ): ICopyTargetItem[] {
   const results: ICopyTargetItem[] = []
   for (const target of targets) {
-    if (isMatch(srcPath, target.src)) {
+    if (isMatch(srcPath, target.watchPatterns)) {
       for (const destination of target.dest) {
-        const copyTarget: ICopyTargetItem = generateCopyTarget(srcPath, destination, target)
+        const copyTarget: ICopyTargetItem = generateCopyTarget(
+          workspace,
+          srcPath,
+          destination,
+          target,
+        )
         results.push(copyTarget)
       }
     }
@@ -98,8 +109,13 @@ export function collectCopyTargets(
 
 /**
  * Collect copyTargets
+ *
+ * @param workspace
+ * @param targets
+ * @returns
  */
 export async function collectAndWatchingTargets(
+  workspace: string,
   targets: ReadonlyArray<IConfigTarget>,
 ): Promise<ICopyTargetItem[]> {
   const copyTargets: ICopyTargetItem[] = []
@@ -116,7 +132,12 @@ export async function collectAndWatchingTargets(
       for (const matchedPath of matchedPaths) {
         const destinations: string[] = dest
         for (const destination of destinations) {
-          const copyTarget: ICopyTargetItem = generateCopyTarget(matchedPath, destination, target)
+          const copyTarget: ICopyTargetItem = generateCopyTarget(
+            workspace,
+            matchedPath,
+            destination,
+            target,
+          )
           copyTargets.push(copyTarget)
         }
       }

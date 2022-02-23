@@ -1,14 +1,13 @@
 import chalk from 'chalk'
 import chokidar from 'chokidar'
 import micromatch from 'micromatch'
-import path from 'path'
 import type { IConfigTarget, ICopyTargetItem } from '../types'
 import { collectCopyTargets } from './common'
 import { copySingleItem } from './copy'
 import { logger } from './logger'
+import { relativePath, resolvePath } from './path'
 
 export class CopyWatcher {
-  public readonly resolvePath: (filepath: string) => string
   public readonly isMatch: (filepath: string, patterns: string[]) => boolean
   protected readonly watchedPatterns: Set<string[]>
   protected readonly watcher: chokidar.FSWatcher
@@ -18,16 +17,9 @@ export class CopyWatcher {
   protected _isClosed: boolean
 
   constructor(workspace: string) {
-    const resolvePath = (filepath: string): string => {
-      const srcPath = path.resolve(workspace, filepath)
-      return srcPath
-    }
-
     const isMatch = (filepath: string, patterns: string[]): boolean => {
-      const src: string = filepath.startsWith(workspace)
-        ? filepath.slice(workspace.length).replace(/^[/\\]/, '')
-        : filepath
-      return micromatch.isMatch(src, patterns)
+      const srcPath: string = relativePath(workspace, filepath)
+      return micromatch.isMatch(srcPath, patterns, { dot: true })
     }
 
     const watcher: chokidar.FSWatcher = chokidar.watch(workspace, {
@@ -40,8 +32,8 @@ export class CopyWatcher {
     })
 
     watcher.on('all', (_event, filepath): void => {
-      const srcPath = resolvePath(filepath)
-      const items: ICopyTargetItem[] = collectCopyTargets(srcPath, this.targets, isMatch)
+      const srcPath = resolvePath(workspace, filepath)
+      const items: ICopyTargetItem[] = collectCopyTargets(workspace, srcPath, this.targets, isMatch)
       if (items.length > 0) {
         if (!this.copying) {
           logger.verbose(chalk.green('copied:'))
@@ -54,7 +46,6 @@ export class CopyWatcher {
       }
     })
 
-    this.resolvePath = resolvePath
     this.isMatch = isMatch
     this.workspace = workspace
     this.watcher = watcher

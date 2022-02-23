@@ -13,6 +13,7 @@ import {
 export function copy(options: IOptions = {}): rollup.Plugin {
   const config = normalizeOptions(options)
   const { targets, copyOnce, hook, watchHook } = config
+  const workspace: string = path.resolve()
 
   logger.shouldBeVerbose = config.verbose
   let copied = false
@@ -22,7 +23,7 @@ export function copy(options: IOptions = {}): rollup.Plugin {
   let watcher: CopyWatcher | undefined
 
   async function fullCopy(): Promise<void> {
-    if (copyTargets === undefined) copyTargets = await collectAndWatchingTargets(targets)
+    if (copyTargets === undefined) copyTargets = await collectAndWatchingTargets(workspace, targets)
     if (copyTargets.length) {
       logger.verbose(chalk.green('copied:'))
       for (const copyTarget of copyTargets) await copySingleItem(copyTarget)
@@ -54,7 +55,7 @@ export function copy(options: IOptions = {}): rollup.Plugin {
 
       if (!copyOnce) {
         if (!isWatchMode) {
-          copyTargets = await collectAndWatchingTargets(targets)
+          copyTargets = await collectAndWatchingTargets(workspace, targets)
           for (const target of copyTargets) context.addWatchFile(target.srcPath)
         }
 
