@@ -28,8 +28,6 @@ export default {
         {
           src: 'assets/data/some/**/*.json',
           dest: 'dist/packs',
-          srcStructure: 'assets/data',
-          flatten: false,
         },
       ],
     }),
