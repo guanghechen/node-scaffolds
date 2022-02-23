@@ -52,7 +52,10 @@ export function normalizeTarget(
   const targetSrc: string[] = Array.isArray(src) ? src : [src]
   const watchPatterns: string[] = dirGlob
     .sync(targetSrc)
-    .map(pattern => (/\/[*]{2}$/.test(pattern) ? pattern + '/*' : pattern))
+    .map(pattern => (/\/[*]{2}$/.test(pattern) ? [pattern, pattern + '/*'] : pattern))
+    .flat()
+    .filter((x, i, arr) => arr.findIndex(y => x === y) === i)
+
   const configTarget: IConfigTarget = {
     src: targetSrc,
     watchPatterns,

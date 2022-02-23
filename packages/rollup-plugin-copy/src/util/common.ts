@@ -3,7 +3,7 @@ import globby from 'globby'
 import path from 'path'
 import util from 'util'
 import type { IConfigRename, IConfigTarget, ICopyTargetItem } from '../types'
-import { relativePath, resolvePath } from './path'
+import { findExpandedPath, isMatch, relativePath, resolvePath } from './path'
 
 export { isPlainObject } from 'is-plain-object'
 
@@ -26,47 +26,48 @@ export function isFileSync(filePath: string): boolean {
 
 /**
  * Calc new name of target filepath
- * @param targetFilePath
+ *
+ * @param oldFileName
+ * @param srcPath
  * @param rename
+ * @returns
  */
-export function renameTarget(
-  targetFilePath: string,
-  rename: IConfigRename | undefined,
-  srcPath: string,
-): string {
-  const parsedPath = path.parse(targetFilePath)
+export function renameTarget(oldFileName: string, srcPath: string, rename?: IConfigRename): string {
+  const parsedPath = path.parse(oldFileName)
   return rename
     ? rename(parsedPath.name, parsedPath.ext.replace(/^(\.)?/, ''), srcPath)
-    : targetFilePath
+    : oldFileName
 }
 
 /**
  * Generate copy target item
  *
  * @param workspace
- * @param srcPath
+ * @param filepath
  * @param dest
  * @param target
  */
 export function generateCopyTarget(
   workspace: string,
-  srcPath: string,
+  filepath: string,
   dest: string,
   target: Readonly<IConfigTarget>,
 ): ICopyTargetItem {
   const { flatten, rename, transform } = target
-  if (transform != null && !isFileSync(srcPath)) {
-    const filepath: string = relativePath(workspace, srcPath)
-    throw new Error(`"transform" option works only on files: '${filepath}' must be a file`)
+  const srcPath: string = findExpandedPath(workspace, filepath, target.watchPatterns)
+
+  if (transform && !isFileSync(filepath)) {
+    const prettierPath: string = relativePath(workspace, filepath)
+    throw new Error(`"transform" option works only on files: '${prettierPath}' must be a file`)
   }
 
-  const { base: oldFileName, dir: _dir } = path.parse(srcPath)
-  const dir = relativePath(target.srcStructureRoot, _dir)
-  const destinationFolder = flatten ? dest : resolvePath(dest, dir)
-  const newFileName: string = renameTarget(oldFileName, rename, srcPath)
+  const { base: oldFileName, dir } = path.parse(srcPath)
+  const destinationFolder =
+    flatten || (!flatten && !dir) ? resolvePath(dest, dir) : dir.replace(/^([^/\\])+/, dest)
+  const newFileName: string = renameTarget(oldFileName, srcPath, rename)
   const destFilePath = path.join(destinationFolder, newFileName)
   const result: ICopyTargetItem = {
-    srcPath,
+    srcPath: filepath,
     destPath: destFilePath,
     renamed: oldFileName !== newFileName,
     copying: false,
@@ -89,11 +90,10 @@ export function collectCopyTargets(
   workspace: string,
   srcPath: string,
   targets: ReadonlyArray<IConfigTarget>,
-  isMatch: (filepath: string, patterns: string[]) => boolean,
 ): ICopyTargetItem[] {
   const results: ICopyTargetItem[] = []
   for (const target of targets) {
-    if (isMatch(srcPath, target.watchPatterns)) {
+    if (isMatch(workspace, srcPath, target.watchPatterns)) {
       for (const destination of target.dest) {
         const copyTarget: ICopyTargetItem = generateCopyTarget(
           workspace,
@@ -121,12 +121,12 @@ export async function collectAndWatchingTargets(
 ): Promise<ICopyTargetItem[]> {
   const copyTargets: ICopyTargetItem[] = []
   for (const target of targets) {
-    const { dest, src, globbyOptions } = target
+    const { dest, watchPatterns, globbyOptions } = target
 
-    const matchedPaths: string[] = await globby(src, {
+    const matchedPaths: string[] = await globby(watchPatterns, {
       absolute: true,
       expandDirectories: false,
-      onlyFiles: false,
+      onlyFiles: true,
       ...globbyOptions,
     })
 
