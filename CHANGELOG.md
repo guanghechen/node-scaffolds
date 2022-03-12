@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.9.2"></a>
+## 1.9.2 (2022-03-12)
+
+### Fixed
+
+- 🐛 fix: useReactiveRef should always pointer to the latest referred value [[b0a3491](https://github.com/guanghechen/node-scaffolds/commit/b0a349138652d5234a5b3c0f5abb5a0412997908)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[93ca6ab](https://github.com/guanghechen/node-scaffolds/commit/93ca6abb033bd816bdd979720bf28115e72fce9d)]
+
+
 <a name="1.9.1"></a>
 ## 1.9.1 (2022-02-23)
 
