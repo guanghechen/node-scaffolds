@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@guanghechen/invariant": "^1.9.2",
-    "fs-extra": "^10.0.0"
+    "fs-extra": "^10.0.1"
   },
   "devDependencies": {
     "@guanghechen/rollup-config": "^1.9.2"

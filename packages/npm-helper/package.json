@@ -34,6 +34,6 @@
   },
   "dependencies": {
     "@guanghechen/locate-helper": "^1.9.2",
-    "fs-extra": "^10.0.0"
+    "fs-extra": "^10.0.1"
   }
 }
