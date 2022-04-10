@@ -13,6 +13,10 @@ Array [
 exports[`dependency collectAllDependencies: monorepo2 1`] = `
 Array [
   "@babel/core",
+  "@ampproject/remapping",
+  "@jridgewell/trace-mapping",
+  "@jridgewell/resolve-uri",
+  "@jridgewell/sourcemap-codec",
   "@babel/code-frame",
   "@babel/highlight",
   "@babel/helper-validator-identifier",
@@ -49,7 +53,6 @@ Array [
   "@babel/parser",
   "@babel/traverse",
   "@babel/helper-function-name",
-  "@babel/helper-get-function-arity",
   "@babel/helper-hoist-variables",
   "debug",
   "ms",
@@ -60,7 +63,6 @@ Array [
   "safe-buffer",
   "gensync",
   "json5",
-  "minimist",
   "rollup",
   "fsevents",
 ]
