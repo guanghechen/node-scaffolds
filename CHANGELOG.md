@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="1.9.3"></a>
+## 1.9.3 (2022-04-10)
+
+### Added
+
+- ✅ test: update snapshots [[baf1f91](https://github.com/guanghechen/node-scaffolds/commit/baf1f91acd6c59fcc6a6fc7f374ccd5d159d5988)]
+
+### Changed
+
+- ⬆️ chore: ugprade dependencies [[6595312](https://github.com/guanghechen/node-scaffolds/commit/6595312b147b599bed60218bd783ff0de4265361)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[0110832](https://github.com/guanghechen/node-scaffolds/commit/011083208bf0cfa78d76a2847ab0008ba1f355a8)]
+
+
 <a name="1.9.2"></a>
 ## 1.9.2 (2022-03-12)
 
