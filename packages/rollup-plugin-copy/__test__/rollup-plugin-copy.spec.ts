@@ -487,7 +487,7 @@ describe('Options', () => {
 
     expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
 
-    watcher.close()
+    await watcher.close()
 
     await replace({
       files: 'src/index.js',
@@ -549,7 +549,7 @@ describe('Options', () => {
 
     expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
 
-    watcher.close()
+    await watcher.close()
 
     await replace({
       files: 'src/index.js',

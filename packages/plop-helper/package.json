@@ -42,7 +42,7 @@
     "@guanghechen/npm-helper": "^1.9.3",
     "@guanghechen/option-helper": "^1.9.3",
     "chalk": "^4.1.2",
-    "fs-extra": "^10.0.1",
+    "fs-extra": "^10.1.0",
     "minimist": "^1.2.6",
     "mock-stdin": "^1.0.0",
     "node-plop": "^0.26.3",

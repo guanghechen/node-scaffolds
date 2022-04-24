@@ -44,7 +44,7 @@
   "dependencies": {
     "@guanghechen/option-helper": "^1.9.3",
     "@types/reserved-words": "0.1.0",
-    "fs-extra": "^10.0.1",
+    "fs-extra": "^10.1.0",
     "reserved-words": "0.1.2"
   },
   "devDependencies": {

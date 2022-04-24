@@ -47,8 +47,7 @@ describe('creator', function () {
       username: string
       age: number
     }
-    type FP = AsyncFailureResponse
-    type As = AsyncActions<T, RP, SP, FP>
+    type As = AsyncActions<T, RP, SP>
 
     const creatorsList: Array<AsyncActionCreators<T, As>> = [
       createAsyncActionCreator('fetch-user'),
@@ -101,8 +100,7 @@ describe('reducer', function () {
     type T = typeof actionType
     type RP = string
     type SP = string
-    type FP = AsyncFailureResponse
-    type As = AsyncActions<T, RP, SP, FP>
+    type As = AsyncActions<T, RP, SP>
 
     const creators = createAsyncActionCreator<T, As>(actionType)
     const reducers: Array<AsyncActionReducer<S, T, As>> = [
