@@ -1,7 +1,7 @@
 import { ChalkLogger, VERBOSE } from '@guanghechen/chalk-logger'
 import { createLoggerMock } from '@guanghechen/jest-helper'
 import fs from 'fs-extra'
-import { desensitize, locateFixtures } from 'jest.setup'
+import { desensitize, locateFixtures } from 'jest.helper'
 import {
   collectAllFiles,
   collectAllFilesSync,

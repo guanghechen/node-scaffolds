@@ -1,6 +1,6 @@
 import { collectAllFilesSync } from '@guanghechen/file-helper'
 import fs from 'fs-extra'
-import { desensitize, locateFixtures, unlinkSync } from 'jest.setup'
+import { desensitize, locateFixtures, unlinkSync } from 'jest.helper'
 import path from 'path'
 import { AESCipherHelper, CipherCatalog } from '../src'
 

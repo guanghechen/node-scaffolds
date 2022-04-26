@@ -1,4 +1,4 @@
-import { desensitize } from 'jest.setup'
+import { desensitize } from 'jest.helper'
 import path from 'path'
 import { absoluteOfWorkspace, relativeOfWorkspace } from '../src'
 

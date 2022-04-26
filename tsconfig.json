@@ -25,7 +25,7 @@
       "@guanghechen/rollup-plugin-copy": ["packages/rollup-plugin-copy/src"],
       "@guanghechen/tool-git-cipher": ["packages/tool-git-cipher/src"],
       "@guanghechen/utility-types": ["packages/utility-types/src"],
-      "jest.setup": ["jest.setup.ts"]
+      "jest.helper": ["jest.helper.ts"]
     }
   },
   "exclude": ["**/__test__/fixtures"]

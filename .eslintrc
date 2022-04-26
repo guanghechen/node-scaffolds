@@ -14,7 +14,7 @@
       "extends": ["@guanghechen", "@guanghechen/jsx", "@guanghechen/ts", "prettier"]
     },
     {
-      "files": ["**/__test__/*.spec.ts", "jest.setup.ts"],
+      "files": ["**/__test__/*.spec.ts", "jest.helper.ts"],
       "extends": ["@guanghechen", "@guanghechen/ts", "plugin:jest/recommended", "prettier"],
       "rules": {
         "import/no-extraneous-dependencies": 0,

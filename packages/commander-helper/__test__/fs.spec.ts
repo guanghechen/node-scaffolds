@@ -1,4 +1,4 @@
-import { locateFixtures } from 'jest.setup'
+import { locateFixtures } from 'jest.helper'
 import { loadJsonOrYaml, loadJsonOrYamlSync } from '../src'
 
 describe('loadJsonOrYaml', function () {

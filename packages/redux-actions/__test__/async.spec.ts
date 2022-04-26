@@ -1,10 +1,4 @@
-import type {
-  AsyncActionCreators,
-  AsyncActionReducer,
-  AsyncActions,
-  AsyncFailureResponse,
-  AsyncStateItem,
-} from '../src'
+import type { AsyncActionCreators, AsyncActionReducer, AsyncActions, AsyncStateItem } from '../src'
 import {
   AsyncActionStatus,
   assembleActionReducers,

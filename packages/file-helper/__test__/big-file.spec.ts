@@ -1,5 +1,5 @@
 import fs from 'fs-extra'
-import { desensitize, locateFixtures, unlinkSync } from 'jest.setup'
+import { desensitize, locateFixtures, unlinkSync } from 'jest.helper'
 import {
   BigFileHelper,
   bigFileHelper,

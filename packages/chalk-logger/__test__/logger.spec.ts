@@ -1,5 +1,5 @@
 import { createLoggerMock } from '@guanghechen/jest-helper'
-import { desensitize } from 'jest.setup'
+import { desensitize } from 'jest.helper'
 import { colorToChalk } from '../src/color'
 import { DEBUG, Level, VERBOSE } from '../src/level'
 import type { LoggerOptions } from '../src/logger'

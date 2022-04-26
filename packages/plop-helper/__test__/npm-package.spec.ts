@@ -1,4 +1,4 @@
-import { desensitize } from 'jest.setup'
+import { desensitize } from 'jest.helper'
 import type { NpmPackagePreAnswers, NpmPackagePromptsAnswers } from '../src'
 import { resolveNpmPackageAnswers } from '../src'
 
