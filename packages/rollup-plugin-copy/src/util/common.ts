@@ -57,7 +57,7 @@ export function generateCopyTarget(
     ? path.join(dest, dir)
     : relativePath(workspace, path.dirname(filepath)).replace(/^([^/\\]+)?/, dest)
   const originalDestPath = resolvePath(workspace, destinationFolder, oldFileName)
-  const newDestFilePath = renameTarget(oldFileName, srcPath)
+  const newDestFilePath = renameTarget(oldFileName, filepath)
   const result: ICopyTargetItem = {
     srcPath: filepath,
     destPath: newDestFilePath,
