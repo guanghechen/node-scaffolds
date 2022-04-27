@@ -1,5 +1,20 @@
 # Changelog
 
+<a name="1.9.4"></a>
+## 1.9.4 (2022-04-27)
+
+### Changed
+
+- 🎨 improve(rollup-plugin-copy): pass source filepath instead of expanded filepath as the second parameter of &#x60;rename&#x60; [[79fc521](https://github.com/guanghechen/node-scaffolds/commit/79fc5214d657368cd82d787aead9c4750bc6ae8d)]
+- 🔧 chore: rename jest.setup.ts to jest.helper.ts [[8a7e4f8](https://github.com/guanghechen/node-scaffolds/commit/8a7e4f887ccbbf393280d367d3c889e1a6123915)]
+- ⬆️ chore: upgrade dependencies [[14d3696](https://github.com/guanghechen/node-scaffolds/commit/14d369674b752eb286cf57300bc4fa1159cb2972)]
+
+### Miscellaneous
+
+- 📝 docs(rollup-plugin-copy): update README [[6d3732a](https://github.com/guanghechen/node-scaffolds/commit/6d3732a108da8c8834f44987937be71e94d263c2)]
+- 📝 docs: update CHANGELOG [[a541eee](https://github.com/guanghechen/node-scaffolds/commit/a541eee0ab5b310285f16684cd6bf665ffab300f)]
+
+
 <a name="1.9.3"></a>
 ## 1.9.3 (2022-04-10)
 
