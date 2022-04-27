@@ -209,15 +209,32 @@ copy({
 
 #### Rename with a function
 
-```js
-copy({
-  targets: [{
-    src: 'assets/docs/*',
-    dest: 'dist/public/docs',
-    rename: (name, extension) => `${name}-v1.${extension}`
-  }]
-})
-```
+* Rename filename
+
+  ```js
+  copy({
+    targets: [{
+      src: 'assets/docs/*',
+      dest: 'dist/public/docs',
+      rename: (name, extension) => `${name}-v1.${extension}`
+    }]
+  })
+  // assets/docs/a/b.md ==> dist/public/docs/a/b-v1.md
+  ```
+
+* Rename filepath
+
+  ```js
+  copy({
+    targets: [{
+      src: 'assets/docs/*',
+      dest: 'dist/public/docs',
+      rename: (name, extension, srcPath) => 
+        path.join(path.relative('assets', path.dirname(srcPath)), `${name}-v1.${extension}`)
+    }]
+  })
+  // assets/docs/a/b.md ==> dist/public/docs/docs/a/b-v1.md
+  ```
 
 #### Transform file contents
 
