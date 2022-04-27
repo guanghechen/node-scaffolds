@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/eslint-config-ts",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "description": "eslint config for ts project",
   "author": {
     "name": "guanghechen",
@@ -33,7 +33,7 @@
     "test": "echo 'no test needed.'"
   },
   "dependencies": {
-    "@guanghechen/eslint-config": "^1.9.3",
+    "@guanghechen/eslint-config": "^1.9.4",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0"
   },
