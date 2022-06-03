@@ -58,6 +58,7 @@ module.exports = {
         allowHigherOrderFunctions: false,
         allowDirectConstAssertionInArrowFunctions: true,
         allowConciseArrowFunctionExpressionsStartingWithVoid: true,
+        allowedNames: ['useStyles'],
       },
     ],
     '@typescript-eslint/explicit-member-accessibility': [

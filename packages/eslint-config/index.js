@@ -77,6 +77,7 @@ module.exports = {
     'no-continue': 0,
     'no-cond-assign': [2, 'always'],
     'no-inner-declarations': 2,
+    'no-lone-blocks': 0,
     'no-mixed-operators': 0,
     'no-mixed-spaces-and-tabs': 2,
     'no-multi-spaces': [2, { ignoreEOLComments: true }],
