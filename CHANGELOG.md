@@ -1,5 +1,22 @@
 # Changelog
 
+<a name="1.9.5"></a>
+## 1.9.5 (2022-06-03)
+
+### Added
+
+- ✨ feat(react-hooks): add useEvent and useSyncState [[f648260](https://github.com/guanghechen/node-scaffolds/commit/f64826073cb52c697c5ee50e9686dc36804dd23c)]
+
+### Changed
+
+- 🎨 improve: update eslint config [[cca8085](https://github.com/guanghechen/node-scaffolds/commit/cca808571d10162d8f9a7f87b2a297cd63cb8237)]
+- ⬆️ chore: upgrade dependencies [[cbf674c](https://github.com/guanghechen/node-scaffolds/commit/cbf674c8ab55e73a53860e4b212db9ef08a48045)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[7cdf358](https://github.com/guanghechen/node-scaffolds/commit/7cdf358d1412bd83da8748c9000efa428f390d69)]
+
+
 <a name="1.9.4"></a>
 ## 1.9.4 (2022-04-27)
 
