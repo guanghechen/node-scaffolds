@@ -61,13 +61,15 @@ Object {
     "<rootDir>/src",
   ],
   "testEnvironment": "node",
+  "testEnvironmentOptions": Object {
+    "url": "http://localhost/",
+  },
   "testPathIgnorePatterns": Array [
     "/coverage/",
     "/lib/",
     "/node_modules/",
   ],
   "testRegex": "/(__test__)/[^/]+\\\\.spec\\\\.[jt]sx?$",
-  "testURL": "http://localhost/",
   "transform": Object {
     "^.+\\\\.tsx?$": "ts-jest",
   },

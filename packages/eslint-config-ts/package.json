@@ -34,8 +34,8 @@
   },
   "dependencies": {
     "@guanghechen/eslint-config": "^1.9.4",
-    "@typescript-eslint/eslint-plugin": "^5.20.0",
-    "@typescript-eslint/parser": "^5.20.0"
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0"
   },
   "peerDependencies": {
     "eslint": "^8.6.0"

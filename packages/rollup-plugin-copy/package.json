@@ -56,6 +56,6 @@
     "@guanghechen/rollup-config": "^1.9.4",
     "@types/dir-glob": "^2.0.1",
     "@types/micromatch": "^4.0.2",
-    "replace-in-file": "^6.3.2"
+    "replace-in-file": "^6.3.5"
   }
 }

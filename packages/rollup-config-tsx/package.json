@@ -46,7 +46,7 @@
     "@guanghechen/rollup-config": "^1.9.4",
     "@rollup/plugin-multi-entry": "^4.1.0",
     "@types/postcss-url": "^10.0.0",
-    "autoprefixer": "^10.4.5",
+    "autoprefixer": "^10.4.7",
     "fs-extra": "^10.1.0",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-url": "^10.1.3",
@@ -57,6 +57,6 @@
     "rollup": "^2.64.0"
   },
   "optionalDependencies": {
-    "stylus": "^0.57.0"
+    "stylus": "^0.58.1"
   }
 }

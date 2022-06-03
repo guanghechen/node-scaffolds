@@ -59,8 +59,10 @@ function tsMonorepoConfig(repositoryRootDir) {
     transform: {
       '^.+\\.tsx?$': 'ts-jest',
     },
-    testURL: 'http://localhost/',
     testEnvironment: 'node',
+    testEnvironmentOptions: {
+      url: 'http://localhost/',
+    },
     testRegex: '/(__test__)/[^/]+\\.spec\\.[jt]sx?$',
     testPathIgnorePatterns: ['/coverage/', '/lib/', '/node_modules/'],
     collectCoverage: false,
