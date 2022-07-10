@@ -13,6 +13,7 @@
       "@guanghechen/file-helper": ["packages/file-helper/src"],
       "@guanghechen/invariant": ["packages/invariant/src"],
       "@guanghechen/jest-helper": ["packages/jest-helper/src"],
+      "@guanghechen/mini-copy": ["packages/mini-copy/src"],
       "@guanghechen/option-helper": ["packages/option-helper/src"],
       "@guanghechen/parse-lineno": ["packages/parse-lineno/src"],
       "@guanghechen/plop-helper": ["packages/plop-helper/src"],
