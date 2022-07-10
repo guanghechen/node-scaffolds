@@ -175,18 +175,20 @@ loggerMock.restore()
   // demo/demo1.ts
   import { ChalkLogger, ERROR } from '@guanghechen/chalk-logger'
 
-  const logger = new ChalkLogger({
-    name: 'demo',
-    level: ERROR,   // the default value is INFO
-    date: false,    // the default value is false.
-    colorful: true, // the default value is true.
-  }, process.argv)
-
+  const logger = new ChalkLogger(
+    {
+      name: 'demo1',
+      level: ERROR, // the default value is INFO
+      date: false, // the default value is false.
+      colorful: true, // the default value is true.
+    },
+    process.argv,
+  )
 
   logger.debug('A', 'B', 'C')
   logger.verbose('A', 'B', 'C')
   logger.info('a', 'b', 'c')
-  logger.warn('X', 'Y', 'Z', { a: 1, b: 2})
+  logger.warn('X', 'Y', 'Z', { a: 1, b: 2 })
   logger.error('x', 'y', 'z', { c: { a: 'hello' }, b: { d: 'world' } })
   logger.fatal('1', '2', '3')
   ```
@@ -197,37 +199,40 @@ loggerMock.restore()
 
   ```typescript
   // demo/demo2.ts
+  import type { Level } from '@guanghechen/chalk-logger'
+  import { ChalkLogger, ERROR } from '@guanghechen/chalk-logger'
   import chalk from 'chalk'
-  import { ChalkLogger, ERROR, Level } from '@guanghechen/chalk-logger'
 
-  const logger = new ChalkLogger({
-    name: 'demo',
-    level: ERROR,   // the default value is INFO
-    date: false,    // the default value is false.
-    colorful: true, // the default value is true.
-  }, process.argv)
+  const logger = new ChalkLogger(
+    {
+      name: 'demo2',
+      level: ERROR, // the default value is INFO
+      date: false, // the default value is false.
+      colorful: true, // the default value is true.
+    },
+    process.argv,
+  )
 
   logger.formatHeader = function (level: Level, date: Date): string {
     let { desc } = level
     let { name } = this
-    if( this.flags.colorful ) {
+    if (this.flags.colorful) {
       desc = level.headerChalk.fg(desc)
       if (level.headerChalk.bg != null) desc = level.headerChalk.bg(desc)
       name = chalk.gray(name)
     }
-
-    const  header = `${desc} ${name}`
-    if( !this.flags.date) return `[${header}]`
+    const header = `${desc} ${name}`
+    if (!this.flags.date) return `[${header}]`
 
     let dateString = date.toLocaleTimeString()
-    if( this.flags.colorful ) dateString = chalk.gray(dateString)
+    if (this.flags.colorful) dateString = chalk.gray(dateString)
     return `<${dateString} ${header}>`
   }
 
   logger.debug('A', 'B', 'C')
   logger.verbose('A', 'B', 'C')
   logger.info('a', 'b', 'c')
-  logger.warn('X', 'Y', 'Z', { a: 1, b: 2})
+  logger.warn('X', 'Y', 'Z', { a: 1, b: 2 })
   logger.error('x', 'y', 'z', { c: { a: 'hello' }, b: { d: 'world' } })
   logger.fatal('1', '2', '3')
   ```
@@ -239,22 +244,25 @@ loggerMock.restore()
 
   ```typescript
   // demo/demo3.ts
-  import chalk from 'chalk'
   import { ChalkLogger, ERROR } from '@guanghechen/chalk-logger'
+  import chalk from 'chalk'
 
-  const logger = new ChalkLogger({
-    name: 'demo',
-    level: ERROR,     // the default value is INFO
-    date: false,      // the default value is false.
-    colorful: true,   // the default value is true.
-    dateChalk: 'green',
-    nameChalk: chalk.cyan.bind(chalk),
-  }, process.argv)
+  const logger = new ChalkLogger(
+    {
+      name: 'demo3',
+      level: ERROR, // the default value is INFO
+      date: false, // the default value is false.
+      colorful: true, // the default value is true.
+      dateChalk: 'green',
+      nameChalk: chalk.cyan.bind(chalk),
+    },
+    process.argv,
+  )
 
   logger.debug('A', 'B', 'C')
   logger.verbose('A', 'B', 'C')
   logger.info('a', 'b', 'c')
-  logger.warn('X', 'Y', 'Z', { a: 1, b: 2})
+  logger.warn('X', 'Y', 'Z', { a: 1, b: 2 })
   logger.error('x', 'y', 'z', { c: { a: 'hello' }, b: { d: 'world' } })
   logger.fatal('1', '2', '3')
   ```
@@ -265,26 +273,29 @@ loggerMock.restore()
 
   ```typescript
   // demo/demo4.ts
-  import path from 'path'
-  import chalk from 'chalk'
   import { ChalkLogger, DEBUG } from '@guanghechen/chalk-logger'
+  import chalk from 'chalk'
+  import path from 'path'
 
-  const logger = new ChalkLogger({
-    name: 'demo',
-    level: DEBUG,       // the default value is DEBUG
-    date: true,         // the default value is false.
-    inline: true,
-    colorful: false,    // the default value is true.
-    dateChalk: 'green',
-    nameChalk: chalk.cyan.bind(chalk),
-    filepath: path.resolve(__dirname, 'orz.log'),
-    encoding: 'utf-8',
-  }, process.argv)
+  const logger = new ChalkLogger(
+    {
+      name: 'demo4',
+      level: DEBUG, // the default value is DEBUG
+      date: true, // the default value is false.
+      inline: true,
+      colorful: false, // the default value is true.
+      dateChalk: 'green',
+      nameChalk: chalk.cyan.bind(chalk),
+      filepath: path.resolve(__dirname, 'orz.log'),
+      encoding: 'utf-8',
+    },
+    process.argv,
+  )
 
   logger.debug('A', 'B', 'C')
   logger.verbose('A', 'B', 'C')
   logger.info('a', 'b', 'c')
-  logger.warn('X', 'Y', 'Z', { a: 1, b: 2})
+  logger.warn('X', 'Y', 'Z', { a: 1, b: 2 })
   logger.error('x', 'y', 'z', { c: { a: 'hello' }, b: { d: 'world' } })
   logger.fatal('1', '2', '3')
   ```
@@ -295,35 +306,36 @@ loggerMock.restore()
 
   ```typescript
   // demo/demo5.ts
+  import { ChalkLogger, ERROR, registerCommanderOptions } from '@guanghechen/chalk-logger'
   import chalk from 'chalk'
-  import commander from 'Commander'
-  import { ChalkLogger, ERROR } from '../src'
+  import commander from 'commander'
 
-  const logger = new ChalkLogger({
-    name: 'demo',
-    level: ERROR,     // the default value is INFO
-    date: false,      // the default value is false.
-    colorful: true,   // the default value is true.
-    dateChalk: 'green',
-    nameChalk: chalk.cyan.bind(chalk),
-  }, process.argv)
+  const logger = new ChalkLogger(
+    {
+      name: 'demo5',
+      level: ERROR, // the default value is INFO
+      date: false, // the default value is false.
+      colorful: true, // the default value is true.
+      dateChalk: 'green',
+      nameChalk: chalk.cyan.bind(chalk),
+    },
+    process.argv,
+  )
 
-  commander
-    .version('v1.0.0')
-    .arguments('[orz]')
+  const command = new commander.Command()
+  command.version('v1.0.0').arguments('[orz]')
 
   // register logger option to commander
-  logger.registerToCommander(commander)
-  // or ChalkLogger.registerToCommander(commander)
+  registerCommanderOptions(command)
 
-  commander
-    .option('-e, --encoding <encoding>', 'specified <filepath>\'s encoding')
+  command
+    .option('-e, --encoding <encoding>', "specified <filepath>'s encoding")
     .parse(process.argv)
 
   logger.debug('A', 'B', 'C')
   logger.verbose('A', 'B', 'C')
   logger.info('a', 'b', 'c')
-  logger.warn('X', 'Y', 'Z', { a: 1, b: 2})
+  logger.warn('X', 'Y', 'Z', { a: 1, b: 2 })
   logger.error('x', 'y', 'z', { c: { a: 'hello' }, b: { d: 'world' } })
   logger.fatal('1', '2', '3')
   ```
@@ -334,50 +346,45 @@ loggerMock.restore()
 
   ```typescript
   // demo/demo6.ts
-  import { ChalkLogger, DEBUG } from '../src'
+  import { ChalkLogger, DEBUG } from '@guanghechen/chalk-logger'
 
-  const logger = new ChalkLogger({
-    name: 'demo',
-    level: DEBUG,
-    date: true,
-    colorful: true,
-    inline: true,
-  }, process.argv)
-
-  logger.verbose(
-    'user({})', 
-    { 
-      username: 'guanghechen', 
-      avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'
-    }
-  )
-  logger.error(
-    'bad argument ({}). error({})', 
-    { username: 123 }, 
-    new Error('username is invalid')
+  const logger = new ChalkLogger(
+    {
+      name: 'demo6',
+      level: DEBUG,
+      date: true,
+      colorful: true,
+      inline: true,
+    },
+    process.argv,
   )
 
-  const logger2 = new ChalkLogger({
-    name: 'demo',
-    level: DEBUG,
-    date: true,
-    colorful: true,
-    inline: true,
-    placeholderRegex: /(?<!\\)\<\>/g  // change placeholder of string format
-  }, process.argv)
+  logger.verbose('user({})', {
+    username: 'lemon-clown',
+    avatar:
+      'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',
+  })
+  logger.error('bad argument ({}). error({})', { username: 123 }, new Error('username is invalid'))
 
-  logger2.verbose(
-    'user(<>)', 
-    { 
-      username: 'guanghechen', 
-      avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'
-    }
+  const logger2 = new ChalkLogger(
+    {
+      name: 'demo6',
+      level: DEBUG,
+      date: true,
+      colorful: true,
+      inline: true,
+      placeholderRegex: /(?<!\\)<>/g, // change placeholder of string format
+    },
+    process.argv,
   )
-  logger2.error(
-    'bad argument (<>). error({})',
-    { username: 123 },
-    new Error('username is invalid')
-  )
+
+  logger2.verbose('user(<>)', {
+    username: 'lemon-clown',
+    avatar:
+      'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',
+  })
+  logger2.error('bad argument (<>). error({})', { username: 123 }, new Error('username is invalid'))
+
   ```
 
   ![demo6.1.png][]

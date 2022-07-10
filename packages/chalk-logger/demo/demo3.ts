@@ -1,14 +1,17 @@
-import chalk from 'chalk'
 import { ChalkLogger, ERROR } from '@guanghechen/chalk-logger'
+import chalk from 'chalk'
 
-const logger = new ChalkLogger({
-  name: 'demo3',
-  level: ERROR,     // the default value is INFO
-  date: false,      // the default value is false.
-  colorful: true,   // the default value is true.
-  dateChalk: 'green',
-  nameChalk: chalk.cyan.bind(chalk),
-}, process.argv)
+const logger = new ChalkLogger(
+  {
+    name: 'demo3',
+    level: ERROR, // the default value is INFO
+    date: false, // the default value is false.
+    colorful: true, // the default value is true.
+    dateChalk: 'green',
+    nameChalk: chalk.cyan.bind(chalk),
+  },
+  process.argv,
+)
 
 logger.debug('A', 'B', 'C')
 logger.verbose('A', 'B', 'C')

@@ -1,18 +1,21 @@
-import path from 'path'
-import chalk from 'chalk'
 import { ChalkLogger, DEBUG } from '@guanghechen/chalk-logger'
+import chalk from 'chalk'
+import path from 'path'
 
-const logger = new ChalkLogger({
-  name: 'demo4',
-  level: DEBUG,       // the default value is DEBUG
-  date: true,         // the default value is false.
-  inline: true,
-  colorful: false,    // the default value is true.
-  dateChalk: 'green',
-  nameChalk: chalk.cyan.bind(chalk),
-  filepath: path.resolve(__dirname, 'orz.log'),
-  encoding: 'utf-8',
-}, process.argv)
+const logger = new ChalkLogger(
+  {
+    name: 'demo4',
+    level: DEBUG, // the default value is DEBUG
+    date: true, // the default value is false.
+    inline: true,
+    colorful: false, // the default value is true.
+    dateChalk: 'green',
+    nameChalk: chalk.cyan.bind(chalk),
+    filepath: path.resolve(__dirname, 'orz.log'),
+    encoding: 'utf-8',
+  },
+  process.argv,
+)
 
 logger.debug('A', 'B', 'C')
 logger.verbose('A', 'B', 'C')
