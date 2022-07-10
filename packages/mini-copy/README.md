@@ -33,12 +33,6 @@
         src="https://img.shields.io/node/v/@guanghechen/mini-copy"
       />
     </a>
-    <a href="https://github.com/facebook/jest">
-      <img
-        alt="Tested with Jest"
-        src="https://img.shields.io/badge/tested_with-jest-9c465e.svg"
-      />
-    </a>
     <a href="https://github.com/prettier/prettier">
       <img
         alt="Code Style: prettier"

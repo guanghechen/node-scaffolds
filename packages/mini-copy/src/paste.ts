@@ -31,7 +31,7 @@ export interface IPasteOptions {
  * get the data from system clipboard
  * @param options
  */
-export async function paste(options: IPasteOptions = {}): Promise<string> {
+export async function paste(options: IPasteOptions = {}): Promise<string | never> {
   const {
     pasteCommandPath,
     pasteCommandArgs = [],
@@ -67,8 +67,7 @@ export async function paste(options: IPasteOptions = {}): Promise<string> {
     logger?.debug('[paste] try: fake clipboard {}.', fakeClipboard.filepath)
     return await fakeClipboard.read()
   }
-  logger?.error(`[paste] Cannot find available clipboard or fake-clipboard.`)
-  return ''
+  throw `[paste] Cannot find available clipboard or fake-clipboard.`
 }
 
 /**

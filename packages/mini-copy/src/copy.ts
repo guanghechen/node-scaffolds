@@ -27,7 +27,7 @@ export interface ICopyOptions {
  * @param content           the content you want to write into system clipboard.
  * @param options
  */
-export async function copy(content: string, options: ICopyOptions = {}): Promise<void> {
+export async function copy(content: string, options: ICopyOptions = {}): Promise<void | never> {
   const { copyCommandPath, copyCommandArgs = [], fakeClipboard, logger } = options
 
   try {
@@ -54,5 +54,5 @@ export async function copy(content: string, options: ICopyOptions = {}): Promise
     await fakeClipboard.write(content)
     return
   }
-  logger?.error(`[copy] Cannot find available clipboard or fake-clipboard.`)
+  throw `[copy] Cannot find available clipboard or fake-clipboard.`
 }
