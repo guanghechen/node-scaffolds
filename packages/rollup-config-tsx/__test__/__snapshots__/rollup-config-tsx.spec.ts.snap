@@ -72,9 +72,6 @@ Object {
 .ghc-container .ghc-name ::-moz-placeholder {
   color: #808080;
 }
-.ghc-container .ghc-name :-ms-input-placeholder {
-  color: #808080;
-}
 .ghc-container .ghc-name ::placeholder {
   color: #808080;
 }
@@ -143,9 +140,6 @@ Object {
   white-space: nowrap;
 }
 .ghc-container .ghc-name ::-moz-placeholder {
-  color: #808080;
-}
-.ghc-container .ghc-name :-ms-input-placeholder {
   color: #808080;
 }
 .ghc-container .ghc-name ::placeholder {
