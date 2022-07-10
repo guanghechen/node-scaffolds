@@ -1,5 +1,31 @@
 # Changelog
 
+<a name="1.9.6"></a>
+## 1.9.6 (2022-07-10)
+
+### Added
+
+- ✅ test: update test snapshots [[5d559a6](https://github.com/guanghechen/node-scaffolds/commit/5d559a605bec5a09b6fb5fd6c91cb915f793dcc1)]
+- ✨ feat: add @guanghechen/tool-mini-copy (migrated from https://github.com/lemon-clown/mini-copy-cli) [[794dcdd](https://github.com/guanghechen/node-scaffolds/commit/794dcddfd8aadfaf95a8c1b6ff24e972645d7192)]
+- ✨ feat: add @guanghechen/mini-copy (migrated from https://github.com/lemon-clown/mini-copy) [[cfc3c6d](https://github.com/guanghechen/node-scaffolds/commit/cfc3c6d2cb62292da50bbf277a0485956874182b)]
+
+### Changed
+
+- ⬆️ chore: upgrade dependencies [[b889df2](https://github.com/guanghechen/node-scaffolds/commit/b889df299aaea87fe5601fe3e47bfa8a5980ab97)]
+- 🎨 refactor: rename useEvent to useEventCallback &amp; init the handlerRef on first call [[f7e583e](https://github.com/guanghechen/node-scaffolds/commit/f7e583eabbdcf40fcc19a352a8941655efa68dab)]
+- 🎨 style: format demo codes [[59d1307](https://github.com/guanghechen/node-scaffolds/commit/59d1307e32abd024ede6421b582f31f4452e3b19)]
+
+### Fixed
+
+- 🐛 fix known issues [[d9cbc76](https://github.com/guanghechen/node-scaffolds/commit/d9cbc767966471be3ff4034421eacb494b562853)]
+
+### Miscellaneous
+
+- 📝 docs: update README [[d28b106](https://github.com/guanghechen/node-scaffolds/commit/d28b1068986a73cfec2f5d75aacfdbce062ff3e5)]
+-  mod(mini-copy): throw error if copy/paste failed [[ecccc27](https://github.com/guanghechen/node-scaffolds/commit/ecccc27b896249d6707d237c713ee90790230791)]
+- 📝 docs: update CHANGELOG [[27b19b6](https://github.com/guanghechen/node-scaffolds/commit/27b19b671c50a4b7b6325692dcf26c05f4c02486)]
+
+
 <a name="1.9.5"></a>
 ## 1.9.5 (2022-06-03)
 
