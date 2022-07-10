@@ -65,6 +65,7 @@ Package                               | Description
 [@guanghechen/jest-config][]          | Basic jest configs for typescript monorepo
 [@guanghechen/jest-helper][]          | A collection of utility functions for jest tests
 [@guanghechen/locate-helper][]        | A collection of utility functions for locating nearest filepath matched the given pattern
+[@guanghechen/mini-copy][]            | Access system clipboard (also support to share clipboard in wsl with windows).
 [@guanghechen/npm-helper][]           | A collection of utility functions for handling npm packages.
 [@guanghechen/option-helper][]        | A collection of utility functions for processing options
 [@guanghechen/plop-helper][]          | A collection of utility functions for plop templates
@@ -78,6 +79,7 @@ Package                               | Description
 [@guanghechen/template-ts-package][]  | Plop templates for creating simple typescript project
 [@guanghechen/template-tsx-package][] | Plop templates for creating simple typescript + react project
 [@guanghechen/tool-git-cipher][]      | A cli tool for encrypting a entire git repository.
+[@guanghechen/tool-mini-copy][]       | "A cli tool to copy / paste with system clipboard or customized fake clipboard (file).
 [@guanghechen/utility-types][]        | Collection of typescript utility types
 
 
