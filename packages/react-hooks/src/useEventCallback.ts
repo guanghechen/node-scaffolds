@@ -7,8 +7,8 @@ import React from 'react'
  * @see https://github.com/facebook/react/issues/14099#issuecomment-440013892
  * @see https://github.com/reactjs/rfcs/blob/useevent/text/0000-useevent.md#internal-implementation
  */
-export function useEvent<T extends (...args: any[]) => any>(handler: T): T {
-  const handlerRef = React.useRef<T | null>(null)
+export function useEventCallback<T extends (...args: any[]) => any>(handler: T): T {
+  const handlerRef = React.useRef<T | null>(handler)
 
   // In a real implementation, this would run before layout effects
   React.useLayoutEffect(() => {
