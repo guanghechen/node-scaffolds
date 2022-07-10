@@ -19,8 +19,7 @@
   "main": "index.js",
   "license": "MIT",
   "engines": {
-    "node": ">= 14.15.0",
-    "jest": ">= 28.0.0"
+    "node": ">= 14.15.0"
   },
   "files": [
     "index.js",

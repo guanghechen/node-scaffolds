@@ -27,12 +27,6 @@
         src="https://img.shields.io/badge/module_formats-cjs-green.svg"
       />
     </a>
-    <a href="https://github.com/nodejs/node">
-      <img
-        alt="Node.js Version"
-        src="https://img.shields.io/node/v/@guanghechen/tool-git-cipher"
-      />
-    </a>
     <a href="https://github.com/facebook/jest">
       <img
         alt="Eslint Version"

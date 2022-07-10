@@ -51,8 +51,5 @@
     "fs-extra": "^10.1.0",
     "inquirer": "^8.2.4",
     "node-plop": "~0.26.3"
-  },
-  "devDependencies": {
-    "@guanghechen/rollup-config": "^1.9.5"
   }
 }
