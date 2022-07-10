@@ -1,0 +1,50 @@
+{
+  "name": "@guanghechen/tool-mini-copy",
+  "version": "1.9.5",
+  "description": "A cli tool to copy / paste with system clipboard or customized fake clipboard (file).",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/guanghechen.git",
+    "directory": "packages/tool-mini-copy"
+  },
+  "homepage": "https://github.com/guanghechen/guanghechen/tree/main/packages/tool-mini-copy#readme",
+  "keywords": [],
+  "main": "lib/cjs/index.js",
+  "types": "lib/types/index.d.ts",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "lib/",
+    "!lib/**/*.js.map",
+    "!lib/**/*.d.ts.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "bin": {
+    "mcp": "./lib/cjs/cli.js"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.cli.js",
+    "prebuild": "rimraf lib/ && tsc -p tsconfig.src.json --emitDeclarationOnly",
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
+    "test": "echo 'no test needed.'"
+  },
+  "dependencies": {
+    "@guanghechen/chalk-logger": "^1.9.5",
+    "@guanghechen/commander-helper": "^1.9.5",
+    "@guanghechen/file-helper": "^1.9.5",
+    "@guanghechen/mini-copy": "^1.9.5",
+    "@guanghechen/option-helper": "^1.9.5",
+    "fs-extra": "^10.1.0",
+    "inquirer": "^8.2.4"
+  }
+}
