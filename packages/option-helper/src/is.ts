@@ -161,3 +161,26 @@ export function isNumberLike(v: number | string | unknown): v is number | string
   if (isNumber(v)) return true
   return isNonBlankString(v) && !Number.isNaN(Number(v))
 }
+
+/**
+ * Check if the given obj is an array which all elements are of type T.
+ * @param obj
+ * @param check
+ * @returns
+ */
+export const isArrayOfT = <T>(obj: unknown, check: (el: unknown) => el is T): obj is T[] => {
+  return Array.isArray(obj) ? obj.every(check) : false
+}
+
+/**
+ * Check if the given obj is an array which all elements are of type T[].
+ * @param obj
+ * @param check
+ * @returns
+ */
+export const isTwoDimensionArrayOfT = <T>(
+  obj: unknown,
+  check: (el: unknown) => el is T,
+): obj is T[][] => {
+  return Array.isArray(obj) ? obj.every(el => isArrayOfT(el, check)) : false
+}

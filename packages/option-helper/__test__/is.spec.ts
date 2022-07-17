@@ -3,6 +3,7 @@
 /* eslint-disable no-new-wrappers */
 import {
   isArray,
+  isArrayOfT,
   isBigint,
   isBoolean,
   isDate,
@@ -21,6 +22,7 @@ import {
   isPrimitiveString,
   isString,
   isSymbol,
+  isTwoDimensionArrayOfT,
   isUndefined,
 } from '../src'
 
@@ -281,5 +283,42 @@ describe('is', function () {
     test('empty array is not a number like', () => expect(isNumberLike([])).toBeFalsy())
     test('empty object is not a number like', () => expect(isNumberLike({})).toBeFalsy())
     test('bigint is not a number like', () => expect(isNumberLike(BigInt(233))).toBeFalsy())
+  })
+
+  describe('isArrayOfT', function () {
+    test('string[], isString', () => expect(isArrayOfT(['a', 'b'], isString)).toBeTruthy())
+    test('string[], isNumber', () => expect(isArrayOfT(['a', 'b'], isNumber)).toBeFalsy())
+    test('(string|number)[], isString', () =>
+      expect(isArrayOfT(['a', 'b', 2], isString)).toBeFalsy())
+    test('(string|null)[], isString', () =>
+      expect(isArrayOfT(['a', 'b', null], isString)).toBeFalsy())
+    test('(string|undefined)[], isString', () =>
+      expect(isArrayOfT(['a', 'b', undefined], isString)).toBeFalsy())
+    test('string, isString', () => expect(isArrayOfT('a', isString)).toBeFalsy())
+    test('number, isString', () => expect(isArrayOfT(1, isString)).toBeFalsy())
+    test('null, isString', () => expect(isArrayOfT(null, isString)).toBeFalsy())
+    test('undefined, isString', () => expect(isArrayOfT(undefined, isString)).toBeFalsy())
+  })
+
+  describe('isTwoDimensionArrayOfT', function () {
+    test('string[][], isString', () =>
+      expect(isTwoDimensionArrayOfT([['a', 'b'], ['b']], isString)).toBeTruthy())
+    test('string[], isString', () =>
+      expect(isTwoDimensionArrayOfT(['a', 'b'], isString)).toBeFalsy())
+    test('(string|null)[][], isString', () =>
+      expect(
+        isTwoDimensionArrayOfT(
+          [
+            ['a', 'b'],
+            ['b', null],
+          ],
+          isString,
+        ),
+      ).toBeFalsy())
+    test('(string|undefined)[][], isString', () =>
+      expect(isTwoDimensionArrayOfT([['a', 'b', undefined, 'c'], ['b']], isString)).toBeFalsy())
+    test('(string[]|unknown)[], isString', () =>
+      expect(isTwoDimensionArrayOfT([['a', 'b'], ['b'], 'c'], isString)).toBeFalsy())
+    test('string, isString', () => expect(isTwoDimensionArrayOfT('c', isString)).toBeFalsy())
   })
 })
