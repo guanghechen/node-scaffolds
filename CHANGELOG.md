@@ -1,7 +1,7 @@
 # Changelog
 
-<a name="1.9.6"></a>
-## 1.9.6 (2022-07-10)
+<a name="1.9.7"></a>
+## 1.9.7 (2022-07-17)
 
 ### Added
 
@@ -11,6 +11,9 @@
 
 ### Changed
 
+- ⬆️ chore: upgrade devDependencies [[d5c2635](https://github.com/guanghechen/node-scaffolds/commit/d5c26356ef7ab4e28c2f3ea7bf617f1434806ccd)]
+- 🚨 style: fix lint [[806cd09](https://github.com/guanghechen/node-scaffolds/commit/806cd09d31d6a24f1761d6a208baa4dac14d5471)]
+- 🎨 feat(option-helper): add util func: &#x27;isArrayOfT&#x27; and &#x27;isTwoDimensionArrayOfT&#x27; [[1182098](https://github.com/guanghechen/node-scaffolds/commit/11820986145a76897eb67c9867d5205517657da8)]
 - ⬆️ chore: upgrade dependencies [[b889df2](https://github.com/guanghechen/node-scaffolds/commit/b889df299aaea87fe5601fe3e47bfa8a5980ab97)]
 - 🎨 refactor: rename useEvent to useEventCallback &amp; init the handlerRef on first call [[f7e583e](https://github.com/guanghechen/node-scaffolds/commit/f7e583eabbdcf40fcc19a352a8941655efa68dab)]
 - 🎨 style: format demo codes [[59d1307](https://github.com/guanghechen/node-scaffolds/commit/59d1307e32abd024ede6421b582f31f4452e3b19)]
@@ -21,6 +24,7 @@
 
 ### Miscellaneous
 
+- 📝 docs: update CHANGELOG [[2c00526](https://github.com/guanghechen/node-scaffolds/commit/2c00526a10c5b651adabe4c9bd622ecaf1e854c8)]
 - 📝 docs: update README [[d28b106](https://github.com/guanghechen/node-scaffolds/commit/d28b1068986a73cfec2f5d75aacfdbce062ff3e5)]
 -  mod(mini-copy): throw error if copy/paste failed [[ecccc27](https://github.com/guanghechen/node-scaffolds/commit/ecccc27b896249d6707d237c713ee90790230791)]
 - 📝 docs: update CHANGELOG [[27b19b6](https://github.com/guanghechen/node-scaffolds/commit/27b19b671c50a4b7b6325692dcf26c05f4c02486)]
