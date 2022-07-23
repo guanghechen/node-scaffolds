@@ -102,6 +102,7 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/jest-config]: ./packages/jest-config
 [@guanghechen/jest-helper]: ./packages/jest-helper
 [@guanghechen/locate-helper]: ./packages/locate-helper
+[@guanghechen/mini-copy]: ./packages/mini-copy
 [@guanghechen/npm-helper]: ./packages/npm-helper
 [@guanghechen/option-helper]: ./packages/option-helper
 [@guanghechen/plop-helper]: ./packages/plop-helper
@@ -115,4 +116,5 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/template-ts-package]: ./packages/template-ts-package
 [@guanghechen/template-tsx-package]: ./packages/template-tsx-package
 [@guanghechen/tool-git-cipher]: ./packages/tool-git-cipher
+[@guanghechen/tool-mini-copy]: ./packages/tool-mini-copy
 [@guanghechen/utility-types]: ./packages/utility-types
