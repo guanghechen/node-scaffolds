@@ -1,5 +1,24 @@
 # Changelog
 
+<a name="0.0.0"></a>
+## 0.0.0 (2022-07-27)
+
+### Added
+
+- ✨ feat(tool-mini-copy): support new option &#x27;--strip-ansi&#x27; to strip ansi escape codes from input contents [[75062f2](https://github.com/guanghechen/node-scaffolds/commit/75062f2cf763472d139412307ac9d19f8893021b)]
+
+### Changed
+
+- 🎨 improve: refactor codes &amp; fix bugs [[c388e53](https://github.com/guanghechen/node-scaffolds/commit/c388e53b4234971fa92297fb2147815b0e7a3626)]
+- 🎨 improve: provide customized strip-ansi to avoid esm issues [[d362cd1](https://github.com/guanghechen/node-scaffolds/commit/d362cd1b47d2bb1a3fa5c359c72cc17fd97625a6)]
+
+### Miscellaneous
+
+- 📝 docs: update README [[0cabb7d](https://github.com/guanghechen/node-scaffolds/commit/0cabb7d95a1cc9028e2b76c59f9affab47057659)]
+- 📝 docs(README): fix invalid urls [[e03b62a](https://github.com/guanghechen/node-scaffolds/commit/e03b62a9edbb281100eb26d601c903744e273ccd)]
+- 📝 docs: update changelog [[2fded19](https://github.com/guanghechen/node-scaffolds/commit/2fded19fd56327c98218abd25a7327be707e058b)]
+
+
 <a name="1.9.7"></a>
 ## 1.9.7 (2022-07-17)
 
