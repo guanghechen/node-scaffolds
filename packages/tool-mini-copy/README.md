@@ -72,28 +72,57 @@ Notice: Only text data worked, don't try to copy / paste binary data with this c
 
 ## Usage
 
-```bash
-# output the content of the system clipboard
-mcp
+* Help
+  ```bash
+  $ mcp --help
+  Usage: mcp [options] [source content]
 
-# copy the content of data.in to the system clipboard
-mcp 'the data'
-mcp -i data.in
-mcp < data.in
-cat data.in | mcp
-echo 'Hello world' | mcp
+  Options:
+    -V, --version                                     output the version number
+    --log-level <level>                               specify logger's level.
+    --log-name <name>                                 specify logger's name.
+    --log-mode <'normal' | 'loose'>                   specify logger's name.
+    --log-flag <option>                               specify logger' option. [[no-]<date|title|colorful|inline>] (default: [])
+    --log-filepath <filepath>                         specify logger' output path.
+    --log-encoding <encoding>                         specify output file encoding.
+    -c, --config-path <configFilepath>                config filepaths (default: [])
+    --parastic-config-path <parasticConfigFilepath>   parastic config filepath
+    --parastic-config-entry <parasticConfigFilepath>  parastic config filepath
+    -e, --encoding <encoding>                         Encoding of content from stdin or file.
+    -i, --input <filepath>                            Copy the data from <filepath> to the system clipboard.
+    -o, --output <filepath>                           Write the data from the system clipboard into <filepath>.
+    -f, --force                                       Overwrite the <filepath> without confirmation.
+    -s, --silence                                     don't print info-level log.
+    --force                                           force paste the content of the system clipboard without copy even piped data.
+    --fake-clipboard [local filepath]                 Specify a fake clipboard.
+    --strip-ansi                                      Strip ansi escape codes.
+    -h, --help                                        display help for command
+  ```
+
+* Basic
+
+  ```bash
+  # output the content of the system clipboard
+  mcp
+
+  # copy the content of data.in to the system clipboard
+  mcp 'the data'
+  mcp -i data.in
+  mcp < data.in
+  cat data.in | mcp
+  echo 'Hello world' | mcp
 
 
-# write the content of system clipboard into data.out
-mcp >> data.out             # use linux pipeline, redirected the content of system clipboard to data.out
-mcp -o data.out             # (recommended way)
-mcp -o data.out -e UTF-8    # specified the content's encoding
-mcp -o data.out -f          # if the data.out is exist, overwrite it without confirmation.
+  # write the content of system clipboard into data.out
+  mcp >> data.out             # use linux pipeline, redirected the content of system clipboard to data.out
+  mcp -o data.out             # (recommended way)
+  mcp -o data.out -e UTF-8    # specified the content's encoding
+  mcp -o data.out -f          # if the data.out is exist, overwrite it without confirmation.
 
 
-# show usage
-mcp --help
-```
+  # show usage
+  mcp --help
+  ```
 
 
 ## Related
