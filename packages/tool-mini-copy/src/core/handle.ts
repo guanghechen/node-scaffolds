@@ -1,5 +1,5 @@
+import { stripAnsi } from '@guanghechen/commander-helper'
 import { FakeClipboard } from '@guanghechen/mini-copy'
-import stripAnsi from 'strip-ansi'
 import { logger } from '../env/logger'
 import { copyFromFile, copyFromStdin, pasteToFile, pasteToStdout } from '../util/copy-paste'
 import { copy } from '../util/mini-copy'

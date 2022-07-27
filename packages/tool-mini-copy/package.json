@@ -45,7 +45,6 @@
     "@guanghechen/mini-copy": "^1.9.7",
     "@guanghechen/option-helper": "^1.9.7",
     "fs-extra": "^10.1.0",
-    "inquirer": "^8.2.4",
-    "strip-ansi": "^7.0.1"
+    "inquirer": "^8.2.4"
   }
 }
