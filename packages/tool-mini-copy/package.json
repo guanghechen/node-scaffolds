@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/tool-mini-copy",
-  "version": "1.9.7",
+  "version": "1.9.8",
   "description": "A cli tool to copy / paste with system clipboard or customized fake clipboard (file).",
   "author": {
     "name": "guanghechen",
@@ -39,12 +39,12 @@
     "test": "echo 'no test needed.'"
   },
   "dependencies": {
-    "@guanghechen/chalk-logger": "^1.9.7",
-    "@guanghechen/commander-helper": "^1.9.7",
-    "@guanghechen/file-helper": "^1.9.7",
-    "@guanghechen/invariant": "^1.9.7",
-    "@guanghechen/mini-copy": "^1.9.7",
-    "@guanghechen/option-helper": "^1.9.7",
+    "@guanghechen/chalk-logger": "^1.9.8",
+    "@guanghechen/commander-helper": "^1.9.8",
+    "@guanghechen/file-helper": "^1.9.8",
+    "@guanghechen/invariant": "^1.9.8",
+    "@guanghechen/mini-copy": "^1.9.8",
+    "@guanghechen/option-helper": "^1.9.8",
     "fs-extra": "^10.1.0",
     "inquirer": "^8.2.4"
   }

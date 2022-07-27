@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/plop-helper",
-  "version": "1.9.7",
+  "version": "1.9.8",
   "description": "A collection of utility functions for plop templates",
   "author": {
     "name": "guanghechen",
@@ -38,9 +38,9 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/invariant": "^1.9.7",
-    "@guanghechen/npm-helper": "^1.9.7",
-    "@guanghechen/option-helper": "^1.9.7",
+    "@guanghechen/invariant": "^1.9.8",
+    "@guanghechen/npm-helper": "^1.9.8",
+    "@guanghechen/option-helper": "^1.9.8",
     "chalk": "^4.1.2",
     "fs-extra": "^10.1.0",
     "minimist": "^1.2.6",
@@ -50,7 +50,7 @@
     "plop": "^2.7.6"
   },
   "devDependencies": {
-    "@guanghechen/jest-helper": "^1.9.7",
-    "@guanghechen/rollup-config": "^1.9.7"
+    "@guanghechen/jest-helper": "^1.9.8",
+    "@guanghechen/rollup-config": "^1.9.8"
   }
 }
