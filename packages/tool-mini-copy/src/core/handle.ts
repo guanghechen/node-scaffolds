@@ -1,76 +1,86 @@
-import { stripAnsi } from '@guanghechen/commander-helper'
+import { readFromStdin } from '@guanghechen/commander-helper'
+import { ensureCriticalFilepathExistsSync } from '@guanghechen/file-helper'
 import { FakeClipboard } from '@guanghechen/mini-copy'
+import fs from 'fs-extra'
 import { logger } from '../env/logger'
-import { copyFromFile, copyFromStdin, pasteToFile, pasteToStdout } from '../util/copy-paste'
-import { copy } from '../util/mini-copy'
+import type { ISafeCopyOptions } from '../util/copy-paste'
+import { pasteToFile, pasteToStdout, safeCopy } from '../util/copy-paste'
 import type { GlobalCommandOptions } from './option'
 
 export async function handleCommand(
-  sourceContent: string,
+  sourceContent: string | null,
   options: GlobalCommandOptions,
 ): Promise<void> {
-  const { encoding, input, output, fakeClipboard: fakeClipboardPath, force, silence } = options
+  const {
+    encoding,
+    input: inputFilepath,
+    output: outputFilepath,
+    fakeClipboard: fakeClipboardPath,
+    force,
+    silence,
+    stripAnsi: shouldStripAnsi,
+  } = options
   const fakeClipboard: FakeClipboard | undefined = fakeClipboardPath
     ? new FakeClipboard({ filepath: fakeClipboardPath, logger })
     : undefined
 
-  // Copy content to clipboard
-  if (sourceContent) {
-    // copy from sourceContent
-    logger.debug(`copy from argument.`)
-    const value = options.stripAnsi ? stripAnsi(sourceContent) : sourceContent
-    await copy(value, { fakeClipboard })
-    if (!silence) logger.info(`copied into system clipboard.`)
+  let copied: 'argument' | 'stdin' | 'file' | false = false
+  let pasted: 'file' | 'stdout' | false = false
+
+  const safeCopyOptions: Omit<ISafeCopyOptions, 'from'> = {
+    silence,
+    shouldStripAnsi,
+    fakeClipboard,
   }
 
-  let copied = !!sourceContent
+  // Copy from argument.
+  if (!copied && sourceContent != null) {
+    await safeCopy(sourceContent, { ...safeCopyOptions, from: 'argument' })
+    copied = 'argument'
+  }
 
-  // if filepath is not exist, print the content of the system clipboard to the terminal
-  // thanks to https://github.com/sindresorhus/clipboard-cli
-  if (process.stdin.isTTY || process.env.STDIN === '0' || force || input != null) {
-    // copy from file
-    if (!copied && input) {
-      logger.debug(`copy from ${input}.`)
-      await copyFromFile({
-        filepath: input,
-        encoding,
-        shouldShowMessage: !silence,
-        fakeClipboard,
-      })
-      copied = true
+  // Copy from file.
+  if (!copied && inputFilepath != null) {
+    ensureCriticalFilepathExistsSync(inputFilepath)
+    const fileContent: string = await fs.readFile(inputFilepath, { encoding })
+    await safeCopy(fileContent, { ...safeCopyOptions, from: `file(${inputFilepath})` })
+    copied = 'stdin'
+  }
+
+  // Copy from stdin.
+  if (!copied && !process.stdin.isTTY && process.env.STDIN != '0') {
+    const stdinContent = await readFromStdin(encoding)
+    if (stdinContent) {
+      await safeCopy(stdinContent, { ...safeCopyOptions, from: 'stdin' })
+      copied = 'file'
     }
+  }
 
-    // paste to file
-    if (output != null) {
-      logger.debug(`paste to ${output}.`)
+  // Paste to file.
+  if (!pasted && outputFilepath != null) {
+    // FIXME: resolve inquire.prompt when there are stdin pipeline content.
+    if (copied !== 'stdin' || force) {
+      logger.debug(`paste to ${outputFilepath}.`)
       await pasteToFile({
-        filepath: output,
+        filepath: outputFilepath,
         encoding,
         force,
-        shouldShowMessage: !silence,
+        silence,
+        shouldStripAnsi,
         fakeClipboard,
       })
-      return
     }
-
-    // paste to stdout
-    if (!copied) {
-      logger.debug(`paste to stdout.`)
-      await pasteToStdout({
-        encoding,
-        fakeClipboard,
-      })
-      return
-    }
+    pasted = 'file'
   }
 
-  if (!copied) {
-    // copy data from stdin
-    logger.debug(`copy from stdin.`)
-    await copyFromStdin({
+  // Paste to stdout.
+  if (!copied && !pasted) {
+    logger.debug(`paste to stdout.`)
+    await pasteToStdout({
       encoding,
-      shouldShowMessage: !silence,
+      shouldStripAnsi,
       fakeClipboard,
     })
+    pasted = 'stdout'
   }
 }

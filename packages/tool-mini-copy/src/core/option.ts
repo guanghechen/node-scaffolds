@@ -159,5 +159,6 @@ export function resolveGlobalCommandOptions<C extends Record<string, unknown>>(
     fakeClipboard,
     force,
     silence,
+    stripAnsi,
   }
 }

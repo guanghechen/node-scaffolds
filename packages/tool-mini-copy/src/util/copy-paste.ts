@@ -1,58 +1,62 @@
-import { ensureCriticalFilepathExistsSync, isFileSync } from '@guanghechen/file-helper'
+import { stripAnsi } from '@guanghechen/commander-helper'
+import { isFileSync } from '@guanghechen/file-helper'
+import invariant from '@guanghechen/invariant'
 import type { FakeClipboard } from '@guanghechen/mini-copy'
 import fs from 'fs-extra'
 import inquirer from 'inquirer'
 import { logger } from '../env/logger'
 import { copy, paste } from './mini-copy'
 
-export async function copyFromFile(params: {
-  filepath: string
-  encoding: string
-  shouldShowMessage: boolean
+export interface ISafeCopyOptions {
+  from: string
+  silence: boolean
+  shouldStripAnsi: boolean
   fakeClipboard?: FakeClipboard
-}): Promise<void> {
-  const { filepath, encoding, shouldShowMessage, fakeClipboard } = params
-  ensureCriticalFilepathExistsSync(filepath)
-  const content: string = await fs.readFile(filepath, { encoding })
+}
+
+export async function safeCopy(content: string, options: ISafeCopyOptions): Promise<void> {
+  const { from, silence, shouldStripAnsi, fakeClipboard } = options
+  const startMessage = `Copying from ${from}.`
+  const succeedMessage = fakeClipboard
+    ? `Copied into fake clipboard.`
+    : `Copied into system clipboard.`
+
   try {
-    await copy(content, { fakeClipboard })
-    if (shouldShowMessage) logger.info(`copied from ${filepath}.`)
+    logger.debug(startMessage)
+    const value = shouldStripAnsi ? stripAnsi(content) : content
+    await copy(value, { fakeClipboard })
+    if (silence) logger.debug(succeedMessage)
+    else logger.info(succeedMessage)
   } catch (error) {
     if (typeof error === 'string') logger.error(error)
     else throw error
   }
 }
 
-export async function copyFromStdin(params: {
-  encoding: BufferEncoding
-  shouldShowMessage: boolean
+export interface ISafePasteOptions {
+  to: string
+  silence: boolean
+  shouldStripAnsi: boolean
   fakeClipboard?: FakeClipboard
-}): Promise<void> {
-  const { encoding, shouldShowMessage, fakeClipboard } = params
-  const content: string = await new Promise<string>((resolve, reject) => {
-    let ret = ''
-    const stdin = process.stdin
+}
 
-    if (stdin.isTTY) return void resolve(ret)
-    stdin
-      .setEncoding(encoding)
-      .on('readable', () => {
-        for (let chunk; ; ret += chunk) {
-          chunk = stdin.read()
-          if (chunk == null) break
-        }
-      })
-      .on('end', () => {
-        resolve(ret.replace(/^([^]*?)(?:\r\n|\n\r|[\n\r])$/, '$1'))
-      })
-      .on('error', error => {
-        reject(error)
-      })
-  })
+export async function safePaste(
+  write: (content: string) => Promise<void>,
+  options: ISafePasteOptions,
+): Promise<void> {
+  const { to, silence, shouldStripAnsi, fakeClipboard } = options
+  const startMessage = fakeClipboard
+    ? `Reading from fake clipboard`
+    : `Reading from system clipboard`
+  const succeedMessage = `Pasted into ${to}.`
 
   try {
-    await copy(content, { fakeClipboard })
-    if (shouldShowMessage) logger.info(`copied into system clipboard.`)
+    logger.debug(startMessage)
+    const content: string = await paste({ fakeClipboard })
+    const value = shouldStripAnsi ? stripAnsi(content) : content
+    await write(value)
+    if (silence) logger.debug(succeedMessage)
+    else logger.info(succeedMessage)
   } catch (error) {
     if (typeof error === 'string') logger.error(error)
     else throw error
@@ -63,15 +67,13 @@ export async function pasteToFile(params: {
   filepath: string
   encoding: BufferEncoding
   force: boolean
-  shouldShowMessage: boolean
+  silence: boolean
+  shouldStripAnsi: boolean
   fakeClipboard?: FakeClipboard
 }): Promise<void> {
-  const { filepath, encoding, force, shouldShowMessage, fakeClipboard } = params
+  const { filepath, encoding, force, silence, shouldStripAnsi, fakeClipboard } = params
   if (fs.existsSync(filepath)) {
-    if (!isFileSync(filepath)) {
-      if (shouldShowMessage) logger.error(`${filepath} is not a file.`)
-      return
-    }
+    invariant(isFileSync(filepath), `${filepath} is not a file.`)
 
     // the filepath is exists, wait for user's confirmation to overwrite it.
     if (!force) {
@@ -87,26 +89,30 @@ export async function pasteToFile(params: {
     }
   }
 
-  try {
-    const content: string = await paste({ fakeClipboard })
-    await fs.writeFile(filepath, content, { encoding })
-    if (shouldShowMessage) logger.info(`pasted into ${filepath}.`)
-  } catch (error) {
-    if (typeof error === 'string') logger.error(error)
-    else throw error
-  }
+  await safePaste(content => fs.writeFile(filepath, content, { encoding }), {
+    to: `file(${filepath})`,
+    silence,
+    shouldStripAnsi,
+    fakeClipboard,
+  })
 }
 
 export async function pasteToStdout(params: {
   encoding: BufferEncoding
+  shouldStripAnsi: boolean
   fakeClipboard?: FakeClipboard
 }): Promise<void> {
-  const { encoding, fakeClipboard } = params
-  try {
-    const content: string = (await paste({ fakeClipboard })) || ''
-    await new Promise(resolve => process.stdout.write(content, encoding, resolve))
-  } catch (error) {
-    if (typeof error === 'string') logger.error(error)
-    else throw error
-  }
+  const { encoding, shouldStripAnsi, fakeClipboard } = params
+  await safePaste(
+    content =>
+      new Promise<void>((resolve, reject) =>
+        process.stdout.write(content, encoding, err => (err ? reject(err) : resolve())),
+      ),
+    {
+      to: `stdout`,
+      silence: true,
+      shouldStripAnsi,
+      fakeClipboard,
+    },
+  )
 }
