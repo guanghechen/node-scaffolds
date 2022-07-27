@@ -39,6 +39,11 @@ export interface GlobalCommandOptions extends CommandConfigurationOptions {
    * @default false
    */
   silence: boolean
+  /**
+   * Whether to strip ansi escape codes (i.e. terminal colors).
+   * @default false
+   */
+  stripAnsi: boolean
 }
 
 /**
@@ -51,6 +56,7 @@ export const __defaultGlobalCommandOptions: GlobalCommandOptions = {
   fakeClipboard: undefined,
   force: false,
   silence: false,
+  stripAnsi: false,
 }
 
 /**
@@ -136,7 +142,14 @@ export function resolveGlobalCommandOptions<C extends Record<string, unknown>>(
     resolvedDefaultOptions.silence,
     convertToBoolean(options.silence),
   )
-  logger.debug('force:', force)
+  logger.debug('silence:', silence)
+
+  // Resolve `stripAnsi`.
+  const stripAnsi: boolean = cover<boolean>(
+    resolvedDefaultOptions.stripAnsi,
+    convertToBoolean(options.stripAnsi),
+  )
+  logger.debug('stripAnsi:', stripAnsi)
 
   return {
     ...resolvedDefaultOptions,
