@@ -1,5 +1,5 @@
+import { isFunction } from '@guanghechen/helper-is'
 import { convertToBoolean, convertToInteger, convertToNumber, convertToString } from './convert'
-import { isFunction } from './is'
 
 /**
  * Cover a defaultValue if the given value is not null / undefined.

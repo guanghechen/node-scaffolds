@@ -11,6 +11,7 @@
       "@guanghechen/commander-helper": ["packages/commander-helper/src"],
       "@guanghechen/event-bus": ["packages/event-bus/src"],
       "@guanghechen/file-helper": ["packages/file-helper/src"],
+      "@guanghechen/helper-is": ["packages/helper-is/src"],
       "@guanghechen/helper-string": ["packages/helper-string/src"],
       "@guanghechen/invariant": ["packages/invariant/src"],
       "@guanghechen/jest-helper": ["packages/jest-helper/src"],

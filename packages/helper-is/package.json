@@ -1,5 +1,5 @@
 {
-  "name": "@guanghechen/option-helper",
+  "name": "@guanghechen/helper-is",
   "version": "1.9.8",
   "description": "a collection of utility functions for processing options",
   "author": {
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/node-scaffolds.git",
-    "directory": "packages/option-helper"
+    "directory": "packages/helper-is"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/option-helper#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-is#readme",
   "keywords": [
     "type utils",
     "string utils"
@@ -38,10 +38,6 @@
     "prebuild": "rimraf lib/ && tsc -p tsconfig.src.json --emitDeclarationOnly",
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
-  },
-  "dependencies": {
-    "@guanghechen/helper-is": "^1.9.8",
-    "@guanghechen/helper-string": "^1.9.8"
   },
   "devDependencies": {
     "@guanghechen/rollup-config": "^1.9.8"
