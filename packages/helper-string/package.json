@@ -1,7 +1,7 @@
 {
-  "name": "@guanghechen/option-helper",
+  "name": "@guanghechen/helper-string",
   "version": "1.9.8",
-  "description": "a collection of utility functions for processing options",
+  "description": "Utilities for processing strings or stringify other type data",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/node-scaffolds.git",
-    "directory": "packages/option-helper"
+    "directory": "packages/helper-string"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/option-helper#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-string#readme",
   "keywords": [
     "type utils",
     "string utils"
@@ -40,7 +40,10 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-string": "^1.9.8"
+    "change-case": "^4.1.1",
+    "lower-case": "^2.0.1",
+    "title-case": "^3.0.2",
+    "upper-case": "^2.0.1"
   },
   "devDependencies": {
     "@guanghechen/rollup-config": "^1.9.8"

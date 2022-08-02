@@ -1,4 +1,5 @@
 import {
+  composeTextTransformers,
   toCamelCase,
   toCapitalCase,
   toConstantCase,
@@ -10,6 +11,7 @@ import {
   toSentenceCase,
   toSnakeCase,
   toTitleCase,
+  toTrim,
   toUpperCase,
 } from '../src'
 
@@ -72,5 +74,13 @@ describe('string', function () {
   describe('toDotCase', function () {
     test("'test string' => 'test.string'", () =>
       expect(toDotCase('test string')).toEqual('test.string'))
+  })
+})
+
+describe('composeTextTransformers', function () {
+  test('trim and lower, then kebab', function () {
+    const transform = composeTextTransformers(toTrim, toLowerCase, toKebabCase)
+    const text: string = transform(' TeSt_StrinG ')
+    expect(text).toEqual('test-string')
   })
 })
