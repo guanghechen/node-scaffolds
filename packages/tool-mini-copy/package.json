@@ -42,9 +42,10 @@
     "@guanghechen/chalk-logger": "^1.9.8",
     "@guanghechen/commander-helper": "^1.9.8",
     "@guanghechen/file-helper": "^1.9.8",
+    "@guanghechen/helper-is": "^1.9.8",
+    "@guanghechen/helper-option": "^1.9.8",
     "@guanghechen/invariant": "^1.9.8",
     "@guanghechen/mini-copy": "^1.9.8",
-    "@guanghechen/option-helper": "^1.9.8",
     "fs-extra": "^10.1.0",
     "inquirer": "^8.2.4"
   }

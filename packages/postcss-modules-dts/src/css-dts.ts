@@ -1,4 +1,4 @@
-import { coverBoolean, coverString } from '@guanghechen/option-helper'
+import { coverBoolean, coverString } from '@guanghechen/helper-option'
 import fs from 'fs-extra'
 import reservedWords from 'reserved-words'
 import type { CSSDtsProcessorProps, GetCSSTokenHook } from './types'

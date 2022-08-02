@@ -41,7 +41,7 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/option-helper": "^1.9.8",
+    "@guanghechen/helper-is": "^1.9.8",
     "@guanghechen/postcss-modules-dts": "^1.9.8",
     "@guanghechen/rollup-config": "^1.9.8",
     "@rollup/plugin-multi-entry": "^4.1.0",

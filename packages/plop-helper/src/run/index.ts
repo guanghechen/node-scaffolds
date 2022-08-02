@@ -1,4 +1,4 @@
-import { coverBoolean } from '@guanghechen/option-helper'
+import { coverBoolean } from '@guanghechen/helper-option'
 import type { PlopGenerator } from 'node-plop'
 import Ora from 'ora'
 import type {

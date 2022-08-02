@@ -42,7 +42,7 @@
     "test": "echo 'no test needed.'"
   },
   "dependencies": {
-    "@guanghechen/option-helper": "^1.9.8",
+    "@guanghechen/helper-option": "^1.9.8",
     "@types/reserved-words": "0.1.0",
     "fs-extra": "^10.1.0",
     "reserved-words": "0.1.2"

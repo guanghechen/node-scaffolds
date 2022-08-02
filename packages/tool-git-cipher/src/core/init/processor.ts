@@ -6,7 +6,8 @@ import {
   mkdirsIfNotExists,
   relativeOfWorkspace,
 } from '@guanghechen/file-helper'
-import { isNonBlankString, toLowerCase } from '@guanghechen/option-helper'
+import { isNonBlankString } from '@guanghechen/helper-is'
+import { toLowerCase } from '@guanghechen/helper-string'
 import { runPlop } from '@guanghechen/plop-helper'
 import commandExists from 'command-exists'
 import execa from 'execa'

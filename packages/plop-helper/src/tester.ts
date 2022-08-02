@@ -1,4 +1,5 @@
-import { coverString, isFunction, isNonBlankString } from '@guanghechen/option-helper'
+import { isFunction, isNonBlankString } from '@guanghechen/helper-is'
+import { coverString } from '@guanghechen/helper-option'
 import type { InputQuestion } from 'inquirer'
 import mockStdin from 'mock-stdin'
 import nodePlop from 'node-plop'

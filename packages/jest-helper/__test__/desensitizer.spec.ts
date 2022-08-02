@@ -1,4 +1,4 @@
-import { isSymbol } from '@guanghechen/option-helper'
+import { isSymbol } from '@guanghechen/helper-is'
 import {
   composeStringDesensitizers,
   createFilepathDesensitizer,

@@ -1,6 +1,6 @@
 import type { CipherHelper } from '@guanghechen/cipher-helper'
 import { AESCipherHelper, CipherCatalog } from '@guanghechen/cipher-helper'
-import { coverString } from '@guanghechen/option-helper'
+import { coverString } from '@guanghechen/helper-option'
 import commandExists from 'command-exists'
 import fs from 'fs-extra'
 import inquirer from 'inquirer'

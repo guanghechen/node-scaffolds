@@ -1,5 +1,5 @@
 import type { ChalkLogger } from '@guanghechen/chalk-logger'
-import { toLowerCase } from '@guanghechen/option-helper'
+import { toLowerCase } from '@guanghechen/helper-string'
 import commandExists from 'command-exists'
 import execa from 'execa'
 import inquirer from 'inquirer'

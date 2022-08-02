@@ -1,4 +1,4 @@
-import { isNotEmptyArray, isNotEmptyObject } from '@guanghechen/option-helper'
+import { isNotEmptyArray, isNotEmptyObject } from '@guanghechen/helper-is'
 
 /**
  * The strategy for merging options

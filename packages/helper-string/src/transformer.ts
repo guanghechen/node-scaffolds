@@ -6,7 +6,7 @@ import { upperCase } from 'upper-case'
 /**
  * Text transformer.
  */
-export type TextTransformer = (text: string) => string
+export type ITextTransformer = (text: string) => string
 
 /**
  * Transform into a string with the separator
@@ -17,7 +17,7 @@ export type TextTransformer = (text: string) => string
  * @param text
  * @see https://github.com/blakeembrey/change-case#camelcase
  */
-export const toCamelCase: TextTransformer = text => changeCase.camelCase(text)
+export const toCamelCase: ITextTransformer = text => changeCase.camelCase(text)
 
 /**
  * Transform into a space separated string with each word capitalized.
@@ -27,7 +27,7 @@ export const toCamelCase: TextTransformer = text => changeCase.camelCase(text)
  * @param text
  * @see https://github.com/blakeembrey/change-case#capitalCase
  */
-export const toCapitalCase: TextTransformer = text => changeCase.capitalCase(text)
+export const toCapitalCase: ITextTransformer = text => changeCase.capitalCase(text)
 
 /**
  * Transform into upper case string with an underscore between words.
@@ -37,7 +37,7 @@ export const toCapitalCase: TextTransformer = text => changeCase.capitalCase(tex
  * @param text
  * @see https://github.com/blakeembrey/change-case#constantCase
  */
-export const toConstantCase: TextTransformer = text => changeCase.constantCase(text)
+export const toConstantCase: ITextTransformer = text => changeCase.constantCase(text)
 
 /**
  * Transform into a lower case string with a period between words.
@@ -47,7 +47,7 @@ export const toConstantCase: TextTransformer = text => changeCase.constantCase(t
  * @param text
  * @see https://github.com/blakeembrey/change-case#dotcase
  */
-export const toDotCase: TextTransformer = text => changeCase.dotCase(text)
+export const toDotCase: ITextTransformer = text => changeCase.dotCase(text)
 
 /**
  * Transform into a lower cased string with dashes between words.
@@ -57,7 +57,7 @@ export const toDotCase: TextTransformer = text => changeCase.dotCase(text)
  * @param text
  * @see https://github.com/blakeembrey/change-case#paramcase
  */
-export const toKebabCase: TextTransformer = text => changeCase.paramCase(text)
+export const toKebabCase: ITextTransformer = text => changeCase.paramCase(text)
 
 /**
  * Transforms the string to lower case.
@@ -67,7 +67,7 @@ export const toKebabCase: TextTransformer = text => changeCase.paramCase(text)
  * @param text
  * @see https://github.com/blakeembrey/change-case#lowerCase
  */
-export const toLowerCase: TextTransformer = text => lowerCase(text)
+export const toLowerCase: ITextTransformer = text => lowerCase(text)
 
 /**
  * Transform into a string of capitalized words without separators.
@@ -77,7 +77,7 @@ export const toLowerCase: TextTransformer = text => lowerCase(text)
  * @param text
  * @see https://github.com/blakeembrey/change-case#pascalcase
  */
-export const toPascalCase: TextTransformer = text => changeCase.pascalCase(text)
+export const toPascalCase: ITextTransformer = text => changeCase.pascalCase(text)
 
 /**
  * Transform into a lower case string with slashes between words.
@@ -87,7 +87,7 @@ export const toPascalCase: TextTransformer = text => changeCase.pascalCase(text)
  * @param text
  * @see https://github.com/blakeembrey/change-case#pathcase
  */
-export const toPathCase: TextTransformer = text => changeCase.pathCase(text)
+export const toPathCase: ITextTransformer = text => changeCase.pathCase(text)
 
 /**
  * Transform into a lower case with spaces between words,
@@ -98,7 +98,7 @@ export const toPathCase: TextTransformer = text => changeCase.pathCase(text)
  * @param text
  * @see https://github.com/blakeembrey/change-case#sentencecase
  */
-export const toSentenceCase: TextTransformer = text => changeCase.sentenceCase(text)
+export const toSentenceCase: ITextTransformer = text => changeCase.sentenceCase(text)
 
 /**
  * Transform into a lower case string with underscores between words.
@@ -108,7 +108,7 @@ export const toSentenceCase: TextTransformer = text => changeCase.sentenceCase(t
  * @param text
  * @see https://github.com/blakeembrey/change-case#snakeCase
  */
-export const toSnakeCase: TextTransformer = text => changeCase.snakeCase(text)
+export const toSnakeCase: ITextTransformer = text => changeCase.snakeCase(text)
 
 /**
  * Transform a string into title case following English rules.
@@ -118,7 +118,7 @@ export const toSnakeCase: TextTransformer = text => changeCase.snakeCase(text)
  * @param text
  * @see https://github.com/blakeembrey/change-case#titlecase
  */
-export const toTitleCase: TextTransformer = text => titleCase(text)
+export const toTitleCase: ITextTransformer = text => titleCase(text)
 
 /**
  * Perform trim operation
@@ -128,7 +128,7 @@ export const toTitleCase: TextTransformer = text => titleCase(text)
  * @param text
  * @returns
  */
-export const toTrim: TextTransformer = text => text.trim()
+export const toTrim: ITextTransformer = text => text.trim()
 
 /**
  * Transforms the string to upper case.
@@ -138,16 +138,16 @@ export const toTrim: TextTransformer = text => text.trim()
  * @param text
  * @see https://github.com/blakeembrey/change-case#upperCase
  */
-export const toUpperCase: TextTransformer = text => upperCase(text)
+export const toUpperCase: ITextTransformer = text => upperCase(text)
 
 /**
- * Compose multiple TextTransformer into one.
+ * Compose multiple ITextTransformer into one.
  * @param transformers
  * @returns
  */
 export function composeTextTransformers(
-  ...transformers: ReadonlyArray<TextTransformer>
-): TextTransformer {
+  ...transformers: ReadonlyArray<ITextTransformer>
+): ITextTransformer {
   return text => {
     let result = text
     for (const transformer of transformers) {

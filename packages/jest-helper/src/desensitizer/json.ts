@@ -1,4 +1,4 @@
-import { isArray, isNumber, isObject, isString } from '@guanghechen/option-helper'
+import { isArray, isNumber, isObject, isString } from '@guanghechen/helper-is'
 import { noop } from '../util'
 import type { Desensitizer, NumberDesensitizer, StringDesensitizer } from './types'
 

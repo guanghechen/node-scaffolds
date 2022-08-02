@@ -1,13 +1,9 @@
+import { isNonBlankString } from '@guanghechen/helper-is'
+import { cover } from '@guanghechen/helper-option'
+import { composeTextTransformers, toSentenceCase, toTrim } from '@guanghechen/helper-string'
+import type { ITextTransformer } from '@guanghechen/helper-string'
 import invariant from '@guanghechen/invariant'
 import { detectMonorepo } from '@guanghechen/npm-helper'
-import {
-  composeTextTransformers,
-  cover,
-  isNonBlankString,
-  toSentenceCase,
-  toTrim,
-} from '@guanghechen/option-helper'
-import type { TextTransformer } from '@guanghechen/option-helper'
 import type { InputQuestion } from 'inquirer'
 import path from 'path'
 import {
@@ -21,7 +17,7 @@ import type { NpmPackageData, NpmPackagePreAnswers, NpmPackagePromptsAnswers } f
 import { resolveRepositoryName } from './util'
 
 // Transformers for npm-package prompts
-export const npmPackageTransformers: Record<string, TextTransformer> = {
+export const npmPackageTransformers: Record<string, ITextTransformer> = {
   packageName: toTrim,
   packageAuthor: toTrim,
   packageVersion: toTrim,

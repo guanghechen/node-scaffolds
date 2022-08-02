@@ -1,6 +1,7 @@
 import type { CommandConfigurationFlatOpts } from '@guanghechen/commander-helper'
 import { Command } from '@guanghechen/commander-helper'
-import { cover, coverBoolean, isNotEmptyArray } from '@guanghechen/option-helper'
+import { isNotEmptyArray } from '@guanghechen/helper-is'
+import { cover, coverBoolean } from '@guanghechen/helper-option'
 import path from 'path'
 import { packageName } from '../../env/constant'
 import { logger } from '../../env/logger'

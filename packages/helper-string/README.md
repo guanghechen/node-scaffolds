@@ -78,7 +78,7 @@ Utilities for processing strings or stringify other type data.
   `toTitleCase`         | `'a simple test' => 'A Simple Test'`
   `toUpperCase`         | `'test string' => 'TEST STRING'`
 
-  - `composeTextTransformers`: Compose multiple TextTransformer into one.
+  - `composeTextTransformers`: Compose multiple ITextTransformer into one.
 
     ```typescript
     import {
@@ -88,8 +88,8 @@ Utilities for processing strings or stringify other type data.
     } from '@guanghechen/helper-string'
 
     // function composeTextTransformers (
-    //   ...transformers: ReadonlyArray<TextTransformer>
-    // ): TextTransformer
+    //   ...transformers: ReadonlyArray<ITextTransformer>
+    // ): ITextTransformer
 
     const transform = composeTextTransformers(toTrim, toKebabCase)
     const text: string = transform(' TeSt_StrinG ')

@@ -1,4 +1,4 @@
-import { isObject } from '@guanghechen/option-helper'
+import { isObject } from '@guanghechen/helper-is'
 import dts from '@guanghechen/postcss-modules-dts'
 import createBaseRollupConfig, { resolveRollupConfigEnvs } from '@guanghechen/rollup-config'
 import type { RollupConfigEnvs } from '@guanghechen/rollup-config'
