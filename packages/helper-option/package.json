@@ -1,5 +1,5 @@
 {
-  "name": "@guanghechen/option-helper",
+  "name": "@guanghechen/helper-option",
   "version": "1.9.8",
   "description": "a collection of utility functions for processing options",
   "author": {
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/node-scaffolds.git",
-    "directory": "packages/option-helper"
+    "directory": "packages/helper-option"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/option-helper#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-option#readme",
   "keywords": [
     "type utils",
     "string utils"

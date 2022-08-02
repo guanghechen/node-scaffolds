@@ -1,30 +1,30 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/option-helper#readme">@guanghechen/option-helper</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-option#readme">@guanghechen/helper-option</a>
   </h1>
   <div align="center">
-    <a href="https://www.npmjs.com/package/@guanghechen/option-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-option">
       <img
         alt="Npm Version"
-        src="https://img.shields.io/npm/v/@guanghechen/option-helper.svg"
+        src="https://img.shields.io/npm/v/@guanghechen/helper-option.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/option-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-option">
       <img
         alt="Npm Download"
-        src="https://img.shields.io/npm/dm/@guanghechen/option-helper.svg"
+        src="https://img.shields.io/npm/dm/@guanghechen/helper-option.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/option-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-option">
       <img
         alt="Npm License"
-        src="https://img.shields.io/npm/l/@guanghechen/option-helper.svg"
+        src="https://img.shields.io/npm/l/@guanghechen/helper-option.svg"
       />
     </a>
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"
-        src="https://img.shields.io/node/v/@guanghechen/option-helper"
+        src="https://img.shields.io/node/v/@guanghechen/helper-option"
       />
     </a>
     <a href="https://github.com/facebook/jest">
@@ -51,13 +51,13 @@ A collection of utility functions for processing options.
 * npm
 
   ```bash
-  npm install --save-dev @guanghechen/option-helper
+  npm install --save-dev @guanghechen/helper-option
   ```
 
 * yarn
 
   ```bash
-  yarn add --dev @guanghechen/option-helper
+  yarn add --dev @guanghechen/helper-option
   ```
 
 ## Usage
@@ -114,7 +114,7 @@ A collection of utility functions for processing options.
         composeTextTransformers,
         toKebabCase,
         toTrim,
-      } from '@guanghechen/option-helper'
+      } from '@guanghechen/helper-option'
 
       // function composeTextTransformers (
       //   ...transformers: ReadonlyArray<TextTransformer>
@@ -145,4 +145,4 @@ A collection of utility functions for processing options.
     `convertToString`     | -
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/option-helper#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-option#readme
