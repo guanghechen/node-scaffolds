@@ -61,6 +61,7 @@ Package                               | Description
 [@guanghechen/eslint-config-ts][]     | Eslint config for `Typescript` project
 [@guanghechen/event-bus]              | A simple event bus.
 [@guanghechen/file-helper]            | A collection of utility functions for handling files, such as split big file or merge multiple small files.
+[@guanghechen/helper-blob][]          | Utilities for processing blob objects (i.e., download / create).
 [@guanghechen/helper-is][]            | Utilities to detect data type.
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
 [@guanghechen/helper-string][]        | Utilities for processing strings or stringify other type data.
@@ -90,7 +91,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds
-[@guanghechen/blob-helper]: ./packages/blob-helpereslint-config
 [@guanghechen/chalk-logger]: ./packages/chalk-logger
 [@guanghechen/cipher-helper]: ./packages/cipher-helper
 [@guanghechen/commander-helper]: ./packages/commander-helper
@@ -99,6 +99,7 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/eslint-config-ts]: ./packages/eslint-config-ts
 [@guanghechen/event-bus]: ./packages/event-bus
 [@guanghechen/file-helper]: ./packages/file-helper
+[@guanghechen/helper-blob]: ./packages/helper-blob
 [@guanghechen/helper-is]: ./packages/helper-is
 [@guanghechen/helper-option]: ./packages/helper-option
 [@guanghechen/helper-string]: ./packages/helper-string

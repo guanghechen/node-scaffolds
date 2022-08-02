@@ -1,7 +1,7 @@
 {
-  "name": "@guanghechen/blob-helper",
+  "name": "@guanghechen/helper-blob",
   "version": "1.9.8",
-  "description": "Utility funcs for handling blob objects (Such as download / create a blob from dataUrl)",
+  "description": "Utilities for processing blob objects (i.e., download / create).",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/node-scaffolds.git",
-    "directory": "packages/blob-helper"
+    "directory": "packages/helper-blob"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/blob-helper#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-blob#readme",
   "keywords": [
     "blob"
   ],

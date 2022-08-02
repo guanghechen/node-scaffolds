@@ -1,24 +1,24 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/blob-helper#readme">@guanghechen/blob-helper</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-blob#readme">@guanghechen/helper-blob</a>
   </h1>
   <div align="center">
-    <a href="https://www.npmjs.com/package/@guanghechen/blob-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-blob">
       <img
         alt="Npm Version"
-        src="https://img.shields.io/npm/v/@guanghechen/blob-helper.svg"
+        src="https://img.shields.io/npm/v/@guanghechen/helper-blob.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/blob-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-blob">
       <img
         alt="Npm Download"
-        src="https://img.shields.io/npm/dm/@guanghechen/blob-helper.svg"
+        src="https://img.shields.io/npm/dm/@guanghechen/helper-blob.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/blob-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-blob">
       <img
         alt="Npm License"
-        src="https://img.shields.io/npm/l/@guanghechen/blob-helper.svg"
+        src="https://img.shields.io/npm/l/@guanghechen/helper-blob.svg"
       />
     </a>
     <a href="#install">
@@ -30,7 +30,7 @@
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"
-        src="https://img.shields.io/node/v/@guanghechen/blob-helper"
+        src="https://img.shields.io/node/v/@guanghechen/helper-blob"
       />
     </a>
     <a href="https://github.com/prettier/prettier">
@@ -44,7 +44,7 @@
 <br/>
 
 
-`blob-helper` is a colorful logger tool based on [chalk][] (so you can use a
+`helper-blob` is a colorful logger tool based on [chalk][] (so you can use a
 lot of colors), and can be easily integrated into [commander.js][] (so you can
 use command line parameters to customized the logger's behavior).
 
@@ -54,13 +54,13 @@ use command line parameters to customized the logger's behavior).
 * npm
 
   ```bash
-  npm install --save @guanghechen/blob-helper
+  npm install --save @guanghechen/helper-blob
   ```
 
 * yarn
 
   ```bash
-  yarn add @guanghechen/blob-helper
+  yarn add @guanghechen/helper-blob
   ```
 
 ## Usage
@@ -73,4 +73,4 @@ use command line parameters to customized the logger's behavior).
   browser.
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/blob-helper#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-blob#readme
