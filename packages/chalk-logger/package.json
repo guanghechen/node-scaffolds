@@ -40,6 +40,7 @@
     "test": "is-ci || cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
+    "@guanghechen/utility-types": "^1.9.8",
     "chalk": "^4.1.2",
     "dayjs": "^1.11.4",
     "fs-extra": "^10.1.0"

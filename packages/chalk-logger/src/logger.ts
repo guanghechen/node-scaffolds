@@ -1,15 +1,15 @@
+import type { Mutable } from '@guanghechen/utility-types'
 import type { Chalk } from 'chalk'
 import chalk from 'chalk'
 import dayjs from 'dayjs'
 import fs from 'fs-extra'
 import { inspect } from 'util'
-import type { Color } from './color'
-import { colorToChalk } from './color'
+import type { IColor } from './color'
+import { color2chalk } from './color'
 import type { Level } from './level'
 import { DEBUG, ERROR, FATAL, INFO, VERBOSE, WARN } from './level'
-import type { Writeable } from './types'
 
-export interface LoggerOptions {
+export interface ILoggerOptions {
   mode?: 'normal' | 'loose'
   placeholderRegex?: RegExp
   name?: string
@@ -21,8 +21,8 @@ export interface LoggerOptions {
   encoding?: BufferEncoding
   filepath?: string
   write?(text: string): void
-  dateChalk?: Chalk | Color
-  nameChalk?: Chalk | Color
+  dateChalk?: Chalk | IColor
+  nameChalk?: Chalk | IColor
 }
 
 export class Logger {
@@ -52,15 +52,15 @@ export class Logger {
     colorful: true,
   }
 
-  constructor(options?: LoggerOptions) {
+  constructor(options?: ILoggerOptions) {
     this.name = ''
     this.init(options)
   }
 
-  public init(options?: LoggerOptions): void {
+  public init(options?: ILoggerOptions): void {
     if (!options) return
 
-    const self = this as Writeable<this>
+    const self = this as Mutable<this>
 
     if (options.name != null) {
       self.name = options.name
@@ -107,12 +107,12 @@ export class Logger {
 
     // set dateChalk
     if (dateChalk != null) {
-      self.dateChalk = typeof dateChalk === 'function' ? dateChalk : colorToChalk(dateChalk, true)
+      self.dateChalk = typeof dateChalk === 'function' ? dateChalk : color2chalk(dateChalk, true)
     }
 
     // set nameChalk
     if (nameChalk != null) {
-      self.nameChalk = typeof nameChalk === 'function' ? nameChalk : colorToChalk(nameChalk, true)
+      self.nameChalk = typeof nameChalk === 'function' ? nameChalk : color2chalk(nameChalk, true)
     }
   }
 

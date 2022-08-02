@@ -1,7 +1,7 @@
 import type { Chalk } from 'chalk'
 import chalk from 'chalk'
 
-export type Color = string | [number, number, number]
+export type IColor = string | [number, number, number]
 
 const colorKeywords = new Set([
   'black',
@@ -25,7 +25,7 @@ const brightColorKeywords = new Set([
   'whiteBright',
 ])
 
-export function colorToChalk(color: Color, fg: boolean): Chalk {
+export function color2chalk(color: IColor, fg: boolean): Chalk {
   if (typeof color === 'string') {
     if (colorKeywords.has(color) || brightColorKeywords.has(color)) {
       if (!fg) {
@@ -47,9 +47,9 @@ export class ColorfulChalk {
   public readonly fg: Chalk
   public readonly bg: Chalk | null
 
-  constructor(fg: Color, bg?: Color) {
-    this.fg = colorToChalk(fg, true)
+  constructor(fg: IColor, bg?: IColor) {
+    this.fg = color2chalk(fg, true)
     if (bg == null) this.bg = null
-    else this.bg = colorToChalk(bg, false)
+    else this.bg = color2chalk(bg, false)
   }
 }

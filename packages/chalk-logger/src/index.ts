@@ -1,9 +1,10 @@
+import type { Mutable } from '@guanghechen/utility-types'
 import { calcLoggerOptionsFromArgs } from './command'
 import type { Level } from './level'
-import type { LoggerOptions } from './logger'
+import type { ILoggerOptions } from './logger'
 import { Logger } from './logger'
-import type { Writeable } from './types'
 
+export * from './color'
 export * from './command'
 export * from './level'
 export * from './logger'
@@ -18,7 +19,7 @@ export class ChalkLogger extends Logger {
    */
   protected divisionName: string | null = null
 
-  constructor(options?: LoggerOptions, args?: string[]) {
+  constructor(options?: ILoggerOptions, args?: string[]) {
     super({
       ...options,
       ...calcLoggerOptionsFromArgs(args || []),
@@ -33,7 +34,7 @@ export class ChalkLogger extends Logger {
    */
   public setLevel(level: Level | null | undefined): void {
     if (level == null) return
-    const self = this as Writeable<this>
+    const self = this as Mutable<this>
     self.level = level
   }
 
@@ -45,7 +46,7 @@ export class ChalkLogger extends Logger {
     const resolvedName: string = [this.basename, name]
       .filter((x): x is string => x != null && x.length > 0)
       .join(' ')
-    const self = this as Writeable<this>
+    const self = this as Mutable<this>
     self.name = resolvedName
     this.divisionName = name
   }
@@ -64,7 +65,7 @@ export class ChalkLogger extends Logger {
    * @param mode
    */
   public setMode(mode: 'normal' | 'loose'): void {
-    const self = this as Writeable<this>
+    const self = this as Mutable<this>
     self.mode = mode
   }
 }

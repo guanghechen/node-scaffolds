@@ -1,9 +1,8 @@
 import { createLoggerMock } from '@guanghechen/jest-helper'
 import { desensitize } from 'jest.helper'
-import { colorToChalk } from '../src/color'
-import { DEBUG, Level, VERBOSE } from '../src/level'
-import type { LoggerOptions } from '../src/logger'
-import { Logger } from '../src/logger'
+import type { ILoggerOptions } from '../src'
+import { DEBUG, Level, Logger, VERBOSE } from '../src'
+import { color2chalk } from '../src/color'
 
 describe('Logger', function () {
   const levels: string[] = ['debug', 'verbose', 'info', 'warn', 'error', 'fatal']
@@ -16,7 +15,7 @@ describe('Logger', function () {
           for (const shouldColorful of [false, true]) {
             for (const shouldDate of [false, true]) {
               for (const shouldTitle of [false, true]) {
-                const options: LoggerOptions = {
+                const options: ILoggerOptions = {
                   mode: mode as 'normal' | 'loose',
                   level: Level.valueOf(level),
                   inline: shouldInline,
@@ -110,8 +109,8 @@ describe('Logger', function () {
       inline: false,
       colorful: true,
       date: true,
-      dateChalk: colorToChalk([25, 104, 179], false),
-      nameChalk: colorToChalk([25, 104, 179], true),
+      dateChalk: color2chalk([25, 104, 179], false),
+      nameChalk: color2chalk([25, 104, 179], true),
     })
     const loggerMock = createLoggerMock({ logger, desensitize })
 
@@ -131,8 +130,8 @@ describe('Logger', function () {
   })
 
   test('init', function () {
-    const dateChalk = colorToChalk([25, 104, 179], false)
-    const nameChalk = colorToChalk([25, 104, 179], true)
+    const dateChalk = color2chalk([25, 104, 179], false)
+    const nameChalk = color2chalk([25, 104, 179], true)
     const logger = new Logger({
       name: 'complex',
       mode: 'normal',

@@ -7,6 +7,7 @@ export type Diff<T extends object, U extends object> = Pick<T, Exclude<keyof T, 
 
 /**
  * Make all properties in `T` mutable.
+ * @see https://stackoverflow.com/a/46634877
  */
 export type Mutable<T extends object> = { -readonly [P in keyof T]: T[P] }
 

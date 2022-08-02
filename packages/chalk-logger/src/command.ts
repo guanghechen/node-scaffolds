@@ -1,10 +1,10 @@
 import { Level } from './level'
-import type { LoggerOptions } from './logger'
+import type { ILoggerOptions } from './logger'
 
 /**
  * Commander options
  */
-interface CommanderOptions {
+interface ICommanderOptions {
   /**
    * logger level
    */
@@ -31,7 +31,7 @@ interface CommanderOptions {
   logEncoding?: BufferEncoding
 }
 
-interface Command {
+interface ICommand {
   option(flags: string, description?: string, defaultValue?: string | boolean): this
   option(flags: string, description: string, regexp: RegExp, defaultValue?: string | boolean): this
   option<T>(
@@ -46,8 +46,7 @@ interface Command {
  * register to commander
  * @param program {commander.Command}
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function registerCommanderOptions(program: Command): void {
+export function registerCommanderOptions(program: ICommand): void {
   program
     .option('--log-level <level>', "specify logger's level.")
     .option('--log-name <name>', "specify logger's name.")
@@ -67,9 +66,9 @@ export function registerCommanderOptions(program: Command): void {
  * @param commanderOptions
  */
 export function calcLoggerOptionsFromCommanderOptions(
-  commanderOptions: CommanderOptions,
-): LoggerOptions {
-  const options: LoggerOptions = {}
+  commanderOptions: ICommanderOptions,
+): ILoggerOptions {
+  const options: ILoggerOptions = {}
 
   // resolve log level
   if (commanderOptions.logLevel != null) {
@@ -134,8 +133,8 @@ export function calcLoggerOptionsFromCommanderOptions(
  *
  * @param args
  */
-export function calcLoggerOptionsFromArgs(args: string[]): LoggerOptions {
-  const options: CommanderOptions = { logFlag: [] }
+export function calcLoggerOptionsFromArgs(args: string[]): ILoggerOptions {
+  const options: ICommanderOptions = { logFlag: [] }
   const regex = /^--log-([\w]+)(?:=([-\w]+))?/
   for (let i = 0; i < args.length; ++i) {
     const arg = args[i]
