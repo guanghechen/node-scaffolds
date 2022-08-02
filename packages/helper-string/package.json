@@ -1,7 +1,7 @@
 {
   "name": "@guanghechen/helper-string",
   "version": "1.9.8",
-  "description": "Utilities for processing strings or stringify other type data",
+  "description": "Utilities for processing strings or stringify other type data.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -13,7 +13,8 @@
   },
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-string#readme",
   "keywords": [
-    "type utils",
+    "string",
+    "string transformer",
     "string utils"
   ],
   "main": "lib/cjs/index.js",

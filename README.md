@@ -61,13 +61,15 @@ Package                               | Description
 [@guanghechen/eslint-config-ts][]     | Eslint config for `Typescript` project
 [@guanghechen/event-bus]              | A simple event bus.
 [@guanghechen/file-helper]            | A collection of utility functions for handling files, such as split big file or merge multiple small files.
+[@guanghechen/helper-is][]            | Utilities to detect data type.
+[@guanghechen/helper-option][]        | Utilities for resolving options or props.
+[@guanghechen/helper-string][]        | Utilities for processing strings or stringify other type data.
 [@guanghechen/invariant]              | An invariant function.
 [@guanghechen/jest-config][]          | Basic jest configs for typescript monorepo
 [@guanghechen/jest-helper][]          | A collection of utility functions for jest tests
 [@guanghechen/locate-helper][]        | A collection of utility functions for locating nearest filepath matched the given pattern
 [@guanghechen/mini-copy][]            | Access system clipboard (also support to share clipboard in wsl with windows).
 [@guanghechen/npm-helper][]           | A collection of utility functions for handling npm packages.
-[@guanghechen/option-helper][]        | A collection of utility functions for processing options
 [@guanghechen/plop-helper][]          | A collection of utility functions for plop templates
 [@guanghechen/postcss-modules-dts][]  | Generate `*.d.ts` files for style files (such as css, stylus and etc)
 [@guanghechen/react-hooks][]          | Custom React hooks.
@@ -97,13 +99,15 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/eslint-config-ts]: ./packages/eslint-config-ts
 [@guanghechen/event-bus]: ./packages/event-bus
 [@guanghechen/file-helper]: ./packages/file-helper
+[@guanghechen/helper-is]: ./packages/helper-is
+[@guanghechen/helper-option]: ./packages/helper-option
+[@guanghechen/helper-string]: ./packages/helper-string
 [@guanghechen/invariant]: ./packages/invariant
 [@guanghechen/jest-config]: ./packages/jest-config
 [@guanghechen/jest-helper]: ./packages/jest-helper
 [@guanghechen/locate-helper]: ./packages/locate-helper
 [@guanghechen/mini-copy]: ./packages/mini-copy
 [@guanghechen/npm-helper]: ./packages/npm-helper
-[@guanghechen/option-helper]: ./packages/option-helper
 [@guanghechen/plop-helper]: ./packages/plop-helper
 [@guanghechen/postcss-modules-dts]: ./packages/postcss-modules-dts
 [@guanghechen/react-hooks]: ./packages/react-hooks

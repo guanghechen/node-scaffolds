@@ -1,7 +1,7 @@
 {
   "name": "@guanghechen/helper-option",
   "version": "1.9.8",
-  "description": "a collection of utility functions for processing options",
+  "description": "Utilities for resolving options or props.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -13,8 +13,8 @@
   },
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-option#readme",
   "keywords": [
-    "type utils",
-    "string utils"
+    "option",
+    "option utils"
   ],
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",

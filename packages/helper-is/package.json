@@ -1,7 +1,7 @@
 {
   "name": "@guanghechen/helper-is",
   "version": "1.9.8",
-  "description": "a collection of utility functions for processing options",
+  "description": "Utilities to detect data type.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -13,8 +13,8 @@
   },
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-is#readme",
   "keywords": [
-    "type utils",
-    "string utils"
+    "is",
+    "detect type"
   ],
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
