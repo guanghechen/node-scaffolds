@@ -1,5 +1,6 @@
+import { delay } from '@guanghechen/helper-func'
 import type { SimpleEvent, SimpleEventHandler } from '../src'
-import { SimpleEventBus, delay } from '../src'
+import { SimpleEventBus } from '../src'
 
 enum EventTypes {
   INIT = 'INIT',

@@ -1,4 +1,4 @@
-import { noop } from '../util'
+import { identity } from '@guanghechen/helper-func'
 import type { ConsoleMethodField } from './console'
 
 /**
@@ -30,7 +30,7 @@ interface CreateLoggerMockOptions {
   consoleMethods?: ReadonlyArray<ConsoleMethodField>
   /**
    * Remove sensitive data from the value to be output.
-   * @default noop
+   * @default identity
    */
   desensitize?(args: ReadonlyArray<unknown>): unknown[]
 }
@@ -64,7 +64,7 @@ export function createLoggerMock(options: CreateLoggerMockOptions): LoggerMock {
     logger,
     consoleMethods = ['debug', 'log', 'info', 'warn', 'error'],
     spyOnGlobalConsole = true,
-    desensitize = noop,
+    desensitize = identity,
   } = options
 
   const logData: unknown[][] = []

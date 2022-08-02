@@ -5,9 +5,9 @@ type Callback = () => void
 /**
  * Execute callback interval in react function components.
  * @param callback
- * @param delay
+ * @param duration
  */
-export function useInterval(callback: Callback, delay: number): void {
+export function useInterval(callback: Callback, duration: number): void {
   const callbackRef = useRef<Callback>(callback)
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export function useInterval(callback: Callback, delay: number): void {
       if (callbackRef.current === undefined) return
       callbackRef.current()
     }
-    const id = setInterval(tick, delay)
+    const id = setInterval(tick, duration)
     return () => clearInterval(id)
-  }, [delay])
+  }, [duration])
 }

@@ -1,4 +1,4 @@
-import { noop } from '../util'
+import { identity } from '@guanghechen/helper-func'
 
 /**
  * Method names of console
@@ -36,7 +36,7 @@ export interface ConsoleMock {
  */
 export function createConsoleMock(
   methodNames: ReadonlyArray<ConsoleMethodField> = ['debug', 'log', 'info', 'warn', 'error'],
-  desensitize: (args: ReadonlyArray<unknown>) => unknown[] = noop as any,
+  desensitize: (args: unknown[]) => unknown[] = identity<unknown[]>,
 ): ConsoleMock {
   const mockFnMap: Record<ConsoleMethodField, jest.MockInstance<any, any>> = {} as any
   const allData: unknown[][] = []

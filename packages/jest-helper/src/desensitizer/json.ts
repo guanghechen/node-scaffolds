@@ -1,5 +1,5 @@
+import { identity } from '@guanghechen/helper-func'
 import { isArray, isNumber, isObject, isString } from '@guanghechen/helper-is'
-import { noop } from '../util'
 import type { Desensitizer, NumberDesensitizer, StringDesensitizer } from './types'
 
 /**
@@ -17,9 +17,9 @@ export function createJsonDesensitizer(
   keyDesensitizer?: StringDesensitizer,
 ): Desensitizer<unknown> {
   const fallback: Desensitizer<unknown> =
-    valDesensitizers.fallback == null ? noop : valDesensitizers.fallback
+    valDesensitizers.fallback == null ? identity : valDesensitizers.fallback
   const desensitizers = {
-    key: keyDesensitizer == null ? (noop as StringDesensitizer) : keyDesensitizer,
+    key: keyDesensitizer == null ? (identity as StringDesensitizer) : keyDesensitizer,
     string:
       valDesensitizers.string == null ? (fallback as StringDesensitizer) : valDesensitizers.string,
     number:
