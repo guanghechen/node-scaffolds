@@ -31,6 +31,7 @@ Array [
   "js-tokens",
   "@babel/generator",
   "@babel/types",
+  "@babel/helper-string-parser",
   "to-fast-properties",
   "jsesc",
   "@babel/helper-compilation-targets",

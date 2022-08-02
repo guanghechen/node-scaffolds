@@ -33,6 +33,54 @@ exports.isFileSync = isFileSync;
 "
 `;
 
+exports[`build simple: rollup cjs 2`] = `
+Object {
+  "fileName": "index.d.ts",
+  "isAsset": true,
+  "name": undefined,
+  "source": "export { isFileSync } from './util';
+declare const _default: () => {
+    data: {
+        name: string;
+    };
+};
+export default _default;
+//# sourceMappingURL=index.d.ts.map",
+  "type": "asset",
+}
+`;
+
+exports[`build simple: rollup cjs 3`] = `
+Object {
+  "fileName": "index.d.ts.map",
+  "isAsset": true,
+  "name": undefined,
+  "source": "{\\"version\\":3,\\"file\\":\\"index.d.ts\\",\\"sourceRoot\\":\\"\\",\\"sources\\":[\\"../../src/index.ts\\"],\\"names\\":[],\\"mappings\\":\\"AAGA,OAAO,EAAE,UAAU,EAAE,MAAM,QAAQ,CAAA;;;;;;AAKnC,wBAAyB\\"}",
+  "type": "asset",
+}
+`;
+
+exports[`build simple: rollup cjs 4`] = `
+Object {
+  "fileName": "util.d.ts",
+  "isAsset": true,
+  "name": undefined,
+  "source": "export declare function isFileSync(filepath: string): boolean;
+//# sourceMappingURL=util.d.ts.map",
+  "type": "asset",
+}
+`;
+
+exports[`build simple: rollup cjs 5`] = `
+Object {
+  "fileName": "util.d.ts.map",
+  "isAsset": true,
+  "name": undefined,
+  "source": "{\\"version\\":3,\\"file\\":\\"util.d.ts\\",\\"sourceRoot\\":\\"\\",\\"sources\\":[\\"../../src/util.ts\\"],\\"names\\":[],\\"mappings\\":\\"AASA,wBAAgB,UAAU,CAAE,QAAQ,EAAE,MAAM,GAAG,OAAO,CAGrD\\"}",
+  "type": "asset",
+}
+`;
+
 exports[`build simple: rollup es 1`] = `
 "import fs from 'fs-extra';
 
@@ -55,4 +103,52 @@ var index = (function () { return data$1; });
 
 export { index as default, isFileSync };
 "
+`;
+
+exports[`build simple: rollup es 2`] = `
+Object {
+  "fileName": "index.d.ts",
+  "isAsset": true,
+  "name": undefined,
+  "source": "export { isFileSync } from './util';
+declare const _default: () => {
+    data: {
+        name: string;
+    };
+};
+export default _default;
+//# sourceMappingURL=index.d.ts.map",
+  "type": "asset",
+}
+`;
+
+exports[`build simple: rollup es 3`] = `
+Object {
+  "fileName": "index.d.ts.map",
+  "isAsset": true,
+  "name": undefined,
+  "source": "{\\"version\\":3,\\"file\\":\\"index.d.ts\\",\\"sourceRoot\\":\\"\\",\\"sources\\":[\\"../../src/index.ts\\"],\\"names\\":[],\\"mappings\\":\\"AAGA,OAAO,EAAE,UAAU,EAAE,MAAM,QAAQ,CAAA;;;;;;AAKnC,wBAAyB\\"}",
+  "type": "asset",
+}
+`;
+
+exports[`build simple: rollup es 4`] = `
+Object {
+  "fileName": "util.d.ts",
+  "isAsset": true,
+  "name": undefined,
+  "source": "export declare function isFileSync(filepath: string): boolean;
+//# sourceMappingURL=util.d.ts.map",
+  "type": "asset",
+}
+`;
+
+exports[`build simple: rollup es 5`] = `
+Object {
+  "fileName": "util.d.ts.map",
+  "isAsset": true,
+  "name": undefined,
+  "source": "{\\"version\\":3,\\"file\\":\\"util.d.ts\\",\\"sourceRoot\\":\\"\\",\\"sources\\":[\\"../../src/util.ts\\"],\\"names\\":[],\\"mappings\\":\\"AASA,wBAAgB,UAAU,CAAE,QAAQ,EAAE,MAAM,GAAG,OAAO,CAGrD\\"}",
+  "type": "asset",
+}
 `;

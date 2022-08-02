@@ -34,11 +34,11 @@
     "test": "echo 'no test needed.'"
   },
   "dependencies": {
-    "@babel/eslint-parser": "^7.18.2",
+    "@babel/eslint-parser": "^7.18.9",
     "@guanghechen/eslint-config": "^1.9.8",
     "confusing-browser-globals": "^1.0.11",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0"
   },
