@@ -2,21 +2,21 @@
 
 exports[`BigFileHelper calcPartFilepaths basic 1`] = `
 Array [
-  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/a.md.ghc-part1",
-  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/a.md.ghc-part2",
-  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/a.md.ghc-part3",
-  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/a.md.ghc-part4",
-  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/a.md.ghc-part5",
+  "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.ghc-part1",
+  "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.ghc-part2",
+  "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.ghc-part3",
+  "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.ghc-part4",
+  "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.ghc-part5",
 ]
 `;
 
 exports[`BigFileHelper calcPartFilepaths custom part name 1`] = `
 Array [
-  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/a.md.fun1",
-  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/a.md.fun2",
-  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/a.md.fun3",
-  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/a.md.fun4",
-  "<$WORKSPACE$>/packages/file-helper/__test__/fixtures/a.md.fun5",
+  "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.fun1",
+  "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.fun2",
+  "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.fun3",
+  "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.fun4",
+  "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.fun5",
 ]
 `;
 

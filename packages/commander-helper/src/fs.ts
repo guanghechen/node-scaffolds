@@ -1,4 +1,4 @@
-import { isFileSync } from '@guanghechen/file-helper'
+import { isFileSync } from '@guanghechen/helper-file'
 import fs from 'fs-extra'
 import yaml from 'js-yaml'
 import path from 'path'

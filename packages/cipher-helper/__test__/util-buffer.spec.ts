@@ -1,4 +1,4 @@
-import { BigFileHelper, calcFilePartItemsByCount } from '@guanghechen/file-helper'
+import { BigFileHelper, calcFilePartItemsByCount } from '@guanghechen/helper-file'
 import fs from 'fs-extra'
 import { locateFixtures, unlinkSync } from 'jest.helper'
 import { destroyBuffer, destroyBuffers, streams2buffer } from '../src'

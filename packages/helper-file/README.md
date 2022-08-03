@@ -1,24 +1,24 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/file-helper#readme">@guanghechen/file-helper</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-file#readme">@guanghechen/helper-file</a>
   </h1>
   <div align="center">
-    <a href="https://www.npmjs.com/package/@guanghechen/file-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-file">
       <img
         alt="Npm Version"
-        src="https://img.shields.io/npm/v/@guanghechen/file-helper.svg"
+        src="https://img.shields.io/npm/v/@guanghechen/helper-file.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/file-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-file">
       <img
         alt="Npm Download"
-        src="https://img.shields.io/npm/dm/@guanghechen/file-helper.svg"
+        src="https://img.shields.io/npm/dm/@guanghechen/helper-file.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/file-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-file">
       <img
         alt="Npm License"
-        src="https://img.shields.io/npm/l/@guanghechen/file-helper.svg"
+        src="https://img.shields.io/npm/l/@guanghechen/helper-file.svg"
       />
     </a>
     <a href="#install">
@@ -30,7 +30,7 @@
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"
-        src="https://img.shields.io/node/v/@guanghechen/file-helper"
+        src="https://img.shields.io/node/v/@guanghechen/helper-file"
       />
     </a>
     <a href="https://github.com/facebook/jest">
@@ -58,13 +58,13 @@ merge multiple small files.
 * npm
 
   ```bash
-  npm install --save @guanghechen/file-helper
+  npm install --save @guanghechen/helper-file
   ```
 
 * yarn
 
   ```bash
-  yarn add @guanghechen/file-helper
+  yarn add @guanghechen/helper-file
   ```
 
 ## Usage
@@ -75,7 +75,7 @@ merge multiple small files.
   import { 
     bigFileHelper, 
     calcFilePartItemsBySize,
-  } from '@guanghechen/file-helper'
+  } from '@guanghechen/helper-file'
 
   async function splitFile(filepath: string): Promise<string[]> {
     const parts = calcFilePartItemsBySize(filepath, 1024 * 1024 * 80) // 80MB per chunk 
@@ -106,5 +106,5 @@ Name                                | Description
 `relativeOfWorkspace`               | Calc relative path to workspace
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/file-helper#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-file#readme
 [split-file]: https://github.com/tomvlk/node-split-file

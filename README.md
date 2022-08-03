@@ -60,10 +60,11 @@ Package                               | Description
 [@guanghechen/eslint-config-jsx][]    | Eslint config for `Jsx` project
 [@guanghechen/eslint-config-ts][]     | Eslint config for `Typescript` project
 [@guanghechen/event-bus]              | A simple event bus.
-[@guanghechen/file-helper]            | A collection of utility functions for handling files, such as split big file or merge multiple small files.
+[@guanghechen/helper-file]            | A collection of utility functions for handling files, such as split big file or merge multiple small files.
 [@guanghechen/helper-blob][]          | Utilities for processing blob objects (i.e., download / create).
 [@guanghechen/helper-is][]            | Utilities to detect data type.
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
+[@guanghechen/helper-path][]          | Utilities to handle url path and file path.
 [@guanghechen/helper-string][]        | Utilities for processing strings or stringify other type data.
 [@guanghechen/invariant]              | An invariant function.
 [@guanghechen/jest-config][]          | Basic jest configs for typescript monorepo
@@ -98,8 +99,8 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/eslint-config-jsx]: ./packages/eslint-config-jsx
 [@guanghechen/eslint-config-ts]: ./packages/eslint-config-ts
 [@guanghechen/event-bus]: ./packages/event-bus
-[@guanghechen/file-helper]: ./packages/file-helper
 [@guanghechen/helper-blob]: ./packages/helper-blob
+[@guanghechen/helper-file]: ./packages/helper-file
 [@guanghechen/helper-is]: ./packages/helper-is
 [@guanghechen/helper-option]: ./packages/helper-option
 [@guanghechen/helper-string]: ./packages/helper-string

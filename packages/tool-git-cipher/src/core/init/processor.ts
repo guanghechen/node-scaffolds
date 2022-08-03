@@ -1,7 +1,7 @@
 import type { CipherHelper } from '@guanghechen/cipher-helper'
 import { AESCipherHelper, CipherCatalog } from '@guanghechen/cipher-helper'
 import { createInitialCommit, installDependencies } from '@guanghechen/commander-helper'
-import { mkdirsIfNotExists } from '@guanghechen/file-helper'
+import { mkdirsIfNotExists } from '@guanghechen/helper-file'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
 import { toLowerCase } from '@guanghechen/helper-string'

@@ -1,7 +1,7 @@
 import type { CipherHelper } from '@guanghechen/cipher-helper'
 import { AESCipherHelper, CipherCatalog } from '@guanghechen/cipher-helper'
 import { createCommitAll } from '@guanghechen/commander-helper'
-import { collectAllFilesSync } from '@guanghechen/file-helper'
+import { collectAllFilesSync } from '@guanghechen/helper-file'
 import commandExists from 'command-exists'
 import execa from 'execa'
 import fs from 'fs-extra'

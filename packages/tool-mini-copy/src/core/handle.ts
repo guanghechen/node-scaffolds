@@ -1,5 +1,5 @@
 import { readFromStdin } from '@guanghechen/commander-helper'
-import { ensureCriticalFilepathExistsSync } from '@guanghechen/file-helper'
+import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-file'
 import { FakeClipboard } from '@guanghechen/mini-copy'
 import fs from 'fs-extra'
 import { logger } from '../env/logger'

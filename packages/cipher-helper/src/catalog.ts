@@ -1,10 +1,10 @@
-import type { FilePartItem } from '@guanghechen/file-helper'
+import type { IFilePartItem } from '@guanghechen/helper-file'
 import {
   BigFileHelper,
   calcFilePartItemsBySize,
   collectAllFilesSync,
   mkdirsIfNotExists,
-} from '@guanghechen/file-helper'
+} from '@guanghechen/helper-file'
 import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import crypto from 'crypto'
@@ -391,7 +391,10 @@ export class CipherCatalog {
     await cipher.encryptFile(absoluteSourceFilepath, absoluteTargetFilepath)
 
     // Split target file.
-    const parts: FilePartItem[] = calcFilePartItemsBySize(absoluteTargetFilepath, maxTargetFileSize)
+    const parts: IFilePartItem[] = calcFilePartItemsBySize(
+      absoluteTargetFilepath,
+      maxTargetFileSize,
+    )
     const partFilepaths: string[] = await fileHelper.split(absoluteTargetFilepath, parts)
 
     // Remove the original big target file.

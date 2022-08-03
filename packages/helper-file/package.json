@@ -1,5 +1,5 @@
 {
-  "name": "@guanghechen/file-helper",
+  "name": "@guanghechen/helper-file",
   "version": "1.9.8",
   "description": "File helper",
   "author": {
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/node-scaffolds.git",
-    "directory": "packages/file-helper"
+    "directory": "packages/helper-file"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/file-helper#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-file#readme",
   "keywords": [
     "file helper",
     "split file",

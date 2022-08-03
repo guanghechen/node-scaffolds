@@ -1,5 +1,5 @@
 import type ChalkLogger from '@guanghechen/chalk-logger'
-import { mkdirsIfNotExists } from '@guanghechen/file-helper'
+import { mkdirsIfNotExists } from '@guanghechen/helper-file'
 import type { Cipher } from 'crypto'
 import fs from 'fs-extra'
 import type { CipherHelper } from './types/cipher-helper'
