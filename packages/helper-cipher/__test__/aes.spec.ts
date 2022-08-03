@@ -1,5 +1,6 @@
 import ChalkLogger from '@guanghechen/chalk-logger'
 import { BigFileHelper, calcFilePartItemsByCount } from '@guanghechen/helper-file'
+import { delay } from '@guanghechen/helper-func'
 import fs from 'fs-extra'
 import { locateFixtures, unlinkSync } from 'jest.helper'
 import { AESCipher, calcMac } from '../src'
@@ -14,7 +15,7 @@ describe('AESCipher', function () {
     const originalContent = fs.readFileSync(sourceFilepath)
     let partFilepaths: string[] = []
 
-    beforeAll(async function () {
+    beforeAll(async () => {
       const secret = cipher.createSecret()
       cipher.initFromSecret(secret)
       partFilepaths = await fileHelper.split(
@@ -23,8 +24,10 @@ describe('AESCipher', function () {
       )
     })
 
-    afterAll(() => {
+    afterAll(async () => {
+      await delay(500)
       unlinkSync(partFilepaths)
+      await delay(500)
     })
 
     test('encrypt data', function () {

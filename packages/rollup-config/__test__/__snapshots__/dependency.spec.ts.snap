@@ -40,10 +40,6 @@ Array [
   "@rollup/plugin-typescript",
   "tslib",
   "typescript",
-  "fs-extra",
-  "graceful-fs",
-  "jsonfile",
-  "universalify",
 ]
 `;
 

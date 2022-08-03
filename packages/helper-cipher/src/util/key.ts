@@ -1,4 +1,4 @@
-import invariant from '@guanghechen/invariant'
+import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-file'
 import crypto from 'crypto'
 import fs from 'fs-extra'
 import { destroyBuffers } from './buffer'
@@ -37,7 +37,7 @@ export function calcMac(...pieces: Array<Readonly<Buffer>>): Buffer {
  * @returns
  */
 export async function calcMacFromFile(filepath: string): Promise<Buffer | never> {
-  invariant(fs.existsSync(filepath), `INVALID FILEPATH: '${filepath}'`)
+  ensureCriticalFilepathExistsSync(filepath)
 
   const sha1 = crypto.createHash('sha1')
   const chunks: Buffer[] = []
