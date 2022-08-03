@@ -1,2 +1,2 @@
-export * from './simple'
+export * from './SimpleEventBus'
 export * from './types'

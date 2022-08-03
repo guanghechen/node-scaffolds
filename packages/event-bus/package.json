@@ -1,7 +1,7 @@
 {
   "name": "@guanghechen/event-bus",
   "version": "1.9.8",
-  "description": "Simple event bus",
+  "description": "A simple event bus.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"

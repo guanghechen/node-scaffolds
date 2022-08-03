@@ -71,7 +71,8 @@ A simple event bus.
 * Basic
 
   ```typescript
-  import { SimpleEvent, SimpleEventBus, SimpleEventHandler } from '@guanghechen/event-bus'
+  import type { IEvent, IEventHandler } from '@guanghechen/event-bus'
+  import { SimpleEventBus } from '@guanghechen/event-bus'
 
   enum EventTypes {
     INIT = 'INIT',
@@ -80,7 +81,7 @@ A simple event bus.
 
   const eventBus = new SimpleEventBus<EventTypes>()
 
-  const handle: EventHandler<EventTypes> = (evt: SimpleEvent<EventTypes>) => {
+  const handle: IEventHandler<EventTypes> = (evt: IEvent<EventTypes>) => {
     console.log('evt:', evt)
   }
 
@@ -94,7 +95,7 @@ A simple event bus.
   eventBus.subscribe(handle, true)
 
   // Remove listener
-  eventBus.removeEventListener(EventTypes.INIT, handle)
+  eventBus.removeListener(EventTypes.INIT, handle)
 
   // Remove subscriber
   eventBus.unsubscribe(handle)

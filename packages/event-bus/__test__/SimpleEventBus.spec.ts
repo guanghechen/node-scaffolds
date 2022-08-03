@@ -1,5 +1,5 @@
 import { delay } from '@guanghechen/helper-func'
-import type { SimpleEvent, SimpleEventHandler } from '../src'
+import type { IEvent, IEventHandler } from '../src'
 import { SimpleEventBus } from '../src'
 
 enum EventTypes {
@@ -7,7 +7,7 @@ enum EventTypes {
   EXIT = 'EXIT',
 }
 
-describe('simple-bus', function () {
+describe('SimpleEventBus', function () {
   describe('listener', function () {
     test('Only event emitted after the listener register could be received', function () {
       const eventBus = new SimpleEventBus<EventTypes>()
@@ -67,7 +67,7 @@ describe('simple-bus', function () {
       eventBus.on(EventTypes.INIT, handle2)
       eventBus.dispatch({ type: EventTypes.EXIT, payload: { id: 3 } })
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 4 } })
-      eventBus.removeEventListener(EventTypes.INIT, handle)
+      eventBus.removeListener(EventTypes.INIT, handle)
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 5 } })
 
       expect(messages.length === 2).toBeTruthy()
@@ -83,7 +83,7 @@ describe('simple-bus', function () {
       ])
 
       expect(
-        () => void eventBus.removeEventListener('invalid-event-type' as any, () => {}),
+        () => void eventBus.removeListener('invalid-event-type' as any, () => {}),
       ).not.toThrow()
     })
 
@@ -101,10 +101,10 @@ describe('simple-bus', function () {
       eventBus.on(EventTypes.INIT, handle)
 
       // removeEventListener could be reentrant
-      eventBus.removeEventListener(EventTypes.INIT, handle)
-      eventBus.removeEventListener(EventTypes.INIT, handle)
-      eventBus.removeEventListener(EventTypes.EXIT, handle)
-      eventBus.removeEventListener(EventTypes.EXIT, handle)
+      eventBus.removeListener(EventTypes.INIT, handle)
+      eventBus.removeListener(EventTypes.INIT, handle)
+      eventBus.removeListener(EventTypes.EXIT, handle)
+      eventBus.removeListener(EventTypes.EXIT, handle)
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 5 } })
       eventBus.dispatch({ type: EventTypes.EXIT, payload: { id: 6 } })
@@ -245,8 +245,8 @@ describe('simple-bus', function () {
   })
 })
 
-function createEventHandler(): [Array<SimpleEvent<EventTypes>>, SimpleEventHandler<EventTypes>] {
-  const messages: Array<SimpleEvent<EventTypes>> = []
-  const handle = (evt: SimpleEvent<EventTypes>): unknown => messages.push(evt)
+function createEventHandler(): [Array<IEvent<EventTypes>>, IEventHandler<EventTypes>] {
+  const messages: Array<IEvent<EventTypes>> = []
+  const handle = (evt: IEvent<EventTypes>): unknown => messages.push(evt)
   return [messages, handle]
 }

@@ -1,77 +1,128 @@
-/**
- * Type of Event
- */
-export type EventType = number | string | symbol
+export type IEventType = number | string | symbol
+export type IEventPayload = number | boolean | string | symbol | Record<string, unknown>
 
-/**
- * Payload of Event
- */
-export type EventPayload = number | string | symbol | Record<string, any>
-
-/**
- * Event
- */
-export interface Event<T extends EventType = EventType, P extends EventPayload = EventPayload> {
-  /**
-   * Type of Event
-   */
+export interface IEvent<
+  T extends IEventType = IEventType,
+  P extends IEventPayload = IEventPayload,
+> {
   type: T
-  /**
-   * Payload of event
-   */
   payload?: P
 }
 
-/**
- * Event handler
- */
-export interface EventHandler<
-  T extends EventType = EventType,
-  P extends EventPayload = EventPayload,
-  E extends Event<T, P> = Event<T, P>,
+export interface IEventHandler<
+  T extends IEventType = IEventType,
+  P extends IEventPayload = IEventPayload,
+  E extends IEvent<T, P> = IEvent<T, P>,
 > {
   /**
-   * The return value will be ignored
-   *
+   * The returned value will be ignored
    * @param evt
    */
-  (evt: Readonly<E>): void | Promise<void> | any | Promise<any>
+  (evt: Readonly<E>): void
 }
 
-/**
- * Event subscriber
- */
-export interface EventSubscriber<
-  T extends EventType = EventType,
-  P extends EventPayload = EventPayload,
-  E extends Event<T, P> = Event<T, P>,
+export interface IEventSubscriber<
+  T extends IEventType = IEventType,
+  P extends IEventPayload = IEventPayload,
+  E extends IEvent<T, P> = IEvent<T, P>,
 > {
   /**
-   * An one-off subscriber which would be unregistered from EventBus
-   * after first called
+   * An one-off subscriber which would be unregistered from EventBus after first called.
    */
   once: boolean
   /**
    * Event handler.
    */
-  handle: EventHandler<T, P, E>
+  handle: IEventHandler<T, P, E>
 }
 
-/**
- * Event listener
- */
-export interface EventListener<
-  T extends EventType = EventType,
-  P extends EventPayload = EventPayload,
-  E extends Event<T, P> = Event<T, P>,
+export interface IEventListener<
+  T extends IEventType = IEventType,
+  P extends IEventPayload = IEventPayload,
+  E extends IEvent<T, P> = IEvent<T, P>,
 > {
   /**
-   * An one-off subscriber which would be unregistered from EventBus
-   * after first called
+   * An one-off subscriber which would be unregistered from EventBus after first called.
    */
   once: boolean
   /**
    * Event handler.
    */
-  handle: EventHandler<T, P, E>
+  handle: IEventHandler<T, P, E>
+}
+
+export interface IEventBus<T extends IEventType> {
+  /**
+   * Listen the special type event.
+   * @param type
+   * @param handle
+   */
+  on<P extends IEventPayload = IEventPayload, E extends IEvent<T, P> = IEvent<T, P>>(
+    type: T,
+    handle: IEventHandler<T, P, E>,
+  ): this
+
+  /**
+   * Listen the special type event, and will be auto-removed once it called.
+   * @param type
+   * @param handle
+   */
+  once<P extends IEventPayload = IEventPayload, E extends IEvent<T, P> = IEvent<T, P>>(
+    type: T,
+    handle: IEventHandler<T, P, E>,
+  ): this
+
+  /**
+   * Register an event listener to subscribe special type event.
+   *
+   * @param type
+   * @param handle
+   * @param once    If true, will be auto-removed once it called.
+   */
+  addListener<P extends IEventPayload = IEventPayload, E extends IEvent<T, P> = IEvent<T, P>>(
+    type: T,
+    handle: IEventHandler<T, P, E>,
+    once: boolean,
+  ): this
+
+  /**
+   * Unregister an event listener on special type event.
+   * @param type
+   * @param handle
+   */
+  removeListener<P extends IEventPayload = IEventPayload, E extends IEvent<T, P> = IEvent<T, P>>(
+    type: T,
+    handle: IEventHandler<T, P, E>,
+  ): this
+
+  /**
+   * Subscribe all type events.
+   * @param handle
+   * @param once    If true, will be auto-removed once it called.
+   */
+  subscribe<P extends IEventPayload = IEventPayload, E extends IEvent<T, P> = IEvent<T, P>>(
+    handle: IEventHandler<T, P, E>,
+    once: boolean,
+  ): this
+
+  /**
+   * Cancel subscription.
+   * @param handle
+   */
+  unsubscribe<P extends IEventPayload = IEventPayload, E extends IEvent<T, P> = IEvent<T, P>>(
+    handle: IEventHandler<T, P, E>,
+  ): this
+
+  /**
+   * Publish an event.
+   * @param evt
+   */
+  dispatch<P extends IEventPayload = IEventPayload, E extends IEvent<T, P> = IEvent<T, P>>(
+    evt: Readonly<E>,
+  ): this
+
+  /**
+   * Remove all listeners and subscribers.
+   */
+  clear(): this
 }
