@@ -62,11 +62,13 @@ Utilities to handle url path and file path.
 
 ## Usage
 
-Name                  | Description
-:--------------------:|:----------------------------------------------------------------
-`absoluteOfWorkspace` | Calc absolute filepath of p under the workspace.
-`relativeOfWorkspace` | Calc relative filepath to workspace.
-`normalizeUrlPath`    | Normalize url path.
+Name                    | Description
+:----------------------:|:----------------------------------------------------------------
+`absoluteOfWorkspace`   | Calc absolute filepath of p under the workspace.
+`findNearestFilepath`   | Find a nearest file matched the predicate from the given directory.
+`locateNearestFilepath` | Locate a nearest target file path from the given directory.
+`normalizeUrlPath`      | Normalize url path.
+`relativeOfWorkspace`   | Calc relative filepath to workspace.
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-path#readme

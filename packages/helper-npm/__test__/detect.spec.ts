@@ -1,4 +1,4 @@
-import { locateNearestFilepath } from '@guanghechen/locate-helper'
+import { locateNearestFilepath } from '@guanghechen/helper-path'
 import fs from 'fs-extra'
 import { locateFixtures } from 'jest.helper'
 import { detectMonorepo, detectPackageAuthor } from '../src'

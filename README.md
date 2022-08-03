@@ -71,7 +71,6 @@ Package                               | Description
 [@guanghechen/invariant]              | An invariant function.
 [@guanghechen/jest-config][]          | Basic jest configs for typescript monorepo
 [@guanghechen/jest-helper][]          | A collection of utility functions for jest tests
-[@guanghechen/locate-helper][]        | A collection of utility functions for locating nearest filepath matched the given pattern
 [@guanghechen/mini-copy][]            | Access system clipboard (also support to share clipboard in wsl with windows).
 [@guanghechen/plop-helper][]          | A collection of utility functions for plop templates
 [@guanghechen/postcss-modules-dts][]  | Generate `*.d.ts` files for style files (such as css, stylus and etc)
@@ -111,7 +110,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/invariant]: ./packages/invariant
 [@guanghechen/jest-config]: ./packages/jest-config
 [@guanghechen/jest-helper]: ./packages/jest-helper
-[@guanghechen/locate-helper]: ./packages/locate-helper
 [@guanghechen/mini-copy]: ./packages/mini-copy
 [@guanghechen/plop-helper]: ./packages/plop-helper
 [@guanghechen/postcss-modules-dts]: ./packages/postcss-modules-dts

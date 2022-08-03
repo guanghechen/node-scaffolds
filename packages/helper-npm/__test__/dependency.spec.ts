@@ -1,6 +1,6 @@
 import { desensitize, locateFixtures } from 'jest.helper'
 import path from 'path'
-import { collectAllDependencies, getDefaultDependencyFields } from '../src'
+import { collectAllDependencies, getDefaultDependencyFields, locateLatestPackageJson } from '../src'
 
 describe('getDefaultDependencyFields', () => {
   test('basic', () => {
@@ -13,7 +13,7 @@ describe('getDefaultDependencyFields', () => {
 })
 
 describe('collectAllDependencies', () => {
-  test('basic', function () {
+  test('basic', () => {
     expect(collectAllDependencies(path.join(__dirname, '../package.json'))).toMatchSnapshot(
       'current repo',
     )
@@ -35,5 +35,11 @@ describe('collectAllDependencies', () => {
     ).toMatchSnapshot('normal-repo')
     expect(desensitize(warningDataList)).toMatchSnapshot('normal-repo -- warnings')
     warnSpy.mockRestore()
+  })
+})
+
+describe('locateLatestPackageJson', () => {
+  test('basic', () => {
+    expect(locateLatestPackageJson(__dirname)).toBe(path.join(__dirname, '../package.json'))
   })
 })

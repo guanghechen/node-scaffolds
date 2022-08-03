@@ -1,6 +1,5 @@
-const path = require('path')
-const { locateLatestPackageJson } = require('..')
-const { locateNearestFilepath, findNearestFilepath } = require('..')
+import path from 'path'
+import { findNearestFilepath, locateNearestFilepath } from '../src'
 
 describe('locateNearestFilepath', function () {
   test('single filename', function () {
@@ -45,11 +44,5 @@ describe('findNearestFilepath', function () {
 
   test('not found', function () {
     expect(findNearestFilepath(__dirname, () => false)).toBeNull()
-  })
-})
-
-describe('locateLatestPackageJson', function () {
-  test('basic', function () {
-    expect(locateLatestPackageJson(__dirname)).toBe(path.join(__dirname, '../package.json'))
   })
 })

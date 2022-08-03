@@ -37,7 +37,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/locate-helper": "^1.9.8",
-    "fs-extra": "^10.1.0"
+    "@guanghechen/helper-path": "^1.9.8"
   }
 }

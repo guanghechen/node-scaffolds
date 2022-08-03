@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+import fs from 'fs'
 import path from 'path'
 
 export type IDependencyField = 'dependencies' | 'optionalDependencies' | 'peerDependencies'
@@ -74,7 +74,8 @@ export function collectAllDependencies(
       return
     }
 
-    const manifest = fs.readJSONSync(dependencyPackageJsonPath)
+    const content = fs.readFileSync(dependencyPackageJsonPath, 'utf8')
+    const manifest = JSON.parse(content)
     for (const fieldName of dependenciesFields) {
       const field = manifest[fieldName]
       if (field != null) {

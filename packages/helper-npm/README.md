@@ -109,6 +109,13 @@ Utilities for handling npm repo and `package.json`.
   - `isAbsentAllowed`: Determine whether if a given moduleName can miss. (called
     on `MODULE_NOT_FOUND` error thrown)
 
+* `locateLatestPackageJson`: Find the latest package.json under the give {currentDir} or its
+  ancestor path.
+
+  ```typescript
+  function locateLatestPackageJson(currentDir: string): string | null 
+  ```
+
 
 ## Related
 

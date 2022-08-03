@@ -1,5 +1,5 @@
-import { locateLatestPackageJson } from '@guanghechen/locate-helper'
-import fs from 'fs-extra'
+import { locateNearestFilepath } from '@guanghechen/helper-path'
+import fs from 'fs'
 
 export type IDependencyField = 'dependencies' | 'optionalDependencies' | 'peerDependencies'
 
@@ -74,7 +74,8 @@ export function collectAllDependencies(
       return
     }
 
-    const manifest = fs.readJSONSync(dependencyPackageJsonPath)
+    const content = fs.readFileSync(dependencyPackageJsonPath, 'utf8')
+    const manifest = JSON.parse(content)
     for (const fieldName of dependenciesFields) {
       const field = manifest[fieldName]
       if (field != null) {
@@ -98,4 +99,14 @@ export function collectAllDependencies(
   }
 
   return result
+}
+
+/**
+ * Find the latest package.json under the give {currentDir} or its ancestor path.
+ *
+ * @param currentDir
+ * @returns
+ */
+export function locateLatestPackageJson(currentDir: string): string | null {
+  return locateNearestFilepath(currentDir, 'package.json')
 }

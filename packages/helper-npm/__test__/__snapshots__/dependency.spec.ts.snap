@@ -2,11 +2,7 @@
 
 exports[`collectAllDependencies basic: current repo 1`] = `
 Array [
-  "@guanghechen/locate-helper",
-  "fs-extra",
-  "graceful-fs",
-  "jsonfile",
-  "universalify",
+  "@guanghechen/helper-path",
 ]
 `;
 
