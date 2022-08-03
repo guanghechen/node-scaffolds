@@ -1,24 +1,24 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/cipher-helper#readme">@guanghechen/cipher-helper</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-cipher#readme">@guanghechen/helper-cipher</a>
   </h1>
   <div align="center">
-    <a href="https://www.npmjs.com/package/@guanghechen/cipher-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-cipher">
       <img
         alt="Npm Version"
-        src="https://img.shields.io/npm/v/@guanghechen/cipher-helper.svg"
+        src="https://img.shields.io/npm/v/@guanghechen/helper-cipher.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/cipher-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-cipher">
       <img
         alt="Npm Download"
-        src="https://img.shields.io/npm/dm/@guanghechen/cipher-helper.svg"
+        src="https://img.shields.io/npm/dm/@guanghechen/helper-cipher.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/cipher-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-cipher">
       <img
         alt="Npm License"
-        src="https://img.shields.io/npm/l/@guanghechen/cipher-helper.svg"
+        src="https://img.shields.io/npm/l/@guanghechen/helper-cipher.svg"
       />
     </a>
     <a href="#install">
@@ -30,7 +30,7 @@
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"
-        src="https://img.shields.io/node/v/@guanghechen/cipher-helper"
+        src="https://img.shields.io/node/v/@guanghechen/helper-cipher"
       />
     </a>
     <a href="https://github.com/facebook/jest">
@@ -57,23 +57,23 @@ Utility functions for cipher contents or files.
 * npm
 
   ```bash
-  npm install --save @guanghechen/cipher-helper
+  npm install --save @guanghechen/helper-cipher
   ```
 
 * yarn
 
   ```bash
-  yarn add @guanghechen/cipher-helper
+  yarn add @guanghechen/helper-cipher
   ```
 
 ## Usage
 
-* `AESCipherHelper`
+* `AESCipher`
 
   ```typescript
-  import { AESCipherHelper } from '@guanghechen/cipher-helper'
+  import { AESCipher } from '@guanghechen/helper-cipher'
 
-  const cipher = new AESCipherHelper()  // Some options
+  const cipher = new AESCipher()  // Some options
   cipher.initFromSecret(cipher.createSecret())  // Or use password 
 
   // encrypt / decrypt
@@ -92,11 +92,11 @@ Utility functions for cipher contents or files.
 * `CipherCatalog`
 
   ```typescript
-  import { AESCipherHelper, CipherCatalog } from '@guanghechen/cipher-helper'
+  import { AESCipher, CipherCatalog } from '@guanghechen/helper-cipher'
   import path from 'path'
 
-  const password = Buffer.from('password, such as `@guanghechen/cipher-helper`') 
-  const cipher = new AESCipherHelper()
+  const password = Buffer.from('password, such as `@guanghechen/helper-cipher`') 
+  const cipher = new AESCipher()
   cipher.initFromPassword(password)
 
   const catalog = new CipherCatalog({
@@ -135,9 +135,9 @@ Name                                | Description
 `destroyBuffer`                     | Fill buffer with a random number
 `destroyBuffers`                    | Fill buffers with random numbers
 `streams2buffer`                    | Merge multiple read streams into Buffer serially
-`AESCipherHelper`                   | A CipherHelper implementation with AES algorithm.
+`AESCipher`                   | A ICipher implementation with AES algorithm.
 `CipherCatalog`                     | Catalog for managing source / target files and relationship maps
 
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/cipher-helper#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-cipher#readme

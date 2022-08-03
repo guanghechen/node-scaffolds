@@ -130,7 +130,7 @@ describe('SimpleEventBus', function () {
 
       expect(messages.length === 1).toBeTruthy()
 
-      eventBus.clear()
+      eventBus.cleanup()
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 2 } })
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 2 } })
       expect(messages.length === 1).toBeTruthy()

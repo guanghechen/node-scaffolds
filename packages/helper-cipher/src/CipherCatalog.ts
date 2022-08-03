@@ -10,16 +10,16 @@ import invariant from '@guanghechen/invariant'
 import crypto from 'crypto'
 import fs from 'fs-extra'
 import path from 'path'
-import type { CatalogIndex, CatalogItem } from './types/catalog'
-import type { CipherHelper } from './types/cipher-helper'
+import type { ICatalogIndex, ICatalogItem } from './types/catalog'
+import type { ICipher } from './types/cipher'
 import { destroyBuffer } from './util/buffer'
 import { calcFingerprint, calcMacFromFile } from './util/key'
 
-export interface CipherCatalogOptions {
+export interface ICipherCatalogOptions {
   /**
    * A collect of util funcs for encryption / decryption.
    */
-  readonly cipher: CipherHelper
+  readonly cipher: ICipher
 
   /**
    * Root directory of source files.
@@ -60,15 +60,15 @@ export class CipherCatalog {
   public readonly sourceEncoding: BufferEncoding
   public readonly cipheredIndexEncoding: BufferEncoding
   public readonly maxTargetFileSize: number
-  protected readonly cipher: CipherHelper
+  protected readonly cipher: ICipher
   protected readonly fileHelper: BigFileHelper
-  protected readonly items: Array<Readonly<CatalogItem>>
-  protected readonly sourceFilepathMap: Map<string, Readonly<CatalogItem>>
+  protected readonly items: Array<Readonly<ICatalogItem>>
+  protected readonly sourceFilepathMap: Map<string, Readonly<ICatalogItem>>
   protected readonly targetFilepathSet: Set<string>
   protected readonly targetPartPathSet: Set<string>
   protected lastCheckTime: string | null
 
-  constructor(options: CipherCatalogOptions) {
+  constructor(options: ICipherCatalogOptions) {
     const sourceRootDir = options.sourceRootDir
     const targetRootDir = options.targetRootDir
     const sourceEncoding = options.sourceEncoding ?? 'utf8'
@@ -111,7 +111,7 @@ export class CipherCatalog {
     const content = this.strip(plainContent.toString())
 
     // parse the content
-    const { items, lastCheckTime } = JSON.parse(content) as CatalogIndex
+    const { items, lastCheckTime } = JSON.parse(content) as ICatalogIndex
 
     const { sourceFilepathMap: sfm, targetFilepathSet: tfs, targetPartPathSet: tps } = this
 
@@ -131,7 +131,7 @@ export class CipherCatalog {
   public dump(): string {
     const { cipher, items, lastCheckTime, sourceEncoding, cipheredIndexEncoding } = this
 
-    const data: CatalogIndex = { lastCheckTime, items }
+    const data: ICatalogIndex = { lastCheckTime, items }
     const plaintextContent: string = JSON.stringify(data)
 
     // Add salt.
@@ -218,7 +218,7 @@ export class CipherCatalog {
 
   /**
    * Update the lastCheckTime of the workspace.
-   * @param mtime
+   * @param date
    */
   public touch(date?: Date): void {
     const mtime = (date ?? new Date()).toISOString()
@@ -249,8 +249,6 @@ export class CipherCatalog {
    * Register a item into the catalog and perform some cleanup operations.
    *
    * @param _sourceFilepath
-   * @param targetFilename
-   * @param _targetParts
    * @returns
    */
   public async register(_sourceFilepath: string): Promise<void> {
@@ -264,7 +262,7 @@ export class CipherCatalog {
     const mac = await calcMacFromFile(absoluteSourceFilepath)
     const fingerprint = calcFingerprint(mac)
 
-    let item: CatalogItem | undefined = sfm.get(sourceFilepath)
+    let item: ICatalogItem | undefined = sfm.get(sourceFilepath)
     if (item != null) {
       // Return directly if there is no modification.
       if (
@@ -317,7 +315,7 @@ export class CipherCatalog {
     const absoluteSourceFilepath = this.calcAbsoluteSourceFilepath(_sourceFilepath)
     const sourceFilepath = this.calcRelativeSourceFilepath(absoluteSourceFilepath)
 
-    const item: CatalogItem | undefined = this.sourceFilepathMap.get(sourceFilepath)
+    const item: ICatalogItem | undefined = this.sourceFilepathMap.get(sourceFilepath)
     if (item === undefined) return true
 
     const stat = _stat ?? fs.statSync(absoluteSourceFilepath)
@@ -381,7 +379,7 @@ export class CipherCatalog {
    *
    * @param item
    */
-  protected async writeTargets(item: CatalogItem): Promise<void> {
+  protected async writeTargets(item: ICatalogItem): Promise<void> {
     const { cipher, fileHelper, targetPartPathSet: tps, maxTargetFileSize } = this
 
     const absoluteSourceFilepath = this.calcAbsoluteSourceFilepath(item.sourceFilepath)

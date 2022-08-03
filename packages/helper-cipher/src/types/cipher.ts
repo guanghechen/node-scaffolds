@@ -1,7 +1,7 @@
 /**
  * Shape of a cipher.
  */
-export interface CipherHelper {
+export interface ICipher {
   /**
    * Encrypt plain data
    */

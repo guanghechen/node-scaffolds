@@ -32,7 +32,7 @@ export function destroyBuffers(buffers: Array<Buffer | null> | null): void {
  * !!!The content returned by the reading stream should be Buffer instead of
  * string.
  *
- * @param stream
+ * @param streams
  * @returns
  */
 export async function streams2buffer(streams: fs.ReadStream[]): Promise<Buffer> {

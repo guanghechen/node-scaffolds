@@ -2,12 +2,12 @@ import type ChalkLogger from '@guanghechen/chalk-logger'
 import invariant from '@guanghechen/invariant'
 import type { Cipher } from 'crypto'
 import crypto from 'crypto'
-import { BaseCipherHelper } from './_base'
-import type { CipherHelper } from './types/cipher-helper'
+import { BaseCipher } from './BaseCipher'
+import type { ICipher } from './types/cipher'
 import { destroyBuffer } from './util/buffer'
 import { createRandomIv, createRandomKey } from './util/key'
 
-export interface AESCipherOptions {
+export interface IAESCipherOptions {
   /**
    *
    */
@@ -26,14 +26,14 @@ export interface AESCipherOptions {
   key?: Buffer
 }
 
-export class AESCipherHelper extends BaseCipherHelper implements CipherHelper {
+export class AESCipher extends BaseCipher implements ICipher {
   protected readonly ivSize = 32
   protected readonly keySize = 32
   protected readonly algorithm: crypto.CipherGCMTypes
   protected iv: Buffer | null
   protected key: Buffer | null
 
-  constructor(options: AESCipherOptions = {}) {
+  constructor(options: IAESCipherOptions = {}) {
     super(options.logger)
     this.algorithm = options.algorithm ?? 'aes-256-gcm'
     this.key = options.key || null

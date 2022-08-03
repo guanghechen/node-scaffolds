@@ -2,13 +2,13 @@ import type ChalkLogger from '@guanghechen/chalk-logger'
 import { mkdirsIfNotExists } from '@guanghechen/helper-file'
 import type { Cipher } from 'crypto'
 import fs from 'fs-extra'
-import type { CipherHelper } from './types/cipher-helper'
+import type { ICipher } from './types/cipher'
 import { destroyBuffers } from './util/buffer'
 
 /**
- * CipherHelper base class.
+ * ICipher base class.
  */
-export abstract class BaseCipherHelper implements CipherHelper {
+export abstract class BaseCipher implements ICipher {
   protected readonly logger?: ChalkLogger
 
   constructor(logger?: ChalkLogger) {
@@ -197,23 +197,15 @@ export abstract class BaseCipherHelper implements CipherHelper {
 
   protected abstract decipher(): Cipher
 
-  /**
-   * @override
-   */
+  // @override
   public abstract createSecret(): Buffer
 
-  /**
-   * @override
-   */
+  // @override
   public abstract initFromSecret(secret: Readonly<Buffer>): void | never
 
-  /**
-   * @override
-   */
+  // @override
   public abstract initFromPassword(password: Readonly<Buffer>): void | never
 
-  /**
-   * @override
-   */
+  // @override
   public abstract cleanup(): void
 }

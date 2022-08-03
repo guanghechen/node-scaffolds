@@ -1,5 +1,5 @@
-import type { CipherHelper } from '@guanghechen/cipher-helper'
-import { calcMac, destroyBuffer } from '@guanghechen/cipher-helper'
+import type { ICipher } from '@guanghechen/helper-cipher'
+import { calcMac, destroyBuffer } from '@guanghechen/helper-cipher'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { coverBoolean, coverNumber, coverString } from '@guanghechen/helper-option'
 import fs from 'fs-extra'
@@ -8,7 +8,7 @@ import { ErrorCode, EventTypes, eventBus } from './events'
 import * as io from './io'
 
 interface CipherHelperCreator {
-  create(): CipherHelper
+  create(): ICipher
 }
 
 /**
@@ -72,7 +72,7 @@ export interface SecretMasterParams {
  * @member cleanupTimeout
  */
 export class SecretMaster {
-  protected readonly secretCipher: CipherHelper
+  protected readonly secretCipher: ICipher
   protected readonly cipherHelperCreator: CipherHelperCreator
   protected readonly secretFileEncoding: string
   protected readonly secretContentEncoding: BufferEncoding
@@ -128,7 +128,7 @@ export class SecretMaster {
 
     let secret: Buffer | null = null
     let password: Buffer | null = null
-    const passwordCipher: CipherHelper = cipherHelperCreator.create()
+    const passwordCipher: ICipher = cipherHelperCreator.create()
     try {
       password = await this.askPassword()
       if (password == null) {
@@ -195,7 +195,7 @@ export class SecretMaster {
 
     let secret: Buffer | null = null
     let password: Buffer | null = null
-    const passwordCipher: CipherHelper = cipherHelperCreator.create()
+    const passwordCipher: ICipher = cipherHelperCreator.create()
     try {
       password = await io.inputPassword(
         'Password: ',
@@ -241,7 +241,7 @@ export class SecretMaster {
     return secretMaster
   }
 
-  public getCipher(): CipherHelper {
+  public getCipher(): ICipher {
     return this.secretCipher
   }
 

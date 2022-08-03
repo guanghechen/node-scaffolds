@@ -124,5 +124,5 @@ export interface IEventBus<T extends IEventType> {
   /**
    * Remove all listeners and subscribers.
    */
-  clear(): this
+  cleanup(): this
 }

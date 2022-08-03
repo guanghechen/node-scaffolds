@@ -2,12 +2,12 @@ import ChalkLogger from '@guanghechen/chalk-logger'
 import { BigFileHelper, calcFilePartItemsByCount } from '@guanghechen/helper-file'
 import fs from 'fs-extra'
 import { locateFixtures, unlinkSync } from 'jest.helper'
-import { AESCipherHelper, calcMac } from '../src'
+import { AESCipher, calcMac } from '../src'
 
 describe('AESCipher', function () {
   describe('init by secret', function () {
     const logger = new ChalkLogger({ colorful: false, date: false })
-    const cipher = new AESCipherHelper({ logger })
+    const cipher = new AESCipher({ logger })
 
     const fileHelper = new BigFileHelper()
     const sourceFilepath = locateFixtures('basic/big-file.md')
@@ -28,7 +28,7 @@ describe('AESCipher', function () {
     })
 
     test('encrypt data', function () {
-      const plainData: Buffer = Buffer.from('@guanghechen/cipher-helper')
+      const plainData: Buffer = Buffer.from('@guanghechen/helper-cipher')
       const cipherData = cipher.encrypt(plainData)
       expect(cipher.decrypt(cipherData)).toEqual(plainData)
     })
@@ -210,7 +210,7 @@ describe('AESCipher', function () {
 
   describe('init by password', function () {
     const logger = new ChalkLogger({ colorful: false, date: false })
-    const cipher = new AESCipherHelper({ logger })
+    const cipher = new AESCipher({ logger })
 
     const fileHelper = new BigFileHelper()
     const sourceFilepath = locateFixtures('basic/big-file.md')
@@ -218,7 +218,7 @@ describe('AESCipher', function () {
     let partFilepaths: string[] = []
 
     beforeAll(async function () {
-      const password = calcMac(Buffer.from('@guanghechen/cipher-helper'))
+      const password = calcMac(Buffer.from('@guanghechen/helper-cipher'))
       cipher.initFromPassword(password)
       partFilepaths = await fileHelper.split(
         sourceFilepath,
@@ -231,7 +231,7 @@ describe('AESCipher', function () {
     })
 
     test('encrypt data', function () {
-      const plainData: Buffer = Buffer.from('@guanghechen/cipher-helper')
+      const plainData: Buffer = Buffer.from('@guanghechen/helper-cipher')
       const cipherData = cipher.encrypt(plainData)
       expect(cipher.decrypt(cipherData)).toEqual(plainData)
     })

@@ -2,15 +2,15 @@ import { collectAllFilesSync } from '@guanghechen/helper-file'
 import fs from 'fs-extra'
 import { desensitize, locateFixtures, unlinkSync } from 'jest.helper'
 import path from 'path'
-import { AESCipherHelper, CipherCatalog } from '../src'
+import { AESCipher, CipherCatalog } from '../src'
 
 function expectEqual(catalog1: CipherCatalog, catalog2: CipherCatalog): void {
   expect(desensitize((catalog1 as any).items)).toEqual(desensitize((catalog2 as any).items))
 }
 
 describe('CipherCatalog', function () {
-  const password = Buffer.from('@guanghechen/cipher-helper')
-  const cipher = new AESCipherHelper()
+  const password = Buffer.from('@guanghechen/helper-cipher')
+  const cipher = new AESCipher()
   cipher.initFromPassword(password)
 
   describe('preserve', function () {
@@ -31,9 +31,11 @@ describe('CipherCatalog', function () {
 
       catalog1.cleanup()
       const files = collectAllFilesSync(catalog1.sourceRootDir)
-      for (const file of files) {
-        await catalog1.register(file)
-      }
+      for (const file of files) expect(catalog1.isModified(file)).toEqual(true)
+      for (const file of files) await catalog1.register(file)
+
+      catalog1.touch()
+      for (const file of files) expect(catalog1.isModified(file)).toEqual(false)
 
       try {
         expect(fs.existsSync(catalogIndexFilepath)).toBe(false)

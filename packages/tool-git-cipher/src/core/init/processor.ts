@@ -1,6 +1,6 @@
-import type { CipherHelper } from '@guanghechen/cipher-helper'
-import { AESCipherHelper, CipherCatalog } from '@guanghechen/cipher-helper'
 import { createInitialCommit, installDependencies } from '@guanghechen/commander-helper'
+import type { ICipher } from '@guanghechen/helper-cipher'
+import { AESCipher, CipherCatalog } from '@guanghechen/helper-cipher'
 import { mkdirsIfNotExists } from '@guanghechen/helper-file'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
@@ -23,7 +23,7 @@ export class GitCipherInitProcessor {
   constructor(context: GitCipherInitContext) {
     this.context = context
     this.secretMaster = new SecretMaster({
-      cipherHelperCreator: { create: () => new AESCipherHelper() },
+      cipherHelperCreator: { create: () => new AESCipher() },
       secretFileEncoding: context.encoding,
       secretContentEncoding: 'hex',
       showAsterisk: context.showAsterisk,
@@ -139,7 +139,7 @@ export class GitCipherInitProcessor {
    */
   protected async createIndexFile(): Promise<void> {
     const { context, secretMaster } = this
-    const cipher: CipherHelper = secretMaster.getCipher()
+    const cipher: ICipher = secretMaster.getCipher()
 
     mkdirsIfNotExists(context.plaintextRootDir, true)
     const catalog = new CipherCatalog({

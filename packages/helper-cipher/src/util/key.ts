@@ -33,7 +33,7 @@ export function calcMac(...pieces: Array<Readonly<Buffer>>): Buffer {
 /**
  * Calc Message Authentication Code from fle.
  *
- * @param stream
+ * @param filepath
  * @returns
  */
 export async function calcMacFromFile(filepath: string): Promise<Buffer | never> {

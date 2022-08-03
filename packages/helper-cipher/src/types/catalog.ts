@@ -1,7 +1,7 @@
 /**
  * A catalog item.
  */
-export interface CatalogItem {
+export interface ICatalogItem {
   /**
    * Fingerprint of contents of source file.
    */
@@ -31,11 +31,11 @@ export interface CatalogItem {
 /**
  * Catalog index.
  */
-export interface CatalogIndex {
+export interface ICatalogIndex {
   /**
    * Catalog items.
    */
-  items: CatalogItem[]
+  items: ICatalogItem[]
 
   /**
    * Last check time. All source files whose modification date is less than or

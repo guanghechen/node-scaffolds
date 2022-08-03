@@ -54,14 +54,15 @@ A monorepo contains some utility functions and configs for building `Node.js` /
 Package                               | Description
 :------------------------------------:|:--------------------------
 [@guanghechen/chalk-logger][]         | A simple colorful logger.
-[@guanghechen/cipher-helper][]        | Utility functions for cipher contents or files.
 [@guanghechen/commander-helper][]     | Utility functions for creating command line programs.
 [@guanghechen/eslint-config][]        | Eslint config for `Node.js` / `Javascript` project
 [@guanghechen/eslint-config-jsx][]    | Eslint config for `Jsx` project
 [@guanghechen/eslint-config-ts][]     | Eslint config for `Typescript` project
 [@guanghechen/event-bus]              | A simple event bus.
-[@guanghechen/helper-file]            | A collection of utility functions for handling files, such as split big file or merge multiple small files.
+[@guanghechen/helper-cipher][]        | Utility functions for cipher contents or files.
 [@guanghechen/helper-blob][]          | Utilities for processing blob objects (i.e., download / create).
+[@guanghechen/helper-file]            | Utilities for handling files, such as split big file or merge multiple small files.
+[@guanghechen/helper-func]            | Helpful utility funcs.
 [@guanghechen/helper-is][]            | Utilities to detect data type.
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
 [@guanghechen/helper-path][]          | Utilities to handle url path and file path.
@@ -93,16 +94,18 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 
 [homepage]: https://github.com/guanghechen/node-scaffolds
 [@guanghechen/chalk-logger]: ./packages/chalk-logger
-[@guanghechen/cipher-helper]: ./packages/cipher-helper
 [@guanghechen/commander-helper]: ./packages/commander-helper
 [@guanghechen/eslint-config]: ./packages/eslint-config
 [@guanghechen/eslint-config-jsx]: ./packages/eslint-config-jsx
 [@guanghechen/eslint-config-ts]: ./packages/eslint-config-ts
 [@guanghechen/event-bus]: ./packages/event-bus
 [@guanghechen/helper-blob]: ./packages/helper-blob
+[@guanghechen/helper-cipher]: ./packages/helper-cipher
 [@guanghechen/helper-file]: ./packages/helper-file
+[@guanghechen/helper-func]: ./packages/helper-func
 [@guanghechen/helper-is]: ./packages/helper-is
 [@guanghechen/helper-option]: ./packages/helper-option
+[@guanghechen/helper-path]: ./packages/helper-path
 [@guanghechen/helper-string]: ./packages/helper-string
 [@guanghechen/invariant]: ./packages/invariant
 [@guanghechen/jest-config]: ./packages/jest-config

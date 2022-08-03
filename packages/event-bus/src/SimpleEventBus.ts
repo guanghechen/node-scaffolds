@@ -122,7 +122,7 @@ export class SimpleEventBus<T extends IEventType> implements IEventBus<T> {
     return this
   }
 
-  public clear(): this {
+  public cleanup(): this {
     this.listeners = {} as unknown as Record<T, Array<IEventListener<T>>>
     this.subscribers = []
     return this

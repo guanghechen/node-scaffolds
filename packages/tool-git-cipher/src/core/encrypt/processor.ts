@@ -1,6 +1,6 @@
-import type { CipherHelper } from '@guanghechen/cipher-helper'
-import { AESCipherHelper, CipherCatalog } from '@guanghechen/cipher-helper'
 import { createCommitAll } from '@guanghechen/commander-helper'
+import type { ICipher } from '@guanghechen/helper-cipher'
+import { AESCipher, CipherCatalog } from '@guanghechen/helper-cipher'
 import { collectAllFilesSync } from '@guanghechen/helper-file'
 import commandExists from 'command-exists'
 import execa from 'execa'
@@ -18,7 +18,7 @@ export class GitCipherEncryptProcessor {
   constructor(context: GitCipherEncryptContext) {
     this.context = context
     this.secretMaster = new SecretMaster({
-      cipherHelperCreator: { create: () => new AESCipherHelper() },
+      cipherHelperCreator: { create: () => new AESCipher() },
       secretFileEncoding: context.encoding,
       secretContentEncoding: 'hex',
       showAsterisk: context.showAsterisk,
@@ -38,7 +38,7 @@ export class GitCipherEncryptProcessor {
 
     await secretMaster.load(context.secretFilepath)
 
-    const cipher: CipherHelper = secretMaster.getCipher()
+    const cipher: ICipher = secretMaster.getCipher()
     const catalog = new CipherCatalog({
       cipher,
       sourceRootDir: context.plaintextRootDir,
