@@ -1,10 +1,10 @@
-import { collectAllDependencies, createDependencyFields } from '@guanghechen/npm-helper'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import type { OutputOptions, RollupOptions } from 'rollup'
 import builtinModules from './builtin-modules.json'
+import { collectAllDependencies, getDefaultDependencyFields } from './dependency'
 import { convertToBoolean, coverBoolean, isArray } from './option-helper'
 import type { RawRollupConfigEnvs, RollupConfigEnvs, RollupConfigOptions } from './types'
 
@@ -42,9 +42,9 @@ export function createRollupConfig(options: RollupConfigOptions): RollupOptions 
 
   const { commonjsOptions, jsonOptions, nodeResolveOptions, typescriptOptions } = pluginOptions
 
-  const dependencyFields = createDependencyFields()
+  const dependencyFields = getDefaultDependencyFields()
   let dependencies: string[] = dependencyFields.reduce((acc, key) => {
-    const deps = manifest[key]
+    const deps = manifest[key] as Record<string, string> | string[]
     const result: string[] = isArray(deps) ? deps : Object.keys(deps || {})
     return acc.concat(result)
   }, [] as string[])

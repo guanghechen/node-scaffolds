@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`collectAllDependencies basic: current repo 1`] = `
+Array [
+  "@rollup/plugin-commonjs",
+  "@rollup/pluginutils",
+  "@types/estree",
+  "estree-walker",
+  "picomatch",
+  "rollup",
+  "fsevents",
+  "commondir",
+  "glob",
+  "fs.realpath",
+  "inflight",
+  "once",
+  "wrappy",
+  "inherits",
+  "minimatch",
+  "brace-expansion",
+  "balanced-match",
+  "concat-map",
+  "path-is-absolute",
+  "is-reference",
+  "magic-string",
+  "sourcemap-codec",
+  "resolve",
+  "is-core-module",
+  "has",
+  "function-bind",
+  "path-parse",
+  "supports-preserve-symlinks-flag",
+  "@rollup/plugin-json",
+  "@rollup/plugin-node-resolve",
+  "@types/resolve",
+  "deepmerge",
+  "is-builtin-module",
+  "builtin-modules",
+  "is-module",
+  "@rollup/plugin-typescript",
+  "tslib",
+  "typescript",
+  "fs-extra",
+  "graceful-fs",
+  "jsonfile",
+  "universalify",
+]
+`;
+
+exports[`collectAllDependencies basic: monorepo2 1`] = `
+Array [
+  "rollup",
+  "fsevents",
+]
+`;
+
+exports[`collectAllDependencies basic: normal-repo -- warnings 1`] = `
+Array [
+  "no such file or directory: <$WORKSPACE$>/packages/rollup-config/__test__/fixtures/normal-repo/package.json",
+]
+`;
+
+exports[`collectAllDependencies basic: normal-repo 1`] = `Array []`;
