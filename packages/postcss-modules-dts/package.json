@@ -46,8 +46,5 @@
     "@types/reserved-words": "0.1.0",
     "fs-extra": "^10.1.0",
     "reserved-words": "0.1.2"
-  },
-  "devDependencies": {
-    "@guanghechen/rollup-config": "^1.9.8"
   }
 }

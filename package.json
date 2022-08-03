@@ -24,6 +24,7 @@
     "format:lint:fix": "eslint . --fix",
     "new:ts-package": "node ./packages/template-ts-package/cli.js",
     "new:tsx-package": "node ./packages/template-tsx-package/cli.js",
+    "prebuild": "lerna exec 'yarn build' --scope='@guanghechen/rollup-config'",
     "prepublishOnly": "pinst --disable",
     "postinstall": "run-p postinstall:**",
     "postinstall:main": "is-ci || yarn update:lock",

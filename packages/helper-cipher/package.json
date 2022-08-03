@@ -43,8 +43,5 @@
     "@guanghechen/helper-path": "^1.9.8",
     "@guanghechen/invariant": "^1.9.8",
     "fs-extra": "^10.1.0"
-  },
-  "devDependencies": {
-    "@guanghechen/rollup-config": "^1.9.8"
   }
 }

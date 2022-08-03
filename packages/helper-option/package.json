@@ -42,8 +42,5 @@
   "dependencies": {
     "@guanghechen/helper-is": "^1.9.8",
     "@guanghechen/helper-string": "^1.9.8"
-  },
-  "devDependencies": {
-    "@guanghechen/rollup-config": "^1.9.8"
   }
 }

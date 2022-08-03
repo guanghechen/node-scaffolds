@@ -37,8 +37,5 @@
     "prebuild": "rimraf lib/ && tsc -p tsconfig.src.json --emitDeclarationOnly",
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
     "test": "echo 'no test yet.'"
-  },
-  "devDependencies": {
-    "@guanghechen/rollup-config": "^1.9.8"
   }
 }

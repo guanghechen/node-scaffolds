@@ -44,8 +44,5 @@
     "chalk": "^4.1.2",
     "dayjs": "^1.11.4",
     "fs-extra": "^10.1.0"
-  },
-  "devDependencies": {
-    "@guanghechen/rollup-config": "^1.9.8"
   }
 }

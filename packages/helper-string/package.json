@@ -45,8 +45,5 @@
     "lower-case": "^2.0.1",
     "title-case": "^3.0.2",
     "upper-case": "^2.0.1"
-  },
-  "devDependencies": {
-    "@guanghechen/rollup-config": "^1.9.8"
   }
 }

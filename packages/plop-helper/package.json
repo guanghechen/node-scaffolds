@@ -50,9 +50,5 @@
     "node-plop": "^0.26.3",
     "ora": "^5.4.1",
     "plop": "^2.7.6"
-  },
-  "devDependencies": {
-    "@guanghechen/jest-helper": "^1.9.8",
-    "@guanghechen/rollup-config": "^1.9.8"
   }
 }
