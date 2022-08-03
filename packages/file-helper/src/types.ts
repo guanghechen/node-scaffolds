@@ -1,7 +1,7 @@
 /**
  * An part item of file.
  */
-export interface FilePartItem {
+export interface IFilePartItem {
   /**
    * Sequence no of a part.
    */

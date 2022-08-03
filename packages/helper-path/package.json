@@ -1,7 +1,7 @@
 {
-  "name": "@guanghechen/cipher-helper",
+  "name": "@guanghechen/helper-path",
   "version": "1.9.8",
-  "description": "Cipher helper",
+  "description": "Utilities to handle url path and file path.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -9,12 +9,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/node-scaffolds.git",
-    "directory": "packages/cipher-helper"
+    "directory": "packages/helper-path"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/cipher-helper#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-path#readme",
   "keywords": [
-    "cipher",
-    "cipher helper"
+    "url path",
+    "file path"
   ],
   "main": "lib/cjs/index.js",
   "types": "lib/types/index.d.ts",
@@ -37,12 +37,6 @@
     "prebuild": "rimraf lib/ && tsc -p tsconfig.src.json --emitDeclarationOnly",
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
-  },
-  "dependencies": {
-    "@guanghechen/file-helper": "^1.9.8",
-    "@guanghechen/helper-path": "^1.9.8",
-    "@guanghechen/invariant": "^1.9.8",
-    "fs-extra": "^10.1.0"
   },
   "devDependencies": {
     "@guanghechen/rollup-config": "^1.9.8"

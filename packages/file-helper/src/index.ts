@@ -1,6 +1,5 @@
-export * from './big-file-helper'
+export * from './BigFileHelper'
 export * from './types'
 export * from './util/fs'
-export * from './util/path'
 export * from './util/split-file'
 export * from './util/stream'

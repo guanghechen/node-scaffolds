@@ -3,8 +3,8 @@ import type {
   SubCommandProcessor,
 } from '@guanghechen/commander-helper'
 import { Command } from '@guanghechen/commander-helper'
-import { absoluteOfWorkspace } from '@guanghechen/file-helper'
 import { cover } from '@guanghechen/helper-option'
+import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import { packageName } from '../../env/constant'
 import { logger } from '../../env/logger'
 import type { GlobalCommandOptions } from '../option'

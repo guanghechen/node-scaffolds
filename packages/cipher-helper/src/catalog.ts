@@ -1,12 +1,11 @@
 import type { FilePartItem } from '@guanghechen/file-helper'
 import {
   BigFileHelper,
-  absoluteOfWorkspace,
   calcFilePartItemsBySize,
   collectAllFilesSync,
   mkdirsIfNotExists,
-  relativeOfWorkspace,
 } from '@guanghechen/file-helper'
+import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import crypto from 'crypto'
 import fs from 'fs-extra'

@@ -38,6 +38,7 @@
     "tada",
     "tsbuildinfo",
     "tsnode",
+    "urlpath",
     "ymal"
   ],
   "files.associations": {

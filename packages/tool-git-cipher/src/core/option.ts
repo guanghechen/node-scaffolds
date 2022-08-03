@@ -4,9 +4,9 @@ import type {
   MergeStrategy,
 } from '@guanghechen/commander-helper'
 import { resolveCommandConfigurationOptions } from '@guanghechen/commander-helper'
-import { absoluteOfWorkspace } from '@guanghechen/file-helper'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
+import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import { logger } from '../env/logger'
 
 /**

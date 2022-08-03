@@ -1,12 +1,9 @@
 import type { CipherHelper } from '@guanghechen/cipher-helper'
 import { AESCipherHelper, CipherCatalog } from '@guanghechen/cipher-helper'
 import { createInitialCommit, installDependencies } from '@guanghechen/commander-helper'
-import {
-  absoluteOfWorkspace,
-  mkdirsIfNotExists,
-  relativeOfWorkspace,
-} from '@guanghechen/file-helper'
+import { mkdirsIfNotExists } from '@guanghechen/file-helper'
 import { isNonBlankString } from '@guanghechen/helper-is'
+import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
 import { toLowerCase } from '@guanghechen/helper-string'
 import { runPlop } from '@guanghechen/plop-helper'
 import commandExists from 'command-exists'

@@ -1,6 +1,6 @@
 import invariant from '@guanghechen/invariant'
 import fs from 'fs-extra'
-import type { FilePartItem } from '../types'
+import type { IFilePartItem } from '../types'
 
 /**
  * Generate file part items by part size.
@@ -9,7 +9,7 @@ import type { FilePartItem } from '../types'
  * @param _partSize
  * @returns
  */
-export function calcFilePartItemsBySize(filepath: string, _partSize: number): FilePartItem[] {
+export function calcFilePartItemsBySize(filepath: string, _partSize: number): IFilePartItem[] {
   invariant(_partSize >= 1, 'Part size should be a positive integer!')
 
   const stat = fs.statSync(filepath)
@@ -22,7 +22,7 @@ export function calcFilePartItemsBySize(filepath: string, _partSize: number): Fi
   const partTotal = Math.ceil(totalSize / partSize)
   invariant(partTotal > 0, 'Part size is too small!')
 
-  const parts: FilePartItem[] = []
+  const parts: IFilePartItem[] = []
   for (let i = 0; i < partTotal; ++i) {
     parts.push({
       sid: i + 1,
@@ -43,7 +43,7 @@ export function calcFilePartItemsBySize(filepath: string, _partSize: number): Fi
  * @param _partTotal
  * @returns
  */
-export function calcFilePartItemsByCount(filepath: string, _partTotal: number): FilePartItem[] {
+export function calcFilePartItemsByCount(filepath: string, _partTotal: number): IFilePartItem[] {
   invariant(_partTotal >= 1, 'Total of part should be a positive integer!')
 
   const stat = fs.statSync(filepath)
@@ -54,7 +54,7 @@ export function calcFilePartItemsByCount(filepath: string, _partTotal: number): 
 
   const partTotal = Math.round(_partTotal)
   const partSize = Math.ceil(totalSize / partTotal)
-  const parts: FilePartItem[] = []
+  const parts: IFilePartItem[] = []
   for (let i = 0; i < partTotal; ++i) {
     parts.push({
       sid: i + 1,

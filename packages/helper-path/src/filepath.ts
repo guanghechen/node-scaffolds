@@ -1,7 +1,7 @@
 import path from 'path'
 
 /**
- * Calc absolute path of p under the workspace
+ * Calc absolute path of p under the workspace.
  *
  * @param workspace
  * @param targetPath
@@ -13,7 +13,7 @@ export function absoluteOfWorkspace(workspace: string, targetPath?: string | nul
 }
 
 /**
- * Calc relative path to workspace
+ * Calc relative path to workspace.
  *
  * @param workspace
  * @param targetPath

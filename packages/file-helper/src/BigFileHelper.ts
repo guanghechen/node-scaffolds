@@ -1,9 +1,9 @@
 import invariant from '@guanghechen/invariant'
 import fs from 'fs-extra'
-import type { FilePartItem } from './types'
+import type { IFilePartItem } from './types'
 import { consumeStreams } from './util/stream'
 
-export interface BigFileHelperOptions {
+export interface IBigFileHelperOptions {
   /**
    * The suffix name of a file part.
    * @default '.ghc-part'
@@ -24,7 +24,7 @@ export class BigFileHelper {
   public readonly partSuffix: string
   public readonly encoding?: BufferEncoding
 
-  constructor(options: BigFileHelperOptions = {}) {
+  constructor(options: IBigFileHelperOptions = {}) {
     this.partSuffix = options.partSuffix ?? '.ghc-part'
     this.encoding = options.encoding
   }
@@ -36,7 +36,7 @@ export class BigFileHelper {
    * @param parts
    * @returns
    */
-  public calcPartFilepaths(filepath: string, parts: FilePartItem[]): string[] {
+  public calcPartFilepaths(filepath: string, parts: IFilePartItem[]): string[] {
     if (parts.length <= 1) return [filepath]
 
     // Part name (file name of part)
@@ -65,7 +65,7 @@ export class BigFileHelper {
    * @param parts
    * @returns
    */
-  public async split(filepath: string, parts: FilePartItem[]): Promise<string[]> {
+  public async split(filepath: string, parts: IFilePartItem[]): Promise<string[]> {
     if (parts.length <= 1) return [filepath]
 
     const tasks: Array<Promise<void>> = []
