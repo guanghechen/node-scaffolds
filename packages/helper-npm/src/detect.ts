@@ -1,13 +1,13 @@
-const { locateLatestPackageJson, locateNearestFilepath } = require('@guanghechen/locate-helper')
-const fs = require('fs-extra')
+import { locateLatestPackageJson, locateNearestFilepath } from '@guanghechen/locate-helper'
+import fs from 'fs-extra'
 
 /**
  * Detect whether if it is a monorepo under the cwd.
  *
- * @param {string} currentDir
- * @returns {boolean}
+ * @param currentDir
+ * @returns
  */
-function detectMonorepo(currentDir) {
+export function detectMonorepo(currentDir: string): boolean {
   // detect lerna
   if (locateNearestFilepath(currentDir, 'lerna.json') != null) return true
 
@@ -27,10 +27,10 @@ function detectMonorepo(currentDir) {
 /**
  * Detect default package author.
  *
- * @param {string} currentDir
- * @returns {string|null}
+ * @param currentDir
+ * @returns
  */
-function detectPackageAuthor(currentDir) {
+export function detectPackageAuthor(currentDir: string): string | null {
   const manifestFilepath = locateLatestPackageJson(currentDir)
   if (manifestFilepath != null) {
     const manifest = fs.readJSONSync(manifestFilepath)
@@ -40,9 +40,4 @@ function detectPackageAuthor(currentDir) {
     }
   }
   return null
-}
-
-module.exports = {
-  detectMonorepo,
-  detectPackageAuthor,
 }

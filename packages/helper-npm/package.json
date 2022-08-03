@@ -1,21 +1,20 @@
 {
-  "name": "@guanghechen/plop-helper",
+  "name": "@guanghechen/helper-npm",
   "version": "1.9.8",
-  "description": "A collection of utility functions for plop templates",
+  "description": "Utilities for handling npm repo and `package.json`.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds.git",
-    "directory": "packages/plop-helper"
+    "url": "https://github.com/guanghechen/guanghechen.git",
+    "directory": "packages/helper-npm"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/plop-helper#readme",
-  "keywords": [
-    "plop"
-  ],
+  "homepage": "https://github.com/guanghechen/guanghechen/tree/main/packages/helper-npm#readme",
+  "keywords": [],
   "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -38,17 +37,7 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-is": "^1.9.8",
-    "@guanghechen/helper-option": "^1.9.8",
-    "@guanghechen/helper-string": "^1.9.8",
-    "@guanghechen/invariant": "^1.9.8",
-    "@guanghechen/helper-npm": "^1.9.8",
-    "chalk": "^4.1.2",
-    "fs-extra": "^10.1.0",
-    "minimist": "^1.2.6",
-    "mock-stdin": "^1.0.0",
-    "node-plop": "^0.26.3",
-    "ora": "^5.4.1",
-    "plop": "^2.7.6"
+    "@guanghechen/locate-helper": "^1.9.8",
+    "fs-extra": "^10.1.0"
   }
 }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dependency collectAllDependencies: current repo 1`] = `
+exports[`collectAllDependencies basic: current repo 1`] = `
 Array [
   "@guanghechen/locate-helper",
   "fs-extra",
@@ -10,7 +10,7 @@ Array [
 ]
 `;
 
-exports[`dependency collectAllDependencies: monorepo2 1`] = `
+exports[`collectAllDependencies basic: monorepo2 1`] = `
 Array [
   "@babel/core",
   "@ampproject/remapping",
@@ -71,13 +71,13 @@ Array [
 ]
 `;
 
-exports[`dependency collectAllDependencies: normal-repo -- warnings 1`] = `
+exports[`collectAllDependencies basic: normal-repo -- warnings 1`] = `
 Array [
   "cannot find package.json for '@guanghechen/not-existed-repo'",
 ]
 `;
 
-exports[`dependency collectAllDependencies: normal-repo 1`] = `
+exports[`collectAllDependencies basic: normal-repo 1`] = `
 Array [
   "@guanghechen/not-existed-repo",
   "rollup",

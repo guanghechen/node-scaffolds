@@ -1,6 +1,6 @@
+import { detectPackageAuthor } from '@guanghechen/helper-npm'
 import { composeTextTransformers, toSentenceCase, toTrim } from '@guanghechen/helper-string'
 import type { ITextTransformer } from '@guanghechen/helper-string'
-import { detectPackageAuthor } from '@guanghechen/npm-helper'
 import type { InputQuestion } from 'inquirer'
 import type { NpmPackagePromptsAnswers } from './types'
 

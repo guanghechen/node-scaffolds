@@ -1,24 +1,24 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/guanghechen/tree/main/packages/npm-helper#readme">@guanghechen/npm-helper</a>
+    <a href="https://github.com/guanghechen/guanghechen/tree/main/packages/helper-npm#readme">@guanghechen/helper-npm</a>
   </h1>
   <div align="center">
-    <a href="https://www.npmjs.com/package/@guanghechen/npm-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-npm">
       <img
         alt="Npm Version"
-        src="https://img.shields.io/npm/v/@guanghechen/npm-helper.svg"
+        src="https://img.shields.io/npm/v/@guanghechen/helper-npm.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/npm-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-npm">
       <img
         alt="Npm Download"
-        src="https://img.shields.io/npm/dm/@guanghechen/npm-helper.svg"
+        src="https://img.shields.io/npm/dm/@guanghechen/helper-npm.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/npm-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-npm">
       <img
         alt="Npm License"
-        src="https://img.shields.io/npm/l/@guanghechen/npm-helper.svg"
+        src="https://img.shields.io/npm/l/@guanghechen/helper-npm.svg"
       />
     </a>
     <a href="#install">
@@ -30,7 +30,7 @@
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"
-        src="https://img.shields.io/node/v/@guanghechen/npm-helper"
+        src="https://img.shields.io/node/v/@guanghechen/helper-npm"
       />
     </a>
     <a href="https://github.com/facebook/jest">
@@ -49,21 +49,21 @@
 </header>
 <br/>
 
+Utilities for handling npm repo and `package.json`.
 
-A collection of utility functions for npm packages.
 
 ## Install
 
 * npm
 
   ```bash
-  npm install --save-dev @guanghechen/npm-helper
+  npm install --save-dev @guanghechen/helper-npm
   ```
 
 * yarn
 
   ```bash
-  yarn add --dev @guanghechen/npm-helper
+  yarn add --dev @guanghechen/helper-npm
   ```
 
 ## Usage
@@ -80,10 +80,10 @@ A collection of utility functions for npm packages.
   function detectPackageAuthor(currentDir: string): string | null
   ```
 
-* `createDependencyFields`: Return default dependency field names.
+* `getDefaultDependencyFields`: Return default dependency field names.
 
   ```typescript
-  function createDependencyFields(): ReadonlyArray<
+  function getDefaultDependencyFields(): ReadonlyArray<
     |'dependencies'
     |'optionalDependencies'
     |'peerDependencies'
@@ -113,4 +113,4 @@ A collection of utility functions for npm packages.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/guanghechen/tree/main/packages/npm-helper#readme
+[homepage]: https://github.com/guanghechen/guanghechen/tree/main/packages/helper-npm#readme

@@ -1,40 +1,40 @@
-const { locateLatestPackageJson } = require('@guanghechen/locate-helper')
-const fs = require('fs-extra')
+import { locateLatestPackageJson } from '@guanghechen/locate-helper'
+import fs from 'fs-extra'
+
+export type IDependencyField = 'dependencies' | 'optionalDependencies' | 'peerDependencies'
 
 /**
- * default Dependency fields
+ * Default Dependency fields
  */
-const createDependencyFields = () => ['dependencies', 'optionalDependencies', 'peerDependencies']
+export const getDefaultDependencyFields = (): IDependencyField[] => [
+  'dependencies',
+  'optionalDependencies',
+  'peerDependencies',
+]
 
 /**
- * Collect all dependencies declared in the package.json and the dependency's
- * dependencies and so on.
+ * Collect all dependencies declared in the package.json and the dependency's dependencies and so on.
  *
- * @param {string|null} packageJsonPath
- * @param {ReadonlyArray<string>|undefined} dependencyFields (such as ['dependencies', 'devDependencies'])
- * @param {ReadonlyArray<string>|null|undefined} additionalDependencies
- * @param {((moduleName: string) => boolean)|null|undefined} isAbsentAllowed
- * @returns {string[]}
+ * @param packageJsonPath
+ * @param dependenciesFields (such as ['dependencies', 'devDependencies'])
+ * @param additionalDependencies
+ * @param isAbsentAllowed
+ * @returns
  */
-function collectAllDependencies(
-  packageJsonPath,
-  dependencyFields = createDependencyFields(),
-  additionalDependencies = null,
-  isAbsentAllowed = null,
-) {
-  /** @type {string[]} */
-  const result = []
+export function collectAllDependencies(
+  packageJsonPath: string | null,
+  dependenciesFields: ReadonlyArray<IDependencyField> = getDefaultDependencyFields(),
+  additionalDependencies: ReadonlyArray<string> | null = null,
+  isAbsentAllowed: ((moduleName: string) => boolean) | null = null,
+): string[] {
+  const result: string[] = []
   if (isAbsentAllowed == null) {
     const regex = /^@types\//
     // eslint-disable-next-line no-param-reassign
     isAbsentAllowed = moduleName => regex.test(moduleName)
   }
 
-  /**
-   * @param {string} dependency
-   * @returns {void}
-   */
-  const followDependency = dependency => {
+  const followDependency = (dependency: string): void => {
     if (result.includes(dependency)) return
     result.push(dependency)
 
@@ -43,10 +43,10 @@ function collectAllDependencies(
     try {
       const dependencyPath = require.resolve(dependency)
       nextPackageJsonPath = locateLatestPackageJson(dependencyPath)
-    } catch (e) {
+    } catch (e: any) {
       switch (e.code) {
         case 'MODULE_NOT_FOUND':
-          if (isAbsentAllowed(dependency)) return
+          if (isAbsentAllowed!(dependency)) return
           break
         case 'ERR_PACKAGE_PATH_NOT_EXPORTED':
           return
@@ -68,14 +68,14 @@ function collectAllDependencies(
    * @param {string} dependencyPackageJsonPath
    * @returns {void}
    */
-  const collectDependencies = dependencyPackageJsonPath => {
+  const collectDependencies = (dependencyPackageJsonPath: string): void => {
     if (!fs.existsSync(dependencyPackageJsonPath)) {
       console.warn(`no such file or directory: ${dependencyPackageJsonPath}`)
       return
     }
 
     const manifest = fs.readJSONSync(dependencyPackageJsonPath)
-    for (const fieldName of dependencyFields) {
+    for (const fieldName of dependenciesFields) {
       const field = manifest[fieldName]
       if (field != null) {
         for (const dependency of Object.keys(field)) {
@@ -98,9 +98,4 @@ function collectAllDependencies(
   }
 
   return result
-}
-
-module.exports = {
-  createDependencyFields,
-  collectAllDependencies,
 }

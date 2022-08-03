@@ -64,6 +64,7 @@ Package                               | Description
 [@guanghechen/helper-file]            | Utilities for handling files, such as split big file or merge multiple small files.
 [@guanghechen/helper-func]            | Helpful utility funcs.
 [@guanghechen/helper-is][]            | Utilities to detect data type.
+[@guanghechen/helper-npm][]           | Utilities for handling npm repo and `package.json`.
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
 [@guanghechen/helper-path][]          | Utilities to handle url path and file path.
 [@guanghechen/helper-string][]        | Utilities for processing strings or stringify other type data.
@@ -72,7 +73,6 @@ Package                               | Description
 [@guanghechen/jest-helper][]          | A collection of utility functions for jest tests
 [@guanghechen/locate-helper][]        | A collection of utility functions for locating nearest filepath matched the given pattern
 [@guanghechen/mini-copy][]            | Access system clipboard (also support to share clipboard in wsl with windows).
-[@guanghechen/npm-helper][]           | A collection of utility functions for handling npm packages.
 [@guanghechen/plop-helper][]          | A collection of utility functions for plop templates
 [@guanghechen/postcss-modules-dts][]  | Generate `*.d.ts` files for style files (such as css, stylus and etc)
 [@guanghechen/react-hooks][]          | Custom React hooks.
@@ -104,6 +104,7 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/helper-file]: ./packages/helper-file
 [@guanghechen/helper-func]: ./packages/helper-func
 [@guanghechen/helper-is]: ./packages/helper-is
+[@guanghechen/helper-npm]: ./packages/helper-npm
 [@guanghechen/helper-option]: ./packages/helper-option
 [@guanghechen/helper-path]: ./packages/helper-path
 [@guanghechen/helper-string]: ./packages/helper-string
@@ -112,7 +113,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/jest-helper]: ./packages/jest-helper
 [@guanghechen/locate-helper]: ./packages/locate-helper
 [@guanghechen/mini-copy]: ./packages/mini-copy
-[@guanghechen/npm-helper]: ./packages/npm-helper
 [@guanghechen/plop-helper]: ./packages/plop-helper
 [@guanghechen/postcss-modules-dts]: ./packages/postcss-modules-dts
 [@guanghechen/react-hooks]: ./packages/react-hooks

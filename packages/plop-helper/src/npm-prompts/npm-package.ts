@@ -1,9 +1,9 @@
 import { isNonBlankString } from '@guanghechen/helper-is'
+import { detectMonorepo } from '@guanghechen/helper-npm'
 import { cover } from '@guanghechen/helper-option'
 import { composeTextTransformers, toSentenceCase, toTrim } from '@guanghechen/helper-string'
 import type { ITextTransformer } from '@guanghechen/helper-string'
 import invariant from '@guanghechen/invariant'
-import { detectMonorepo } from '@guanghechen/npm-helper'
 import type { InputQuestion } from 'inquirer'
 import path from 'path'
 import {
