@@ -1,7 +1,7 @@
 import { registerCommanderOptions } from '@guanghechen/chalk-logger'
 import type { Option, OptionValues } from 'commander'
 import commander from 'commander'
-import type { CommandConfigurationOptions } from './option'
+import type { ICommandConfigurationOptions } from './option'
 
 /**
  * Callback for handling the command
@@ -10,7 +10,7 @@ import type { CommandConfigurationOptions } from './option'
  * @param options command options
  * @param extra   extra args (neither declared command arguments nor command options)
  */
-export type CommandActionCallback<T extends CommandConfigurationOptions> = (
+export type ICommandActionCallback<T extends ICommandConfigurationOptions> = (
   args: string[],
   options: T,
   extra: string[],
@@ -42,8 +42,8 @@ export class Command extends commander.Command {
    * @return {Command} `this` command for chaining
    * @api public
    */
-  public override action<T extends CommandConfigurationOptions>(
-    fn: CommandActionCallback<T>,
+  public override action<T extends ICommandConfigurationOptions>(
+    fn: ICommandActionCallback<T>,
   ): this {
     const self = this
 
@@ -119,7 +119,6 @@ export { commander }
  * Create top command
  * @param commandName
  * @param version
- * @param logger
  */
 export function createTopCommand(commandName: string, version: string): Command {
   const program = new Command()
@@ -141,42 +140,23 @@ export function createTopCommand(commandName: string, version: string): Command 
   return program
 }
 
-/**
- * Process sub-command
- *
- * @param options
- * @returns {V|Promise<V>}
- */
-export type SubCommandProcessor<O extends CommandConfigurationOptions, V = void> = (
+// Process sub-command
+export type ISubCommandProcessor<O extends ICommandConfigurationOptions, V = void> = (
   options: O,
 ) => V | Promise<V>
 
-/**
- * Create sub-command
- */
-export type SubCommandCreator<O extends CommandConfigurationOptions, V = void> = (
-  handle?: SubCommandProcessor<O, V>,
+// Create sub-command
+export type ISubCommandCreator<O extends ICommandConfigurationOptions, V = void> = (
+  handle?: ISubCommandProcessor<O, V>,
   commandName?: string,
   aliases?: string[],
 ) => Command
 
-/**
- * Mount sub-command
- *
- * @param {Command}   parentCommand
- * @param {commander.CommandOptions} opts
- * @returns {void}
- */
-export type SubCommandMounter = (parentCommand: Command, opts?: commander.CommandOptions) => void
+// Mount sub-command
+export type ISubCommandMounter = (parentCommand: Command, opts?: commander.CommandOptions) => void
 
-/**
- * Execute sub-command
- *
- * @param {Command}   parentCommand
- * @param {string[]}  args
- * @returns {Promise}
- */
-export type SubCommandExecutor<V = void> = (parentCommand: Command, args: string[]) => Promise<V>
+// Execute sub-command
+export type ISubCommandExecutor<V = void> = (parentCommand: Command, args: string[]) => Promise<V>
 
 /**
  * Create sub-command mounter
@@ -184,10 +164,10 @@ export type SubCommandExecutor<V = void> = (parentCommand: Command, args: string
  * @param create  sub command creator
  * @param handle  sub command processor
  */
-export function createSubCommandMounter<O extends CommandConfigurationOptions, V = void>(
-  create: SubCommandCreator<O, V>,
-  handle: SubCommandProcessor<O, V>,
-): SubCommandMounter {
+export function createSubCommandMounter<O extends ICommandConfigurationOptions, V = void>(
+  create: ISubCommandCreator<O, V>,
+  handle: ISubCommandProcessor<O, V>,
+): ISubCommandMounter {
   return (program: Command, opts?: commander.CommandOptions): void => {
     const command = create(handle)
     program.addCommand(command, opts)
@@ -202,12 +182,12 @@ export function createSubCommandMounter<O extends CommandConfigurationOptions, V
  * @param commandName   sub-command name
  * @param aliases       sub-command aliases
  */
-export function createSubCommandExecutor<O extends CommandConfigurationOptions, V = void>(
-  create: SubCommandCreator<O, V>,
-  handle: SubCommandProcessor<O, V>,
+export function createSubCommandExecutor<O extends ICommandConfigurationOptions, V = void>(
+  create: ISubCommandCreator<O, V>,
+  handle: ISubCommandProcessor<O, V>,
   commandName?: string,
   aliases?: string[],
-): SubCommandExecutor<V> {
+): ISubCommandExecutor<V> {
   return (parentCommand: Command, args: string[]): Promise<V> => {
     return new Promise(resolve => {
       const wrappedHandler = async (options: O): Promise<V> => {
@@ -223,36 +203,21 @@ export function createSubCommandExecutor<O extends CommandConfigurationOptions, 
   }
 }
 
-/**
- * Process main command
- */
-export type MainCommandProcessor<O extends CommandConfigurationOptions, V = void> = (
+// Process main command.
+export type IMainCommandProcessor<O extends ICommandConfigurationOptions, V = void> = (
   options: O,
 ) => V | Promise<V>
 
-/**
- * Create main command
- */
-export type MainCommandCreator<O extends CommandConfigurationOptions, V = void> = (
-  handle?: MainCommandProcessor<O, V>,
+// Create main command
+export type IMainCommandCreator<O extends ICommandConfigurationOptions, V = void> = (
+  handle?: IMainCommandProcessor<O, V>,
 ) => Command
 
-/**
- * Mount main command
- *
- * @param {Command}   parentCommand
- * @param {commander.CommandOptions} opts
- * @returns {void}
- */
-export type MainCommandMounter = (parentCommand: Command, opts?: commander.CommandOptions) => void
+// Mount main command
+export type IMainCommandMounter = (parentCommand: Command, opts?: commander.CommandOptions) => void
 
-/**
- * Execute main command
- *
- * @param {string[]}  args
- * @returns {Promise}
- */
-export type MainCommandExecutor<V = void> = (args: string[]) => Promise<V>
+// Execute main command.
+export type IMainCommandExecutor<V = void> = (args: string[]) => Promise<V>
 
 /**
  * Create main command mounter
@@ -260,10 +225,10 @@ export type MainCommandExecutor<V = void> = (args: string[]) => Promise<V>
  * @param create  main command creator
  * @param handle  main command processor
  */
-export function createMainCommandMounter<O extends CommandConfigurationOptions, V = void>(
-  create: MainCommandCreator<O, V>,
-  handle: MainCommandProcessor<O, V>,
-): MainCommandMounter {
+export function createMainCommandMounter<O extends ICommandConfigurationOptions, V = void>(
+  create: IMainCommandCreator<O, V>,
+  handle: IMainCommandProcessor<O, V>,
+): IMainCommandMounter {
   return (program: Command, opts?: commander.CommandOptions): void => {
     const command = create(handle)
     if (command.name().length <= 0) {
@@ -279,10 +244,10 @@ export function createMainCommandMounter<O extends CommandConfigurationOptions, 
  * @param create  main command creator
  * @param handle  main command processor
  */
-export function createMainCommandExecutor<O extends CommandConfigurationOptions, V = void>(
-  create: MainCommandCreator<O, V>,
-  handle: MainCommandProcessor<O, V>,
-): MainCommandExecutor<V> {
+export function createMainCommandExecutor<O extends ICommandConfigurationOptions, V = void>(
+  create: IMainCommandCreator<O, V>,
+  handle: IMainCommandProcessor<O, V>,
+): IMainCommandExecutor<V> {
   return (args: string[]): Promise<V> => {
     return new Promise(resolve => {
       const wrappedHandler = async (options: O): Promise<V> => {

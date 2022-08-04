@@ -1,5 +1,5 @@
 import { identity } from '@guanghechen/helper-func'
-import type { ConsoleMethodField } from './console'
+import type { IConsoleMethodField } from './console'
 
 /**
  * Shape of a logger.
@@ -27,7 +27,7 @@ interface CreateLoggerMockOptions {
    * effect only when `spyOnGlobalConsole` is specified true.
    * @default ['debug', 'log', 'info', 'warn', 'error']
    */
-  consoleMethods?: ReadonlyArray<ConsoleMethodField>
+  consoleMethods?: ReadonlyArray<IConsoleMethodField>
   /**
    * Remove sensitive data from the value to be output.
    * @default identity
@@ -38,10 +38,9 @@ interface CreateLoggerMockOptions {
 /**
  * A object encapsulated some mock functions of console.
  */
-export interface LoggerMock {
+export interface ILoggerMock {
   /**
    * Get all of passed args to logger and all spied methods of console.
-   * @param methodName
    */
   getIndiscriminateAll(): ReadonlyArray<ReadonlyArray<unknown>>
   /**
@@ -59,7 +58,7 @@ export interface LoggerMock {
  * @param methodNames
  * @returns
  */
-export function createLoggerMock(options: CreateLoggerMockOptions): LoggerMock {
+export function createLoggerMock(options: CreateLoggerMockOptions): ILoggerMock {
   const {
     logger,
     consoleMethods = ['debug', 'log', 'info', 'warn', 'error'],
@@ -78,7 +77,7 @@ export function createLoggerMock(options: CreateLoggerMockOptions): LoggerMock {
     .spyOn(logger, 'write')
     .mockImplementation(collectLog)
 
-  const consoleMockFnMap: Record<ConsoleMethodField, jest.MockInstance<any, any>> = {} as any
+  const consoleMockFnMap: Record<IConsoleMethodField, jest.MockInstance<any, any>> = {} as any
   if (spyOnGlobalConsole) {
     for (const field of consoleMethods) {
       consoleMockFnMap[field] = jest

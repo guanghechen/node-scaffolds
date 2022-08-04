@@ -1,5 +1,5 @@
 import ChalkLogger, { DEBUG } from '@guanghechen/chalk-logger'
-import { resolveCommandConfigurationOptions } from '@guanghechen/commander-helper'
+import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
 import { createLoggerMock } from '@guanghechen/jest-helper'
 import { desensitize, locateFixtures } from 'jest.helper'
 

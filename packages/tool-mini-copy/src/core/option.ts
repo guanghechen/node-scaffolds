@@ -1,9 +1,9 @@
 import type {
-  CommandConfigurationFlatOpts,
-  CommandConfigurationOptions,
-  MergeStrategy,
-} from '@guanghechen/commander-helper'
-import { resolveCommandConfigurationOptions } from '@guanghechen/commander-helper'
+  ICommandConfigurationFlatOpts,
+  ICommandConfigurationOptions,
+  IMergeStrategy,
+} from '@guanghechen/helper-commander'
+import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
@@ -12,7 +12,7 @@ import { logger } from '../env/logger'
 /**
  * Global command options
  */
-export interface GlobalCommandOptions extends CommandConfigurationOptions {
+export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
   /**
    * Encoding of content from stdin or file.
    * @default utf8
@@ -50,7 +50,7 @@ export interface GlobalCommandOptions extends CommandConfigurationOptions {
 /**
  * Default value of global options
  */
-export const __defaultGlobalCommandOptions: GlobalCommandOptions = {
+export const __defaultGlobalCommandOptions: IGlobalCommandOptions = {
   encoding: 'utf8',
   input: undefined,
   output: undefined,
@@ -75,13 +75,13 @@ export function resolveGlobalCommandOptions<C extends Record<string, unknown>>(
   subCommandName: string | false,
   defaultOptions: C,
   workspaceDir: string,
-  options: C & GlobalCommandOptions,
-  strategies: Partial<Record<keyof (C & GlobalCommandOptions), MergeStrategy>> = {},
-): C & GlobalCommandOptions & CommandConfigurationFlatOpts {
-  type R = C & GlobalCommandOptions & CommandConfigurationFlatOpts
+  options: C & IGlobalCommandOptions,
+  strategies: Partial<Record<keyof (C & IGlobalCommandOptions), IMergeStrategy>> = {},
+): C & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
+  type R = C & IGlobalCommandOptions & ICommandConfigurationFlatOpts
   const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<
-    C & GlobalCommandOptions,
-    C & GlobalCommandOptions
+    C & IGlobalCommandOptions,
+    C & IGlobalCommandOptions
   >(
     logger,
     commandName,

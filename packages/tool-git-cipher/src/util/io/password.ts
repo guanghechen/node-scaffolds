@@ -1,6 +1,6 @@
-import { destroyBuffer } from '@guanghechen/helper-cipher'
+import { destroyBuffer } from '@guanghechen/helper-stream'
 import crypto from 'crypto'
-import type { CustomError } from '../events'
+import type { ICustomError } from '../events'
 import { ErrorCode } from '../events'
 import { input } from './input'
 
@@ -53,7 +53,7 @@ export async function inputPassword(
   )
 
   if (password == null) {
-    const error: CustomError = {
+    const error: ICustomError = {
       code: ErrorCode.BAD_PASSWORD,
       message:
         'too many times failed to get answer of ' +

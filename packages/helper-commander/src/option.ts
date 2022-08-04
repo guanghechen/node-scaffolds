@@ -5,10 +5,10 @@ import { cover, coverString } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace, locateNearestFilepath } from '@guanghechen/helper-path'
 import path from 'path'
 import { loadJsonOrYamlSync } from './fs'
-import type { MergeStrategy } from './merge'
+import type { IMergeStrategy } from './merge'
 import { defaultMergeStrategies, merge } from './merge'
 
-export interface CommandConfigurationFlatOpts {
+export interface ICommandConfigurationFlatOpts {
   /**
    * Path of currently executing command.
    */
@@ -38,7 +38,7 @@ export interface CommandConfigurationFlatOpts {
   readonly parasticConfigEntry?: string | null
 }
 
-export interface CommandConfigurationOptions extends Record<string, unknown> {
+export interface ICommandConfigurationOptions extends Record<string, unknown> {
   /**
    * log level
    * @default undefined
@@ -64,7 +64,7 @@ export interface CommandConfigurationOptions extends Record<string, unknown> {
   readonly parasticConfigEntry?: string | null
 }
 
-export interface CommandConfiguration<Options extends CommandConfigurationOptions> {
+export interface ICommandConfiguration<Options extends ICommandConfigurationOptions> {
   /**
    * Global options shared by all sub-commands
    */
@@ -79,22 +79,22 @@ export interface CommandConfiguration<Options extends CommandConfigurationOption
 /**
  * Flat defaultOptions with configs from package.json
  */
-export function flatOptionsFromConfiguration<C extends CommandConfigurationOptions>(
+export function flatOptionsFromConfiguration<C extends ICommandConfigurationOptions>(
   defaultOptions: C,
-  flatOpts: CommandConfigurationFlatOpts,
+  flatOpts: ICommandConfigurationFlatOpts,
   subCommandName: string | false,
-  strategies: Partial<Record<keyof C, MergeStrategy>> = {},
+  strategies: Partial<Record<keyof C, IMergeStrategy>> = {},
 ): C {
-  let resolvedConfig = {} as unknown as CommandConfiguration<C>
+  let resolvedConfig = {} as unknown as ICommandConfiguration<C>
 
   // load configs
   if (isNotEmptyArray(flatOpts.configPath)) {
-    const configs: Array<CommandConfiguration<C>> = []
+    const configs: Array<ICommandConfiguration<C>> = []
     for (const filepath of flatOpts.configPath) {
-      const config = loadJsonOrYamlSync(filepath) as CommandConfiguration<C>
+      const config = loadJsonOrYamlSync(filepath) as ICommandConfiguration<C>
       configs.push(config)
     }
-    resolvedConfig = merge<CommandConfiguration<C>>(configs, {}, defaultMergeStrategies.replace)
+    resolvedConfig = merge<ICommandConfiguration<C>>(configs, {}, defaultMergeStrategies.replace)
   } else {
     // otherwise, load from parastic config
     if (
@@ -102,7 +102,7 @@ export function flatOptionsFromConfiguration<C extends CommandConfigurationOptio
       isNonBlankString(flatOpts.parasticConfigEntry)
     ) {
       const config = loadJsonOrYamlSync(flatOpts.parasticConfigPath) as any
-      resolvedConfig = (config[flatOpts.parasticConfigEntry] as CommandConfiguration<C>) || {}
+      resolvedConfig = (config[flatOpts.parasticConfigEntry] as ICommandConfiguration<C>) || {}
     }
   }
 
@@ -148,8 +148,8 @@ export function flatOptionsFromConfiguration<C extends CommandConfigurationOptio
  * @param strategies
  */
 export function resolveCommandConfigurationOptions<
-  C extends Partial<CommandConfigurationOptions>,
-  D extends CommandConfigurationOptions,
+  C extends Partial<ICommandConfigurationOptions>,
+  D extends ICommandConfigurationOptions,
 >(
   logger: ChalkLogger,
   commandName: string,
@@ -157,8 +157,8 @@ export function resolveCommandConfigurationOptions<
   workspaceDir: string,
   defaultOptions: D,
   options: C,
-  strategies: Partial<Record<keyof D, MergeStrategy>> = {},
-): D & CommandConfigurationFlatOpts {
+  strategies: Partial<Record<keyof D, IMergeStrategy>> = {},
+): D & ICommandConfigurationFlatOpts {
   const cwd: string = path.resolve()
   const workspace: string = path.resolve(cwd, workspaceDir)
   const configPath: string[] = (options.configPath ?? defaultOptions.configPath ?? []).map(
@@ -169,7 +169,7 @@ export function resolveCommandConfigurationOptions<
     options.parasticConfigPath,
   )
   const parasticConfigEntry: string = coverString(commandName, options.parasticConfigEntry)
-  const flatOpts: CommandConfigurationFlatOpts = {
+  const flatOpts: ICommandConfigurationFlatOpts = {
     cwd,
     workspace,
     configPath,

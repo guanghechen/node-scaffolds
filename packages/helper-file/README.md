@@ -90,20 +90,17 @@ merge multiple small files.
 
 Name                                | Description
 :----------------------------------:|:----------------------------:
-`absoluteOfWorkspace`               | Calc absolute path of p under the workspace
 `BigFileHelper`                     | A utility class for split / merging big files
 `bigFileHelper`                     | Default instance of `BigFleHelper`
 `calcFilePartItemsBySize`           | Generate file part items by part size
 `calcFilePartItemsByCount`          | Generate file part items by total of parts
 `collectAllFiles`                   | Collect all files under the given directory
 `collectAllFilesSync`               | Collect all files under the given directory (synchronizing)
-`consumeStreams`                    | Consume multiple streams serially
 `ensureCriticalFilepathExistsSync`  | Ensure critical filepath exists
 `isDirectorySync`                   | Check whether if the dirpath is a directory path
 `isFileSync`                        | Check whether if the filepath is a file path
 `isNonExistentOrEmpty`              | Check whether if the dirPath is a non-existent path or empty folder
 `mkdirsIfNotExists`                 | Create a path of directories
-`relativeOfWorkspace`               | Calc relative path to workspace
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-file#readme

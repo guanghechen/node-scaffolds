@@ -6,7 +6,7 @@ import type { OutputOptions, RollupOptions } from 'rollup'
 import builtinModules from './builtin-modules.json'
 import { collectAllDependencies, getDefaultDependencyFields } from './dependency'
 import { convertToBoolean, coverBoolean, isArray } from './option-helper'
-import type { RawRollupConfigEnvs, RollupConfigEnvs, RollupConfigOptions } from './types'
+import type { IRawRollupConfigEnvs, IRollupConfigEnvs, IRollupConfigOptions } from './types'
 
 const builtinExternals: string[] = builtinModules.concat(['glob', 'sync'])
 
@@ -16,7 +16,7 @@ const builtinExternals: string[] = builtinModules.concat(['glob', 'sync'])
  * @param rawEnv
  * @returns
  */
-export function resolveRollupConfigEnvs(rawEnv: RawRollupConfigEnvs): RollupConfigEnvs {
+export function resolveRollupConfigEnvs(rawEnv: IRawRollupConfigEnvs): IRollupConfigEnvs {
   const defaultShouldSourcemap = coverBoolean(
     true,
     convertToBoolean(process.env.ROLLUP_SHOULD_SOURCEMAP),
@@ -35,7 +35,7 @@ export function resolveRollupConfigEnvs(rawEnv: RawRollupConfigEnvs): RollupConf
  * Create a rollup options.
  * @param options
  */
-export function createRollupConfig(options: RollupConfigOptions): RollupOptions {
+export function createRollupConfig(options: IRollupConfigOptions): RollupOptions {
   const env = resolveRollupConfigEnvs(options)
 
   const { manifest, pluginOptions = {}, additionalPlugins = [] } = options

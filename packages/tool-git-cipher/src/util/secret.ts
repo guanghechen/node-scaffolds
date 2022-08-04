@@ -1,24 +1,25 @@
 import type { ICipher } from '@guanghechen/helper-cipher'
-import { calcMac, destroyBuffer } from '@guanghechen/helper-cipher'
+import { calcMac } from '@guanghechen/helper-cipher'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { coverBoolean, coverNumber, coverString } from '@guanghechen/helper-option'
+import { destroyBuffer } from '@guanghechen/helper-stream'
 import fs from 'fs-extra'
 import { logger } from '../env/logger'
 import { ErrorCode, EventTypes, eventBus } from './events'
 import * as io from './io'
 
-interface CipherHelperCreator {
+interface ICipherHelperCreator {
   create(): ICipher
 }
 
 /**
  * Params for SecretMaster.constructor
  */
-export interface SecretMasterParams {
+export interface ISecretMasterParams {
   /**
    * Factory class that produces Cipher
    */
-  cipherHelperCreator: CipherHelperCreator
+  cipherHelperCreator: ICipherHelperCreator
 
   /**
    * Encoding of secret file
@@ -73,7 +74,7 @@ export interface SecretMasterParams {
  */
 export class SecretMaster {
   protected readonly secretCipher: ICipher
-  protected readonly cipherHelperCreator: CipherHelperCreator
+  protected readonly cipherHelperCreator: ICipherHelperCreator
   protected readonly secretFileEncoding: string
   protected readonly secretContentEncoding: BufferEncoding
   protected readonly showAsterisk: boolean
@@ -83,7 +84,7 @@ export class SecretMaster {
   protected encryptedSecret: Buffer | null = null
   protected encryptedSecretMac: Buffer | null = null
 
-  constructor(params: SecretMasterParams) {
+  constructor(params: ISecretMasterParams) {
     this.secretCipher = params.cipherHelperCreator.create()
     this.cipherHelperCreator = params.cipherHelperCreator
     this.secretFileEncoding = coverString('utf8', params.secretFileEncoding, isNonBlankString)
@@ -173,7 +174,7 @@ export class SecretMaster {
   /**
    * create a new secret key
    */
-  public async recreate(params: Partial<SecretMasterParams> = {}): Promise<SecretMaster> {
+  public async recreate(params: Partial<ISecretMasterParams> = {}): Promise<SecretMaster> {
     const {
       cipherHelperCreator,
       secretContentEncoding,

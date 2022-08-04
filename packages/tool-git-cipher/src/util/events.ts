@@ -31,17 +31,8 @@ export enum ErrorCode {
   FILEPATH_NOT_FOUND = 'FILEPATH_NOT_FOUND',
 }
 
-/**
- *
- */
-export interface CustomError {
-  /**
-   *
-   */
+export interface ICustomError {
   code: ErrorCode
-  /**
-   *
-   */
   message: string
 }
 

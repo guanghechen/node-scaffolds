@@ -1,18 +1,18 @@
 import type {
-  CommandConfigurationFlatOpts,
-  SubCommandProcessor,
-} from '@guanghechen/commander-helper'
-import { Command } from '@guanghechen/commander-helper'
+  ICommandConfigurationFlatOpts,
+  ISubCommandProcessor,
+} from '@guanghechen/helper-commander'
+import { Command } from '@guanghechen/helper-commander'
 import { cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import { packageName } from '../../env/constant'
 import { logger } from '../../env/logger'
-import type { GlobalCommandOptions } from '../option'
+import type { IGlobalCommandOptions } from '../option'
 import { __defaultGlobalCommandOptions, resolveGlobalCommandOptions } from '../option'
-import type { GitCipherDecryptContext } from './context'
+import type { IGitCipherDecryptContext } from './context'
 import { createGitCipherDecryptContext } from './context'
 
-interface SubCommandOptions extends GlobalCommandOptions {
+interface SubCommandOptions extends IGlobalCommandOptions {
   /**
    * root dir of outputs
    * @default null
@@ -25,13 +25,13 @@ const __defaultCommandOptions: SubCommandOptions = {
   outDir: null,
 }
 
-export type SubCommandDecryptOptions = SubCommandOptions & CommandConfigurationFlatOpts
+export type SubCommandDecryptOptions = SubCommandOptions & ICommandConfigurationFlatOpts
 
 /**
  * create Sub-command: decrypt (e)
  */
 export const createSubCommandDecrypt = function (
-  handle?: SubCommandProcessor<SubCommandDecryptOptions>,
+  handle?: ISubCommandProcessor<SubCommandDecryptOptions>,
   commandName = 'decrypt',
   aliases: string[] = ['d'],
 ): Command {
@@ -80,8 +80,8 @@ export const createSubCommandDecrypt = function (
  */
 export async function createGitCipherDecryptContextFromOptions(
   options: SubCommandDecryptOptions,
-): Promise<GitCipherDecryptContext> {
-  const context: GitCipherDecryptContext = await createGitCipherDecryptContext({
+): Promise<IGitCipherDecryptContext> {
+  const context: IGitCipherDecryptContext = await createGitCipherDecryptContext({
     cwd: options.cwd,
     workspace: options.workspace,
     encoding: options.encoding,

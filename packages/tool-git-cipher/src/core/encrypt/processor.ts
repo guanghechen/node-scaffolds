@@ -1,6 +1,6 @@
-import { createCommitAll } from '@guanghechen/commander-helper'
 import type { ICipher } from '@guanghechen/helper-cipher'
 import { AESCipher, CipherCatalog } from '@guanghechen/helper-cipher'
+import { createCommitAll } from '@guanghechen/helper-commander'
 import { collectAllFilesSync } from '@guanghechen/helper-file'
 import commandExists from 'command-exists'
 import execa from 'execa'
@@ -9,13 +9,13 @@ import inquirer from 'inquirer'
 import path from 'path'
 import { logger } from '../../env/logger'
 import { SecretMaster } from '../../util/secret'
-import type { GitCipherEncryptContext } from './context'
+import type { IGitCipherEncryptContext } from './context'
 
 export class GitCipherEncryptProcessor {
-  protected readonly context: GitCipherEncryptContext
+  protected readonly context: IGitCipherEncryptContext
   protected readonly secretMaster: SecretMaster
 
-  constructor(context: GitCipherEncryptContext) {
+  constructor(context: IGitCipherEncryptContext) {
     this.context = context
     this.secretMaster = new SecretMaster({
       cipherHelperCreator: { create: () => new AESCipher() },

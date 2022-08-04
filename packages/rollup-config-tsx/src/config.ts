@@ -1,22 +1,26 @@
 import { isObject } from '@guanghechen/helper-is'
 import dts from '@guanghechen/postcss-modules-dts'
 import createBaseRollupConfig, { resolveRollupConfigEnvs } from '@guanghechen/rollup-config'
-import type { RollupConfigEnvs } from '@guanghechen/rollup-config'
+import type { IRollupConfigEnvs } from '@guanghechen/rollup-config'
 import multiEntry from '@rollup/plugin-multi-entry'
 import autoprefixer from 'autoprefixer'
 import postcssFlexbugsFixes from 'postcss-flexbugs-fixes'
 import postcssUrl from 'postcss-url'
 import type rollup from 'rollup'
 import postcss from 'rollup-plugin-postcss'
-import type { PostcssOptions, PreprocessConfigOptions, RollupConfigOptions } from './types/options'
+import type {
+  IPreprocessConfigOptions,
+  IRollupConfigOptions,
+  PostcssOptions,
+} from './types/options'
 
 /**
  * Create rollup config for preprocessor
  * @param options
  */
 export function createPreprocessorConfig(
-  options: PreprocessConfigOptions,
-  env: RollupConfigEnvs,
+  options: IPreprocessConfigOptions,
+  env: IRollupConfigEnvs,
 ): rollup.RollupOptions {
   const {
     input,
@@ -59,7 +63,7 @@ export function createPreprocessorConfig(
  * Create rollup config for handle react component
  * @param options
  */
-export function createRollupConfigs(options: RollupConfigOptions): rollup.RollupOptions[] {
+export function createRollupConfigs(options: IRollupConfigOptions): rollup.RollupOptions[] {
   const { preprocessOptions, ...baseOptions } = options
   const env = resolveRollupConfigEnvs(options)
 

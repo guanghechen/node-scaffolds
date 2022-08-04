@@ -7,7 +7,7 @@ import { isNotEmptyArray, isNotEmptyObject } from '@guanghechen/helper-is'
  * @param nextOption   next option item
  * @returns option item merged prevOption and nextOption
  */
-export type MergeStrategy<T = unknown> = (prevOption: T, nextOption: T | null) => T
+export type IMergeStrategy<T = unknown> = (prevOption: T, nextOption: T | null) => T
 
 /**
  * Default merging strategy
@@ -19,14 +19,14 @@ export const defaultMergeStrategies = {
    */
   replace: function (prevOption: unknown, nextOption: unknown | null): unknown {
     return nextOption == null ? prevOption : nextOption
-  } as MergeStrategy,
+  } as IMergeStrategy,
   /**
    * Retain the previous item and ignore the new one if the previous one is
    * neither null nor undefined, otherwise, use the new one instead
    */
   retain: function (prevOption: unknown): unknown {
     return prevOption
-  } as MergeStrategy,
+  } as IMergeStrategy,
   /**
    * Merge arrays, like Array.prototype.concat
    */
@@ -35,7 +35,7 @@ export const defaultMergeStrategies = {
       return prevOption.length > 0 ? [...prevOption, ...nextOption] : nextOption
     }
     return prevOption
-  } as MergeStrategy<unknown[]>,
+  } as IMergeStrategy<unknown[]>,
   /**
    * Merge objects, like Object.prototype.assign
    */
@@ -47,7 +47,7 @@ export const defaultMergeStrategies = {
       return { ...prevOption, ...nextOption }
     }
     return prevOption
-  } as MergeStrategy<Record<string, unknown>>,
+  } as IMergeStrategy<Record<string, unknown>>,
 }
 
 /**
@@ -57,13 +57,13 @@ export const defaultMergeStrategies = {
  */
 export function merge<O extends Record<string, unknown>>(
   options: O[],
-  strategies: Partial<Record<keyof O, MergeStrategy<any>>> = {},
-  defaultStrategy: MergeStrategy = defaultMergeStrategies.replace,
+  strategies: Partial<Record<keyof O, IMergeStrategy<any>>> = {},
+  defaultStrategy: IMergeStrategy = defaultMergeStrategies.replace,
 ): O {
   const result = {} as unknown as O
   for (const option of options) {
     for (const key of Object.keys(option)) {
-      const strategy: MergeStrategy = strategies[key] || defaultStrategy
+      const strategy: IMergeStrategy = strategies[key] || defaultStrategy
       if (result[key] != null) {
         result[key as keyof O] = strategy(result[key], option[key]) as O[keyof O]
       } else {

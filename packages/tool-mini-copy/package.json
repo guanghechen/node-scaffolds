@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@guanghechen/chalk-logger": "^1.9.8",
-    "@guanghechen/commander-helper": "^1.9.8",
+    "@guanghechen/helper-commander": "^1.9.8",
     "@guanghechen/helper-file": "^1.9.8",
     "@guanghechen/helper-is": "^1.9.8",
     "@guanghechen/helper-option": "^1.9.8",

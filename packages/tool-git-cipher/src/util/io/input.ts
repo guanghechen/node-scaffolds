@@ -1,5 +1,5 @@
-import { destroyBuffer } from '@guanghechen/helper-cipher'
 import { isNonBlankString } from '@guanghechen/helper-is'
+import { destroyBuffer } from '@guanghechen/helper-stream'
 import { EventTypes, eventBus } from '../events'
 
 /**

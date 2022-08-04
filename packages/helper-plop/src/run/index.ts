@@ -1,7 +1,11 @@
 import { coverBoolean } from '@guanghechen/helper-option'
 import type { NodePlopAPI, PlopGenerator } from 'node-plop'
 import Ora from 'ora'
-import type { PlopActionHooksChanges, PlopActionHooksFailures, RunGeneratorOptions } from './types'
+import type {
+  IPlopActionHooksChanges,
+  IPlopActionHooksFailures,
+  IRunGeneratorOptions,
+} from './types'
 import { choosePlopGenerator, showChangeType } from './util'
 
 // eslint-disable-next-line new-cap
@@ -17,7 +21,7 @@ export async function runGenerator(
   generator: PlopGenerator,
   bypassArr?: string[],
   defaultAnswers: Record<string, unknown> = {},
-  opts: RunGeneratorOptions = {},
+  opts: IRunGeneratorOptions = {},
 ): Promise<void> {
   const noMap = coverBoolean(false, opts.showTypeNames)
   const promptsAnswers = await generator.runPrompts(bypassArr)
@@ -29,7 +33,7 @@ export async function runGenerator(
   }
 
   // Callback on success.
-  const onSuccess = (change: PlopActionHooksChanges): void => {
+  const onSuccess = (change: IPlopActionHooksChanges): void => {
     let line = ''
     if (change.type) {
       line += ` ${showChangeType(change.type, noMap)}`
@@ -42,7 +46,7 @@ export async function runGenerator(
   }
 
   // Callback on failure.
-  const onFailure = (fail: PlopActionHooksFailures): void => {
+  const onFailure = (fail: IPlopActionHooksFailures): void => {
     let line = ''
     if (fail.type) {
       line += ` ${showChangeType(fail.type, noMap)}`

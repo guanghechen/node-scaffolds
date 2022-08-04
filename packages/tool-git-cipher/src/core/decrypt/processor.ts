@@ -6,13 +6,13 @@ import fs from 'fs-extra'
 import inquirer from 'inquirer'
 import { logger } from '../../env/logger'
 import { SecretMaster } from '../../util/secret'
-import type { GitCipherDecryptContext } from './context'
+import type { IGitCipherDecryptContext } from './context'
 
 export class GitCipherDecryptProcessor {
-  protected readonly context: GitCipherDecryptContext
+  protected readonly context: IGitCipherDecryptContext
   protected readonly secretMaster: SecretMaster
 
-  constructor(context: GitCipherDecryptContext) {
+  constructor(context: IGitCipherDecryptContext) {
     this.context = context
     this.secretMaster = new SecretMaster({
       cipherHelperCreator: { create: () => new AESCipher() },

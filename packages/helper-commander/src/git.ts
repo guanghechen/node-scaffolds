@@ -1,4 +1,5 @@
 import type { ChalkLogger } from '@guanghechen/chalk-logger'
+import { toLowerCase } from '@guanghechen/helper-string'
 import commandExists from 'command-exists'
 import execa from 'execa'
 import inquirer from 'inquirer'
@@ -35,7 +36,7 @@ export async function createInitialCommit(
 
   let doInitialCommit: boolean
   if (plopBypass.length > 0) {
-    const booleanString = plopBypass.shift()!.toLowerCase()
+    const booleanString = toLowerCase(plopBypass.shift()!)
     doInitialCommit = booleanString === 'true' || booleanString === 'yes' || booleanString === 'y'
   } else {
     doInitialCommit = (
@@ -50,9 +51,7 @@ export async function createInitialCommit(
     ).doInitialCommit
   }
 
-  if (logger != null && logger.debug != null) {
-    logger.debug('doInitialCommit:', doInitialCommit)
-  }
+  logger?.debug?.('doInitialCommit:', doInitialCommit)
 
   // skip
   if (!doInitialCommit) return

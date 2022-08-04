@@ -1,24 +1,24 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/guanghechen/tree/main/packages/commander-helper#readme">@guanghechen/commander-helper</a>
+    <a href="https://github.com/guanghechen/guanghechen/tree/main/packages/helper-commander#readme">@guanghechen/helper-commander</a>
   </h1>
   <div align="center">
-    <a href="https://www.npmjs.com/package/@guanghechen/commander-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-commander">
       <img
         alt="Npm Version"
-        src="https://img.shields.io/npm/v/@guanghechen/commander-helper.svg"
+        src="https://img.shields.io/npm/v/@guanghechen/helper-commander.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/commander-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-commander">
       <img
         alt="Npm Download"
-        src="https://img.shields.io/npm/dm/@guanghechen/commander-helper.svg"
+        src="https://img.shields.io/npm/dm/@guanghechen/helper-commander.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/commander-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-commander">
       <img
         alt="Npm License"
-        src="https://img.shields.io/npm/l/@guanghechen/commander-helper.svg"
+        src="https://img.shields.io/npm/l/@guanghechen/helper-commander.svg"
       />
     </a>
     <a href="#install">
@@ -30,13 +30,13 @@
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"
-        src="https://img.shields.io/node/v/@guanghechen/commander-helper"
+        src="https://img.shields.io/node/v/@guanghechen/helper-commander"
       />
     </a>
     <a href="https://github.com/facebook/jest">
       <img
         alt="Eslint Version"
-        src="https://img.shields.io/npm/dependency-version/@guanghechen/commander-helper/peer/jest"
+        src="https://img.shields.io/npm/dependency-version/@guanghechen/helper-commander/peer/jest"
       />
     </a>
     <a href="https://github.com/facebook/jest">
@@ -63,13 +63,13 @@ Utility functions for creating command programs tools based on [commander.js][].
 * npm
 
   ```bash
-  npm install --save-dev @guanghechen/commander-helper
+  npm install --save-dev @guanghechen/helper-commander
   ```
 
 * yarn
 
   ```bash
-  yarn add --dev @guanghechen/commander-helper
+  yarn add --dev @guanghechen/helper-commander
   ```
 
 
@@ -78,6 +78,6 @@ Utility functions for creating command programs tools based on [commander.js][].
 * [commander.js][]
 
 
-[homepage]: https://github.com/guanghechen/guanghechen/tree/main/packages/commander-helper#readme
+[homepage]: https://github.com/guanghechen/guanghechen/tree/main/packages/helper-commander#readme
 [commander.js]: https://github.com/tj/commander.js/
 

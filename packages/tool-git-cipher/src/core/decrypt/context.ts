@@ -1,7 +1,7 @@
 /**
  * Context variables for GitCipherDecryptContext
  */
-export interface GitCipherDecryptContext {
+export interface IGitCipherDecryptContext {
   /**
    * Path of currently executing command
    */
@@ -120,8 +120,8 @@ interface Params {
  */
 export async function createGitCipherDecryptContext(
   params: Params,
-): Promise<GitCipherDecryptContext> {
-  const context: GitCipherDecryptContext = {
+): Promise<IGitCipherDecryptContext> {
+  const context: IGitCipherDecryptContext = {
     cwd: params.cwd,
     workspace: params.workspace,
     encoding: params.encoding,

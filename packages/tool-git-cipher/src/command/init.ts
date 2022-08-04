@@ -1,12 +1,12 @@
 import type {
-  SubCommandExecutor,
-  SubCommandMounter,
-  SubCommandProcessor,
-} from '@guanghechen/commander-helper'
-import { createSubCommandExecutor, createSubCommandMounter } from '@guanghechen/commander-helper'
-import type { SubCommandInitOptions } from '../core/init/command'
+  ISubCommandExecutor,
+  ISubCommandMounter,
+  ISubCommandProcessor,
+} from '@guanghechen/helper-commander'
+import { createSubCommandExecutor, createSubCommandMounter } from '@guanghechen/helper-commander'
+import type { ISubCommandInitOptions } from '../core/init/command'
 import { createGitCipherInitContextFromOptions, createSubCommandInit } from '../core/init/command'
-import type { GitCipherInitContext } from '../core/init/context'
+import type { IGitCipherInitContext } from '../core/init/context'
 import { GitCipherInitProcessor } from '../core/init/processor'
 import { handleError } from './_util'
 
@@ -16,11 +16,11 @@ import { handleError } from './_util'
  * @param options
  * @returns {void|Promise<void>}
  */
-export const processSubCommandInit: SubCommandProcessor<SubCommandInitOptions> = async function (
-  options: SubCommandInitOptions,
+export const processSubCommandInit: ISubCommandProcessor<ISubCommandInitOptions> = async function (
+  options: ISubCommandInitOptions,
 ): Promise<void> {
   try {
-    const context: GitCipherInitContext = await createGitCipherInitContextFromOptions(options)
+    const context: IGitCipherInitContext = await createGitCipherInitContextFromOptions(options)
     const processor = new GitCipherInitProcessor(context)
     await processor.init()
   } catch (error) {
@@ -34,8 +34,8 @@ export const processSubCommandInit: SubCommandProcessor<SubCommandInitOptions> =
  * @param {Command}   parentCommand
  * @returns {void}
  */
-export const mountSubCommandInit: SubCommandMounter =
-  createSubCommandMounter<SubCommandInitOptions>(createSubCommandInit, processSubCommandInit)
+export const mountSubCommandInit: ISubCommandMounter =
+  createSubCommandMounter<ISubCommandInitOptions>(createSubCommandInit, processSubCommandInit)
 
 /**
  * Execute sub-command: 'init'
@@ -44,5 +44,5 @@ export const mountSubCommandInit: SubCommandMounter =
  * @param {string[]}  args
  * @returns {Promise}
  */
-export const execSubCommandInit: SubCommandExecutor =
-  createSubCommandExecutor<SubCommandInitOptions>(createSubCommandInit, processSubCommandInit)
+export const execSubCommandInit: ISubCommandExecutor =
+  createSubCommandExecutor<ISubCommandInitOptions>(createSubCommandInit, processSubCommandInit)

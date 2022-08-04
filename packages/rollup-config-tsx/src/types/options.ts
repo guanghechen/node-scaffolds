@@ -2,8 +2,8 @@ import './postcss-flexbugs-fixes'
 import './rollup-plugin-multi-entry'
 
 import type {
-  RollupConfigOptions as BaseRollupConfigOptions,
-  RollupPluginOptions as BaseRollupPluginOptions,
+  IRollupConfigOptions as IBaseRollupConfigOptions,
+  IRollupPluginOptions as IBaseRollupPluginOptions,
 } from '@guanghechen/rollup-config'
 import type { MultiEntryOptions } from '@rollup/plugin-multi-entry'
 import type { Options as PostcssPluginAutoprefixerOptions } from 'autoprefixer'
@@ -26,21 +26,21 @@ export type { MultiEntryOptions } from '@rollup/plugin-multi-entry'
 /**
  * Params for creating a rollup config.
  */
-export interface RollupConfigOptions extends BaseRollupConfigOptions {
+export interface IRollupConfigOptions extends IBaseRollupConfigOptions {
   /**
    * Options of the builtin plugin by the @guanghechen/rollup-config.
    */
-  pluginOptions?: RollupPluginOptions
+  pluginOptions?: IRollupPluginOptions
   /**
    * Options on preprocess phase (such as generate *.d.ts for css files).
    */
-  preprocessOptions?: PreprocessConfigOptions
+  preprocessOptions?: IPreprocessConfigOptions
 }
 
 /**
  * Options of the builtin plugins.
  */
-export interface RollupPluginOptions extends BaseRollupPluginOptions {
+export interface IRollupPluginOptions extends IBaseRollupPluginOptions {
   /**
    * options for rollup-plugin-postcss
    * @see https://github.com/egoist/rollup-plugin-postcss
@@ -67,7 +67,7 @@ export interface RollupPluginOptions extends BaseRollupPluginOptions {
 /**
  * Preprocess config
  */
-export interface PreprocessConfigOptions {
+export interface IPreprocessConfigOptions {
   /**
    * Rollup input config
    */

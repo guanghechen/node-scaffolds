@@ -12,7 +12,7 @@ export type { RollupNodeResolveOptions as NodeResolveOptions } from '@rollup/plu
 /**
  * Environment variables.
  */
-export interface RawRollupConfigEnvs {
+export interface IRawRollupConfigEnvs {
   /**
    * Whether if generate sourcemaps.
    * @default true
@@ -25,20 +25,20 @@ export interface RawRollupConfigEnvs {
   shouldExternalAll?: boolean
 }
 
-export type RollupConfigEnvs = Required<RawRollupConfigEnvs>
+export type IRollupConfigEnvs = Required<IRawRollupConfigEnvs>
 
 /**
  * Params for creating a rollup config.
  */
-export interface RollupConfigOptions extends RawRollupConfigEnvs {
+export interface IRollupConfigOptions extends IRawRollupConfigEnvs {
   /**
    * Main input / output options.
    */
-  manifest: RollupManifestOptions
+  manifest: IRollupManifestOptions
   /**
    * Options of the builtin plugin by the @guanghechen/rollup-config.
    */
-  pluginOptions?: RollupPluginOptions
+  pluginOptions?: IRollupPluginOptions
   /**
    * Additional plugins.
    */
@@ -48,7 +48,7 @@ export interface RollupConfigOptions extends RawRollupConfigEnvs {
 /**
  * Input / Output main options.
  */
-export interface RollupManifestOptions {
+export interface IRollupManifestOptions {
   /**
    * Source entry file.
    */
@@ -78,7 +78,7 @@ export interface RollupManifestOptions {
 /**
  * Options of the builtin plugins.
  */
-export interface RollupPluginOptions {
+export interface IRollupPluginOptions {
   /**
    * options for @rollup/plugin-commonjs
    */

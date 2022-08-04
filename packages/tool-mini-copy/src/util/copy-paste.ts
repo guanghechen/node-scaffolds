@@ -1,4 +1,4 @@
-import { stripAnsi } from '@guanghechen/commander-helper'
+import { stripAnsi } from '@guanghechen/helper-commander'
 import { isFileSync } from '@guanghechen/helper-file'
 import invariant from '@guanghechen/invariant'
 import type { FakeClipboard } from '@guanghechen/mini-copy'

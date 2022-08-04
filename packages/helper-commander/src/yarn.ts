@@ -37,16 +37,14 @@ export async function installDependencies(
           default: hasYarnInstalled ? 'yarn' : 'npm',
           message: 'npm or yarn?',
           choices: ['npm', 'yarn', 'skip'],
-          filter: x => toLowerCase(x).trim(),
-          transformer: (x: string) => toLowerCase(x).trim(),
+          filter: x => toLowerCase(x.trim()),
+          transformer: (x: string) => toLowerCase(x.trim()),
         },
       ])
     ).npmScript
   }
 
-  if (logger != null && logger.debug != null) {
-    logger.debug('npmScript:', npmScript)
-  }
+  logger?.debug?.('npmScript:', npmScript)
 
   // skip installing dependencies
   if (npmScript === 'skip') return

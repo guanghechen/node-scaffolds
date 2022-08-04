@@ -1,5 +1,5 @@
 import path from 'path'
-import type { GlobalCommandOptions } from '.'
+import type { IGlobalCommandOptions } from '.'
 import {
   __defaultGlobalCommandOptions,
   createProgram,
@@ -11,7 +11,7 @@ import {
 const program = createProgram()
 
 program
-  .action(async function (args: string[], options: GlobalCommandOptions): Promise<void> {
+  .action(async function (args: string[], options: IGlobalCommandOptions): Promise<void> {
     const resolvedOptions = resolveGlobalCommandOptions(
       packageName,
       '',

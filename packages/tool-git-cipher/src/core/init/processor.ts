@@ -1,6 +1,6 @@
-import { createInitialCommit, installDependencies } from '@guanghechen/commander-helper'
 import type { ICipher } from '@guanghechen/helper-cipher'
 import { AESCipher, CipherCatalog } from '@guanghechen/helper-cipher'
+import { createInitialCommit, installDependencies } from '@guanghechen/helper-commander'
 import { mkdirsIfNotExists } from '@guanghechen/helper-file'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
@@ -14,13 +14,13 @@ import { packageVersion } from '../../env/constant'
 import { logger } from '../../env/logger'
 import { resolveTemplateFilepath } from '../../env/util'
 import { SecretMaster } from '../../util/secret'
-import type { GitCipherInitContext } from './context'
+import type { IGitCipherInitContext } from './context'
 
 export class GitCipherInitProcessor {
-  protected readonly context: GitCipherInitContext
+  protected readonly context: IGitCipherInitContext
   protected secretMaster: SecretMaster
 
-  constructor(context: GitCipherInitContext) {
+  constructor(context: IGitCipherInitContext) {
     this.context = context
     this.secretMaster = new SecretMaster({
       cipherHelperCreator: { create: () => new AESCipher() },

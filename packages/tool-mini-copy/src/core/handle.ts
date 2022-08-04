@@ -1,15 +1,15 @@
-import { readFromStdin } from '@guanghechen/commander-helper'
+import { readFromStdin } from '@guanghechen/helper-commander'
 import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-file'
 import { FakeClipboard } from '@guanghechen/mini-copy'
 import fs from 'fs-extra'
 import { logger } from '../env/logger'
 import type { ISafeCopyOptions } from '../util/copy-paste'
 import { pasteToFile, pasteToStdout, safeCopy } from '../util/copy-paste'
-import type { GlobalCommandOptions } from './option'
+import type { IGlobalCommandOptions } from './option'
 
 export async function handleCommand(
   sourceContent: string | null,
-  options: GlobalCommandOptions,
+  options: IGlobalCommandOptions,
 ): Promise<void> {
   const {
     encoding,

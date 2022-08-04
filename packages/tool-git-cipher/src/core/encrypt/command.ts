@@ -1,16 +1,16 @@
-import type { CommandConfigurationFlatOpts } from '@guanghechen/commander-helper'
-import { Command } from '@guanghechen/commander-helper'
+import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commander'
+import { Command } from '@guanghechen/helper-commander'
 import { isNotEmptyArray } from '@guanghechen/helper-is'
 import { cover, coverBoolean } from '@guanghechen/helper-option'
 import path from 'path'
 import { packageName } from '../../env/constant'
 import { logger } from '../../env/logger'
-import type { GlobalCommandOptions } from '../option'
+import type { IGlobalCommandOptions } from '../option'
 import { __defaultGlobalCommandOptions, resolveGlobalCommandOptions } from '../option'
-import type { GitCipherEncryptContext } from './context'
+import type { IGitCipherEncryptContext } from './context'
 import { createGitCipherEncryptContext } from './context'
 
-interface SubCommandOptions extends GlobalCommandOptions {
+interface SubCommandOptions extends IGlobalCommandOptions {
   /**
    * Whether to update in full, if not, only update files whose mtime is less
    * than the mtime recorded in the index file
@@ -34,7 +34,7 @@ const __defaultCommandOptions: SubCommandOptions = {
   sensitiveDirectories: ['.git'],
 }
 
-export type SubCommandEncryptOptions = SubCommandOptions & CommandConfigurationFlatOpts
+export type SubCommandEncryptOptions = SubCommandOptions & ICommandConfigurationFlatOpts
 
 /**
  * create Sub-command: encrypt (e)
@@ -107,8 +107,8 @@ export const createSubCommandEncrypt = function (
  */
 export async function createGitCipherEncryptContextFromOptions(
   options: SubCommandEncryptOptions,
-): Promise<GitCipherEncryptContext> {
-  const context: GitCipherEncryptContext = await createGitCipherEncryptContext({
+): Promise<IGitCipherEncryptContext> {
+  const context: IGitCipherEncryptContext = await createGitCipherEncryptContext({
     cwd: options.cwd,
     workspace: options.workspace,
     encoding: options.encoding,

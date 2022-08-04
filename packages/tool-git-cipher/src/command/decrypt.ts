@@ -1,15 +1,15 @@
-import { createSubCommandExecutor, createSubCommandMounter } from '@guanghechen/commander-helper'
+import { createSubCommandExecutor, createSubCommandMounter } from '@guanghechen/helper-commander'
 import type {
-  SubCommandExecutor,
-  SubCommandMounter,
-  SubCommandProcessor,
-} from '@guanghechen/commander-helper'
+  ISubCommandExecutor,
+  ISubCommandMounter,
+  ISubCommandProcessor,
+} from '@guanghechen/helper-commander'
 import type { SubCommandDecryptOptions } from '../core/decrypt/command'
 import {
   createGitCipherDecryptContextFromOptions,
   createSubCommandDecrypt,
 } from '../core/decrypt/command'
-import type { GitCipherDecryptContext } from '../core/decrypt/context'
+import type { IGitCipherDecryptContext } from '../core/decrypt/context'
 import { GitCipherDecryptProcessor } from '../core/decrypt/processor'
 import { handleError } from './_util'
 
@@ -19,10 +19,10 @@ import { handleError } from './_util'
  * @param options
  * @returns {void|Promise<void>}
  */
-export const processSubCommandDecrypt: SubCommandProcessor<SubCommandDecryptOptions> =
+export const processSubCommandDecrypt: ISubCommandProcessor<SubCommandDecryptOptions> =
   async function (options: SubCommandDecryptOptions): Promise<void> {
     try {
-      const context: GitCipherDecryptContext = await createGitCipherDecryptContextFromOptions(
+      const context: IGitCipherDecryptContext = await createGitCipherDecryptContextFromOptions(
         options,
       )
       const processor = new GitCipherDecryptProcessor(context)
@@ -38,7 +38,7 @@ export const processSubCommandDecrypt: SubCommandProcessor<SubCommandDecryptOpti
  * @param {Command}   parentCommand
  * @returns {void}
  */
-export const mountSubCommandDecrypt: SubCommandMounter =
+export const mountSubCommandDecrypt: ISubCommandMounter =
   createSubCommandMounter<SubCommandDecryptOptions>(
     createSubCommandDecrypt,
     processSubCommandDecrypt,
@@ -51,7 +51,7 @@ export const mountSubCommandDecrypt: SubCommandMounter =
  * @param {string[]}  args
  * @returns {Promise}
  */
-export const execSubCommandDecrypt: SubCommandExecutor =
+export const execSubCommandDecrypt: ISubCommandExecutor =
   createSubCommandExecutor<SubCommandDecryptOptions>(
     createSubCommandDecrypt,
     processSubCommandDecrypt,

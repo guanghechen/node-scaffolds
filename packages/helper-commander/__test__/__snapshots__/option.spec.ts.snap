@@ -9,35 +9,35 @@ Object {
   ],
   "color": false,
   "configPath": Array [
-    "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2/demo.config.yml",
+    "<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/demo.config.yml",
   ],
-  "cwd": "<$WORKSPACE$>/packages/commander-helper",
+  "cwd": "<$WORKSPACE$>/packages/helper-commander",
   "date": false,
   "logLevel": "debug",
   "parasticConfigEntry": "@guanghechen/tool-demo",
-  "parasticConfigPath": "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2/package.json",
-  "workspace": "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2",
+  "parasticConfigPath": "<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json",
+  "workspace": "<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2",
 }
 `;
 
 exports[`resolveCommandConfigurationOptions basic 2`] = `
 Array [
   Array [
-    "[debug] cwd: <$WORKSPACE$>/packages/commander-helper
+    "[debug] cwd: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
   Array [
-    "[debug] workspace: <$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2
+    "[debug] workspace: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2
 ",
   ],
   Array [
     "[debug] configPath: [
-  \\"<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2/demo.config.yml\\"
+  \\"<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/demo.config.yml\\"
 ]
 ",
   ],
   Array [
-    "[debug] parasticConfigPath: <$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2/package.json
+    "[debug] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json
 ",
   ],
   Array [
@@ -56,7 +56,7 @@ Object {
   ],
   "color": true,
   "configPath": Array [],
-  "cwd": "<$WORKSPACE$>/packages/commander-helper",
+  "cwd": "<$WORKSPACE$>/packages/helper-commander",
   "date": false,
   "generate": Object {
     "date": true,
@@ -68,8 +68,8 @@ Object {
   },
   "logLevel": "warn",
   "parasticConfigEntry": "@guanghechen/tool-demo",
-  "parasticConfigPath": "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2/package.json",
-  "workspace": "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2",
+  "parasticConfigPath": "<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json",
+  "workspace": "<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2",
 }
 `;
 
@@ -84,23 +84,23 @@ Object {
   ],
   "color": true,
   "configPath": Array [],
-  "cwd": "<$WORKSPACE$>/packages/commander-helper",
+  "cwd": "<$WORKSPACE$>/packages/helper-commander",
   "date": true,
   "logLevel": "debug",
   "parasticConfigEntry": "@guanghechen/tool-demo",
-  "parasticConfigPath": "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2/package.json",
-  "workspace": "<$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2",
+  "parasticConfigPath": "<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json",
+  "workspace": "<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2",
 }
 `;
 
 exports[`resolveCommandConfigurationOptions with config 2`] = `
 Array [
   Array [
-    "[debug] cwd: <$WORKSPACE$>/packages/commander-helper
+    "[debug] cwd: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
   Array [
-    "[debug] workspace: <$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2
+    "[debug] workspace: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2
 ",
   ],
   Array [
@@ -108,7 +108,7 @@ Array [
 ",
   ],
   Array [
-    "[debug] parasticConfigPath: <$WORKSPACE$>/packages/commander-helper/__test__/fixtures/basic2/package.json
+    "[debug] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json
 ",
   ],
   Array [

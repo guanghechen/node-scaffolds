@@ -1,16 +1,16 @@
 import { coverBoolean, coverString } from '@guanghechen/helper-option'
 import fs from 'fs-extra'
 import reservedWords from 'reserved-words'
-import type { CSSDtsProcessorProps, GetCSSTokenHook } from './types'
+import type { ICssDtsProcessorProps, IGetCSSTokenHook } from './types'
 
-export class CSSDtsProcessor implements GetCSSTokenHook {
+export class CSSDtsProcessor implements IGetCSSTokenHook {
   public readonly indent: string
   public readonly semicolon: string
   public readonly encoding: string
   public readonly dtsForCompiledCss: boolean
-  public readonly shouldIgnore: Exclude<CSSDtsProcessorProps['shouldIgnore'], undefined>
+  public readonly shouldIgnore: Exclude<ICssDtsProcessorProps['shouldIgnore'], undefined>
 
-  constructor(props: CSSDtsProcessorProps) {
+  constructor(props: ICssDtsProcessorProps) {
     this.indent = coverString('  ', props.indent)
     this.semicolon = coverBoolean(false, props.semicolon) ? ';' : ''
     this.encoding = coverString('utf-8', props.encoding)

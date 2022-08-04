@@ -23,7 +23,7 @@ describe('loadJsonOrYaml', function () {
   test('non existent filepath', async function () {
     await expect(() =>
       loadJsonOrYaml(locateFixtures('basic/config.json-non-exist')),
-    ).rejects.toThrow('is an invalid file path')
+    ).rejects.toThrow('Invariant failed: Not found:')
   })
 })
 
@@ -48,7 +48,7 @@ describe('loadJsonOrYamlSync', function () {
 
   test('non existent filepath', function () {
     expect(() => loadJsonOrYamlSync(locateFixtures('basic/config.json-non-exist'))).toThrow(
-      'is an invalid file path',
+      'Invariant failed: Not found:',
     )
   })
 })

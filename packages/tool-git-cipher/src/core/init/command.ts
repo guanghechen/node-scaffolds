@@ -1,25 +1,25 @@
-import type { CommandConfigurationFlatOpts } from '@guanghechen/commander-helper'
-import { Command } from '@guanghechen/commander-helper'
+import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commander'
+import { Command } from '@guanghechen/helper-commander'
 import { packageName } from '../../env/constant'
 import { logger } from '../../env/logger'
-import type { GlobalCommandOptions } from '../option'
+import type { IGlobalCommandOptions } from '../option'
 import { __defaultGlobalCommandOptions, resolveGlobalCommandOptions } from '../option'
-import type { GitCipherInitContext } from './context'
+import type { IGitCipherInitContext } from './context'
 import { createGitCipherInitContext } from './context'
 
-type SubCommandOptions = GlobalCommandOptions
+type ISubCommandOptions = IGlobalCommandOptions
 
-const __defaultCommandOptions: SubCommandOptions = {
+const __defaultCommandOptions: ISubCommandOptions = {
   ...__defaultGlobalCommandOptions,
 }
 
-export type SubCommandInitOptions = SubCommandOptions & CommandConfigurationFlatOpts
+export type ISubCommandInitOptions = ISubCommandOptions & ICommandConfigurationFlatOpts
 
 /**
  * create Sub-command: init (i)
  */
 export const createSubCommandInit = function (
-  handle?: (options: SubCommandInitOptions) => void | Promise<void>,
+  handle?: (options: ISubCommandInitOptions) => void | Promise<void>,
   commandName = 'init',
   aliases: string[] = ['i'],
 ): Command {
@@ -29,10 +29,10 @@ export const createSubCommandInit = function (
     .name(commandName)
     .aliases(aliases)
     .arguments('<workspace>')
-    .action(async function ([_workspaceDir], options: SubCommandInitOptions) {
+    .action(async function ([_workspaceDir], options: ISubCommandInitOptions) {
       logger.setName(commandName)
 
-      const defaultOptions: SubCommandInitOptions = resolveGlobalCommandOptions(
+      const defaultOptions: ISubCommandInitOptions = resolveGlobalCommandOptions(
         packageName,
         commandName,
         __defaultCommandOptions,
@@ -40,7 +40,7 @@ export const createSubCommandInit = function (
         options,
       )
 
-      const resolvedOptions: SubCommandInitOptions = {
+      const resolvedOptions: ISubCommandInitOptions = {
         ...defaultOptions,
       }
 
@@ -57,9 +57,9 @@ export const createSubCommandInit = function (
  * @param options
  */
 export async function createGitCipherInitContextFromOptions(
-  options: SubCommandInitOptions,
-): Promise<GitCipherInitContext> {
-  const context: GitCipherInitContext = await createGitCipherInitContext({
+  options: ISubCommandInitOptions,
+): Promise<IGitCipherInitContext> {
+  const context: IGitCipherInitContext = await createGitCipherInitContext({
     cwd: options.cwd,
     workspace: options.workspace,
     encoding: options.encoding,

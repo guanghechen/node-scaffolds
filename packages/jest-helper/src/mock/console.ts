@@ -3,17 +3,17 @@ import { identity } from '@guanghechen/helper-func'
 /**
  * Method names of console
  */
-export type ConsoleMethodField = 'debug' | 'log' | 'info' | 'warn' | 'error'
+export type IConsoleMethodField = 'debug' | 'log' | 'info' | 'warn' | 'error'
 
 /**
  * A object encapsulated some mock functions of console.
  */
-export interface ConsoleMock {
+export interface IConsoleMock {
   /**
    * Get all of passed args to the specified console method
    * @param methodName
    */
-  get(methodName: ConsoleMethodField): ReadonlyArray<ReadonlyArray<unknown>>
+  get(methodName: IConsoleMethodField): ReadonlyArray<ReadonlyArray<unknown>>
   /**
    * Get all of passed args to all of the console methods.
    * @param methodName
@@ -35,12 +35,12 @@ export interface ConsoleMock {
  * @returns
  */
 export function createConsoleMock(
-  methodNames: ReadonlyArray<ConsoleMethodField> = ['debug', 'log', 'info', 'warn', 'error'],
+  methodNames: ReadonlyArray<IConsoleMethodField> = ['debug', 'log', 'info', 'warn', 'error'],
   desensitize: (args: unknown[]) => unknown[] = identity<unknown[]>,
-): ConsoleMock {
-  const mockFnMap: Record<ConsoleMethodField, jest.MockInstance<any, any>> = {} as any
+): IConsoleMock {
+  const mockFnMap: Record<IConsoleMethodField, jest.MockInstance<any, any>> = {} as any
   const allData: unknown[][] = []
-  const dataMap: Record<ConsoleMethodField, unknown[][]> = {} as any
+  const dataMap: Record<IConsoleMethodField, unknown[][]> = {} as any
 
   for (const field of methodNames) {
     dataMap[field] = []

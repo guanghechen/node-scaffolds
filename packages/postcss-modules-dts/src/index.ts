@@ -1,5 +1,5 @@
 import { CSSDtsProcessor } from './css-dts'
-import type { CSSDtsProcessorProps, GetCSSTokenHook } from './types'
+import type { ICssDtsProcessorProps, IGetCSSTokenHook } from './types'
 
 export * from './css-dts'
 export * from './types'
@@ -9,7 +9,7 @@ export * from './types'
  * @param props
  * @returns
  */
-export function dts(props: CSSDtsProcessorProps = {}): GetCSSTokenHook {
+export function dts(props: ICssDtsProcessorProps = {}): IGetCSSTokenHook {
   const cssDts = new CSSDtsProcessor(props)
   return {
     async getJSON(

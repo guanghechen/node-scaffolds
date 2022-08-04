@@ -2,7 +2,7 @@
  * Hook of postcss-modules.
  * @see https://github.com/css-modules/postcss-modules#saving-exported-classes
  */
-export interface GetCSSTokenHook {
+export interface IGetCSSTokenHook {
   /**
    * get css tokens.
    * @param cssPath
@@ -19,7 +19,7 @@ export interface GetCSSTokenHook {
 /**
  * Params for constructing a CSSDtsProcessor
  */
-export interface CSSDtsProcessorProps extends GetCSSTokenHook {
+export interface ICssDtsProcessorProps extends IGetCSSTokenHook {
   /**
    * Encoding of the generated `*.d.ts` files.
    * @default 'utf-8'
