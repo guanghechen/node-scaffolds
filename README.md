@@ -58,12 +58,13 @@ Package                               | Description
 [@guanghechen/eslint-config-jsx][]    | Eslint config for `Jsx` project
 [@guanghechen/eslint-config-ts][]     | Eslint config for `Typescript` project
 [@guanghechen/event-bus]              | A simple event bus.
+[@guanghechen/helper-blob][]          | Utilities for processing blob objects (i.e., download / create).
 [@guanghechen/helper-cipher][]        | Utility functions for cipher contents or files.
 [@guanghechen/helper-commander][]     | Utility functions for creating command line programs.
-[@guanghechen/helper-blob][]          | Utilities for processing blob objects (i.e., download / create).
 [@guanghechen/helper-file]            | Utilities for handling files, such as split big file or merge multiple small files.
 [@guanghechen/helper-func]            | Helpful utility funcs.
 [@guanghechen/helper-is][]            | Utilities to detect data type.
+[@guanghechen/helper-jest][]          | A collection of utility functions for jest tests
 [@guanghechen/helper-npm][]           | Utilities for handling npm repo and `package.json`.
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
 [@guanghechen/helper-path][]          | Utilities to handle url path and file path.
@@ -72,7 +73,6 @@ Package                               | Description
 [@guanghechen/helper-string][]        | Utilities for processing strings or stringify other type data.
 [@guanghechen/invariant]              | An invariant function.
 [@guanghechen/jest-config][]          | Basic jest configs for typescript monorepo
-[@guanghechen/jest-helper][]          | A collection of utility functions for jest tests
 [@guanghechen/mini-copy][]            | Access system clipboard (also support to share clipboard in wsl with windows).
 [@guanghechen/postcss-modules-dts][]  | Generate `*.d.ts` files for style files (such as css, stylus and etc)
 [@guanghechen/react-hooks][]          | Custom React hooks.
@@ -99,11 +99,12 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/eslint-config-ts]: ./packages/eslint-config-ts
 [@guanghechen/event-bus]: ./packages/event-bus
 [@guanghechen/helper-blob]: ./packages/helper-blob
-[@guanghechen/helper-commander]: ./packages/helper-commander
 [@guanghechen/helper-cipher]: ./packages/helper-cipher
+[@guanghechen/helper-commander]: ./packages/helper-commander
 [@guanghechen/helper-file]: ./packages/helper-file
 [@guanghechen/helper-func]: ./packages/helper-func
 [@guanghechen/helper-is]: ./packages/helper-is
+[@guanghechen/helper-jest]: ./packages/helper-jest
 [@guanghechen/helper-npm]: ./packages/helper-npm
 [@guanghechen/helper-option]: ./packages/helper-option
 [@guanghechen/helper-path]: ./packages/helper-path
@@ -112,7 +113,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/helper-string]: ./packages/helper-string
 [@guanghechen/invariant]: ./packages/invariant
 [@guanghechen/jest-config]: ./packages/jest-config
-[@guanghechen/jest-helper]: ./packages/jest-helper
 [@guanghechen/mini-copy]: ./packages/mini-copy
 [@guanghechen/postcss-modules-dts]: ./packages/postcss-modules-dts
 [@guanghechen/react-hooks]: ./packages/react-hooks

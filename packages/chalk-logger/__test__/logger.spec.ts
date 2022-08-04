@@ -1,4 +1,4 @@
-import { createLoggerMock } from '@guanghechen/jest-helper'
+import { createLoggerMock } from '@guanghechen/helper-jest'
 import { desensitize } from 'jest.helper'
 import type { ILoggerOptions } from '../src'
 import { DEBUG, Level, Logger, VERBOSE } from '../src'

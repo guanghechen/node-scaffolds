@@ -5,8 +5,8 @@ import {
   createJsonDesensitizer,
   createPackageVersionDesensitizer,
   fileSnapshot,
-} from '@guanghechen/jest-helper'
-import type { Desensitizer } from '@guanghechen/jest-helper'
+} from '@guanghechen/helper-jest'
+import type { IDesensitizer } from '@guanghechen/helper-jest'
 import fs from 'fs-extra'
 import type { InputQuestion } from 'inquirer'
 import path from 'path'
@@ -60,7 +60,7 @@ describe('runPlop', function () {
   ): Promise<void> {
     const consoleMock = createConsoleMock(
       ['log', 'debug'],
-      jsonDesensitizer as Desensitizer<unknown[]>,
+      jsonDesensitizer as IDesensitizer<unknown[]>,
     )
 
     await runPlopWithMock(templateConfig, plopBypass, mockInputs, defaultAnswers)

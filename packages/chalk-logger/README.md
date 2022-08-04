@@ -135,7 +135,7 @@ Name                | Type                    | Required  | Default           | 
 
 ## Test
 
-Use [@guanghechen/jest-helper][] to spy logger.
+Use [@guanghechen/helper-jest][] to spy logger.
 
 ```typescript
 import {
@@ -143,15 +143,15 @@ import {
   createFilepathDesensitizer,
   createJsonDesensitizer,
   createLoggerMock,
-} from '@guanghechen/jest-helper'
+} from '@guanghechen/helper-jest'
 
 const workspaceRootDir = path.resolve(__dirname, '..')
-const desensitize: Desensitizer<unknown[]> = createJsonDesensitizer({
+const desensitize = createJsonDesensitizer({
   string: composeStringDesensitizers(
     createFilepathDesensitizer(workspaceRootDir, '<$WORKSPACE$>'),
     text => text.replace(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/, '<$Date$>'),
   ),
-}) as Desensitizer<unknown[]>
+})
 
 const logger = new Logger({ name: 'demo', level: DEBUG, date: true })
 const loggerMock = createLoggerMock({ logger, desensitize })
@@ -391,7 +391,7 @@ loggerMock.restore()
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/chalk-logger#readme
-[@yozora/jest-helper]: https://www.npmjs.com/package/@guanghechen/jest-helper
+[@yozora/helper-jest]: https://www.npmjs.com/package/@guanghechen/helper-jest
 [demo1.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo1.1.png
 [demo2.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo2.1.png
 [demo3.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo3.1.png

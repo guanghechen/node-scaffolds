@@ -1,6 +1,6 @@
 import ChalkLogger, { DEBUG } from '@guanghechen/chalk-logger'
 import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
-import { createLoggerMock } from '@guanghechen/jest-helper'
+import { createLoggerMock } from '@guanghechen/helper-jest'
 import { desensitize, locateFixtures } from 'jest.helper'
 
 describe('resolveCommandConfigurationOptions', function () {

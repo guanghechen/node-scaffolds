@@ -1,7 +1,7 @@
-import type { StringDesensitizer } from './types'
+import type { IStringDesensitizer } from './types'
 
 /**
- * Create a StringDesensitizer to eliminate sensitive filepath data.
+ * Create a IStringDesensitizer to eliminate sensitive filepath data.
  * @param baseDir
  * @param replaceString
  * @returns
@@ -9,7 +9,7 @@ import type { StringDesensitizer } from './types'
 export function createFilepathDesensitizer(
   baseDir: string,
   replaceString = '<WORKSPACE>',
-): StringDesensitizer {
+): IStringDesensitizer {
   const source = baseDir
     .replace(/[\\/]*$/, '') // Remove tailing filepath delimiter
     .replace(/[/\\]+/g, '/') // Remove unused filepath delimiter
@@ -20,14 +20,14 @@ export function createFilepathDesensitizer(
 }
 
 /**
- * Create a StringDesensitizer to eliminate volatile package versions.
+ * Create a IStringDesensitizer to eliminate volatile package versions.
  * @param replaceVersion
  * @returns
  */
 export function createPackageVersionDesensitizer(
   nextVersion: (packageVersion: string, packageName: string) => string,
   testPackageName?: (packageName: string) => boolean,
-): StringDesensitizer {
+): IStringDesensitizer {
   // /"((?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*)"\s*:\s*"([\^><~]=?)?\s*([a-zA-Z\d\-._ ]+)"/g
   const namePattern = /((?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*)/.source
   const versionPattern = /([\^><~]=?)?\s*([a-zA-Z\d\-._ ]+)/.source
@@ -62,8 +62,8 @@ export function createPackageVersionDesensitizer(
  * @returns
  */
 export function composeStringDesensitizers(
-  ...desensitizers: ReadonlyArray<StringDesensitizer>
-): StringDesensitizer {
+  ...desensitizers: ReadonlyArray<IStringDesensitizer>
+): IStringDesensitizer {
   return (text: string, key?: string): string => {
     let result = text
     for (const desensitize of desensitizers) {

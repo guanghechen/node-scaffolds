@@ -1,9 +1,9 @@
-import type { Desensitizer } from '@guanghechen/jest-helper'
+import type { IDesensitizer } from '@guanghechen/helper-jest'
 import {
   composeStringDesensitizers,
   createFilepathDesensitizer,
   createJsonDesensitizer,
-} from '@guanghechen/jest-helper'
+} from '@guanghechen/helper-jest'
 import fs from 'fs-extra'
 import path from 'path'
 
@@ -13,13 +13,13 @@ export const testRootDior = path.resolve()
 /**
  * Desensitize test data.
  */
-export const desensitize: Desensitizer<any> & Desensitizer<string> = createJsonDesensitizer({
+export const desensitize: IDesensitizer<any> & IDesensitizer<string> = createJsonDesensitizer({
   string: composeStringDesensitizers(
     createFilepathDesensitizer(workspaceRootDir, '<$WORKSPACE$>'),
     text => text.replace(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/, '<$Date$>'),
     text => text.replace(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/, '<$ISO-Date$>'),
   ),
-}) as Desensitizer<any>
+}) as IDesensitizer<any>
 
 /**
  * Locate fixture filepath.

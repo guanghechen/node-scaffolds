@@ -1,6 +1,6 @@
 import { identity } from '@guanghechen/helper-func'
 import { isArray, isNumber, isObject, isString } from '@guanghechen/helper-is'
-import type { Desensitizer, NumberDesensitizer, StringDesensitizer } from './types'
+import type { IDesensitizer, INumberDesensitizer, IStringDesensitizer } from './types'
 
 /**
  * Create a desensitizer to eliminate sensitive json data.
@@ -10,20 +10,20 @@ import type { Desensitizer, NumberDesensitizer, StringDesensitizer } from './typ
  */
 export function createJsonDesensitizer(
   valDesensitizers: {
-    string?: StringDesensitizer
-    number?: NumberDesensitizer
-    fallback?: Desensitizer<unknown>
+    string?: IStringDesensitizer
+    number?: INumberDesensitizer
+    fallback?: IDesensitizer<unknown>
   } = {},
-  keyDesensitizer?: StringDesensitizer,
-): Desensitizer<unknown> {
-  const fallback: Desensitizer<unknown> =
+  keyDesensitizer?: IStringDesensitizer,
+): IDesensitizer<unknown> {
+  const fallback: IDesensitizer<unknown> =
     valDesensitizers.fallback == null ? identity : valDesensitizers.fallback
   const desensitizers = {
-    key: keyDesensitizer == null ? (identity as StringDesensitizer) : keyDesensitizer,
+    key: keyDesensitizer == null ? (identity as IStringDesensitizer) : keyDesensitizer,
     string:
-      valDesensitizers.string == null ? (fallback as StringDesensitizer) : valDesensitizers.string,
+      valDesensitizers.string == null ? (fallback as IStringDesensitizer) : valDesensitizers.string,
     number:
-      valDesensitizers.number == null ? (fallback as NumberDesensitizer) : valDesensitizers.number,
+      valDesensitizers.number == null ? (fallback as INumberDesensitizer) : valDesensitizers.number,
     fallback,
   }
 

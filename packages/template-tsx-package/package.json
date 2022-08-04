@@ -42,6 +42,6 @@
     "@guanghechen/helper-plop": "^1.9.8"
   },
   "devDependencies": {
-    "@guanghechen/jest-helper": "^1.9.8"
+    "@guanghechen/helper-jest": "^1.9.8"
   }
 }

@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 import path from 'path'
-import type { StringDesensitizer } from '../desensitizer/types'
+import type { IStringDesensitizer } from '../desensitizer/types'
 
 /**
  * Create snapshot for give filepaths.
@@ -13,7 +13,7 @@ import type { StringDesensitizer } from '../desensitizer/types'
 export function fileSnapshot(
   baseDir: string,
   filenames: string[],
-  desensitize?: StringDesensitizer,
+  desensitize?: IStringDesensitizer,
   encoding: BufferEncoding = 'utf-8',
 ): void {
   for (const filename of filenames) {

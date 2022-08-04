@@ -1,5 +1,5 @@
 {
-  "name": "@guanghechen/jest-helper",
+  "name": "@guanghechen/helper-jest",
   "version": "1.9.8",
   "description": "A collection of utility functions for jest tests",
   "author": {
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/guanghechen.git",
-    "directory": "packages/jest-helper"
+    "directory": "packages/helper-jest"
   },
-  "homepage": "https://github.com/guanghechen/guanghechen/tree/main/packages/jest-helper#readme",
+  "homepage": "https://github.com/guanghechen/guanghechen/tree/main/packages/helper-jest#readme",
   "keywords": [],
   "main": "lib/cjs/index.js",
   "types": "lib/types/index.d.ts",
