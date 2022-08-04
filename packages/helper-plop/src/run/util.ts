@@ -36,7 +36,7 @@ export function showChangeType(name: string, noMap: boolean): string {
  * @param plopList
  * @param message
  */
-export function choosePlopGenerator(
+export async function choosePlopGenerator(
   plopList: Array<{ name: string; description: string }>,
   message?: string,
 ): Promise<PlopGenerator> {

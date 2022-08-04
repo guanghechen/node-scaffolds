@@ -13,7 +13,7 @@ import {
   createPackageNamePrompt,
   createPackageVersionPrompt,
 } from './prompts'
-import type { NpmPackageData, NpmPackagePreAnswers, NpmPackagePromptsAnswers } from './types'
+import type { INpmPackageData, INpmPackagePreAnswers, INpmPackagePromptsAnswers } from './types'
 import { resolveRepositoryName } from './util'
 
 // Transformers for npm-package prompts
@@ -28,16 +28,15 @@ export const npmPackageTransformers: Record<string, ITextTransformer> = {
 /**
  * Create a list of inquirer prompts for collecting a NpmPackagePromptsAnswers.
  *
- * @param cwd
  * @param preAnswers
  * @param defaultAnswers
  * @returns
  */
 export function createNpmPackagePrompts(
-  preAnswers: NpmPackagePreAnswers,
-  defaultAnswers: Partial<NpmPackagePromptsAnswers> = {},
-): InputQuestion<NpmPackagePromptsAnswers> {
-  const prompts: InputQuestion<NpmPackagePromptsAnswers> = [
+  preAnswers: INpmPackagePreAnswers,
+  defaultAnswers: Partial<INpmPackagePromptsAnswers> = {},
+): InputQuestion<INpmPackagePromptsAnswers> {
+  const prompts: InputQuestion<INpmPackagePromptsAnswers> = [
     createPackageNamePrompt(defaultAnswers.packageName, npmPackageTransformers.packageName),
     createPackageAuthorPrompt(
       preAnswers.cwd,
@@ -64,18 +63,17 @@ export function createNpmPackagePrompts(
 /**
  * Resolve pre-answers.
  *
- * @param cwd
  * @param preAnswers
  * @returns
  */
 export function resolveNpmPackagePreAnswers(
-  preAnswers: Partial<NpmPackagePreAnswers> = {},
-): NpmPackagePreAnswers {
+  preAnswers: Partial<INpmPackagePreAnswers> = {},
+): INpmPackagePreAnswers {
   const cwd: string = cover<string>(() => path.resolve(process.cwd()), preAnswers.cwd)
 
   const isMonorepo: boolean = cover<boolean>(() => detectMonorepo(cwd), preAnswers.isMonorepo)
 
-  const result: NpmPackagePreAnswers = {
+  const result: INpmPackagePreAnswers = {
     cwd,
     isMonorepo,
   }
@@ -90,9 +88,9 @@ export function resolveNpmPackagePreAnswers(
  * @returns
  */
 export function resolveNpmPackageAnswers(
-  preAnswers: NpmPackagePreAnswers,
-  answers: NpmPackagePromptsAnswers,
-): NpmPackageData {
+  preAnswers: INpmPackagePreAnswers,
+  answers: INpmPackagePromptsAnswers,
+): INpmPackageData {
   const { cwd, isMonorepo } = preAnswers
 
   // Resolve prompts answers.
@@ -118,7 +116,7 @@ export function resolveNpmPackageAnswers(
     ? `https://github.com/${packageAuthor}/${repositoryName}/tree/main/${packageLocation}#readme`
     : `https://github.com/${packageAuthor}/${repositoryName}#readme`
 
-  const result: NpmPackageData = {
+  const result: INpmPackageData = {
     cwd,
     isMonorepo,
     packageName,

@@ -67,12 +67,12 @@ Package                               | Description
 [@guanghechen/helper-npm][]           | Utilities for handling npm repo and `package.json`.
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
 [@guanghechen/helper-path][]          | Utilities to handle url path and file path.
+[@guanghechen/helper-plop][]          | A collection of utility functions for plop templates
 [@guanghechen/helper-string][]        | Utilities for processing strings or stringify other type data.
 [@guanghechen/invariant]              | An invariant function.
 [@guanghechen/jest-config][]          | Basic jest configs for typescript monorepo
 [@guanghechen/jest-helper][]          | A collection of utility functions for jest tests
 [@guanghechen/mini-copy][]            | Access system clipboard (also support to share clipboard in wsl with windows).
-[@guanghechen/plop-helper][]          | A collection of utility functions for plop templates
 [@guanghechen/postcss-modules-dts][]  | Generate `*.d.ts` files for style files (such as css, stylus and etc)
 [@guanghechen/react-hooks][]          | Custom React hooks.
 [@guanghechen/rollup-config][]        | Rollup config for bundle typescript project.
@@ -106,12 +106,12 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/helper-npm]: ./packages/helper-npm
 [@guanghechen/helper-option]: ./packages/helper-option
 [@guanghechen/helper-path]: ./packages/helper-path
+[@guanghechen/helper-plop]: ./packages/helper-plop
 [@guanghechen/helper-string]: ./packages/helper-string
 [@guanghechen/invariant]: ./packages/invariant
 [@guanghechen/jest-config]: ./packages/jest-config
 [@guanghechen/jest-helper]: ./packages/jest-helper
 [@guanghechen/mini-copy]: ./packages/mini-copy
-[@guanghechen/plop-helper]: ./packages/plop-helper
 [@guanghechen/postcss-modules-dts]: ./packages/postcss-modules-dts
 [@guanghechen/react-hooks]: ./packages/react-hooks
 [@guanghechen/rollup-config]: ./packages/rollup-config

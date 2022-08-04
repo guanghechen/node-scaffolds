@@ -1,10 +1,10 @@
+import { runPlopWithMock } from '@guanghechen/helper-plop'
 import {
   composeStringDesensitizers,
   createFilepathDesensitizer,
   createPackageVersionDesensitizer,
   fileSnapshot,
 } from '@guanghechen/jest-helper'
-import { runPlopWithMock } from '@guanghechen/plop-helper'
 import fs from 'fs-extra'
 import path from 'path'
 import manifest from '../package.json'

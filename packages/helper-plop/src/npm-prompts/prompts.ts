@@ -2,7 +2,7 @@ import { detectPackageAuthor } from '@guanghechen/helper-npm'
 import { composeTextTransformers, toSentenceCase, toTrim } from '@guanghechen/helper-string'
 import type { ITextTransformer } from '@guanghechen/helper-string'
 import type { InputQuestion } from 'inquirer'
-import type { NpmPackagePromptsAnswers } from './types'
+import type { INpmPackagePromptsAnswers } from './types'
 
 // @see https://github.com/sindresorhus/semver-regex
 const semverRegex =
@@ -17,7 +17,7 @@ const semverRegex =
 export const createPackageNamePrompt = (
   defaultAnswer?: string,
   transformer: ITextTransformer = toTrim,
-): InputQuestion<Pick<NpmPackagePromptsAnswers, 'packageName'>> => {
+): InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageName'>> => {
   const prompt: InputQuestion = {
     type: 'input',
     name: 'packageName',
@@ -39,7 +39,7 @@ export const createPackageAuthorPrompt = (
   cwd: string,
   defaultAnswer?: string,
   transformer: ITextTransformer = toTrim,
-): InputQuestion<Pick<NpmPackagePromptsAnswers, 'packageAuthor'>> => {
+): InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageAuthor'>> => {
   const prompt: InputQuestion = {
     type: 'input',
     name: 'packageAuthor',
@@ -63,7 +63,7 @@ export const createPackageAuthorPrompt = (
 export const createPackageVersionPrompt = (
   defaultAnswer?: string,
   transformer: ITextTransformer = toTrim,
-): InputQuestion<Pick<NpmPackagePromptsAnswers, 'packageVersion'>> => {
+): InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageVersion'>> => {
   const prompt: InputQuestion = {
     type: 'input',
     name: 'packageVersion',
@@ -84,7 +84,7 @@ export const createPackageVersionPrompt = (
 export const createPackageDescriptionPrompt = (
   defaultAnswer?: string,
   transformer: ITextTransformer = composeTextTransformers(toTrim, toSentenceCase),
-): InputQuestion<Pick<NpmPackagePromptsAnswers, 'packageDescription'>> => {
+): InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageDescription'>> => {
   const prompt: InputQuestion = {
     type: 'input',
     name: 'packageDescription',
@@ -105,8 +105,8 @@ export const createPackageLocationPrompt = (
   isMonorepo: boolean,
   defaultAnswer?: string,
   transformer: ITextTransformer = toTrim,
-): InputQuestion<Pick<NpmPackagePromptsAnswers, 'packageDescription'>> => {
-  type Answers = Pick<NpmPackagePromptsAnswers, 'packageName' | 'packageDescription'>
+): InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageDescription'>> => {
+  type Answers = Pick<INpmPackagePromptsAnswers, 'packageName' | 'packageDescription'>
 
   const prompt: InputQuestion<any> = {
     type: 'input',

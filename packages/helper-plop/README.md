@@ -1,30 +1,30 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/plop-helper#readme">@guanghechen/plop-helper</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-plop#readme">@guanghechen/helper-plop</a>
   </h1>
   <div align="center">
-    <a href="https://www.npmjs.com/package/@guanghechen/plop-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-plop">
       <img
         alt="Npm Version"
-        src="https://img.shields.io/npm/v/@guanghechen/plop-helper.svg"
+        src="https://img.shields.io/npm/v/@guanghechen/helper-plop.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/plop-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-plop">
       <img
         alt="Npm Download"
-        src="https://img.shields.io/npm/dm/@guanghechen/plop-helper.svg"
+        src="https://img.shields.io/npm/dm/@guanghechen/helper-plop.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/plop-helper">
+    <a href="https://www.npmjs.com/package/@guanghechen/helper-plop">
       <img
         alt="Npm License"
-        src="https://img.shields.io/npm/l/@guanghechen/plop-helper.svg"
+        src="https://img.shields.io/npm/l/@guanghechen/helper-plop.svg"
       />
     </a>
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"
-        src="https://img.shields.io/node/v/@guanghechen/plop-helper"
+        src="https://img.shields.io/node/v/@guanghechen/helper-plop"
       />
     </a>
     <a href="https://github.com/prettier/prettier">
@@ -45,13 +45,13 @@ A collection of utility functions for plop templates.
 * npm
 
   ```bash
-  npm install --save-dev @guanghechen/plop-helper
+  npm install --save-dev @guanghechen/helper-plop
   ```
 
 * yarn
 
   ```bash
-  yarn add --dev @guanghechen/plop-helper
+  yarn add --dev @guanghechen/helper-plop
   ```
 
 ## Usage
@@ -116,7 +116,7 @@ Where the `index.js` exposed a default plop config, such as:
     createNpmPackagePrompts,
     resolveNpmPackageAnswers,
     resolveNpmPackagePreAnswers,
-  } = require('@guanghechen/plop-helper')
+  } = require('@guanghechen/helper-plop')
   const path = require('path')
   const manifest = require('./package.json')
 
@@ -168,7 +168,7 @@ And the `cli.js` exposed a Node.js CLI script, such as:
   ```javascript
   #! /usr/bin/env node
 
-  const { launch } = require('@guanghechen/plop-helper')
+  const { launch } = require('@guanghechen/helper-plop')
   const path = require('path')
 
   launch(
@@ -185,7 +185,7 @@ And the `cli.js` exposed a Node.js CLI script, such as:
 * [inquirer][]
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/plop-helper#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-plop#readme
 [inquirer]: https://github.com/SBoudrias/Inquirer.js/
 [@guanghechen/template-ts-package]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/template-ts-package#readme
 [@guanghechen/template-tsx-package]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/template-ts-package#readme

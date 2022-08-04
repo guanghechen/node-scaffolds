@@ -1,7 +1,7 @@
 /**
  * Pre calculated answers.
  */
-export interface NpmPackagePreAnswers {
+export interface INpmPackagePreAnswers {
   /**
    * Current workspace directory.
    */
@@ -15,7 +15,7 @@ export interface NpmPackagePreAnswers {
 /**
  * Answers of prompts.
  */
-export interface NpmPackagePromptsAnswers {
+export interface INpmPackagePromptsAnswers {
   /**
    * Npm package name.
    */
@@ -41,7 +41,7 @@ export interface NpmPackagePromptsAnswers {
 /**
  * Answers for prompts defined in this file.
  */
-export interface NpmPackageData extends NpmPackagePreAnswers, NpmPackagePromptsAnswers {
+export interface INpmPackageData extends INpmPackagePreAnswers, INpmPackagePromptsAnswers {
   /**
    * Package usage.
    */

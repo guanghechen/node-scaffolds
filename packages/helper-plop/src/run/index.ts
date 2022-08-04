@@ -1,12 +1,7 @@
 import { coverBoolean } from '@guanghechen/helper-option'
-import type { PlopGenerator } from 'node-plop'
+import type { NodePlopAPI, PlopGenerator } from 'node-plop'
 import Ora from 'ora'
-import type {
-  NodePlopAPI,
-  PlopActionHooksChanges,
-  PlopActionHooksFailures,
-  RunGeneratorOptions,
-} from './types'
+import type { PlopActionHooksChanges, PlopActionHooksFailures, RunGeneratorOptions } from './types'
 import { choosePlopGenerator, showChangeType } from './util'
 
 // eslint-disable-next-line new-cap

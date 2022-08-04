@@ -48,7 +48,7 @@
     "@guanghechen/helper-option": "^1.9.8",
     "@guanghechen/helper-path": "^1.9.8",
     "@guanghechen/helper-string": "^1.9.8",
-    "@guanghechen/plop-helper": "^1.9.8",
+    "@guanghechen/helper-plop": "^1.9.8",
     "command-exists": "^1.2.9",
     "execa": "^5.1.1",
     "fs-extra": "^10.1.0",

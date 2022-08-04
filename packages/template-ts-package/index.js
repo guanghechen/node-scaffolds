@@ -2,7 +2,7 @@ const {
   createNpmPackagePrompts,
   resolveNpmPackageAnswers,
   resolveNpmPackagePreAnswers,
-} = require('@guanghechen/plop-helper')
+} = require('@guanghechen/helper-plop')
 const path = require('path')
 const manifest = require('./package.json')
 

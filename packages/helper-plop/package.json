@@ -1,5 +1,5 @@
 {
-  "name": "@guanghechen/plop-helper",
+  "name": "@guanghechen/helper-plop",
   "version": "1.9.8",
   "description": "A collection of utility functions for plop templates",
   "author": {
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/node-scaffolds.git",
-    "directory": "packages/plop-helper"
+    "directory": "packages/helper-plop"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/plop-helper#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-plop#readme",
   "keywords": [
     "plop"
   ],
@@ -44,7 +44,6 @@
     "@guanghechen/invariant": "^1.9.8",
     "@guanghechen/helper-npm": "^1.9.8",
     "chalk": "^4.1.2",
-    "fs-extra": "^10.1.0",
     "minimist": "^1.2.6",
     "mock-stdin": "^1.0.0",
     "node-plop": "^0.26.3",

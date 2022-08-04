@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-const { launch } = require('@guanghechen/plop-helper')
+const { launch } = require('@guanghechen/helper-plop')
 const path = require('path')
 
 launch(process.argv, args => ({

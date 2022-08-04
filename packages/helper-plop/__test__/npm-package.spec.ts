@@ -1,15 +1,15 @@
 import { desensitize } from 'jest.helper'
-import type { NpmPackagePreAnswers, NpmPackagePromptsAnswers } from '../src'
+import type { INpmPackagePreAnswers, INpmPackagePromptsAnswers } from '../src'
 import { resolveNpmPackageAnswers } from '../src'
 
 describe('resolveNpmPackageAnswers', function () {
-  const preAnswers: NpmPackagePreAnswers = {
+  const preAnswers: INpmPackagePreAnswers = {
     cwd: __dirname,
     isMonorepo: false,
   }
 
   test('empty author', function () {
-    const answers: NpmPackagePromptsAnswers = {
+    const answers: INpmPackagePromptsAnswers = {
       packageName: '@guanghechen/waw-helper',
       packageAuthor: '',
       packageVersion: '1.0.0',
@@ -18,7 +18,7 @@ describe('resolveNpmPackageAnswers', function () {
     }
 
     expect(desensitize(resolveNpmPackageAnswers(preAnswers, answers))).toMatchObject({
-      cwd: '<$WORKSPACE$>/packages/plop-helper/__test__',
+      cwd: '<$WORKSPACE$>/packages/helper-plop/__test__',
       isMonorepo: false,
       packageAuthor: 'guanghechen',
       packageDescription: '',
