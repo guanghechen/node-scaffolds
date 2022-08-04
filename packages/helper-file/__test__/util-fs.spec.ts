@@ -1,4 +1,4 @@
-import { ChalkLogger, VERBOSE } from '@guanghechen/chalk-logger'
+import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import { createLoggerMock } from '@guanghechen/helper-jest'
 import fs from 'fs-extra'
 import { desensitize, locateFixtures } from 'jest.helper'
@@ -76,7 +76,12 @@ describe('mkdirsIfNotExists', function () {
   })
 
   test('mkdirs logger', function () {
-    const logger = new ChalkLogger({ level: VERBOSE, colorful: false })
+    const logger = new ChalkLogger({
+      level: Level.VERBOSE,
+      flags: {
+        colorful: false,
+      },
+    })
     const loggerMock = createLoggerMock({ logger, desensitize })
 
     const dirpath = locateFixtures('basic--non-existed--2')

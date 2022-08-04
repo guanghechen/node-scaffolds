@@ -1,6 +1,18 @@
 import { ChalkLogger, DEBUG, ERROR, FATAL, INFO, VERBOSE, WARN } from '../src'
 
 describe('ChalkLogger', function () {
+  describe('options', function () {
+    test('flags', () => {
+      const logger = new ChalkLogger({ flags: { colorful: false } })
+      expect(logger.flags).toEqual({
+        date: false,
+        title: true,
+        inline: false,
+        colorful: false,
+      })
+    })
+  })
+
   test('setName and setBaseName', function () {
     const logger = new ChalkLogger({ name: 'basename' })
     expect(logger.name).toBe('basename')

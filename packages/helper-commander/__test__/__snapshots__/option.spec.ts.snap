@@ -32,7 +32,7 @@ Array [
   ],
   Array [
     "[debug] configPath: [
-  \\"<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/demo.config.yml\\"
+  '<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/demo.config.yml',
 ]
 ",
   ],

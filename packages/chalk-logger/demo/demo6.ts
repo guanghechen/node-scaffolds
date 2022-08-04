@@ -1,12 +1,14 @@
-import { ChalkLogger, DEBUG } from '@guanghechen/chalk-logger'
+import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 
 const logger = new ChalkLogger(
   {
     name: 'demo6',
-    level: DEBUG,
-    date: true,
-    colorful: true,
-    inline: true,
+    level: Level.DEBUG,
+    flags: {
+      date: true,
+      colorful: true,
+      inline: true,
+    },
   },
   process.argv,
 )
@@ -21,10 +23,12 @@ logger.error('bad argument ({}). error({})', { username: 123 }, new Error('usern
 const logger2 = new ChalkLogger(
   {
     name: 'demo6',
-    level: DEBUG,
-    date: true,
-    colorful: true,
-    inline: true,
+    level: Level.DEBUG,
+    flags: {
+      date: true,
+      colorful: true,
+      inline: true,
+    },
     placeholderRegex: /(?<!\\)<>/g, // change placeholder of string format
   },
   process.argv,

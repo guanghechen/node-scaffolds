@@ -49,7 +49,7 @@ Array [
 exports[`mkdirsIfNotExists mkdirs logger 1`] = `
 Array [
   Array [
-    "[verbo] mkdirs: <$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic--non-existed--2
+    "[verb ] mkdirs: <$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic--non-existed--2
 ",
   ],
 ]

@@ -1,13 +1,15 @@
-import { ChalkLogger, DEBUG } from '@guanghechen/chalk-logger'
+import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 
 const logger = new ChalkLogger(
   {
     name: 'demo7',
-    level: DEBUG,
-    date: true,
-    title: false,
-    colorful: true,
-    inline: true,
+    level: Level.DEBUG,
+    flags: {
+      date: true,
+      title: false,
+      colorful: true,
+      inline: true,
+    },
   },
   process.argv,
 )
@@ -22,11 +24,13 @@ logger.fatal('1', '2', '3')
 const logger2 = new ChalkLogger(
   {
     name: 'demo7',
-    level: DEBUG,
-    date: false,
-    title: false,
-    colorful: true,
-    inline: true,
+    level: Level.DEBUG,
+    flags: {
+      date: false,
+      title: false,
+      colorful: true,
+      inline: true,
+    },
     placeholderRegex: /(?<!\\)<>/g, // change placeholder of string format
   },
   process.argv,

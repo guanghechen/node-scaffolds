@@ -1,23 +1,25 @@
-import type { Level } from '@guanghechen/chalk-logger'
-import { ChalkLogger, ERROR } from '@guanghechen/chalk-logger'
+import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import chalk from 'chalk'
 
 const logger = new ChalkLogger(
   {
     name: 'demo2',
-    level: ERROR, // the default value is INFO
-    date: false, // the default value is false.
-    colorful: true, // the default value is true.
+    level: Level.ERROR, // the default value is INFO
+    flags: {
+      date: false, // the default value is false.
+      colorful: true, // the default value is true.
+    },
   },
   process.argv,
 )
 
 logger.formatHeader = function (level: Level, date: Date): string {
-  let { desc } = level
+  const levelStyle = this.levelStyleMap[level]
+  let desc = levelStyle.title
   let { name } = this
   if (this.flags.colorful) {
-    desc = level.headerChalk.fg(desc)
-    if (level.headerChalk.bg != null) desc = level.headerChalk.bg(desc)
+    desc = levelStyle.header.fg(desc)
+    if (levelStyle.header.bg != null) desc = levelStyle.header.bg(desc)
     name = chalk.gray(name)
   }
   const header = `${desc} ${name}`

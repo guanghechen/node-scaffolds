@@ -1,18 +1,21 @@
-import { ChalkLogger, DEBUG } from '@guanghechen/chalk-logger'
+import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import chalk from 'chalk'
+import fs from 'fs-extra'
 import path from 'path'
 
+const logFilepath = path.resolve(__dirname, 'orz.log')
 const logger = new ChalkLogger(
   {
     name: 'demo4',
-    level: DEBUG, // the default value is DEBUG
-    date: true, // the default value is false.
-    inline: true,
-    colorful: false, // the default value is true.
+    level: Level.DEBUG, // the default value is DEBUG
+    flags: {
+      date: true, // the default value is false.
+      inline: true,
+      colorful: false, // the default value is true.
+    },
     dateChalk: 'green',
     nameChalk: chalk.cyan.bind(chalk),
-    filepath: path.resolve(__dirname, 'orz.log'),
-    encoding: 'utf-8',
+    write: text => fs.appendFileSync(logFilepath, text, 'utf-8'),
   },
   process.argv,
 )

@@ -1,69 +1,89 @@
 import { ColorfulChalk } from './color'
 
-export class Level {
-  public static valueOf(levelName: string): Level | undefined {
-    return Level.levels.get(levelName.toLowerCase())
-  }
-
-  private static currentRank = 0 // rank increase counter
-  private static readonly levels = new Map<string, Level>()
-
-  public readonly rank: number // level's rank
-  public readonly desc: string // level's description
-  public readonly headerChalk: ColorfulChalk
-  public readonly contentChalk: ColorfulChalk
-
-  constructor(
-    keys: string[],
-    desc: string,
-    headerChalk: ColorfulChalk,
-    contentChalk: ColorfulChalk,
-  ) {
-    Level.currentRank += 1
-    this.rank = Level.currentRank
-    this.desc = desc
-    this.headerChalk = headerChalk
-    this.contentChalk = contentChalk
-
-    for (const key of keys) {
-      Level.levels.set(key, this)
-    }
-  }
+export enum Level {
+  DEBUG = 'debug',
+  VERBOSE = 'verbose',
+  INFO = 'info',
+  WARN = 'warn',
+  ERROR = 'error',
+  FATAL = 'fatal',
 }
 
-export const DEBUG = new Level(
-  ['debug'],
-  'debug',
-  new ColorfulChalk('#BCA21F'),
-  new ColorfulChalk('#BCA21F'),
-)
-export const VERBOSE = new Level(
-  ['verbo', 'verbose'],
-  'verbo',
-  new ColorfulChalk('#72C9CC'),
-  new ColorfulChalk('#72C9CC'),
-)
-export const INFO = new Level(
-  ['info', 'information'],
-  'info',
-  new ColorfulChalk('#00FF00'),
-  new ColorfulChalk('#00FF00'),
-)
-export const WARN = new Level(
-  ['warn', 'warning'],
-  'warn',
-  new ColorfulChalk('#FFA195'),
-  new ColorfulChalk('#FFA195'),
-)
-export const ERROR = new Level(
-  ['error'],
-  'error',
-  new ColorfulChalk('red'),
-  new ColorfulChalk('red'),
-)
-export const FATAL = new Level(
-  ['fatal'],
-  'fatal',
-  new ColorfulChalk('black', 'red'),
-  new ColorfulChalk('redBright'),
-)
+export const DEBUG = Level.DEBUG
+export const VERBOSE = Level.VERBOSE
+export const INFO = Level.INFO
+export const WARN = Level.WARN
+export const ERROR = Level.ERROR
+export const FATAL = Level.FATAL
+
+export const levelOrdinalMap: Record<Level, number> = {
+  [Level.DEBUG]: 1,
+  [Level.VERBOSE]: 2,
+  [Level.INFO]: 3,
+  [Level.WARN]: 4,
+  [Level.ERROR]: 5,
+  [Level.FATAL]: 6,
+}
+
+export interface ILevelStyle {
+  title: string
+  header: ColorfulChalk
+  content: ColorfulChalk
+}
+
+export type ILevelStyleMap = Record<Level, ILevelStyle>
+
+export const defaultLevelStyleMap: ILevelStyleMap = Object.freeze({
+  [Level.DEBUG]: {
+    title: 'debug',
+    header: new ColorfulChalk('#BCA21F'),
+    content: new ColorfulChalk('#BCA21F'),
+  },
+  [Level.VERBOSE]: {
+    title: 'verb ',
+    header: new ColorfulChalk('#72C9CC'),
+    content: new ColorfulChalk('#72C9CC'),
+  },
+  [Level.INFO]: {
+    title: 'info ',
+    header: new ColorfulChalk('#00FF00'),
+    content: new ColorfulChalk('#00FF00'),
+  },
+  [Level.WARN]: {
+    title: 'warn ',
+    header: new ColorfulChalk('#FFA195'),
+    content: new ColorfulChalk('#FFA195'),
+  },
+  [Level.ERROR]: {
+    title: 'error',
+    header: new ColorfulChalk('red'),
+    content: new ColorfulChalk('red'),
+  },
+  [Level.FATAL]: {
+    title: 'fatal',
+    header: new ColorfulChalk('black', 'red'),
+    content: new ColorfulChalk('redBright'),
+  },
+})
+
+export const resolveLevel = (level: string): Level | null => {
+  switch (level.toLowerCase()) {
+    case 'debug':
+      return Level.DEBUG
+    case 'verbo':
+    case 'verbose':
+      return Level.VERBOSE
+    case 'info':
+    case 'information':
+      return Level.INFO
+    case 'warn':
+    case 'warning':
+      return Level.WARN
+    case 'error':
+      return Level.ERROR
+    case 'fatal':
+      return Level.FATAL
+    default:
+      return null
+  }
+}

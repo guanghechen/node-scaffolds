@@ -1,11 +1,9 @@
-import path from 'path'
-import { DEBUG, calcLoggerOptionsFromArgs, registerCommanderOptions } from '../src'
+import { Level, partOptionsFromArgs, registerCommanderOptions } from '../src'
 
 describe('command funcs', function () {
   test('generateOptions', function () {
-    const logFilepath = path.resolve(__dirname, 'command.log')
     expect(
-      calcLoggerOptionsFromArgs([
+      partOptionsFromArgs([
         '--log-level=debug',
         '--log-name=waw',
         '--log-mode=loose',
@@ -14,20 +12,17 @@ describe('command funcs', function () {
         '--log-flag=no-title',
         '--log-flag',
         'no-colorful',
-        '--log-filepath',
-        logFilepath,
-        '--log-encoding=utf-8',
       ]),
     ).toEqual({
-      colorful: false,
-      date: true,
-      encoding: 'utf-8',
-      filepath: logFilepath,
-      inline: false,
-      level: DEBUG,
-      mode: 'loose',
       name: 'waw',
-      title: false,
+      mode: 'loose',
+      level: Level.DEBUG,
+      flags: {
+        date: true,
+        title: false,
+        inline: false,
+        colorful: false,
+      },
     })
   })
 

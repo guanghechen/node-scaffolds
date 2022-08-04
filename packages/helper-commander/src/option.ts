@@ -1,4 +1,4 @@
-import { Level } from '@guanghechen/chalk-logger'
+import { resolveLevel } from '@guanghechen/chalk-logger'
 import type { ChalkLogger } from '@guanghechen/chalk-logger'
 import { isNonBlankString, isNotEmptyArray, isNotEmptyObject } from '@guanghechen/helper-is'
 import { cover, coverString } from '@guanghechen/helper-option'
@@ -187,7 +187,7 @@ export function resolveCommandConfigurationOptions<
   // reset log-level
   const logLevel = cover<string | undefined>(resolvedOptions.logLevel, options.logLevel)
   if (logLevel != null) {
-    const level = Level.valueOf(logLevel)
+    const level = resolveLevel(logLevel)
     if (level != null) logger.setLevel(level)
   }
 

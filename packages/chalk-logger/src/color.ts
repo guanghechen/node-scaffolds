@@ -1,7 +1,6 @@
+import invariant from '@guanghechen/invariant'
 import type { Chalk } from 'chalk'
 import chalk from 'chalk'
-
-export type IColor = string | [number, number, number]
 
 const colorKeywords = new Set([
   'black',
@@ -25,22 +24,29 @@ const brightColorKeywords = new Set([
   'whiteBright',
 ])
 
+export type IColor = string | [r: number, g: number, b: number]
 export function color2chalk(color: IColor, fg: boolean): Chalk {
-  if (typeof color === 'string') {
-    if (colorKeywords.has(color) || brightColorKeywords.has(color)) {
-      if (!fg) {
-        // eslint-disable-next-line no-param-reassign
-        color = 'bg' + color[0].toUpperCase() + color.slice(1)
-      }
-      return chalk[color].bind(chalk)
-    }
-    try {
-      return fg ? chalk.keyword(color) : chalk.bgKeyword(color)
-    } catch (error) {
-      return fg ? chalk.hex(color) : chalk.bgHex(color)
-    }
+  if (Array.isArray(color)) {
+    const [r, g, b] = color
+    invariant(
+      Number.isInteger(r) && Number.isInteger(g) && Number.isInteger(b),
+      `[color2chalk] Bad color ${color}`,
+    )
+    return fg ? chalk.rgb(r, g, b) : chalk.bgRgb(r, g, b)
   }
-  return fg ? chalk.rgb(color[0], color[1], color[2]) : chalk.bgRgb(color[0], color[1], color[2])
+
+  if (colorKeywords.has(color) || brightColorKeywords.has(color)) {
+    if (!fg) {
+      // eslint-disable-next-line no-param-reassign
+      color = 'bg' + color[0].toUpperCase() + color.slice(1)
+    }
+    return chalk[color].bind(chalk)
+  }
+  try {
+    return fg ? chalk.keyword(color) : chalk.bgKeyword(color)
+  } catch (error) {
+    return fg ? chalk.hex(color) : chalk.bgHex(color)
+  }
 }
 
 export class ColorfulChalk {

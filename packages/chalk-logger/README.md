@@ -79,12 +79,7 @@ Name                | Type                    | Required  | Default           | 
 `placeholderRegex`  | RegExp                  | `false`   | `/(?<!\\)\{\}/g`  | string formatter placeholder regex
 `name`              | string                  | `false`   | -                 | name of logger
 `level`             | Level                   | `false`   | `Level.INFO`      | verbosity level of the logging output
-`date`              | boolean                 | `false`   | `false`           | whether to print the date
-`title`             | boolean                 | `false`   | `true`            | whether to print the title
-`inline`            | boolean                 | `false`   | `false`           | whether to print each log on one line
-`colorful`          | boolean                 | `false`   | `true`            | whether to print log surrounded with color
-`encoding`          | string                  | `false`   | `utf-8`           | [see below](#option-details)
-`filepath`          | string                  | `false`   | -                 | [see below](#option-details)
+`flags`             | See below               | `false`   | -                 | feature flags
 `write`             | (text: string) => void  | `false`   | `process.stdout`  | [see below](#option-details)
 `dateChalk`         | Chalk \| Color          | `false`   | `chalk.gray`      | color of date string
 `nameChalk`         | Chalk \| Color          | `false`   | `chalk.gray`      | color of logger name string
@@ -99,10 +94,23 @@ Name                | Type                    | Required  | Default           | 
   - `normal`: Print log only
   - `loose`: Print a newline before and after the log
 
-* `encoding`: Specifying the file encoding of `filepath`, only works if `filepath`
-  is specified
+* `flags`
 
-* `filepath`: Log output file
+  ```typescript
+  interface ILoggerFlags {
+    date?: boolean
+    title?: boolean
+    inline?: boolean
+    colorful?: boolean
+  }
+  ```
+
+  Flag        | Type    | Required  | Default |  Desc
+  :----------:|:-------:|:---------:|:-------:|:---------------------------------------------:
+  `date`      | boolean | `false`   | `false` | whether to print the date
+  `title`     | boolean | `false`   | `true`  | whether to print the title
+  `inline`    | boolean | `false`   | `false` | whether to print each log on one line
+  `colorful`  | boolean | `false`   | `true`  | whether to print log surrounded with color
 
 * `write`: If `filepath` is specified, the log is output to `filepath` by default,
   otherwise to the `process.stdout`.  You can specify your own write function to
@@ -124,20 +132,13 @@ Name                | Type                    | Required  | Default           | 
   - `inline`: each log record output in one line. default value is false.
   - `colorful`: whether to print with colors. default value is true.
 
-* `--log-output <filepath>`: specify the output path (default behavior is output
-  directory to stdout).
-
-  - suggest: set `colorful = false` and `inline = true` if you want to output
-    logs into a file.
-
-* `--log-encoding <encoding>`: specify the log file's encoding.
-
 
 ## Test
 
 Use [@guanghechen/helper-jest][] to spy logger.
 
 ```typescript
+import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import {
   composeStringDesensitizers,
   createFilepathDesensitizer,
@@ -153,7 +154,7 @@ const desensitize = createJsonDesensitizer({
   ),
 })
 
-const logger = new Logger({ name: 'demo', level: DEBUG, date: true })
+const logger = new ChalkLogger({ name: 'demo', level: Level.DEBUG, flags: { date: true } })
 const loggerMock = createLoggerMock({ logger, desensitize })
 
 // collect data
@@ -173,14 +174,16 @@ loggerMock.restore()
 
   ```typescript
   // demo/demo1.ts
-  import { ChalkLogger, ERROR } from '@guanghechen/chalk-logger'
+  import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 
   const logger = new ChalkLogger(
     {
       name: 'demo1',
-      level: ERROR, // the default value is INFO
-      date: false, // the default value is false.
-      colorful: true, // the default value is true.
+      level: Level.ERROR, // the default value is INFO
+      flags: {
+        date: false, // the default value is false.
+        colorful: true, // the default value is true.
+      },
     },
     process.argv,
   )
@@ -199,26 +202,28 @@ loggerMock.restore()
 
   ```typescript
   // demo/demo2.ts
-  import type { Level } from '@guanghechen/chalk-logger'
-  import { ChalkLogger, ERROR } from '@guanghechen/chalk-logger'
+  import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
   import chalk from 'chalk'
 
   const logger = new ChalkLogger(
     {
       name: 'demo2',
-      level: ERROR, // the default value is INFO
-      date: false, // the default value is false.
-      colorful: true, // the default value is true.
+      level: Level.ERROR, // the default value is INFO
+      flags: {
+        date: false, // the default value is false.
+        colorful: true, // the default value is true.
+      },
     },
     process.argv,
   )
 
   logger.formatHeader = function (level: Level, date: Date): string {
-    let { desc } = level
+    const levelStyle = this.levelStyleMap[level]
+    let desc = levelStyle.title
     let { name } = this
     if (this.flags.colorful) {
-      desc = level.headerChalk.fg(desc)
-      if (level.headerChalk.bg != null) desc = level.headerChalk.bg(desc)
+      desc = levelStyle.header.fg(desc)
+      if (levelStyle.header.bg != null) desc = levelStyle.header.bg(desc)
       name = chalk.gray(name)
     }
     const header = `${desc} ${name}`
@@ -244,15 +249,17 @@ loggerMock.restore()
 
   ```typescript
   // demo/demo3.ts
-  import { ChalkLogger, ERROR } from '@guanghechen/chalk-logger'
+  import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
   import chalk from 'chalk'
 
   const logger = new ChalkLogger(
     {
       name: 'demo3',
-      level: ERROR, // the default value is INFO
-      date: false, // the default value is false.
-      colorful: true, // the default value is true.
+      level: Level.ERROR, // the default value is INFO
+      flags: {
+        date: false, // the default value is false.
+        colorful: true, // the default value is true.
+      },
       dateChalk: 'green',
       nameChalk: chalk.cyan.bind(chalk),
     },
@@ -273,21 +280,24 @@ loggerMock.restore()
 
   ```typescript
   // demo/demo4.ts
-  import { ChalkLogger, DEBUG } from '@guanghechen/chalk-logger'
+  import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
   import chalk from 'chalk'
+  import fs from 'fs-extra'
   import path from 'path'
 
+  const logFilepath = path.resolve(__dirname, 'orz.log')
   const logger = new ChalkLogger(
     {
       name: 'demo4',
-      level: DEBUG, // the default value is DEBUG
-      date: true, // the default value is false.
-      inline: true,
-      colorful: false, // the default value is true.
+      level: Level.DEBUG, // the default value is DEBUG
+      flags: {
+        date: true, // the default value is false.
+        inline: true,
+        colorful: false, // the default value is true.
+      },
       dateChalk: 'green',
       nameChalk: chalk.cyan.bind(chalk),
-      filepath: path.resolve(__dirname, 'orz.log'),
-      encoding: 'utf-8',
+      write: text => fs.appendFileSync(logFilepath, text, 'utf-8'),
     },
     process.argv,
   )
@@ -306,16 +316,18 @@ loggerMock.restore()
 
   ```typescript
   // demo/demo5.ts
-  import { ChalkLogger, ERROR, registerCommanderOptions } from '@guanghechen/chalk-logger'
+  import { ChalkLogger, Level, registerCommanderOptions } from '@guanghechen/chalk-logger'
   import chalk from 'chalk'
   import commander from 'commander'
 
   const logger = new ChalkLogger(
     {
       name: 'demo5',
-      level: ERROR, // the default value is INFO
-      date: false, // the default value is false.
-      colorful: true, // the default value is true.
+      level: Level.ERROR, // the default value is INFO
+      flags: {
+        date: false, // the default value is false.
+        colorful: true, // the default value is true.
+      },
       dateChalk: 'green',
       nameChalk: chalk.cyan.bind(chalk),
     },
@@ -328,9 +340,7 @@ loggerMock.restore()
   // register logger option to commander
   registerCommanderOptions(command)
 
-  command
-    .option('-e, --encoding <encoding>', "specified <filepath>'s encoding")
-    .parse(process.argv)
+  command.option('-e, --encoding <encoding>', "specified <filepath>'s encoding").parse(process.argv)
 
   logger.debug('A', 'B', 'C')
   logger.verbose('A', 'B', 'C')
@@ -346,15 +356,17 @@ loggerMock.restore()
 
   ```typescript
   // demo/demo6.ts
-  import { ChalkLogger, DEBUG } from '@guanghechen/chalk-logger'
+  import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 
   const logger = new ChalkLogger(
     {
       name: 'demo6',
-      level: DEBUG,
-      date: true,
-      colorful: true,
-      inline: true,
+      level: Level.DEBUG,
+      flags: {
+        date: true,
+        colorful: true,
+        inline: true,
+      },
     },
     process.argv,
   )
@@ -369,10 +381,12 @@ loggerMock.restore()
   const logger2 = new ChalkLogger(
     {
       name: 'demo6',
-      level: DEBUG,
-      date: true,
-      colorful: true,
-      inline: true,
+      level: Level.DEBUG,
+      flags: {
+        date: true,
+        colorful: true,
+        inline: true,
+      },
       placeholderRegex: /(?<!\\)<>/g, // change placeholder of string format
     },
     process.argv,
@@ -384,10 +398,60 @@ loggerMock.restore()
       'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',
   })
   logger2.error('bad argument (<>). error({})', { username: 123 }, new Error('username is invalid'))
-
   ```
 
   ![demo6.1.png][]
+
+* No title:
+
+  ```typescript
+  import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
+
+  const logger = new ChalkLogger(
+    {
+      name: 'demo7',
+      level: Level.DEBUG,
+      flags: {
+        date: true,
+        title: false,
+        colorful: true,
+        inline: true,
+      },
+    },
+    process.argv,
+  )
+
+  logger.debug('A', 'B', 'C')
+  logger.verbose('A', 'B', 'C')
+  logger.info('a', 'b', 'c')
+  logger.warn('X', 'Y', 'Z', { a: 1, b: 2 })
+  logger.error('x', 'y', 'z', { c: { a: 'hello' }, b: { d: 'world' } })
+  logger.fatal('1', '2', '3')
+
+  const logger2 = new ChalkLogger(
+    {
+      name: 'demo7',
+      level: Level.DEBUG,
+      flags: {
+        date: false,
+        title: false,
+        colorful: true,
+        inline: true,
+      },
+      placeholderRegex: /(?<!\\)<>/g, // change placeholder of string format
+    },
+    process.argv,
+  )
+
+  logger2.debug('A', 'B', 'C')
+  logger2.verbose('A', 'B', 'C')
+  logger2.info('a', 'b', 'c')
+  logger2.warn('X', 'Y', 'Z', { a: 1, b: 2 })
+  logger2.error('x', 'y', 'z', { c: { a: 'hello' }, b: { d: 'world' } })
+  logger2.fatal('1', '2', '3')
+  ```
+
+  ![demo7.1.png][]
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/chalk-logger#readme
@@ -398,5 +462,6 @@ loggerMock.restore()
 [demo4.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo4.1.png
 [demo5.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo5.1.png
 [demo6.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo6.1.png
+[demo7.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo7.1.png
 [chalk]: https://github.com/chalk/chalk
 [commander.js]: https://github.com/tj/commander.js

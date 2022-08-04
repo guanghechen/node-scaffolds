@@ -6,7 +6,7 @@ import { AESCipher, calcMac } from '../src'
 
 describe('AESCipher', function () {
   describe('init by secret', function () {
-    const logger = new ChalkLogger({ colorful: false, date: false })
+    const logger = new ChalkLogger({ flags: { colorful: false, date: false } })
     const cipher = new AESCipher({ logger })
 
     const fileHelper = new BigFileHelper()
@@ -209,7 +209,7 @@ describe('AESCipher', function () {
   })
 
   describe('init by password', function () {
-    const logger = new ChalkLogger({ colorful: false, date: false })
+    const logger = new ChalkLogger({ flags: { colorful: false, date: false } })
     const cipher = new AESCipher({ logger })
 
     const fileHelper = new BigFileHelper()

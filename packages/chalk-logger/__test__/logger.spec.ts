@@ -1,7 +1,7 @@
 import { createLoggerMock } from '@guanghechen/helper-jest'
 import { desensitize } from 'jest.helper'
 import type { ILoggerOptions } from '../src'
-import { DEBUG, Level, Logger, VERBOSE } from '../src'
+import { Level, Logger, resolveLevel } from '../src'
 import { color2chalk } from '../src/color'
 
 describe('Logger', function () {
@@ -17,11 +17,13 @@ describe('Logger', function () {
               for (const shouldTitle of [false, true]) {
                 const options: ILoggerOptions = {
                   mode: mode as 'normal' | 'loose',
-                  level: Level.valueOf(level),
-                  inline: shouldInline,
-                  colorful: shouldColorful,
-                  date: shouldDate,
-                  title: shouldTitle,
+                  level: resolveLevel(level),
+                  flags: {
+                    inline: shouldInline,
+                    colorful: shouldColorful,
+                    date: shouldDate,
+                    title: shouldTitle,
+                  },
                 }
 
                 let title = mode + ' ' + level
@@ -75,10 +77,12 @@ describe('Logger', function () {
     const logger = new Logger({
       name: 'complex',
       mode: 'normal',
-      level: DEBUG,
-      inline: false,
-      colorful: false,
-      date: true,
+      level: Level.DEBUG,
+      flags: {
+        inline: false,
+        colorful: false,
+        date: true,
+      },
       placeholderRegex: /(?<!\\)<>/g, // change placeholder of string format
     })
     const loggerMock = createLoggerMock({ logger, desensitize })
@@ -105,10 +109,12 @@ describe('Logger', function () {
     const logger = new Logger({
       name: 'complex',
       mode: 'normal',
-      level: DEBUG,
-      inline: false,
-      colorful: true,
-      date: true,
+      level: Level.DEBUG,
+      flags: {
+        inline: false,
+        colorful: true,
+        date: true,
+      },
       dateChalk: color2chalk([25, 104, 179], false),
       nameChalk: color2chalk([25, 104, 179], true),
     })
@@ -135,17 +141,19 @@ describe('Logger', function () {
     const logger = new Logger({
       name: 'complex',
       mode: 'normal',
-      level: DEBUG,
-      inline: false,
-      colorful: true,
-      date: true,
+      level: Level.DEBUG,
+      flags: {
+        inline: false,
+        colorful: true,
+        date: true,
+      },
       dateChalk,
       nameChalk,
     })
 
     expect(logger.name).toBe('complex')
     expect(logger.mode).toBe('normal')
-    expect(logger.level).toBe(DEBUG)
+    expect(logger.level).toBe(Level.DEBUG)
     expect(logger.flags.inline).toBe(false)
     expect(logger.flags.colorful).toBe(true)
     expect(logger.flags.date).toBe(true)
@@ -155,14 +163,16 @@ describe('Logger', function () {
     logger.init({
       name: 'waw',
       mode: 'loose',
-      level: VERBOSE,
-      inline: true,
-      colorful: false,
+      level: Level.VERBOSE,
+      flags: {
+        inline: true,
+        colorful: false,
+      },
     })
 
     expect(logger.name).toBe('waw')
     expect(logger.mode).toBe('loose')
-    expect(logger.level).toBe(VERBOSE)
+    expect(logger.level).toBe(Level.VERBOSE)
     expect(logger.flags.inline).toBe(true)
     expect(logger.flags.colorful).toBe(false)
     expect(logger.flags.date).toBe(true)

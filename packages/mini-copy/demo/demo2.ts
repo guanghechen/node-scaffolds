@@ -1,13 +1,15 @@
-import { ChalkLogger, DEBUG } from '@guanghechen/chalk-logger'
+import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import { FakeClipboard, copy, paste } from '@guanghechen/mini-copy'
 import path from 'path'
 
 const logger = new ChalkLogger({
   name: 'mini-copy',
-  colorful: true,
-  date: true,
-  inline: false,
-  level: DEBUG,
+  level: Level.DEBUG,
+  flags: {
+    colorful: true,
+    date: true,
+    inline: false,
+  },
 })
 
 const fakeClipboard = new FakeClipboard({

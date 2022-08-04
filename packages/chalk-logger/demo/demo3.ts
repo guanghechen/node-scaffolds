@@ -1,12 +1,14 @@
-import { ChalkLogger, ERROR } from '@guanghechen/chalk-logger'
+import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import chalk from 'chalk'
 
 const logger = new ChalkLogger(
   {
     name: 'demo3',
-    level: ERROR, // the default value is INFO
-    date: false, // the default value is false.
-    colorful: true, // the default value is true.
+    level: Level.ERROR, // the default value is INFO
+    flags: {
+      date: false, // the default value is false.
+      colorful: true, // the default value is true.
+    },
     dateChalk: 'green',
     nameChalk: chalk.cyan.bind(chalk),
   },

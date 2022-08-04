@@ -1,5 +1,6 @@
-import { Level } from './level'
-import type { ILoggerOptions } from './logger'
+import type { Mutable } from '@guanghechen/utility-types'
+import { resolveLevel } from './level'
+import type { ILoggerFlags, ILoggerOptions } from './logger'
 
 /**
  * Commander options
@@ -31,7 +32,7 @@ interface ICommanderOptions {
   logEncoding?: BufferEncoding
 }
 
-interface ICommand {
+interface ICommander {
   option(flags: string, description?: string, defaultValue?: string | boolean): this
   option(flags: string, description: string, regexp: RegExp, defaultValue?: string | boolean): this
   option<T>(
@@ -46,7 +47,7 @@ interface ICommand {
  * register to commander
  * @param program {commander.Command}
  */
-export function registerCommanderOptions(program: ICommand): void {
+export function registerCommanderOptions(program: ICommander): void {
   program
     .option('--log-level <level>', "specify logger's level.")
     .option('--log-name <name>', "specify logger's name.")
@@ -57,23 +58,16 @@ export function registerCommanderOptions(program: ICommand): void {
       (val: string, acc: string[]) => acc.concat(val),
       [],
     )
-    .option('--log-filepath <filepath>', "specify logger' output path.")
-    .option('--log-encoding <encoding>', 'specify output file encoding.')
 }
 
-/**
- *
- * @param commanderOptions
- */
-export function calcLoggerOptionsFromCommanderOptions(
-  commanderOptions: ICommanderOptions,
-): ILoggerOptions {
-  const options: ILoggerOptions = {}
+export function parseOptionsFromCommander(commanderOptions: ICommanderOptions): ILoggerOptions {
+  const flags: Partial<Mutable<ILoggerFlags>> = {}
+  const options: ILoggerOptions = { flags }
 
   // resolve log level
   if (commanderOptions.logLevel != null) {
     const logLevel = commanderOptions.logLevel.toLowerCase()
-    const level = Level.valueOf(logLevel)
+    const level = resolveLevel(logLevel)
     if (level != null) options.level = level
   }
 
@@ -101,39 +95,24 @@ export function calcLoggerOptionsFromCommanderOptions(
       flag = flag.toLowerCase()
       switch (flag) {
         case 'inline':
-          options.inline = !negative
+          flags.inline = !negative
           break
         case 'date':
-          options.date = !negative
+          flags.date = !negative
           break
         case 'title':
-          options.title = !negative
+          flags.title = !negative
           break
         case 'colorful':
-          options.colorful = !negative
+          flags.colorful = !negative
           break
       }
     }
   }
-
-  // resolve log output filepath
-  if (commanderOptions.logFilepath != null) {
-    options.filepath = commanderOptions.logFilepath
-  }
-
-  // resolve log file encoding
-  if (commanderOptions.logEncoding != null) {
-    options.encoding = commanderOptions.logEncoding
-  }
-
   return options
 }
 
-/**
- *
- * @param args
- */
-export function calcLoggerOptionsFromArgs(args: string[]): ILoggerOptions {
+export function partOptionsFromArgs(args: string[]): ILoggerOptions {
   const options: ICommanderOptions = { logFlag: [] }
   const regex = /^--log-([\w]+)(?:=([-\w]+))?/
   for (let i = 0; i < args.length; ++i) {
@@ -174,5 +153,5 @@ export function calcLoggerOptionsFromArgs(args: string[]): ILoggerOptions {
     }
   }
 
-  return calcLoggerOptionsFromCommanderOptions(options)
+  return parseOptionsFromCommander(options)
 }

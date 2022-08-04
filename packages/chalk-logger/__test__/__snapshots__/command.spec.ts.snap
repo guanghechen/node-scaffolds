@@ -20,13 +20,5 @@ Array [
     [Function],
     Array [],
   ],
-  Array [
-    "--log-filepath <filepath>",
-    "specify logger' output path.",
-  ],
-  Array [
-    "--log-encoding <encoding>",
-    "specify output file encoding.",
-  ],
 ]
 `;

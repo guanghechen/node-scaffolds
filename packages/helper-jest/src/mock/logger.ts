@@ -4,7 +4,7 @@ import type { IConsoleMethodField } from './console'
 /**
  * Shape of a logger.
  */
-interface Logger {
+interface ILogger {
   /**
    * Output something into stdout or files.
    * @param text
@@ -12,11 +12,11 @@ interface Logger {
   write(text: string): void | Promise<void>
 }
 
-interface CreateLoggerMockOptions {
+interface ICreateLoggerMockOptions {
   /**
    * The logger to be spied.
    */
-  logger: Logger
+  logger: ILogger
   /**
    * Whether to also monitor global.console
    * @default true
@@ -55,10 +55,10 @@ export interface ILoggerMock {
 
 /**
  * Create a ConsoleMock.
- * @param methodNames
+ * @param options
  * @returns
  */
-export function createLoggerMock(options: CreateLoggerMockOptions): ILoggerMock {
+export function createLoggerMock(options: ICreateLoggerMockOptions): ILoggerMock {
   const {
     logger,
     consoleMethods = ['debug', 'log', 'info', 'warn', 'error'],
