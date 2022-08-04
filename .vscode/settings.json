@@ -41,7 +41,8 @@
     "tsbuildinfo",
     "tsnode",
     "urlpath",
-    "ymal"
+    "ymal",
+    "yozora"
   ],
   "files.associations": {
     ".prettierrc": "yaml"

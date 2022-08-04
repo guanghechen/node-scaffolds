@@ -80,8 +80,6 @@ Package                               | Description
 [@guanghechen/rollup-config-cli][]    | Rollup configs for bundle typescript cli project.
 [@guanghechen/rollup-config-tsx][]    | Rollup configs for bundle tsx project.
 [@guanghechen/rollup-plugin-copy][]   | Rollup plugins to copy files and folds (glob supported)
-[@guanghechen/template-ts-package][]  | Plop templates for creating simple typescript project
-[@guanghechen/template-tsx-package][] | Plop templates for creating simple typescript + react project
 [@guanghechen/tool-git-cipher][]      | A cli tool for encrypting a entire git repository.
 [@guanghechen/tool-mini-copy][]       | "A cli tool to copy / paste with system clipboard or customized fake clipboard (file).
 [@guanghechen/utility-types][]        | Collection of typescript utility types
@@ -120,8 +118,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/rollup-config-cli]: ./packages/rollup-config-cli
 [@guanghechen/rollup-config-tsx]: ./packages/rollup-config-tsx
 [@guanghechen/rollup-plugin-copy]: ./packages/rollup-plugin-copy
-[@guanghechen/template-ts-package]: ./packages/template-ts-package
-[@guanghechen/template-tsx-package]: ./packages/template-tsx-package
 [@guanghechen/tool-git-cipher]: ./packages/tool-git-cipher
 [@guanghechen/tool-mini-copy]: ./packages/tool-mini-copy
 [@guanghechen/utility-types]: ./packages/utility-types

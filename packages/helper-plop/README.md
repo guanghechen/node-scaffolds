@@ -180,12 +180,10 @@ And the `cli.js` exposed a Node.js CLI script, such as:
   ```
 ## Related
 
-* [@guanghechen/template-ts-package][]
-* [@guanghechen/template-tsx-package][]
+* [@yozora/template-tokenizer][]
 * [inquirer][]
 
 
+[@yozora/template-tokenizer]: https://github.com/yozorajs/yozora/blob/main/scaffolds/template-tokenizer
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-plop#readme
 [inquirer]: https://github.com/SBoudrias/Inquirer.js/
-[@guanghechen/template-ts-package]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/template-ts-package#readme
-[@guanghechen/template-tsx-package]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/template-ts-package#readme
