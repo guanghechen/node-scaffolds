@@ -1505,19 +1505,19 @@
     read-package-json-fast "^2.0.3"
     which "^2.0.2"
 
-"@nrwl/cli@14.5.1":
-  version "14.5.1"
-  resolved "https://registry.npmjs.org/@nrwl/cli/-/cli-14.5.1.tgz#60b7ed1386601a56bedb04d7e8fdb6c2407a4cbe"
-  integrity sha512-CWYAK5Oz/hZw82aeReKI0kPKKA0nCgtmf3fw4wVMNfTySW5Umt+08D5ZXG8xshtd4JODa4Lvvqtd7ig2mLh9sw==
+"@nrwl/cli@14.5.2":
+  version "14.5.2"
+  resolved "https://registry.npmjs.org/@nrwl/cli/-/cli-14.5.2.tgz#3608d03e55d5b15145d22f8cf2577e23688ff291"
+  integrity sha512-uriSxM33IpiBpW9kHEW3gw5OjPaQe3jHdWUMOT88TrqTlf449qe01Sys8+H2YgJMIcLTFYX0fP4V1K9jqKKZCg==
   dependencies:
-    nx "14.5.1"
+    nx "14.5.2"
 
-"@nrwl/tao@14.5.1":
-  version "14.5.1"
-  resolved "https://registry.npmjs.org/@nrwl/tao/-/tao-14.5.1.tgz#aa58abfcf8cf981256ac7982caee72d252d60095"
-  integrity sha512-7A35jJ89Y9W64wLsq1WZfduEIG9Iz1Alb8OWBXB9tpt4ZOuQw2o0LphbxpCPv039c5xQQGMtkD2owd3Xi73bvQ==
+"@nrwl/tao@14.5.2":
+  version "14.5.2"
+  resolved "https://registry.npmjs.org/@nrwl/tao/-/tao-14.5.2.tgz#13828035314732051683709907fcda3aa4d4718b"
+  integrity sha512-SEx3SM7xQiB8mOQ/gCt7lFJKRrkq3rBX6FiV3bl+dQtuKK2zKQbyikY9r+MCZCQNqZAud3HJ2xCyKZBhK8htQg==
   dependencies:
-    nx "14.5.1"
+    nx "14.5.2"
 
 "@octokit/auth-token@^3.0.0":
   version "3.0.0"
@@ -1696,9 +1696,9 @@
     picomatch "^2.2.2"
 
 "@sinclair/typebox@^0.24.1":
-  version "0.24.25"
-  resolved "https://registry.npmjs.org/@sinclair/typebox/-/typebox-0.24.25.tgz#61234177664cf161b621443a18f9e6714f757e2b"
-  integrity sha512-Z0b1gkfeHzRQen7juqXIZ4P2nvI6vZV+m/PhxBlVsNH/jSg2FuqJ+x4haFFIbbct6LMA7m6x2sBob/Giecj09A==
+  version "0.24.26"
+  resolved "https://registry.npmjs.org/@sinclair/typebox/-/typebox-0.24.26.tgz#84f9e8c1d93154e734a7947609a1dc7c7a81cc22"
+  integrity sha512-1ZVIyyS1NXDRVT8GjWD5jULjhDyM3IsIHef2VGUMdnWOlX2tkPjyEX/7K0TGSH2S8EaPhp1ylFdjSjUGQ+gecg==
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.3"
@@ -3988,9 +3988,9 @@ ecc-jsbn@~0.1.1:
     safer-buffer "^2.1.0"
 
 electron-to-chromium@^1.4.202:
-  version "1.4.208"
-  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.208.tgz#ecb5b47c8cc212a43172ffc5ce50178a638a5d74"
-  integrity sha512-diMr4t69FigAGUk2KovP0bygEtN/9AkqEVkzjEp0cu+zFFbZMVvwACpTTfuj1mAmFR5kNoSW8wGKDFWIvmThiQ==
+  version "1.4.211"
+  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.211.tgz#afaa8b58313807501312d598d99b953568d60f91"
+  integrity sha512-BZSbMpyFQU0KBJ1JG26XGeFI3i4op+qOYGxftmZXFZoHkhLgsSv4DHDJfl8ogII3hIuzGt51PaZ195OVu0yJ9A==
 
 emittery@^0.10.2:
   version "0.10.2"
@@ -5791,9 +5791,9 @@ is-ci@^2.0.0:
     ci-info "^2.0.0"
 
 is-core-module@^2.5.0, is-core-module@^2.8.1, is-core-module@^2.9.0:
-  version "2.9.0"
-  resolved "https://registry.npmjs.org/is-core-module/-/is-core-module-2.9.0.tgz#e1c34429cd51c6dd9e09e0799e396e27b19a9c69"
-  integrity sha512-+5FPy5PnwmO3lvfMb0AsoPaBG+5KHUI0wYFXOtYPnVVVspTFUuMZNfNaNVRt3FZadstu2c8x23vykRW/NBoU6A==
+  version "2.10.0"
+  resolved "https://registry.npmjs.org/is-core-module/-/is-core-module-2.10.0.tgz#9012ede0a91c69587e647514e1d5277019e728ed"
+  integrity sha512-Erxj2n/LDAZ7H8WNJXd9tw38GYM3dv8rk8Zcs+jJuxYTW7sozH+SS8NtrSjVL1/vpLvWi1hxy96IzjJ3EHTJJg==
   dependencies:
     has "^1.0.3"
 
@@ -7173,9 +7173,9 @@ lru-cache@^6.0.0:
     yallist "^4.0.0"
 
 lru-cache@^7.4.4, lru-cache@^7.5.1, lru-cache@^7.7.1:
-  version "7.13.1"
-  resolved "https://registry.npmjs.org/lru-cache/-/lru-cache-7.13.1.tgz#267a81fbd0881327c46a81c5922606a2cfe336c4"
-  integrity sha512-CHqbAq7NFlW3RSnoWXLJBxCWaZVBrfa9UEHId2M3AW8iEBurbqduNexEUCGc3SHc6iCYXNJCDi903LajSVAEPQ==
+  version "7.13.2"
+  resolved "https://registry.npmjs.org/lru-cache/-/lru-cache-7.13.2.tgz#bb5d3f1deea3f3a7a35c1c44345566a612e09cd0"
+  integrity sha512-VJL3nIpA79TodY/ctmZEfhASgqekbT574/c4j3jn4bKXbSCnTTCH/KltZyvL2GlV+tGSMtsWyem8DCX7qKTMBA==
 
 magic-string@^0.25.7:
   version "0.25.9"
@@ -8047,13 +8047,13 @@ number-is-nan@^1.0.0:
   resolved "https://registry.npmjs.org/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha512-4jbtZXNAsfZbAHiiqjLPBiCl16dES1zI4Hpzzxw61Tk+loF+sBDBKx1ICKKKwIqQ7M0mFn1TmkN7euSncWgHiQ==
 
-nx@14.5.1, "nx@>=14.4.3 < 16":
-  version "14.5.1"
-  resolved "https://registry.npmjs.org/nx/-/nx-14.5.1.tgz#4725d260e02a891a16ddf886f80f197373d9b3f1"
-  integrity sha512-0QimStCyaw4HpgiJYpdH7NWMEVULKMcXEgPG/Mu3XDQtda/+8plDJ+ftfVo3MfjXIzQ6T7+zo//xESUez0pZ5w==
+nx@14.5.2, "nx@>=14.4.3 < 16":
+  version "14.5.2"
+  resolved "https://registry.npmjs.org/nx/-/nx-14.5.2.tgz#6514a38cc24cc642c2a3b54f5345791db8e4d9fb"
+  integrity sha512-I6KWVMR5Ksj/HgderkcmJmyaqHdWblQeFUeVq9to263Wr3QCIRigbvdDI3rq3ZQCBMyhUSOVP9MFXROoRVtJXQ==
   dependencies:
-    "@nrwl/cli" "14.5.1"
-    "@nrwl/tao" "14.5.1"
+    "@nrwl/cli" "14.5.2"
+    "@nrwl/tao" "14.5.2"
     "@parcel/watcher" "2.0.4"
     chalk "4.1.0"
     chokidar "^3.5.1"
@@ -11331,7 +11331,7 @@ yargs-parser@20.2.4:
   resolved "https://registry.npmjs.org/yargs-parser/-/yargs-parser-20.2.4.tgz#b42890f14566796f85ae8e3a25290d205f154a54"
   integrity sha512-WOkpgNhPTlE73h4VFAFsOnomJVaovO8VqLDzy5saChRBFQFBoMYirowyW+Q9HB4HFF4Z7VZTiG3iSzJJA29yRA==
 
-yargs-parser@21.0.1, yargs-parser@^21.0.0, yargs-parser@^21.0.1:
+yargs-parser@21.0.1:
   version "21.0.1"
   resolved "https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.0.1.tgz#0267f286c877a4f0f728fceb6f8a3e4cb95c6e35"
   integrity sha512-9BK1jFpLzJROCI5TzwZL/TU4gqjK5xiHV/RfWLOahrjAko/e4DJkRDZQXfvqAsiZzzYhgAzbgz6lg48jcm4GLg==
@@ -11340,6 +11340,11 @@ yargs-parser@^20.2.2, yargs-parser@^20.2.3:
   version "20.2.9"
   resolved "https://registry.npmjs.org/yargs-parser/-/yargs-parser-20.2.9.tgz#2eb7dc3b0289718fc295f362753845c41a0c94ee"
   integrity sha512-y11nGElTIV+CT3Zv9t7VKl+Q3hTQoT9a1Qzezhhl6Rp21gJ/IVTW7Z3y9EWXhuUBC2Shnf+DX0antecpAwSP8w==
+
+yargs-parser@^21.0.0, yargs-parser@^21.0.1:
+  version "21.1.0"
+  resolved "https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.1.0.tgz#a11d06a3bf57f064e951aa3ef55fcf3a5705f876"
+  integrity sha512-xzm2t63xTV/f7+bGMSRzLhUNk1ajv/tDoaD5OeGyC3cFo2fl7My9Z4hS3q2VdQ7JaLvTxErO8Jp5pRIFGMD/zg==
 
 yargs-parser@^7.0.0:
   version "7.0.0"
