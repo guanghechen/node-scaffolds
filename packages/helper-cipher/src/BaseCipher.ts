@@ -1,9 +1,9 @@
 import type ChalkLogger from '@guanghechen/chalk-logger'
 import { mkdirsIfNotExists } from '@guanghechen/helper-file'
+import { consumeStream, consumeStreams, destroyBuffers } from '@guanghechen/helper-stream'
 import type { Cipher } from 'crypto'
 import fs from 'fs-extra'
 import type { ICipher } from './types/cipher'
-import { destroyBuffers } from './util/buffer'
 
 /**
  * ICipher base class.
@@ -54,81 +54,51 @@ export abstract class BaseCipher implements ICipher {
   }
 
   // override
-  public async encryptFromFiles(plainFilepaths: string[]): Promise<Buffer> {
+  public async encryptFromFiles(plainFilepaths: string[]): Promise<Buffer | never> {
     const encipher: Cipher = this.encipher()
-    const cipherDataPieces: Buffer[] = []
-    let cipherData: Buffer
-
+    const pieces: Buffer[] = []
     try {
-      for (const filepath of plainFilepaths) {
-        const reader: fs.ReadStream = fs.createReadStream(filepath)
-        await new Promise((resolve, reject) => {
-          reader
-            .on('data', chunk => void cipherDataPieces.push(encipher.update(chunk)))
-            .on('error', reject)
-            .on('end', resolve)
-        })
-      }
-
-      cipherDataPieces.push(encipher.final())
-      cipherData = Buffer.concat(cipherDataPieces)
+      const readers: NodeJS.ReadableStream[] = plainFilepaths.map(fp => fs.createReadStream(fp))
+      await consumeStreams(readers, encipher)
+      for await (const chunk of encipher) pieces.push(chunk)
+      return Buffer.concat(pieces)
     } finally {
-      destroyBuffers(cipherDataPieces)
+      destroyBuffers(pieces)
       encipher.destroy()
     }
-
-    return cipherData
   }
 
   // override
   public async decryptFromFiles(cipherFilepaths: string[]): Promise<Buffer> {
     const decipher: Cipher = this.decipher()
-    const plainDataPieces: Buffer[] = []
-    let plainData: Buffer
-
+    const pieces: Buffer[] = []
     try {
-      for (const filepath of cipherFilepaths) {
-        const reader: fs.ReadStream = fs.createReadStream(filepath)
-        await new Promise((resolve, reject) => {
-          reader
-            .on('data', chunk => void plainDataPieces.push(decipher.update(chunk)))
-            .on('error', reject)
-            .on('end', resolve)
-        })
-      }
-
-      plainDataPieces.push(decipher.final())
-      plainData = Buffer.concat(plainDataPieces)
+      const readers: NodeJS.ReadableStream[] = cipherFilepaths.map(fp => fs.createReadStream(fp))
+      await consumeStreams(readers, decipher)
+      for await (const chunk of decipher) pieces.push(chunk)
+      return Buffer.concat(pieces)
     } finally {
-      destroyBuffers(plainDataPieces)
+      destroyBuffers(pieces)
       decipher.destroy()
     }
-
-    return plainData
   }
 
   // @override
   public encryptFile(plainFilepath: string, cipherFilepath: string): Promise<void> {
     mkdirsIfNotExists(cipherFilepath, false, this.logger)
-
+    const reader: NodeJS.ReadableStream = fs.createReadStream(plainFilepath)
+    const writer: NodeJS.WritableStream = fs.createWriteStream(cipherFilepath)
     const encipher: Cipher = this.encipher()
-    const reader = fs.createReadStream(plainFilepath)
-    const writer = fs.createWriteStream(cipherFilepath)
-    return new Promise<void>((resolve, reject) => {
-      reader.pipe(encipher).pipe(writer).on('error', reject).on('finish', resolve)
-    })
+    return consumeStream(reader, writer, encipher)
   }
 
   // @override
   public decryptFile(cipherFilepath: string, plainFilepath: string): Promise<void> {
     mkdirsIfNotExists(plainFilepath, false, this.logger)
-
+    const reader: NodeJS.ReadableStream = fs.createReadStream(cipherFilepath)
+    const writer: NodeJS.WritableStream = fs.createWriteStream(plainFilepath)
     const decipher: Cipher = this.decipher()
-    const reader = fs.createReadStream(cipherFilepath)
-    const writer = fs.createWriteStream(plainFilepath)
-    return new Promise<void>((resolve, reject) => {
-      reader.pipe(decipher).pipe(writer).on('error', reject).on('finish', resolve)
-    })
+    return consumeStream(reader, writer, decipher)
   }
 
   // override
@@ -140,25 +110,10 @@ export abstract class BaseCipher implements ICipher {
     }
 
     mkdirsIfNotExists(cipherFilepath, false, this.logger)
-
-    const writer: fs.WriteStream = fs.createWriteStream(cipherFilepath)
+    const readers: NodeJS.ReadableStream[] = plainFilepaths.map(fp => fs.createReadStream(fp))
+    const writer: NodeJS.WritableStream = fs.createWriteStream(cipherFilepath)
     const encipher: Cipher = this.encipher()
-    const pipe = encipher.pipe(writer)
-
-    for (const filepath of plainFilepaths) {
-      const reader: fs.ReadStream = fs.createReadStream(filepath)
-      await new Promise((resolve, reject) => {
-        reader
-          .on('data', chunk => encipher.write(chunk))
-          .on('error', reject)
-          .on('end', resolve)
-      })
-    }
-
-    encipher.end()
-    await new Promise((resolve, reject) => {
-      pipe.on('error', reject).on('finish', resolve).on('end', resolve)
-    })
+    await consumeStreams(readers, writer, encipher)
     encipher.destroy()
   }
 
@@ -171,25 +126,10 @@ export abstract class BaseCipher implements ICipher {
     }
 
     mkdirsIfNotExists(plainFilepath, false, this.logger)
-
-    const writer: fs.WriteStream = fs.createWriteStream(plainFilepath)
+    const readers: NodeJS.ReadableStream[] = cipherFilepaths.map(fp => fs.createReadStream(fp))
+    const writer: NodeJS.WritableStream = fs.createWriteStream(plainFilepath)
     const decipher: Cipher = this.decipher()
-    const pipe = decipher.pipe(writer)
-
-    for (const filepath of cipherFilepaths) {
-      const reader: fs.ReadStream = fs.createReadStream(filepath)
-      await new Promise<void>((resolve, reject) => {
-        reader
-          .on('data', chunk => decipher.write(chunk))
-          .on('error', reject)
-          .on('end', resolve)
-      })
-    }
-
-    decipher.end()
-    await new Promise((resolve, reject) => {
-      pipe.on('error', reject).on('finish', resolve).on('end', resolve)
-    })
+    await consumeStreams(readers, writer, decipher)
     decipher.destroy()
   }
 

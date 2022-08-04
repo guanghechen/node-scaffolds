@@ -1,7 +1,4 @@
-import { BigFileHelper, calcFilePartItemsByCount } from '@guanghechen/helper-file'
-import fs from 'fs-extra'
-import { locateFixtures, unlinkSync } from 'jest.helper'
-import { destroyBuffer, destroyBuffers, streams2buffer } from '../src'
+import { destroyBuffer, destroyBuffers } from '../src'
 
 describe('destroyBuffer', function () {
   test('basic', function () {
@@ -37,30 +34,5 @@ describe('destroyBuffers', function () {
       const content: string = contents[i]
       expect(buffer.toString()).not.toEqual(content)
     }
-  })
-})
-
-describe('streams2buffer', function () {
-  const encoding = 'utf-8'
-  const fileHelper = new BigFileHelper({ encoding })
-  const sourceFilepath = locateFixtures('basic/big-file.md')
-  const originalContent = fs.readFileSync(sourceFilepath, encoding)
-  let partFilepaths: string[] = []
-
-  beforeAll(async function () {
-    partFilepaths = await fileHelper.split(
-      sourceFilepath,
-      calcFilePartItemsByCount(sourceFilepath, 5),
-    )
-  })
-
-  afterAll(() => {
-    unlinkSync(partFilepaths)
-  })
-
-  test('basic', async function () {
-    const streams: fs.ReadStream[] = partFilepaths.map(p => fs.createReadStream(p))
-    const buffer: Buffer = await streams2buffer(streams)
-    expect(buffer.toString(encoding)).toEqual(originalContent)
   })
 })

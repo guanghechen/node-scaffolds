@@ -132,9 +132,6 @@ Name                                | Description
 `calcMacFromFile`                   | Calc mac (Message Authentication Code) from file
 `createRandomIv`                    | Create random initial vector
 `createRandomKey`                   | Create random key of aes
-`destroyBuffer`                     | Fill buffer with a random number
-`destroyBuffers`                    | Fill buffers with random numbers
-`streams2buffer`                    | Merge multiple read streams into Buffer serially
 `AESCipher`                   | A ICipher implementation with AES algorithm.
 `CipherCatalog`                     | Catalog for managing source / target files and relationship maps
 

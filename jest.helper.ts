@@ -27,7 +27,7 @@ export const desensitize: Desensitizer<any> & Desensitizer<string> = createJsonD
  * @returns
  */
 export const locateFixtures = (...p: string[]): string =>
-  path.join(testRootDior, '__test__/fixtures', ...p)
+  path.resolve(testRootDior, '__test__/fixtures', ...p)
 
 /**
  * Load fixture filepath.

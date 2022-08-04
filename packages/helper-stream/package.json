@@ -1,7 +1,7 @@
 {
-  "name": "@guanghechen/helper-file",
+  "name": "@guanghechen/helper-stream",
   "version": "1.9.8",
-  "description": "File helper",
+  "description": "Utilities for handing node streams.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -9,12 +9,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/node-scaffolds.git",
-    "directory": "packages/helper-file"
+    "directory": "packages/helper-stream"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-file#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-stream#readme",
   "keywords": [
-    "file helper",
-    "split file",
+    "stream",
+    "concat streams",
     "merge streams"
   ],
   "main": "lib/cjs/index.js",
@@ -38,10 +38,5 @@
     "prebuild": "rimraf lib/ && tsc -p tsconfig.src.json --emitDeclarationOnly",
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
-  },
-  "dependencies": {
-    "@guanghechen/helper-stream": "^1.9.8",
-    "@guanghechen/invariant": "^1.9.8",
-    "fs-extra": "^10.1.0"
   }
 }

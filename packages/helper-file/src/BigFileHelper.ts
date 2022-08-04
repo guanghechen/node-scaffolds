@@ -1,7 +1,7 @@
+import { consumeStream, consumeStreams } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
 import fs from 'fs-extra'
 import type { IFilePartItem } from './types'
-import { consumeStreams } from './util/stream'
 
 export interface IBigFileHelperOptions {
   /**
@@ -76,17 +76,15 @@ export class BigFileHelper {
       const partFilepath = partFilepaths[i]
 
       // Create a range in the specified range of the file.
-      const reader = fs.createReadStream(filepath, {
+      const reader: NodeJS.ReadableStream = fs.createReadStream(filepath, {
         encoding: this.encoding,
         start: part.start,
         end: part.end - 1,
       })
 
       // Save part
-      const task = new Promise<void>((resolve, reject) => {
-        const writer = fs.createWriteStream(partFilepath)
-        reader.on('error', reject).on('end', resolve).pipe(writer)
-      })
+      const writer: NodeJS.WritableStream = fs.createWriteStream(partFilepath)
+      const task = consumeStream(reader, writer)
 
       // The operation of splitting the source file can be processed in parallel.
       tasks.push(task)
@@ -105,20 +103,17 @@ export class BigFileHelper {
   public async merge(inputFilepaths: string[], outputFilepath: string): Promise<void> {
     invariant(inputFilepaths.length > 0, 'Input file list is empty!')
 
-    const streams: fs.ReadStream[] = inputFilepaths.map(filepath =>
+    const readers: NodeJS.ReadableStream[] = inputFilepaths.map(filepath =>
       fs.createReadStream(filepath, {
         encoding: this.encoding,
       }),
     )
-
-    const writer: fs.WriteStream = fs.createWriteStream(outputFilepath, {
+    const writer: NodeJS.WritableStream = fs.createWriteStream(outputFilepath, {
       encoding: this.encoding,
     })
 
     // The operation of merging files could not be processed in parallel.
-    await consumeStreams(streams, writer)
-
-    writer.close()
+    await consumeStreams(readers, writer)
   }
 }
 

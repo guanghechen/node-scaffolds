@@ -6,13 +6,13 @@ import {
   mkdirsIfNotExists,
 } from '@guanghechen/helper-file'
 import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
+import { destroyBuffer } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
 import crypto from 'crypto'
 import fs from 'fs-extra'
 import path from 'path'
 import type { ICatalogIndex, ICatalogItem } from './types/catalog'
 import type { ICipher } from './types/cipher'
-import { destroyBuffer } from './util/buffer'
 import { calcFingerprint, calcMacFromFile } from './util/key'
 
 export interface ICipherCatalogOptions {

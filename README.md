@@ -68,6 +68,7 @@ Package                               | Description
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
 [@guanghechen/helper-path][]          | Utilities to handle url path and file path.
 [@guanghechen/helper-plop][]          | A collection of utility functions for plop templates
+[@guanghechen/helper-stream][]        | Utilities for handing node streams.
 [@guanghechen/helper-string][]        | Utilities for processing strings or stringify other type data.
 [@guanghechen/invariant]              | An invariant function.
 [@guanghechen/jest-config][]          | Basic jest configs for typescript monorepo
@@ -107,6 +108,7 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/b
 [@guanghechen/helper-option]: ./packages/helper-option
 [@guanghechen/helper-path]: ./packages/helper-path
 [@guanghechen/helper-plop]: ./packages/helper-plop
+[@guanghechen/helper-stream]: ./packages/helper-stream
 [@guanghechen/helper-string]: ./packages/helper-string
 [@guanghechen/invariant]: ./packages/invariant
 [@guanghechen/jest-config]: ./packages/jest-config

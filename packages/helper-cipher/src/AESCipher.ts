@@ -1,10 +1,9 @@
 import type ChalkLogger from '@guanghechen/chalk-logger'
+import { destroyBuffer } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
-import type { Cipher } from 'crypto'
 import crypto from 'crypto'
 import { BaseCipher } from './BaseCipher'
 import type { ICipher } from './types/cipher'
-import { destroyBuffer } from './util/buffer'
 import { createRandomIv, createRandomKey } from './util/key'
 
 export interface IAESCipherOptions {
@@ -94,7 +93,7 @@ export class AESCipher extends BaseCipher implements ICipher {
     this.key = key
   }
 
-  protected override encipher(): Cipher {
+  protected override encipher(): crypto.Cipher {
     const { algorithm, key, iv } = this
     invariant(key != null && iv != null, 'NULL_POINTER_ERROR: iv / key is null')
 
@@ -102,7 +101,7 @@ export class AESCipher extends BaseCipher implements ICipher {
     return encipher
   }
 
-  public override decipher(): Cipher {
+  protected override decipher(): crypto.Cipher {
     const { algorithm, key, iv } = this
     invariant(key != null && iv != null, 'NULL_POINTER_ERROR: iv / key is null')
 

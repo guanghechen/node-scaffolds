@@ -1,0 +1,73 @@
+import type { ReadableOptions } from 'stream'
+import { Readable } from 'stream'
+
+/**
+ * Concatenate readable streams to async iterator.
+ * @param streams
+ * @returns
+ * @see https://stackoverflow.com/a/62137193/10791801
+ */
+export async function* concatStreams(
+  streams: ReadonlyArray<NodeJS.ReadableStream>,
+): AsyncIterable<string | Buffer> {
+  for (const stream of streams) {
+    for await (const chunk of stream) yield chunk
+  }
+}
+
+/**
+ * Merge multiple readable streams into one readable streams.
+ * @param streams
+ * @param options
+ * @returns
+ */
+export function mergeStreams(
+  streams: ReadonlyArray<NodeJS.ReadableStream>,
+  options?: ReadableOptions,
+): NodeJS.ReadableStream {
+  const iterable = concatStreams(streams)
+  return Readable.from(iterable, options)
+}
+
+/**
+ * Consume readable stream.
+ *
+ * @param reader
+ * @param writer
+ * @param transformers
+ * @returns
+ */
+export function consumeStream(
+  reader: NodeJS.ReadableStream,
+  writer: NodeJS.WritableStream,
+  ...transformers: NodeJS.ReadWriteStream[]
+): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    let pipeline = reader.on('error', reject)
+    for (const middleware of transformers) {
+      pipeline = pipeline //
+        .pipe(middleware)
+        .on('error', reject)
+    }
+    pipeline //
+      .pipe(writer)
+      .on('error', reject)
+      .on('finish', resolve)
+  })
+}
+
+/**
+ * Consume multiple streams serially.
+ *
+ * @param readers
+ * @param writer
+ * @param transformers
+ */
+export function consumeStreams(
+  readers: ReadonlyArray<NodeJS.ReadableStream>,
+  writer: NodeJS.WritableStream,
+  ...transformers: NodeJS.ReadWriteStream[]
+): Promise<void> {
+  const readable = mergeStreams(readers)
+  return consumeStream(readable, writer, ...transformers)
+}
