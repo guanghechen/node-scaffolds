@@ -1,5 +1,5 @@
 export * from './command'
-export * from './fs'
+export * from './config'
 export * from './git'
 export * from './merge'
 export * from './option'

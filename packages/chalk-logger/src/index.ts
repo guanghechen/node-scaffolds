@@ -1,5 +1,5 @@
 import type { Mutable } from '@guanghechen/utility-types'
-import { partOptionsFromArgs } from './commander'
+import { parseOptionsFromArgs } from './commander'
 import type { Level } from './level'
 import type { ILoggerOptions } from './logger'
 import { Logger } from './logger'
@@ -20,7 +20,7 @@ export class ChalkLogger extends Logger {
   protected divisionName: string | null = null
 
   constructor(options?: ILoggerOptions, args?: string[]) {
-    const optionsFromArgs = partOptionsFromArgs(args || [])
+    const optionsFromArgs = parseOptionsFromArgs(args || [])
     const resolvedOptions = {
       ...options,
       ...optionsFromArgs,

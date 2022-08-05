@@ -9,6 +9,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     'packages/helper-commander/src/command.ts',
     'packages/helper-commander/src/git.ts',
+    'packages/helper-commander/src/stdin.ts',
     'packages/helper-commander/src/yarn.ts',
   ],
   coverageThreshold: {

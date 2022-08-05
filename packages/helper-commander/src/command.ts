@@ -105,12 +105,6 @@ export class Command extends commander.Command {
 
     return options as unknown as T
   }
-
-  // override
-  public override addCommand(command: Command, opts?: commander.CommandOptions): this {
-    super.addCommand(command, opts)
-    return this
-  }
 }
 
 export { commander }

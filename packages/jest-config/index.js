@@ -82,7 +82,7 @@ function tsMonorepoConfig(repositoryRootDir) {
         statements: 80,
       },
     },
-    coverageReporters: ['lcov', 'text', 'text-summary'],
+    coverageReporters: ['text', 'text-summary'],
   }
 }
 

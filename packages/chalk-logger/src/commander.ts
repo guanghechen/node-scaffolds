@@ -112,7 +112,7 @@ export function parseOptionsFromCommander(commanderOptions: ICommanderOptions): 
   return options
 }
 
-export function partOptionsFromArgs(args: string[]): ILoggerOptions {
+export function parseOptionsFromArgs(args: string[]): ILoggerOptions {
   const options: ICommanderOptions = { logFlag: [] }
   const regex = /^--log-([\w]+)(?:=([-\w]+))?/
   for (let i = 0; i < args.length; ++i) {

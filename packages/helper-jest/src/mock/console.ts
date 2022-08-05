@@ -16,7 +16,6 @@ export interface IConsoleMock {
   get(methodName: IConsoleMethodField): ReadonlyArray<ReadonlyArray<unknown>>
   /**
    * Get all of passed args to all of the console methods.
-   * @param methodName
    */
   getIndiscriminateAll(): ReadonlyArray<ReadonlyArray<unknown>>
   /**

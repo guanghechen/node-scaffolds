@@ -28,7 +28,6 @@ Object {
   "coverageDirectory": "<rootDir>/coverage/",
   "coveragePathIgnorePatterns": Array [],
   "coverageReporters": Array [
-    "lcov",
     "text",
     "text-summary",
   ],

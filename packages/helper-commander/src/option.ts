@@ -4,21 +4,19 @@ import { isNonBlankString, isNotEmptyArray, isNotEmptyObject } from '@guangheche
 import { cover, coverString } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace, locateNearestFilepath } from '@guanghechen/helper-path'
 import path from 'path'
-import { loadJsonOrYamlSync } from './fs'
+import { loadJsonOrYamlSync } from './config'
 import type { IMergeStrategy } from './merge'
-import { defaultMergeStrategies, merge } from './merge'
+import { merge } from './merge'
 
 export interface ICommandConfigurationFlatOpts {
   /**
    * Path of currently executing command.
    */
   readonly cwd: string
-
   /**
    * Working directory.
    */
   readonly workspace: string
-
   /**
    * Filepath of configs, only *.yml, *.yaml and *.json are supported.
    * Each configuration file can specify the same options, the configuration
@@ -26,12 +24,10 @@ export interface ICommandConfigurationFlatOpts {
    * @default []
    */
   readonly configPath?: string[]
-
   /**
    * Filepath of parastic config,
    */
   readonly parasticConfigPath?: string | null
-
   /**
    * The entry key of options in the parasitic configuration file
    */
@@ -44,7 +40,6 @@ export interface ICommandConfigurationOptions extends Record<string, unknown> {
    * @default undefined
    */
   readonly logLevel?: 'debug' | 'verbose' | 'info' | 'warn' | 'error' | string
-
   /**
    * Filepath of configs, only *.yml, *.yaml and *.json are supported.
    * Each configuration file can specify the same options, the configuration
@@ -52,12 +47,10 @@ export interface ICommandConfigurationOptions extends Record<string, unknown> {
    * @default []
    */
   readonly configPath?: string[]
-
   /**
    * Filepath of parastic config,
    */
   readonly parasticConfigPath?: string | null
-
   /**
    * The entry key of options in the parasitic configuration file
    */
@@ -69,7 +62,6 @@ export interface ICommandConfiguration<Options extends ICommandConfigurationOpti
    * Global options shared by all sub-commands
    */
   __globalOptions__: Options
-
   /**
    * Sub-command specific options
    */
@@ -79,22 +71,22 @@ export interface ICommandConfiguration<Options extends ICommandConfigurationOpti
 /**
  * Flat defaultOptions with configs from package.json
  */
-export function flatOptionsFromConfiguration<C extends ICommandConfigurationOptions>(
-  defaultOptions: C,
+export function flatOptionsFromConfiguration<O extends ICommandConfigurationOptions>(
+  defaultOptions: O,
   flatOpts: ICommandConfigurationFlatOpts,
   subCommandName: string | false,
-  strategies: Partial<Record<keyof C, IMergeStrategy>> = {},
-): C {
-  let resolvedConfig = {} as unknown as ICommandConfiguration<C>
+  strategies: Partial<Record<keyof O, IMergeStrategy<O[keyof O]>>> = {},
+): O {
+  let resolvedConfig = {} as unknown as ICommandConfiguration<O>
 
   // load configs
   if (isNotEmptyArray(flatOpts.configPath)) {
-    const configs: Array<ICommandConfiguration<C>> = []
+    const configs: Array<ICommandConfiguration<O>> = []
     for (const filepath of flatOpts.configPath) {
-      const config = loadJsonOrYamlSync(filepath) as ICommandConfiguration<C>
+      const config = loadJsonOrYamlSync(filepath) as ICommandConfiguration<O>
       configs.push(config)
     }
-    resolvedConfig = merge<ICommandConfiguration<C>>(configs, {}, defaultMergeStrategies.replace)
+    resolvedConfig = merge(configs, {})
   } else {
     // otherwise, load from parastic config
     if (
@@ -102,34 +94,22 @@ export function flatOptionsFromConfiguration<C extends ICommandConfigurationOpti
       isNonBlankString(flatOpts.parasticConfigEntry)
     ) {
       const config = loadJsonOrYamlSync(flatOpts.parasticConfigPath) as any
-      resolvedConfig = (config[flatOpts.parasticConfigEntry] as ICommandConfiguration<C>) || {}
+      resolvedConfig = (config[flatOpts.parasticConfigEntry] as ICommandConfiguration<O>) || {}
     }
   }
 
-  let result: C = defaultOptions
+  let result: O = defaultOptions
   if (subCommandName === false) {
-    result = merge<C>(
-      [result, resolvedConfig as unknown as C],
-      strategies,
-      defaultMergeStrategies.replace,
-    )
+    result = merge([result, resolvedConfig as unknown as O], strategies)
   } else {
     // merge globalOptions
     if (isNotEmptyObject(resolvedConfig.__globalOptions__)) {
-      result = merge<C>(
-        [result, resolvedConfig.__globalOptions__],
-        strategies,
-        defaultMergeStrategies.replace,
-      )
+      result = merge([result, resolvedConfig.__globalOptions__], strategies)
     }
 
     // merge specified sub-command option
     if (isNonBlankString(subCommandName) && typeof resolvedConfig[subCommandName] == 'object') {
-      result = merge<C>(
-        [result, resolvedConfig[subCommandName]],
-        strategies,
-        defaultMergeStrategies.replace,
-      )
+      result = merge([result, resolvedConfig[subCommandName]], strategies)
     }
   }
 
@@ -157,7 +137,7 @@ export function resolveCommandConfigurationOptions<
   workspaceDir: string,
   defaultOptions: D,
   options: C,
-  strategies: Partial<Record<keyof D, IMergeStrategy>> = {},
+  strategies: Partial<Record<keyof D, IMergeStrategy<D[keyof D]>>> = {},
 ): D & ICommandConfigurationFlatOpts {
   const cwd: string = path.resolve()
   const workspace: string = path.resolve(cwd, workspaceDir)

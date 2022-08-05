@@ -1,9 +1,9 @@
-import { Level, partOptionsFromArgs, registerCommanderOptions } from '../src'
+import { Level, parseOptionsFromArgs, registerCommanderOptions } from '../src'
 
 describe('command funcs', function () {
   test('generateOptions', function () {
     expect(
-      partOptionsFromArgs([
+      parseOptionsFromArgs([
         '--log-level=debug',
         '--log-name=waw',
         '--log-mode=loose',

@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`command no sub-command: args 1`] = `Array []`;
+
+exports[`command no sub-command: logs 1`] = `
+Array [
+  Array [
+    "[debug ghc] cwd: <$WORKSPACE$>/packages/helper-commander
+",
+  ],
+  Array [
+    "[debug ghc] workspace: <$WORKSPACE$>/packages/helper-commander
+",
+  ],
+  Array [
+    "[debug ghc] configPath: []
+",
+  ],
+  Array [
+    "[debug ghc] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/package.json
+",
+  ],
+  Array [
+    "[debug ghc] parasticConfigEntry: @guanghechen/helper-commander--demo
+",
+  ],
+  Array [
+    "[debug ghc] encoding: utf8
+",
+  ],
+  Array [
+    "[debug ghc] input: undefined
+",
+  ],
+  Array [
+    "[debug ghc] output: undefined
+",
+  ],
+  Array [
+    "[debug ghc] force: true
+",
+  ],
+  Array [
+    "[debug ghc] silence: false
+",
+  ],
+]
+`;
+
+exports[`command no sub-command: options 1`] = `
+Object {
+  "configPath": Array [],
+  "force": true,
+  "logFlag": Array [
+    "no-date",
+    "no-color",
+  ],
+  "logLevel": "debug",
+  "silence": false,
+}
+`;
+
+exports[`command no sub-command: resolvedOptions 1`] = `
+Object {
+  "configPath": Array [],
+  "cwd": "<$WORKSPACE$>/packages/helper-commander",
+  "encoding": "utf8",
+  "force": true,
+  "input": undefined,
+  "logLevel": "debug",
+  "output": undefined,
+  "parasticConfigEntry": "@guanghechen/helper-commander--demo",
+  "parasticConfigPath": "<$WORKSPACE$>/packages/helper-commander/package.json",
+  "silence": false,
+  "workspace": "<$WORKSPACE$>/packages/helper-commander",
+}
+`;
