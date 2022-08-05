@@ -1,7 +1,6 @@
 import type {
   ICommandConfigurationFlatOpts,
   ICommandConfigurationOptions,
-  IMergeStrategy,
 } from '@guanghechen/helper-commander'
 import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
@@ -93,7 +92,6 @@ export function resolveGlobalCommandOptions<C extends Record<string, unknown>>(
   defaultOptions: C,
   workspaceDir: string,
   options: C & IGlobalCommandOptions,
-  strategies: Partial<Record<keyof (C & IGlobalCommandOptions), IMergeStrategy>> = {},
 ): C & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = C & IGlobalCommandOptions & ICommandConfigurationFlatOpts
   const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<
@@ -106,7 +104,6 @@ export function resolveGlobalCommandOptions<C extends Record<string, unknown>>(
     workspaceDir,
     { ...__defaultGlobalCommandOptions, ...defaultOptions },
     options,
-    strategies,
   )
 
   // resolve encoding
