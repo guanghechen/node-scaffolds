@@ -1,7 +1,56 @@
 # Changelog
 
-<a name="0.0.0"></a>
-## 0.0.0 (2022-07-27)
+<a name="2.0.0-alpha.0"></a>
+## 2.0.0-alpha.0 (2022-08-05)
+
+### Added
+
+- ✅ test: update tests [[89590ea](https://github.com/guanghechen/node-scaffolds/commit/89590ea7daae87e37740f0ffcf3ecf964bb49cda)]
+- ✨ feat: abstract stream utilities to @guanghechen/helper-stream [[921396f](https://github.com/guanghechen/node-scaffolds/commit/921396fa5e922d3c308d04840cdbf5d5c5b2b700)]
+- ✅ test: fix tests [[d4d9436](https://github.com/guanghechen/node-scaffolds/commit/d4d9436862b07d972313fed06de302f56a7133ae)]
+- ✨ feat: abstract path related funcs to @guanghechen/helper-path [[7ef05a2](https://github.com/guanghechen/node-scaffolds/commit/7ef05a227fe06368936f33964208cb90fbc236ca)]
+- ✨ feat: abstract utils func to @guanghechen/helper-func [[8de8591](https://github.com/guanghechen/node-scaffolds/commit/8de8591053d2ce67f9fa5961f0b0bd3ffdfcf76b)]
+- ✨ feat: abstract type-detect utilities from @guanghechen/option-helper to @guanghechen/helper-is [[8fd92ea](https://github.com/guanghechen/node-scaffolds/commit/8fd92ea728302954617585a0ae6121181045eecf)]
+- ✨ feat: abstract string related utilities to @guanghechen/helper-string [[95069dd](https://github.com/guanghechen/node-scaffolds/commit/95069dd977f87f3849b5f551f683c9aad3d57359)]
+
+### Changed
+
+- 🔧 chore: update npm scripts [[d285087](https://github.com/guanghechen/node-scaffolds/commit/d285087000057d9dda483a8cae90c118305f12e2)]
+- 🔧 chore: update yarn.lock [[4c6e0c7](https://github.com/guanghechen/node-scaffolds/commit/4c6e0c7e54ca4782fb8debd201dc1b29d4c16ac5)]
+- 🎨 improve(rollup-config): remove unnecessary dependencies [[0858483](https://github.com/guanghechen/node-scaffolds/commit/085848353611b7603d702e0ce010069fef81548b)]
+- 🔧 chore: modify build script [[4234bc0](https://github.com/guanghechen/node-scaffolds/commit/4234bc058bd9ade25778cb43ee5db939d8e630a9)]
+- 🎨 style: tweak @guanghechen/helper-string [[ce6a36b](https://github.com/guanghechen/node-scaffolds/commit/ce6a36b4d13f7ecb876b12a9083d517cbad6f234)]
+- 🔧 chore: update .prettierrc [[727b2d8](https://github.com/guanghechen/node-scaffolds/commit/727b2d830523c101630b25d52e7ce3f68ccf864d)]
+- 👽 fix: fix invalid imports due to the breaking changes of option-helper [[a12a3d3](https://github.com/guanghechen/node-scaffolds/commit/a12a3d3b11df1fc9c3a5888357956b2680ce8c25)]
+- ⬆️ chore: upgrade dependencies [[8af8918](https://github.com/guanghechen/node-scaffolds/commit/8af89184d7cda5e90c882ffc2b8684ebacf82887)]
+
+### Breaking changes
+
+- 💥 art: refactor @guanghechen/chalk-logger [[7d8c62a](https://github.com/guanghechen/node-scaffolds/commit/7d8c62a2efe6f1c907be0a75b74913da98fac27c)]
+- 💥 rename: rename @guanghechen/jest-helper to @guanghechen/helper-jest [[8545bc2](https://github.com/guanghechen/node-scaffolds/commit/8545bc27992418b69a78106d1ba3d65c31486314)]
+- 💥 rename: rename @guanghechen/commander-helper to @guanghechen/helper-commander [[9f42244](https://github.com/guanghechen/node-scaffolds/commit/9f422444af5087d539a0f733b96bd64ad03198e7)]
+- 💥 rename: rename @guanghechen/plop-helper to @guanghechen/helper-plop [[91e0ccf](https://github.com/guanghechen/node-scaffolds/commit/91e0ccfb852204c53d257c4cf3ab3dc8ab3f1c32)]
+- 💥 refactor: move codes from @guanghechen/locate-helper to @guanghechen/helper-path [[fb284ff](https://github.com/guanghechen/node-scaffolds/commit/fb284ffe163eac0831db1f244713eb3365b3182f)]
+- 💥 rename: rename @guanghechen/npm-helper to @guanghechen/helper-npm [[f07616f](https://github.com/guanghechen/node-scaffolds/commit/f07616f05420fb9dcba87f2860e5c1a908048417)]
+- 💥 rename: rename @guanghechen/cipher-helper to @guanghechen/helper-cipher [[bdec66d](https://github.com/guanghechen/node-scaffolds/commit/bdec66d9863fd688b696b01210bbd178feb91c9f)]
+- 💥 rename: rename @guanghehcen/file-helper to @guanghechen/helper-file [[2859ff4](https://github.com/guanghechen/node-scaffolds/commit/2859ff4ebf307188d6bf59b0fcb6c1d52f785a28)]
+- 💥 refactor: refactor event-bus [[3d41ccd](https://github.com/guanghechen/node-scaffolds/commit/3d41ccdf5e1773508869f988a7e02aafb1167a4e)]
+- 💥 rename: rename @guanghechen/blob-helper to @guanghechen/helper-blob [[6e80f76](https://github.com/guanghechen/node-scaffolds/commit/6e80f76f4e19b6a3c58dae2df7cf01ab77cd4194)]
+- 💥 rename: rename @guanghechen/option-helper to @guanghechen/helper-option [[cdf9aad](https://github.com/guanghechen/node-scaffolds/commit/cdf9aad7928bd317d2d9f39c43a834409746e235)]
+- 💥 improve(chalk-logger): add  prefix for types [[f634c57](https://github.com/guanghechen/node-scaffolds/commit/f634c57f578c49144aab70835f54e4ff91ba41e3)]
+
+### Removed
+
+- 🔥 remove package @guanghechen/redux-actions [[be87176](https://github.com/guanghechen/node-scaffolds/commit/be871769c88f9511e124f6f35d94b15aae38807f)]
+
+### Miscellaneous
+
+- ⚰️ fire: remove @guanghechen/template-ts-package and @guanghechen/template-tsx-package [[a80c4c8](https://github.com/guanghechen/node-scaffolds/commit/a80c4c80fd257c4cd887e580089f9d24ec84d576)]
+- 📝 docs: update READMEs and package descriptions [[b2f693c](https://github.com/guanghechen/node-scaffolds/commit/b2f693c05831e7fa5c13c33c6294e4c22f45c1b8)]
+
+
+<a name="1.9.8"></a>
+## 1.9.8 (2022-07-27)
 
 ### Added
 
@@ -10,10 +59,11 @@
 ### Changed
 
 - 🎨 improve: refactor codes &amp; fix bugs [[c388e53](https://github.com/guanghechen/node-scaffolds/commit/c388e53b4234971fa92297fb2147815b0e7a3626)]
-- 🎨 improve: provide customized strip-ansi to avoid esm issues [[d362cd1](https://github.com/guanghechen/node-scaffolds/commit/d362cd1b47d2bb1a3fa5c359c72cc17fd97625a6)]
+- 🎨 improve: provde customized strip-ansi to avoid esm issues [[d362cd1](https://github.com/guanghechen/node-scaffolds/commit/d362cd1b47d2bb1a3fa5c359c72cc17fd97625a6)]
 
 ### Miscellaneous
 
+- 📝 docs: update CHANGELOG [[384d365](https://github.com/guanghechen/node-scaffolds/commit/384d36514e25eaed37d90317515a5f4792b10d2c)]
 - 📝 docs: update README [[0cabb7d](https://github.com/guanghechen/node-scaffolds/commit/0cabb7d95a1cc9028e2b76c59f9affab47057659)]
 - 📝 docs(README): fix invalid urls [[e03b62a](https://github.com/guanghechen/node-scaffolds/commit/e03b62a9edbb281100eb26d601c903744e273ccd)]
 - 📝 docs: update changelog [[2fded19](https://github.com/guanghechen/node-scaffolds/commit/2fded19fd56327c98218abd25a7327be707e058b)]
