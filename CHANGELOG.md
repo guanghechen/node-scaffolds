@@ -41,12 +41,8 @@
 
 ### Removed
 
+- 🔥️ remove package @guanghechen/template-ts-package and @guanghechen/template-tsx-package [[a80c4c8](https://github.com/guanghechen/node-scaffolds/commit/a80c4c80fd257c4cd887e580089f9d24ec84d576)]
 - 🔥 remove package @guanghechen/redux-actions [[be87176](https://github.com/guanghechen/node-scaffolds/commit/be871769c88f9511e124f6f35d94b15aae38807f)]
-
-### Miscellaneous
-
-- ⚰️ fire: remove @guanghechen/template-ts-package and @guanghechen/template-tsx-package [[a80c4c8](https://github.com/guanghechen/node-scaffolds/commit/a80c4c80fd257c4cd887e580089f9d24ec84d576)]
-- 📝 docs: update READMEs and package descriptions [[b2f693c](https://github.com/guanghechen/node-scaffolds/commit/b2f693c05831e7fa5c13c33c6294e4c22f45c1b8)]
 
 
 <a name="1.9.8"></a>
