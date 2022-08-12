@@ -36,7 +36,13 @@ export const isDate = (value: unknown): value is Date => {
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function isFunction(v: unknown): v is Function {
-  return Object.prototype.toString.call(v) === '[object Function]'
+  return Object.prototype.toString.call(v) === '[object Function]' || isAsyncFunction(v)
+}
+
+// Not known why typescript cannot find the `AsyncFunction` type, use Function for temporary solution.
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function isAsyncFunction(v: unknown): v is Function {
+  return Object.prototype.toString.call(v) === '[object AsyncFunction]'
 }
 
 /**

@@ -28,283 +28,283 @@ import {
 
 describe('is', function () {
   describe('isUndefined', function () {
-    test('`undefined` is undefined', () => expect(isUndefined(undefined)).toBeTruthy())
-    test('`null` is not undefined', () => expect(isUndefined(null)).toBeFalsy())
-    test('`false` is not undefined', () => expect(isUndefined(false)).toBeFalsy())
-    test('`0` is not undefined', () => expect(isUndefined(0)).toBeFalsy())
-    test('empty string is not undefined', () => expect(isUndefined('')).toBeFalsy())
-    test('empty array is not undefined', () => expect(isUndefined([])).toBeFalsy())
-    test('empty object is not undefined', () => expect(isUndefined({})).toBeFalsy())
+    test('`undefined` is undefined', () => expect(isUndefined(undefined)).toBe(true))
+    test('`null` is not undefined', () => expect(isUndefined(null)).toBe(false))
+    test('`false` is not undefined', () => expect(isUndefined(false)).toBe(false))
+    test('`0` is not undefined', () => expect(isUndefined(0)).toBe(false))
+    test('empty string is not undefined', () => expect(isUndefined('')).toBe(false))
+    test('empty array is not undefined', () => expect(isUndefined([])).toBe(false))
+    test('empty object is not undefined', () => expect(isUndefined({})).toBe(false))
   })
 
   describe('isBoolean', function () {
-    test('`false` is a boolean type', () => expect(isBoolean(false)).toBeTruthy())
-    test('`true` is a boolean type', () => expect(isBoolean(true)).toBeTruthy())
+    test('`false` is a boolean type', () => expect(isBoolean(false)).toBe(true))
+    test('`true` is a boolean type', () => expect(isBoolean(true)).toBe(true))
     test('`new Boolean(undefined)` is a boolean type', () =>
-      expect(isBoolean(new Boolean(undefined))).toBeTruthy())
+      expect(isBoolean(new Boolean(undefined))).toBe(true))
     test('`new Boolean(null)` is a boolean type', () =>
-      expect(isBoolean(new Boolean(null))).toBeTruthy())
-    test('`new Boolean(1)` is a boolean type', () => expect(isBoolean(new Boolean(1))).toBeTruthy())
-    test("`new Boolean('')` is a boolean type", () =>
-      expect(isBoolean(new Boolean(''))).toBeTruthy())
-    test('`undefined` is not a boolean type', () => expect(isBoolean(undefined)).toBeFalsy())
-    test('`null` is not a boolean type', () => expect(isBoolean(null)).toBeFalsy())
-    test('empty string is not a boolean type', () => expect(isBoolean('')).toBeFalsy())
-    test('empty array is not a boolean type', () => expect(isBoolean([])).toBeFalsy())
-    test('empty object is not a boolean type', () => expect(isBoolean({})).toBeFalsy())
+      expect(isBoolean(new Boolean(null))).toBe(true))
+    test('`new Boolean(1)` is a boolean type', () => expect(isBoolean(new Boolean(1))).toBe(true))
+    test("`new Boolean('')` is a boolean type", () => expect(isBoolean(new Boolean(''))).toBe(true))
+    test('`undefined` is not a boolean type', () => expect(isBoolean(undefined)).toBe(false))
+    test('`null` is not a boolean type', () => expect(isBoolean(null)).toBe(false))
+    test('empty string is not a boolean type', () => expect(isBoolean('')).toBe(false))
+    test('empty array is not a boolean type', () => expect(isBoolean([])).toBe(false))
+    test('empty object is not a boolean type', () => expect(isBoolean({})).toBe(false))
   })
 
   describe('isDate', function () {
-    test('Instance of Date is a date', () => expect(isDate(new Date())).toBeTruthy())
-    test('Date string is not a date', () => expect(isDate('2021-04-03T07:49:56.260Z')).toBeFalsy())
-    test('null is not a date', () => expect(isDate(null)).toBeFalsy())
-    test('undefined is not a date', () => expect(isDate(undefined)).toBeFalsy())
+    test('Instance of Date is a date', () => expect(isDate(new Date())).toBe(true))
+    test('Date string is not a date', () => expect(isDate('2021-04-03T07:49:56.260Z')).toBe(false))
+    test('null is not a date', () => expect(isDate(null)).toBe(false))
+    test('undefined is not a date', () => expect(isDate(undefined)).toBe(false))
   })
 
   describe('isNumber', function () {
-    test('`0` is a number', () => expect(isNumber(0)).toBeTruthy())
-    test('`1` is a number', () => expect(isNumber(1)).toBeTruthy())
-    test('`-1` is a number', () => expect(isNumber(-1)).toBeTruthy())
-    test('`-1.0234` is a number', () => expect(isNumber(-1.0234)).toBeTruthy())
-    test("new Number(`'1')` is a number", () => expect(isNumber(new Number('-1'))).toBeTruthy())
-    test("`'1'` is not a number", () => expect(isNumber('1')).toBeFalsy())
-    test('`undefined` is not a number', () => expect(isNumber(undefined)).toBeFalsy())
-    test('`null` is not a number', () => expect(isNumber(null)).toBeFalsy())
-    test('empty string is not a number', () => expect(isNumber('')).toBeFalsy())
-    test('empty array is not a number', () => expect(isNumber([])).toBeFalsy())
-    test('empty object is not a number', () => expect(isNumber({})).toBeFalsy())
-    test('bigint is not a number', () => expect(isNumber(BigInt(233))).toBeFalsy())
+    test('`0` is a number', () => expect(isNumber(0)).toBe(true))
+    test('`1` is a number', () => expect(isNumber(1)).toBe(true))
+    test('`-1` is a number', () => expect(isNumber(-1)).toBe(true))
+    test('`-1.0234` is a number', () => expect(isNumber(-1.0234)).toBe(true))
+    test("new Number(`'1')` is a number", () => expect(isNumber(new Number('-1'))).toBe(true))
+    test("`'1'` is not a number", () => expect(isNumber('1')).toBe(false))
+    test('`undefined` is not a number', () => expect(isNumber(undefined)).toBe(false))
+    test('`null` is not a number', () => expect(isNumber(null)).toBe(false))
+    test('empty string is not a number', () => expect(isNumber('')).toBe(false))
+    test('empty array is not a number', () => expect(isNumber([])).toBe(false))
+    test('empty object is not a number', () => expect(isNumber({})).toBe(false))
+    test('bigint is not a number', () => expect(isNumber(BigInt(233))).toBe(false))
   })
 
   describe('isString', function () {
-    test("`'x'` is a string", () => expect(isString('x')).toBeTruthy())
-    test('`new String(1)` is a string', () => expect(isString(new String(1))).toBeTruthy())
-    test('`undefined` is not a string', () => expect(isString(undefined)).toBeFalsy())
-    test('`null` is not a string', () => expect(isString(null)).toBeFalsy())
-    test('empty string is a string', () => expect(isString('')).toBeTruthy())
-    test('empty array is not a string', () => expect(isString([])).toBeFalsy())
-    test('empty object is not a string', () => expect(isString({})).toBeFalsy())
+    test("`'x'` is a string", () => expect(isString('x')).toBe(true))
+    test('`new String(1)` is a string', () => expect(isString(new String(1))).toBe(true))
+    test('`undefined` is not a string', () => expect(isString(undefined)).toBe(false))
+    test('`null` is not a string', () => expect(isString(null)).toBe(false))
+    test('empty string is a string', () => expect(isString('')).toBe(true))
+    test('empty array is not a string', () => expect(isString([])).toBe(false))
+    test('empty object is not a string', () => expect(isString({})).toBe(false))
   })
 
   describe('isBigint', function () {
-    test('`BigInt(0)` is a bigint', () => expect(isBigint(BigInt(0))).toBeTruthy())
-    test('`0` is not a bigint', () => expect(isBigint(0)).toBeFalsy())
-    test('`undefined` is not a bigint', () => expect(isBigint(undefined)).toBeFalsy())
-    test('`null` is not a bigint', () => expect(isBigint(null)).toBeFalsy())
-    test('empty string is not a bigint', () => expect(isBigint('')).toBeFalsy())
-    test('empty array is not a bigint', () => expect(isBigint([])).toBeFalsy())
-    test('empty object is not a bigint', () => expect(isBigint({})).toBeFalsy())
+    test('`BigInt(0)` is a bigint', () => expect(isBigint(BigInt(0))).toBe(true))
+    test('`0` is not a bigint', () => expect(isBigint(0)).toBe(false))
+    test('`undefined` is not a bigint', () => expect(isBigint(undefined)).toBe(false))
+    test('`null` is not a bigint', () => expect(isBigint(null)).toBe(false))
+    test('empty string is not a bigint', () => expect(isBigint('')).toBe(false))
+    test('empty array is not a bigint', () => expect(isBigint([])).toBe(false))
+    test('empty object is not a bigint', () => expect(isBigint({})).toBe(false))
   })
 
   describe('isSymbol', function () {
-    test("`Symbol('x')` is a symbol", () => expect(isSymbol(Symbol('x'))).toBeTruthy())
-    test("`Symbol.for('x')` is a symbol", () => expect(isSymbol(Symbol.for('x'))).toBeTruthy())
-    test('`undefined` is not a symbol', () => expect(isSymbol(undefined)).toBeFalsy())
-    test('`null` is not a symbol', () => expect(isSymbol(null)).toBeFalsy())
-    test('literal string is not a symbol', () => expect(isSymbol('x')).toBeFalsy())
-    test('empty array is not a symbol', () => expect(isSymbol([])).toBeFalsy())
-    test('empty object is not a symbol', () => expect(isSymbol({})).toBeFalsy())
+    test("`Symbol('x')` is a symbol", () => expect(isSymbol(Symbol('x'))).toBe(true))
+    test("`Symbol.for('x')` is a symbol", () => expect(isSymbol(Symbol.for('x'))).toBe(true))
+    test('`undefined` is not a symbol', () => expect(isSymbol(undefined)).toBe(false))
+    test('`null` is not a symbol', () => expect(isSymbol(null)).toBe(false))
+    test('literal string is not a symbol', () => expect(isSymbol('x')).toBe(false))
+    test('empty array is not a symbol', () => expect(isSymbol([])).toBe(false))
+    test('empty object is not a symbol', () => expect(isSymbol({})).toBe(false))
   })
 
   describe('isInteger', function () {
-    test('`-1` is a integer', () => expect(isInteger(-1)).toBeTruthy())
-    test("new Number(`'1')` is a integer", () => expect(isInteger(new Number('-1'))).toBeTruthy())
-    test('`1.000` is not a integer', () => expect(isInteger(1.0)).toBeTruthy())
-    test('`1.002` is not a integer', () => expect(isInteger(1.002)).toBeFalsy())
-    test('`undefined` is not a integer', () => expect(isInteger(undefined)).toBeFalsy())
-    test('`null` is not a integer', () => expect(isInteger(null)).toBeFalsy())
-    test('literal string is not a integer', () => expect(isInteger('x')).toBeFalsy())
-    test('empty array is not a integer', () => expect(isInteger([])).toBeFalsy())
-    test('empty object is not a integer', () => expect(isInteger({})).toBeFalsy())
-    test('bigint is not a integer', () => expect(isInteger(BigInt(1))).toBeFalsy())
+    test('`-1` is a integer', () => expect(isInteger(-1)).toBe(true))
+    test("new Number(`'1')` is a integer", () => expect(isInteger(new Number('-1'))).toBe(true))
+    test('`1.000` is not a integer', () => expect(isInteger(1.0)).toBe(true))
+    test('`1.002` is not a integer', () => expect(isInteger(1.002)).toBe(false))
+    test('`undefined` is not a integer', () => expect(isInteger(undefined)).toBe(false))
+    test('`null` is not a integer', () => expect(isInteger(null)).toBe(false))
+    test('literal string is not a integer', () => expect(isInteger('x')).toBe(false))
+    test('empty array is not a integer', () => expect(isInteger([])).toBe(false))
+    test('empty object is not a integer', () => expect(isInteger({})).toBe(false))
+    test('bigint is not a integer', () => expect(isInteger(BigInt(1))).toBe(false))
   })
 
   describe('isArray', function () {
-    test('`new Array(3)` is an array', () => expect(isArray(new Array(3))).toBeTruthy())
-    test("`[1, 2, 'x']` is an array", () => expect(isArray([1, 2, 'x'])).toBeTruthy())
-    test('`undefined` is not an array', () => expect(isArray(undefined)).toBeFalsy())
-    test('`null` is not an array', () => expect(isArray(null)).toBeFalsy())
-    test('string is not an array', () => expect(isArray('x')).toBeFalsy())
-    test('empty object is not an array', () => expect(isArray({})).toBeFalsy())
-    test('empty array is an array', () => expect(isArray([])).toBeTruthy())
-    test('array like object is not an array', () => expect(isArray({ 1: 'waw' })).toBeFalsy())
+    test('`new Array(3)` is an array', () => expect(isArray(new Array(3))).toBe(true))
+    test("`[1, 2, 'x']` is an array", () => expect(isArray([1, 2, 'x'])).toBe(true))
+    test('`undefined` is not an array', () => expect(isArray(undefined)).toBe(false))
+    test('`null` is not an array', () => expect(isArray(null)).toBe(false))
+    test('string is not an array', () => expect(isArray('x')).toBe(false))
+    test('empty object is not an array', () => expect(isArray({})).toBe(false))
+    test('empty array is an array', () => expect(isArray([])).toBe(true))
+    test('array like object is not an array', () => expect(isArray({ 1: 'waw' })).toBe(false))
   })
 
   describe('isObject', function () {
-    test('`new Object()` is an object', () => expect(isObject(new Object())).toBeTruthy())
-    test('array like object is an object', () => expect(isObject({ 1: 'waw' })).toBeTruthy())
-    test('empty object is an object', () => expect(isObject({})).toBeTruthy())
+    test('`new Object()` is an object', () => expect(isObject(new Object())).toBe(true))
+    test('array like object is an object', () => expect(isObject({ 1: 'waw' })).toBe(true))
+    test('empty object is an object', () => expect(isObject({})).toBe(true))
     test('function is not an object', () =>
-      expect(isObject(new Function("console.log('waw')"))).toBeFalsy())
-    test('`undefined` is not an object', () => expect(isObject(undefined)).toBeFalsy())
-    test('`null` is not an object', () => expect(isObject(null)).toBeFalsy())
+      expect(isObject(new Function("console.log('waw')"))).toBe(false))
+    test('`undefined` is not an object', () => expect(isObject(undefined)).toBe(false))
+    test('`null` is not an object', () => expect(isObject(null)).toBe(false))
   })
 
   describe('isFunction', function () {
-    test('lambda expressions is a function', () => expect(isFunction(() => {})).toBeTruthy())
-    test('anonymous function is a function', () => expect(isFunction(() => {})).toBeTruthy())
+    test('lambda expressions is a function', () => expect(isFunction(() => {})).toBe(true))
+    test('anonymous function is a function', () => expect(isFunction(() => {})).toBe(true))
     test('instance of Function is a function', () =>
-      expect(isFunction(new Function("console.log('waw')"))).toBeTruthy())
-    test('empty object is not a function', () => expect(isFunction({})).toBeFalsy())
+      expect(isFunction(new Function("console.log('waw')"))).toBe(true))
+    test('async function', () => expect(isFunction(async function () {})).toBe(true))
+    test('anonymous async function', () => expect(isFunction(async () => {})).toBe(true))
+    test('empty object is not a function', () => expect(isFunction({})).toBe(false))
     test('function string is not a function', () =>
-      expect(isFunction("function f () {console.log('waw')}")).toBeFalsy())
-    test('`undefined` is not a function', () => expect(isFunction(undefined)).toBeFalsy())
-    test('`null` is not a function', () => expect(isFunction(null)).toBeFalsy())
+      expect(isFunction("function f () {console.log('waw')}")).toBe(false))
+    test('`undefined` is not a function', () => expect(isFunction(undefined)).toBe(false))
+    test('`null` is not a function', () => expect(isFunction(null)).toBe(false))
   })
 
   describe('isPrimitiveBoolean', function () {
-    test('`false` is a primitive boolean', () => expect(isPrimitiveBoolean(false)).toBeTruthy())
-    test('`true` is a primitive boolean', () => expect(isPrimitiveBoolean(true)).toBeTruthy())
+    test('`false` is a primitive boolean', () => expect(isPrimitiveBoolean(false)).toBe(true))
+    test('`true` is a primitive boolean', () => expect(isPrimitiveBoolean(true)).toBe(true))
     test('`new Boolean(false)` is not a primitive boolean type', () =>
-      expect(isPrimitiveBoolean(new Boolean(false))).toBeFalsy())
+      expect(isPrimitiveBoolean(new Boolean(false))).toBe(false))
     test('`new Boolean(true)` is not a primitive boolean type', () =>
-      expect(isPrimitiveBoolean(new Boolean(true))).toBeFalsy())
+      expect(isPrimitiveBoolean(new Boolean(true))).toBe(false))
     test('`undefined` is not a primitive boolean', () =>
-      expect(isPrimitiveBoolean(undefined)).toBeFalsy())
-    test('`null` is not a primitive boolean', () => expect(isPrimitiveBoolean(null)).toBeFalsy())
+      expect(isPrimitiveBoolean(undefined)).toBe(false))
+    test('`null` is not a primitive boolean', () => expect(isPrimitiveBoolean(null)).toBe(false))
   })
 
   describe('isPrimitiveNumber', function () {
-    test('`0` is a primitive number', () => expect(isPrimitiveNumber(0)).toBeTruthy())
-    test('`1` is a primitive number', () => expect(isPrimitiveNumber(1)).toBeTruthy())
-    test('`-1` is a primitive number', () => expect(isPrimitiveNumber(-1)).toBeTruthy())
-    test('`-1.0234` is a primitive number', () => expect(isPrimitiveNumber(-1.0234)).toBeTruthy())
+    test('`0` is a primitive number', () => expect(isPrimitiveNumber(0)).toBe(true))
+    test('`1` is a primitive number', () => expect(isPrimitiveNumber(1)).toBe(true))
+    test('`-1` is a primitive number', () => expect(isPrimitiveNumber(-1)).toBe(true))
+    test('`-1.0234` is a primitive number', () => expect(isPrimitiveNumber(-1.0234)).toBe(true))
     test("new Number(`'1')` is not a primitive number", () =>
-      expect(isPrimitiveNumber(new Number('-1'))).toBeFalsy())
-    test("`'1'` is not a primitive number", () => expect(isPrimitiveNumber('1')).toBeFalsy())
+      expect(isPrimitiveNumber(new Number('-1'))).toBe(false))
+    test("`'1'` is not a primitive number", () => expect(isPrimitiveNumber('1')).toBe(false))
     test('`undefined` is not a primitive number', () =>
-      expect(isPrimitiveNumber(undefined)).toBeFalsy())
-    test('`null` is not a primitive number', () => expect(isPrimitiveNumber(null)).toBeFalsy())
-    test('empty string is not a primitive number', () => expect(isPrimitiveNumber('')).toBeFalsy())
-    test('empty array is not a primitive number', () => expect(isPrimitiveNumber([])).toBeFalsy())
-    test('empty object is not a primitive number', () => expect(isPrimitiveNumber({})).toBeFalsy())
+      expect(isPrimitiveNumber(undefined)).toBe(false))
+    test('`null` is not a primitive number', () => expect(isPrimitiveNumber(null)).toBe(false))
+    test('empty string is not a primitive number', () => expect(isPrimitiveNumber('')).toBe(false))
+    test('empty array is not a primitive number', () => expect(isPrimitiveNumber([])).toBe(false))
+    test('empty object is not a primitive number', () => expect(isPrimitiveNumber({})).toBe(false))
     test('bigint is not a primitive number', () =>
-      expect(isPrimitiveNumber(BigInt(233))).toBeFalsy())
+      expect(isPrimitiveNumber(BigInt(233))).toBe(false))
   })
 
   describe('isPrimitiveInteger', function () {
-    test('`-1` is a primitive integer', () => expect(isPrimitiveInteger(-1)).toBeTruthy())
+    test('`-1` is a primitive integer', () => expect(isPrimitiveInteger(-1)).toBe(true))
     test('new Number(`1`) is not a primitive integer', () =>
-      expect(isPrimitiveInteger(new Number(1))).toBeFalsy())
-    test('`1.000` is not a primitive integer', () => expect(isPrimitiveInteger(1.0)).toBeTruthy())
-    test('`1.002` is not a primitive integer', () => expect(isPrimitiveInteger(1.002)).toBeFalsy())
+      expect(isPrimitiveInteger(new Number(1))).toBe(false))
+    test('`1.000` is not a primitive integer', () => expect(isPrimitiveInteger(1.0)).toBe(true))
+    test('`1.002` is not a primitive integer', () => expect(isPrimitiveInteger(1.002)).toBe(false))
     test('`undefined` is not a primitive integer', () =>
-      expect(isPrimitiveInteger(undefined)).toBeFalsy())
-    test('`null` is not a primitive integer', () => expect(isPrimitiveInteger(null)).toBeFalsy())
+      expect(isPrimitiveInteger(undefined)).toBe(false))
+    test('`null` is not a primitive integer', () => expect(isPrimitiveInteger(null)).toBe(false))
     test('literal string is not a primitive integer', () =>
-      expect(isPrimitiveInteger('x')).toBeFalsy())
-    test('empty array is not a primitive integer', () => expect(isPrimitiveInteger([])).toBeFalsy())
+      expect(isPrimitiveInteger('x')).toBe(false))
+    test('empty array is not a primitive integer', () => expect(isPrimitiveInteger([])).toBe(false))
     test('empty object is not a primitive integer', () =>
-      expect(isPrimitiveInteger({})).toBeFalsy())
+      expect(isPrimitiveInteger({})).toBe(false))
     test('bigint is not a primitive integer', () =>
-      expect(isPrimitiveInteger(BigInt(1))).toBeFalsy())
+      expect(isPrimitiveInteger(BigInt(1))).toBe(false))
   })
 
   describe('isPrimitiveString', function () {
-    test("`'x'` is a primitive string", () => expect(isPrimitiveString('x')).toBeTruthy())
+    test("`'x'` is a primitive string", () => expect(isPrimitiveString('x')).toBe(true))
     test("`new String('x')` is not a primitive string", () =>
-      expect(isPrimitiveString(new String('x'))).toBeFalsy())
+      expect(isPrimitiveString(new String('x'))).toBe(false))
     test('`undefined` is not a primitive string', () =>
-      expect(isPrimitiveString(undefined)).toBeFalsy())
-    test('`null` is not a primitive string', () => expect(isPrimitiveString(null)).toBeFalsy())
+      expect(isPrimitiveString(undefined)).toBe(false))
+    test('`null` is not a primitive string', () => expect(isPrimitiveString(null)).toBe(false))
     test('primitive empty string is a primitive string', () =>
-      expect(isPrimitiveString('')).toBeTruthy())
-    test('empty array is not a primitive string', () => expect(isPrimitiveString([])).toBeFalsy())
-    test('empty object is not a primitive string', () => expect(isPrimitiveString({})).toBeFalsy())
+      expect(isPrimitiveString('')).toBe(true))
+    test('empty array is not a primitive string', () => expect(isPrimitiveString([])).toBe(false))
+    test('empty object is not a primitive string', () => expect(isPrimitiveString({})).toBe(false))
   })
 
   describe('isNotEmptyString', function () {
-    test("`'x'` is a non-empty string", () => expect(isNonBlankString('x')).toBeTruthy())
-    test("`''` is not a non-empty string", () => expect(isNonBlankString('')).toBeFalsy())
+    test("`'x'` is a non-empty string", () => expect(isNonBlankString('x')).toBe(true))
+    test("`''` is not a non-empty string", () => expect(isNonBlankString('')).toBe(false))
     test("`new String('x')` is a non-empty string", () =>
-      expect(isNonBlankString(new String('x'))).toBeTruthy())
+      expect(isNonBlankString(new String('x'))).toBe(true))
     test('`undefined` is not a non-empty string', () =>
-      expect(isNonBlankString(undefined)).toBeFalsy())
-    test('`null` is not a non-empty string', () => expect(isNonBlankString(null)).toBeFalsy())
-    test('empty string is not a non-empty string', () => expect(isNonBlankString('')).toBeFalsy())
-    test('empty array is not a non-empty string', () => expect(isNonBlankString([])).toBeFalsy())
-    test('empty object is not a non-empty string', () => expect(isNonBlankString({})).toBeFalsy())
+      expect(isNonBlankString(undefined)).toBe(false))
+    test('`null` is not a non-empty string', () => expect(isNonBlankString(null)).toBe(false))
+    test('empty string is not a non-empty string', () => expect(isNonBlankString('')).toBe(false))
+    test('empty array is not a non-empty string', () => expect(isNonBlankString([])).toBe(false))
+    test('empty object is not a non-empty string', () => expect(isNonBlankString({})).toBe(false))
   })
 
   describe('isNotEmptyArray', function () {
     test('`new Array(3)` is a non-empty array', () =>
-      expect(isNotEmptyArray(new Array(3))).toBeTruthy())
+      expect(isNotEmptyArray(new Array(3))).toBe(true))
     test("`[1, 2, 'x']` is a non-empty array", () =>
-      expect(isNotEmptyArray([1, 2, 'x'])).toBeTruthy())
+      expect(isNotEmptyArray([1, 2, 'x'])).toBe(true))
     test('`undefined` is not a non-empty array', () =>
-      expect(isNotEmptyArray(undefined)).toBeFalsy())
-    test('`null` is not a non-empty array', () => expect(isNotEmptyArray(null)).toBeFalsy())
-    test('string is not a non-empty array', () => expect(isNotEmptyArray('x')).toBeFalsy())
-    test('empty object is not a non-empty array', () => expect(isNotEmptyArray({})).toBeFalsy())
-    test('empty array is not a non-empty array', () => expect(isNotEmptyArray([])).toBeFalsy())
+      expect(isNotEmptyArray(undefined)).toBe(false))
+    test('`null` is not a non-empty array', () => expect(isNotEmptyArray(null)).toBe(false))
+    test('string is not a non-empty array', () => expect(isNotEmptyArray('x')).toBe(false))
+    test('empty object is not a non-empty array', () => expect(isNotEmptyArray({})).toBe(false))
+    test('empty array is not a non-empty array', () => expect(isNotEmptyArray([])).toBe(false))
     test('non-empty array like object is not a non-empty array', () =>
-      expect(isNotEmptyArray({ 1: 'waw' })).toBeFalsy())
+      expect(isNotEmptyArray({ 1: 'waw' })).toBe(false))
   })
 
   describe('isEmptyObject', function () {
-    test('`new Object()` is an empty object', () =>
-      expect(isEmptyObject(new Object())).toBeTruthy())
+    test('`new Object()` is an empty object', () => expect(isEmptyObject(new Object())).toBe(true))
     test('`new Object({ x: 1 })` is not an empty object', () =>
-      expect(isEmptyObject(new Object({ x: 1 }))).toBeFalsy())
-    test('empty object is an empty object', () => expect(isEmptyObject({})).toBeTruthy())
+      expect(isEmptyObject(new Object({ x: 1 }))).toBe(false))
+    test('empty object is an empty object', () => expect(isEmptyObject({})).toBe(true))
     test('function is not an empty object', () =>
-      expect(isEmptyObject(new Function("console.log('waw')"))).toBeFalsy())
-    test('`undefined` is not an empty object', () => expect(isEmptyObject(undefined)).toBeFalsy())
-    test('`null` is not an empty object', () => expect(isEmptyObject(null)).toBeFalsy())
+      expect(isEmptyObject(new Function("console.log('waw')"))).toBe(false))
+    test('`undefined` is not an empty object', () => expect(isEmptyObject(undefined)).toBe(false))
+    test('`null` is not an empty object', () => expect(isEmptyObject(null)).toBe(false))
   })
 
   describe('isNotEmptyObject', function () {
     test('`new Object()` is a non-empty object', () =>
-      expect(isNotEmptyObject(new Object())).toBeFalsy())
+      expect(isNotEmptyObject(new Object())).toBe(false))
     test('`new Object({ x: 1 })` is a non-empty object', () =>
-      expect(isNotEmptyObject(new Object({ x: 1 }))).toBeTruthy())
+      expect(isNotEmptyObject(new Object({ x: 1 }))).toBe(true))
     test('array like object is a non-empty object', () =>
-      expect(isNotEmptyObject({ 1: 'waw' })).toBeTruthy())
-    test('empty object is not a non-empty object', () => expect(isNotEmptyObject({})).toBeFalsy())
+      expect(isNotEmptyObject({ 1: 'waw' })).toBe(true))
+    test('empty object is not a non-empty object', () => expect(isNotEmptyObject({})).toBe(false))
     test('function is not a non-empty object', () =>
-      expect(isNotEmptyObject(new Function("console.log('waw')"))).toBeFalsy())
+      expect(isNotEmptyObject(new Function("console.log('waw')"))).toBe(false))
     test('`undefined` is not a non-empty object', () =>
-      expect(isNotEmptyObject(undefined)).toBeFalsy())
-    test('`null` is not a non-empty object', () => expect(isNotEmptyObject(null)).toBeFalsy())
+      expect(isNotEmptyObject(undefined)).toBe(false))
+    test('`null` is not a non-empty object', () => expect(isNotEmptyObject(null)).toBe(false))
   })
 
   describe('isNumberLike', function () {
-    test('`0` is a number like', () => expect(isNumberLike(0)).toBeTruthy())
-    test('`1` is a number like', () => expect(isNumberLike(1)).toBeTruthy())
-    test('`-1` is a number like', () => expect(isNumberLike(-1)).toBeTruthy())
-    test('`-1.0234` is a number like', () => expect(isNumberLike(-1.0234)).toBeTruthy())
+    test('`0` is a number like', () => expect(isNumberLike(0)).toBe(true))
+    test('`1` is a number like', () => expect(isNumberLike(1)).toBe(true))
+    test('`-1` is a number like', () => expect(isNumberLike(-1)).toBe(true))
+    test('`-1.0234` is a number like', () => expect(isNumberLike(-1.0234)).toBe(true))
     test("new Number(`'1')` is a number like", () =>
-      expect(isNumberLike(new Number('-1'))).toBeTruthy())
-    test("`'1'` is a number like", () => expect(isNumberLike('1')).toBeTruthy())
-    test("`'1x'` is a number like", () => expect(isNumberLike('1x')).toBeFalsy())
-    test('`undefined` is not a number like', () => expect(isNumberLike(undefined)).toBeFalsy())
-    test('`null` is not a number like', () => expect(isNumberLike(null)).toBeFalsy())
-    test('empty string is not a number like', () => expect(isNumberLike('')).toBeFalsy())
-    test('empty array is not a number like', () => expect(isNumberLike([])).toBeFalsy())
-    test('empty object is not a number like', () => expect(isNumberLike({})).toBeFalsy())
-    test('bigint is not a number like', () => expect(isNumberLike(BigInt(233))).toBeFalsy())
+      expect(isNumberLike(new Number('-1'))).toBe(true))
+    test("`'1'` is a number like", () => expect(isNumberLike('1')).toBe(true))
+    test("`'1x'` is a number like", () => expect(isNumberLike('1x')).toBe(false))
+    test('`undefined` is not a number like', () => expect(isNumberLike(undefined)).toBe(false))
+    test('`null` is not a number like', () => expect(isNumberLike(null)).toBe(false))
+    test('empty string is not a number like', () => expect(isNumberLike('')).toBe(false))
+    test('empty array is not a number like', () => expect(isNumberLike([])).toBe(false))
+    test('empty object is not a number like', () => expect(isNumberLike({})).toBe(false))
+    test('bigint is not a number like', () => expect(isNumberLike(BigInt(233))).toBe(false))
   })
 
   describe('isArrayOfT', function () {
-    test('string[], isString', () => expect(isArrayOfT(['a', 'b'], isString)).toBeTruthy())
-    test('string[], isNumber', () => expect(isArrayOfT(['a', 'b'], isNumber)).toBeFalsy())
+    test('string[], isString', () => expect(isArrayOfT(['a', 'b'], isString)).toBe(true))
+    test('string[], isNumber', () => expect(isArrayOfT(['a', 'b'], isNumber)).toBe(false))
     test('(string|number)[], isString', () =>
-      expect(isArrayOfT(['a', 'b', 2], isString)).toBeFalsy())
+      expect(isArrayOfT(['a', 'b', 2], isString)).toBe(false))
     test('(string|null)[], isString', () =>
-      expect(isArrayOfT(['a', 'b', null], isString)).toBeFalsy())
+      expect(isArrayOfT(['a', 'b', null], isString)).toBe(false))
     test('(string|undefined)[], isString', () =>
-      expect(isArrayOfT(['a', 'b', undefined], isString)).toBeFalsy())
-    test('string, isString', () => expect(isArrayOfT('a', isString)).toBeFalsy())
-    test('number, isString', () => expect(isArrayOfT(1, isString)).toBeFalsy())
-    test('null, isString', () => expect(isArrayOfT(null, isString)).toBeFalsy())
-    test('undefined, isString', () => expect(isArrayOfT(undefined, isString)).toBeFalsy())
+      expect(isArrayOfT(['a', 'b', undefined], isString)).toBe(false))
+    test('string, isString', () => expect(isArrayOfT('a', isString)).toBe(false))
+    test('number, isString', () => expect(isArrayOfT(1, isString)).toBe(false))
+    test('null, isString', () => expect(isArrayOfT(null, isString)).toBe(false))
+    test('undefined, isString', () => expect(isArrayOfT(undefined, isString)).toBe(false))
   })
 
   describe('isTwoDimensionArrayOfT', function () {
     test('string[][], isString', () =>
-      expect(isTwoDimensionArrayOfT([['a', 'b'], ['b']], isString)).toBeTruthy())
+      expect(isTwoDimensionArrayOfT([['a', 'b'], ['b']], isString)).toBe(true))
     test('string[], isString', () =>
-      expect(isTwoDimensionArrayOfT(['a', 'b'], isString)).toBeFalsy())
+      expect(isTwoDimensionArrayOfT(['a', 'b'], isString)).toBe(false))
     test('(string|null)[][], isString', () =>
       expect(
         isTwoDimensionArrayOfT(
@@ -314,11 +314,11 @@ describe('is', function () {
           ],
           isString,
         ),
-      ).toBeFalsy())
+      ).toBe(false))
     test('(string|undefined)[][], isString', () =>
-      expect(isTwoDimensionArrayOfT([['a', 'b', undefined, 'c'], ['b']], isString)).toBeFalsy())
+      expect(isTwoDimensionArrayOfT([['a', 'b', undefined, 'c'], ['b']], isString)).toBe(false))
     test('(string[]|unknown)[], isString', () =>
-      expect(isTwoDimensionArrayOfT([['a', 'b'], ['b'], 'c'], isString)).toBeFalsy())
-    test('string, isString', () => expect(isTwoDimensionArrayOfT('c', isString)).toBeFalsy())
+      expect(isTwoDimensionArrayOfT([['a', 'b'], ['b'], 'c'], isString)).toBe(false))
+    test('string, isString', () => expect(isTwoDimensionArrayOfT('c', isString)).toBe(false))
   })
 })
