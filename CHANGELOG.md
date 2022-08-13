@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="2.0.0-alpha.1"></a>
+## 2.0.0-alpha.1 (2022-08-13)
+
+### Fixed
+
+- 🐛 fix(helper-is): AsyncFunction is also regarded as Function type [[24535e5](https://github.com/guanghechen/node-scaffolds/commit/24535e598f1687207a184ccdd476e1e75f8c329a)]
+
+
 <a name="2.0.0-alpha.0"></a>
 ## 2.0.0-alpha.0 (2022-08-05)
 
