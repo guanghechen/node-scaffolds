@@ -168,7 +168,6 @@ exports[`runPlop simple: tsconfig.src.json 1`] = `
 "{
   \\"extends\\": \\"./tsconfig.settings\\",
   \\"compilerOptions\\": {
-    \\"declarationDir\\": \\"lib/types\\",
     \\"rootDir\\": \\"src\\"
   },
   \\"include\\": [\\"src\\"]

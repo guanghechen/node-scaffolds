@@ -111,8 +111,8 @@ Rollup configs for bundle typescript project.
 
   ```json
   "scripts" {
-    "prebuild": "rimraf lib/ && tsc -p tsconfig.src.json --emitDeclarationOnly",
     "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
+    "prebuild": "rimraf lib/",
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
   }
   ```
@@ -148,6 +148,7 @@ Extended from rollup.InputOptions.
    `source`               | `string`                            | `true`    | Source entry file
    `main`                 | `string`                            | `false`   | Target entry file for cjs bundles
    `module`               | `string`                            | `false`   | Target entry file for es bundles
+   `types`                | `string`                            | `false`   | Target entry file for ts types
    `dependencies`         | `Record<string, string> | string[]` | `false`   | Dependency list
    `peerDependencies`     | `Record<string, string> | string[]` | `false`   | Peer dependency list
    `optionalDependencies` | `Record<string, string> | string[]` | `false`   | Optional dependency list
