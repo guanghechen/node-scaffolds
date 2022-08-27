@@ -19,7 +19,7 @@ export function coverBoolean(defaultValue: boolean, value?: unknown): boolean {
 
 /**
  * Convert a given value to boolean type.
- * @param value
+ * @param v
  */
 export function convertToBoolean(v?: unknown): boolean | null {
   if (v == null) return null

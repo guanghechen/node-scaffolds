@@ -62,6 +62,10 @@ export interface IRollupManifestOptions {
    */
   module?: string
   /**
+   * Target entry file for types.
+   */
+  types?: string
+  /**
    * Dependency list.
    */
   dependencies?: Record<string, string> | string[]

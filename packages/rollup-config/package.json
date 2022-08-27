@@ -35,7 +35,8 @@
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c ./rollup.config.js",
-    "prebuild": "rimraf lib/ && tsc -p tsconfig.src.json --emitDeclarationOnly",
+    "postbuild": "rimraf lib/types_tmp",
+    "prebuild": "rimraf lib/",
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
@@ -44,6 +45,7 @@
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "13.3.0",
     "@rollup/plugin-typescript": "8.4.0",
+    "rollup-plugin-dts": "^4.2.2",
     "tslib": "^2.4.0"
   },
   "peerDependencies": {

@@ -12,11 +12,9 @@ tsnode.register({
 
 const { createRollupConfig } = require('./src/index.ts')
 
-const config = createRollupConfig({
+export default createRollupConfig({
   manifest,
   pluginOptions: {
     typescriptOptions: { tsconfig: 'tsconfig.src.json' },
   },
 })
-
-export default config
