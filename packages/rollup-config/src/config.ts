@@ -122,7 +122,10 @@ export function createRollupConfig(options: IRollupConfigOptions): RollupOptions
             format: 'es',
           },
         ],
-        external,
+        external: (id: string) => {
+          if (id === manifest.name + '/package.json') return true
+          return external(id)
+        },
         plugins: [
           dts({
             compilerOptions: {

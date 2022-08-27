@@ -50,6 +50,10 @@ export interface IRollupConfigOptions extends IRawRollupConfigEnvs {
  */
 export interface IRollupManifestOptions {
   /**
+   * Package name.
+   */
+  name: string
+  /**
    * Source entry file.
    */
   source: string

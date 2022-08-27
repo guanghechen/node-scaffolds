@@ -11,6 +11,7 @@ async function build(dependencies: string[]): Promise<RollupOutput[]> {
   // Create rollup config
   const configs = createRollupConfig({
     manifest: {
+      name: '@guanghechen/rollup-config',
       source: 'src/index.ts',
       main: 'lib/cjs/index.js',
       module: 'lib/esm/index.js',
