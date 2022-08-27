@@ -3,11 +3,13 @@ import type { RollupJsonOptions as JsonOptions } from '@rollup/plugin-json'
 import type { RollupNodeResolveOptions as NodeResolveOptions } from '@rollup/plugin-node-resolve'
 import type { RollupTypescriptOptions as TypescriptOptions } from '@rollup/plugin-typescript'
 import type rollup from 'rollup'
+import type { Options as RollupDtsOptions } from 'rollup-plugin-dts'
 
 export type { RollupTypescriptOptions as TypescriptOptions } from '@rollup/plugin-typescript'
 export type { RollupCommonJSOptions as CommonJSOptions } from '@rollup/plugin-commonjs'
 export type { RollupJsonOptions as JsonOptions } from '@rollup/plugin-json'
 export type { RollupNodeResolveOptions as NodeResolveOptions } from '@rollup/plugin-node-resolve'
+export type { Options as RollupDtsOptions } from 'rollup-plugin-dts'
 
 /**
  * Environment variables.
@@ -100,7 +102,11 @@ export interface IRollupPluginOptions {
    */
   nodeResolveOptions?: NodeResolveOptions
   /**
-   * options for rollup-plugin-typescript2
+   * options for @rollup/plugin-typescript
    */
   typescriptOptions?: TypescriptOptions
+  /**
+   * Options for rollup-plugin-dts
+   */
+  dtsOptions?: RollupDtsOptions
 }

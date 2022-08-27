@@ -42,7 +42,8 @@ export function createRollupConfig(options: IRollupConfigOptions): RollupOptions
 
   const { manifest, pluginOptions = {}, additionalPlugins = [] } = options
 
-  const { commonjsOptions, jsonOptions, nodeResolveOptions, typescriptOptions } = pluginOptions
+  const { commonjsOptions, jsonOptions, nodeResolveOptions, typescriptOptions, dtsOptions } =
+    pluginOptions
 
   const dependencyFields = getDefaultDependencyFields()
   let dependencies: string[] = dependencyFields.reduce((acc, key) => {
@@ -128,13 +129,14 @@ export function createRollupConfig(options: IRollupConfigOptions): RollupOptions
         },
         plugins: [
           dts({
+            ...dtsOptions,
             compilerOptions: {
               removeComments: false,
               sourceMap: env.shouldSourceMap,
-              ...(typescriptOptions?.compilerOptions as ts.CompilerOptions),
               declaration: true,
               declarationMap: false,
               emitDeclarationOnly: true,
+              ...dtsOptions?.compilerOptions,
             },
           }),
         ],

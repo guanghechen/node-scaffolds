@@ -162,12 +162,14 @@ Extended from rollup.InputOptions.
    `jsonOptions`        | `object`  | `false`   | Options for [@rollup/plugin-json][]
    `nodeResolveOptions` | `object`  | `false`   | Options for [@rollup/plugin-node-resolve][]
    `typescriptOptions`  | `object`  | `false`   | Options for [@rollup/plugin-typescript][]
+   `dtsOptions`         | `object`  | `false`   | Options for [rollup-plugin-dts][]
 
 
 [@rollup/plugin-commonjs]: https://github.com/rollup/plugins/tree/master/packages/commonjs#readme
 [@rollup/plugin-json]: https://github.com/rollup/plugins/tree/master/packages/json#readme
 [@rollup/plugin-node-resolve]: https://github.com/rollup/plugins/tree/master/packages/node-resolve#readme
 [@rollup/plugin-typescript]: https://github.com/rollup/plugins/tree/master/packages/typescript#readme
+[rollup-plugin-dts]: https://github.com/Swatinem/rollup-plugin-dts
 
 
 ### Environment Variables
