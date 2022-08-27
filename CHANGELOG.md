@@ -1,5 +1,22 @@
 # Changelog
 
+<a name="2.0.0-alpha.2"></a>
+## 2.0.0-alpha.2 (2022-08-27)
+
+### Added
+
+- ✨ feat(rollup-config): support dtsOptions [[8772a4f](https://github.com/guanghechen/node-scaffolds/commit/8772a4f0e025931fa502ab8f2d0804b81b0994c7)]
+- ✅ test: update test snapshots [[104a8ab](https://github.com/guanghechen/node-scaffolds/commit/104a8ab2f97455a51afc0024f39dd22c13f921ad)]
+- ✨ feat(rollup-config): bundle *.d.ts into a single file [[080eaf9](https://github.com/guanghechen/node-scaffolds/commit/080eaf9ffd250b9de4c33a7dacc4922c91d9bc02)]
+
+### Changed
+
+- 🔧 chore: fix build error [[4d6704a](https://github.com/guanghechen/node-scaffolds/commit/4d6704a47106d3d2b070bfbaaf83ecefbd5e5877)]
+- 🔧 chore: update build configs [[1770796](https://github.com/guanghechen/node-scaffolds/commit/177079603d8884e550cbc015f691f13939da056e)]
+- 👽 fix: fix errors due to the breaking change on @guanghechen/rollup-config [[58bc306](https://github.com/guanghechen/node-scaffolds/commit/58bc306a76fab835dc47f0d4594979c9b707f57f)]
+- ⬆️ chore: upgrade dependencies [[95b413e](https://github.com/guanghechen/node-scaffolds/commit/95b413ec4884f41a6a4f8b422ced45f38df572e2)]
+
+
 <a name="2.0.0-alpha.1"></a>
 ## 2.0.0-alpha.1 (2022-08-13)
 
@@ -67,10 +84,8 @@
 
 ### Miscellaneous
 
-- 📝 docs: update CHANGELOG [[384d365](https://github.com/guanghechen/node-scaffolds/commit/384d36514e25eaed37d90317515a5f4792b10d2c)]
 - 📝 docs: update README [[0cabb7d](https://github.com/guanghechen/node-scaffolds/commit/0cabb7d95a1cc9028e2b76c59f9affab47057659)]
 - 📝 docs(README): fix invalid urls [[e03b62a](https://github.com/guanghechen/node-scaffolds/commit/e03b62a9edbb281100eb26d601c903744e273ccd)]
-- 📝 docs: update changelog [[2fded19](https://github.com/guanghechen/node-scaffolds/commit/2fded19fd56327c98218abd25a7327be707e058b)]
 
 
 <a name="1.9.7"></a>
@@ -97,10 +112,8 @@
 
 ### Miscellaneous
 
-- 📝 docs: update CHANGELOG [[2c00526](https://github.com/guanghechen/node-scaffolds/commit/2c00526a10c5b651adabe4c9bd622ecaf1e854c8)]
 - 📝 docs: update README [[d28b106](https://github.com/guanghechen/node-scaffolds/commit/d28b1068986a73cfec2f5d75aacfdbce062ff3e5)]
 -  mod(mini-copy): throw error if copy/paste failed [[ecccc27](https://github.com/guanghechen/node-scaffolds/commit/ecccc27b896249d6707d237c713ee90790230791)]
-- 📝 docs: update CHANGELOG [[27b19b6](https://github.com/guanghechen/node-scaffolds/commit/27b19b671c50a4b7b6325692dcf26c05f4c02486)]
 
 
 <a name="1.9.5"></a>
@@ -115,10 +128,6 @@
 - 🎨 improve: update eslint config [[cca8085](https://github.com/guanghechen/node-scaffolds/commit/cca808571d10162d8f9a7f87b2a297cd63cb8237)]
 - ⬆️ chore: upgrade dependencies [[cbf674c](https://github.com/guanghechen/node-scaffolds/commit/cbf674c8ab55e73a53860e4b212db9ef08a48045)]
 
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[7cdf358](https://github.com/guanghechen/node-scaffolds/commit/7cdf358d1412bd83da8748c9000efa428f390d69)]
-
 
 <a name="1.9.4"></a>
 ## 1.9.4 (2022-04-27)
@@ -132,7 +141,6 @@
 ### Miscellaneous
 
 - 📝 docs(rollup-plugin-copy): update README [[6d3732a](https://github.com/guanghechen/node-scaffolds/commit/6d3732a108da8c8834f44987937be71e94d263c2)]
-- 📝 docs: update CHANGELOG [[a541eee](https://github.com/guanghechen/node-scaffolds/commit/a541eee0ab5b310285f16684cd6bf665ffab300f)]
 
 
 <a name="1.9.3"></a>
@@ -146,10 +154,6 @@
 
 - ⬆️ chore: ugprade dependencies [[6595312](https://github.com/guanghechen/node-scaffolds/commit/6595312b147b599bed60218bd783ff0de4265361)]
 
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[0110832](https://github.com/guanghechen/node-scaffolds/commit/011083208bf0cfa78d76a2847ab0008ba1f355a8)]
-
 
 <a name="1.9.2"></a>
 ## 1.9.2 (2022-03-12)
@@ -157,10 +161,6 @@
 ### Fixed
 
 - 🐛 fix: useReactiveRef should always pointer to the latest referred value [[b0a3491](https://github.com/guanghechen/node-scaffolds/commit/b0a349138652d5234a5b3c0f5abb5a0412997908)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[93ca6ab](https://github.com/guanghechen/node-scaffolds/commit/93ca6abb033bd816bdd979720bf28115e72fce9d)]
 
 
 <a name="1.9.1"></a>
@@ -193,7 +193,6 @@
 
 - 📝 docs([#2](https://github.com/guanghechen/node-scaffolds/issues/2)): update README [[de9ad5c](https://github.com/guanghechen/node-scaffolds/commit/de9ad5c4dbbbb6f5d14efd90adc61a69a65fabea)]
 -  Merge pull request [#3](https://github.com/guanghechen/node-scaffolds/issues/3) from ghost91-/main [[8af8363](https://github.com/guanghechen/node-scaffolds/commit/8af836375375c78ed2fd736064ba09db9f800b38)]
-- 📝 docs: update CHANGELOG [[4107775](https://github.com/guanghechen/node-scaffolds/commit/4107775c719a9f7579998956718c923cfbbccb29)]
 
 
 <a name="1.9.0"></a>
@@ -215,7 +214,6 @@
 ### Miscellaneous
 
 - 📝 docs: update README [[0cb4b78](https://github.com/guanghechen/node-scaffolds/commit/0cb4b7883d629d45a75b0c4a18be44d055f7e119)]
-- 📝 docs: update CHANGELOG [[a7e4fb7](https://github.com/guanghechen/node-scaffolds/commit/a7e4fb71ec59df9699c9ec19420b54ec252f0b6d)]
 
 
 <a name="1.9.0-alpha.0"></a>
@@ -240,7 +238,6 @@
 
 -  feat: use chokidar to supprot watch mode [[aefc24b](https://github.com/guanghechen/node-scaffolds/commit/aefc24b98248516b26982f7cb7f669387b870533)]
 - 📝 docs: update README [[d4d33d1](https://github.com/guanghechen/node-scaffolds/commit/d4d33d1add87324d07835702fd253549a81196ae)]
-- 📝 docs: update CHANGELOG [[9f5d3c1](https://github.com/guanghechen/node-scaffolds/commit/9f5d3c152a5dd9ea52145b868cb97ae417f8ddd7)]
 
 
 <a name="1.8.6"></a>
@@ -250,10 +247,6 @@
 
 - 🎨 improve: set print width to 100 (80 is old) [[3a46483](https://github.com/guanghechen/node-scaffolds/commit/3a46483b4c6cb6f5efe0263d6ba5848c6201de59)]
 - ⬆️ chore: upgrade dependencies and peerDependencies [[a67ef3d](https://github.com/guanghechen/node-scaffolds/commit/a67ef3d7f292c9c1ecff733ee79dc61c89f8ff21)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[f3ec386](https://github.com/guanghechen/node-scaffolds/commit/f3ec386e0c70c4ac553e662e2ea2796163565d68)]
 
 
 <a name="1.8.5"></a>
@@ -272,7 +265,6 @@
 ### Miscellaneous
 
 - 📝 docs: update badge url [[3db8165](https://github.com/guanghechen/node-scaffolds/commit/3db81653ff780a204d54b157ed2b5ea4df99cbb7)]
-- 📝 docs: update CHANGELOG [[7c3f93b](https://github.com/guanghechen/node-scaffolds/commit/7c3f93bf2d0b9af7bc82585893a8c39ebe0758e2)]
 
 
 <a name="1.8.4"></a>
@@ -292,7 +284,6 @@
 ### Miscellaneous
 
 -  feat: update eslint rules [[e5d7583](https://github.com/guanghechen/node-scaffolds/commit/e5d7583597fd507d4fd36d17463951dbec79c06e)]
-- 📝 docs: update CHANGELOG [[5e57561](https://github.com/guanghechen/node-scaffolds/commit/5e57561f2fdbdda9772e988571ac3d2ece055145)]
 
 
 <a name="0.0.0"></a>
@@ -310,10 +301,6 @@
 
 - 🐛 fix(react-hooks): update callback when the passed one changed [[fe45c03](https://github.com/guanghechen/node-scaffolds/commit/fe45c033e2b137bf178dfbe76858aae47137c840)]
 
-### Miscellaneous
-
-- 📝 update CHANGELOG [[1406a7d](https://github.com/guanghechen/node-scaffolds/commit/1406a7d194d8874a27bcfc050489fb9b51d9e3e1)]
-
 
 <a name="1.8.2"></a>
 ## 1.8.2 (2021-08-14)
@@ -325,10 +312,6 @@
 ### Changed
 
 - ⬆️ chore: upgrade dependencies [[4d0261c](https://github.com/guanghechen/node-scaffolds/commit/4d0261c014b759c43e7e20b8b5e2cde5e34332dc)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[1e161a9](https://github.com/guanghechen/node-scaffolds/commit/1e161a9ba893c7c757afd7054ab3618fb4e8fbf1)]
 
 
 <a name="1.8.1"></a>
@@ -347,7 +330,6 @@
 
 - 📝 docs: update READMEs [[c4c7d8e](https://github.com/guanghechen/node-scaffolds/commit/c4c7d8e24e12734197b3a92b7ac17d6dc68b71cb)]
 - 🚧 improve(blob-helper): perform clear actions after downloaded [[5887f04](https://github.com/guanghechen/node-scaffolds/commit/5887f04f7204aa549fefecf40d2ec1634f476bff)]
-- 📝 docs: update CHANGELOG [[ace2e3d](https://github.com/guanghechen/node-scaffolds/commit/ace2e3df521646824ca4a8180e277570a27cdea8)]
 
 
 <a name="1.8.0"></a>
@@ -365,7 +347,6 @@
 ### Miscellaneous
 
 -  improve(plop-helper): throw error if author is not detected [[87b43f0](https://github.com/guanghechen/node-scaffolds/commit/87b43f0df7945dbbb250c230baccafee017bd40f)]
-- 📝 docs: update CHANGELOG [[45e28b5](https://github.com/guanghechen/node-scaffolds/commit/45e28b564f3a74e61d822d7d4c1e3c711811c671)]
 
 
 <a name="1.7.0"></a>
@@ -466,7 +447,6 @@
 -  improve(eslint-config-ts): apply rule &#x27;@typescript-eslint/no-misused-promises&#x27; [[38d8512](https://github.com/guanghechen/node-scaffolds/commit/38d851285a39e0e2d81b5552de1f7ad08d938843)]
 - 📝 docs(chalk-logger): add demo and screenshots [[abaf7fa](https://github.com/guanghechen/node-scaffolds/commit/abaf7fafdf38e7ecefd7bdfd0d411dd3255d71ef)]
 -  style: fix lint errors [[1d59600](https://github.com/guanghechen/node-scaffolds/commit/1d596002c0ea4d827b5131f59b222bf9281eb811)]
-- 📝 docs: update CHANGELOG [[bee6a04](https://github.com/guanghechen/node-scaffolds/commit/bee6a04a03eb6171d30f26d969382fec74dbcad9)]
 
 
 <a name="1.6.1"></a>
@@ -479,10 +459,6 @@
 ### Changed
 
 - 🔧 chore: clip devDependencies [[5e9c636](https://github.com/guanghechen/node-scaffolds/commit/5e9c636be47ae02d4330403b4f47d840b998b8fb)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[42c4ef2](https://github.com/guanghechen/node-scaffolds/commit/42c4ef2655be61eee5c09b100eb0e40b4575b848)]
 
 
 <a name="1.6.0"></a>
@@ -504,7 +480,6 @@
 ### Miscellaneous
 
 -  feat: use @rollup/plugin-typescript instead of rollup-plugin-typescript2 (the types files is no longer generated through the rollup config) [[91a7c6c](https://github.com/guanghechen/node-scaffolds/commit/91a7c6ca9eb5f889c11ed5bc15edc32edd8fc499)]
-- 📝 docs: update CHANGELOG [[0a9680e](https://github.com/guanghechen/node-scaffolds/commit/0a9680ec8eaa0f92d5aa61c4fcf60c2cb943000e)]
 
 
 <a name="1.5.5"></a>
@@ -517,10 +492,6 @@
 ### Changed
 
 - ⚡ improve(parse-lineno): avoid performance problems caused by repeated large intervals [[266c46f](https://github.com/guanghechen/node-scaffolds/commit/266c46fa73a332f3faf1555289cf0507e43b6c4e)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[e9ece23](https://github.com/guanghechen/node-scaffolds/commit/e9ece232ce6b65eca04ee09104896e0254e2f4e2)]
 
 
 <a name="1.5.4"></a>
@@ -537,10 +508,6 @@
 - 🔧 chore: don&#x27;t run &#x27;yarn-deduplicate&#x27; in ci environment [[3d9107a](https://github.com/guanghechen/node-scaffolds/commit/3d9107aa86732cbcb19d8b8cfb6dacf5a941e151)]
 - 🔧 chore: update yarn.lock [[29787c0](https://github.com/guanghechen/node-scaffolds/commit/29787c0904ccf8aca5c76e24b1b9b261aadedb3e)]
 
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[c0ebbf6](https://github.com/guanghechen/node-scaffolds/commit/c0ebbf63e99c4f6f84f13780e0b830a855195a5d)]
-
 
 <a name="1.5.3"></a>
 ## 1.5.3 (2021-06-13)
@@ -552,7 +519,6 @@
 ### Miscellaneous
 
 - 🚧 improve(eslint-config-ts): enable lint rule &#x27;@typescript-eslint/no-floating-promises&#x27; [[503c1d3](https://github.com/guanghechen/node-scaffolds/commit/503c1d30b9aa36cba33941f5bacb327a382a05e8)]
-- 📝 docs: update CHANGELOG [[465cc48](https://github.com/guanghechen/node-scaffolds/commit/465cc48548a16b872a20f81c05f7881b3c977eea)]
 
 
 <a name="1.5.2"></a>
@@ -565,10 +531,6 @@
 - 🔧 chore: update configs [[d59c5f3](https://github.com/guanghechen/node-scaffolds/commit/d59c5f3a036fd7b01a90c6bb01a5120eb6c25b15)]
 - ⬆️ chore: upgrade dependencies [[807e04b](https://github.com/guanghechen/node-scaffolds/commit/807e04b53eb168075357bda611612ebb2a1f48b6)]
 
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[5414cf4](https://github.com/guanghechen/node-scaffolds/commit/5414cf4f89c4842cc9952febf840052496ed1cbd)]
-
 
 <a name="1.5.1"></a>
 ## 1.5.1 (2021-05-21)
@@ -576,7 +538,6 @@
 ### Miscellaneous
 
 - 🚧 feat(option-helper): support new utility func &#x27;convertToInteger&#x27; and &#x27;coverInteger&#x27; [[958eb4a](https://github.com/guanghechen/node-scaffolds/commit/958eb4a56454dba5efa3155808bd619cab0f52e4)]
-- 📝 docs: update CHANGELOG [[7adc829](https://github.com/guanghechen/node-scaffolds/commit/7adc82916614a0b8d0eeb4be05cedd31af876c46)]
 
 
 <a name="1.5.0"></a>
@@ -595,7 +556,6 @@
 ### Miscellaneous
 
 - 🔨 chore: trigger ci on creating new release tag instead of pushing to main branch [[4a98d45](https://github.com/guanghechen/node-scaffolds/commit/4a98d452844037f8e05e7727cc609fb21f2f5005)]
-- 📝 docs: update CHANGELOG [[598787d](https://github.com/guanghechen/node-scaffolds/commit/598787d3c4664dd08937ae1af1667c138b90af36)]
 
 
 <a name="1.4.1"></a>
@@ -604,7 +564,6 @@
 ### Miscellaneous
 
 - 🚧 [option-helper] feat: expose new utility func &#x27;isDate&#x27; [[9a49e36](https://github.com/guanghechen/node-scaffolds/commit/9a49e36e3905df8a2cabac77665a69c397b6533e)]
-- 📝 docs: update CHANGELOG [[8a44ef2](https://github.com/guanghechen/node-scaffolds/commit/8a44ef2eaafec3e3612e478ff6fb6cb9b5e65339)]
 
 
 <a name="0.0.0"></a>
@@ -626,10 +585,6 @@
 
 - ⬆️ chore: upgrade dependencies [[5e5182d](https://github.com/guanghechen/node-scaffolds/commit/5e5182d44f8907c864aeaea4497e67ad890aebbc)]
 
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[ca21186](https://github.com/guanghechen/node-scaffolds/commit/ca21186f2e5b25ac784886aa3c8a3fd09c630823)]
-
 
 <a name="1.3.1"></a>
 ## 1.3.1 (2021-03-20)
@@ -637,10 +592,6 @@
 ### Fixed
 
 - 🐛 fix(jest-helper): misplaced the arguments of nextVersion of createPackageVersionDesensitizer [[53ad338](https://github.com/guanghechen/node-scaffolds/commit/53ad338569bd36720669d0ec11d1643fab916145)]
-
-### Miscellaneous
-
-- 📝 docs: udpate CHANGELOG [[6ae3092](https://github.com/guanghechen/node-scaffolds/commit/6ae30922a4099b5ece3dce9337d5ec4c26b39e70)]
 
 
 <a name="1.3.0"></a>
@@ -660,7 +611,6 @@
 - 📝 docs: update REAWDME [[eef40f4](https://github.com/guanghechen/node-scaffolds/commit/eef40f4fab9da09a39a50ca77c9ab69ed00124f4)]
 - 🚧 feat(jest-helper): desentizer accept potential &#x60;key&#x60; as the second parameter [[76fc1ca](https://github.com/guanghechen/node-scaffolds/commit/76fc1ca073833f8b05756dbaf7dcb4b9f61e4bf3)]
 - 📝 docs: update badges [[b298cd6](https://github.com/guanghechen/node-scaffolds/commit/b298cd6b331adc29a10a1749caba04bb88a804c9)]
-- 📝 docs: update CHANGELOG [[107ee69](https://github.com/guanghechen/node-scaffolds/commit/107ee69158e37e9b8f51cf4838500217deac0290)]
 
 
 <a name="1.2.1"></a>
@@ -677,7 +627,6 @@
 ### Miscellaneous
 
 - 🚧 feat(eslint-config): turn off options which are expensive to execute [[81b930f](https://github.com/guanghechen/node-scaffolds/commit/81b930f007710baefa8fa7e2c0ec8c34729d8314)]
-- 📝 docs: update CHANGELOG [[380249c](https://github.com/guanghechen/node-scaffolds/commit/380249c7e294679e21ecf6dde999b5a8ceb90667)]
 
 
 <a name="1.2.0"></a>
@@ -699,7 +648,6 @@
 
 - 🚧 feat(locate-helper): expose new utility func &#x60;locateLatestPackageJson&#x60; [[b04e1c6](https://github.com/guanghechen/node-scaffolds/commit/b04e1c6386cb423b76aea76a0191a22f7e5367a3)]
 - 🚧 feat(jest-helper): expose new utility func &#x60;createConsoleMock&#x60; [[02768b4](https://github.com/guanghechen/node-scaffolds/commit/02768b48315e2bb72d1673d074ee2fc1e767eadc)]
-- 📝 docs: update CHANGELOG [[5da7431](https://github.com/guanghechen/node-scaffolds/commit/5da743130b22b42b0b90b572e2ad11c1a754a5ba)]
 
 
 <a name="1.1.0"></a>
@@ -729,8 +677,6 @@
 - 🚧 feat(plop-helper): support node-plop api &amp; utility funcs for testing plop &amp; update tests [[788a47d](https://github.com/guanghechen/node-scaffolds/commit/788a47db79e48719483eab3ac8097c815b1753cf)]
 - 🚧 improve(template-ts*-package): update README.md.hbs [[135f2d1](https://github.com/guanghechen/node-scaffolds/commit/135f2d1b9afed9ec94cb7aa186766ec51ba7bfc5)]
 - 📝 style: format READMEs [[3bc7ae8](https://github.com/guanghechen/node-scaffolds/commit/3bc7ae877157aea254f352f0f25ce98ee73b5d9f)]
-- 📝 docs: update CHANGELOG [[e72a64e](https://github.com/guanghechen/node-scaffolds/commit/e72a64eaee22c9e0d824865505afeafe2b532e69)]
-- 📝 docs: update CHANGELOG [[085d617](https://github.com/guanghechen/node-scaffolds/commit/085d61737d0a924e1dafd1d3c67eb07ae0a3074d)]
 
 
 <a name="1.0.13"></a>
@@ -744,7 +690,6 @@
 
 - 🚧 [eslint-config*] feat: update parserOptions and rules [[2bdf33e](https://github.com/guanghechen/node-scaffolds/commit/2bdf33eed499ec57ab4e32a4bb92768b5e92b73e)]
 - 📝 docs: update READMEs [[4a69754](https://github.com/guanghechen/node-scaffolds/commit/4a69754b2f07dd29ff76c9521c3356b070c4ff9b)]
-- 📝 docs: update CHANGELOG [[fa66e37](https://github.com/guanghechen/node-scaffolds/commit/fa66e37c49c6a34b79b59561076b6e5abed4809a)]
 
 
 <a name="1.0.12"></a>
@@ -760,7 +705,6 @@
 - 🔀 Merge branch &#x27;develop&#x27; [[83e1275](https://github.com/guanghechen/node-scaffolds/commit/83e12750b0209ef2663af2ae22085e13b81e3570)]
 - 🚧 [option-helper] feat: expose new utility class &#x27;TextTransfomerBuilder&#x27; [[ffe780e](https://github.com/guanghechen/node-scaffolds/commit/ffe780eeed453b9cf1f558dbc15abb57a86c511d)]
 - 🚧 [eslint-config] improve: enable sort/imports to sort imports members in default [[5c85921](https://github.com/guanghechen/node-scaffolds/commit/5c85921042919e402d48fa52d3f3bb1c4df3f416)]
-- 📝 docs: update CHANGELOG [[ba22655](https://github.com/guanghechen/node-scaffolds/commit/ba226553a771a13fb3314f8dee525b448693e969)]
 
 
 <a name="1.0.11"></a>
@@ -781,7 +725,6 @@
 
 - 📝 docs: update READMEs [[bc666b3](https://github.com/guanghechen/node-scaffolds/commit/bc666b35102472fa067b29ef560421962d8ad9e3)]
 - 🚧 [template-ts-package] improve: use @guanghechen/plop-helper to deduplicate codes &amp; rename exposed bin name to &#x27;ghc-ts-package&#x27; [[05b921a](https://github.com/guanghechen/node-scaffolds/commit/05b921ac281cf647ef332f26de6615a12c33acde)]
-- 📝 docs: update CHANGELOG [[79be5f8](https://github.com/guanghechen/node-scaffolds/commit/79be5f84e5846fc0c45def6c4c86501005b30a24)]
 
 
 <a name="1.0.10"></a>
@@ -806,7 +749,6 @@
 - 📝 [rollup-config-tsx] docs: update README [[e9fc767](https://github.com/guanghechen/node-scaffolds/commit/e9fc767393554c2c2567a4a5d4bf2b09e98835b7)]
 - 🚧 [rollup-config-tsx] improve: fix bugs &amp; update options [[d85c66a](https://github.com/guanghechen/node-scaffolds/commit/d85c66a4cf8798c7e7f1c4da2e5aa55a6ef26cde)]
 - 🚧 [rollup-config] improve: expose new Function &#x60;resolveRollupConfigEnvs&#x60; &amp; update README [[e344f65](https://github.com/guanghechen/node-scaffolds/commit/e344f658793bddef01d2e6f4fd0347e0594e1d70)]
-- 📝 docs: update CHANGELOG [[1178073](https://github.com/guanghechen/node-scaffolds/commit/1178073b4a50e0faef1349a4670b35941d176489)]
 
 
 <a name="1.0.9"></a>
@@ -830,10 +772,6 @@
 
 - ⬇️ chore: downgrade postcss-url to v9.0.0 to fix conlict error [[5641533](https://github.com/guanghechen/node-scaffolds/commit/56415337a845e9e2e280824c1c3e4aceb58809c9)]
 
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[4da13fb](https://github.com/guanghechen/node-scaffolds/commit/4da13fb0dc65bbeba700bd94a95db58e8318473a)]
-
 
 <a name="1.0.7"></a>
 ## 1.0.7 (2021-03-06)
@@ -851,7 +789,6 @@
 
 - 🔀 Merge branch &#x27;develop&#x27; [[5e5fbbf](https://github.com/guanghechen/node-scaffolds/commit/5e5fbbfdba5ae92b5dd794dd1ce69aa378eee3c1)]
 - 🚧 [template-ts-package] improve: update README boilerplates [[500390e](https://github.com/guanghechen/node-scaffolds/commit/500390ee2e13c757eb320e04027253959161741b)]
-- 📝 docs: update CHANGELOG [[b24be9c](https://github.com/guanghechen/node-scaffolds/commit/b24be9c7b04de63469d2e5cf52d9bfc5da922b44)]
 
 
 <a name="1.0.6"></a>
