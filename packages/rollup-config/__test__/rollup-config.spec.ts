@@ -9,32 +9,34 @@ const resolveCaseDir = (title: string): string => path.resolve(__dirname, 'fixtu
 
 async function build(dependencies: string[]): Promise<RollupOutput[]> {
   // Create rollup config
-  const config = createRollupConfig({
+  const configs = createRollupConfig({
     manifest: {
       source: 'src/index.ts',
       main: 'lib/cjs/index.js',
       module: 'lib/esm/index.js',
+      types: 'lib/types/index.d.ts',
       dependencies: dependencies,
     },
     pluginOptions: {
       typescriptOptions: { tsconfig: 'tsconfig.src.json' },
     },
   })
-  const bundle = await rollup(config)
 
   const results: any[] = []
-  for (const outputOptions of config.output as OutputOptions[]) {
-    const outputs = await bundle.generate(outputOptions)
-    for (const output of outputs.output as any[]) {
-      const { format } = outputOptions
-      if (output.code != null) {
-        results.push({ format, code: output.code })
-      } else {
-        results.push({ format, ...output })
+  for (const config of configs) {
+    const bundle = await rollup(config)
+    for (const outputOptions of config.output as OutputOptions[]) {
+      const outputs = await bundle.generate(outputOptions)
+      for (const output of outputs.output as any[]) {
+        const { format } = outputOptions
+        if (output.code != null) {
+          results.push({ format, code: output.code })
+        } else {
+          results.push({ format, ...output })
+        }
       }
     }
   }
-
   return results
 }
 

@@ -37,33 +37,6 @@ exports[\\"default\\"] = index;
 
 exports[`build simple: rollup cjs 2`] = `
 Object {
-  "fileName": "Greet.d.ts",
-  "name": undefined,
-  "source": "import React from 'react';
-export interface GreetProps {
-    name?: string;
-}
-export declare function Greet(props: GreetProps): React.ReactElement;
-export default Greet;
-",
-  "type": "asset",
-}
-`;
-
-exports[`build simple: rollup cjs 3`] = `
-Object {
-  "fileName": "index.d.ts",
-  "name": undefined,
-  "source": "export * from './Greet';
-declare const _default: () => JSX.Element;
-export default _default;
-",
-  "type": "asset",
-}
-`;
-
-exports[`build simple: rollup cjs 4`] = `
-Object {
   "fileName": "index.css",
   "name": undefined,
   "source": "/**
@@ -134,33 +107,6 @@ export { Greet, index as default };
 
 exports[`build simple: rollup es 2`] = `
 Object {
-  "fileName": "Greet.d.ts",
-  "name": undefined,
-  "source": "import React from 'react';
-export interface GreetProps {
-    name?: string;
-}
-export declare function Greet(props: GreetProps): React.ReactElement;
-export default Greet;
-",
-  "type": "asset",
-}
-`;
-
-exports[`build simple: rollup es 3`] = `
-Object {
-  "fileName": "index.d.ts",
-  "name": undefined,
-  "source": "export * from './Greet';
-declare const _default: () => JSX.Element;
-export default _default;
-",
-  "type": "asset",
-}
-`;
-
-exports[`build simple: rollup es 4`] = `
-Object {
   "fileName": "index.css",
   "name": undefined,
   "source": "/**
@@ -202,6 +148,23 @@ Object {
 ",
   "type": "asset",
 }
+`;
+
+exports[`build simple: rollup es 3`] = `
+"import React from 'react';
+
+/**
+ * Params for constructing a Greet.
+ */
+interface GreetProps {
+    name?: string;
+}
+declare function Greet(props: GreetProps): React.ReactElement;
+
+declare const _default: () => JSX.Element;
+
+export { Greet, GreetProps, _default as default };
+"
 `;
 
 exports[`build simple: rollup undefined 1`] = `

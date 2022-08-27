@@ -40,6 +40,17 @@ Array [
   "@rollup/plugin-typescript",
   "tslib",
   "typescript",
+  "rollup-plugin-dts",
+  "@babel/code-frame",
+  "@babel/highlight",
+  "@babel/helper-validator-identifier",
+  "chalk",
+  "ansi-styles",
+  "color-convert",
+  "color-name",
+  "supports-color",
+  "has-flag",
+  "js-tokens",
 ]
 `;
 
