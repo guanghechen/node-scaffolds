@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-config-cli",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "description": "Rollup configs for bundle typescript cli project",
   "author": {
     "name": "guanghechen",
@@ -40,8 +40,8 @@
     "test": "echo 'no test needed.'"
   },
   "dependencies": {
-    "@guanghechen/rollup-config": "^2.0.0-alpha.1",
-    "@guanghechen/rollup-plugin-copy": "^2.0.0-alpha.1"
+    "@guanghechen/rollup-config": "^2.0.0-alpha.2",
+    "@guanghechen/rollup-plugin-copy": "^2.0.0-alpha.2"
   },
   "peerDependencies": {
     "rollup": "^2.64.0"

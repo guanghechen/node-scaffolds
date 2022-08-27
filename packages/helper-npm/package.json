@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-npm",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "description": "Utilities for handling npm repo and `package.json`.",
   "author": {
     "name": "guanghechen",
@@ -37,6 +37,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-path": "^2.0.0-alpha.1"
+    "@guanghechen/helper-path": "^2.0.0-alpha.2"
   }
 }
