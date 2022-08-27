@@ -92,8 +92,8 @@ export function createRollupConfigs(options: IRollupConfigOptions): rollup.Rollu
   // Resolve preprocess config.
   if (preprocessOptions != null) {
     const preprocessConfig = createPreprocessorConfig(preprocessOptions, env)
-    return [preprocessConfig, config]
+    return [preprocessConfig, ...config]
   }
 
-  return [config]
+  return config
 }

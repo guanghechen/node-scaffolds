@@ -27,7 +27,7 @@ export interface IRollupConfigOptions extends IBaseRollupConfigOptions {
 
 export function createRollupConfig(options: IRollupConfigOptions): RollupOptions[] {
   const { resources, targets, ...baseOptions } = options
-  const baseConfig = createBaseRollupConfig(baseOptions)
+  const [baseConfig, ...additionalConfigs] = createBaseRollupConfig(baseOptions)
 
   const { plugins = [] } = baseConfig
   const external = baseConfig.external as (id: string) => boolean
@@ -37,6 +37,7 @@ export function createRollupConfig(options: IRollupConfigOptions): RollupOptions
       ...baseConfig,
       plugins: [...plugins, copy(resources)],
     },
+    ...additionalConfigs,
     ...targets.map(
       (item): RollupOptions => ({
         input: item.src,
