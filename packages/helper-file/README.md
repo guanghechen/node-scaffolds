@@ -72,10 +72,7 @@ merge multiple small files.
 * `BigFileHelper` (inspired by [split-file][])
 
   ```typescript
-  import { 
-    bigFileHelper, 
-    calcFilePartItemsBySize,
-  } from '@guanghechen/helper-file'
+  import { bigFileHelper, calcFilePartItemsBySize } from '@guanghechen/helper-file'
 
   async function splitFile(filepath: string): Promise<string[]> {
     const parts = calcFilePartItemsBySize(filepath, 1024 * 1024 * 80) // 80MB per chunk 
@@ -96,11 +93,6 @@ Name                                | Description
 `calcFilePartItemsByCount`          | Generate file part items by total of parts
 `collectAllFiles`                   | Collect all files under the given directory
 `collectAllFilesSync`               | Collect all files under the given directory (synchronizing)
-`ensureCriticalFilepathExistsSync`  | Ensure critical filepath exists
-`isDirectorySync`                   | Check whether if the dirpath is a directory path
-`isFileSync`                        | Check whether if the filepath is a file path
-`isNonExistentOrEmpty`              | Check whether if the dirPath is a non-existent path or empty folder
-`mkdirsIfNotExists`                 | Create a path of directories
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-file#readme

@@ -3,9 +3,12 @@ import {
   BigFileHelper,
   calcFilePartItemsBySize,
   collectAllFilesSync,
-  mkdirsIfNotExists,
 } from '@guanghechen/helper-file'
-import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
+import {
+  absoluteOfWorkspace,
+  mkdirsIfNotExists,
+  relativeOfWorkspace,
+} from '@guanghechen/helper-path'
 import { destroyBuffer } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
 import crypto from 'crypto'

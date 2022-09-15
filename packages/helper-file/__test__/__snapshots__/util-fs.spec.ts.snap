@@ -45,12 +45,3 @@ Array [
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic/config.yml",
 ]
 `;
-
-exports[`mkdirsIfNotExists mkdirs logger 1`] = `
-Array [
-  Array [
-    "[verb ] mkdirs: <$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic--non-existed--2
-",
-  ],
-]
-`;

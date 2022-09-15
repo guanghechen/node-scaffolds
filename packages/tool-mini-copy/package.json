@@ -41,7 +41,6 @@
   "dependencies": {
     "@guanghechen/chalk-logger": "^2.0.0-alpha.2",
     "@guanghechen/helper-commander": "^2.0.0-alpha.2",
-    "@guanghechen/helper-file": "^2.0.0-alpha.2",
     "@guanghechen/helper-is": "^2.0.0-alpha.2",
     "@guanghechen/helper-option": "^2.0.0-alpha.2",
     "@guanghechen/helper-path": "^2.0.0-alpha.2",

@@ -1,5 +1,5 @@
 import { stripAnsi } from '@guanghechen/helper-commander'
-import { isFileSync } from '@guanghechen/helper-file'
+import { isFileSync } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import type { FakeClipboard } from '@guanghechen/mini-copy'
 import fs from 'fs-extra'

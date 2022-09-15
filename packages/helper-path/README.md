@@ -69,6 +69,11 @@ Name                    | Description
 `locateNearestFilepath` | Locate a nearest target file path from the given directory.
 `normalizeUrlPath`      | Normalize url path.
 `relativeOfWorkspace`   | Calc relative filepath to workspace.
+`ensureCriticalFilepathExistsSync`  | Ensure critical filepath exists
+`isDirectorySync`                   | Check whether if the dirpath is a directory path
+`isFileSync`                        | Check whether if the filepath is a file path
+`isNonExistentOrEmpty`              | Check whether if the dirPath is a non-existent path or empty folder
+`mkdirsIfNotExists`                 | Create a path of directories
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-path#readme

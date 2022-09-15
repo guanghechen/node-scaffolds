@@ -3,6 +3,7 @@
 exports[`collectAllDependencies basic: current repo 1`] = `
 Array [
   "@guanghechen/helper-path",
+  "@guanghechen/invariant",
 ]
 `;
 
