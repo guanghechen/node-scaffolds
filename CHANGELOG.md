@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="2.0.0-alpha.3"></a>
+## 2.0.0-alpha.3 (2022-09-15)
+
+### Changed
+
+- 🚚 move some filepath relative methods from @algorithm.ts/helper-file to @algorithm/helper-path [[1da75c9](https://github.com/guanghechen/node-scaffolds/commit/1da75c9901b828d7b477b8c24f5dda483d3c1e3e)]
+
+
 <a name="2.0.0-alpha.2"></a>
 ## 2.0.0-alpha.2 (2022-08-27)
 
