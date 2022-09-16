@@ -190,3 +190,17 @@ export const isTwoDimensionArrayOfT = <T>(
 ): obj is T[][] => {
   return Array.isArray(obj) ? obj.every(el => isArrayOfT(el, check)) : false
 }
+
+/**
+ * Check if the given obj is a Promise.
+ * @param obj
+ * @returns
+ */
+export const isPromise = (obj: unknown): obj is Promise<unknown> => {
+  if (!obj) return false
+  if (obj instanceof Promise) return true
+  return (
+    (typeof obj === 'object' || typeof obj === 'function') &&
+    typeof (obj as Promise<unknown>).then === 'function'
+  )
+}

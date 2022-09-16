@@ -20,6 +20,7 @@ import {
   isPrimitiveInteger,
   isPrimitiveNumber,
   isPrimitiveString,
+  isPromise,
   isString,
   isSymbol,
   isTwoDimensionArrayOfT,
@@ -320,5 +321,19 @@ describe('is', function () {
     test('(string[]|unknown)[], isString', () =>
       expect(isTwoDimensionArrayOfT([['a', 'b'], ['b'], 'c'], isString)).toBe(false))
     test('string, isString', () => expect(isTwoDimensionArrayOfT('c', isString)).toBe(false))
+  })
+
+  describe('isPromise', function () {
+    test('isPromise', () => {
+      expect(isPromise(new Promise(() => {}))).toEqual(true)
+      expect(isPromise(Promise.resolve('waw'))).toEqual(true)
+      expect(isPromise(Promise.resolve(false))).toEqual(true)
+      expect(isPromise(Promise.reject(false).catch(() => {}))).toEqual(true)
+      expect(isPromise(false)).toEqual(false)
+      expect(isPromise(true)).toEqual(false)
+      expect(isPromise({})).toEqual(false)
+      expect(isPromise({ then: function () {} })).toEqual(true)
+      expect(isPromise({ then: async function () {} })).toEqual(true)
+    })
   })
 })
