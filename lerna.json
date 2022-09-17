@@ -13,7 +13,7 @@
       "forcePublish": true
     },
     "version": {
-      "allowBranch": "main",
+      "allowBranch": ["main", "release-*"],
       "forcePublish": true
     }
   }
