@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/utility-types",
-  "version": "2.0.0-alpha.3",
+  "version": "2.0.0",
   "description": "Collection of typescript utility types",
   "author": {
     "name": "guanghechen",
