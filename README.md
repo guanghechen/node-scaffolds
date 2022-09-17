@@ -3,7 +3,7 @@
     <a href="#license">
       <img
         alt="License"
-        src="https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x"
+        src="https://img.shields.io/github/license/guanghechen/node-scaffolds"
       />
     </a>
     <a href="https://github.com/guanghechen/node-scaffolds/tags">
