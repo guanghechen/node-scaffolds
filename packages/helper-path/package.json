@@ -40,5 +40,8 @@
   },
   "dependencies": {
     "@guanghechen/invariant": "^2.0.0-alpha.3"
+  },
+  "devDependencies": {
+    "@guanghechen/chalk-logger": "^2.0.0-alpha.3"
   }
 }

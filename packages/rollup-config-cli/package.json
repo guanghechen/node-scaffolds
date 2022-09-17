@@ -44,6 +44,6 @@
     "@guanghechen/rollup-plugin-copy": "^2.0.0-alpha.3"
   },
   "peerDependencies": {
-    "rollup": "^2.64.0"
+    "rollup": "^2.78.1"
   }
 }
