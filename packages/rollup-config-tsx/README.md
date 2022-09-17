@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/rollup-config-tsx#readme">@guanghechen/rollup-config-tsx</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/rollup-config-tsx#readme">@guanghechen/rollup-config-tsx</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/rollup-config-tsx">
@@ -216,7 +216,7 @@ Extended from `RollupConfigOptions` of [@guanghechen/rollup-config][].
 * [@guanghechen/rollup-plugin-copy][]
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/rollup-config-tsx#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/rollup-config-tsx#readme
 [@guanghechen/rollup-config]: https://www.npmjs.com/package/@guanghechen/rollup-config
 [@guanghechen/rollup-config-cli]: https://www.npmjs.com/package/@guanghechen/rollup-config-cli
 [@guanghechen/rollup-config-tsx]: https://www.npmjs.com/package/@guanghechen/rollup-config-tsx

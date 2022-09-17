@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-file#readme">@guanghechen/helper-file</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/helper-file#readme">@guanghechen/helper-file</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-file">
@@ -95,5 +95,5 @@ Name                                | Description
 `collectAllFilesSync`               | Collect all files under the given directory (synchronizing)
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-file#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/helper-file#readme
 [split-file]: https://github.com/tomvlk/node-split-file

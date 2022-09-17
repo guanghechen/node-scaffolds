@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/guanghechen.git",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x",
     "directory": "packages/tool-git-cipher"
   },
-  "homepage": "https://github.com/guanghechen/guanghechen/tree/main/packages/tool-git-cipher#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/tool-git-cipher#readme",
   "keywords": [],
   "main": "lib/cjs/index.js",
   "types": "lib/types/index.d.ts",

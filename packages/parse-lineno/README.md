@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/parse-lineno#readme">@guanghechen/parse-lineno</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/parse-lineno#readme">@guanghechen/parse-lineno</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/parse-lineno">
@@ -108,4 +108,4 @@ Parse something like '1,3-10' to numbers or intervals.
   collectIntervals('2#4-5#5-8', /#/)  // => [[2, 2], [4, 8]]
   ```
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/parse-lineno#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/parse-lineno#readme

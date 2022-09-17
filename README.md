@@ -3,7 +3,7 @@
     <a href="#license">
       <img
         alt="License"
-        src="https://img.shields.io/github/license/guanghechen/node-scaffolds"
+        src="https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x"
       />
     </a>
     <a href="https://github.com/guanghechen/node-scaffolds/tags">
@@ -87,10 +87,10 @@ Package                               | Description
 
 ## License
 
-node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/blob/main/LICENSE).
+node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/LICENSE).
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x
 [@guanghechen/chalk-logger]: ./packages/chalk-logger
 [@guanghechen/eslint-config]: ./packages/eslint-config
 [@guanghechen/eslint-config-jsx]: ./packages/eslint-config-jsx

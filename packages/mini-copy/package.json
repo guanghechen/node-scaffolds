@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds.git",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x",
     "directory": "packages/mini-copy"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/mini-copy#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/mini-copy#readme",
   "keywords": [
     "clipboard",
     "wsl"

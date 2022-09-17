@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/main/packages/react-hooks#readme">@guanghechen/react-hooks</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/react-hooks#readme">@guanghechen/react-hooks</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/react-hooks">
@@ -82,4 +82,4 @@ Name                      | Description
 * [Custom React Hooks | 光和尘](https://me.guanghechen.com/post/web/react/hooks/custom/)
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/main/packages/react-hooks#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/react-hooks#readme

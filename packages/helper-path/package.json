@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds.git",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x",
     "directory": "packages/helper-path"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-path#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/helper-path#readme",
   "keywords": [
     "url path",
     "file path"

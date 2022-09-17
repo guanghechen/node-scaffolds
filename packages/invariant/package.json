@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechenjs/guanghechen.git",
+    "url": "https://github.com/guanghechen/guanghechen.git",
     "directory": "packages/invariant"
   },
-  "homepage": "https://github.com/guanghechenjs/guanghechen/tree/main/packages/invariant#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/invariant#readme",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "types": "lib/types/index.d.ts",

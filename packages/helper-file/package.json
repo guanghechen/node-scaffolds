@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds.git",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x",
     "directory": "packages/helper-file"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/main/packages/helper-file#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/helper-file#readme",
   "keywords": [
     "file helper",
     "split file",
