@@ -23,24 +23,24 @@ Array [
 exports[`calcFilePartItemsByCount basic 1`] = `
 Array [
   Object {
-    "end": 1336,
+    "end": 1349,
     "sid": 1,
     "start": 0,
   },
   Object {
-    "end": 2672,
+    "end": 2698,
     "sid": 2,
-    "start": 1336,
+    "start": 1349,
   },
   Object {
-    "end": 4008,
+    "end": 4047,
     "sid": 3,
-    "start": 2672,
+    "start": 2698,
   },
   Object {
-    "end": 5341,
+    "end": 5395,
     "sid": 4,
-    "start": 4008,
+    "start": 4047,
   },
 ]
 `;
@@ -73,7 +73,7 @@ Array [
     "start": 4096,
   },
   Object {
-    "end": 5341,
+    "end": 5395,
     "sid": 6,
     "start": 5120,
   },
