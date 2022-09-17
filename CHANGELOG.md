@@ -1,5 +1,24 @@
 # Changelog
 
+<a name="2.0.0"></a>
+## 2.0.0 (2022-09-17)
+
+### Added
+
+- ✅ test: fix test [[4a39ef8](https://github.com/guanghechen/node-scaffolds/commit/4a39ef83035ce3a65fdd5bc36f5f57869fef456d)]
+- ✨ feat(helper-is): export new util method &#x60;isPromise&#x60; [[f827d68](https://github.com/guanghechen/node-scaffolds/commit/f827d68514985b2f4821818e5e22f73994be512e)]
+
+### Changed
+
+- 🔧 chore: support node &gt;&#x3D; 16 [[208522b](https://github.com/guanghechen/node-scaffolds/commit/208522b6a7f8eba53a2562595706b25d63e91c29)]
+- 🔧 chore: upgrade dependencies [[2814cbf](https://github.com/guanghechen/node-scaffolds/commit/2814cbfa4d4461f064c431f4c0bebefeefbbfd5a)]
+- 🚨 fix lint warnings [[67584dc](https://github.com/guanghechen/node-scaffolds/commit/67584dc886d759aad51232472fe141bf35d9c3c9)]
+
+### Miscellaneous
+
+- 📝 docs: update READMEs [[d6743d2](https://github.com/guanghechen/node-scaffolds/commit/d6743d24c94ea6c7a24ff4a2dc48113a2c2f96ce)]
+
+
 <a name="2.0.0-alpha.3"></a>
 ## 2.0.0-alpha.3 (2022-09-15)
 
