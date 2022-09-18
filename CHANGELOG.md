@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="2.1.0"></a>
+## 2.1.0 (2022-09-18)
+
+### Changed
+
+- ⬆️ chore: ugprade jest to v29.x.x &amp; update jest-config [[d54145c](https://github.com/guanghechen/node-scaffolds/commit/d54145ce1e8b59780828a259ed6ddca6aa6e6b5f)]
+
+
 <a name="2.0.0"></a>
 ## 2.0.0 (2022-09-17)
 
