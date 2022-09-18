@@ -51,13 +51,13 @@ function tsMonorepoConfig(repositoryRootDir) {
     roots: ['src', '__test__'].filter(p => fs.existsSync(p)).map(p => `<rootDir>/${p}`),
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     moduleNameMapper,
-    globals: {
-      'ts-jest': {
-        tsconfig: '<rootDir>/tsconfig.json',
-      },
-    },
     transform: {
-      '^.+\\.tsx?$': 'ts-jest',
+      '^.+\\.tsx?$': [
+        'ts-jest',
+        {
+          tsconfig: '<rootDir>/tsconfig.json',
+        },
+      ],
     },
     testEnvironment: 'node',
     testEnvironmentOptions: {

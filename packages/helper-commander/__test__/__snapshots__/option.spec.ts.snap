@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`resolveCommandConfigurationOptions basic 1`] = `
-Object {
-  "a": Array [
+{
+  "a": [
     1,
     2,
     3,
   ],
   "color": false,
-  "configPath": Array [
+  "configPath": [
     "<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/demo.config.yml",
   ],
   "cwd": "<$WORKSPACE$>/packages/helper-commander",
@@ -21,26 +21,26 @@ Object {
 `;
 
 exports[`resolveCommandConfigurationOptions basic 2`] = `
-Array [
-  Array [
+[
+  [
     "[debug] cwd: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
-  Array [
+  [
     "[debug] workspace: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2
 ",
   ],
-  Array [
+  [
     "[debug] configPath: [
   '<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/demo.config.yml',
 ]
 ",
   ],
-  Array [
+  [
     "[debug] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json
 ",
   ],
-  Array [
+  [
     "[debug] parasticConfigEntry: @guanghechen/tool-demo
 ",
   ],
@@ -48,21 +48,21 @@ Array [
 `;
 
 exports[`resolveCommandConfigurationOptions no sub-command 1`] = `
-Object {
-  "a": Array [
+{
+  "a": [
     1,
     2,
     3,
   ],
   "color": true,
-  "configPath": Array [],
+  "configPath": [],
   "cwd": "<$WORKSPACE$>/packages/helper-commander",
   "date": false,
-  "generate": Object {
+  "generate": {
     "date": true,
     "logLevel": "debug",
   },
-  "init": Object {
+  "init": {
     "color": true,
     "logLevel": "verbose",
   },
@@ -73,17 +73,17 @@ Object {
 }
 `;
 
-exports[`resolveCommandConfigurationOptions no sub-command 2`] = `Array []`;
+exports[`resolveCommandConfigurationOptions no sub-command 2`] = `[]`;
 
 exports[`resolveCommandConfigurationOptions with config 1`] = `
-Object {
-  "a": Array [
+{
+  "a": [
     1,
     2,
     3,
   ],
   "color": true,
-  "configPath": Array [],
+  "configPath": [],
   "cwd": "<$WORKSPACE$>/packages/helper-commander",
   "date": true,
   "logLevel": "debug",
@@ -94,24 +94,24 @@ Object {
 `;
 
 exports[`resolveCommandConfigurationOptions with config 2`] = `
-Array [
-  Array [
+[
+  [
     "[debug] cwd: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
-  Array [
+  [
     "[debug] workspace: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2
 ",
   ],
-  Array [
+  [
     "[debug] configPath: []
 ",
   ],
-  Array [
+  [
     "[debug] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json
 ",
   ],
-  Array [
+  [
     "[debug] parasticConfigEntry: @guanghechen/tool-demo
 ",
   ],

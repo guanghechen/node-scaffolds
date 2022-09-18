@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`collectAllDependencies basic: current repo 1`] = `
-Array [
+[
   "@guanghechen/helper-path",
   "@guanghechen/invariant",
 ]
 `;
 
 exports[`collectAllDependencies basic: monorepo2 1`] = `
-Array [
+[
   "@babel/core",
   "@ampproject/remapping",
   "@jridgewell/gen-mapping",
@@ -69,13 +69,13 @@ Array [
 `;
 
 exports[`collectAllDependencies basic: normal-repo -- warnings 1`] = `
-Array [
+[
   "cannot find package.json for '@guanghechen/not-existed-repo'",
 ]
 `;
 
 exports[`collectAllDependencies basic: normal-repo 1`] = `
-Array [
+[
   "@guanghechen/not-existed-repo",
   "rollup",
 ]

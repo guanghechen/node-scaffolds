@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`mkdirsIfNotExists mkdirs logger 1`] = `
-Array [
-  Array [
+[
+  [
     "[verb ] mkdirs: <$WORKSPACE$>/packages/helper-path/__test__/fixtures/basic--non-existed--2
 ",
   ],

@@ -57,6 +57,6 @@
     "rollup": "^2.78.1"
   },
   "optionalDependencies": {
-    "stylus": "^0.58.1"
+    "stylus": "^0.59.0"
   }
 }

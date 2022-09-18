@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`collectAllDependencies basic: current repo 1`] = `
-Array [
+[
   "@rollup/plugin-commonjs",
   "@rollup/pluginutils",
   "@types/estree",
@@ -55,16 +55,16 @@ Array [
 `;
 
 exports[`collectAllDependencies basic: monorepo2 1`] = `
-Array [
+[
   "rollup",
   "fsevents",
 ]
 `;
 
 exports[`collectAllDependencies basic: normal-repo -- warnings 1`] = `
-Array [
+[
   "no such file or directory: <$WORKSPACE$>/packages/rollup-config/__test__/fixtures/normal-repo/package.json",
 ]
 `;
 
-exports[`collectAllDependencies basic: normal-repo 1`] = `Array []`;
+exports[`collectAllDependencies basic: normal-repo 1`] = `[]`;

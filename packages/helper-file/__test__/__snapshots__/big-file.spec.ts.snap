@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BigFileHelper calcPartFilepaths basic 1`] = `
-Array [
+[
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.ghc-part1",
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.ghc-part2",
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.ghc-part3",
@@ -11,7 +11,7 @@ Array [
 `;
 
 exports[`BigFileHelper calcPartFilepaths custom part name 1`] = `
-Array [
+[
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.fun1",
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.fun2",
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/a.md.fun3",
@@ -21,23 +21,23 @@ Array [
 `;
 
 exports[`calcFilePartItemsByCount basic 1`] = `
-Array [
-  Object {
+[
+  {
     "end": 1349,
     "sid": 1,
     "start": 0,
   },
-  Object {
+  {
     "end": 2698,
     "sid": 2,
     "start": 1349,
   },
-  Object {
+  {
     "end": 4047,
     "sid": 3,
     "start": 2698,
   },
-  Object {
+  {
     "end": 5395,
     "sid": 4,
     "start": 4047,
@@ -46,33 +46,33 @@ Array [
 `;
 
 exports[`calcFilePartItemsBySize basic 1`] = `
-Array [
-  Object {
+[
+  {
     "end": 1024,
     "sid": 1,
     "start": 0,
   },
-  Object {
+  {
     "end": 2048,
     "sid": 2,
     "start": 1024,
   },
-  Object {
+  {
     "end": 3072,
     "sid": 3,
     "start": 2048,
   },
-  Object {
+  {
     "end": 4096,
     "sid": 4,
     "start": 3072,
   },
-  Object {
+  {
     "end": 5120,
     "sid": 5,
     "start": 4096,
   },
-  Object {
+  {
     "end": 5395,
     "sid": 6,
     "start": 5120,

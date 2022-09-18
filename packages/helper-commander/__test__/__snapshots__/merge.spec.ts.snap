@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`merge replace 1`] = `
-Object {
-  "a": Object {
-    "b": Object {
+{
+  "a": {
+    "b": {
       "d": "waw",
     },
   },
   "b": "dfe",
-  "c": Array [
+  "c": [
     "x",
     "y",
     "a",
@@ -19,14 +19,14 @@ Object {
 `;
 
 exports[`merge replace 2`] = `
-Object {
-  "a": Object {
-    "b": Object {
+{
+  "a": {
+    "b": {
       "d": "waw",
     },
   },
   "b": "dfe",
-  "c": Array [
+  "c": [
     "a",
     "b",
   ],

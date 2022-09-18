@@ -2,44 +2,44 @@
 
 exports[`runPlop simple: README.md 1`] = `
 "<header>
-  <h1 align=\\"center\\">
-    <a href=\\"https://github.com/guanghechen/guanghechen/tree/main/packages/waw#readme\\">@guanghechen/waw</a>
+  <h1 align="center">
+    <a href="https://github.com/guanghechen/guanghechen/tree/main/packages/waw#readme">@guanghechen/waw</a>
   </h1>
-  <div align=\\"center\\">
-    <a href=\\"https://www.npmjs.com/package/@guanghechen/waw\\">
+  <div align="center">
+    <a href="https://www.npmjs.com/package/@guanghechen/waw">
       <img
-        alt=\\"Npm Version\\"
-        src=\\"https://img.shields.io/npm/v/@guanghechen/waw.svg\\"
+        alt="Npm Version"
+        src="https://img.shields.io/npm/v/@guanghechen/waw.svg"
       />
     </a>
-    <a href=\\"https://www.npmjs.com/package/@guanghechen/waw\\">
+    <a href="https://www.npmjs.com/package/@guanghechen/waw">
       <img
-        alt=\\"Npm Download\\"
-        src=\\"https://img.shields.io/npm/dm/@guanghechen/waw.svg\\"
+        alt="Npm Download"
+        src="https://img.shields.io/npm/dm/@guanghechen/waw.svg"
       />
     </a>
-    <a href=\\"https://www.npmjs.com/package/@guanghechen/waw\\">
+    <a href="https://www.npmjs.com/package/@guanghechen/waw">
       <img
-        alt=\\"Npm License\\"
-        src=\\"https://img.shields.io/npm/l/@guanghechen/waw.svg\\"
+        alt="Npm License"
+        src="https://img.shields.io/npm/l/@guanghechen/waw.svg"
       />
     </a>
-    <a href=\\"#install\\">
+    <a href="#install">
       <img
-        alt=\\"Module Formats: cjs, esm\\"
-        src=\\"https://img.shields.io/badge/module_formats-cjs%2C%20esm-green.svg\\"
+        alt="Module Formats: cjs, esm"
+        src="https://img.shields.io/badge/module_formats-cjs%2C%20esm-green.svg"
       />
     </a>
-    <a href=\\"https://github.com/nodejs/node\\">
+    <a href="https://github.com/nodejs/node">
       <img
-        alt=\\"Node.js Version\\"
-        src=\\"https://img.shields.io/node/v/@guanghechen/waw\\"
+        alt="Node.js Version"
+        src="https://img.shields.io/node/v/@guanghechen/waw"
       />
     </a>
-    <a href=\\"https://github.com/prettier/prettier\\">
+    <a href="https://github.com/prettier/prettier">
       <img
-        alt=\\"Code Style: prettier\\"
-        src=\\"https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square\\"
+        alt="Code Style: prettier"
+        src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"
       />
     </a>
   </div>
@@ -74,9 +74,9 @@ Some descriptions.
 `;
 
 exports[`runPlop simple: console 1`] = `
-Array [
-  Array [
-    Object {
+[
+  [
+    {
       "cwd": "<WORKSPACE>/output",
       "isMonorepo": true,
       "nickname": "jojo",
@@ -122,43 +122,43 @@ export function greet(name: string): void {
 
 exports[`runPlop simple: tsconfig.json 1`] = `
 "{
-  \\"extends\\": \\"./tsconfig.settings\\",
-  \\"include\\": [\\"src\\", \\"script\\", \\"__test__\\"]
+  "extends": "./tsconfig.settings",
+  "include": ["src", "script", "__test__"]
 }
 "
 `;
 
 exports[`runPlop simple: tsconfig.settings.json 1`] = `
 "{
-  \\"compilerOptions\\": {
-    \\"allowSyntheticDefaultImports\\": true,
-    \\"alwaysStrict\\": true,
-    \\"declaration\\": true,
-    \\"declarationMap\\": false,
-    \\"downlevelIteration\\": true,
-    \\"esModuleInterop\\": true,
-    \\"experimentalDecorators\\": true,
-    \\"forceConsistentCasingInFileNames\\": true,
-    \\"moduleResolution\\": \\"node\\",
-    \\"newLine\\": \\"LF\\",
-    \\"noEmit\\": false,
-    \\"noEmitOnError\\": true,
-    \\"noImplicitAny\\": true,
-    \\"noImplicitReturns\\": false,
-    \\"noImplicitThis\\": true,
-    \\"noImplicitUseStrict\\": false,
-    \\"noUnusedLocals\\": false,
-    \\"noUnusedParameters\\": false,
-    \\"pretty\\": false,
-    \\"removeComments\\": false,
-    \\"resolveJsonModule\\": true,
-    \\"sourceMap\\": false,
-    \\"strict\\": true,
-    \\"strictFunctionTypes\\": true,
-    \\"strictNullChecks\\": true,
-    \\"strictPropertyInitialization\\": true,
-    \\"suppressImplicitAnyIndexErrors\\": true,
-    \\"target\\": \\"es2015\\"
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": true,
+    "declaration": true,
+    "declarationMap": false,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "newLine": "LF",
+    "noEmit": false,
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": false,
+    "noImplicitThis": true,
+    "noImplicitUseStrict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "pretty": false,
+    "removeComments": false,
+    "resolveJsonModule": true,
+    "sourceMap": false,
+    "strict": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "es2015"
   }
 }
 "
@@ -166,17 +166,17 @@ exports[`runPlop simple: tsconfig.settings.json 1`] = `
 
 exports[`runPlop simple: tsconfig.src.json 1`] = `
 "{
-  \\"extends\\": \\"./tsconfig.settings\\",
-  \\"compilerOptions\\": {
-    \\"rootDir\\": \\"src\\"
+  "extends": "./tsconfig.settings",
+  "compilerOptions": {
+    "rootDir": "src"
   },
-  \\"include\\": [\\"src\\"]
+  "include": ["src"]
 }
 "
 `;
 
 exports[`runPrompts npm-package 1`] = `
-Object {
+{
   "cwd": "<WORKSPACE>/output",
   "isMonorepo": true,
   "packageAuthor": "guanghechen",
@@ -191,7 +191,7 @@ Object {
 `;
 
 exports[`runPrompts npm-package 2`] = `
-Object {
+{
   "cwd": "<WORKSPACE>/output",
   "isMonorepo": true,
   "packageAuthor": "guanghechen",
@@ -206,7 +206,7 @@ Object {
 `;
 
 exports[`runPrompts npm-package 3`] = `
-Object {
+{
   "cwd": "<WORKSPACE>/output",
   "isMonorepo": true,
   "packageAuthor": "guanghechen",

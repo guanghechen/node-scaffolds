@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`collectAllFiles collect start from file 1`] = `
-Array [
+[
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic/config.yml",
 ]
 `;
 
 exports[`collectAllFiles default predicate 1`] = `
-Array [
+[
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic/1.md",
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic/2.md",
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic/config.yml",
@@ -15,25 +15,25 @@ Array [
 `;
 
 exports[`collectAllFiles yaml file only 1`] = `
-Array [
+[
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic/config.yml",
 ]
 `;
 
 exports[`collectAllFiles yaml file only 2`] = `
-Array [
+[
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic/config.yml",
 ]
 `;
 
 exports[`collectAllFilesSync collect start from file 1`] = `
-Array [
+[
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic/config.yml",
 ]
 `;
 
 exports[`collectAllFilesSync default predicate 1`] = `
-Array [
+[
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic/1.md",
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic/2.md",
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic/config.yml",
@@ -41,7 +41,7 @@ Array [
 `;
 
 exports[`collectAllFilesSync yaml file only 1`] = `
-Array [
+[
   "<$WORKSPACE$>/packages/helper-file/__test__/fixtures/basic/config.yml",
 ]
 `;

@@ -12,23 +12,23 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 var fs__default = /*#__PURE__*/_interopDefaultLegacy(fs);
 
 var data = {
-  name: \\"alice\\"
+  name: "alice"
 };
 var data$1 = {
   data: data
 };
 
 function isFileSync(filepath) {
-    if (!fs__default[\\"default\\"].existsSync(filepath))
+    if (!fs__default["default"].existsSync(filepath))
         return false;
-    return fs__default[\\"default\\"].statSync(filepath).isFile();
+    return fs__default["default"].statSync(filepath).isFile();
 }
 
 console.log('data:', data$1);
 console.log(isFileSync(__filename));
 var index = (function () { return data$1; });
 
-exports[\\"default\\"] = index;
+exports["default"] = index;
 exports.isFileSync = isFileSync;
 "
 `;
@@ -37,7 +37,7 @@ exports[`build simple: rollup es 1`] = `
 "import fs from 'fs-extra';
 
 var data = {
-  name: \\"alice\\"
+  name: "alice"
 };
 var data$1 = {
   data: data
