@@ -27,7 +27,8 @@ export function collectAllDependencies(
   additionalDependencies: ReadonlyArray<string> | null = null,
   isAbsentAllowed: ((moduleName: string) => boolean) | null = null,
 ): string[] {
-  const result: string[] = []
+  const dependencySet: Set<string> = new Set()
+
   if (isAbsentAllowed == null) {
     const regex = /^@types\//
     // eslint-disable-next-line no-param-reassign
@@ -35,8 +36,8 @@ export function collectAllDependencies(
   }
 
   const followDependency = (dependency: string): void => {
-    if (result.includes(dependency)) return
-    result.push(dependency)
+    if (dependencySet.has(dependency)) return
+    dependencySet.add(dependency)
 
     // recursively collect
     let nextPackageJsonPath = null
@@ -98,7 +99,7 @@ export function collectAllDependencies(
     }
   }
 
-  return result
+  return Array.from(dependencySet).sort()
 }
 
 function locateNearestFilepath(currentDir: string, filenames: string | string[]): string | null {

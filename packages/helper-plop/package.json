@@ -44,7 +44,7 @@
     "@guanghechen/helper-string": "^2.1.0",
     "@guanghechen/invariant": "^2.1.0",
     "chalk": "^4.1.2",
-    "minimist": "^1.2.6",
+    "minimist": "^1.2.7",
     "mock-stdin": "^1.0.0",
     "node-plop": "^0.26.3",
     "ora": "^5.4.1",
