@@ -9,37 +9,63 @@ import type { Command, ICommandConfigurationFlatOpts, ICommandConfigurationOptio
 import { createTopCommand, resolveCommandConfigurationOptions } from '../src'
 
 describe('command', () => {
-  test('no sub-command', async () => {
-    const argv: string[] = [
-      'node',
-      'guanghechen',
-      '--log-level=debug',
-      '--log-flag=no-date',
-      '--log-flag=no-color',
-      '-f',
-      '--no-silence',
-    ]
+  describe('no sub-command', () => {
+    test('with arguments', async () => {
+      const argv: string[] = [
+        'node',
+        'guanghechen',
+        'source content waw waw waw',
+        'this arg should be ignored',
+        '--log-level=debug',
+        '--log-flag=no-date',
+        '--log-flag=no-color',
+        '-f',
+        '--no-silence',
+      ]
 
-    const logger = new ChalkLogger({ name: 'ghc', flags: { colorful: false, date: false } }, argv)
-    const mock = createLoggerMock({ logger, desensitize })
-    const result0 = await getCommand(argv, logger)
-    expect(desensitize(result0.args)).toMatchSnapshot('args')
-    expect(desensitize(result0.options)).toMatchSnapshot('options')
-    expect(desensitize(result0.resolvedOptions)).toMatchSnapshot('resolvedOptions')
-    expect(mock.getIndiscriminateAll()).toMatchSnapshot('logs')
-    mock.restore()
+      const logger = new ChalkLogger({ name: 'ghc', flags: { colorful: false, date: false } }, argv)
+      const mock = createLoggerMock({ logger, desensitize })
+      const result0 = await getCommand(argv, logger)
+      expect(desensitize(result0.args)).toMatchSnapshot('args')
+      expect(desensitize(result0.options)).toMatchSnapshot('options')
+      expect(desensitize(result0.resolvedOptions)).toMatchSnapshot('resolvedOptions')
+      expect(mock.getIndiscriminateAll()).toMatchSnapshot('logs')
+      mock.restore()
+    })
+
+    test('without arguments', async () => {
+      const argv: string[] = [
+        'node',
+        'guanghechen',
+        '--log-level=debug',
+        '--log-flag=no-date',
+        '--log-flag=no-color',
+        '-f',
+        '--no-silence',
+      ]
+
+      const logger = new ChalkLogger({ name: 'ghc', flags: { colorful: false, date: false } }, argv)
+      const mock = createLoggerMock({ logger, desensitize })
+      const result0 = await getCommand(argv, logger)
+      expect(desensitize(result0.args)).toMatchSnapshot('args')
+      expect(desensitize(result0.options)).toMatchSnapshot('options')
+      expect(desensitize(result0.resolvedOptions)).toMatchSnapshot('resolvedOptions')
+      expect(mock.getIndiscriminateAll()).toMatchSnapshot('logs')
+      mock.restore()
+    })
   })
 })
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-function getCommand(argv: string[], logger: ChalkLogger) {
-  interface IGlobalCommandOptions extends ICommandConfigurationOptions {
-    encoding: BufferEncoding
-    input?: string
-    output?: string
-    force: boolean
-    silence: boolean
-  }
+async function getCommand(
+  argv: string[],
+  logger: ChalkLogger,
+): Promise<{
+  args: string[]
+  options: IGlobalCommandOptions
+  resolvedOptions: IGlobalCommandOptions & ICommandConfigurationFlatOpts
+  program: Command
+}> {
+  type ICommandData = Awaited<ReturnType<typeof getCommand>>
 
   const __defaultGlobalCommandOptions: IGlobalCommandOptions = {
     encoding: 'utf8',
@@ -49,13 +75,8 @@ function getCommand(argv: string[], logger: ChalkLogger) {
     silence: true,
   }
 
-  return new Promise<{
-    args: string[]
-    options: IGlobalCommandOptions
-    resolvedOptions: IGlobalCommandOptions & ICommandConfigurationFlatOpts
-    program: Command
-  }>((resolve, reject) => {
-    const program = createTopCommand('guanghechen', '0.0.0')
+  const program = createTopCommand('guanghechen', '0.0.0')
+  const result: ICommandData = await new Promise<ICommandData>((resolve, reject) => {
     program
       .argument('[source content')
       .option('-e, --encoding <encoding>', 'Encoding of content from stdin or file.')
@@ -66,7 +87,7 @@ function getCommand(argv: string[], logger: ChalkLogger) {
       )
       .option('-f, --force', 'Overwrite the <filepath> without confirmation.')
       .option('-S, --no-silence', 'print info level logs.')
-      .action(async function (args: string[], options: IGlobalCommandOptions) {
+      .action(function (args: string[], options: IGlobalCommandOptions): void {
         try {
           const resolvedOptions = resolveGlobalCommandOptions(
             '@guanghechen/helper-commander--demo',
@@ -81,81 +102,85 @@ function getCommand(argv: string[], logger: ChalkLogger) {
           reject(error)
         }
       })
-
-    try {
-      program.parse(argv)
-    } catch (error) {
-      reject(error)
-    }
+      .parse(argv)
   })
+  return result
+}
 
-  function resolveGlobalCommandOptions<O extends object>(
-    commandName: string,
-    subCommandName: string | false,
-    defaultOptions: O,
-    workspaceDir: string,
-    options: O & IGlobalCommandOptions,
-    logger: ChalkLogger,
-  ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
-    type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
-    const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>(
-      logger,
-      commandName,
-      subCommandName,
-      workspaceDir,
-      { ...__defaultGlobalCommandOptions, ...defaultOptions },
-      options,
-    )
+interface IGlobalCommandOptions extends ICommandConfigurationOptions {
+  encoding: BufferEncoding
+  input?: string
+  output?: string
+  force: boolean
+  silence: boolean
+}
 
-    // Resolve `encoding`.
-    const encoding: string = cover<string>(
-      resolvedDefaultOptions.encoding,
-      options.encoding,
-      isNonBlankString,
-    )
-    logger.debug('encoding:', encoding)
+function resolveGlobalCommandOptions<O extends object>(
+  commandName: string,
+  subCommandName: string | false,
+  defaultOptions: O & IGlobalCommandOptions,
+  workspaceDir: string,
+  options: O & IGlobalCommandOptions,
+  logger: ChalkLogger,
+): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
+  type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
+  const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>(
+    logger,
+    commandName,
+    subCommandName,
+    workspaceDir,
+    defaultOptions,
+    options,
+  )
 
-    // Resolve `input`.
-    const _input: string | undefined = cover<string | undefined>(
-      resolvedDefaultOptions.input,
-      options.input,
-      isNonBlankString,
-    )
-    const input: string | undefined = _input ? absoluteOfWorkspace(workspaceDir, _input) : undefined
-    logger.debug('input:', input)
+  // Resolve `encoding`.
+  const encoding: string = cover<string>(
+    resolvedDefaultOptions.encoding,
+    options.encoding,
+    isNonBlankString,
+  )
+  logger.debug('encoding:', encoding)
 
-    // Resolve `output`.
-    const _output: string | undefined = cover<string | undefined>(
-      resolvedDefaultOptions.output,
-      options.output,
-      isNonBlankString,
-    )
-    const output: string | undefined = _output
-      ? absoluteOfWorkspace(workspaceDir, _output)
-      : undefined
-    logger.debug('output:', output)
+  // Resolve `input`.
+  const _input: string | undefined = cover<string | undefined>(
+    resolvedDefaultOptions.input,
+    options.input,
+    isNonBlankString,
+  )
+  const input: string | undefined = _input ? absoluteOfWorkspace(workspaceDir, _input) : undefined
+  logger.debug('input:', input)
 
-    // Resolve `force`.
-    const force: boolean = cover<boolean>(
-      resolvedDefaultOptions.force,
-      convertToBoolean(options.force),
-    )
-    logger.debug('force:', force)
+  // Resolve `output`.
+  const _output: string | undefined = cover<string | undefined>(
+    resolvedDefaultOptions.output,
+    options.output,
+    isNonBlankString,
+  )
+  const output: string | undefined = _output
+    ? absoluteOfWorkspace(workspaceDir, _output)
+    : undefined
+  logger.debug('output:', output)
 
-    // Resolve `silence`.
-    const silence: boolean = cover<boolean>(
-      resolvedDefaultOptions.silence,
-      convertToBoolean(options.silence),
-    )
-    logger.debug('silence:', silence)
+  // Resolve `force`.
+  const force: boolean = cover<boolean>(
+    resolvedDefaultOptions.force,
+    convertToBoolean(options.force),
+  )
+  logger.debug('force:', force)
 
-    return {
-      ...resolvedDefaultOptions,
-      encoding,
-      input,
-      output,
-      force,
-      silence,
-    }
+  // Resolve `silence`.
+  const silence: boolean = cover<boolean>(
+    resolvedDefaultOptions.silence,
+    convertToBoolean(options.silence),
+  )
+  logger.debug('silence:', silence)
+
+  return {
+    ...resolvedDefaultOptions,
+    encoding,
+    input,
+    output,
+    force,
+    silence,
   }
 }

@@ -4,6 +4,7 @@ import {
   __defaultGlobalCommandOptions,
   createProgram,
   handleCommand,
+  logger,
   packageName,
   resolveGlobalCommandOptions,
 } from '.'
@@ -22,4 +23,7 @@ program
     const sourceContent = args[0]
     await handleCommand(sourceContent, resolvedOptions)
   })
-  .parse(process.argv)
+  .parseAsync(process.argv)
+  .catch(error => {
+    logger.error(error)
+  })

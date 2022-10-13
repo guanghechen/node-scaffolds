@@ -7,11 +7,13 @@ import type { ICommandConfigurationOptions } from '../types/configuration'
  * @param args    command arguments
  * @param options command options
  * @param extra   extra args (neither declared command arguments nor command options)
+ * @param self    current command
  */
 export type ICommandActionCallback<T extends ICommandConfigurationOptions> = (
   args: string[],
   options: T,
   extra: string[],
+  self: Command,
 ) => void | Promise<void> | never
 
 export class Command extends commander.Command {
@@ -27,51 +29,35 @@ export class Command extends commander.Command {
   /**
    * Register callback `fn` for the command.
    *
-   * Examples:
-   *
-   *      program
-   *        .command('help')
-   *        .description('display verbose help')
-   *        .action(function() {
-   *           // output help here
-   *        });
+   * @example
+   * program
+   *   .command('serve')
+   *   .description('start service')
+   *   .action(function() {
+   *      // do work here
+   *   });
    *
    * @param {Function} fn
    * @return {Command} `this` command for chaining
-   * @api public
    */
   public override action<T extends ICommandConfigurationOptions>(
     fn: ICommandActionCallback<T>,
   ): this {
     const self = this
 
-    const listener = (args: string[]): void => {
+    const listener = (args: string[]): unknown | Promise<unknown> => {
       // The .action callback takes an extra parameter which is the command or options.
       const expectedArgsCount = self.args.length
 
-      // const actionArgs: (string | object | string[])[] = [
-      const actionArgs: [string[], T, string[]] = [
-        // Command arguments
+      const actionArgs: Parameters<ICommandActionCallback<T>> = [
         args.slice(0, expectedArgsCount),
-
-        // Command options
         self.opts() as T,
-
-        // Extra arguments so available too.
         args.slice(expectedArgsCount),
+        self,
       ]
 
       const actionResult = fn.apply(self, actionArgs)
-
-      // Remember result in case it is async.
-      // Assume parseAsync getting called on root.
-      let rootCommand: Command = self
-      while (rootCommand.parent != null) {
-        rootCommand = rootCommand.parent as Command
-      }
-      if (rootCommand._actionResults != null) {
-        rootCommand._actionResults.push(actionResult)
-      }
+      return actionResult
     }
 
     self._actionHandler = listener

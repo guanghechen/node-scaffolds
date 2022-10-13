@@ -1,5 +1,6 @@
 import {
   createProgram,
+  logger,
   mountSubCommandDecrypt,
   mountSubCommandEncrypt,
   mountSubCommandInit,
@@ -16,4 +17,6 @@ mountSubCommandEncrypt(program)
 // mount sub-command: decrypt
 mountSubCommandDecrypt(program)
 
-program.parse(process.argv)
+program.parseAsync(process.argv).catch(error => {
+  logger.error(error)
+})

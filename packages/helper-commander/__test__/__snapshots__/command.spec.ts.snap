@@ -1,8 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`command no sub-command: args 1`] = `[]`;
+exports[`command no sub-command with arguments: args 1`] = `
+[
+  "source content waw waw waw",
+]
+`;
 
-exports[`command no sub-command: logs 1`] = `
+exports[`command no sub-command with arguments: logs 1`] = `
 [
   [
     "[debug ghc] cwd: <$WORKSPACE$>/packages/helper-commander
@@ -51,7 +55,7 @@ exports[`command no sub-command: logs 1`] = `
 ]
 `;
 
-exports[`command no sub-command: options 1`] = `
+exports[`command no sub-command with arguments: options 1`] = `
 {
   "configPath": [],
   "force": true,
@@ -64,7 +68,87 @@ exports[`command no sub-command: options 1`] = `
 }
 `;
 
-exports[`command no sub-command: resolvedOptions 1`] = `
+exports[`command no sub-command with arguments: resolvedOptions 1`] = `
+{
+  "configPath": [],
+  "cwd": "<$WORKSPACE$>/packages/helper-commander",
+  "encoding": "utf8",
+  "force": true,
+  "input": undefined,
+  "logLevel": "debug",
+  "output": undefined,
+  "parasticConfigEntry": "@guanghechen/helper-commander--demo",
+  "parasticConfigPath": "<$WORKSPACE$>/packages/helper-commander/package.json",
+  "silence": false,
+  "workspace": "<$WORKSPACE$>/packages/helper-commander",
+}
+`;
+
+exports[`command no sub-command without arguments: args 1`] = `[]`;
+
+exports[`command no sub-command without arguments: logs 1`] = `
+[
+  [
+    "[debug ghc] cwd: <$WORKSPACE$>/packages/helper-commander
+",
+  ],
+  [
+    "[debug ghc] workspace: <$WORKSPACE$>/packages/helper-commander
+",
+  ],
+  [
+    "[debug ghc] configPath: []
+",
+  ],
+  [
+    "[debug ghc] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/package.json
+",
+  ],
+  [
+    "[debug ghc] parasticConfigEntry: @guanghechen/helper-commander--demo
+",
+  ],
+  [
+    "[debug ghc] logLevel: debug
+",
+  ],
+  [
+    "[debug ghc] encoding: utf8
+",
+  ],
+  [
+    "[debug ghc] input: undefined
+",
+  ],
+  [
+    "[debug ghc] output: undefined
+",
+  ],
+  [
+    "[debug ghc] force: true
+",
+  ],
+  [
+    "[debug ghc] silence: false
+",
+  ],
+]
+`;
+
+exports[`command no sub-command without arguments: options 1`] = `
+{
+  "configPath": [],
+  "force": true,
+  "logFlag": [
+    "no-date",
+    "no-color",
+  ],
+  "logLevel": "debug",
+  "silence": false,
+}
+`;
+
+exports[`command no sub-command without arguments: resolvedOptions 1`] = `
 {
   "configPath": [],
   "cwd": "<$WORKSPACE$>/packages/helper-commander",
