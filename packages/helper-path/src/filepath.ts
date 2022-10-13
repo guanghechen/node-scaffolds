@@ -10,7 +10,7 @@ import path from 'path'
  * @param targetPath
  */
 export function absoluteOfWorkspace(workspace: string, targetPath?: string | null): string {
-  if (targetPath == null) return workspace
+  if (!targetPath) return workspace
   const filepath: string = path.resolve(workspace, targetPath)
   return path.normalize(filepath)
 }

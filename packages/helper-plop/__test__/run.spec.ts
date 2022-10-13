@@ -55,7 +55,7 @@ describe('runPlop', function () {
   async function runTest(
     plopBypass: string[],
     mockInputs: string[],
-    defaultAnswers: Record<string, unknown>,
+    defaultAnswers: object,
     expectedPackageLocation: string,
   ): Promise<void> {
     const consoleMock = createConsoleMock(
@@ -106,10 +106,10 @@ describe('runPrompts', function () {
     const defaultAnswers = { packageVersion: '1.0.0-alpha' }
     const prompts = createNpmPackagePrompts(preAnswers, defaultAnswers)
 
-    const calc = (bypass: string[], mockInputs: string[]): Record<string, unknown> => {
+    const calc = (bypass: string[], mockInputs: string[]): object => {
       const answers: any = runPromptsWithMock(prompts as InputQuestion[], bypass, mockInputs)
       const resolvedAnswers = resolveNpmPackageAnswers(preAnswers, answers)
-      return jsonDesensitizer(resolvedAnswers) as Record<string, unknown>
+      return jsonDesensitizer(resolvedAnswers) as object
     }
 
     expect(calc(['@guanghechen/waw'], [])).toMatchSnapshot()

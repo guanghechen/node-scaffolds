@@ -65,7 +65,7 @@ export function isNumber(v: number | unknown): v is number {
  * Check if the given data is a `Object` type.
  * @param v
  */
-export function isObject(v: unknown): v is Record<string, unknown> {
+export function isObject(v: unknown): v is object {
   return Object.prototype.toString.call(v) === '[object Object]'
 }
 
@@ -145,9 +145,7 @@ export function isNotEmptyArray(v: unknown[] | unknown): v is unknown[] {
  * Check if the given data is an not-empty `Object` type.
  * @param v
  */
-export function isNotEmptyObject(
-  v: Record<string, unknown> | unknown,
-): v is Record<string, unknown> {
+export function isNotEmptyObject(v: object | unknown): v is object {
   return isObject(v) && Object.getOwnPropertyNames(v).length > 0
 }
 
@@ -155,7 +153,7 @@ export function isNotEmptyObject(
  * Check if the given data is an empty `Object` type.
  * @param v
  */
-export function isEmptyObject(v: Record<string, unknown> | unknown): v is Record<string, unknown> {
+export function isEmptyObject(v: object | unknown): v is object {
   return isObject(v) && Object.getOwnPropertyNames(v).length <= 0
 }
 

@@ -1,5 +1,5 @@
 export type IEventType = number | string | symbol
-export type IEventPayload = number | boolean | string | symbol | Record<string, unknown>
+export type IEventPayload = number | boolean | string | symbol | object
 
 export interface IEvent<
   T extends IEventType = IEventType,

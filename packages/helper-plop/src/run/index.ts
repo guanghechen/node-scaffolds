@@ -20,7 +20,7 @@ const progressSpinner = Ora()
 export async function runGenerator(
   generator: PlopGenerator,
   bypassArr?: string[],
-  defaultAnswers: Record<string, unknown> = {},
+  defaultAnswers: object = {},
   opts: IRunGeneratorOptions = {},
 ): Promise<void> {
   const noMap = coverBoolean(false, opts.showTypeNames)
@@ -77,7 +77,7 @@ export async function runGenerator(
 export async function runPlop(
   plop: NodePlopAPI,
   bypassArr?: string[],
-  defaultAnswers: Record<string, unknown> = {},
+  defaultAnswers: object = {},
 ): Promise<string | void> {
   const generators = plop.getGeneratorList()
 

@@ -17,7 +17,7 @@ export async function runPlopWithMock(
   templateConfig: string,
   plopBypass: string[],
   mockAnswers: string[],
-  defaultAnswers: Record<string, unknown> = {},
+  defaultAnswers: object = {},
 ): Promise<void> {
   // Mock stdin
   const stdin = mockStdin.stdin()
@@ -75,8 +75,8 @@ export function runPromptsWithMock(
   prompts: Array<InputQuestion<any>>,
   bypass: string[] = [],
   mockInputs: string[] = [],
-): Record<string, unknown> {
-  const results: Record<string, unknown> = {}
+): object {
+  const results: object = {}
 
   let i = 0
   let j = 0

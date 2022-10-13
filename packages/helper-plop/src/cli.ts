@@ -9,7 +9,7 @@ import { Plop, run } from 'plop'
  */
 export function launch(
   argv: string[],
-  createOptions?: (args: Record<string, unknown>) => Partial<LaunchOptions>,
+  createOptions?: (args: object) => Partial<LaunchOptions>,
 ): Promise<void> {
   const args = minimist(argv.slice(2))
 

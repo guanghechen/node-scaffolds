@@ -13,5 +13,4 @@ export type IStringDesensitizer = IDesensitizer<string>
 /**
  * Desensitize object type values
  */
-export type IObjectDesensitizer<T extends Record<string, unknown> = Record<string, unknown>> =
-  IDesensitizer<T>
+export type IObjectDesensitizer<T extends object = object> = IDesensitizer<T>
