@@ -90,7 +90,7 @@ describe('runPlop', function () {
   }
 
   test('simple', async function () {
-    const defaultAnswers = { nickname: 'jojo', isMonorepo: false }
+    const defaultAnswers = { nickname: 'jojo', isMonorepo: false, repositoryName: 'node-scaffolds' }
     await runTest(
       ['@guanghechen/waw'],
       ['', '', 'some descriptions', ''],
