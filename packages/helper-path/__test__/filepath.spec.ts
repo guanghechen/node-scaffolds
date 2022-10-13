@@ -15,13 +15,8 @@ import {
 
 describe('absoluteOfWorkspace', function () {
   test('null / undefined', function () {
-    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
     expect(absoluteOfWorkspace(__dirname, null)).toEqual(__dirname)
-
-    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
     expect(absoluteOfWorkspace(__dirname, undefined)).toEqual(__dirname)
-
-    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
     expect(absoluteOfWorkspace(__dirname)).toEqual(__dirname)
   })
 

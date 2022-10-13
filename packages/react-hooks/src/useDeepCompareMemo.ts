@@ -1,6 +1,5 @@
 import isEqual from 'fast-deep-equal/react'
-import type React from 'react'
-import { useMemo, useRef } from 'react'
+import React from 'react'
 
 /**
  * Deep compare version of React.useMemo
@@ -8,8 +7,8 @@ import { useMemo, useRef } from 'react'
  * @param deps
  */
 export function useDeepCompareMemo<T>(fn: () => T, deps: React.DependencyList): T {
-  const signal = useRef<number>(0)
-  const prevDeps = useRef<React.DependencyList>(deps)
+  const signal = React.useRef<number>(0)
+  const prevDeps = React.useRef<React.DependencyList>(deps)
 
   if (!isEqual(prevDeps.current, deps)) {
     signal.current += 1
@@ -17,5 +16,5 @@ export function useDeepCompareMemo<T>(fn: () => T, deps: React.DependencyList): 
   prevDeps.current = deps
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  return useMemo(fn, [signal.current])
+  return React.useMemo(fn, [signal.current])
 }

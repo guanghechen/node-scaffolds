@@ -46,7 +46,6 @@ export class Command extends commander.Command {
     const self = this
 
     const listener = (args: string[]): void => {
-      // eslint-disable-next-line max-len
       // The .action callback takes an extra parameter which is the command or options.
       const expectedArgsCount = self.args.length
 
