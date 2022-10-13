@@ -1,11 +1,10 @@
 import './postcss-flexbugs-fixes'
-import './rollup-plugin-multi-entry'
 
 import type {
   IRollupConfigOptions as IBaseRollupConfigOptions,
   IRollupPluginOptions as IBaseRollupPluginOptions,
 } from '@guanghechen/rollup-config'
-import type { MultiEntryOptions } from '@rollup/plugin-multi-entry'
+import type { RollupMultiEntryOptions } from '@rollup/plugin-multi-entry'
 import type { Options as PostcssPluginAutoprefixerOptions } from 'autoprefixer'
 import type { Options as PostcssPluginFlexbugsFixesOptions } from 'postcss-flexbugs-fixes'
 import type { Options as PostcssPluginPostcssUrlOptions } from 'postcss-url'
@@ -18,10 +17,10 @@ export type {
   NodeResolveOptions,
   TypescriptOptions,
 } from '@guanghechen/rollup-config'
+export type { RollupMultiEntryOptions as MultiEntryOptions } from '@rollup/plugin-multi-entry'
 export type { Options as PostcssPluginAutoprefixerOptions } from 'autoprefixer'
 export type { Options as PostcssPluginPostcssUrlOptions } from 'postcss-url'
 export type { PostCSSPluginConf as PostcssOptions } from 'rollup-plugin-postcss'
-export type { MultiEntryOptions } from '@rollup/plugin-multi-entry'
 
 /**
  * Params for creating a rollup config.
@@ -83,7 +82,7 @@ export interface IPreprocessConfigOptions {
     /**
      * options for @rollup/plugin-multi-entry
      */
-    multiEntryOptions?: MultiEntryOptions
+    multiEntryOptions?: RollupMultiEntryOptions
     /**
      * options for rollup-plugin-postcss
      */
