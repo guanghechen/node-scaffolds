@@ -35,6 +35,6 @@
     "eslint-plugin-import": "^2.26.0"
   },
   "peerDependencies": {
-    "eslint": "^8.23.0"
+    "eslint": "^8.0.0"
   }
 }

@@ -49,6 +49,6 @@
     "tslib": "^2.4.0"
   },
   "peerDependencies": {
-    "rollup": "^2.78.1"
+    "rollup": "^2.0.0"
   }
 }
