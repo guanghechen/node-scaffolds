@@ -1,5 +1,26 @@
 # Changelog
 
+<a name="2.1.1"></a>
+## 2.1.1 (2022-10-13)
+
+### Changed
+
+- 🔧 chore: fix test coverage [[93a8c96](https://github.com/guanghechen/node-scaffolds/commit/93a8c96e1b1d572517c92b14331f8502c46db29e)]
+- 🎨 improve: make code tidy [[bfd11ec](https://github.com/guanghechen/node-scaffolds/commit/bfd11ece3b84028e6d7a078aab4ce865218473e1)]
+- 🔧 chore: fix build scripts [[b97eea2](https://github.com/guanghechen/node-scaffolds/commit/b97eea2b001b16616f0899faac6319c500c092d3)]
+- 🔧 chore: tweak peerDependencies [[a95956c](https://github.com/guanghechen/node-scaffolds/commit/a95956ca3bdfb244c115365cbe2d892689b788f2)]
+- 🎨 improve: refactor helper-commander [[6847770](https://github.com/guanghechen/node-scaffolds/commit/68477700fb4aeb52a20a5b72370f2f54f4fadda5)]
+- 🚨 style: fix lint [[af26dbc](https://github.com/guanghechen/node-scaffolds/commit/af26dbc23201895cdccee51d71512d837042713d)]
+- 🎨 improve: refactor helper-commander [[9bf92e5](https://github.com/guanghechen/node-scaffolds/commit/9bf92e590e3f79e2153ab4c9d3613851569950b1)]
+- 🎨 improve: prefer shorter types [[e757afc](https://github.com/guanghechen/node-scaffolds/commit/e757afc5683d691cce1aa32a1fc3efaa6f6d5376)]
+- 🎨 improve(rollup-config-tsx): prefer types provided by author [[23ad9f6](https://github.com/guanghechen/node-scaffolds/commit/23ad9f6f6179f5fd2c0a291eee423971a6cb0686)]
+- ⬆️ chore: upgrade dependencies [[8c47919](https://github.com/guanghechen/node-scaffolds/commit/8c479197fea14be59e995bb05e5c134097ab4f7f)]
+
+### Miscellaneous
+
+- 📝 docs: fix invalid links [[e20f2d6](https://github.com/guanghechen/node-scaffolds/commit/e20f2d625fc7fa0724fbd0bcc6ea04d4cba24909)]
+
+
 <a name="2.1.0"></a>
 ## 2.1.0 (2022-09-18)
 
