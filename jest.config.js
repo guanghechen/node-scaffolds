@@ -7,10 +7,11 @@ module.exports = {
   ...baseConfig,
   collectCoverageFrom: [...(baseConfig.collectCoverageFrom ?? []), '<rootDir>/gatsby-node.js'],
   coveragePathIgnorePatterns: [
-    'packages/helper-commander/src/command.ts',
-    'packages/helper-commander/src/git.ts',
-    'packages/helper-commander/src/stdin.ts',
-    'packages/helper-commander/src/yarn.ts',
+    'packages/helper-commander/src/command/main.ts',
+    'packages/helper-commander/src/command/sub.ts',
+    'packages/helper-commander/src/util/git.ts',
+    'packages/helper-commander/src/util/stdin.ts',
+    'packages/helper-commander/src/util/yarn.ts',
   ],
   coverageThreshold: {
     global: {
