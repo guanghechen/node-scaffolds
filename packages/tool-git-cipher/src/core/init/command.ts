@@ -1,19 +1,9 @@
-import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commander'
 import { Command } from '@guanghechen/helper-commander'
 import { packageName } from '../../env/constant'
 import { logger } from '../../env/logger'
-import type { IGlobalCommandOptions } from '../option'
-import { __defaultGlobalCommandOptions, resolveGlobalCommandOptions } from '../option'
-import type { IGitCipherInitContext } from './context'
-import { createGitCipherInitContext } from './context'
-
-type ISubCommandOptions = IGlobalCommandOptions
-
-const __defaultCommandOptions: ISubCommandOptions = {
-  ...__defaultGlobalCommandOptions,
-}
-
-export type ISubCommandInitOptions = ISubCommandOptions & ICommandConfigurationFlatOpts
+import { resolveGlobalCommandOptions } from '../option'
+import type { ISubCommandInitOptions } from './option'
+import { getDefaultCommandOptions } from './option'
 
 /**
  * create Sub-command: init (i)
@@ -35,7 +25,7 @@ export const createSubCommandInit = function (
       const defaultOptions: ISubCommandInitOptions = resolveGlobalCommandOptions(
         packageName,
         commandName,
-        __defaultCommandOptions,
+        getDefaultCommandOptions(),
         _workspaceDir,
         options,
       )
@@ -50,28 +40,4 @@ export const createSubCommandInit = function (
     })
 
   return command
-}
-
-/**
- * Create GitCipherInitContext
- * @param options
- */
-export async function createGitCipherInitContextFromOptions(
-  options: ISubCommandInitOptions,
-): Promise<IGitCipherInitContext> {
-  const context: IGitCipherInitContext = await createGitCipherInitContext({
-    cwd: options.cwd,
-    workspace: options.workspace,
-    encoding: options.encoding,
-    secretFilepath: options.secretFilepath,
-    indexFilepath: options.indexFilepath,
-    cipheredIndexEncoding: options.cipheredIndexEncoding,
-    ciphertextRootDir: options.ciphertextRootDir,
-    plaintextRootDir: options.plaintextRootDir,
-    showAsterisk: options.showAsterisk,
-    minPasswordLength: options.minPasswordLength,
-    maxPasswordLength: options.maxPasswordLength,
-    maxTargetFileSize: options.maxTargetFileSize,
-  })
-  return context
 }

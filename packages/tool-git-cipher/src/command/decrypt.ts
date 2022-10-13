@@ -4,12 +4,10 @@ import type {
   ISubCommandMounter,
   ISubCommandProcessor,
 } from '@guanghechen/helper-commander'
-import type { SubCommandDecryptOptions } from '../core/decrypt/command'
-import {
-  createGitCipherDecryptContextFromOptions,
-  createSubCommandDecrypt,
-} from '../core/decrypt/command'
+import { createSubCommandDecrypt } from '../core/decrypt/command'
+import { createGitCipherDecryptContextFromOptions } from '../core/decrypt/context'
 import type { IGitCipherDecryptContext } from '../core/decrypt/context'
+import type { ISubCommandDecryptOptions } from '../core/decrypt/option'
 import { GitCipherDecryptProcessor } from '../core/decrypt/processor'
 import { handleError } from './_util'
 
@@ -19,8 +17,8 @@ import { handleError } from './_util'
  * @param options
  * @returns {void|Promise<void>}
  */
-export const processSubCommandDecrypt: ISubCommandProcessor<SubCommandDecryptOptions> =
-  async function (options: SubCommandDecryptOptions): Promise<void> {
+export const processSubCommandDecrypt: ISubCommandProcessor<ISubCommandDecryptOptions> =
+  async function (options: ISubCommandDecryptOptions): Promise<void> {
     try {
       const context: IGitCipherDecryptContext = await createGitCipherDecryptContextFromOptions(
         options,
@@ -39,7 +37,7 @@ export const processSubCommandDecrypt: ISubCommandProcessor<SubCommandDecryptOpt
  * @returns {void}
  */
 export const mountSubCommandDecrypt: ISubCommandMounter =
-  createSubCommandMounter<SubCommandDecryptOptions>(
+  createSubCommandMounter<ISubCommandDecryptOptions>(
     createSubCommandDecrypt,
     processSubCommandDecrypt,
   )
@@ -52,7 +50,7 @@ export const mountSubCommandDecrypt: ISubCommandMounter =
  * @returns {Promise}
  */
 export const execSubCommandDecrypt: ISubCommandExecutor =
-  createSubCommandExecutor<SubCommandDecryptOptions>(
+  createSubCommandExecutor<ISubCommandDecryptOptions>(
     createSubCommandDecrypt,
     processSubCommandDecrypt,
   )

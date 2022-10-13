@@ -67,7 +67,7 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
 /**
  * Default value of global options
  */
-export const __defaultGlobalCommandOptions: IGlobalCommandOptions = {
+export const getDefaultGlobalCommandOptions = (): IGlobalCommandOptions => ({
   encoding: 'utf8',
   secretFilepath: '.ghc-secret',
   indexFilepath: '.ghc-index',
@@ -78,13 +78,14 @@ export const __defaultGlobalCommandOptions: IGlobalCommandOptions = {
   minPasswordLength: 6,
   maxPasswordLength: 100,
   maxTargetFileSize: undefined,
-}
+})
 
 /**
- *
- * @param flatOpts
+ * @param commandName
  * @param subCommandName
- * @param strategies
+ * @param defaultOptions
+ * @param workspaceDir
+ * @param options
  */
 export function resolveGlobalCommandOptions<C extends object>(
   commandName: string,
@@ -99,7 +100,7 @@ export function resolveGlobalCommandOptions<C extends object>(
     commandName,
     subCommandName,
     workspaceDir,
-    { ...__defaultGlobalCommandOptions, ...defaultOptions },
+    { ...getDefaultGlobalCommandOptions(), ...defaultOptions },
     options,
   )
 

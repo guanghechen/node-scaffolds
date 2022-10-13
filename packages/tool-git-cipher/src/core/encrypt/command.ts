@@ -1,46 +1,18 @@
-import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commander'
 import { Command } from '@guanghechen/helper-commander'
 import { isNotEmptyArray } from '@guanghechen/helper-is'
 import { cover, coverBoolean } from '@guanghechen/helper-option'
 import path from 'path'
 import { packageName } from '../../env/constant'
 import { logger } from '../../env/logger'
-import type { IGlobalCommandOptions } from '../option'
-import { __defaultGlobalCommandOptions, resolveGlobalCommandOptions } from '../option'
-import type { IGitCipherEncryptContext } from './context'
-import { createGitCipherEncryptContext } from './context'
-
-interface SubCommandOptions extends IGlobalCommandOptions {
-  /**
-   * Whether to update in full, if not, only update files whose mtime is less
-   * than the mtime recorded in the index file
-   */
-  readonly full: boolean
-  /**
-   * Perform `git fetch --all` before encrypt
-   */
-  readonly updateBeforeEncrypt: boolean
-  /**
-   * List of directories to encrypt
-   * @default ['.git']
-   */
-  readonly sensitiveDirectories: string[]
-}
-
-const __defaultCommandOptions: SubCommandOptions = {
-  ...__defaultGlobalCommandOptions,
-  full: false,
-  updateBeforeEncrypt: false,
-  sensitiveDirectories: ['.git'],
-}
-
-export type SubCommandEncryptOptions = SubCommandOptions & ICommandConfigurationFlatOpts
+import { resolveGlobalCommandOptions } from '../option'
+import type { ISubCommandEncryptOptions } from './option'
+import { getDefaultCommandEncryptOptions } from './option'
 
 /**
  * create Sub-command: encrypt (e)
  */
 export const createSubCommandEncrypt = function (
-  handle?: (options: SubCommandEncryptOptions) => void | Promise<void>,
+  handle?: (options: ISubCommandEncryptOptions) => void | Promise<void>,
   commandName = 'encrypt',
   aliases: string[] = ['e'],
 ): Command {
@@ -52,13 +24,13 @@ export const createSubCommandEncrypt = function (
     .arguments('<workspace>')
     .option('--full', 'full quantity update')
     .option('--update-before-encrypt', "perform 'git fetch --all' before run encryption")
-    .action(async function ([_workspaceDir], options: SubCommandEncryptOptions) {
+    .action(async function ([_workspaceDir], options: ISubCommandEncryptOptions) {
       logger.setName(commandName)
 
-      const defaultOptions: SubCommandEncryptOptions = resolveGlobalCommandOptions(
+      const defaultOptions: ISubCommandEncryptOptions = resolveGlobalCommandOptions(
         packageName,
         commandName,
-        __defaultCommandOptions,
+        getDefaultCommandEncryptOptions(),
         _workspaceDir,
         options,
       )
@@ -86,7 +58,7 @@ export const createSubCommandEncrypt = function (
       ]
       logger.debug('sensitiveDirectories:', sensitiveDirectories)
 
-      const resolvedOptions: SubCommandEncryptOptions = {
+      const resolvedOptions: ISubCommandEncryptOptions = {
         ...defaultOptions,
         full,
         updateBeforeEncrypt,
@@ -99,31 +71,4 @@ export const createSubCommandEncrypt = function (
     })
 
   return command
-}
-
-/**
- * Create GitCipherEncryptContext
- * @param options
- */
-export async function createGitCipherEncryptContextFromOptions(
-  options: SubCommandEncryptOptions,
-): Promise<IGitCipherEncryptContext> {
-  const context: IGitCipherEncryptContext = await createGitCipherEncryptContext({
-    cwd: options.cwd,
-    workspace: options.workspace,
-    encoding: options.encoding,
-    secretFilepath: options.secretFilepath,
-    indexFilepath: options.indexFilepath,
-    cipheredIndexEncoding: options.cipheredIndexEncoding,
-    ciphertextRootDir: options.ciphertextRootDir,
-    plaintextRootDir: options.plaintextRootDir,
-    sensitiveDirectories: options.sensitiveDirectories,
-    showAsterisk: options.showAsterisk,
-    minPasswordLength: options.minPasswordLength,
-    maxPasswordLength: options.maxPasswordLength,
-    maxTargetFileSize: options.maxTargetFileSize,
-    full: options.full,
-    updateBeforeEncrypt: options.updateBeforeEncrypt,
-  })
-  return context
 }

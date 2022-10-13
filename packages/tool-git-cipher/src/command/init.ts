@@ -4,9 +4,10 @@ import type {
   ISubCommandProcessor,
 } from '@guanghechen/helper-commander'
 import { createSubCommandExecutor, createSubCommandMounter } from '@guanghechen/helper-commander'
-import type { ISubCommandInitOptions } from '../core/init/command'
-import { createGitCipherInitContextFromOptions, createSubCommandInit } from '../core/init/command'
+import { createSubCommandInit } from '../core/init/command'
+import { createGitCipherInitContextFromOptions } from '../core/init/context'
 import type { IGitCipherInitContext } from '../core/init/context'
+import type { ISubCommandInitOptions } from '../core/init/option'
 import { GitCipherInitProcessor } from '../core/init/processor'
 import { handleError } from './_util'
 

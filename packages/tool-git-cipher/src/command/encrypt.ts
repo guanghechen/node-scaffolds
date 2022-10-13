@@ -4,12 +4,10 @@ import type {
   ISubCommandProcessor,
 } from '@guanghechen/helper-commander'
 import { createSubCommandExecutor, createSubCommandMounter } from '@guanghechen/helper-commander'
-import type { SubCommandEncryptOptions } from '../core/encrypt/command'
-import {
-  createGitCipherEncryptContextFromOptions,
-  createSubCommandEncrypt,
-} from '../core/encrypt/command'
+import { createSubCommandEncrypt } from '../core/encrypt/command'
+import { createGitCipherEncryptContextFromOptions } from '../core/encrypt/context'
 import type { IGitCipherEncryptContext } from '../core/encrypt/context'
+import type { ISubCommandEncryptOptions } from '../core/encrypt/option'
 import { GitCipherEncryptProcessor } from '../core/encrypt/processor'
 import { handleError } from './_util'
 
@@ -19,8 +17,8 @@ import { handleError } from './_util'
  * @param options
  * @returns {void|Promise<void>}
  */
-export const processSubCommandEncrypt: ISubCommandProcessor<SubCommandEncryptOptions> =
-  async function (options: SubCommandEncryptOptions): Promise<void> {
+export const processSubCommandEncrypt: ISubCommandProcessor<ISubCommandEncryptOptions> =
+  async function (options: ISubCommandEncryptOptions): Promise<void> {
     try {
       const context: IGitCipherEncryptContext = await createGitCipherEncryptContextFromOptions(
         options,
@@ -39,7 +37,7 @@ export const processSubCommandEncrypt: ISubCommandProcessor<SubCommandEncryptOpt
  * @returns {void}
  */
 export const mountSubCommandEncrypt: ISubCommandMounter =
-  createSubCommandMounter<SubCommandEncryptOptions>(
+  createSubCommandMounter<ISubCommandEncryptOptions>(
     createSubCommandEncrypt,
     processSubCommandEncrypt,
   )
@@ -52,7 +50,7 @@ export const mountSubCommandEncrypt: ISubCommandMounter =
  * @returns {Promise}
  */
 export const execSubCommandEncrypt: ISubCommandExecutor =
-  createSubCommandExecutor<SubCommandEncryptOptions>(
+  createSubCommandExecutor<ISubCommandEncryptOptions>(
     createSubCommandEncrypt,
     processSubCommandEncrypt,
   )
