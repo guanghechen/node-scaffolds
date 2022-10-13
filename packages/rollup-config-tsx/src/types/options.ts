@@ -1,12 +1,9 @@
-import './postcss-flexbugs-fixes'
-
 import type {
   IRollupConfigOptions as IBaseRollupConfigOptions,
   IRollupPluginOptions as IBaseRollupPluginOptions,
 } from '@guanghechen/rollup-config'
 import type { RollupMultiEntryOptions } from '@rollup/plugin-multi-entry'
 import type { Options as PostcssPluginAutoprefixerOptions } from 'autoprefixer'
-import type { Options as PostcssPluginFlexbugsFixesOptions } from 'postcss-flexbugs-fixes'
 import type { Options as PostcssPluginPostcssUrlOptions } from 'postcss-url'
 import type rollup from 'rollup'
 import type { PostCSSPluginConf as PostcssOptions } from 'rollup-plugin-postcss'
@@ -21,6 +18,24 @@ export type { RollupMultiEntryOptions as MultiEntryOptions } from '@rollup/plugi
 export type { Options as PostcssPluginAutoprefixerOptions } from 'autoprefixer'
 export type { Options as PostcssPluginPostcssUrlOptions } from 'postcss-url'
 export type { PostCSSPluginConf as PostcssOptions } from 'rollup-plugin-postcss'
+
+export interface PostcssPluginFlexbugsFixesOptions {
+  /**
+   * @default true
+   * @see https://github.com/luisrudge/postcss-flexbugs-fixes#bug-4
+   */
+  bug4?: boolean
+  /**
+   * @default true
+   * @see https://github.com/luisrudge/postcss-flexbugs-fixes#bug-6
+   */
+  bug6?: boolean
+  /**
+   * @default true
+   * @see https://github.com/luisrudge/postcss-flexbugs-fixes#bug-81a
+   */
+  bug8a?: boolean
+}
 
 /**
  * Params for creating a rollup config.

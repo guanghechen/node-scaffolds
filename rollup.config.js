@@ -2,7 +2,7 @@
 import createRollupConfig from '@guanghechen/rollup-config'
 import path from 'path'
 
-async function rollupConfig() {
+export default async function rollupConfig() {
   const { default: manifest } = await import(path.resolve('package.json'))
   const config = createRollupConfig({
     manifest,
@@ -12,5 +12,3 @@ async function rollupConfig() {
   })
   return config
 }
-
-export default rollupConfig()

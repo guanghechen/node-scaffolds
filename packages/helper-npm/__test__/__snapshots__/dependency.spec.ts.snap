@@ -60,7 +60,6 @@ exports[`collectAllDependencies basic: monorepo2 1`] = `
   "type-fest",
   "@babel/helpers",
   "convert-source-map",
-  "safe-buffer",
   "gensync",
   "json5",
   "rollup",
