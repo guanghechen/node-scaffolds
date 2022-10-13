@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-path",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Utilities to handle url path and file path.",
   "author": {
     "name": "guanghechen",
@@ -39,9 +39,9 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/invariant": "^2.1.0"
+    "@guanghechen/invariant": "^2.1.1"
   },
   "devDependencies": {
-    "@guanghechen/chalk-logger": "^2.1.0"
+    "@guanghechen/chalk-logger": "^2.1.1"
   }
 }
