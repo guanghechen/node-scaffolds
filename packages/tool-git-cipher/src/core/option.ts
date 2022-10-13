@@ -86,7 +86,7 @@ export const __defaultGlobalCommandOptions: IGlobalCommandOptions = {
  * @param subCommandName
  * @param strategies
  */
-export function resolveGlobalCommandOptions<C extends Record<string, unknown>>(
+export function resolveGlobalCommandOptions<C extends object>(
   commandName: string,
   subCommandName: string | false,
   defaultOptions: C,
@@ -94,10 +94,7 @@ export function resolveGlobalCommandOptions<C extends Record<string, unknown>>(
   options: C & IGlobalCommandOptions,
 ): C & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = C & IGlobalCommandOptions & ICommandConfigurationFlatOpts
-  const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<
-    C & IGlobalCommandOptions,
-    C & IGlobalCommandOptions
-  >(
+  const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<C & IGlobalCommandOptions>(
     logger,
     commandName,
     subCommandName,

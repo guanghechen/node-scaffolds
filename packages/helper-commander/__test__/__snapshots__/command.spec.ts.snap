@@ -25,6 +25,10 @@ exports[`command no sub-command: logs 1`] = `
 ",
   ],
   [
+    "[debug ghc] logLevel: debug
+",
+  ],
+  [
     "[debug ghc] encoding: utf8
 ",
   ],

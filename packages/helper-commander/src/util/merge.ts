@@ -7,25 +7,29 @@
  */
 export type IMergeStrategy<T = unknown> = (prevValue: T, nextValue: T | null) => T
 
+export type IMergeStrategyMap<O extends object> = {
+  [K in keyof O]: IMergeStrategy<O[K]>
+}
+
 /**
  * Merge options
+ *
  * @param options
- * @param strategies
+ * @param strategyMap
+ * @param defaultStrategy
  */
-export function merge<O extends Record<string, unknown>>(
+export function merge<O extends object>(
   options: O[],
-  strategies: Partial<Record<keyof O, IMergeStrategy<O[keyof O]>>> = {},
+  strategyMap: Partial<IMergeStrategyMap<O>> = {},
   defaultStrategy: IMergeStrategy = (prevOptions, nextOptions) => nextOptions ?? prevOptions,
 ): O {
-  const result = {} as unknown as O
-  for (const option of options) {
+  const result: O = { ...options[0] }
+  for (let i = 1; i < options.length; ++i) {
+    const option = options[i]
     for (const key of Object.keys(option)) {
-      const strategy = (strategies[key] || defaultStrategy) as IMergeStrategy
-      const value: O[keyof O] =
-        result[key] === undefined
-          ? (option[key] as O[keyof O])
-          : (strategy(result[key], option[key]) as O[keyof O])
-      result[key as keyof O] = value
+      const strategy = strategyMap[key] || defaultStrategy
+      const nextValue = strategy(result[key], option[key])
+      result[key] = nextValue
     }
   }
   return result

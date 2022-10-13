@@ -5,10 +5,8 @@ import { convertToBoolean, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import { desensitize } from 'jest.helper'
 import path from 'path'
-import type { Command } from '../src/command'
-import { createTopCommand } from '../src/command'
-import type { ICommandConfigurationFlatOpts, ICommandConfigurationOptions } from '../src/option'
-import { resolveCommandConfigurationOptions } from '../src/option'
+import type { Command, ICommandConfigurationFlatOpts, ICommandConfigurationOptions } from '../src'
+import { createTopCommand, resolveCommandConfigurationOptions } from '../src'
 
 describe('command', () => {
   test('no sub-command', async () => {
@@ -91,7 +89,7 @@ function getCommand(argv: string[], logger: ChalkLogger) {
     }
   })
 
-  function resolveGlobalCommandOptions<O extends Record<string, unknown>>(
+  function resolveGlobalCommandOptions<O extends object>(
     commandName: string,
     subCommandName: string | false,
     defaultOptions: O,
@@ -100,10 +98,7 @@ function getCommand(argv: string[], logger: ChalkLogger) {
     logger: ChalkLogger,
   ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
     type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
-    const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<
-      O & IGlobalCommandOptions,
-      O & IGlobalCommandOptions
-    >(
+    const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>(
       logger,
       commandName,
       subCommandName,
