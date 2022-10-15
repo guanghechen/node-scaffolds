@@ -63,8 +63,13 @@ exports[`collectAllDependencies basic: monorepo2 1`] = `
 
 exports[`collectAllDependencies basic: normal-repo -- warnings 1`] = `
 [
-  "no such file or directory: <$WORKSPACE$>/packages/rollup-config/__test__/fixtures/normal-repo/package.json",
+  "cannot find package.json for '@guanghechen/not-existed-repo'",
 ]
 `;
 
-exports[`collectAllDependencies basic: normal-repo 1`] = `[]`;
+exports[`collectAllDependencies basic: normal-repo 1`] = `
+[
+  "@guanghechen/not-existed-repo",
+  "rollup",
+]
+`;
