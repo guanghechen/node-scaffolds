@@ -8,7 +8,6 @@ import fs from 'fs-extra'
 import path from 'path'
 
 export const workspaceRootDir = __dirname
-export const testRootDior = path.resolve()
 
 /**
  * Desensitize test data.
@@ -26,8 +25,15 @@ export const desensitize: IDesensitizer<any> & IDesensitizer<string> = createJso
  * @param p
  * @returns
  */
-export const locateFixtures = (...p: string[]): string =>
-  path.resolve(testRootDior, '__test__/fixtures', ...p)
+export const locateFixtures = (...p: string[]): string => {
+  const relativePackagePath: string = path
+    .relative(workspaceRootDir, path.resolve())
+    .split(path.sep)
+    .slice(0, 2)
+    .join(path.sep)
+  const testRootDior: string = path.resolve(workspaceRootDir, relativePackagePath)
+  return path.resolve(testRootDior, '__test__/fixtures', ...p)
+}
 
 /**
  * Load fixture filepath.
