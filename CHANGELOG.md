@@ -1,5 +1,28 @@
 # Changelog
 
+<a name="2.1.2"></a>
+## 2.1.2 (2022-10-20)
+
+### Added
+
+- ✅ test: update test [[eaf8b3f](https://github.com/guanghechen/node-scaffolds/commit/eaf8b3f5f43c7c8038fbebeda0110c247204b7a1)]
+
+### Changed
+
+- 🔧 chore: declare compatibility of rollup-plugin-copy with rollup v3 [[0639cd0](https://github.com/guanghechen/node-scaffolds/commit/0639cd017328d39615d91bc5953d6403b3a80b5b)]
+- 🔧 chore: update .nvmrc [[8c8795f](https://github.com/guanghechen/node-scaffolds/commit/8c8795f440bb1e45c8cad72c9cb85882444683a3)]
+
+### Fixed
+
+- 💚 chore: fix test [[e77633c](https://github.com/guanghechen/node-scaffolds/commit/e77633cd892c2e25635cc2f8bf4b6d0635f729ff)]
+- 💚 chore: fix issues by wrong &#x27;path.resolve()&#x27; returned in Github Workflow [[2d6ae22](https://github.com/guanghechen/node-scaffolds/commit/2d6ae2209d3f63eb4c0a60e86d8a1dd4531459fb)]
+- 💚 chore: fix ci configuration [[c65e2ec](https://github.com/guanghechen/node-scaffolds/commit/c65e2ec6ff7c48aaa7c73f39c3949566e6041ba6)]
+
+### Miscellaneous
+
+-  Merge pull request [#5](https://github.com/guanghechen/node-scaffolds/issues/5) from ghost91-/rollup-3 [[f35ea91](https://github.com/guanghechen/node-scaffolds/commit/f35ea914f5cc2524437fef8b97cbbb2285e9dbf2)]
+
+
 <a name="2.1.1"></a>
 ## 2.1.1 (2022-10-13)
 
