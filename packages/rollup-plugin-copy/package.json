@@ -50,7 +50,7 @@
     "micromatch": "^4.0.5"
   },
   "peerDependencies": {
-    "rollup": "^2.0.0"
+    "rollup": "^2.0.0 || ^3.0.0"
   },
   "devDependencies": {
     "@types/dir-glob": "^2.0.1",
