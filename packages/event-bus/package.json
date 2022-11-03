@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/event-bus",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "A simple event bus.",
   "author": {
     "name": "guanghechen",
@@ -39,6 +39,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-func": "^2.1.3"
+    "@guanghechen/helper-func": "^2.1.4"
   }
 }
