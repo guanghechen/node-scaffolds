@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="2.1.4"></a>
+## 2.1.4 (2022-11-03)
+
+### Changed
+
+- 🚚 migrate @guanghechen/parse-lineno to react-kit [[7ff6352](https://github.com/guanghechen/node-scaffolds/commit/7ff6352a7836568bd50fe4da0a79b7217bcc3ec3)]
+
+### Miscellaneous
+
+- 📄 docs: update LICENSE [[f615fb0](https://github.com/guanghechen/node-scaffolds/commit/f615fb06a9efa7df3b29031b72f1a84f7f9bafd1)]
+
+
 <a name="2.1.3"></a>
 ## 2.1.3 (2022-11-03)
 
