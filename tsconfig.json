@@ -24,7 +24,6 @@
       "@guanghechen/mini-copy": ["packages/mini-copy/src"],
       "@guanghechen/parse-lineno": ["packages/parse-lineno/src"],
       "@guanghechen/postcss-modules-dts": ["packages/postcss-modules-dts/src"],
-      "@guanghechen/react-hooks": ["packages/react-hooks/src"],
       "@guanghechen/rollup-config": ["packages/rollup-config/src"],
       "@guanghechen/rollup-config-cli": ["packages/rollup-config-cli/src"],
       "@guanghechen/rollup-config-tsx": ["packages/rollup-config-tsx/src"],

@@ -75,7 +75,6 @@ Package                               | Description
 [@guanghechen/jest-config][]          | Basic jest configs for typescript monorepo
 [@guanghechen/mini-copy][]            | Access system clipboard (also support to share clipboard in wsl with windows).
 [@guanghechen/postcss-modules-dts][]  | Generate `*.d.ts` files for style files (such as css, stylus and etc)
-[@guanghechen/react-hooks][]          | Custom React hooks.
 [@guanghechen/rollup-config][]        | Rollup config for bundle typescript project.
 [@guanghechen/rollup-config-cli][]    | Rollup configs for bundle typescript cli project.
 [@guanghechen/rollup-config-tsx][]    | Rollup configs for bundle tsx project.
@@ -113,7 +112,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/jest-config]: ./packages/jest-config
 [@guanghechen/mini-copy]: ./packages/mini-copy
 [@guanghechen/postcss-modules-dts]: ./packages/postcss-modules-dts
-[@guanghechen/react-hooks]: ./packages/react-hooks
 [@guanghechen/rollup-config]: ./packages/rollup-config
 [@guanghechen/rollup-config-cli]: ./packages/rollup-config-cli
 [@guanghechen/rollup-config-tsx]: ./packages/rollup-config-tsx
