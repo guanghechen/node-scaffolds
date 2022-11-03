@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="2.1.3"></a>
+## 2.1.3 (2022-11-03)
+
+### Changed
+
+- 🔧 chore: update devDependencies [[91b6421](https://github.com/guanghechen/node-scaffolds/commit/91b6421aee991d4151cb28c90bd45397ceb912ed)]
+- 🚚 migrate @guanghechen/react-hooks to react-kit [[058d201](https://github.com/guanghechen/node-scaffolds/commit/058d201aace76fd96b3fa868f84ffb25869da9bf)]
+
+
 <a name="2.1.2"></a>
 ## 2.1.2 (2022-10-20)
 
