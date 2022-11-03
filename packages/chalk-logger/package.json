@@ -44,7 +44,7 @@
     "@guanghechen/invariant": "^2.1.2",
     "@guanghechen/utility-types": "^2.1.2",
     "chalk": "^4.1.2",
-    "dayjs": "^1.11.5",
+    "dayjs": "^1.11.6",
     "json5": "^2.2.1"
   },
   "devDependencies": {

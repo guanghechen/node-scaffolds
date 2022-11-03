@@ -46,5 +46,8 @@
     "execa": "^5.1.1",
     "inquirer": "^8.2.4",
     "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.5"
   }
 }
