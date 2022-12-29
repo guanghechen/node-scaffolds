@@ -36,23 +36,23 @@ export type ILevelStyleMap = Record<Level, ILevelStyle>
 export const defaultLevelStyleMap: ILevelStyleMap = Object.freeze({
   [Level.DEBUG]: {
     title: 'debug',
-    header: new ColorfulChalk('#BCA21F'),
-    content: new ColorfulChalk('#BCA21F'),
+    header: new ColorfulChalk('grey'),
+    content: new ColorfulChalk('grey'),
   },
   [Level.VERBOSE]: {
     title: 'verb ',
-    header: new ColorfulChalk('#72C9CC'),
-    content: new ColorfulChalk('#72C9CC'),
+    header: new ColorfulChalk('cyan'),
+    content: new ColorfulChalk('cyan'),
   },
   [Level.INFO]: {
     title: 'info ',
-    header: new ColorfulChalk('#00FF00'),
-    content: new ColorfulChalk('#00FF00'),
+    header: new ColorfulChalk('green'),
+    content: new ColorfulChalk('green'),
   },
   [Level.WARN]: {
     title: 'warn ',
-    header: new ColorfulChalk('#FFA195'),
-    content: new ColorfulChalk('#FFA195'),
+    header: new ColorfulChalk('orange'),
+    content: new ColorfulChalk('orange'),
   },
   [Level.ERROR]: {
     title: 'error',
