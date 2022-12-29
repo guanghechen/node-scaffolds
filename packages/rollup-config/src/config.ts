@@ -4,7 +4,7 @@ import nodeResolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import type { OutputOptions, RollupOptions } from 'rollup'
 import dts from 'rollup-plugin-dts'
-import builtinModules from './builtin-modules.json'
+import builtinModules from './builtin-modules.json' assert { type: 'json' }
 import { collectAllDependencies, getDefaultDependencyFields } from './dependency'
 import { convertToBoolean, coverBoolean, isArray } from './option-helper'
 import type { IRawRollupConfigEnvs, IRollupConfigEnvs, IRollupConfigOptions } from './types'
@@ -36,7 +36,7 @@ export function resolveRollupConfigEnvs(rawEnv: IRawRollupConfigEnvs): IRollupCo
  * Create a rollup options.
  * @param options
  */
-export function createRollupConfig(options: IRollupConfigOptions): RollupOptions[] {
+export async function createRollupConfig(options: IRollupConfigOptions): Promise<RollupOptions[]> {
   const env = resolveRollupConfigEnvs(options)
 
   const { manifest, pluginOptions = {}, additionalPlugins = [] } = options
@@ -51,7 +51,7 @@ export function createRollupConfig(options: IRollupConfigOptions): RollupOptions
     return acc.concat(result)
   }, [] as string[])
   if (env.shouldExternalAll) {
-    dependencies = collectAllDependencies(null, dependencyFields, dependencies, () => true)
+    dependencies = await collectAllDependencies(null, dependencyFields, dependencies, () => true)
   }
   const externalSet = new Set(builtinExternals.concat(dependencies))
 
@@ -71,8 +71,8 @@ export function createRollupConfig(options: IRollupConfigOptions): RollupOptions
           exports: 'named',
           sourcemap: env.shouldSourceMap,
         },
-        manifest.module && {
-          file: manifest.module,
+        (manifest.module || manifest.exports) && {
+          file: manifest.module || manifest.exports,
           format: 'es',
           exports: 'named',
           sourcemap: env.shouldSourceMap,

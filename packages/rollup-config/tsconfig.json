@@ -1,4 +1,4 @@
 {
   "extends": "../../tsconfig",
-  "include": ["src", "script", "__test__", "rollup.config.ts"]
+  "include": ["src", "script", "__test__"]
 }

@@ -9,7 +9,7 @@ const resolveCaseDir = (title: string): string => path.resolve(__dirname, 'fixtu
 
 async function build(dependencies: string[]): Promise<RollupOutput[]> {
   // Create rollup config
-  const configs = createRollupConfig({
+  const configs = await createRollupConfig({
     manifest: {
       name: '@guanghechen/rollup-config',
       source: 'src/index.ts',

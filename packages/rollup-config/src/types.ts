@@ -68,6 +68,10 @@ export interface IRollupManifestOptions {
    */
   module?: string
   /**
+   * Target entry file for es bundles.
+   */
+  exports?: string
+  /**
    * Target entry file for types.
    */
   types?: string

@@ -2,7 +2,8 @@
   "extends": "./tsconfig.settings.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "module": "CommonJS",
+    "module": "ESNext",
+    "outDir": "lib",
     "sourceMap": true,
     "paths": {
       "@guanghechen/chalk-logger": ["packages/chalk-logger/src"],
