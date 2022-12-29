@@ -22,6 +22,10 @@ module.exports = {
     // @babel/eslint-parser specific options
     requireConfigFile: false,
     allowImportExportEverywhere: true,
+
+    babelOptions: {
+      plugins: ['@babel/plugin-syntax-import-assertions'],
+    },
   },
   rules: {
     ...jsxRules,
