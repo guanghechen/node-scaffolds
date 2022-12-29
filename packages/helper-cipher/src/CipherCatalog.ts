@@ -12,8 +12,8 @@ import {
 import { destroyBuffer } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
 import crypto from 'crypto'
-import fs from 'fs-extra'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import type { ICatalogIndex, ICatalogItem } from './types/catalog'
 import type { ICipher } from './types/cipher'
 import { calcFingerprint, calcMacFromFile } from './util/key'
@@ -160,7 +160,7 @@ export class CipherCatalog {
 
     // load content from index file
     const { sourceEncoding } = this
-    const cipherContent = await fs.readFile(indexFilepath, sourceEncoding)
+    const cipherContent = fs.readFileSync(indexFilepath, { encoding: sourceEncoding })
     this.load(cipherContent)
   }
 
@@ -173,7 +173,7 @@ export class CipherCatalog {
     const { sourceEncoding } = this
 
     mkdirsIfNotExists(indexFilepath, false)
-    await fs.writeFile(indexFilepath, cipherData, sourceEncoding)
+    fs.writeFileSync(indexFilepath, cipherData, { encoding: sourceEncoding })
   }
 
   /**
@@ -259,7 +259,7 @@ export class CipherCatalog {
     const sourceFilepath = this.calcRelativeSourceFilepath(absoluteSourceFilepath)
 
     const { sourceFilepathMap: sfm, targetFilepathSet: tfs } = this
-    const stat: fs.Stats = await fs.stat(absoluteSourceFilepath)
+    const stat: fs.Stats = fs.statSync(absoluteSourceFilepath)
     const size = stat.size
     const mtime = stat.mtime.toISOString()
     const mac = await calcMacFromFile(absoluteSourceFilepath)
@@ -399,9 +399,7 @@ export class CipherCatalog {
     const partFilepaths: string[] = await fileHelper.split(absoluteTargetFilepath, parts)
 
     // Remove the original big target file.
-    if (partFilepaths.length > 1) {
-      await fs.unlink(absoluteTargetFilepath)
-    }
+    if (partFilepaths.length > 1) fs.unlinkSync(absoluteTargetFilepath)
 
     // Update target parts.
     const targetParts: string[] = partFilepaths.map(p => this.calcRelativeTargetFilepath(p))

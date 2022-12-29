@@ -93,7 +93,7 @@ Utility functions for cipher contents or files.
 
   ```typescript
   import { AESCipher, CipherCatalog } from '@guanghechen/helper-cipher'
-  import path from 'path'
+  import path from 'node:path'
 
   const password = Buffer.from('password, such as `@guanghechen/helper-cipher`') 
   const cipher = new AESCipher()

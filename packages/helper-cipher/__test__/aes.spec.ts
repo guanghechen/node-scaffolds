@@ -1,7 +1,7 @@
 import ChalkLogger from '@guanghechen/chalk-logger'
 import { BigFileHelper, calcFilePartItemsByCount } from '@guanghechen/helper-file'
-import fs from 'fs-extra'
 import { locateFixtures, unlinkSync } from 'jest.helper'
+import fs from 'node:fs'
 import { AESCipher, calcMac } from '../src'
 
 describe('AESCipher', function () {

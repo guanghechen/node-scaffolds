@@ -1,7 +1,7 @@
 import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-path'
 import { destroyBuffers } from '@guanghechen/helper-stream'
 import crypto from 'crypto'
-import fs from 'fs-extra'
+import fs from 'node:fs'
 
 /**
  * Create random initial vector

@@ -2,7 +2,7 @@ import type ChalkLogger from '@guanghechen/chalk-logger'
 import { mkdirsIfNotExists } from '@guanghechen/helper-path'
 import { consumeStream, consumeStreams, destroyBuffers } from '@guanghechen/helper-stream'
 import type { Cipher } from 'crypto'
-import fs from 'fs-extra'
+import fs from 'node:fs'
 import type { ICipher } from './types/cipher'
 
 /**
@@ -58,6 +58,10 @@ export abstract class BaseCipher implements ICipher {
     const encipher: Cipher = this.encipher()
     const pieces: Buffer[] = []
     try {
+      for (const plainFilepath of plainFilepaths) {
+        mkdirsIfNotExists(plainFilepath, false, this.logger)
+      }
+
       const readers: NodeJS.ReadableStream[] = plainFilepaths.map(fp => fs.createReadStream(fp))
       await consumeStreams(readers, encipher)
       for await (const chunk of encipher) pieces.push(chunk)
@@ -73,6 +77,10 @@ export abstract class BaseCipher implements ICipher {
     const decipher: Cipher = this.decipher()
     const pieces: Buffer[] = []
     try {
+      for (const cipherFilepath of cipherFilepaths) {
+        mkdirsIfNotExists(cipherFilepath, false, this.logger)
+      }
+
       const readers: NodeJS.ReadableStream[] = cipherFilepaths.map(fp => fs.createReadStream(fp))
       await consumeStreams(readers, decipher)
       for await (const chunk of decipher) pieces.push(chunk)

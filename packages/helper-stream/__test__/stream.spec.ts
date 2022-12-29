@@ -1,11 +1,11 @@
 import crypto from 'crypto'
-import fs from 'fs-extra'
 import { locateFixtures, unlinkSync } from 'jest.helper'
+import fs from 'node:fs'
 import { consumeStream, consumeStreams, stream2buffer } from '../src'
 
 const encoding = 'utf8'
 const filepaths = ['a.txt', 'b.txt', 'c.txt'].map(fp => locateFixtures(fp))
-const loadContent = (fp: string): Promise<string> => fs.readFile(fp, encoding)
+const loadContent = async (fp: string): Promise<string> => fs.readFileSync(fp, encoding)
 
 const _iv: Buffer = crypto.randomBytes(32)
 const _key: Buffer = crypto.randomBytes(32)

@@ -1,7 +1,7 @@
 import { collectAllFilesSync } from '@guanghechen/helper-file'
-import fs from 'fs-extra'
 import { desensitize, locateFixtures, unlinkSync } from 'jest.helper'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import { AESCipher, CipherCatalog } from '../src'
 
 function expectEqual(catalog1: CipherCatalog, catalog2: CipherCatalog): void {
@@ -141,7 +141,7 @@ describe('CipherCatalog', function () {
         await catalog.register(file)
       }
 
-      fs.emptyDirSync(sourceBakRootDir)
+      fs.rmSync(sourceBakRootDir, { recursive: true })
       await catalog.decryptAll(sourceBakRootDir)
 
       const bakSourceFiles = collectAllFilesSync(sourceBakRootDir).sort()

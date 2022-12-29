@@ -1,7 +1,7 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import { createLoggerMock } from '@guanghechen/helper-jest'
-import fs from 'fs-extra'
 import { desensitize, locateFixtures } from 'jest.helper'
+import fs from 'node:fs'
 import path from 'node:path'
 import {
   absoluteOfWorkspace,

@@ -1,6 +1,6 @@
 import { locateNearestFilepath } from '@guanghechen/helper-path'
-import fs from 'fs-extra'
 import { locateFixtures } from 'jest.helper'
+import fs from 'node:fs'
 import { detectMonorepo, detectPackageAuthor } from '../src'
 
 describe('detectMonorepo', () => {
@@ -11,7 +11,8 @@ describe('detectMonorepo', () => {
     const bakFilepath = lernaFilepath + '.bak'
 
     if (lernaFilepath != null) {
-      fs.moveSync(lernaFilepath, bakFilepath)
+      fs.copyFileSync(lernaFilepath, bakFilepath)
+      fs.unlinkSync(lernaFilepath)
     }
 
     try {
@@ -20,7 +21,8 @@ describe('detectMonorepo', () => {
       expect(detectMonorepo(locateFixtures('normal-repo'))).toBeFalsy()
     } finally {
       if (lernaFilepath != null) {
-        fs.moveSync(bakFilepath, lernaFilepath)
+        fs.copyFileSync(bakFilepath, lernaFilepath)
+        fs.unlinkSync(bakFilepath)
       }
     }
   })
