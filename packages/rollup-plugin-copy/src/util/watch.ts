@@ -18,8 +18,12 @@ export class CopyWatcher {
     const watcher: chokidar.FSWatcher = chokidar.watch(workspace, {
       cwd: workspace,
       ignoreInitial: true,
+      persistent: true,
+      useFsEvents: true,
+      usePolling: false,
       // See https://stackoverflow.com/a/65044648
       awaitWriteFinish: {
+        pollInterval: 100,
         stabilityThreshold: 500,
       },
     })

@@ -98,7 +98,7 @@ export function collectAllDependencies(
     }
   }
 
-  return result
+  return result.sort()
 }
 
 /**
