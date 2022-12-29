@@ -6,13 +6,9 @@ import multiEntry from '@rollup/plugin-multi-entry'
 import autoprefixer from 'autoprefixer'
 import postcssFlexbugsFixes from 'postcss-flexbugs-fixes'
 import postcssUrl from 'postcss-url'
-import type rollup from 'rollup'
+import type { Plugin, RollupOptions } from 'rollup'
 import postcss from 'rollup-plugin-postcss'
-import type {
-  IPreprocessConfigOptions,
-  IRollupConfigOptions,
-  PostcssOptions,
-} from './types/options'
+import type { IPreprocessConfigOptions, IRollupConfigOptions, PostcssOptions } from './types'
 
 /**
  * Create rollup config for preprocessor
@@ -21,7 +17,7 @@ import type {
 export function createPreprocessorConfig(
   options: IPreprocessConfigOptions,
   env: IRollupConfigEnvs,
-): rollup.RollupOptions {
+): RollupOptions {
   const {
     input,
     output = {
@@ -40,7 +36,7 @@ export function createPreprocessorConfig(
     modules = { ...dts() }
   }
 
-  const precessStylesheetConfig: rollup.RollupOptions = {
+  const precessStylesheetConfig: RollupOptions = {
     input: input as any,
     output: output,
     plugins: [
@@ -54,7 +50,7 @@ export function createPreprocessorConfig(
         ...postcssOptions,
         modules,
       }),
-    ] as rollup.Plugin[],
+    ] as Plugin[],
   }
   return precessStylesheetConfig
 }
@@ -63,7 +59,7 @@ export function createPreprocessorConfig(
  * Create rollup config for handle react component
  * @param options
  */
-export function createRollupConfigs(options: IRollupConfigOptions): rollup.RollupOptions[] {
+export async function createRollupConfigs(options: IRollupConfigOptions): Promise<RollupOptions[]> {
   const { preprocessOptions, ...baseOptions } = options
   const env = resolveRollupConfigEnvs(options)
 
@@ -85,9 +81,9 @@ export function createRollupConfigs(options: IRollupConfigOptions): rollup.Rollu
         ...postcssOptions,
       }),
     ...(baseOptions.additionalPlugins || []),
-  ].filter((x): x is rollup.Plugin => Boolean(x))
+  ].filter((x): x is Plugin => Boolean(x))
 
-  const config = createBaseRollupConfig(baseOptions)
+  const config = await createBaseRollupConfig(baseOptions)
 
   // Resolve preprocess config.
   if (preprocessOptions != null) {

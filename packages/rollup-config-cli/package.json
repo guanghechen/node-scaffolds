@@ -16,8 +16,8 @@
     "rollup",
     "typescript cli"
   ],
-  "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
+  "type": "module",
+  "exports": "./lib/esm/index.js",
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -34,7 +34,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
     "prebuild": "rimraf lib/",
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
     "test": "echo 'no test needed.'"
@@ -44,6 +44,6 @@
     "@guanghechen/rollup-plugin-copy": "^2.1.4"
   },
   "peerDependencies": {
-    "rollup": "^2.0.0"
+    "rollup": "^3.0.0"
   }
 }

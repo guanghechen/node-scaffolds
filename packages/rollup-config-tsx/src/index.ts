@@ -1,6 +1,6 @@
 import { createRollupConfigs } from './config'
 
 export * from './config'
-export * from './types/options'
+export * from './types'
 
 export default createRollupConfigs

@@ -25,17 +25,19 @@ export interface IRollupConfigOptions extends IBaseRollupConfigOptions {
   }>
 }
 
-export function createRollupConfig(options: IRollupConfigOptions): RollupOptions[] {
+export async function createRollupConfig(options: IRollupConfigOptions): Promise<RollupOptions[]> {
   const { resources, targets, ...baseOptions } = options
-  const [baseConfig, ...additionalConfigs] = createBaseRollupConfig(baseOptions)
+  const [baseConfig, ...additionalConfigs] = await createBaseRollupConfig(baseOptions)
 
-  const { plugins = [] } = baseConfig
+  let plugins = (await baseConfig.plugins) ?? []
+  if (plugins !== false && !Array.isArray(plugins)) plugins = [plugins]
+
   const external = baseConfig.external as (id: string) => boolean
 
   const configs: RollupOptions[] = [
     {
       ...baseConfig,
-      plugins: [...plugins, copy(resources)],
+      plugins: plugins === false ? false : [...plugins, copy(resources)],
     },
     ...additionalConfigs,
     ...targets.map(

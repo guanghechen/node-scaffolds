@@ -19,7 +19,7 @@ export type { Options as PostcssPluginAutoprefixerOptions } from 'autoprefixer'
 export type { Options as PostcssPluginPostcssUrlOptions } from 'postcss-url'
 export type { PostCSSPluginConf as PostcssOptions } from 'rollup-plugin-postcss'
 
-export interface PostcssPluginFlexbugsFixesOptions {
+export interface IPostcssPluginFlexbugsFixesOptions {
   /**
    * @default true
    * @see https://github.com/luisrudge/postcss-flexbugs-fixes#bug-4
@@ -69,7 +69,7 @@ export interface IRollupPluginOptions extends IBaseRollupPluginOptions {
      * options for postcss-flexbugs-fixes
      * @see https://github.com/luisrudge/postcss-flexbugs-fixes#readme
      */
-    flexbugsFixesOptions?: PostcssPluginFlexbugsFixesOptions
+    flexbugsFixesOptions?: IPostcssPluginFlexbugsFixesOptions
     /**
      * options for postcss-url
      * @see https://github.com/postcss/postcss-url#readme

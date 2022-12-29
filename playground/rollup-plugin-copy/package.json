@@ -20,7 +20,7 @@
     "package.json"
   ],
   "scripts": {
-    "watch": "rollup -c rollup.config.js -w",
+    "watch": "rollup -c rollup.config.mjs -w",
     "test": "echo 'no test needed.'"
   }
 }
