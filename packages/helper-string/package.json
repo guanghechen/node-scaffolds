@@ -35,15 +35,15 @@
     "README.md"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
     "prebuild": "rimraf lib/",
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "change-case": "^4.1.1",
-    "lower-case": "^2.0.1",
-    "title-case": "^3.0.2",
-    "upper-case": "^2.0.1"
+    "change-case": "^4.1.2",
+    "lower-case": "^2.0.2",
+    "title-case": "^3.0.3",
+    "upper-case": "^2.0.2"
   }
 }

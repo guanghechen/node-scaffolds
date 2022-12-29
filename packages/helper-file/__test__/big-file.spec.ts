@@ -1,5 +1,5 @@
-import fs from 'fs-extra'
 import { desensitize, locateFixtures, unlinkSync } from 'jest.helper'
+import fs from 'node:fs'
 import {
   BigFileHelper,
   bigFileHelper,

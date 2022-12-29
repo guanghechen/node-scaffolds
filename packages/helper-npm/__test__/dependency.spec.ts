@@ -1,5 +1,5 @@
 import { desensitize, locateFixtures } from 'jest.helper'
-import path from 'path'
+import path from 'node:path'
 import { collectAllDependencies, getDefaultDependencyFields, locateLatestPackageJson } from '../src'
 
 describe('getDefaultDependencyFields', () => {

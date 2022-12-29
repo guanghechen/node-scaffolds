@@ -1,6 +1,6 @@
 import { bold, green, yellow } from 'chalk'
 import fs from 'fs-extra'
-import path from 'path'
+import path from 'node:path'
 import { replaceInFile as replace } from 'replace-in-file'
 import { rollup, watch } from 'rollup'
 import type { IOptions } from '../src'

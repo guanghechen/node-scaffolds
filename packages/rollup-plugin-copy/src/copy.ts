@@ -1,5 +1,5 @@
 import chalk from 'chalk'
-import path from 'path'
+import path from 'node:path'
 import type rollup from 'rollup'
 import type { ICopyTargetItem, IOptions } from './types'
 import {

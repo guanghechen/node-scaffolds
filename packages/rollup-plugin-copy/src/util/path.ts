@@ -1,5 +1,5 @@
 import micromatch from 'micromatch'
-import path from 'path'
+import path from 'node:path'
 
 /**
  * Resolve the source path.

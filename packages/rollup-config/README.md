@@ -68,13 +68,13 @@ Rollup configs for bundle typescript project.
 
 ## Usage
 
-* Use in `rollup.config.js`
+* Use in `rollup.config.mjs`
 
   ```javascript
   import createRollupConfig from '@guanghechen/rollup-config'
-  import manifest from './package.json'
+  import manifest from './package.json' assert { type: "json" }
 
-  const config = createRollupConfig({
+  export default createRollupConfig({
     manifest,
     pluginOptions: {
       typescriptOptions: {
@@ -82,20 +82,21 @@ Rollup configs for bundle typescript project.
       },
     }
   })
-
-  export default config
   ```
 
 * In monorepo such as lerna or yarn, put the following code at the
-  `<Monorepo Root>/rollup.config.js`:
+  `<Monorepo Root>/rollup.config.mjs`:
 
   ```javascript
   import createRollupConfig from '@guanghechen/rollup-config'
-  import path from 'path'
+  import path from 'node:path'
 
-  async function rollupConfig() {
-    const { default: manifest } = await import(path.resolve('package.json'))
-    const config = createRollupConfig({
+  export default async function rollupConfig() {
+    const { default: manifest } = await import(
+      path.resolve('package.json'),
+      { assert: { type: "json" } },
+    )
+    const config = await createRollupConfig({
       manifest,
       pluginOptions: {
         typescriptOptions: { tsconfig: 'tsconfig.src.json' },
@@ -103,15 +104,13 @@ Rollup configs for bundle typescript project.
     })
     return config
   }
-
-  export default rollupConfig()
   ```
 
   Then in every package.json of sub-packages, set the scripts field like:
 
   ```json
   "scripts" {
-    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
     "prebuild": "rimraf lib/",
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
   }

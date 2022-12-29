@@ -1,5 +1,5 @@
 import { locateNearestFilepath } from '@guanghechen/helper-path'
-import fs from 'fs'
+import fs from 'node:fs'
 
 export type IDependencyField = 'dependencies' | 'optionalDependencies' | 'peerDependencies'
 

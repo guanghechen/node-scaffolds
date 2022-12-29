@@ -85,7 +85,7 @@ Name              | Description
 
   ```typescript
   import { consumeStreams } from '@guanghechen/helper-stream'
-  import fs from 'fs'
+  import fs from 'node:fs'
 
   const filepaths = ['a.txt', 'b.txt', 'c.txt']
   const readers: NodeJS.ReadableStream[] = plainFilepaths.map(fp => fs.createReadStream(fp))
@@ -99,7 +99,7 @@ Name              | Description
   ```typescript
   import { consumeStreams } from '@guanghechen/helper-stream'
   import crypto from 'crypto'
-  import fs from 'fs'
+  import fs from 'node:fs'
 
   const filepaths = ['a.txt', 'b.txt', 'c.txt']
   const readers: NodeJS.ReadableStream[] = plainFilepaths.map(fp => fs.createReadStream(fp))

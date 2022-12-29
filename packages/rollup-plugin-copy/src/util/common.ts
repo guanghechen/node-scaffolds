@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 import globby from 'globby'
-import path from 'path'
+import path from 'node:path'
 import util from 'util'
 import type { IConfigTarget, ICopyTargetItem } from '../types'
 import {

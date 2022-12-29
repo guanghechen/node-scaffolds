@@ -1,7 +1,7 @@
 import type { ChalkLogger } from '@guanghechen/chalk-logger'
 import invariant from '@guanghechen/invariant'
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 
 /**
  * Calc absolute path of p under the workspace.

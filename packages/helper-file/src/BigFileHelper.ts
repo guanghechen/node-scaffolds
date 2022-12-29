@@ -1,6 +1,6 @@
 import { consumeStream, consumeStreams } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
-import fs from 'fs-extra'
+import fs from 'node:fs'
 import type { IFilePartItem } from './types'
 
 export interface IBigFileHelperOptions {

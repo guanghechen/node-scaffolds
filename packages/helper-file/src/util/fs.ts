@@ -1,5 +1,5 @@
-import fs from 'fs-extra'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 
 /**
  * Collect all files under the given directory.

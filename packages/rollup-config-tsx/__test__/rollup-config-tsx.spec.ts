@@ -1,5 +1,5 @@
 import fs from 'fs-extra'
-import path from 'path'
+import path from 'node:path'
 import { rollup } from 'rollup'
 import type { OutputOptions, RollupOutput } from 'rollup'
 import createRollupConfigs from '../src'
@@ -10,7 +10,7 @@ const resolveCaseDir = (title: string): string => path.resolve(__dirname, 'fixtu
 async function build(): Promise<RollupOutput[]> {
   // Create rollup config
   const { default: configOptions } = await import(path.resolve('config.ts'))
-  const configs = createRollupConfigs(configOptions)
+  const configs = await createRollupConfigs(configOptions)
 
   const results: any[] = []
   for (const config of configs) {
