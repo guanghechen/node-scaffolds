@@ -1,4 +1,4 @@
-import type ChalkLogger from '@guanghechen/chalk-logger'
+import type { Logger } from '@guanghechen/chalk-logger'
 import { mkdirsIfNotExists } from '@guanghechen/helper-path'
 import { consumeStream, consumeStreams, destroyBuffers } from '@guanghechen/helper-stream'
 import type { Cipher } from 'crypto'
@@ -9,9 +9,9 @@ import type { ICipher } from './types/cipher'
  * ICipher base class.
  */
 export abstract class BaseCipher implements ICipher {
-  protected readonly logger?: ChalkLogger
+  protected readonly logger?: Logger
 
-  constructor(logger?: ChalkLogger) {
+  constructor(logger?: Logger) {
     this.logger = logger
   }
 
