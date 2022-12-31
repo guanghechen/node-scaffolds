@@ -1,6 +1,6 @@
 import { copy as realCopy, paste as realPaste } from '@guanghechen/mini-copy'
 import type { ICopyOptions, IPasteOptions } from '@guanghechen/mini-copy'
-import fs from 'fs-extra'
+import fs from 'node:fs'
 import { logger } from '../env/logger'
 
 interface ICommandItem {

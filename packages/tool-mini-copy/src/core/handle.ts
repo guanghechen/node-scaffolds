@@ -1,7 +1,7 @@
 import { readFromStdin } from '@guanghechen/helper-commander'
 import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-path'
 import { FakeClipboard } from '@guanghechen/mini-copy'
-import fs from 'fs-extra'
+import fs from 'node:fs'
 import { logger } from '../env/logger'
 import type { ISafeCopyOptions } from '../util/copy-paste'
 import { pasteToFile, pasteToStdout, safeCopy } from '../util/copy-paste'
@@ -42,7 +42,7 @@ export async function handleCommand(
   // Copy from file.
   if (!copied && inputFilepath != null) {
     ensureCriticalFilepathExistsSync(inputFilepath)
-    const fileContent: string = await fs.readFile(inputFilepath, { encoding })
+    const fileContent: string = fs.readFileSync(inputFilepath, { encoding })
     await safeCopy(fileContent, { ...safeCopyOptions, from: `file(${inputFilepath})` })
     copied = 'stdin'
   }
