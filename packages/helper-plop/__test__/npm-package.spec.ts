@@ -1,9 +1,10 @@
 import { desensitize } from 'jest.helper'
+import path from 'node:path'
 import url from 'node:url'
 import type { INpmPackagePreAnswers, INpmPackagePromptsAnswers } from '../src'
 import { resolveNpmPackageAnswers } from '../src'
 
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
 describe('resolveNpmPackageAnswers', function () {
   const preAnswers: INpmPackagePreAnswers = {

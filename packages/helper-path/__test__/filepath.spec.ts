@@ -14,7 +14,7 @@ import {
   relativeOfWorkspace,
 } from '../src'
 
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
 describe('absoluteOfWorkspace', function () {
   test('null / undefined', function () {

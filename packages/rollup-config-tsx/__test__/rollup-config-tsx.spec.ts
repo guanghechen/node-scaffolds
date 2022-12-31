@@ -6,7 +6,7 @@ import { rollup } from 'rollup'
 import type { OutputOptions, RollupOutput } from 'rollup'
 import createRollupConfigs from '../src'
 
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
 // Resolve absolute dirPath of case
 const resolveCaseDir = (title: string): string => path.resolve(__dirname, 'fixtures', title)

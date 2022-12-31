@@ -9,7 +9,7 @@ import type { IOptions } from '../src'
 import copy from '../src'
 
 const { replaceInFile } = replaceInFile$
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
 const encoding = 'utf-8'
 process.chdir(`${__dirname}/fixtures`)

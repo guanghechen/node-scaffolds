@@ -8,7 +8,7 @@ import fs from 'fs-extra'
 import path from 'node:path'
 import url from 'node:url'
 
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 export const workspaceRootDir = __dirname
 
 /**

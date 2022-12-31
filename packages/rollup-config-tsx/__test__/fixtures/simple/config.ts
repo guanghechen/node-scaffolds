@@ -3,7 +3,7 @@ import path from 'node:path'
 import type {CustomTransformFunction} from 'postcss-url'
 import manifest from './package.json'
 
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
 export default {
   shouldSourceMap: false,

@@ -8,7 +8,7 @@ export const COMMAND_VERSION: string = manifest.version
 export const PACKAGE_NAME: string = manifest.name
 
 // Config files root dir
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 export const configRootDir = path.resolve(__dirname, '../config')
 
 // Template files root dir

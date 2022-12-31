@@ -16,7 +16,7 @@ describe('getDefaultDependencyFields', () => {
 
 describe('collectAllDependencies', () => {
   test('current repo', async () => {
-    const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+    const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
     const dependencies = await collectAllDependencies(path.join(__dirname, '../package.json'))
 
     expect(dependencies).toEqual([

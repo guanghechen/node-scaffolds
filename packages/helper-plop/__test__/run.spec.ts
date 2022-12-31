@@ -21,7 +21,7 @@ import {
   runPromptsWithMock,
 } from '../src'
 
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 const outputDir = path.join(__dirname, 'output')
 const initialCwd = process.cwd()
 
