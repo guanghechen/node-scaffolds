@@ -13,8 +13,8 @@
   },
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/helper-npm#readme",
   "keywords": [],
-  "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
+  "type": "module",
+  "exports": "./lib/esm/index.js",
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -37,6 +37,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-path": "^2.1.4"
+    "@guanghechen/helper-path": "^2.1.4",
+    "import-meta-resolve": "^2.2.0"
   }
 }
