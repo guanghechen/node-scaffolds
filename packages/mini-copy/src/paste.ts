@@ -1,6 +1,6 @@
 import type { ChalkLogger } from '@guanghechen/chalk-logger'
 import clipboardy from 'clipboardy'
-import execa from 'execa'
+import { execa } from 'execa'
 import { DEFAULT_LINE_END } from './constant'
 import type { FakeClipboard } from './fake-clipboard'
 
