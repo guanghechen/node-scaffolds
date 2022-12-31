@@ -70,14 +70,15 @@ function tsMonorepoConfig(repositoryRootDir, options = {}) {
     testRegex: '/(__test__)/[^/]+\\.spec\\.[jt]sx?$',
     testPathIgnorePatterns: ['/coverage/', '/lib/', '/node_modules/'],
     collectCoverage: false,
-    coverageDirectory: '<rootDir>/coverage/',
     collectCoverageFrom: [
       '<rootDir>/cli.js',
       '<rootDir>/index.js',
       '<rootDir>/src/*.{js,jsx,ts,tsx}',
       '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
     ],
+    coverageDirectory: '<rootDir>/coverage/',
     coveragePathIgnorePatterns: [],
+    coverageProvider: 'v8',
     coverageThreshold: {
       global: {
         branches: 80,
