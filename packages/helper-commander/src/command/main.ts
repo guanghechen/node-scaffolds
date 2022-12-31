@@ -1,4 +1,4 @@
-import type commander from 'commander'
+import type { CommandOptions } from 'commander'
 import type { ICommandConfigurationOptions } from '../types/configuration'
 import type { Command } from './command'
 
@@ -13,7 +13,7 @@ export type IMainCommandCreator<O extends ICommandConfigurationOptions, V = void
 ) => Command
 
 // Mount main command
-export type IMainCommandMounter = (parentCommand: Command, opts?: commander.CommandOptions) => void
+export type IMainCommandMounter = (parentCommand: Command, opts?: CommandOptions) => void
 
 // Execute main command.
 export type IMainCommandExecutor<V = void> = (args: string[]) => Promise<V>
@@ -28,7 +28,7 @@ export function createMainCommandMounter<O extends ICommandConfigurationOptions,
   create: IMainCommandCreator<O, V>,
   handle: IMainCommandProcessor<O, V>,
 ): IMainCommandMounter {
-  return (program: Command, opts?: commander.CommandOptions): void => {
+  return (program: Command, opts?: CommandOptions): void => {
     const command = create(handle)
     if (command.name().length <= 0) {
       command.name('__main__')

@@ -37,10 +37,10 @@ const config = {
       'chalk/source/vendor/supports-color/index.js',
     ),
   },
-  setupFiles: [...(baseConfig.setupFiles ?? [])],
   transform: {
     ...(baseConfig.transform ?? {}),
   },
+  setupFiles: [...(baseConfig.setupFiles ?? [])],
 }
 
 module.exports = config

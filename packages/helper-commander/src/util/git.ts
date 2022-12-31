@@ -1,7 +1,8 @@
 import type { ChalkLogger } from '@guanghechen/chalk-logger'
 import { toLowerCase } from '@guanghechen/helper-string'
 import commandExists from 'command-exists'
-import execa from 'execa'
+import type { Options as IExecaOptions } from 'execa'
+import { execa } from 'execa'
 import inquirer from 'inquirer'
 
 /**
@@ -10,7 +11,7 @@ import inquirer from 'inquirer'
  * @param execaOptions
  * @param message
  */
-export async function createCommitAll(execaOptions: execa.Options, message: string): Promise<void> {
+export async function createCommitAll(execaOptions: IExecaOptions, message: string): Promise<void> {
   await execa('git', ['add', '-A'], execaOptions)
   await execa('git', ['commit', '-m', message], execaOptions)
 }
@@ -22,7 +23,7 @@ export async function createCommitAll(execaOptions: execa.Options, message: stri
  * @param logger
  */
 export async function createInitialCommit(
-  execaOptions: execa.Options,
+  execaOptions: IExecaOptions,
   plopBypass: string[],
   logger?: ChalkLogger,
 ): Promise<void> {

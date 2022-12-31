@@ -1,5 +1,3 @@
-export { default as commander } from 'commander'
-
 export * from './command/command'
 export * from './command/main'
 export * from './command/sub'

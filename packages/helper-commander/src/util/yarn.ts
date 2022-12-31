@@ -1,7 +1,8 @@
 import type { ChalkLogger } from '@guanghechen/chalk-logger'
 import { toLowerCase } from '@guanghechen/helper-string'
 import commandExists from 'command-exists'
-import execa from 'execa'
+import type { Options as IExecaOptions } from 'execa'
+import { execa } from 'execa'
 import inquirer from 'inquirer'
 
 /**
@@ -11,7 +12,7 @@ import inquirer from 'inquirer'
  * @param logger
  */
 export async function installDependencies(
-  execaOptions: execa.Options,
+  execaOptions: IExecaOptions,
   plopBypass: string[],
   logger?: ChalkLogger,
 ): Promise<void> {

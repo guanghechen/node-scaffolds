@@ -1,4 +1,5 @@
-import commander from 'commander'
+import type { Option as ICommandOptions, OptionValues } from 'commander'
+import { Command as Command$ } from 'commander'
 import type { ICommandConfigurationOptions } from '../types/configuration'
 
 /**
@@ -16,15 +17,24 @@ export type ICommandActionCallback<T extends ICommandConfigurationOptions> = (
   self: Command,
 ) => void | Promise<void> | never
 
-export class Command extends commander.Command {
+export class Command extends Command$ {
   // add missing type declarations
-  public options: commander.Option[] | undefined
-  protected _actionResults: unknown[] | undefined
-  protected _storeOptionsAsProperties: boolean | undefined
-  protected _optionValues: object | undefined
+  public options: ICommandOptions[]
   protected _actionHandler: ((args: string[]) => void) | null | undefined
-  protected _versionOptionName: string | undefined
+  protected _args: string[]
+  protected _optionValues: object
+  protected _storeOptionsAsProperties: boolean
   protected _version: string | undefined
+  protected _versionOptionName: string | undefined
+
+  constructor() {
+    super()
+
+    this.options = []
+    this._args = []
+    this._optionValues = {}
+    this._storeOptionsAsProperties = false
+  }
 
   /**
    * Register callback `fn` for the command.
@@ -43,28 +53,26 @@ export class Command extends commander.Command {
   public override action<T extends ICommandConfigurationOptions>(
     fn: ICommandActionCallback<T>,
   ): this {
-    const self = this
-
     const listener = (args: string[]): unknown | Promise<unknown> => {
       // The .action callback takes an extra parameter which is the command or options.
-      const expectedArgsCount = self.args.length
+      const expectedArgsCount = this._args.length
 
       const actionArgs: Parameters<ICommandActionCallback<T>> = [
         args.slice(0, expectedArgsCount),
-        self.opts() as T,
+        this.opts() as T,
         args.slice(expectedArgsCount),
-        self,
+        this,
       ]
 
-      const actionResult = fn.apply(self, actionArgs)
+      const actionResult = fn.apply(this, actionArgs)
       return actionResult
     }
 
-    self._actionHandler = listener
-    return self
+    this._actionHandler = listener
+    return this
   }
 
-  public override opts<T extends commander.OptionValues>(): T {
+  public override opts<T extends OptionValues>(): T {
     const self = this
     const nodes: Command[] = [self]
     for (let parent = self.parent; parent != null; parent = parent.parent) {

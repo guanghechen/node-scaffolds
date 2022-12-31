@@ -13,7 +13,8 @@
   },
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/helper-commander#readme",
   "keywords": [],
-  "main": "lib/cjs/index.js",
+  "type": "module",
+  "exports": "./lib/esm/index.js",
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -43,8 +44,8 @@
     "@guanghechen/helper-string": "^2.1.4",
     "command-exists": "^1.2.9",
     "commander": "^9.4.1",
-    "execa": "^5.1.1",
-    "inquirer": "^8.2.4",
+    "execa": "^6.1.0",
+    "inquirer": "^9.1.4",
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {

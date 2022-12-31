@@ -1,4 +1,4 @@
-import type commander from 'commander'
+import type { CommandOptions } from 'commander'
 import type { ICommandConfigurationOptions } from '../types/configuration'
 import type { Command } from './command'
 
@@ -15,7 +15,7 @@ export type ISubCommandCreator<O extends ICommandConfigurationOptions, V = void>
 ) => Command
 
 // Mount sub-command
-export type ISubCommandMounter = (parentCommand: Command, opts?: commander.CommandOptions) => void
+export type ISubCommandMounter = (parentCommand: Command, opts?: CommandOptions) => void
 
 // Execute sub-command
 export type ISubCommandExecutor<V = void> = (parentCommand: Command, args: string[]) => Promise<V>
@@ -30,7 +30,7 @@ export function createSubCommandMounter<O extends ICommandConfigurationOptions, 
   create: ISubCommandCreator<O, V>,
   handle: ISubCommandProcessor<O, V>,
 ): ISubCommandMounter {
-  return (program: Command, opts?: commander.CommandOptions): void => {
+  return (program: Command, opts?: CommandOptions): void => {
     const command = create(handle)
     program.addCommand(command, opts)
   }

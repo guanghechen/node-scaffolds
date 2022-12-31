@@ -84,7 +84,11 @@ exports[`command no sub-command with arguments: resolvedOptions 1`] = `
 }
 `;
 
-exports[`command no sub-command without arguments: args 1`] = `[]`;
+exports[`command no sub-command without arguments: args 1`] = `
+[
+  undefined,
+]
+`;
 
 exports[`command no sub-command without arguments: logs 1`] = `
 [
