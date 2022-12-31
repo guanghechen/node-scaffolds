@@ -1,10 +1,12 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import createRollupConfig from '@guanghechen/rollup-config-cli'
-import path from 'path'
+import path from 'node:path'
 
 async function rollupConfig() {
-  const { default: manifest } = await import(path.resolve('package.json'))
-  const config = createRollupConfig({
+  const { default: manifest } = await import(path.resolve('package.json'), {
+    assert: { type: 'json' },
+  })
+  const config = await createRollupConfig({
     manifest,
     pluginOptions: {
       typescriptOptions: { tsconfig: 'tsconfig.src.json' },
@@ -14,12 +16,13 @@ async function rollupConfig() {
       verbose: true,
       targets: [
         {
+          format: 'module',
           src: 'src/config/*',
           dest: 'lib/config',
         },
       ],
     },
-    targets: [{ src: 'src/cli.ts', target: 'lib/cjs/cli.js' }],
+    targets: [{ src: 'src/cli.ts', target: 'lib/esm/cli.js' }],
   })
   return config
 }

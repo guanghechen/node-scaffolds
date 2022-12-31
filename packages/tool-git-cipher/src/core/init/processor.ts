@@ -13,7 +13,7 @@ import commandExists from 'command-exists'
 import execa from 'execa'
 import inquirer from 'inquirer'
 import nodePlop from 'node-plop'
-import { packageVersion } from '../../env/constant'
+import { COMMAND_VERSION } from '../../env/constant'
 import { logger } from '../../env/logger'
 import { resolveTemplateFilepath } from '../../env/util'
 import { SecretMaster } from '../../util/secret'
@@ -110,7 +110,7 @@ export class GitCipherInitProcessor {
 
     const error = await runPlop(plop, undefined, {
       workspace: context.workspace,
-      templateVersion: packageVersion,
+      templateVersion: COMMAND_VERSION,
       encoding: context.encoding,
       secretFilepath: relativeOfWorkspace(context.workspace, context.secretFilepath),
       indexFilepath: relativeOfWorkspace(context.workspace, context.indexFilepath),

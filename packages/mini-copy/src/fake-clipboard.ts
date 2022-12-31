@@ -1,7 +1,7 @@
 import type { ChalkLogger } from '@guanghechen/chalk-logger'
 import invariant from '@guanghechen/invariant'
 import fs from 'fs-extra'
-import path from 'path'
+import path from 'node:path'
 
 export interface IFakeClipboardProps {
   filepath: string

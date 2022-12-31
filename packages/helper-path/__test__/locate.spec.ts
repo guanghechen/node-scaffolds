@@ -1,5 +1,8 @@
 import path from 'node:path'
+import url from 'node:url'
 import { findNearestFilepath, locateNearestFilepath } from '../src'
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 describe('locateNearestFilepath', function () {
   test('single filename', function () {

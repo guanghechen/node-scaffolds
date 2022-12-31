@@ -1,8 +1,8 @@
 import { Command } from '@guanghechen/helper-commander'
 import { isNotEmptyArray } from '@guanghechen/helper-is'
 import { cover, coverBoolean } from '@guanghechen/helper-option'
-import path from 'path'
-import { packageName } from '../../env/constant'
+import path from 'node:path'
+import { PACKAGE_NAME } from '../../env/constant'
 import { logger } from '../../env/logger'
 import { resolveGlobalCommandOptions } from '../option'
 import type { ISubCommandEncryptOptions } from './option'
@@ -28,7 +28,7 @@ export const createSubCommandEncrypt = function (
       logger.setName(commandName)
 
       const defaultOptions: ISubCommandEncryptOptions = resolveGlobalCommandOptions(
-        packageName,
+        PACKAGE_NAME,
         commandName,
         getDefaultCommandEncryptOptions(),
         _workspaceDir,

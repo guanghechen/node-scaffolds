@@ -13,7 +13,8 @@
   },
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/tool-mini-copy#readme",
   "keywords": [],
-  "main": "lib/cjs/index.js",
+  "type": "module",
+  "exports": "./lib/esm/index.js",
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -33,7 +34,7 @@
     "mcp": "./lib/cjs/cli.js"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.cli.js",
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.cli.mjs",
     "prebuild": "rimraf lib/",
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
     "test": "echo 'no test needed.'"

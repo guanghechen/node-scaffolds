@@ -49,7 +49,7 @@ export async function collectAllDependencies(
       }
     } catch (e: any) {
       switch (e.code) {
-        case 'MODULE_NOT_FOUND':
+        case 'ERR_MODULE_NOT_FOUND':
           if (isAbsentAllowed!(dependency)) return
           break
         case 'ERR_PACKAGE_PATH_NOT_EXPORTED':

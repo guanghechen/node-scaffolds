@@ -2,7 +2,7 @@ import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
 import { Command } from '@guanghechen/helper-commander'
 import { cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
-import { packageName } from '../../env/constant'
+import { PACKAGE_NAME } from '../../env/constant'
 import { logger } from '../../env/logger'
 import { resolveGlobalCommandOptions } from '../option'
 import type { ISubCommandDecryptOptions } from './option'
@@ -26,7 +26,7 @@ export const createSubCommandDecrypt = function (
       logger.setName(commandName)
 
       const defaultOptions: ISubCommandDecryptOptions = resolveGlobalCommandOptions(
-        packageName,
+        PACKAGE_NAME,
         commandName,
         getDefaultCommandDecryptOptions(),
         _workspaceDir,

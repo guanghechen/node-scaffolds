@@ -1,7 +1,10 @@
 import { locateNearestFilepath } from '@guanghechen/helper-path'
 import { locateFixtures } from 'jest.helper'
 import fs from 'node:fs'
+import url from 'node:url'
 import { detectMonorepo, detectPackageAuthor } from '../src'
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 describe('detectMonorepo', () => {
   test('basic', async () => {

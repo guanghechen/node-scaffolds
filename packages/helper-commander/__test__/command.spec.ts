@@ -4,7 +4,7 @@ import { createLoggerMock } from '@guanghechen/helper-jest'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import { desensitize } from 'jest.helper'
-import path from 'path'
+import path from 'node:path'
 import type { Command, ICommandConfigurationFlatOpts, ICommandConfigurationOptions } from '../src'
 import { createTopCommand, resolveCommandConfigurationOptions } from '../src'
 

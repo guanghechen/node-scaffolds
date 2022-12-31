@@ -7,9 +7,11 @@ import {
   fileSnapshot,
 } from '@guanghechen/helper-jest'
 import type { IDesensitizer } from '@guanghechen/helper-jest'
-import fs from 'fs-extra'
+import { jest } from '@jest/globals'
 import type { InputQuestion } from 'inquirer'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
+import url from 'node:url'
 import manifest from '../package.json'
 import {
   createNpmPackagePrompts,
@@ -19,17 +21,18 @@ import {
   runPromptsWithMock,
 } from '../src'
 
-const initialCwd = process.cwd()
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const outputDir = path.join(__dirname, 'output')
+const initialCwd = process.cwd()
 
 beforeEach(async function () {
   jest.setTimeout(10000)
-  if (!fs.existsSync(outputDir)) fs.mkdirpSync(outputDir)
+  if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true })
   process.chdir(outputDir)
 })
 
 afterEach(async function () {
-  fs.removeSync(outputDir)
+  fs.rmSync(outputDir, { recursive: true })
   process.chdir(initialCwd)
 })
 

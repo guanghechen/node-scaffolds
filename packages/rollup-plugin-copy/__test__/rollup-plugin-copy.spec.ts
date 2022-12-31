@@ -1,10 +1,14 @@
+import { jest } from '@jest/globals'
 import { bold, green, yellow } from 'chalk'
 import fs from 'fs-extra'
 import path from 'node:path'
+import url from 'node:url'
 import { replaceInFile as replace } from 'replace-in-file'
 import { rollup, watch } from 'rollup'
 import type { IOptions } from '../src'
 import copy from '../src'
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 const encoding = 'utf-8'
 process.chdir(`${__dirname}/fixtures`)

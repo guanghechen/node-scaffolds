@@ -5,7 +5,7 @@ import { composeTextTransformers, toSentenceCase, toTrim } from '@guanghechen/he
 import type { ITextTransformer } from '@guanghechen/helper-string'
 import invariant from '@guanghechen/invariant'
 import type { InputQuestion } from 'inquirer'
-import path from 'path'
+import path from 'node:path'
 import {
   createPackageAuthorPrompt,
   createPackageDescriptionPrompt,

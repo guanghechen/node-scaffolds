@@ -1,7 +1,7 @@
 import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-path'
-import fs from 'fs'
 import yaml from 'js-yaml'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 
 export enum ConfigFileType {
   JSON = 'json',

@@ -1,6 +1,9 @@
+import url from 'node:url'
 import path from 'node:path'
-import type url from 'postcss-url'
+import type {CustomTransformFunction} from 'postcss-url'
 import manifest from './package.json'
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 export default {
   shouldSourceMap: false,
@@ -41,7 +44,7 @@ export default {
         url: 'inline',
         maxSize: 2, // 2 KB
         basePath: [path.join(__dirname, 'src')],
-        fallback: function (asset: Parameters<url.CustomTransformFunction>[0]) {
+        fallback: function (asset: Parameters<CustomTransformFunction>[0]) {
           type Asset = {
             url: string
             originUrl: string

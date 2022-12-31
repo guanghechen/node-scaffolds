@@ -1,5 +1,5 @@
 import { Command } from '@guanghechen/helper-commander'
-import { packageName } from '../../env/constant'
+import { PACKAGE_NAME } from '../../env/constant'
 import { logger } from '../../env/logger'
 import { resolveGlobalCommandOptions } from '../option'
 import type { ISubCommandInitOptions } from './option'
@@ -23,7 +23,7 @@ export const createSubCommandInit = function (
       logger.setName(commandName)
 
       const defaultOptions: ISubCommandInitOptions = resolveGlobalCommandOptions(
-        packageName,
+        PACKAGE_NAME,
         commandName,
         getDefaultCommandOptions(),
         _workspaceDir,

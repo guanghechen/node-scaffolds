@@ -71,9 +71,15 @@ export async function createRollupConfig(options: IRollupConfigOptions): Promise
           exports: 'named',
           sourcemap: env.shouldSourceMap,
         },
-        (manifest.module || manifest.exports) && {
-          file: manifest.module || manifest.exports,
-          format: 'es',
+        manifest.module && {
+          file: manifest.module,
+          format: 'esm',
+          exports: 'named',
+          sourcemap: env.shouldSourceMap,
+        },
+        manifest.exports && {
+          file: manifest.exports,
+          format: 'module',
           exports: 'named',
           sourcemap: env.shouldSourceMap,
         },

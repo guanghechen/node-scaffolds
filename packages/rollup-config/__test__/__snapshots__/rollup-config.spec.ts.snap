@@ -7,10 +7,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var fs = require('fs-extra');
 
-function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-var fs__default = /*#__PURE__*/_interopDefaultLegacy(fs);
-
 var data = {
   name: "alice"
 };
@@ -19,21 +15,50 @@ var data$1 = {
 };
 
 function isFileSync(filepath) {
-    if (!fs__default["default"].existsSync(filepath))
+    if (!fs.existsSync(filepath))
         return false;
-    return fs__default["default"].statSync(filepath).isFile();
+    return fs.statSync(filepath).isFile();
 }
 
 console.log('data:', data$1);
 console.log(isFileSync(__filename));
 var index = (function () { return data$1; });
 
-exports["default"] = index;
+exports.default = index;
 exports.isFileSync = isFileSync;
+//# sourceMappingURL=index.js.map
 "
 `;
 
+exports[`build simple: rollup cjs 2`] = `
+{
+  "fileName": "index.js.map",
+  "name": undefined,
+  "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":[null,null],"names":["data"],"mappings":";;;;;;;;;;;;;AASM,SAAU,UAAU,CAAE,QAAgB,EAAA;AAC1C,IAAA,IAAI,CAAC,EAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAAE,QAAA,OAAO,KAAK,CAAA;IAC1C,OAAO,EAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE,CAAA;AACvC;;ACPA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEA,MAAI,CAAC,CAAA;AAC1B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC,CAAA;AAEnC,YAAA,CAAe,YAAM,EAAA,OAAAA,MAAI,CAAA,EAAA;;;;;"}",
+  "type": "asset",
+}
+`;
+
 exports[`build simple: rollup es 1`] = `
+"/**
+ * Check if the given filepath is an existed path of file.
+ *
+ * @param filepath
+ * @returns
+ */
+declare function isFileSync(filepath: string): boolean;
+
+declare const _default: () => {
+    data: {
+        name: string;
+    };
+};
+
+export { _default as default, isFileSync };
+"
+`;
+
+exports[`build simple: rollup esm 1`] = `
 "import fs from 'fs-extra';
 
 var data = {
@@ -54,24 +79,15 @@ console.log(isFileSync(__filename));
 var index = (function () { return data$1; });
 
 export { index as default, isFileSync };
+//# sourceMappingURL=index.js.map
 "
 `;
 
-exports[`build simple: rollup es 2`] = `
-"/**
- * Check if the given filepath is an existed path of file.
- *
- * @param filepath
- * @returns
- */
-declare function isFileSync(filepath: string): boolean;
-
-declare const _default: () => {
-    data: {
-        name: string;
-    };
-};
-
-export { _default as default, isFileSync };
-"
+exports[`build simple: rollup esm 2`] = `
+{
+  "fileName": "index.js.map",
+  "name": undefined,
+  "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":[null,null],"names":["data"],"mappings":";;;;;;;;;AASM,SAAU,UAAU,CAAE,QAAgB,EAAA;AAC1C,IAAA,IAAI,CAAC,EAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAAE,QAAA,OAAO,KAAK,CAAA;IAC1C,OAAO,EAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE,CAAA;AACvC;;ACPA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEA,MAAI,CAAC,CAAA;AAC1B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC,CAAA;AAEnC,YAAA,CAAe,YAAM,EAAA,OAAAA,MAAI,CAAA,EAAA;;;;"}",
+  "type": "asset",
+}
 `;

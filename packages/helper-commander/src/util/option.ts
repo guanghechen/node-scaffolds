@@ -8,7 +8,7 @@ import {
 } from '@guanghechen/helper-is'
 import { cover, coverString } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace, locateNearestFilepath } from '@guanghechen/helper-path'
-import path from 'path'
+import path from 'node:path'
 import type {
   ICommandConfiguration,
   ICommandConfigurationFlatOpts,

@@ -2,7 +2,7 @@ import createBaseRollupConfig from '@guanghechen/rollup-config'
 import type { IRollupConfigOptions as IBaseRollupConfigOptions } from '@guanghechen/rollup-config'
 import copy from '@guanghechen/rollup-plugin-copy'
 import type { IOptions as IRollupPluginCopyOptions } from '@guanghechen/rollup-plugin-copy'
-import type { RollupOptions } from 'rollup'
+import type { ModuleFormat, RollupOptions } from 'rollup'
 
 export interface IRollupConfigOptions extends IBaseRollupConfigOptions {
   /**
@@ -13,6 +13,10 @@ export interface IRollupConfigOptions extends IBaseRollupConfigOptions {
    * Node.js bin targets.
    */
   targets: Array<{
+    /**
+     * Target format.
+     */
+    format?: ModuleFormat
     /**
      * Source file path, such as 'src/cli.ts'.
      */
@@ -46,7 +50,7 @@ export async function createRollupConfig(options: IRollupConfigOptions): Promise
         output: [
           {
             file: item.target,
-            format: 'cjs',
+            format: item.format,
             exports: 'named',
             sourcemap: true,
             banner: '#! /usr/bin/env node',

@@ -3,6 +3,7 @@ import { createLoggerMock } from '@guanghechen/helper-jest'
 import { desensitize, locateFixtures } from 'jest.helper'
 import fs from 'node:fs'
 import path from 'node:path'
+import url from 'node:url'
 import {
   absoluteOfWorkspace,
   ensureCriticalFilepathExistsSync,
@@ -12,6 +13,8 @@ import {
   mkdirsIfNotExists,
   relativeOfWorkspace,
 } from '../src'
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 describe('absoluteOfWorkspace', function () {
   test('null / undefined', function () {

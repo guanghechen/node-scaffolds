@@ -95,7 +95,7 @@ await paste()     // => read content from clipboard.
   ```typescript
   import { ChalkLogger, DEBUG } from '@guanghechen/chalk-logger'
   import { FakeClipboard, copy, paste } from '@guanghechen/mini-copy'
-  import path from 'path'
+  import path from 'node:path'
 
   const logger = new ChalkLogger({
     name: 'mini-copy',

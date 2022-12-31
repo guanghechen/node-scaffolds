@@ -1,6 +1,10 @@
+import { jest } from '@jest/globals'
 import { desensitize, locateFixtures } from 'jest.helper'
 import path from 'node:path'
+import url from 'node:url'
 import { collectAllDependencies, getDefaultDependencyFields, locateLatestPackageJson } from '../src'
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 describe('getDefaultDependencyFields', () => {
   test('basic', () => {

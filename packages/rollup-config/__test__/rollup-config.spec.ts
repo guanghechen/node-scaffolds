@@ -1,8 +1,12 @@
+import { jest } from '@jest/globals'
 import fs from 'fs-extra'
 import path from 'node:path'
+import url from 'node:url'
 import { rollup } from 'rollup'
 import type { OutputOptions, RollupOutput } from 'rollup'
 import createRollupConfig from '../src'
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 // Resolve absolute dirPath of case
 const resolveCaseDir = (title: string): string => path.resolve(__dirname, 'fixtures', title)
@@ -46,11 +50,8 @@ afterEach(async () => {
   process.chdir(__dirname)
 })
 
-describe('build', function () {
-  // Timeout: 60s
-  jest.setTimeout(60000)
-
-  test('simple', async function () {
+describe('build', () => {
+  test('simple', async () => {
     const caseDir = resolveCaseDir('simple')
     process.chdir(caseDir)
     const results = await build(['fs-extra', '@guanghechen/rollup-config'])
@@ -62,5 +63,5 @@ describe('build', function () {
     // expect(
     //   fs.existsSync(path.join(caseDir, 'lib/types/index.d.ts')),
     // ).toBeTruthy()
-  })
+  }, 60000)
 })

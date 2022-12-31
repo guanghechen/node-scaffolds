@@ -1,11 +1,11 @@
-import path from 'path'
+import path from 'node:path'
 import type { IGlobalCommandOptions } from '.'
 import {
+  PACKAGE_NAME,
   __defaultGlobalCommandOptions,
   createProgram,
   handleCommand,
   logger,
-  packageName,
   resolveGlobalCommandOptions,
 } from '.'
 
@@ -14,7 +14,7 @@ const program = createProgram()
 program
   .action(async function (args: string[], options: IGlobalCommandOptions): Promise<void> {
     const resolvedOptions = resolveGlobalCommandOptions(
-      packageName,
+      PACKAGE_NAME,
       '',
       __defaultGlobalCommandOptions,
       path.resolve(),

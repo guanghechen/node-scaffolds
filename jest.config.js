@@ -1,11 +1,13 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { tsMonorepoConfig } = require('@guanghechen/jest-config')
 
-const baseConfig = tsMonorepoConfig(__dirname)
+const baseConfig = tsMonorepoConfig(__dirname, {
+  useESM: true,
+})
 
 module.exports = {
   ...baseConfig,
-  collectCoverageFrom: [...(baseConfig.collectCoverageFrom ?? []), '<rootDir>/gatsby-node.js'],
+  collectCoverageFrom: [baseConfig.collectCoverageFrom ?? []].flat(),
   coveragePathIgnorePatterns: [
     'packages/helper-commander/src/command/main.ts',
     'packages/helper-commander/src/command/sub.ts',
@@ -21,6 +23,7 @@ module.exports = {
       statements: 60,
     },
   },
+  extensionsToTreatAsEsm: ['.ts'],
   moduleNameMapper: {
     ...(baseConfig.moduleNameMapper ?? {}),
   },

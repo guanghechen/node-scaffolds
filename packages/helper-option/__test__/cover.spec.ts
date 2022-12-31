@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals'
 import { cover, coverBoolean, coverInteger, coverNumber, coverString } from '../src'
 
 describe('cover', function () {
