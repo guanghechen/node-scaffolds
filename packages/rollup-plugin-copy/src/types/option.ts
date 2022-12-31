@@ -1,5 +1,5 @@
 import type { CopyOptions, WriteFileOptions } from 'fs-extra'
-import type { GlobbyOptions } from 'globby'
+import type { Options as GlobbyOptions } from 'globby'
 
 /**
  * Options of @guanghechen/rollup-plugin-copy

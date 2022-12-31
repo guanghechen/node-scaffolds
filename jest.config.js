@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { tsMonorepoConfig } = require('@guanghechen/jest-config')
+const path = require('path')
 
 const baseConfig = tsMonorepoConfig(__dirname, {
   useESM: true,
@@ -26,9 +27,15 @@ const config = {
   extensionsToTreatAsEsm: ['.ts'],
   moduleNameMapper: {
     ...baseConfig.moduleNameMapper,
-    chalk: '<rootDir>/node_modules/chalk/source/index.js',
-    '#ansi-styles': '<rootDir>/node_modules/chalk/source/vendor/ansi-styles/index.js',
-    '#supports-color': '<rootDir>/node_modules/chalk/source/vendor/supports-color/index.js',
+    chalk: require.resolve('chalk'),
+    '#ansi-styles': path.join(
+      require.resolve('chalk').split('chalk')[0],
+      'chalk/source/vendor/ansi-styles/index.js',
+    ),
+    '#supports-color': path.join(
+      require.resolve('chalk').split('chalk')[0],
+      'chalk/source/vendor/supports-color/index.js',
+    ),
   },
   setupFiles: [...(baseConfig.setupFiles ?? [])],
   transform: {

@@ -1,13 +1,14 @@
 import { jest } from '@jest/globals'
-import { bold, green, yellow } from 'chalk'
+import chalk from 'chalk'
 import fs from 'fs-extra'
 import path from 'node:path'
 import url from 'node:url'
-import { replaceInFile as replace } from 'replace-in-file'
+import replaceInFile$ from 'replace-in-file'
 import { rollup, watch } from 'rollup'
 import type { IOptions } from '../src'
 import copy from '../src'
 
+const { replaceInFile } = replaceInFile$
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 const encoding = 'utf-8'
@@ -324,18 +325,18 @@ describe('Options', () => {
     })
 
     expect(console.log).toHaveBeenCalledTimes(5)
-    expect(console.log).toHaveBeenCalledWith(green('copied:'))
+    expect(console.log).toHaveBeenCalledWith(chalk.green('copied:'))
     expect(console.log).toHaveBeenCalledWith(
-      green(`  ${bold('src/assets/asset-1.js')} → ${bold('dist/asset-1.js')}`),
+      chalk.green(`  ${chalk.bold('src/assets/asset-1.js')} → ${chalk.bold('dist/asset-1.js')}`),
     )
     expect(console.log).toHaveBeenCalledWith(
-      green(`  ${bold('src/assets/css/css-1.css')} → ${bold('dist/css-1.css')}`),
+      chalk.green(`  ${chalk.bold('src/assets/css/css-1.css')} → ${chalk.bold('dist/css-1.css')}`),
     )
     expect(console.log).toHaveBeenCalledWith(
-      green(`  ${bold('src/assets/css/css-2.css')} → ${bold('dist/css-2.css')}`),
+      chalk.green(`  ${chalk.bold('src/assets/css/css-2.css')} → ${chalk.bold('dist/css-2.css')}`),
     )
     expect(console.log).toHaveBeenCalledWith(
-      green(`  ${bold('src/assets/scss')} → ${bold('dist/scss')}`),
+      chalk.green(`  ${chalk.bold('src/assets/scss')} → ${chalk.bold('dist/scss')}`),
     )
   })
 
@@ -348,7 +349,7 @@ describe('Options', () => {
     })
 
     expect(console.log).toHaveBeenCalledTimes(1)
-    expect(console.log).toHaveBeenCalledWith(yellow('no items to copy'))
+    expect(console.log).toHaveBeenCalledWith(chalk.yellow('no items to copy'))
   })
 
   test('Verbose, rename files', async () => {
@@ -372,30 +373,32 @@ describe('Options', () => {
     })
 
     expect(console.log).toHaveBeenCalledTimes(5)
-    expect(console.log).toHaveBeenCalledWith(green('copied:'))
+    expect(console.log).toHaveBeenCalledWith(chalk.green('copied:'))
     expect(console.log).toHaveBeenCalledWith(
-      `${green(`  ${bold('src/assets/asset-1.js')} → ${bold('dist/asset-1-renamed.js')}`)} ${yellow(
-        '[R]',
-      )}`,
+      `${chalk.green(
+        `  ${chalk.bold('src/assets/asset-1.js')} → ${chalk.bold('dist/asset-1-renamed.js')}`,
+      )} ${chalk.yellow('[R]')}`,
     )
     expect(console.log).toHaveBeenCalledWith(
-      `${green(
-        `  ${bold('src/assets/scss/scss-1.scss')} → ${bold(
+      `${chalk.green(
+        `  ${chalk.bold('src/assets/scss/scss-1.scss')} → ${chalk.bold(
           'dist/scss-multiple/scss-1-renamed.scss',
         )}`,
-      )} ${yellow('[R]')}`,
+      )} ${chalk.yellow('[R]')}`,
     )
     expect(console.log).toHaveBeenCalledWith(
-      `${green(
-        `  ${bold('src/assets/scss/scss-2.scss')} → ${bold(
+      `${chalk.green(
+        `  ${chalk.bold('src/assets/scss/scss-2.scss')} → ${chalk.bold(
           'dist/scss-multiple/scss-2-renamed.scss',
         )}`,
-      )} ${yellow('[R]')}`,
+      )} ${chalk.yellow('[R]')}`,
     )
     expect(console.log).toHaveBeenCalledWith(
-      `${green(
-        `  ${bold('src/assets/scss/nested')} → ${bold('dist/scss-multiple/nested-renamed')}`,
-      )} ${yellow('[R]')}`,
+      `${chalk.green(
+        `  ${chalk.bold('src/assets/scss/nested')} → ${chalk.bold(
+          'dist/scss-multiple/nested-renamed',
+        )}`,
+      )} ${chalk.yellow('[R]')}`,
     )
   })
 
@@ -415,16 +418,16 @@ describe('Options', () => {
     })
 
     expect(console.log).toHaveBeenCalledTimes(3)
-    expect(console.log).toHaveBeenCalledWith(green('copied:'))
+    expect(console.log).toHaveBeenCalledWith(chalk.green('copied:'))
     expect(console.log).toHaveBeenCalledWith(
-      `${green(`  ${bold('src/assets/css/css-1.css')} → ${bold('dist/css-1.css')}`)} ${yellow(
-        '[T]',
-      )}`,
+      `${chalk.green(
+        `  ${chalk.bold('src/assets/css/css-1.css')} → ${chalk.bold('dist/css-1.css')}`,
+      )} ${chalk.yellow('[T]')}`,
     )
     expect(console.log).toHaveBeenCalledWith(
-      `${green(`  ${bold('src/assets/css/css-2.css')} → ${bold('dist/css-2.css')}`)} ${yellow(
-        '[T]',
-      )}`,
+      `${chalk.green(
+        `  ${chalk.bold('src/assets/css/css-2.css')} → ${chalk.bold('dist/css-2.css')}`,
+      )} ${chalk.yellow('[T]')}`,
     )
   })
   /* eslint-enable no-console */
@@ -481,7 +484,7 @@ describe('Options', () => {
 
     expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
 
-    await replace({
+    await replaceInFile({
       files: 'src/index.js',
       from: 'hey',
       to: 'ho',
@@ -493,7 +496,7 @@ describe('Options', () => {
 
     await watcher.close()
 
-    await replace({
+    await replaceInFile({
       files: 'src/index.js',
       from: 'ho',
       to: 'hey',
@@ -543,7 +546,7 @@ describe('Options', () => {
     await fs.remove('dist')
     expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
 
-    await replace({
+    await replaceInFile({
       files: 'src/index.js',
       from: 'hey',
       to: 'ho',
@@ -555,7 +558,7 @@ describe('Options', () => {
 
     await watcher.close()
 
-    await replace({
+    await replaceInFile({
       files: 'src/index.js',
       from: 'ho',
       to: 'hey',
