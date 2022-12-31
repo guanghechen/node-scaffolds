@@ -2,8 +2,8 @@ import { stripAnsi } from '@guanghechen/helper-commander'
 import { isFileSync } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import type { FakeClipboard } from '@guanghechen/mini-copy'
-import fs from 'fs-extra'
 import inquirer from 'inquirer'
+import fs from 'node:fs'
 import { logger } from '../env/logger'
 import { copy, paste } from './mini-copy'
 
@@ -89,7 +89,7 @@ export async function pasteToFile(params: {
     }
   }
 
-  await safePaste(content => fs.writeFile(filepath, content, { encoding }), {
+  await safePaste(async content => fs.writeFileSync(filepath, content, { encoding }), {
     to: `file(${filepath})`,
     silence,
     shouldStripAnsi,
