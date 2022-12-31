@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
+import path from 'path'
 
-module.exports = function (plop) {
+export default function (plop) {
   plop.setGenerator('cipher-repository', {
     description: 'create ciphertext files repository',
     prompts: [],

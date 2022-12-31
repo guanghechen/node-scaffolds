@@ -10,7 +10,7 @@ import {
 import { runPlop } from '@guanghechen/helper-plop'
 import { toLowerCase } from '@guanghechen/helper-string'
 import commandExists from 'command-exists'
-import execa from 'execa'
+import { execa } from 'execa'
 import inquirer from 'inquirer'
 import nodePlop from 'node-plop'
 import { COMMAND_VERSION } from '../../env/constant'
@@ -102,8 +102,8 @@ export class GitCipherInitProcessor {
       await this.cloneFromRemote(plaintextRepositoryUrl)
     }
 
-    const templateConfig = resolveTemplateFilepath('plop.js')
-    const plop = nodePlop(templateConfig, {
+    const templateConfig = resolveTemplateFilepath('plop.mjs')
+    const plop = await nodePlop(templateConfig, {
       force: false,
       destBasePath: context.workspace,
     })

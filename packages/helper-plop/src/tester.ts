@@ -8,7 +8,7 @@ import { runPlop } from './run'
 /**
  * A utility funcs for testing plop with boilerplates.
  *
- * @param templateConfig  filepath of plop.js
+ * @param templateConfig  filepath of plop.mjs
  * @param plopBypass      inquirer prompts bypass
  * @param mockAnswers     mock inputs
  * @param defaultAnswers  default answers
