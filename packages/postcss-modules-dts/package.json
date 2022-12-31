@@ -18,8 +18,8 @@
     "css",
     "d.ts"
   ],
-  "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
+  "type": "module",
+  "exports": "./lib/esm/index.js",
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -44,7 +44,7 @@
   "dependencies": {
     "@guanghechen/helper-option": "^2.1.4",
     "@types/reserved-words": "0.1.0",
-    "fs-extra": "^10.1.0",
+    "fs-extra": "^11.1.0",
     "reserved-words": "0.1.2"
   }
 }
