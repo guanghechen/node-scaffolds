@@ -6,10 +6,6 @@ import type { ModuleFormat, RollupOptions } from 'rollup'
 
 export interface IRollupConfigOptions extends IBaseRollupConfigOptions {
   /**
-   * Options of @guanghechen/rollup-plugin-copy, for coping resources or config files.
-   */
-  resources?: IRollupPluginCopyOptions
-  /**
    * Node.js bin targets.
    */
   targets: Array<{
@@ -27,6 +23,10 @@ export interface IRollupConfigOptions extends IBaseRollupConfigOptions {
      */
     target: string
   }>
+  /**
+   * Options of @guanghechen/rollup-plugin-copy, for coping resources or config files.
+   */
+  resources?: IRollupPluginCopyOptions
 }
 
 export async function createRollupConfig(options: IRollupConfigOptions): Promise<RollupOptions[]> {

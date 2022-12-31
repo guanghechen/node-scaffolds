@@ -14,7 +14,7 @@
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/tool-git-cipher#readme",
   "keywords": [],
   "type": "module",
-  "exports": "./lib/cjs/index.js",
+  "exports": "./lib/esm/index.js",
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
