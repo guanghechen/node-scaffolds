@@ -1,4 +1,6 @@
 import { identity } from '@guanghechen/helper-func'
+import { jest } from '@jest/globals'
+import type { MockInstance } from 'jest-mock'
 import type { IConsoleMethodField } from './console'
 
 /**
@@ -73,11 +75,9 @@ export function createLoggerMock(options: ICreateLoggerMockOptions): ILoggerMock
   }
 
   // mock logger
-  const writeMock: jest.MockInstance<any, any> = jest
-    .spyOn(logger, 'write')
-    .mockImplementation(collectLog)
+  const writeMock: MockInstance<any> = jest.spyOn(logger, 'write').mockImplementation(collectLog)
 
-  const consoleMockFnMap: Record<IConsoleMethodField, jest.MockInstance<any, any>> = {} as any
+  const consoleMockFnMap: Record<IConsoleMethodField, MockInstance<any>> = {} as any
   if (spyOnGlobalConsole) {
     for (const field of consoleMethods) {
       consoleMockFnMap[field] = jest

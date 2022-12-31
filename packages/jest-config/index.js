@@ -36,9 +36,12 @@ function resolveModuleNameMapper(rootDir, tsconfigFilename = 'tsconfig.json') {
 
 /**
  * Create basic jest config
- * @params {string} repositoryRootDir
+ * @param {string} repositoryRootDir
+ * @param {{
+ *   useESM?: boolean
+ * }}
  */
-function tsMonorepoConfig(repositoryRootDir) {
+function tsMonorepoConfig(repositoryRootDir, options = {}) {
   const moduleNameMapper = {
     ...resolveModuleNameMapper(repositoryRootDir),
     ...resolveModuleNameMapper(path.resolve()),
@@ -56,6 +59,7 @@ function tsMonorepoConfig(repositoryRootDir) {
         'ts-jest',
         {
           tsconfig: '<rootDir>/tsconfig.json',
+          useESM: options?.useESM,
         },
       ],
     },

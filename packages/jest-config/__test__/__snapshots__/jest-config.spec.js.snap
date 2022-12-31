@@ -69,6 +69,7 @@ exports[`tsMonorepoConfig 1`] = `
       "ts-jest",
       {
         "tsconfig": "<rootDir>/tsconfig.json",
+        "useESM": undefined,
       },
     ],
   },
