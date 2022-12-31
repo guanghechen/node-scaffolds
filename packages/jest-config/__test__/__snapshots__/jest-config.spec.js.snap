@@ -27,6 +27,7 @@ exports[`tsMonorepoConfig 1`] = `
   ],
   "coverageDirectory": "<rootDir>/coverage/",
   "coveragePathIgnorePatterns": [],
+  "coverageProvider": "v8",
   "coverageReporters": [
     "text",
     "text-summary",
