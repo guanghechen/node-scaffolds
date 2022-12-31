@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/chalk-logger#readme">@guanghechen/chalk-logger</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/chalk-logger#readme">@guanghechen/chalk-logger</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/chalk-logger">
@@ -454,7 +454,7 @@ loggerMock.restore()
   ![demo7.1.png][]
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/chalk-logger#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/chalk-logger#readme
 [@yozora/helper-jest]: https://www.npmjs.com/package/@guanghechen/helper-jest
 [demo1.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo1.1.png
 [demo2.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/main/packages/chalk-logger/screenshots/demo2.1.png

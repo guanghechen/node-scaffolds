@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/helper-func#readme">@guanghechen/helper-func</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-func#readme">@guanghechen/helper-func</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-func">
@@ -68,4 +68,4 @@ Name        | Description
 `identity`  | Return the input data directly.
 `noop`      | Do nothing.
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/helper-func#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-func#readme

@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x",
     "directory": "packages/jest-config"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/jest-config#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/jest-config#readme",
   "keywords": [
     "eslint",
     "eslint config"

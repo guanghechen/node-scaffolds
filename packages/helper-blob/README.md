@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/helper-blob#readme">@guanghechen/helper-blob</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-blob#readme">@guanghechen/helper-blob</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-blob">
@@ -73,4 +73,4 @@ use command line parameters to customized the logger's behavior).
   browser.
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/helper-blob#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-blob#readme

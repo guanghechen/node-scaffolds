@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/helper-path#readme">@guanghechen/helper-path</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-path#readme">@guanghechen/helper-path</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-path">
@@ -76,4 +76,4 @@ Name                    | Description
 `mkdirsIfNotExists`                 | Create a path of directories
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/helper-path#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-path#readme

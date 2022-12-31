@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/helper-cipher#readme">@guanghechen/helper-cipher</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-cipher#readme">@guanghechen/helper-cipher</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-cipher">
@@ -137,4 +137,4 @@ Name                                | Description
 
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-2.x.x/packages/helper-cipher#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-cipher#readme
