@@ -1,6 +1,6 @@
 import { isFunction } from '@guanghechen/helper-is'
 import type { Mutable } from '@guanghechen/utility-types'
-import type { Chalk } from 'chalk'
+import type { ChalkInstance } from 'chalk'
 import chalk from 'chalk'
 import dayjs from 'dayjs'
 import type { IColor } from './color'
@@ -22,8 +22,8 @@ export interface ILoggerOptions {
   level?: Level | null
   levelStyleMap?: ILevelStyleMap
   flags?: Partial<ILoggerFlags>
-  dateChalk?: Chalk | IColor
-  nameChalk?: Chalk | IColor
+  dateChalk?: ChalkInstance | IColor
+  nameChalk?: ChalkInstance | IColor
   placeholderRegex?: RegExp
   write?(text: string): void
 }
@@ -34,8 +34,8 @@ export class Logger {
   public readonly level: Level
   public readonly levelStyleMap: ILevelStyleMap
   public readonly flags: ILoggerFlags
-  public readonly dateChalk = chalk.gray
-  public readonly nameChalk = chalk.gray
+  public readonly dateChalk = chalk.grey
+  public readonly nameChalk = chalk.grey
   public readonly placeholderRegex: RegExp = /(?<!\\)\{\}/g
   public readonly write: (text: string) => void
 

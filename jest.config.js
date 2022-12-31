@@ -5,7 +5,7 @@ const baseConfig = tsMonorepoConfig(__dirname, {
   useESM: true,
 })
 
-module.exports = {
+const config = {
   ...baseConfig,
   collectCoverageFrom: [baseConfig.collectCoverageFrom ?? []].flat(),
   coveragePathIgnorePatterns: [
@@ -25,10 +25,15 @@ module.exports = {
   },
   extensionsToTreatAsEsm: ['.ts'],
   moduleNameMapper: {
-    ...(baseConfig.moduleNameMapper ?? {}),
+    ...baseConfig.moduleNameMapper,
+    chalk: '<rootDir>/node_modules/chalk/source/index.js',
+    '#ansi-styles': '<rootDir>/node_modules/chalk/source/vendor/ansi-styles/index.js',
+    '#supports-color': '<rootDir>/node_modules/chalk/source/vendor/supports-color/index.js',
   },
   setupFiles: [...(baseConfig.setupFiles ?? [])],
   transform: {
     ...(baseConfig.transform ?? {}),
   },
 }
+
+module.exports = config

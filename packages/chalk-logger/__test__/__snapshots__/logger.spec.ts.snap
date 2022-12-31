@@ -4,51 +4,51 @@ exports[`Logger base loose debug +colorful +date +title 1`] = `
 [
   [
     "
-[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244m1, ooo, null, true, false, undefined, a[39m
-[38;5;244mb[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90m1, ooo, null, true, false, undefined, a[39m
+[90mb[39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mThis is a literal string [[39m
-[38;5;244m  'a',[39m
-[38;5;244m  'b',[39m
-[38;5;244m][39m
-[38;5;244m[39m
+[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90mThis is a literal string [[39m
+[90m  'a',[39m
+[90m  'b',[39m
+[90m][39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mOutput object: {[39m
-[38;5;244m  x: 1,[39m
-[38;5;244m  y: {[39m
-[38;5;244m    z: 'o',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90mOutput object: {[39m
+[90m  x: 1,[39m
+[90m  y: {[39m
+[90m    z: 'o',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mx y z {[39m
-[38;5;244m  c: {[39m
-[38;5;244m    a: 'hello',[39m
-[38;5;244m  },[39m
-[38;5;244m  b: {[39m
-[38;5;244m    d: 'world',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90mx y z {[39m
+[90m  c: {[39m
+[90m    a: 'hello',[39m
+[90m  },[39m
+[90m  b: {[39m
+[90m    d: 'world',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244muser(<>) {[39m
-[38;5;244m  username: 'lemon-clown',[39m
-[38;5;244m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;244m}[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90muser(<>) {[39m
+[90m  username: 'lemon-clown',[39m
+[90m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[90m}[39m
+[90m[39m
 ",
   ],
   [
@@ -151,51 +151,51 @@ exports[`Logger base loose debug +colorful +date +title 1`] = `
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -303,51 +303,51 @@ exports[`Logger base loose debug +colorful +date 1`] = `
 [
   [
     "
-[90m<$Date$>[39m [38;5;244m1, ooo, null, true, false, undefined, a[39m
-[38;5;244mb[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [90m1, ooo, null, true, false, undefined, a[39m
+[90mb[39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;244mThis is a literal string [[39m
-[38;5;244m  'a',[39m
-[38;5;244m  'b',[39m
-[38;5;244m][39m
-[38;5;244m[39m
+[90m<$Date$>[39m [90mThis is a literal string [[39m
+[90m  'a',[39m
+[90m  'b',[39m
+[90m][39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;244mOutput object: {[39m
-[38;5;244m  x: 1,[39m
-[38;5;244m  y: {[39m
-[38;5;244m    z: 'o',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [90mOutput object: {[39m
+[90m  x: 1,[39m
+[90m  y: {[39m
+[90m    z: 'o',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;244mx y z {[39m
-[38;5;244m  c: {[39m
-[38;5;244m    a: 'hello',[39m
-[38;5;244m  },[39m
-[38;5;244m  b: {[39m
-[38;5;244m    d: 'world',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [90mx y z {[39m
+[90m  c: {[39m
+[90m    a: 'hello',[39m
+[90m  },[39m
+[90m  b: {[39m
+[90m    d: 'world',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;244muser(<>) {[39m
-[38;5;244m  username: 'lemon-clown',[39m
-[38;5;244m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;244m}[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [90muser(<>) {[39m
+[90m  username: 'lemon-clown',[39m
+[90m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[90m}[39m
+[90m[39m
 ",
   ],
   [
@@ -450,51 +450,51 @@ exports[`Logger base loose debug +colorful +date 1`] = `
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -602,51 +602,51 @@ exports[`Logger base loose debug +colorful +title 1`] = `
 [
   [
     "
-[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244m1, ooo, null, true, false, undefined, a[39m
-[38;5;244mb[39m
-[38;5;244m[39m
+[[90mdebug[39m [90mdebug[39m] [90m1, ooo, null, true, false, undefined, a[39m
+[90mb[39m
+[90m[39m
 ",
   ],
   [
     "
-[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mThis is a literal string [[39m
-[38;5;244m  'a',[39m
-[38;5;244m  'b',[39m
-[38;5;244m][39m
-[38;5;244m[39m
+[[90mdebug[39m [90mdebug[39m] [90mThis is a literal string [[39m
+[90m  'a',[39m
+[90m  'b',[39m
+[90m][39m
+[90m[39m
 ",
   ],
   [
     "
-[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mOutput object: {[39m
-[38;5;244m  x: 1,[39m
-[38;5;244m  y: {[39m
-[38;5;244m    z: 'o',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m
+[[90mdebug[39m [90mdebug[39m] [90mOutput object: {[39m
+[90m  x: 1,[39m
+[90m  y: {[39m
+[90m    z: 'o',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m
 ",
   ],
   [
     "
-[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mx y z {[39m
-[38;5;244m  c: {[39m
-[38;5;244m    a: 'hello',[39m
-[38;5;244m  },[39m
-[38;5;244m  b: {[39m
-[38;5;244m    d: 'world',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m
+[[90mdebug[39m [90mdebug[39m] [90mx y z {[39m
+[90m  c: {[39m
+[90m    a: 'hello',[39m
+[90m  },[39m
+[90m  b: {[39m
+[90m    d: 'world',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m
 ",
   ],
   [
     "
-[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244muser(<>) {[39m
-[38;5;244m  username: 'lemon-clown',[39m
-[38;5;244m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;244m}[39m
-[38;5;244m[39m
+[[90mdebug[39m [90mdebug[39m] [90muser(<>) {[39m
+[90m  username: 'lemon-clown',[39m
+[90m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[90m}[39m
+[90m[39m
 ",
   ],
   [
@@ -749,51 +749,51 @@ exports[`Logger base loose debug +colorful +title 1`] = `
   ],
   [
     "
-[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mdebug[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[[33mwarn [39m [90mdebug[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mdebug[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mdebug[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mdebug[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -901,51 +901,51 @@ exports[`Logger base loose debug +colorful 1`] = `
 [
   [
     "
-[38;5;244m1, ooo, null, true, false, undefined, a[39m
-[38;5;244mb[39m
-[38;5;244m[39m
+[90m1, ooo, null, true, false, undefined, a[39m
+[90mb[39m
+[90m[39m
 ",
   ],
   [
     "
-[38;5;244mThis is a literal string [[39m
-[38;5;244m  'a',[39m
-[38;5;244m  'b',[39m
-[38;5;244m][39m
-[38;5;244m[39m
+[90mThis is a literal string [[39m
+[90m  'a',[39m
+[90m  'b',[39m
+[90m][39m
+[90m[39m
 ",
   ],
   [
     "
-[38;5;244mOutput object: {[39m
-[38;5;244m  x: 1,[39m
-[38;5;244m  y: {[39m
-[38;5;244m    z: 'o',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m
+[90mOutput object: {[39m
+[90m  x: 1,[39m
+[90m  y: {[39m
+[90m    z: 'o',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m
 ",
   ],
   [
     "
-[38;5;244mx y z {[39m
-[38;5;244m  c: {[39m
-[38;5;244m    a: 'hello',[39m
-[38;5;244m  },[39m
-[38;5;244m  b: {[39m
-[38;5;244m    d: 'world',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m
+[90mx y z {[39m
+[90m  c: {[39m
+[90m    a: 'hello',[39m
+[90m  },[39m
+[90m  b: {[39m
+[90m    d: 'world',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m
 ",
   ],
   [
     "
-[38;5;244muser(<>) {[39m
-[38;5;244m  username: 'lemon-clown',[39m
-[38;5;244m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;244m}[39m
-[38;5;244m[39m
+[90muser(<>) {[39m
+[90m  username: 'lemon-clown',[39m
+[90m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[90m}[39m
+[90m[39m
 ",
   ],
   [
@@ -1048,51 +1048,51 @@ exports[`Logger base loose debug +colorful 1`] = `
   ],
   [
     "
-[38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -1798,32 +1798,32 @@ exports[`Logger base loose debug +inline +colorful +date +title 1`] = `
 [
   [
     "
-[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244m1, ooo, null, true, false, undefined, a b[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90m1, ooo, null, true, false, undefined, a b[39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mThis is a literal string ['a','b'][39m
-[38;5;244m[39m
+[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90mThis is a literal string ['a','b'][39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90mOutput object: {x:1,y:{z:'o'}}[39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[90m[39m
 ",
   ],
   [
@@ -1888,32 +1888,32 @@ exports[`Logger base loose debug +inline +colorful +date +title 1`] = `
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -1983,32 +1983,32 @@ exports[`Logger base loose debug +inline +colorful +date 1`] = `
 [
   [
     "
-[90m<$Date$>[39m [38;5;244m1, ooo, null, true, false, undefined, a b[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [90m1, ooo, null, true, false, undefined, a b[39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;244mThis is a literal string ['a','b'][39m
-[38;5;244m[39m
+[90m<$Date$>[39m [90mThis is a literal string ['a','b'][39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;244mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [90mOutput object: {x:1,y:{z:'o'}}[39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;244mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [90mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[90m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;244muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;244m[39m
+[90m<$Date$>[39m [90muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[90m[39m
 ",
   ],
   [
@@ -2073,32 +2073,32 @@ exports[`Logger base loose debug +inline +colorful +date 1`] = `
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -2168,32 +2168,32 @@ exports[`Logger base loose debug +inline +colorful +title 1`] = `
 [
   [
     "
-[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244m1, ooo, null, true, false, undefined, a b[39m
-[38;5;244m[39m
+[[90mdebug[39m [90mdebug[39m] [90m1, ooo, null, true, false, undefined, a b[39m
+[90m[39m
 ",
   ],
   [
     "
-[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mThis is a literal string ['a','b'][39m
-[38;5;244m[39m
+[[90mdebug[39m [90mdebug[39m] [90mThis is a literal string ['a','b'][39m
+[90m[39m
 ",
   ],
   [
     "
-[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;244m[39m
+[[90mdebug[39m [90mdebug[39m] [90mOutput object: {x:1,y:{z:'o'}}[39m
+[90m[39m
 ",
   ],
   [
     "
-[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;244m[39m
+[[90mdebug[39m [90mdebug[39m] [90mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[90m[39m
 ",
   ],
   [
     "
-[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;244m[39m
+[[90mdebug[39m [90mdebug[39m] [90muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[90m[39m
 ",
   ],
   [
@@ -2258,32 +2258,32 @@ exports[`Logger base loose debug +inline +colorful +title 1`] = `
   ],
   [
     "
-[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mdebug[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[[33mwarn [39m [90mdebug[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mdebug[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mdebug[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mdebug[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -2353,32 +2353,32 @@ exports[`Logger base loose debug +inline +colorful 1`] = `
 [
   [
     "
-[38;5;244m1, ooo, null, true, false, undefined, a b[39m
-[38;5;244m[39m
+[90m1, ooo, null, true, false, undefined, a b[39m
+[90m[39m
 ",
   ],
   [
     "
-[38;5;244mThis is a literal string ['a','b'][39m
-[38;5;244m[39m
+[90mThis is a literal string ['a','b'][39m
+[90m[39m
 ",
   ],
   [
     "
-[38;5;244mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;244m[39m
+[90mOutput object: {x:1,y:{z:'o'}}[39m
+[90m[39m
 ",
   ],
   [
     "
-[38;5;244mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;244m[39m
+[90mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[90m[39m
 ",
   ],
   [
     "
-[38;5;244muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;244m[39m
+[90muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[90m[39m
 ",
   ],
   [
@@ -2443,32 +2443,32 @@ exports[`Logger base loose debug +inline +colorful 1`] = `
   ],
   [
     "
-[38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -5981,51 +5981,51 @@ exports[`Logger base loose info +colorful +date +title 1`] = `
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -6182,51 +6182,51 @@ exports[`Logger base loose info +colorful +date 1`] = `
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -6383,51 +6383,51 @@ exports[`Logger base loose info +colorful +title 1`] = `
   ],
   [
     "
-[[38;5;214mwarn [39m [90minfo[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[[33mwarn [39m [90minfo[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90minfo[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[[33mwarn [39m [90minfo[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90minfo[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90minfo[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90minfo[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90minfo[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90minfo[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90minfo[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -6584,51 +6584,51 @@ exports[`Logger base loose info +colorful 1`] = `
   ],
   [
     "
-[38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -7168,32 +7168,32 @@ exports[`Logger base loose info +inline +colorful +date +title 1`] = `
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -7293,32 +7293,32 @@ exports[`Logger base loose info +inline +colorful +date 1`] = `
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -7418,32 +7418,32 @@ exports[`Logger base loose info +inline +colorful +title 1`] = `
   ],
   [
     "
-[[38;5;214mwarn [39m [90minfo[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[[33mwarn [39m [90minfo[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90minfo[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[[33mwarn [39m [90minfo[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90minfo[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90minfo[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90minfo[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90minfo[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90minfo[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90minfo[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -7543,32 +7543,32 @@ exports[`Logger base loose info +inline +colorful 1`] = `
   ],
   [
     "
-[38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -8638,51 +8638,51 @@ exports[`Logger base loose verbose +colorful +date +title 1`] = `
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -8888,51 +8888,51 @@ exports[`Logger base loose verbose +colorful +date 1`] = `
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -9138,51 +9138,51 @@ exports[`Logger base loose verbose +colorful +title 1`] = `
   ],
   [
     "
-[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mverbose[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[[33mwarn [39m [90mverbose[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mverbose[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mverbose[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mverbose[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -9388,51 +9388,51 @@ exports[`Logger base loose verbose +colorful 1`] = `
   ],
   [
     "
-[38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -10100,32 +10100,32 @@ exports[`Logger base loose verbose +inline +colorful +date +title 1`] = `
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -10255,32 +10255,32 @@ exports[`Logger base loose verbose +inline +colorful +date 1`] = `
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -10410,32 +10410,32 @@ exports[`Logger base loose verbose +inline +colorful +title 1`] = `
   ],
   [
     "
-[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mverbose[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[[33mwarn [39m [90mverbose[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mverbose[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mverbose[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mverbose[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -10565,32 +10565,32 @@ exports[`Logger base loose verbose +inline +colorful 1`] = `
   ],
   [
     "
-[38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -11780,51 +11780,51 @@ exports[`Logger base loose warn +colorful +date +title 1`] = `
 [
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -11932,51 +11932,51 @@ exports[`Logger base loose warn +colorful +date 1`] = `
 [
   [
     "
-[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -12084,51 +12084,51 @@ exports[`Logger base loose warn +colorful +title 1`] = `
 [
   [
     "
-[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mwarn[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[[33mwarn [39m [90mwarn[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mwarn[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mwarn[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mwarn[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -12236,51 +12236,51 @@ exports[`Logger base loose warn +colorful 1`] = `
 [
   [
     "
-[38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m
+[33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m
+[33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m
+[33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m
 ",
   ],
   [
@@ -12692,32 +12692,32 @@ exports[`Logger base loose warn +inline +colorful +date +title 1`] = `
 [
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -12787,32 +12787,32 @@ exports[`Logger base loose warn +inline +colorful +date 1`] = `
 [
   [
     "
-[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[90m<$Date$>[39m [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[90m<$Date$>[39m [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -12882,32 +12882,32 @@ exports[`Logger base loose warn +inline +colorful +title 1`] = `
 [
   [
     "
-[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mwarn[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[[33mwarn [39m [90mwarn[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mwarn[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mwarn[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[[33mwarn [39m [90mwarn[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -12977,32 +12977,32 @@ exports[`Logger base loose warn +inline +colorful 1`] = `
 [
   [
     "
-[38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m
+[33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m
+[33mThis is a literal string ['a','b'][39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m
+[33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m
+[33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m
 ",
   ],
   [
     "
-[38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m
+[33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m
 ",
   ],
   [
@@ -13755,43 +13755,43 @@ user(<>) {
 exports[`Logger base normal debug +colorful +date +title 1`] = `
 [
   [
-    "[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244m1, ooo, null, true, false, undefined, a[39m
-[38;5;244mb[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90m1, ooo, null, true, false, undefined, a[39m
+[90mb[39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mThis is a literal string [[39m
-[38;5;244m  'a',[39m
-[38;5;244m  'b',[39m
-[38;5;244m][39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90mThis is a literal string [[39m
+[90m  'a',[39m
+[90m  'b',[39m
+[90m][39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mOutput object: {[39m
-[38;5;244m  x: 1,[39m
-[38;5;244m  y: {[39m
-[38;5;244m    z: 'o',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90mOutput object: {[39m
+[90m  x: 1,[39m
+[90m  y: {[39m
+[90m    z: 'o',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mx y z {[39m
-[38;5;244m  c: {[39m
-[38;5;244m    a: 'hello',[39m
-[38;5;244m  },[39m
-[38;5;244m  b: {[39m
-[38;5;244m    d: 'world',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90mx y z {[39m
+[90m  c: {[39m
+[90m    a: 'hello',[39m
+[90m  },[39m
+[90m  b: {[39m
+[90m    d: 'world',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244muser(<>) {[39m
-[38;5;244m  username: 'lemon-clown',[39m
-[38;5;244m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90muser(<>) {[39m
+[90m  username: 'lemon-clown',[39m
+[90m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[90m}[39m
+[90m[39m",
   ],
   [
     "[90m<$Date$>[39m [[36mverb [39m [90mdebug[39m] [36m1, ooo, null, true, false, undefined, a[39m
@@ -13872,43 +13872,43 @@ exports[`Logger base normal debug +colorful +date +title 1`] = `
 [32m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [[31merror[39m [90mdebug[39m] [31m1, ooo, null, true, false, undefined, a[39m
@@ -13994,43 +13994,43 @@ exports[`Logger base normal debug +colorful +date +title 1`] = `
 exports[`Logger base normal debug +colorful +date 1`] = `
 [
   [
-    "[90m<$Date$>[39m [38;5;244m1, ooo, null, true, false, undefined, a[39m
-[38;5;244mb[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [90m1, ooo, null, true, false, undefined, a[39m
+[90mb[39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;244mThis is a literal string [[39m
-[38;5;244m  'a',[39m
-[38;5;244m  'b',[39m
-[38;5;244m][39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [90mThis is a literal string [[39m
+[90m  'a',[39m
+[90m  'b',[39m
+[90m][39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;244mOutput object: {[39m
-[38;5;244m  x: 1,[39m
-[38;5;244m  y: {[39m
-[38;5;244m    z: 'o',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [90mOutput object: {[39m
+[90m  x: 1,[39m
+[90m  y: {[39m
+[90m    z: 'o',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;244mx y z {[39m
-[38;5;244m  c: {[39m
-[38;5;244m    a: 'hello',[39m
-[38;5;244m  },[39m
-[38;5;244m  b: {[39m
-[38;5;244m    d: 'world',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [90mx y z {[39m
+[90m  c: {[39m
+[90m    a: 'hello',[39m
+[90m  },[39m
+[90m  b: {[39m
+[90m    d: 'world',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;244muser(<>) {[39m
-[38;5;244m  username: 'lemon-clown',[39m
-[38;5;244m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [90muser(<>) {[39m
+[90m  username: 'lemon-clown',[39m
+[90m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[90m}[39m
+[90m[39m",
   ],
   [
     "[90m<$Date$>[39m [36m1, ooo, null, true, false, undefined, a[39m
@@ -14111,43 +14111,43 @@ exports[`Logger base normal debug +colorful +date 1`] = `
 [32m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [31m1, ooo, null, true, false, undefined, a[39m
@@ -14233,43 +14233,43 @@ exports[`Logger base normal debug +colorful +date 1`] = `
 exports[`Logger base normal debug +colorful +title 1`] = `
 [
   [
-    "[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244m1, ooo, null, true, false, undefined, a[39m
-[38;5;244mb[39m
-[38;5;244m[39m",
+    "[[90mdebug[39m [90mdebug[39m] [90m1, ooo, null, true, false, undefined, a[39m
+[90mb[39m
+[90m[39m",
   ],
   [
-    "[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mThis is a literal string [[39m
-[38;5;244m  'a',[39m
-[38;5;244m  'b',[39m
-[38;5;244m][39m
-[38;5;244m[39m",
+    "[[90mdebug[39m [90mdebug[39m] [90mThis is a literal string [[39m
+[90m  'a',[39m
+[90m  'b',[39m
+[90m][39m
+[90m[39m",
   ],
   [
-    "[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mOutput object: {[39m
-[38;5;244m  x: 1,[39m
-[38;5;244m  y: {[39m
-[38;5;244m    z: 'o',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[[90mdebug[39m [90mdebug[39m] [90mOutput object: {[39m
+[90m  x: 1,[39m
+[90m  y: {[39m
+[90m    z: 'o',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m",
   ],
   [
-    "[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mx y z {[39m
-[38;5;244m  c: {[39m
-[38;5;244m    a: 'hello',[39m
-[38;5;244m  },[39m
-[38;5;244m  b: {[39m
-[38;5;244m    d: 'world',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[[90mdebug[39m [90mdebug[39m] [90mx y z {[39m
+[90m  c: {[39m
+[90m    a: 'hello',[39m
+[90m  },[39m
+[90m  b: {[39m
+[90m    d: 'world',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m",
   ],
   [
-    "[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244muser(<>) {[39m
-[38;5;244m  username: 'lemon-clown',[39m
-[38;5;244m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[[90mdebug[39m [90mdebug[39m] [90muser(<>) {[39m
+[90m  username: 'lemon-clown',[39m
+[90m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[90m}[39m
+[90m[39m",
   ],
   [
     "[[36mverb [39m [90mdebug[39m] [36m1, ooo, null, true, false, undefined, a[39m
@@ -14350,43 +14350,43 @@ exports[`Logger base normal debug +colorful +title 1`] = `
 [32m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mdebug[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mdebug[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mdebug[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mdebug[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mdebug[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[[31merror[39m [90mdebug[39m] [31m1, ooo, null, true, false, undefined, a[39m
@@ -14472,43 +14472,43 @@ exports[`Logger base normal debug +colorful +title 1`] = `
 exports[`Logger base normal debug +colorful 1`] = `
 [
   [
-    "[38;5;244m1, ooo, null, true, false, undefined, a[39m
-[38;5;244mb[39m
-[38;5;244m[39m",
+    "[90m1, ooo, null, true, false, undefined, a[39m
+[90mb[39m
+[90m[39m",
   ],
   [
-    "[38;5;244mThis is a literal string [[39m
-[38;5;244m  'a',[39m
-[38;5;244m  'b',[39m
-[38;5;244m][39m
-[38;5;244m[39m",
+    "[90mThis is a literal string [[39m
+[90m  'a',[39m
+[90m  'b',[39m
+[90m][39m
+[90m[39m",
   ],
   [
-    "[38;5;244mOutput object: {[39m
-[38;5;244m  x: 1,[39m
-[38;5;244m  y: {[39m
-[38;5;244m    z: 'o',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[90mOutput object: {[39m
+[90m  x: 1,[39m
+[90m  y: {[39m
+[90m    z: 'o',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m",
   ],
   [
-    "[38;5;244mx y z {[39m
-[38;5;244m  c: {[39m
-[38;5;244m    a: 'hello',[39m
-[38;5;244m  },[39m
-[38;5;244m  b: {[39m
-[38;5;244m    d: 'world',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[90mx y z {[39m
+[90m  c: {[39m
+[90m    a: 'hello',[39m
+[90m  },[39m
+[90m  b: {[39m
+[90m    d: 'world',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m",
   ],
   [
-    "[38;5;244muser(<>) {[39m
-[38;5;244m  username: 'lemon-clown',[39m
-[38;5;244m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[90muser(<>) {[39m
+[90m  username: 'lemon-clown',[39m
+[90m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[90m}[39m
+[90m[39m",
   ],
   [
     "[36m1, ooo, null, true, false, undefined, a[39m
@@ -14589,43 +14589,43 @@ exports[`Logger base normal debug +colorful 1`] = `
 [32m[39m",
   ],
   [
-    "[38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[31m1, ooo, null, true, false, undefined, a[39m
@@ -15189,24 +15189,24 @@ b
 exports[`Logger base normal debug +inline +colorful +date +title 1`] = `
 [
   [
-    "[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244m1, ooo, null, true, false, undefined, a b[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90m1, ooo, null, true, false, undefined, a b[39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mThis is a literal string ['a','b'][39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90mThis is a literal string ['a','b'][39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90mOutput object: {x:1,y:{z:'o'}}[39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;244mdebug[39m [90mdebug[39m] [38;5;244muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [[90mdebug[39m [90mdebug[39m] [90muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[90m[39m",
   ],
   [
     "[90m<$Date$>[39m [[36mverb [39m [90mdebug[39m] [36m1, ooo, null, true, false, undefined, a b[39m
@@ -15249,24 +15249,24 @@ exports[`Logger base normal debug +inline +colorful +date +title 1`] = `
 [32m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mdebug[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mdebug[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [[31merror[39m [90mdebug[39m] [31m1, ooo, null, true, false, undefined, a b[39m
@@ -15314,24 +15314,24 @@ exports[`Logger base normal debug +inline +colorful +date +title 1`] = `
 exports[`Logger base normal debug +inline +colorful +date 1`] = `
 [
   [
-    "[90m<$Date$>[39m [38;5;244m1, ooo, null, true, false, undefined, a b[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [90m1, ooo, null, true, false, undefined, a b[39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;244mThis is a literal string ['a','b'][39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [90mThis is a literal string ['a','b'][39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;244mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [90mOutput object: {x:1,y:{z:'o'}}[39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;244mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [90mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[90m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;244muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;244m[39m",
+    "[90m<$Date$>[39m [90muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[90m[39m",
   ],
   [
     "[90m<$Date$>[39m [36m1, ooo, null, true, false, undefined, a b[39m
@@ -15374,24 +15374,24 @@ exports[`Logger base normal debug +inline +colorful +date 1`] = `
 [32m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [31m1, ooo, null, true, false, undefined, a b[39m
@@ -15439,24 +15439,24 @@ exports[`Logger base normal debug +inline +colorful +date 1`] = `
 exports[`Logger base normal debug +inline +colorful +title 1`] = `
 [
   [
-    "[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244m1, ooo, null, true, false, undefined, a b[39m
-[38;5;244m[39m",
+    "[[90mdebug[39m [90mdebug[39m] [90m1, ooo, null, true, false, undefined, a b[39m
+[90m[39m",
   ],
   [
-    "[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mThis is a literal string ['a','b'][39m
-[38;5;244m[39m",
+    "[[90mdebug[39m [90mdebug[39m] [90mThis is a literal string ['a','b'][39m
+[90m[39m",
   ],
   [
-    "[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;244m[39m",
+    "[[90mdebug[39m [90mdebug[39m] [90mOutput object: {x:1,y:{z:'o'}}[39m
+[90m[39m",
   ],
   [
-    "[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;244m[39m",
+    "[[90mdebug[39m [90mdebug[39m] [90mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[90m[39m",
   ],
   [
-    "[[38;5;244mdebug[39m [90mdebug[39m] [38;5;244muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;244m[39m",
+    "[[90mdebug[39m [90mdebug[39m] [90muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[90m[39m",
   ],
   [
     "[[36mverb [39m [90mdebug[39m] [36m1, ooo, null, true, false, undefined, a b[39m
@@ -15499,24 +15499,24 @@ exports[`Logger base normal debug +inline +colorful +title 1`] = `
 [32m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mdebug[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mdebug[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mdebug[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mdebug[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mdebug[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mdebug[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[[31merror[39m [90mdebug[39m] [31m1, ooo, null, true, false, undefined, a b[39m
@@ -15564,24 +15564,24 @@ exports[`Logger base normal debug +inline +colorful +title 1`] = `
 exports[`Logger base normal debug +inline +colorful 1`] = `
 [
   [
-    "[38;5;244m1, ooo, null, true, false, undefined, a b[39m
-[38;5;244m[39m",
+    "[90m1, ooo, null, true, false, undefined, a b[39m
+[90m[39m",
   ],
   [
-    "[38;5;244mThis is a literal string ['a','b'][39m
-[38;5;244m[39m",
+    "[90mThis is a literal string ['a','b'][39m
+[90m[39m",
   ],
   [
-    "[38;5;244mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;244m[39m",
+    "[90mOutput object: {x:1,y:{z:'o'}}[39m
+[90m[39m",
   ],
   [
-    "[38;5;244mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;244m[39m",
+    "[90mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[90m[39m",
   ],
   [
-    "[38;5;244muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;244m[39m",
+    "[90muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[90m[39m",
   ],
   [
     "[36m1, ooo, null, true, false, undefined, a b[39m
@@ -15624,24 +15624,24 @@ exports[`Logger base normal debug +inline +colorful 1`] = `
 [32m[39m",
   ],
   [
-    "[38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[31m1, ooo, null, true, false, undefined, a b[39m
@@ -18282,43 +18282,43 @@ exports[`Logger base normal info +colorful +date +title 1`] = `
 [32m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [[31merror[39m [90minfo[39m] [31m1, ooo, null, true, false, undefined, a[39m
@@ -18443,43 +18443,43 @@ exports[`Logger base normal info +colorful +date 1`] = `
 [32m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [31m1, ooo, null, true, false, undefined, a[39m
@@ -18604,43 +18604,43 @@ exports[`Logger base normal info +colorful +title 1`] = `
 [32m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90minfo[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90minfo[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90minfo[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90minfo[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90minfo[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90minfo[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90minfo[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90minfo[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90minfo[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90minfo[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[[31merror[39m [90minfo[39m] [31m1, ooo, null, true, false, undefined, a[39m
@@ -18765,43 +18765,43 @@ exports[`Logger base normal info +colorful 1`] = `
 [32m[39m",
   ],
   [
-    "[38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[31m1, ooo, null, true, false, undefined, a[39m
@@ -19229,24 +19229,24 @@ exports[`Logger base normal info +inline +colorful +date +title 1`] = `
 [32m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90minfo[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90minfo[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [[31merror[39m [90minfo[39m] [31m1, ooo, null, true, false, undefined, a b[39m
@@ -19314,24 +19314,24 @@ exports[`Logger base normal info +inline +colorful +date 1`] = `
 [32m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [31m1, ooo, null, true, false, undefined, a b[39m
@@ -19399,24 +19399,24 @@ exports[`Logger base normal info +inline +colorful +title 1`] = `
 [32m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90minfo[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90minfo[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90minfo[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90minfo[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90minfo[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90minfo[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90minfo[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90minfo[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90minfo[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90minfo[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[[31merror[39m [90minfo[39m] [31m1, ooo, null, true, false, undefined, a b[39m
@@ -19484,24 +19484,24 @@ exports[`Logger base normal info +inline +colorful 1`] = `
 [32m[39m",
   ],
   [
-    "[38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[31m1, ooo, null, true, false, undefined, a b[39m
@@ -20289,43 +20289,43 @@ exports[`Logger base normal verbose +colorful +date +title 1`] = `
 [32m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [[31merror[39m [90mverbose[39m] [31m1, ooo, null, true, false, undefined, a[39m
@@ -20489,43 +20489,43 @@ exports[`Logger base normal verbose +colorful +date 1`] = `
 [32m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [31m1, ooo, null, true, false, undefined, a[39m
@@ -20689,43 +20689,43 @@ exports[`Logger base normal verbose +colorful +title 1`] = `
 [32m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mverbose[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mverbose[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mverbose[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mverbose[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mverbose[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[[31merror[39m [90mverbose[39m] [31m1, ooo, null, true, false, undefined, a[39m
@@ -20889,43 +20889,43 @@ exports[`Logger base normal verbose +colorful 1`] = `
 [32m[39m",
   ],
   [
-    "[38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[31m1, ooo, null, true, false, undefined, a[39m
@@ -21451,24 +21451,24 @@ exports[`Logger base normal verbose +inline +colorful +date +title 1`] = `
 [32m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mverbose[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mverbose[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [[31merror[39m [90mverbose[39m] [31m1, ooo, null, true, false, undefined, a b[39m
@@ -21556,24 +21556,24 @@ exports[`Logger base normal verbose +inline +colorful +date 1`] = `
 [32m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [31m1, ooo, null, true, false, undefined, a b[39m
@@ -21661,24 +21661,24 @@ exports[`Logger base normal verbose +inline +colorful +title 1`] = `
 [32m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mverbose[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mverbose[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mverbose[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mverbose[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mverbose[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mverbose[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[[31merror[39m [90mverbose[39m] [31m1, ooo, null, true, false, undefined, a b[39m
@@ -21766,24 +21766,24 @@ exports[`Logger base normal verbose +inline +colorful 1`] = `
 [32m[39m",
   ],
   [
-    "[38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[31m1, ooo, null, true, false, undefined, a b[39m
@@ -22651,43 +22651,43 @@ b
 exports[`Logger base normal warn +colorful +date +title 1`] = `
 [
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [[31merror[39m [90mwarn[39m] [31m1, ooo, null, true, false, undefined, a[39m
@@ -22773,43 +22773,43 @@ exports[`Logger base normal warn +colorful +date +title 1`] = `
 exports[`Logger base normal warn +colorful +date 1`] = `
 [
   [
-    "[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [31m1, ooo, null, true, false, undefined, a[39m
@@ -22895,43 +22895,43 @@ exports[`Logger base normal warn +colorful +date 1`] = `
 exports[`Logger base normal warn +colorful +title 1`] = `
 [
   [
-    "[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mwarn[39m] [33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mwarn[39m] [33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mwarn[39m] [33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mwarn[39m] [33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mwarn[39m] [33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[[31merror[39m [90mwarn[39m] [31m1, ooo, null, true, false, undefined, a[39m
@@ -23017,43 +23017,43 @@ exports[`Logger base normal warn +colorful +title 1`] = `
 exports[`Logger base normal warn +colorful 1`] = `
 [
   [
-    "[38;5;214m1, ooo, null, true, false, undefined, a[39m
-[38;5;214mb[39m
-[38;5;214m[39m",
+    "[33m1, ooo, null, true, false, undefined, a[39m
+[33mb[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mThis is a literal string [[39m
-[38;5;214m  'a',[39m
-[38;5;214m  'b',[39m
-[38;5;214m][39m
-[38;5;214m[39m",
+    "[33mThis is a literal string [[39m
+[33m  'a',[39m
+[33m  'b',[39m
+[33m][39m
+[33m[39m",
   ],
   [
-    "[38;5;214mOutput object: {[39m
-[38;5;214m  x: 1,[39m
-[38;5;214m  y: {[39m
-[38;5;214m    z: 'o',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[33mOutput object: {[39m
+[33m  x: 1,[39m
+[33m  y: {[39m
+[33m    z: 'o',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mx y z {[39m
-[38;5;214m  c: {[39m
-[38;5;214m    a: 'hello',[39m
-[38;5;214m  },[39m
-[38;5;214m  b: {[39m
-[38;5;214m    d: 'world',[39m
-[38;5;214m  },[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[33mx y z {[39m
+[33m  c: {[39m
+[33m    a: 'hello',[39m
+[33m  },[39m
+[33m  b: {[39m
+[33m    d: 'world',[39m
+[33m  },[39m
+[33m}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214muser(<>) {[39m
-[38;5;214m  username: 'lemon-clown',[39m
-[38;5;214m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;214m}[39m
-[38;5;214m[39m",
+    "[33muser(<>) {[39m
+[33m  username: 'lemon-clown',[39m
+[33m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[33m}[39m
+[33m[39m",
   ],
   [
     "[31m1, ooo, null, true, false, undefined, a[39m
@@ -23383,24 +23383,24 @@ b
 exports[`Logger base normal warn +inline +colorful +date +title 1`] = `
 [
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [[38;5;214mwarn [39m [90mwarn[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [[33mwarn [39m [90mwarn[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [[31merror[39m [90mwarn[39m] [31m1, ooo, null, true, false, undefined, a b[39m
@@ -23448,24 +23448,24 @@ exports[`Logger base normal warn +inline +colorful +date +title 1`] = `
 exports[`Logger base normal warn +inline +colorful +date 1`] = `
 [
   [
-    "[90m<$Date$>[39m [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[90m<$Date$>[39m [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[90m<$Date$>[39m [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[90m<$Date$>[39m [31m1, ooo, null, true, false, undefined, a b[39m
@@ -23513,24 +23513,24 @@ exports[`Logger base normal warn +inline +colorful +date 1`] = `
 exports[`Logger base normal warn +inline +colorful +title 1`] = `
 [
   [
-    "[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mwarn[39m] [33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mwarn[39m] [33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mwarn[39m] [33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mwarn[39m] [33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[[38;5;214mwarn [39m [90mwarn[39m] [38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[[33mwarn [39m [90mwarn[39m] [33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[[31merror[39m [90mwarn[39m] [31m1, ooo, null, true, false, undefined, a b[39m
@@ -23578,24 +23578,24 @@ exports[`Logger base normal warn +inline +colorful +title 1`] = `
 exports[`Logger base normal warn +inline +colorful 1`] = `
 [
   [
-    "[38;5;214m1, ooo, null, true, false, undefined, a b[39m
-[38;5;214m[39m",
+    "[33m1, ooo, null, true, false, undefined, a b[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mThis is a literal string ['a','b'][39m
-[38;5;214m[39m",
+    "[33mThis is a literal string ['a','b'][39m
+[33m[39m",
   ],
   [
-    "[38;5;214mOutput object: {x:1,y:{z:'o'}}[39m
-[38;5;214m[39m",
+    "[33mOutput object: {x:1,y:{z:'o'}}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214mx y z {c:{a:'hello'},b:{d:'world'}}[39m
-[38;5;214m[39m",
+    "[33mx y z {c:{a:'hello'},b:{d:'world'}}[39m
+[33m[39m",
   ],
   [
-    "[38;5;214muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
-[38;5;214m[39m",
+    "[33muser(<>) {username:'lemon-clown',avatar:'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4'}[39m
+[33m[39m",
   ],
   [
     "[31m1, ooo, null, true, false, undefined, a b[39m
@@ -24147,39 +24147,39 @@ b
 exports[`Logger custom +dateChalk +nameChalk 1`] = `
 [
   [
-    "[48;5;32m<$Date$>[49m [[38;5;244mdebug[39m [38;5;32mcomplex[39m] [38;5;244m1, ooo, null, true, false, undefined[39m
-[38;5;244m[39m",
+    "[48;5;32m<$Date$>[49m [[90mdebug[39m [38;5;32mcomplex[39m] [90m1, ooo, null, true, false, undefined[39m
+[90m[39m",
   ],
   [
-    "[48;5;32m<$Date$>[49m [[38;5;244mdebug[39m [38;5;32mcomplex[39m] [38;5;244mThis is a literal string[39m
-[38;5;244m[39m",
+    "[48;5;32m<$Date$>[49m [[90mdebug[39m [38;5;32mcomplex[39m] [90mThis is a literal string[39m
+[90m[39m",
   ],
   [
-    "[48;5;32m<$Date$>[49m [[38;5;244mdebug[39m [38;5;32mcomplex[39m] [38;5;244mOutput object: {[39m
-[38;5;244m  x: 1,[39m
-[38;5;244m  y: {[39m
-[38;5;244m    z: 'o',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[48;5;32m<$Date$>[49m [[90mdebug[39m [38;5;32mcomplex[39m] [90mOutput object: {[39m
+[90m  x: 1,[39m
+[90m  y: {[39m
+[90m    z: 'o',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m",
   ],
   [
-    "[48;5;32m<$Date$>[49m [[38;5;244mdebug[39m [38;5;32mcomplex[39m] [38;5;244mx y z {[39m
-[38;5;244m  c: {[39m
-[38;5;244m    a: 'hello',[39m
-[38;5;244m  },[39m
-[38;5;244m  b: {[39m
-[38;5;244m    d: 'world',[39m
-[38;5;244m  },[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[48;5;32m<$Date$>[49m [[90mdebug[39m [38;5;32mcomplex[39m] [90mx y z {[39m
+[90m  c: {[39m
+[90m    a: 'hello',[39m
+[90m  },[39m
+[90m  b: {[39m
+[90m    d: 'world',[39m
+[90m  },[39m
+[90m}[39m
+[90m[39m",
   ],
   [
-    "[48;5;32m<$Date$>[49m [[38;5;244mdebug[39m [38;5;32mcomplex[39m] [38;5;244muser(<>) {[39m
-[38;5;244m  username: 'lemon-clown',[39m
-[38;5;244m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
-[38;5;244m}[39m
-[38;5;244m[39m",
+    "[48;5;32m<$Date$>[49m [[90mdebug[39m [38;5;32mcomplex[39m] [90muser(<>) {[39m
+[90m  username: 'lemon-clown',[39m
+[90m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
+[90m}[39m
+[90m[39m",
   ],
 ]
 `;

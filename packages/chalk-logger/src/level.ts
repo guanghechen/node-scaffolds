@@ -51,8 +51,8 @@ export const defaultLevelStyleMap: ILevelStyleMap = Object.freeze({
   },
   [Level.WARN]: {
     title: 'warn ',
-    header: new ColorfulChalk('orange'),
-    content: new ColorfulChalk('orange'),
+    header: new ColorfulChalk('yellow'),
+    content: new ColorfulChalk('yellow'),
   },
   [Level.ERROR]: {
     title: 'error',
