@@ -15,7 +15,8 @@
   "keywords": [
     "plop"
   ],
-  "main": "lib/cjs/index.js",
+  "type": "module",
+  "exports": "./lib/esm/index.js",
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -43,11 +44,11 @@
     "@guanghechen/helper-option": "^2.1.4",
     "@guanghechen/helper-string": "^2.1.4",
     "@guanghechen/invariant": "^2.1.4",
-    "chalk": "^4.1.2",
+    "chalk": "^5.2.0",
     "minimist": "^1.2.7",
     "mock-stdin": "^1.0.0",
-    "node-plop": "^0.26.3",
-    "ora": "^5.4.1",
-    "plop": "^2.7.6"
+    "node-plop": "^0.31.0",
+    "ora": "^6.1.2",
+    "plop": "^3.1.1"
   }
 }

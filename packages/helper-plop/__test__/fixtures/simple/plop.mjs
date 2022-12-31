@@ -1,15 +1,17 @@
-const {
+import {
   createNpmPackagePrompts,
   resolveNpmPackageAnswers,
   resolveNpmPackagePreAnswers,
-} = require('@guanghechen/helper-plop')
-const path = require('path')
+} from '@guanghechen/helper-plop'
+import path from 'node:path'
+import url from 'node:url'
 
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 const manifest = {
   version: '1.0.0-alpha',
 }
 
-module.exports = function (plop) {
+export default function (plop) {
   const preAnswers = resolveNpmPackagePreAnswers()
   const defaultAnswers = { packageVersion: manifest.version }
 

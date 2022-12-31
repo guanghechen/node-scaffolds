@@ -40,7 +40,7 @@ export async function choosePlopGenerator(
   plopList: Array<{ name: string; description: string }>,
   message?: string,
 ): Promise<PlopGenerator> {
-  const plop = nodePlop('')
+  const plop = await nodePlop('')
   const generator = plop.setGenerator('choose', {
     description: 'Choose plop generator',
     actions: [],

@@ -1,4 +1,4 @@
-import type { LaunchOptions } from 'liftoff'
+import type { PrepareOptions } from 'liftoff'
 import minimist from 'minimist'
 import { Plop, run } from 'plop'
 
@@ -9,24 +9,25 @@ import { Plop, run } from 'plop'
  */
 export function launch(
   argv: string[],
-  createOptions?: (args: object) => Partial<LaunchOptions>,
+  createOptions?: (args: object) => Partial<PrepareOptions>,
 ): Promise<void> {
   const args = minimist(argv.slice(2))
 
-  const options: LaunchOptions = {
+  const options: PrepareOptions = {
     cwd: args.cwd,
     configPath: args.configPath,
-    require: args.require,
-    forcedFlags: args.forceFlags,
+    preload: args.preload,
     completion: args.completion,
     ...(createOptions != null ? createOptions(args) : undefined),
   }
 
   // Call the Plop.launch
   return new Promise<void>((resolve, reject) => {
-    Plop.launch(options, env => {
+    Plop.prepare(options, env => {
       try {
-        run(env, undefined, true)
+        Plop.execute(env, env => {
+          void run(env, undefined, true).then(resolve).catch(reject)
+        })
         resolve()
       } catch (e: unknown) {
         reject(e)

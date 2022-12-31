@@ -1,4 +1,6 @@
 import { identity } from '@guanghechen/helper-func'
+import { jest } from '@jest/globals'
+import type { MockInstance } from 'jest-mock'
 
 /**
  * Method names of console
@@ -37,7 +39,7 @@ export function createConsoleMock(
   methodNames: ReadonlyArray<IConsoleMethodField> = ['debug', 'log', 'info', 'warn', 'error'],
   desensitize: (args: unknown[]) => unknown[] = identity<unknown[]>,
 ): IConsoleMock {
-  const mockFnMap: Record<IConsoleMethodField, jest.MockInstance<any, any>> = {} as any
+  const mockFnMap: Record<IConsoleMethodField, MockInstance<any>> = {} as any
   const allData: unknown[][] = []
   const dataMap: Record<IConsoleMethodField, unknown[][]> = {} as any
 

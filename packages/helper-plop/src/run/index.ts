@@ -1,6 +1,6 @@
 import { coverBoolean } from '@guanghechen/helper-option'
 import type { NodePlopAPI, PlopGenerator } from 'node-plop'
-import Ora from 'ora'
+import ora from 'ora'
 import type {
   IPlopActionHooksChanges,
   IPlopActionHooksFailures,
@@ -8,8 +8,7 @@ import type {
 } from './types'
 import { choosePlopGenerator, showChangeType } from './util'
 
-// eslint-disable-next-line new-cap
-const progressSpinner = Ora()
+const progressSpinner = ora()
 
 /**
  * Execute a plop generator.

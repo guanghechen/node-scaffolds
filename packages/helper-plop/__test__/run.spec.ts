@@ -53,7 +53,7 @@ const jsonDesensitizer = createJsonDesensitizer({
 
 describe('runPlop', function () {
   const templateDir = path.join(__dirname, 'fixtures/simple')
-  const templateConfig = path.join(templateDir, 'plop.js')
+  const templateConfig = path.join(templateDir, 'plop.mjs')
 
   async function runTest(
     plopBypass: string[],

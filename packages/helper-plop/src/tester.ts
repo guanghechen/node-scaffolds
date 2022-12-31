@@ -25,7 +25,7 @@ export async function runPlopWithMock(
 
   try {
     const cwd = process.cwd()
-    const plop = nodePlop(templateConfig, {
+    const plop = await nodePlop(templateConfig, {
       force: false,
       destBasePath: cwd,
     })
