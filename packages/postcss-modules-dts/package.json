@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/postcss-modules-dts",
-  "version": "2.1.4",
+  "version": "3.0.0-alpha.0",
   "description": "Generate `*.d.ts` files for style files (such as css, stylus and etc)",
   "author": {
     "name": "guanghechen",
@@ -42,7 +42,7 @@
     "test": "echo 'no test needed.'"
   },
   "dependencies": {
-    "@guanghechen/helper-option": "^2.1.4",
+    "@guanghechen/helper-option": "^3.0.0-alpha.0",
     "@types/reserved-words": "0.1.0",
     "fs-extra": "^11.1.0",
     "reserved-words": "0.1.2"

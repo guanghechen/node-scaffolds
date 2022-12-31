@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-string",
-  "version": "2.1.4",
+  "version": "3.0.0-alpha.0",
   "description": "Utilities for processing strings or stringify other type data.",
   "author": {
     "name": "guanghechen",
