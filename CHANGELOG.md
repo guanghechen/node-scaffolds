@@ -1,5 +1,49 @@
 # Changelog
 
+<a name="3.0.0-alpha.0"></a>
+## 3.0.0-alpha.0 (2022-12-31)
+
+### Added
+
+- ✅ test: fix test snapshot [[16a6973](https://github.com/guanghechen/node-scaffolds/commit/16a6973dbbdd9fe0007d216f83e0edc014dd3ee1)]
+- ✨ [BREAKING] improve(helper-npm) support ESM format only [[645060f](https://github.com/guanghechen/node-scaffolds/commit/645060faf63a5eadc8255272aba52e8eb411ba39)]
+- ✨ [BREAKING] improve(tool-git-cipher) support ESM format only [[50493f0](https://github.com/guanghechen/node-scaffolds/commit/50493f00b9be258b3fd409d1b6dc35a24f7e2400)]
+- ✨ [BREAKING] improve(tool-mini-copy) support ESM format only [[172bc9c](https://github.com/guanghechen/node-scaffolds/commit/172bc9cd110a000a8f0d6a71700c48998f44ade0)]
+- ✨ [BREAKING] improve(postcss-modules-dts): support ESM format only [[c946dd6](https://github.com/guanghechen/node-scaffolds/commit/c946dd65ba12b487b7da91f897a3d4260f6e5a0d)]
+- ✨ [BREAKING] improve(mini-copy): support ESM format only [[8cb0e74](https://github.com/guanghechen/node-scaffolds/commit/8cb0e74ff1065e9c212381d6e8a7e9628b5f3eff)]
+- ✨ [BREAKING] improve(helper-commander): support ESM format only [[7b6e6a4](https://github.com/guanghechen/node-scaffolds/commit/7b6e6a482f4f5595b7fa11c0d27a8def0689e1a8)]
+- ✨ [BREAKING] improve(helper-plop): support ESM format only [[9287b78](https://github.com/guanghechen/node-scaffolds/commit/9287b789a4c10c36ca9086802d3ccecf33b1e752)]
+- ✨ [BREAKING] improve(chalk-logger): support ESM format only [[2e3bd66](https://github.com/guanghechen/node-scaffolds/commit/2e3bd668b3718a3aa85c3289eea3b3d1744bf915)]
+- ✨ fix(helper-jest,jest-config): support ESM [[905ba17](https://github.com/guanghechen/node-scaffolds/commit/905ba17e312a606272d9cd4d69094baae3b99ffd)]
+- ✨ [BREAKING] feat(rollup-config-*): support esm format only [[3f3077a](https://github.com/guanghechen/node-scaffolds/commit/3f3077abe1ac00e894ccc5660af0186622951180)]
+- ✨ [BREAKING] feat: upgrade to rollup@3 &amp; support esm only [[3a21557](https://github.com/guanghechen/node-scaffolds/commit/3a2155716dd23956eb808d5da9aa874e06ef0d3c)]
+- ✅ test fix test in macos [[daaee11](https://github.com/guanghechen/node-scaffolds/commit/daaee11b55b02b175b7790f3af9bf3e34a5a682b)]
+
+### Changed
+
+- 🔧 chore: fix cli build script [[d4f96fe](https://github.com/guanghechen/node-scaffolds/commit/d4f96fe618f5153f0d9611b652b224367ec0d172)]
+- 🔧 chore: update yarn.lock [[cfb8e31](https://github.com/guanghechen/node-scaffolds/commit/cfb8e31c4313ca08e84c1a543931d7945bb7e073)]
+- ⬆️ chore: upgrade dependencies &amp; fix missing dependencies [[c96fd71](https://github.com/guanghechen/node-scaffolds/commit/c96fd719c8b482224119a677de2a4bde7c3f2021)]
+- ⬆️ chore(rollup-config-tsx): upgrade dependencies [[66e969d](https://github.com/guanghechen/node-scaffolds/commit/66e969d751899f5b3e9b55b940262848a7d5a7b8)]
+- 🎨 improve: use new method to calculate __dirname [[e3011e7](https://github.com/guanghechen/node-scaffolds/commit/e3011e7c5fa23a11bd5d6bf8c39643d25522343b)]
+- ⬆️ chore(rollup-plugin-copy): upgrade dependencies [[2382160](https://github.com/guanghechen/node-scaffolds/commit/2382160af0e3e0ed3fe5778a6c2e2add86222e9c)]
+- 🔧 chore: fix test [[6f911d4](https://github.com/guanghechen/node-scaffolds/commit/6f911d421240af2f17e6283bc4cbd53a32ac3bdc)]
+- 🎨 improve: avoid to depend on fs-extra [[3347f2d](https://github.com/guanghechen/node-scaffolds/commit/3347f2d07b465d79a0f7aecf69f8f4566125152f)]
+- 🔧 chore: fix build scripts [[b24918c](https://github.com/guanghechen/node-scaffolds/commit/b24918c278188a043f7aabfc30739fa97d5ad060)]
+- ⬆️ chore: upgrade dependencies [[153b071](https://github.com/guanghechen/node-scaffolds/commit/153b0716984742fe70f20d22903b14e85e9d14aa)]
+
+### Fixed
+
+- 🐛 fix(jest-config): support importAssertions in coverage [[47887f2](https://github.com/guanghechen/node-scaffolds/commit/47887f2b3b57ac3905723905abde81512075ef90)]
+- 🐛 test: fix colors in macos [[0c88fcc](https://github.com/guanghechen/node-scaffolds/commit/0c88fcc28ea0c483cd4f0a307037014a3e483b50)]
+
+### Miscellaneous
+
+- 📝 doc: update link for v3.x.x [[f39886b](https://github.com/guanghechen/node-scaffolds/commit/f39886b5568ad9ba3d9e09bc56947725c363c5f3)]
+-  fix types [[9d75fb2](https://github.com/guanghechen/node-scaffolds/commit/9d75fb26aba609f05772b136d49819d2ba73c3ee)]
+-  fix lint [[a2eac72](https://github.com/guanghechen/node-scaffolds/commit/a2eac7293a27e2197092e60453031a62a205f1d8)]
+
+
 <a name="2.1.4"></a>
 ## 2.1.4 (2022-11-03)
 
