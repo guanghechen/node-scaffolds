@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-config",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0-alpha.2",
   "description": "Rollup configs for bundle typescript project",
   "author": {
     "name": "guanghechen",

@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-option",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0-alpha.2",
   "description": "Utilities for resolving options or props.",
   "author": {
     "name": "guanghechen",
@@ -39,7 +39,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-is": "^3.0.0-alpha.1",
-    "@guanghechen/helper-string": "^3.0.0-alpha.1"
+    "@guanghechen/helper-is": "^3.0.0-alpha.2",
+    "@guanghechen/helper-string": "^3.0.0-alpha.2"
   }
 }
