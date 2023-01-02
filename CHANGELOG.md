@@ -1,5 +1,19 @@
 # Changelog
 
+<a name="3.0.0-alpha.2"></a>
+## 3.0.0-alpha.2 (2023-01-02)
+
+### Changed
+
+- 🔧 [BREAKING] chore: support ESM only [[29b8c42](https://github.com/guanghechen/node-scaffolds/commit/29b8c421c0a2dfdd04cf4d7ff3ef0e5a93d70e16)]
+- 🔧 chore: update jest config [[23cef86](https://github.com/guanghechen/node-scaffolds/commit/23cef861460dc04c584101165cef4a55f0dd4a36)]
+
+### Fixed
+
+- 💚 chore: fix ci [[b9da1d9](https://github.com/guanghechen/node-scaffolds/commit/b9da1d9f30bc8d54d59c4a596375ea9c510574d8)]
+- 💚 chore: fix ci [[d44a14d](https://github.com/guanghechen/node-scaffolds/commit/d44a14d44d0e5c42e5f73db0aab8bfa764ac3d9a)]
+
+
 <a name="3.0.0-alpha.1"></a>
 ## 3.0.0-alpha.1 (2023-01-02)
 
