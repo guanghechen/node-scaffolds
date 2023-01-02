@@ -16,8 +16,8 @@
     "option",
     "option utils"
   ],
-  "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
+  "type": "module",
+  "exports": "./lib/esm/index.js",
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -26,8 +26,7 @@
   },
   "files": [
     "lib/",
-    "!lib/**/*.js.map",
-    "!lib/**/*.d.ts.map",
+    "src/",
     "package.json",
     "CHANGELOG.md",
     "LICENSE",

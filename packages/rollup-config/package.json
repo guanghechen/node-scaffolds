@@ -26,8 +26,7 @@
   },
   "files": [
     "lib/",
-    "!lib/**/*.js.map",
-    "!lib/**/*.d.ts.map",
+    "src/",
     "package.json",
     "CHANGELOG.md",
     "LICENSE",
@@ -37,7 +36,7 @@
     "build": "cross-env NODE_ENV=production node --experimental-specifier-resolution=node --loader ts-node/esm -r tsconfig-paths/register script/build.ts",
     "postbuild": "rimraf lib/types_tmp",
     "prebuild": "rimraf lib/",
-    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
+    "prepublishOnly": "yarn build",
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {

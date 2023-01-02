@@ -28,8 +28,7 @@
   },
   "files": [
     "lib/",
-    "!lib/**/*.js.map",
-    "!lib/**/*.d.ts.map",
+    "src/",
     "package.json",
     "CHANGELOG.md",
     "LICENSE",
@@ -38,7 +37,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
     "prebuild": "rimraf lib/",
-    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
+    "prepublishOnly": "yarn build",
     "test": "echo 'no test needed.'"
   },
   "dependencies": {

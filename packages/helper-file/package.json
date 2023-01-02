@@ -17,7 +17,8 @@
     "split file",
     "merge streams"
   ],
-  "main": "lib/cjs/index.js",
+  "type": "module",
+  "exports": "./lib/esm/index.js",
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -26,8 +27,7 @@
   },
   "files": [
     "lib/",
-    "!lib/**/*.js.map",
-    "!lib/**/*.d.ts.map",
+    "src/",
     "package.json",
     "CHANGELOG.md",
     "LICENSE",
@@ -36,7 +36,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
     "prebuild": "rimraf lib/",
-    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
+    "prepublishOnly": "yarn build",
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {

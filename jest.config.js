@@ -8,6 +8,7 @@ const baseConfig = tsMonorepoConfig(__dirname, {
 
 const config = {
   ...baseConfig,
+  preset: 'ts-jest/presets/default-esm',
   collectCoverageFrom: [baseConfig.collectCoverageFrom ?? []].flat(),
   coveragePathIgnorePatterns: [
     'packages/helper-commander/src/command/main.ts',
