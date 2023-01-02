@@ -20,16 +20,18 @@ async function rollupConfig() {
         values: {
           [`} from '.';`]: `} from './index.js';`,
         },
-      })
+      }),
     ],
     pluginOptions: {
       typescriptOptions: { tsconfig: 'tsconfig.src.json' },
     },
-    targets: [{
-      format: 'module',
-      src: 'src/cli.ts',
-      target: 'lib/esm/cli.js',
-    }],
+    targets: [
+      {
+        format: 'module',
+        src: 'src/cli.ts',
+        target: 'lib/esm/cli.js',
+      },
+    ],
     resources: {
       copyOnce: true,
       verbose: true,

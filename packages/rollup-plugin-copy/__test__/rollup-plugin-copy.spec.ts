@@ -3,16 +3,15 @@ import chalk from 'chalk'
 import fs from 'fs-extra'
 import path from 'node:path'
 import url from 'node:url'
-import replaceInFile$ from 'replace-in-file'
 import { rollup, watch } from 'rollup'
 import type { IOptions } from '../src'
 import copy from '../src'
+import { replaceInFile } from './util'
 
-const { replaceInFile } = replaceInFile$
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
+process.chdir(`${__dirname}/fixtures`)
 
 const encoding = 'utf-8'
-process.chdir(`${__dirname}/fixtures`)
 
 function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -485,9 +484,10 @@ describe('Options', () => {
     expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
 
     await replaceInFile({
-      files: 'src/index.js',
+      filepath: 'src/index.js',
       from: 'hey',
       to: 'ho',
+      encoding,
     })
 
     await sleep(1000)
@@ -497,9 +497,10 @@ describe('Options', () => {
     await watcher.close()
 
     await replaceInFile({
-      files: 'src/index.js',
+      filepath: 'src/index.js',
       from: 'ho',
       to: 'hey',
+      encoding,
     })
   })
 
@@ -547,9 +548,10 @@ describe('Options', () => {
     expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
 
     await replaceInFile({
-      files: 'src/index.js',
+      filepath: 'src/index.js',
       from: 'hey',
       to: 'ho',
+      encoding,
     })
 
     await sleep(1000)
@@ -559,9 +561,10 @@ describe('Options', () => {
     await watcher.close()
 
     await replaceInFile({
-      files: 'src/index.js',
+      filepath: 'src/index.js',
       from: 'ho',
       to: 'hey',
+      encoding,
     })
   }, 10000)
 

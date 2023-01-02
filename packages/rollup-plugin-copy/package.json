@@ -55,6 +55,7 @@
   "devDependencies": {
     "@types/dir-glob": "^2.0.1",
     "@types/micromatch": "^4.0.2",
-    "replace-in-file": "^6.3.5"
+    "cross-env": "7.0.3",
+    "jest": "^29.3.1"
   }
 }

@@ -24,21 +24,22 @@
     "format:lint:fix": "eslint . --fix",
     "prebuild": "lerna exec 'yarn build' --scope='@guanghechen/rollup-config'",
     "prepublishOnly": "pinst --disable",
-    "postinstall": "run-s postinstall:**",
-    "postinstall:main": "is-ci || yarn update:lock",
+    "postinstall": "run-s postinstall:dev",
     "postinstall:dev": "is-ci || husky install",
     "postpublish": "pinst --enable",
     "rebuild": "run-s clean build",
-    "test": "lerna exec 'echo && pwd && yarn test' --concurrency 1",
-    "test:coverage": "lerna exec 'echo && pwd && yarn test --coverage' --concurrency 1",
-    "test:update": "lerna exec 'echo && pwd && yarn test -u' --concurrency 1",
-    "update:changelog": "gitmoji-changelog update",
-    "update:lock": "yarn-deduplicate"
+    "test": "lerna run test --concurrency 1",
+    "test:coverage": "lerna run --concurrency 1 test -- --coverage",
+    "test:update": "lerna run --concurrency 1 test -- -u",
+    "update:changelog": "gitmoji-changelog update"
   },
   "workspaces": [
     "packages/*",
     "playground/*"
   ],
+  "resolutions": {
+    "inquirer": "^9.1.4"
+  },
   "devDependencies": {
     "@babel/core": "7.20.7",
     "@rollup/plugin-replace": "^5.0.2",
@@ -71,8 +72,7 @@
     "ts-jest": "29.0.3",
     "ts-node": "10.9.1",
     "tsconfig-paths": "4.1.1",
-    "typescript": "4.9.4",
-    "yarn-deduplicate": "6.0.1"
+    "typescript": "4.9.4"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -82,5 +82,6 @@
     "*.{json,eslintrc}": [
       "prettier --write"
     ]
-  }
+  },
+  "packageManager": "yarn@3.3.1"
 }
