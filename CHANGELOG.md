@@ -1,5 +1,19 @@
 # Changelog
 
+<a name="3.0.0-alpha.1"></a>
+## 3.0.0-alpha.1 (2023-01-02)
+
+### Changed
+
+- 🔧 chore: fix test configuration [[49b7beb](https://github.com/guanghechen/node-scaffolds/commit/49b7beb45e1d910927d2dda2c571861a7b86ae88)]
+- 🔧 chore: update npm script [[135e89d](https://github.com/guanghechen/node-scaffolds/commit/135e89d8a0b34dd34bb6af2037d6de58002bfa1f)]
+- ⬆️ chore: use yarn@3 [[cd388d0](https://github.com/guanghechen/node-scaffolds/commit/cd388d0453849401b034bf4992c679adf802e989)]
+
+### Fixed
+
+- 💚 chore: fix ci configurations [[2e5ea68](https://github.com/guanghechen/node-scaffolds/commit/2e5ea68299dc1747f7ce980f4351d47abfaabbe0)]
+
+
 <a name="3.0.0-alpha.0"></a>
 ## 3.0.0-alpha.0 (2022-12-31)
 
