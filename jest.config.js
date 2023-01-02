@@ -24,7 +24,7 @@ const config = {
       statements: 60,
     },
   },
-  extensionsToTreatAsEsm: ['.ts'],
+  extensionsToTreatAsEsm: ['.ts', '.mts'],
   moduleNameMapper: {
     ...baseConfig.moduleNameMapper,
     chalk: require.resolve('chalk'),

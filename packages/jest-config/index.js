@@ -52,10 +52,10 @@ function tsMonorepoConfig(repositoryRootDir, options = {}) {
     verbose: true,
     errorOnDeprecated: true,
     roots: ['src', '__test__'].filter(p => fs.existsSync(p)).map(p => `<rootDir>/${p}`),
-    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'mts', 'mjs', 'cts', 'cjs', 'node'],
     moduleNameMapper,
     transform: {
-      '^.+\\.tsx?$': [
+      '^.+\\.[cm]?tsx?$': [
         'ts-jest',
         {
           tsconfig: '<rootDir>/tsconfig.json',
@@ -67,14 +67,14 @@ function tsMonorepoConfig(repositoryRootDir, options = {}) {
     testEnvironmentOptions: {
       url: 'http://localhost/',
     },
-    testRegex: '/(__test__)/[^/]+\\.spec\\.[jt]sx?$',
+    testRegex: '/(__test__)/[^/]+\\.spec\\.[cm]?[jt]sx?$',
     testPathIgnorePatterns: ['/coverage/', '/lib/', '/node_modules/'],
     collectCoverage: false,
     collectCoverageFrom: [
       '<rootDir>/cli.js',
       '<rootDir>/index.js',
-      '<rootDir>/src/*.{js,jsx,ts,tsx}',
-      '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
+      '<rootDir>/src/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}',
+      '<rootDir>/src/**/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}',
     ],
     coverageDirectory: '<rootDir>/coverage/',
     coveragePathIgnorePatterns: [],

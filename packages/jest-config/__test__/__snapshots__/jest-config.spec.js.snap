@@ -22,8 +22,8 @@ exports[`tsMonorepoConfig 1`] = `
   "collectCoverageFrom": [
     "<rootDir>/cli.js",
     "<rootDir>/index.js",
-    "<rootDir>/src/*.{js,jsx,ts,tsx}",
-    "<rootDir>/src/**/*.{js,jsx,ts,tsx}",
+    "<rootDir>/src/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}",
+    "<rootDir>/src/**/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}",
   ],
   "coverageDirectory": "<rootDir>/coverage/",
   "coveragePathIgnorePatterns": [],
@@ -47,6 +47,10 @@ exports[`tsMonorepoConfig 1`] = `
     "js",
     "jsx",
     "json",
+    "mts",
+    "mjs",
+    "cts",
+    "cjs",
     "node",
   ],
   "moduleNameMapper": {
@@ -64,9 +68,9 @@ exports[`tsMonorepoConfig 1`] = `
     "/lib/",
     "/node_modules/",
   ],
-  "testRegex": "/(__test__)/[^/]+\\.spec\\.[jt]sx?$",
+  "testRegex": "/(__test__)/[^/]+\\.spec\\.[cm]?[jt]sx?$",
   "transform": {
-    "^.+\\.tsx?$": [
+    "^.+\\.[cm]?tsx?$": [
       "ts-jest",
       {
         "tsconfig": "<rootDir>/tsconfig.json",
