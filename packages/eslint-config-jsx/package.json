@@ -30,9 +30,6 @@
     "LICENSE",
     "README.md"
   ],
-  "scripts": {
-    "test": "echo 'no test needed.'"
-  },
   "dependencies": {
     "@babel/eslint-parser": "^7.19.1",
     "@babel/plugin-syntax-import-assertions": "^7.20.0",

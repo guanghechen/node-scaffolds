@@ -34,9 +34,6 @@
     "LICENSE",
     "README.md"
   ],
-  "scripts": {
-    "test": "echo 'no test needed.'"
-  },
   "dependencies": {
     "@guanghechen/eslint-config": "^3.0.0-alpha.2",
     "@typescript-eslint/eslint-plugin": "^5.47.1",

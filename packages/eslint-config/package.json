@@ -33,9 +33,6 @@
     "LICENSE",
     "README.md"
   ],
-  "scripts": {
-    "test": "echo 'no test needed.'"
-  },
   "dependencies": {
     "eslint-plugin-import": "^2.26.0"
   },

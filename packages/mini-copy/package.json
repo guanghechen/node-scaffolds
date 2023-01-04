@@ -36,8 +36,7 @@
   ],
   "scripts": {
     "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
-    "prepublishOnly": "yarn build",
-    "test": "echo 'no test needed.'"
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@guanghechen/chalk-logger": "^3.0.0-alpha.2",
