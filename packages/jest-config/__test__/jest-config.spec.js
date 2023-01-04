@@ -1,5 +1,5 @@
 const path = require('path')
-const { resolveModuleNameMapper, tsMonorepoConfig } = require('..')
+const { resolveModuleNameMapper, tsMonorepoConfig } = require('../index.cjs')
 
 const originalCwd = process.cwd()
 afterEach(() => {

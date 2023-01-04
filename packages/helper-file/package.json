@@ -18,7 +18,10 @@
     "merge streams"
   ],
   "type": "module",
-  "exports": "./lib/esm/index.js",
+  "exports": {
+    "import": "./lib/esm/index.mjs",
+    "require": "./lib/cjs/index.cjs"
+  },
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -34,13 +37,17 @@
     "README.md"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
-    "prebuild": "rimraf lib/",
+    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
     "prepublishOnly": "yarn build",
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
     "@guanghechen/helper-stream": "^3.0.0-alpha.2",
     "@guanghechen/invariant": "^3.0.0-alpha.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "rimraf": "^3.0.2",
+    "rollup": "^3.9.0"
   }
 }

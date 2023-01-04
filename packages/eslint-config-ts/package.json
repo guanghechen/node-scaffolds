@@ -17,13 +17,18 @@
     "eslint config",
     "typescript"
   ],
-  "main": "index.js",
+  "type": "commonjs",
+  "exports": {
+    "import": "./index.mjs",
+    "require": "./index.cjs"
+  },
   "license": "MIT",
   "engines": {
     "node": ">= 16.0.0"
   },
   "files": [
-    "index.js",
+    "index.cjs",
+    "index.mjs",
     "package.json",
     "CHANGELOG.md",
     "LICENSE",

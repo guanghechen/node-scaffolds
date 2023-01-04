@@ -14,7 +14,9 @@
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/tool-git-cipher#readme",
   "keywords": [],
   "type": "module",
-  "exports": "./lib/esm/index.js",
+  "exports": {
+    "import": "./lib/esm/index.mjs"
+  },
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -30,11 +32,10 @@
     "README.md"
   ],
   "bin": {
-    "ghc-git-cipher": "./lib/cjs/cli.js"
+    "ghc-git-cipher": "./lib/esm/cli.mjs"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.cli.mjs",
-    "prebuild": "rimraf lib/",
+    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.cli.mjs",
     "prepublishOnly": "yarn build",
     "test": "echo 'no test needed.'"
   },
@@ -55,5 +56,10 @@
     "fs-extra": "^11.1.0",
     "inquirer": "^9.1.4",
     "node-plop": "~0.31.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "rimraf": "^3.0.2",
+    "rollup": "^3.9.0"
   }
 }

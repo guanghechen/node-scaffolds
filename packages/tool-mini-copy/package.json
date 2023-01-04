@@ -14,7 +14,9 @@
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/tool-mini-copy#readme",
   "keywords": [],
   "type": "module",
-  "exports": "./lib/esm/index.js",
+  "exports": {
+    "import": "./lib/esm/index.mjs"
+  },
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -30,11 +32,10 @@
     "README.md"
   ],
   "bin": {
-    "mcp": "./lib/cjs/cli.js"
+    "mcp": "./lib/esm/cli.mjs"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.cli.mjs",
-    "prebuild": "rimraf lib/",
+    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.cli.mjs",
     "prepublishOnly": "yarn build",
     "test": "echo 'no test needed.'"
   },
@@ -47,5 +48,10 @@
     "@guanghechen/invariant": "^3.0.0-alpha.2",
     "@guanghechen/mini-copy": "^3.0.0-alpha.2",
     "inquirer": "^9.1.4"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "rimraf": "^3.0.2",
+    "rollup": "^3.9.0"
   }
 }

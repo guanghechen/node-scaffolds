@@ -1,4 +1,9 @@
-import {
+import $changeCase from 'change-case'
+import $lowerCase from 'lower-case'
+import $titleCase from 'title-case'
+import $upperCase from 'upper-case'
+
+const {
   camelCase,
   capitalCase,
   constantCase,
@@ -8,10 +13,10 @@ import {
   pathCase,
   sentenceCase,
   snakeCase,
-} from 'change-case'
-import { lowerCase } from 'lower-case'
-import { titleCase } from 'title-case'
-import { upperCase } from 'upper-case'
+} = $changeCase
+const { lowerCase } = $lowerCase
+const { titleCase } = $titleCase
+const { upperCase } = $upperCase
 
 /**
  * Text transformer.

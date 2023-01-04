@@ -12,9 +12,13 @@
     "directory": "packages/helper-commander"
   },
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-commander#readme",
-  "keywords": [],
+  "keywords": [
+    "commander"
+  ],
   "type": "module",
-  "exports": "./lib/esm/index.js",
+  "exports": {
+    "import": "./lib/esm/index.mjs"
+  },
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -30,8 +34,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
-    "prebuild": "rimraf lib/",
+    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
     "prepublishOnly": "yarn build",
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.js --rootDir ."
   },
@@ -48,6 +51,9 @@
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
-    "@types/js-yaml": "^4.0.5"
+    "@types/js-yaml": "^4.0.5",
+    "cross-env": "^7.0.3",
+    "rimraf": "^3.0.2",
+    "rollup": "^3.9.0"
   }
 }

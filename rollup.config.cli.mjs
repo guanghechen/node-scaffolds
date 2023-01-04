@@ -1,6 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import createRollupConfig from '@guanghechen/rollup-config-cli'
-import replace from '@rollup/plugin-replace'
 import path from 'node:path'
 
 async function rollupConfig() {
@@ -12,16 +11,6 @@ async function rollupConfig() {
     pluginOptions: {
       typescriptOptions: { tsconfig: 'tsconfig.src.json' },
     },
-    additionalPlugins: [
-      replace({
-        include: ['src/cli.ts'],
-        delimiters: ['', ''],
-        preventAssignment: true,
-        values: {
-          [`} from '.';`]: `} from './index.js';`,
-        },
-      }),
-    ],
     pluginOptions: {
       typescriptOptions: { tsconfig: 'tsconfig.src.json' },
     },
@@ -29,7 +18,7 @@ async function rollupConfig() {
       {
         format: 'module',
         src: 'src/cli.ts',
-        target: 'lib/esm/cli.js',
+        target: 'lib/esm/cli.mjs',
       },
     ],
     resources: {

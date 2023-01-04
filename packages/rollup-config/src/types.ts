@@ -70,7 +70,19 @@ export interface IRollupManifestOptions {
   /**
    * Target entry file for es bundles.
    */
-  exports?: string
+  exports?:
+    | string
+    | {
+        import?: string
+        require?: string
+      }
+    | Record<
+        string,
+        {
+          import?: string
+          require?: string
+        }
+      >
   /**
    * Target entry file for types.
    */

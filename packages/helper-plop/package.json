@@ -16,7 +16,9 @@
     "plop"
   ],
   "type": "module",
-  "exports": "./lib/esm/index.js",
+  "exports": {
+    "import": "./lib/esm/index.mjs"
+  },
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -32,8 +34,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
-    "prebuild": "rimraf lib/",
+    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
     "prepublishOnly": "yarn build",
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.js --rootDir ."
   },
@@ -51,7 +52,9 @@
     "plop": "^3.1.1"
   },
   "devDependencies": {
-    "cross-env": "7.0.3",
-    "jest": "^29.3.1"
+    "cross-env": "^7.0.3",
+    "jest": "^29.3.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^3.9.0"
   }
 }

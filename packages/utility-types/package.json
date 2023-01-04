@@ -14,7 +14,10 @@
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/utility-types#readme",
   "keywords": [],
   "type": "module",
-  "exports": "./lib/esm/index.js",
+  "exports": {
+    "import": "./lib/esm/index.mjs",
+    "require": "./lib/cjs/index.cjs"
+  },
   "types": "lib/types/index.d.ts",
   "source": "src/index.ts",
   "license": "MIT",
@@ -30,9 +33,13 @@
     "README.md"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
-    "prebuild": "rimraf lib/",
+    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
     "prepublishOnly": "yarn build",
     "test": "echo 'no test needed.'"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "rimraf": "^3.0.2",
+    "rollup": "^3.9.0"
   }
 }
