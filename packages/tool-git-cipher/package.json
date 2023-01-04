@@ -14,6 +14,7 @@
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/tool-git-cipher#readme",
   "keywords": [],
   "type": "module",
+  "module": "./lib/esm/index.mjs",
   "exports": {
     "import": "./lib/esm/index.mjs"
   },

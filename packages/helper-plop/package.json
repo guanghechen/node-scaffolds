@@ -16,6 +16,7 @@
     "plop"
   ],
   "type": "module",
+  "module": "./lib/esm/index.mjs",
   "exports": {
     "import": "./lib/esm/index.mjs"
   },

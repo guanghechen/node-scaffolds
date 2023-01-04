@@ -13,6 +13,8 @@
   },
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/invariant#readme",
   "type": "module",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/esm/index.mjs",
   "exports": {
     "import": "./lib/esm/index.mjs",
     "require": "./lib/cjs/index.cjs"
