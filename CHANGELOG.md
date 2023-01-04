@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="3.0.0-alpha.4"></a>
+## 3.0.0-alpha.4 (2023-01-04)
+
+### Changed
+
+- 🔧 fix commonjs entry [[259e185](https://github.com/guanghechen/node-scaffolds/commit/259e185ee811cebc4cf9b41d8c27c937460ef6d4)]
+
+
 <a name="3.0.0-alpha.3"></a>
 ## 3.0.0-alpha.3 (2023-01-04)
 
