@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="3.0.0-alpha.3"></a>
+## 3.0.0-alpha.3 (2023-01-04)
+
+### Changed
+
+- 🔧 chore: update npm script [[a03b921](https://github.com/guanghechen/node-scaffolds/commit/a03b9213b995235033a01c15df4e69ba2c97a494)]
+- 🔧 chore: support dual esm/commonjs packages [[90363f5](https://github.com/guanghechen/node-scaffolds/commit/90363f585471b527063133dedb1dff50d8b2a890)]
+
+
 <a name="3.0.0-alpha.2"></a>
 ## 3.0.0-alpha.2 (2023-01-02)
 
