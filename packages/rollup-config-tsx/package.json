@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-config-tsx",
-  "version": "3.0.0-alpha.2",
+  "version": "3.0.0-alpha.3",
   "description": "Rollup configs for bundle typescript + react projects",
   "author": {
     "name": "guanghechen",
@@ -41,9 +41,9 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-is": "^3.0.0-alpha.2",
-    "@guanghechen/postcss-modules-dts": "^3.0.0-alpha.2",
-    "@guanghechen/rollup-config": "^3.0.0-alpha.2",
+    "@guanghechen/helper-is": "^3.0.0-alpha.3",
+    "@guanghechen/postcss-modules-dts": "^3.0.0-alpha.3",
+    "@guanghechen/rollup-config": "^3.0.0-alpha.3",
     "@rollup/plugin-multi-entry": "^6.0.0",
     "@types/postcss-url": "^10.0.0",
     "autoprefixer": "^10.4.13",

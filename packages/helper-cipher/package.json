@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-cipher",
-  "version": "3.0.0-alpha.2",
+  "version": "3.0.0-alpha.3",
   "description": "Cipher helper",
   "author": {
     "name": "guanghechen",
@@ -41,10 +41,10 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-file": "^3.0.0-alpha.2",
-    "@guanghechen/helper-path": "^3.0.0-alpha.2",
-    "@guanghechen/helper-stream": "^3.0.0-alpha.2",
-    "@guanghechen/invariant": "^3.0.0-alpha.2"
+    "@guanghechen/helper-file": "^3.0.0-alpha.3",
+    "@guanghechen/helper-path": "^3.0.0-alpha.3",
+    "@guanghechen/helper-stream": "^3.0.0-alpha.3",
+    "@guanghechen/invariant": "^3.0.0-alpha.3"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
