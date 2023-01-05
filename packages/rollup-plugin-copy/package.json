@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-plugin-copy",
-  "version": "3.0.0-alpha.4",
+  "version": "3.0.0-alpha.5",
   "description": "Rollup plugins to copy files and folds (glob supported)",
   "author": {
     "name": "guanghechen",

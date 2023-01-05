@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-blob",
-  "version": "3.0.0-alpha.4",
+  "version": "3.0.0-alpha.5",
   "description": "Utilities for processing blob objects (i.e., download / create).",
   "author": {
     "name": "guanghechen",

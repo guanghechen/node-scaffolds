@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/mini-copy",
-  "version": "3.0.0-alpha.4",
+  "version": "3.0.0-alpha.5",
   "description": "Access system clipboard (also support to share clipboard in wsl with windows).",
   "author": {
     "name": "guanghechen",
@@ -40,8 +40,8 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@guanghechen/chalk-logger": "^3.0.0-alpha.4",
-    "@guanghechen/invariant": "^3.0.0-alpha.4",
+    "@guanghechen/chalk-logger": "^3.0.0-alpha.5",
+    "@guanghechen/invariant": "^3.0.0-alpha.5",
     "clipboardy": "^3.0.0",
     "execa": "^6.1.0",
     "fs-extra": "^11.1.0"
