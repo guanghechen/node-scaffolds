@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="3.0.0-alpha.5"></a>
+## 3.0.0-alpha.5 (2023-01-05)
+
+### Fixed
+
+- 🐛 fix jest-config within esm [[4050e62](https://github.com/guanghechen/node-scaffolds/commit/4050e629536ae003c99ef9eeafa59c8aa8e1f0b3)]
+
+### Miscellaneous
+
+-  fix typos [[3089e04](https://github.com/guanghechen/node-scaffolds/commit/3089e04f8ac6ec1450ee514850aaa51031e752a5)]
+
+
 <a name="3.0.0-alpha.4"></a>
 ## 3.0.0-alpha.4 (2023-01-04)
 
