@@ -30,8 +30,9 @@
       "@guanghechen/tool-git-cipher": ["packages/tool-git-cipher/src"],
       "@guanghechen/tool-mini-copy": ["packages/tool-mini-copy/src"],
       "@guanghechen/utility-types": ["packages/utility-types/src"],
-      "jest.helper": ["jest.helper.ts"]
+      "jest.helper": ["jest.helper.mts"]
     }
   },
+  "include": ["src", "jest.helper.mts"],
   "exclude": ["**/__test__/fixtures"]
 }

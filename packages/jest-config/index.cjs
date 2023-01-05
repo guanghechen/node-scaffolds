@@ -5,9 +5,9 @@ const path = require('path')
  * Calculate moduleNameMapper from tsconfig.compilerOptions.paths
  * @param {string} rootDir
  * @param {string|undefined} tsconfigFilename
- * @returns {Record<string, string | string[]>}
+ * @returns {Promise<Record<string, string | string[]>>}
  */
-function resolveModuleNameMapper(rootDir, tsconfigFilename = 'tsconfig.json') {
+async function resolveModuleNameMapper(rootDir, tsconfigFilename = 'tsconfig.json') {
   const tsconfigFilepath = path.resolve(rootDir, tsconfigFilename)
   if (!fs.existsSync(tsconfigFilepath)) return {}
 
@@ -41,10 +41,10 @@ function resolveModuleNameMapper(rootDir, tsconfigFilename = 'tsconfig.json') {
  *   useESM?: boolean
  * }}
  */
-function tsMonorepoConfig(repositoryRootDir, options = {}) {
+async function tsMonorepoConfig(repositoryRootDir, options = {}) {
   const moduleNameMapper = {
-    ...resolveModuleNameMapper(repositoryRootDir),
-    ...resolveModuleNameMapper(path.resolve()),
+    ...await resolveModuleNameMapper(repositoryRootDir),
+    ...await resolveModuleNameMapper(path.resolve()),
   }
 
   return {
