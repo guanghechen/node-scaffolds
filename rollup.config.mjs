@@ -8,6 +8,7 @@ export default async function rollupConfig() {
   })
   const config = await createRollupConfig({
     manifest,
+    shouldSourceMap: true,
     pluginOptions: {
       typescriptOptions: { tsconfig: 'tsconfig.src.json' },
     },

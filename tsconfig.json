@@ -3,7 +3,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "lib",
-    "sourceMap": true,
     "paths": {
       "@guanghechen/chalk-logger": ["packages/chalk-logger/src"],
       "@guanghechen/event-bus": ["packages/event-bus/src"],
