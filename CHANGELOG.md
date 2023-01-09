@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="3.0.0"></a>
+## 3.0.0 (2023-01-09)
+
+### Changed
+
+- 🔧 chore: update yarn.lock when publish new release [[a0fb68e](https://github.com/guanghechen/node-scaffolds/commit/a0fb68e4d364d2c0fd6f0e75c2494729810a424d)]
+- 🔧 chore: update configs [[cfe1f32](https://github.com/guanghechen/node-scaffolds/commit/cfe1f328eeb0ac2c2318b8732f524e8bb1936b21)]
+
+
 <a name="3.0.0-alpha.5"></a>
 ## 3.0.0-alpha.5 (2023-01-05)
 
