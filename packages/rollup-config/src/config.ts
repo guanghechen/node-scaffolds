@@ -61,6 +61,9 @@ export async function createRollupConfig(options: IRollupConfigOptions): Promise
   const externalSet = new Set(builtinExternals.concat(dependencies))
 
   const external = (id: string): boolean => {
+    if (/^node:[\w\S]+$/.test(id)) return true
+    if (id === `${options.manifest.name}/package.json`) return true
+
     const m = /^([.][\s\S]*|@[^/\s]+[/][^/\s]+|[^/\s]+)/.exec(id)
     if (m == null) return false
     return externalSet.has(m[1])

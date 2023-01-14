@@ -58,7 +58,7 @@ export async function createRollupConfig(options: IRollupConfigOptions): Promise
         ],
         external: (id: string): boolean => {
           if (external(id)) return true
-          return /\.\/index$/.test(id) || /^[.]+$/.test(id)
+          return /\.\/index$/.test(id) || /\.\/index\.(js|mjs)$/.test(id) || /^[.]+$/.test(id)
         },
         plugins,
       }),
