@@ -43,8 +43,8 @@ export async function resolveModuleNameMapper(rootDir, tsconfigFilename = 'tscon
  */
 export async function tsMonorepoConfig(repositoryRootDir, options = {}) {
   const moduleNameMapper = {
-    ...await resolveModuleNameMapper(repositoryRootDir),
-    ...await resolveModuleNameMapper(path.resolve()),
+    ...(await resolveModuleNameMapper(repositoryRootDir)),
+    ...(await resolveModuleNameMapper(path.resolve())),
   }
 
   return {

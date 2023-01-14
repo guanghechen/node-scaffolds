@@ -32,6 +32,5 @@
       "jest.helper": ["jest.helper.mts"]
     }
   },
-  "include": ["src", "jest.helper.mts"],
   "exclude": ["**/__test__/fixtures"]
 }
