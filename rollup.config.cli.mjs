@@ -2,15 +2,13 @@
 import createRollupConfig from '@guanghechen/rollup-config-cli'
 import path from 'node:path'
 
-async function rollupConfig() {
-  const { default: manifest } = await import(path.resolve('package.json'), {
-    assert: { type: 'json' },
-  })
+export default async function() {
+  const { default: manifest } = await import(
+    path.resolve('package.json'),
+    { assert: { type: 'json' } },
+  )
   const config = await createRollupConfig({
     manifest,
-    pluginOptions: {
-      typescriptOptions: { tsconfig: 'tsconfig.src.json' },
-    },
     pluginOptions: {
       typescriptOptions: { tsconfig: 'tsconfig.src.json' },
     },
@@ -34,5 +32,3 @@ async function rollupConfig() {
   })
   return config
 }
-
-export default rollupConfig()
