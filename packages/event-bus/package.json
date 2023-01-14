@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/event-bus",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "A simple event bus.",
   "author": {
     "name": "guanghechen",
@@ -42,7 +42,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-func": "^3.0.1"
+    "@guanghechen/helper-func": "^3.0.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
