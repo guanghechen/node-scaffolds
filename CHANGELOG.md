@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="3.0.2"></a>
+## 3.0.2 (2023-01-14)
+
+### Changed
+
+- 🔧 chore: fix rollup configs [[3d71b5e](https://github.com/guanghechen/node-scaffolds/commit/3d71b5eec5568f9f48875ca4bc86b82e54ecdc77)]
+
+
 <a name="3.0.1"></a>
 ## 3.0.1 (2023-01-14)
 
