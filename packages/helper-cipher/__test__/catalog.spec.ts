@@ -133,7 +133,6 @@ describe('CipherCatalog', function () {
         targetRootDir: locateFixtures('catalog/target/big-file'),
         maxTargetFileSize: 1024 * 4, // 4KB
       })
-      const sourceBakRootDir = locateFixtures('catalog/target/big-file-bak')
 
       catalog.cleanup()
       const sourceFiles = collectAllFilesSync(catalog.sourceRootDir).sort()
@@ -141,7 +140,9 @@ describe('CipherCatalog', function () {
         await catalog.register(file)
       }
 
-      fs.rmSync(sourceBakRootDir, { recursive: true })
+      const sourceBakRootDir = locateFixtures('catalog/target/big-file-bak')
+      if (fs.existsSync(sourceBakRootDir)) fs.rmSync(sourceBakRootDir, { recursive: true })
+
       await catalog.decryptAll(sourceBakRootDir)
 
       const bakSourceFiles = collectAllFilesSync(sourceBakRootDir).sort()
