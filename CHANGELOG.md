@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="3.0.1"></a>
+## 3.0.1 (2023-01-14)
+
+### Changed
+
+- 🔧 chore: fix github action [[487dbda](https://github.com/guanghechen/node-scaffolds/commit/487dbda7c7d5b404b6859684883085d31487aacd)]
+- 🔧 chore: fix rollup configs [[c548d13](https://github.com/guanghechen/node-scaffolds/commit/c548d136030fdfadfdbaf79d2fe613b00370dfd0)]
+- ⬆️ chore: upgrade devDependencies [[2993a46](https://github.com/guanghechen/node-scaffolds/commit/2993a46e3665c7cfb23858f44812498cb2f39573)]
+- 🔧 chore: fix lint [[0f960e7](https://github.com/guanghechen/node-scaffolds/commit/0f960e78ddad31258115de35555d135813ca7587)]
+- 🔧 chore: fix rollup.config.cli [[26201e8](https://github.com/guanghechen/node-scaffolds/commit/26201e87ffc64333b9d5a4aa32148a46280a0489)]
+
+
 <a name="3.0.0"></a>
 ## 3.0.0 (2023-01-09)
 
