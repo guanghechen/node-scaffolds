@@ -22,9 +22,9 @@ export interface IGetCSSTokenHook {
 export interface ICssDtsProcessorProps extends IGetCSSTokenHook {
   /**
    * Encoding of the generated `*.d.ts` files.
-   * @default 'utf-8'
+   * @default 'utf8'
    */
-  encoding?: string
+  encoding?: BufferEncoding
   /**
    * Code indent in the generated `*.d.ts` files.
    * @default '  '

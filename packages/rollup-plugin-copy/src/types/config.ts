@@ -41,7 +41,7 @@ export interface IConfig {
    */
   fsExtraOptions: {
     copy: CopyOptions
-    outputFile?: WriteFileOptions | BufferEncoding | string
+    outputFile?: WriteFileOptions
   }
 }
 
@@ -87,7 +87,7 @@ export interface IConfigTarget {
    */
   fsExtraOptions: {
     copy: CopyOptions
-    outputFile?: WriteFileOptions | BufferEncoding | string
+    outputFile?: WriteFileOptions
   }
 }
 

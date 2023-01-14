@@ -62,11 +62,11 @@ export function coverInteger(
  * @param defaultValue
  * @param value
  */
-export function coverString(
-  defaultValue: string,
+export function coverString<T extends string = string>(
+  defaultValue: T,
   value?: unknown,
-  isValid?: (value: string) => boolean,
-): string {
-  const resolvedValue = convertToString(value)
-  return cover(defaultValue, resolvedValue, isValid)
+  isValid?: (value: T) => boolean,
+): T {
+  const resolvedValue = convertToString(value) as T
+  return cover<T>(defaultValue, resolvedValue, isValid)
 }

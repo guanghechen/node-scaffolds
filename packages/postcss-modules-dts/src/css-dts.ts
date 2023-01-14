@@ -6,14 +6,14 @@ import type { ICssDtsProcessorProps, IGetCSSTokenHook } from './types'
 export class CSSDtsProcessor implements IGetCSSTokenHook {
   public readonly indent: string
   public readonly semicolon: string
-  public readonly encoding: string
+  public readonly encoding: BufferEncoding
   public readonly dtsForCompiledCss: boolean
   public readonly shouldIgnore: Exclude<ICssDtsProcessorProps['shouldIgnore'], undefined>
 
   constructor(props: ICssDtsProcessorProps) {
     this.indent = coverString('  ', props.indent)
     this.semicolon = coverBoolean(false, props.semicolon) ? ';' : ''
-    this.encoding = coverString('utf-8', props.encoding)
+    this.encoding = coverString<BufferEncoding>('utf8', props.encoding)
     this.dtsForCompiledCss = coverBoolean(false, props.dtsForCompiledCss)
     this.shouldIgnore = props.shouldIgnore != null ? props.shouldIgnore : () => false
   }
@@ -68,7 +68,7 @@ export class CSSDtsProcessor implements IGetCSSTokenHook {
    */
   protected async writeFile(cssPath: string, dtsContent: string): Promise<string> {
     const dtsFilePath: string = cssPath + '.d.ts'
-    await fs.writeFile(dtsFilePath, dtsContent, this.encoding)
+    await fs.writeFile(dtsFilePath, dtsContent, { encoding: this.encoding })
     return dtsFilePath
   }
 }

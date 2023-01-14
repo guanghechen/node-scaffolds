@@ -75,7 +75,7 @@ export interface ISecretMasterParams {
 export class SecretMaster {
   protected readonly secretCipher: ICipher
   protected readonly cipherHelperCreator: ICipherHelperCreator
-  protected readonly secretFileEncoding: string
+  protected readonly secretFileEncoding: BufferEncoding
   protected readonly secretContentEncoding: BufferEncoding
   protected readonly showAsterisk: boolean
   protected readonly maxRetryTimes: number

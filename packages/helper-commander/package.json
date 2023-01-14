@@ -46,7 +46,7 @@
     "@guanghechen/helper-path": "^3.0.0",
     "@guanghechen/helper-string": "^3.0.0",
     "command-exists": "^1.2.9",
-    "commander": "^9.4.1",
+    "commander": "^9.5.0",
     "execa": "^6.1.0",
     "inquirer": "^9.1.4",
     "js-yaml": "^4.1.0"
@@ -54,7 +54,7 @@
   "devDependencies": {
     "@types/js-yaml": "^4.0.5",
     "cross-env": "^7.0.3",
-    "rimraf": "^3.0.2",
-    "rollup": "^3.9.0"
+    "rimraf": "^4.0.4",
+    "rollup": "^3.10.0"
   }
 }

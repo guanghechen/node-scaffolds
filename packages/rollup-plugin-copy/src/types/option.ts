@@ -121,7 +121,7 @@ export interface IOptions {
    */
   fsExtraOptions?: {
     copy?: CopyOptions
-    outputFile?: WriteFileOptions | BufferEncoding | string
+    outputFile?: WriteFileOptions
   }
 }
 
@@ -167,7 +167,7 @@ export interface IOptionTarget {
    */
   fsExtraOptions?: {
     copy?: CopyOptions
-    outputFile?: WriteFileOptions | BufferEncoding | string
+    outputFile?: WriteFileOptions
   }
 }
 
@@ -189,4 +189,4 @@ export type IOptionTransform = (
   content: string | ArrayBuffer,
   srcPath: string,
   dstPath: string,
-) => string | ArrayBuffer | Promise<string | ArrayBuffer>
+) => string | NodeJS.ArrayBufferView | Promise<string | NodeJS.ArrayBufferView>

@@ -4,7 +4,7 @@ export async function replaceInFile(options: {
   filepath: string
   from: string
   to: string
-  encoding: string
+  encoding: BufferEncoding
 }): Promise<void> {
   const { filepath, from, to, encoding } = options
   const content = await fs.readFile(filepath, { encoding })
