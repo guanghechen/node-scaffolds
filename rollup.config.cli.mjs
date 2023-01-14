@@ -21,6 +21,14 @@ export default async function () {
           [`} from '.';`]: `} from './index.mjs';`,
         },
       }),
+      replace({
+        include: ['src/**/*'],
+        delimiters: ['', ''],
+        preventAssignment: true,
+        values: {
+          [` from '${manifest.name}/package.json'`]: ` from '../../package.json'`,
+        },
+      }),
     ],
     targets: [
       {
