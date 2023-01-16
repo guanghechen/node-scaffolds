@@ -4,16 +4,13 @@ import {
   calcFilePartItemsBySize,
   collectAllFilesSync,
 } from '@guanghechen/helper-file'
-import {
-  absoluteOfWorkspace,
-  mkdirsIfNotExists,
-  relativeOfWorkspace,
-} from '@guanghechen/helper-path'
+import { mkdirsIfNotExists } from '@guanghechen/helper-path'
 import { destroyBuffer } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
 import crypto from 'crypto'
 import fs from 'node:fs'
 import path from 'node:path'
+import { CipherPathResolver } from './CipherPathResolver'
 import type { ICatalogIndex, ICatalogItem } from './types/catalog'
 import type { ICipher } from './types/cipher'
 import { calcFingerprint, calcMacFromFile } from './util/mac'
@@ -58,11 +55,10 @@ export interface ICipherCatalogOptions {
 }
 
 export class CipherCatalog {
-  public readonly sourceRootDir: string
-  public readonly targetRootDir: string
   public readonly sourceEncoding: BufferEncoding
   public readonly cipheredIndexEncoding: BufferEncoding
   public readonly maxTargetFileSize: number
+  public readonly pathResolver: CipherPathResolver
   protected readonly cipher: ICipher
   protected readonly fileHelper: BigFileHelper
   protected readonly items: Array<Readonly<ICatalogItem>>
@@ -83,10 +79,9 @@ export class CipherCatalog {
       `[FILEPATH_NOT_FOUND] cannot find sourceRootDir: ${sourceRootDir}`,
     )
 
+    this.pathResolver = new CipherPathResolver({ sourceRootDir, targetRootDir })
     this.cipher = options.cipher
     this.fileHelper = new BigFileHelper({ encoding: undefined })
-    this.sourceRootDir = sourceRootDir
-    this.targetRootDir = targetRootDir
     this.sourceEncoding = sourceEncoding
     this.cipheredIndexEncoding = cipheredIndexEncoding
     this.items = []
@@ -96,7 +91,7 @@ export class CipherCatalog {
     this.targetPartPathSet = new Set()
     this.lastCheckTime = null
 
-    mkdirsIfNotExists(this.targetRootDir, true)
+    mkdirsIfNotExists(targetRootDir, true)
   }
 
   /**
@@ -191,12 +186,18 @@ export class CipherCatalog {
    * Delete invalid entries on the catalog and clean up unregistered target files.
    */
   public cleanup(): void {
-    const { items, sourceFilepathMap: sfm, targetFilepathSet: tfs, targetPartPathSet: tps } = this
+    const {
+      pathResolver,
+      items,
+      sourceFilepathMap: sfm,
+      targetFilepathSet: tfs,
+      targetPartPathSet: tps,
+    } = this
 
     // Delete invalid entries on the catalog.
     for (let i = 0, _size = items.length; i < _size; ) {
       const item = items[i]
-      const absoluteSourceFilepath = this.calcAbsoluteSourceFilepath(item.sourceFilepath)
+      const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(item.sourceFilepath)
 
       if (fs.existsSync(absoluteSourceFilepath)) {
         i += 1
@@ -211,9 +212,9 @@ export class CipherCatalog {
     }
 
     // Clean up unregistered target.
-    const targetFiles = collectAllFilesSync(this.targetRootDir)
+    const targetFiles = collectAllFilesSync(pathResolver.targetRootDir)
     for (const absoluteTargetFilepath of targetFiles) {
-      const part = this.calcRelativeTargetFilepath(absoluteTargetFilepath)
+      const part = pathResolver.calcRelativeTargetFilepath(absoluteTargetFilepath)
       if (tps.has(part)) continue
       fs.unlinkSync(absoluteTargetFilepath)
     }
@@ -233,14 +234,15 @@ export class CipherCatalog {
    * Check if files are damaged.
    */
   public checkIntegrity(): void | never {
+    const { pathResolver } = this
     for (const item of this.items) {
       for (const part of item.targetParts) {
-        const filepath = this.calcAbsoluteTargetFilepath(part)
+        const filepath = pathResolver.calcAbsoluteTargetFilepath(part)
         invariant(fs.existsSync(filepath), `[INTEGRITY DAMAGE] cannot found ${filepath}`)
       }
     }
 
-    const allTargetFiles = collectAllFilesSync(this.targetRootDir)
+    const allTargetFiles = collectAllFilesSync(pathResolver.targetRootDir)
     invariant(
       allTargetFiles.length === this.targetPartPathSet.size,
       `[INTEGRITY DAMAGE] there are ${this.items.length} files in index file,` +
@@ -255,8 +257,9 @@ export class CipherCatalog {
    * @returns
    */
   public async register(_sourceFilepath: string): Promise<void> {
-    const absoluteSourceFilepath = this.calcAbsoluteSourceFilepath(_sourceFilepath)
-    const sourceFilepath = this.calcRelativeSourceFilepath(absoluteSourceFilepath)
+    const { pathResolver } = this
+    const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(_sourceFilepath)
+    const sourceFilepath = pathResolver.calcRelativeSourceFilepath(absoluteSourceFilepath)
 
     const { sourceFilepathMap: sfm, targetFilepathSet: tfs } = this
     const stat: fs.Stats = fs.statSync(absoluteSourceFilepath)
@@ -299,10 +302,11 @@ export class CipherCatalog {
   }
 
   public async decryptAll(sourceBakRootDir: string): Promise<void> {
+    const { pathResolver } = this
     for (const item of this.items) {
       const sourceBakFilepath = path.join(sourceBakRootDir, item.sourceFilepath)
       await this.cipher.decryptFiles(
-        item.targetParts.map(p => this.calcAbsoluteTargetFilepath(p)),
+        item.targetParts.map(p => pathResolver.calcAbsoluteTargetFilepath(p)),
         sourceBakFilepath,
       )
     }
@@ -315,8 +319,9 @@ export class CipherCatalog {
   public isModified(_sourceFilepath: string, _stat?: fs.Stats): boolean {
     if (this.lastCheckTime == null) return true
 
-    const absoluteSourceFilepath = this.calcAbsoluteSourceFilepath(_sourceFilepath)
-    const sourceFilepath = this.calcRelativeSourceFilepath(absoluteSourceFilepath)
+    const { pathResolver } = this
+    const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(_sourceFilepath)
+    const sourceFilepath = pathResolver.calcRelativeSourceFilepath(absoluteSourceFilepath)
 
     const item: ICatalogItem | undefined = this.sourceFilepathMap.get(sourceFilepath)
     if (item === undefined) return true
@@ -341,52 +346,16 @@ export class CipherCatalog {
   }
 
   /**
-   * Resolve the relative path of the source file.
-   * @param absoluteSourceFilepath
-   */
-  public calcRelativeSourceFilepath(absoluteSourceFilepath: string): string {
-    const filepath = relativeOfWorkspace(this.sourceRootDir, absoluteSourceFilepath)
-    return filepath.replace(/[/\\]+/g, '/')
-  }
-
-  /**
-   * Resolve the absolute path of a source file.
-   * @param sourceFilepath
-   */
-  public calcAbsoluteSourceFilepath(sourceFilepath: string): string {
-    const filepath = absoluteOfWorkspace(this.sourceRootDir, sourceFilepath)
-    return filepath
-  }
-
-  /**
-   * Resolve the relative path of a target file.
-   * @param absoluteTargetFilepath
-   */
-  public calcRelativeTargetFilepath(absoluteTargetFilepath: string): string {
-    const filepath = relativeOfWorkspace(this.targetRootDir, absoluteTargetFilepath)
-    return filepath.replace(/[/\\]+/g, '/')
-  }
-
-  /**
-   * Resolve the absolute path of a target file.
-   * @param targetFilepath
-   */
-  public calcAbsoluteTargetFilepath(targetFilepath: string): string {
-    const filepath = absoluteOfWorkspace(this.targetRootDir, targetFilepath)
-    return filepath
-  }
-
-  /**
    * Write one or more target files according to the information recorded by
    * the catalog item.
    *
    * @param item
    */
   protected async writeTargets(item: ICatalogItem): Promise<void> {
-    const { cipher, fileHelper, targetPartPathSet: tps, maxTargetFileSize } = this
+    const { pathResolver, cipher, fileHelper, targetPartPathSet: tps, maxTargetFileSize } = this
 
-    const absoluteSourceFilepath = this.calcAbsoluteSourceFilepath(item.sourceFilepath)
-    const absoluteTargetFilepath = this.calcAbsoluteTargetFilepath(item.targetFilename)
+    const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(item.sourceFilepath)
+    const absoluteTargetFilepath = pathResolver.calcAbsoluteTargetFilepath(item.targetFilename)
 
     // Encrypt source file.
     await cipher.encryptFile(absoluteSourceFilepath, absoluteTargetFilepath)
@@ -402,7 +371,7 @@ export class CipherCatalog {
     if (partFilepaths.length > 1) fs.unlinkSync(absoluteTargetFilepath)
 
     // Update target parts.
-    const targetParts: string[] = partFilepaths.map(p => this.calcRelativeTargetFilepath(p))
+    const targetParts: string[] = partFilepaths.map(p => pathResolver.calcRelativeTargetFilepath(p))
     for (const filepath of item.targetParts) tps.delete(filepath)
     for (const filepath of targetParts) tps.add(filepath)
     for (const filepath of item.targetParts) {
