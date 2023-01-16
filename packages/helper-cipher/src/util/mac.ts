@@ -25,17 +25,13 @@ export function calcMac(...pieces: Array<Readonly<Buffer>>): Buffer {
 export async function calcMacFromFile(filepath: string): Promise<Buffer | never> {
   ensureCriticalFilepathExistsSync(filepath)
 
-  const sha256 = crypto.createHash('sha256')
-  const stream = fs.createReadStream(filepath)
-  const chunks: Buffer[] = []
   let result: Buffer | never
+  const chunks: Buffer[] = []
 
   try {
-    for await (const chunk of stream) {
-      sha256.update(chunk)
-      chunks.push(chunk)
-    }
-    result = sha256.digest()
+    const stream = fs.createReadStream(filepath)
+    for await (const chunk of stream) chunks.push(chunk)
+    result = calcMac(...chunks)
   } finally {
     destroyBuffers(chunks)
   }
