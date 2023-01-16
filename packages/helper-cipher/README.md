@@ -127,12 +127,12 @@ Utility functions for cipher contents or files.
 
 Name                                | Description
 :----------------------------------:|:----------------------------:
-`calcFingerprint`                   | Calc fingerprint of Buffer contents
+`calcFingerprint`                   | Calc fingerprint of MAC
 `calcMac`                           | Calc mac (Message Authentication Code)
 `calcMacFromFile`                   | Calc mac (Message Authentication Code) from file
 `createRandomIv`                    | Create random initial vector
 `createRandomKey`                   | Create random key of aes
-`AESCipher`                   | A ICipher implementation with AES algorithm.
+`AESCipher`                         | A ICipher implementation with AES algorithm.
 `CipherCatalog`                     | Catalog for managing source / target files and relationship maps
 
 

@@ -1,5 +1,5 @@
+import { calcMac } from '@guanghechen/helper-cipher'
 import { destroyBuffer } from '@guanghechen/helper-stream'
-import crypto from 'crypto'
 import type { ICustomError } from '../events'
 import { ErrorCode } from '../events'
 import { input } from './input'
@@ -63,9 +63,7 @@ export async function inputPassword(
   }
 
   // Perform a hash operation on the password
-  const sha1 = crypto.createHash('sha1')
-  sha1.update(password)
-  const hashedPassword = sha1.digest()
+  const hashedPassword: Buffer = calcMac(password)
   destroyBuffer(password)
   return hashedPassword
 }

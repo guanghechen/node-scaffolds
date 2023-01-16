@@ -16,7 +16,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import type { ICatalogIndex, ICatalogItem } from './types/catalog'
 import type { ICipher } from './types/cipher'
-import { calcFingerprint, calcMacFromFile } from './util/key'
+import { calcFingerprint, calcMacFromFile } from './util/mac'
 
 export interface ICipherCatalogOptions {
   /**
