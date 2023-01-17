@@ -75,7 +75,10 @@ export function calcFilePartItemsByCount(filepath: string, _partTotal: number): 
  * @param partCodePrefix
  * @returns
  */
-export function calcFilePartNames(parts: IFilePartItem[], partCodePrefix: string): string[] {
+export function calcFilePartNames(
+  parts: ReadonlyArray<Pick<IFilePartItem, 'sid'>>,
+  partCodePrefix: string,
+): string[] {
   if (parts.length === 0) return []
   if (parts.length === 1) return ['']
 
