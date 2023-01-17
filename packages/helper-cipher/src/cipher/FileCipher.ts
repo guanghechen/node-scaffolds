@@ -3,59 +3,29 @@ import { mkdirsIfNotExists } from '@guanghechen/helper-path'
 import { consumeStream, consumeStreams, destroyBuffers } from '@guanghechen/helper-stream'
 import type { Cipher } from 'crypto'
 import fs from 'node:fs'
-import type { ICipher } from './types/cipher'
+import type { ICipher } from '../types/cipher'
+import type { IFileCipher } from '../types/file-cipher'
+
+export interface IBaseCipherProps {
+  readonly cipher: ICipher
+  readonly logger?: Logger
+}
 
 /**
  * ICipher base class.
  */
-export abstract class BaseCipher implements ICipher {
+export class FileCipher implements IFileCipher {
+  public readonly cipher: ICipher
   protected readonly logger?: Logger
 
-  constructor(logger?: Logger) {
-    this.logger = logger
-  }
-
-  // override
-  public encrypt(plainData: Readonly<Buffer>): Buffer | never {
-    const encipher = this.encipher()
-    const cipherDataPieces: Buffer[] = []
-    let cipherData: Buffer
-
-    try {
-      // Collect and encrypt data
-      cipherDataPieces.push(encipher.update(plainData))
-      cipherDataPieces.push(encipher.final())
-      cipherData = Buffer.concat(cipherDataPieces)
-    } finally {
-      destroyBuffers(cipherDataPieces)
-      encipher.destroy()
-    }
-
-    return cipherData
-  }
-
-  // override
-  public decrypt(cipherData: Readonly<Buffer>): Buffer | never {
-    const decipher = this.decipher()
-    const plainDataPieces: Buffer[] = []
-    let plainData: Buffer
-
-    try {
-      // Collect and decrypt data
-      plainDataPieces.push(decipher.update(cipherData))
-      plainDataPieces.push(decipher.final())
-      plainData = Buffer.concat(plainDataPieces)
-    } finally {
-      destroyBuffers(plainDataPieces)
-      decipher.destroy()
-    }
-
-    return plainData
+  constructor(props: IBaseCipherProps) {
+    this.cipher = props.cipher
+    this.logger = props.logger
   }
 
   // override
   public async encryptFromFiles(plainFilepaths: string[]): Promise<Buffer | never> {
-    const encipher: Cipher = this.encipher()
+    const encipher: Cipher = this.cipher.encipher()
     const pieces: Buffer[] = []
     try {
       for (const plainFilepath of plainFilepaths) {
@@ -74,7 +44,7 @@ export abstract class BaseCipher implements ICipher {
 
   // override
   public async decryptFromFiles(cipherFilepaths: string[]): Promise<Buffer> {
-    const decipher: Cipher = this.decipher()
+    const decipher: Cipher = this.cipher.decipher()
     const pieces: Buffer[] = []
     try {
       for (const cipherFilepath of cipherFilepaths) {
@@ -96,7 +66,7 @@ export abstract class BaseCipher implements ICipher {
     mkdirsIfNotExists(cipherFilepath, false, this.logger)
     const reader: NodeJS.ReadableStream = fs.createReadStream(plainFilepath)
     const writer: NodeJS.WritableStream = fs.createWriteStream(cipherFilepath)
-    const encipher: Cipher = this.encipher()
+    const encipher: Cipher = this.cipher.encipher()
     return consumeStream(reader, writer, encipher)
   }
 
@@ -105,7 +75,7 @@ export abstract class BaseCipher implements ICipher {
     mkdirsIfNotExists(plainFilepath, false, this.logger)
     const reader: NodeJS.ReadableStream = fs.createReadStream(cipherFilepath)
     const writer: NodeJS.WritableStream = fs.createWriteStream(plainFilepath)
-    const decipher: Cipher = this.decipher()
+    const decipher: Cipher = this.cipher.decipher()
     return consumeStream(reader, writer, decipher)
   }
 
@@ -120,7 +90,7 @@ export abstract class BaseCipher implements ICipher {
     mkdirsIfNotExists(cipherFilepath, false, this.logger)
     const readers: NodeJS.ReadableStream[] = plainFilepaths.map(fp => fs.createReadStream(fp))
     const writer: NodeJS.WritableStream = fs.createWriteStream(cipherFilepath)
-    const encipher: Cipher = this.encipher()
+    const encipher: Cipher = this.cipher.encipher()
     await consumeStreams(readers, writer, encipher)
     encipher.destroy()
   }
@@ -136,24 +106,8 @@ export abstract class BaseCipher implements ICipher {
     mkdirsIfNotExists(plainFilepath, false, this.logger)
     const readers: NodeJS.ReadableStream[] = cipherFilepaths.map(fp => fs.createReadStream(fp))
     const writer: NodeJS.WritableStream = fs.createWriteStream(plainFilepath)
-    const decipher: Cipher = this.decipher()
+    const decipher: Cipher = this.cipher.decipher()
     await consumeStreams(readers, writer, decipher)
     decipher.destroy()
   }
-
-  // @override
-  public abstract createSecret(): Buffer
-
-  // @override
-  public abstract initFromSecret(secret: Readonly<Buffer>): void | never
-
-  // @override
-  public abstract initFromPassword(password: Readonly<Buffer>): void | never
-
-  // @override
-  public abstract cleanup(): void
-
-  protected abstract encipher(): Cipher
-
-  protected abstract decipher(): Cipher
 }

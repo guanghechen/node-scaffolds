@@ -1,7 +1,16 @@
-/**
- * Shape of a cipher.
- */
+import type { Cipher } from 'node:crypto'
+
 export interface ICipher {
+  /**
+   * Construct an encipher.
+   */
+  encipher(): Cipher
+
+  /**
+   * Construct a decipher.
+   */
+  decipher(): Cipher
+
   /**
    * Encrypt plain data
    */
@@ -13,54 +22,26 @@ export interface ICipher {
   decrypt(cipherData: Readonly<Buffer>): Buffer
 
   /**
-   * Encrypt plain data from plain files.
+   * Destroy secret and sensitive data
    */
-  encryptFromFiles(plainFilepaths: string[]): Promise<Buffer>
+  cleanup(): void
+}
 
-  /**
-   * Decrypt cipher data from ciphered files.
-   */
-  decryptFromFiles(cipherFilepaths: string[]): Promise<Buffer>
-
-  /**
-   * Encrypt contents from plainFilepath, and save into cipherFilepath.
-   */
-  encryptFile(plainFilepath: string, cipherFilepath: string): Promise<void>
-
-  /**
-   * Decrypt contents from cipherFilepath, and save into plainFilepath.
-   */
-  decryptFile(cipherFilepath: string, plainFilepath: string): Promise<void>
-
-  /**
-   * Encrypt multiple plain files into a single ciphered file.
-   */
-  encryptFiles(plainFilepaths: string[], cipherFilepath: string): Promise<void>
-
-  /**
-   * Decrypt multiple ciphered files into a single plain file.
-   */
-  decryptFiles(cipherFilepaths: string[], plainFilepath: string): Promise<void>
-
-  /**
-   * Create a secret with key
-   */
-  createSecret(): Buffer
-
+export interface ICipherFactory {
   /**
    * Load key of cipher from secret
    * @param secret
    */
-  initFromSecret(secret: Readonly<Buffer>): void | never
+  initFromSecret(secret: Readonly<Buffer>): ICipher | never
 
   /**
    * Load key of cipher from password
    * @param password
    */
-  initFromPassword(password: Readonly<Buffer>): void | never
+  initFromPassword(password: Readonly<Buffer>): ICipher | never
 
   /**
-   * Destroy secret and sensitive data
+   * Create a secret with key
    */
-  cleanup(): void
+  createSecret(): Buffer
 }

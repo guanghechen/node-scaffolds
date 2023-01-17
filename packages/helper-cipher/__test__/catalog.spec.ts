@@ -2,7 +2,7 @@ import { collectAllFilesSync } from '@guanghechen/helper-file'
 import { desensitize, locateFixtures, unlinkSync } from 'jest.helper'
 import fs from 'node:fs'
 import path from 'node:path'
-import { AesCipher, CipherCatalog } from '../src'
+import { AesCipherFactory, CipherCatalog, FileCipher } from '../src'
 
 function expectEqual(catalog1: CipherCatalog, catalog2: CipherCatalog): void {
   expect(desensitize((catalog1 as any).items)).toEqual(desensitize((catalog2 as any).items))
@@ -10,19 +10,20 @@ function expectEqual(catalog1: CipherCatalog, catalog2: CipherCatalog): void {
 
 describe('CipherCatalog', function () {
   const password = Buffer.from('@guanghechen/helper-cipher')
-  const cipher = new AesCipher()
-  cipher.initFromPassword(password)
+  const cipherFactory = new AesCipherFactory()
+  const cipher = cipherFactory.initFromPassword(password)
+  const fileCipher = new FileCipher({ cipher })
 
   describe('preserve', function () {
     test('load / save', async function () {
       const catalog1 = new CipherCatalog({
-        cipher,
+        fileCipher,
         sourceRootDir: locateFixtures('catalog/source'),
         targetRootDir: locateFixtures('catalog/target/load-or-save'),
       })
 
       const catalog2 = new CipherCatalog({
-        cipher,
+        fileCipher,
         sourceRootDir: catalog1.pathResolver.sourceRootDir,
         targetRootDir: catalog1.pathResolver.targetRootDir,
       })
@@ -51,7 +52,7 @@ describe('CipherCatalog', function () {
 
     test('checkIntegrity', async function () {
       const catalog = new CipherCatalog({
-        cipher,
+        fileCipher,
         sourceRootDir: locateFixtures('catalog/source'),
         targetRootDir: locateFixtures('catalog/target/checkIntegrity'),
       })
@@ -94,13 +95,13 @@ describe('CipherCatalog', function () {
 
     test('basic', async function () {
       const catalog1 = new CipherCatalog({
-        cipher,
+        fileCipher,
         sourceRootDir: locateFixtures('catalog/source'),
         targetRootDir: locateFixtures('catalog/target/basic'),
       })
 
       const catalog2 = new CipherCatalog({
-        cipher,
+        fileCipher,
         sourceRootDir: catalog1.pathResolver.sourceRootDir,
         targetRootDir: catalog1.pathResolver.targetRootDir,
       })
@@ -128,7 +129,7 @@ describe('CipherCatalog', function () {
   describe('big-file', function () {
     test('basic', async function () {
       const catalog = new CipherCatalog({
-        cipher,
+        fileCipher,
         sourceRootDir: locateFixtures('catalog/source'),
         targetRootDir: locateFixtures('catalog/target/big-file'),
         maxTargetFileSize: 1024 * 4, // 4KB

@@ -2,12 +2,14 @@ import ChalkLogger from '@guanghechen/chalk-logger'
 import { BigFileHelper, calcFilePartItemsByCount } from '@guanghechen/helper-file'
 import { locateFixtures, unlinkSync } from 'jest.helper'
 import fs from 'node:fs'
-import { AesCipher, calcMac } from '../src'
+import type { IFileCipher } from '../src'
+import { AesCipherFactory, FileCipher, calcMac } from '../src'
 
 describe('AesCipher', function () {
   describe('init by secret', function () {
     const logger = new ChalkLogger({ flags: { colorful: false, date: false } })
-    const cipher = new AesCipher({ logger })
+    const cipherFactory = new AesCipherFactory()
+    let fileCipher: IFileCipher
 
     const fileHelper = new BigFileHelper()
     const sourceFilepath = locateFixtures('basic/big-file.md')
@@ -15,8 +17,10 @@ describe('AesCipher', function () {
     let partFilepaths: string[] = []
 
     beforeAll(async () => {
-      const secret = cipher.createSecret()
-      cipher.initFromSecret(secret)
+      const secret = cipherFactory.createSecret()
+      const cipher = cipherFactory.initFromSecret(secret)
+      fileCipher = new FileCipher({ cipher, logger })
+
       partFilepaths = await fileHelper.split(
         sourceFilepath,
         calcFilePartItemsByCount(sourceFilepath, 5),
@@ -29,14 +33,14 @@ describe('AesCipher', function () {
 
     test('encrypt data', function () {
       const plainData: Buffer = Buffer.from('@guanghechen/helper-cipher')
-      const cipherData = cipher.encrypt(plainData)
-      expect(cipher.decrypt(cipherData)).toEqual(plainData)
+      const cipherData = fileCipher.cipher.encrypt(plainData)
+      expect(fileCipher.cipher.decrypt(cipherData)).toEqual(plainData)
     })
 
     test('encrypt from files', async function () {
       for (let i = 0; i < 3; ++i) {
-        const cipherData: Buffer = await cipher.encryptFromFiles(partFilepaths)
-        const plainData: Buffer = cipher.decrypt(cipherData)
+        const cipherData: Buffer = await fileCipher.encryptFromFiles(partFilepaths)
+        const plainData: Buffer = fileCipher.cipher.decrypt(cipherData)
         expect(plainData).toEqual(originalContent)
       }
     })
@@ -48,7 +52,7 @@ describe('AesCipher', function () {
 
         try {
           expect(fs.existsSync(cipherFilepath)).toBe(false)
-          await cipher.encryptFile(sourceFilepath, cipherFilepath)
+          await fileCipher.encryptFile(sourceFilepath, cipherFilepath)
           expect(fs.existsSync(cipherFilepath)).toBe(true)
 
           cipherPartFilepaths = await fileHelper.split(
@@ -57,7 +61,7 @@ describe('AesCipher', function () {
           )
           expect(cipherPartFilepaths.length).toEqual(5)
 
-          const plainData: Buffer = await cipher.decryptFromFiles(cipherPartFilepaths)
+          const plainData: Buffer = await fileCipher.decryptFromFiles(cipherPartFilepaths)
           expect(plainData).toEqual(originalContent)
         } finally {
           unlinkSync(cipherFilepath, cipherPartFilepaths)
@@ -78,8 +82,8 @@ describe('AesCipher', function () {
           expect(fs.existsSync(plainFilepath)).toBe(false)
           expect(fs.existsSync(cipherFilepath)).toBe(false)
 
-          await cipher.encryptFile(filepath, cipherFilepath)
-          await cipher.decryptFile(cipherFilepath, plainFilepath)
+          await fileCipher.encryptFile(filepath, cipherFilepath)
+          await fileCipher.decryptFile(cipherFilepath, plainFilepath)
 
           expect(fs.existsSync(plainFilepath)).toBe(true)
           expect(fs.existsSync(cipherFilepath)).toBe(true)
@@ -91,7 +95,7 @@ describe('AesCipher', function () {
     })
 
     test('encrypt files', async function () {
-      await expect(cipher.encryptFiles([], 'a.txt')).resolves.not.toThrow()
+      await expect(fileCipher.encryptFiles([], 'a.txt')).resolves.not.toThrow()
       for (let i = 0; i < 3; ++i) {
         const plainFilepath = sourceFilepath + '.plain.' + Math.random()
         const cipherFilepath = sourceFilepath + '.cipher.' + Math.random()
@@ -101,8 +105,8 @@ describe('AesCipher', function () {
           expect(fs.existsSync(plainFilepath)).toBe(false)
           expect(fs.existsSync(cipherFilepath)).toBe(false)
 
-          await cipher.encryptFiles([sourceFilepath], cipherFilepath)
-          await cipher.decryptFile(cipherFilepath, plainFilepath)
+          await fileCipher.encryptFiles([sourceFilepath], cipherFilepath)
+          await fileCipher.decryptFile(cipherFilepath, plainFilepath)
 
           expect(fs.existsSync(plainFilepath)).toBe(true)
           expect(fs.existsSync(cipherFilepath)).toBe(true)
@@ -121,8 +125,8 @@ describe('AesCipher', function () {
           expect(fs.existsSync(plainFilepath)).toBe(false)
           expect(fs.existsSync(cipherFilepath)).toBe(false)
 
-          await cipher.encryptFiles(partFilepaths, cipherFilepath)
-          await cipher.decryptFile(cipherFilepath, plainFilepath)
+          await fileCipher.encryptFiles(partFilepaths, cipherFilepath)
+          await fileCipher.decryptFile(cipherFilepath, plainFilepath)
 
           expect(fs.existsSync(plainFilepath)).toBe(true)
           expect(fs.existsSync(cipherFilepath)).toBe(true)
@@ -134,7 +138,7 @@ describe('AesCipher', function () {
     })
 
     test('decrypt files', async function () {
-      await expect(cipher.decryptFiles([], 'a.txt')).resolves.not.toThrow()
+      await expect(fileCipher.decryptFiles([], 'a.txt')).resolves.not.toThrow()
       for (let i = 0; i < 3; ++i) {
         const plainFilepath = sourceFilepath + '.plain.' + Math.random()
         const cipherFilepath = sourceFilepath + '.cipher.' + Math.random()
@@ -144,8 +148,8 @@ describe('AesCipher', function () {
           expect(fs.existsSync(plainFilepath)).toBe(false)
           expect(fs.existsSync(cipherFilepath)).toBe(false)
 
-          await cipher.encryptFile(sourceFilepath, cipherFilepath)
-          await cipher.decryptFiles([cipherFilepath], plainFilepath)
+          await fileCipher.encryptFile(sourceFilepath, cipherFilepath)
+          await fileCipher.decryptFiles([cipherFilepath], plainFilepath)
 
           expect(fs.existsSync(plainFilepath)).toBe(true)
           expect(fs.existsSync(cipherFilepath)).toBe(true)
@@ -171,10 +175,10 @@ describe('AesCipher', function () {
           expect(fs.existsSync(cipherFilepath)).toBe(false)
           expect(fs.existsSync(cipherFilepath2)).toBe(false)
 
-          await cipher.encryptFile(sourceFilepath, cipherFilepath)
+          await fileCipher.encryptFile(sourceFilepath, cipherFilepath)
           expect(fs.existsSync(cipherFilepath)).toBe(true)
 
-          await cipher.decryptFile(cipherFilepath, plainFilepath)
+          await fileCipher.decryptFile(cipherFilepath, plainFilepath)
           expect(fs.existsSync(plainFilepath)).toBe(true)
           expect(fs.readFileSync(plainFilepath)).toEqual(originalContent)
 
@@ -187,11 +191,11 @@ describe('AesCipher', function () {
           await fileHelper.merge(cipherPartFilepaths, cipherFilepath2)
           expect(fs.existsSync(cipherFilepath2)).toBe(true)
 
-          await cipher.decryptFile(cipherFilepath2, plainFilepath2)
+          await fileCipher.decryptFile(cipherFilepath2, plainFilepath2)
           expect(fs.existsSync(plainFilepath2)).toBe(true)
           expect(fs.readFileSync(plainFilepath2)).toEqual(originalContent)
 
-          await cipher.decryptFiles(cipherPartFilepaths, plainFilepath3)
+          await fileCipher.decryptFiles(cipherPartFilepaths, plainFilepath3)
           expect(fs.existsSync(plainFilepath3)).toBe(true)
           expect(fs.readFileSync(plainFilepath3)).toEqual(originalContent)
         } finally {
@@ -210,7 +214,8 @@ describe('AesCipher', function () {
 
   describe('init by password', function () {
     const logger = new ChalkLogger({ flags: { colorful: false, date: false } })
-    const cipher = new AesCipher({ logger })
+    const cipherFactory = new AesCipherFactory()
+    let fileCipher: IFileCipher
 
     const fileHelper = new BigFileHelper()
     const sourceFilepath = locateFixtures('basic/big-file.md')
@@ -219,7 +224,9 @@ describe('AesCipher', function () {
 
     beforeAll(async function () {
       const password = calcMac(Buffer.from('@guanghechen/helper-cipher'))
-      cipher.initFromPassword(password)
+      const cipher = cipherFactory.initFromPassword(password)
+      fileCipher = new FileCipher({ cipher, logger })
+
       partFilepaths = await fileHelper.split(
         sourceFilepath,
         calcFilePartItemsByCount(sourceFilepath, 5),
@@ -232,8 +239,8 @@ describe('AesCipher', function () {
 
     test('encrypt data', function () {
       const plainData: Buffer = Buffer.from('@guanghechen/helper-cipher')
-      const cipherData = cipher.encrypt(plainData)
-      expect(cipher.decrypt(cipherData)).toEqual(plainData)
+      const cipherData = fileCipher.cipher.encrypt(plainData)
+      expect(fileCipher.cipher.decrypt(cipherData)).toEqual(plainData)
     })
 
     test('encrypt file', async function () {
@@ -249,8 +256,8 @@ describe('AesCipher', function () {
           expect(fs.existsSync(plainFilepath)).toBe(false)
           expect(fs.existsSync(cipherFilepath)).toBe(false)
 
-          await cipher.encryptFile(filepath, cipherFilepath)
-          await cipher.decryptFile(cipherFilepath, plainFilepath)
+          await fileCipher.encryptFile(filepath, cipherFilepath)
+          await fileCipher.decryptFile(cipherFilepath, plainFilepath)
 
           expect(fs.existsSync(plainFilepath)).toBe(true)
           expect(fs.existsSync(cipherFilepath)).toBe(true)
@@ -271,8 +278,8 @@ describe('AesCipher', function () {
           expect(fs.existsSync(plainFilepath)).toBe(false)
           expect(fs.existsSync(cipherFilepath)).toBe(false)
 
-          await cipher.encryptFiles(partFilepaths, cipherFilepath)
-          await cipher.decryptFile(cipherFilepath, plainFilepath)
+          await fileCipher.encryptFiles(partFilepaths, cipherFilepath)
+          await fileCipher.decryptFile(cipherFilepath, plainFilepath)
 
           expect(fs.existsSync(plainFilepath)).toBe(true)
           expect(fs.existsSync(cipherFilepath)).toBe(true)
@@ -300,10 +307,10 @@ describe('AesCipher', function () {
           expect(fs.existsSync(cipherFilepath)).toBe(false)
           expect(fs.existsSync(cipherFilepath2)).toBe(false)
 
-          await cipher.encryptFile(sourceFilepath, cipherFilepath)
+          await fileCipher.encryptFile(sourceFilepath, cipherFilepath)
           expect(fs.existsSync(cipherFilepath)).toBe(true)
 
-          await cipher.decryptFile(cipherFilepath, plainFilepath)
+          await fileCipher.decryptFile(cipherFilepath, plainFilepath)
           expect(fs.existsSync(plainFilepath)).toBe(true)
           expect(fs.readFileSync(plainFilepath)).toEqual(originalContent)
 
@@ -316,11 +323,11 @@ describe('AesCipher', function () {
           await fileHelper.merge(cipherPartFilepaths, cipherFilepath2)
           expect(fs.existsSync(cipherFilepath2)).toBe(true)
 
-          await cipher.decryptFile(cipherFilepath2, plainFilepath2)
+          await fileCipher.decryptFile(cipherFilepath2, plainFilepath2)
           expect(fs.existsSync(plainFilepath2)).toBe(true)
           expect(fs.readFileSync(plainFilepath2)).toEqual(originalContent)
 
-          await cipher.decryptFiles(cipherPartFilepaths, plainFilepath3)
+          await fileCipher.decryptFiles(cipherPartFilepaths, plainFilepath3)
           expect(fs.existsSync(plainFilepath3)).toBe(true)
           expect(fs.readFileSync(plainFilepath3)).toEqual(originalContent)
         } finally {

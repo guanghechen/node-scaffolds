@@ -12,14 +12,14 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { CipherPathResolver } from './CipherPathResolver'
 import type { ICatalogIndex, ICatalogItem } from './types/catalog'
-import type { ICipher } from './types/cipher'
+import type { IFileCipher } from './types/file-cipher'
 import { calcFingerprint, calcMacFromFile } from './util/mac'
 
 export interface ICipherCatalogOptions {
   /**
    * A collect of util funcs for encryption / decryption.
    */
-  readonly cipher: ICipher
+  readonly fileCipher: IFileCipher
 
   /**
    * Root directory of source files.
@@ -59,7 +59,7 @@ export class CipherCatalog {
   public readonly cipheredIndexEncoding: BufferEncoding
   public readonly maxTargetFileSize: number
   public readonly pathResolver: CipherPathResolver
-  protected readonly cipher: ICipher
+  protected readonly fileCipher: IFileCipher
   protected readonly fileHelper: BigFileHelper
   protected readonly items: Array<Readonly<ICatalogItem>>
   protected readonly sourceFilepathMap: Map<string, Readonly<ICatalogItem>>
@@ -80,7 +80,7 @@ export class CipherCatalog {
     )
 
     this.pathResolver = new CipherPathResolver({ sourceRootDir, targetRootDir })
-    this.cipher = options.cipher
+    this.fileCipher = options.fileCipher
     this.fileHelper = new BigFileHelper({ encoding: undefined })
     this.sourceEncoding = sourceEncoding
     this.cipheredIndexEncoding = cipheredIndexEncoding
@@ -99,11 +99,11 @@ export class CipherCatalog {
    * @param cipheredContent
    */
   public load(cipheredContent: string): void {
-    const { cipheredIndexEncoding } = this
+    const { fileCipher, cipheredIndexEncoding } = this
     const cipherData: Buffer = Buffer.from(cipheredContent, cipheredIndexEncoding)
 
     // Decrypt data.
-    const plainContent = this.cipher.decrypt(cipherData)
+    const plainContent = fileCipher.cipher.decrypt(cipherData)
 
     // Remove salt.
     const content = this.strip(plainContent.toString())
@@ -127,7 +127,7 @@ export class CipherCatalog {
    * Dump catalog data
    */
   public dump(): string {
-    const { cipher, items, lastCheckTime, sourceEncoding, cipheredIndexEncoding } = this
+    const { fileCipher, items, lastCheckTime, sourceEncoding, cipheredIndexEncoding } = this
 
     const data: ICatalogIndex = { lastCheckTime, items }
     const plaintextContent: string = JSON.stringify(data)
@@ -137,7 +137,7 @@ export class CipherCatalog {
 
     // save into the index file
     const sourceData: Buffer = Buffer.from(content, sourceEncoding)
-    const cipherData = cipher.encrypt(sourceData).toString(cipheredIndexEncoding)
+    const cipherData = fileCipher.cipher.encrypt(sourceData).toString(cipheredIndexEncoding)
 
     destroyBuffer(sourceData)
     return cipherData
@@ -305,7 +305,7 @@ export class CipherCatalog {
     const { pathResolver } = this
     for (const item of this.items) {
       const sourceBakFilepath = path.join(sourceBakRootDir, item.sourceFilepath)
-      await this.cipher.decryptFiles(
+      await this.fileCipher.decryptFiles(
         item.targetParts.map(p => pathResolver.calcAbsoluteTargetFilepath(p)),
         sourceBakFilepath,
       )
@@ -352,13 +352,13 @@ export class CipherCatalog {
    * @param item
    */
   protected async writeTargets(item: ICatalogItem): Promise<void> {
-    const { pathResolver, cipher, fileHelper, targetPartPathSet: tps, maxTargetFileSize } = this
+    const { pathResolver, fileCipher, fileHelper, targetPartPathSet: tps, maxTargetFileSize } = this
 
     const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(item.sourceFilepath)
     const absoluteTargetFilepath = pathResolver.calcAbsoluteTargetFilepath(item.targetFilename)
 
     // Encrypt source file.
-    await cipher.encryptFile(absoluteSourceFilepath, absoluteTargetFilepath)
+    await fileCipher.encryptFile(absoluteSourceFilepath, absoluteTargetFilepath)
 
     // Split target file.
     const parts: IFilePartItem[] = calcFilePartItemsBySize(
