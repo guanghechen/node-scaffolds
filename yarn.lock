@@ -658,6 +658,7 @@ __metadata:
   resolution: "@guanghechen/helper-func@workspace:packages/helper-func"
   dependencies:
     cross-env: ^7.0.3
+    jest: ^29.3.1
     rimraf: ^4.0.4
     rollup: ^3.10.0
   languageName: unknown

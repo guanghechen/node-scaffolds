@@ -66,6 +66,7 @@ Name        | Description
 :----------:|:----------------------------------------------------------------
 `delay`     | Waiting a given million seconds.
 `identity`  | Return the input data directly.
+`list2map`  | Create a map from list.
 `noop`      | Do nothing.
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-func#readme
