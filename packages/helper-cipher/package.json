@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@guanghechen/helper-file": "^3.0.2",
+    "@guanghechen/helper-func": "^3.0.2",
     "@guanghechen/helper-path": "^3.0.2",
     "@guanghechen/helper-stream": "^3.0.2",
     "@guanghechen/invariant": "^3.0.2"
