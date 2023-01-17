@@ -14,20 +14,18 @@ export class AesCipher extends BaseCipher implements ICipher {
   protected readonly algorithm: crypto.CipherGCMTypes
   protected readonly iv: Buffer
   protected readonly key: Buffer
-  protected destroyed: boolean
 
   constructor(options: IAesCipherProps) {
     super()
     this.algorithm = options.algorithm
     this.key = options.key
     this.iv = options.iv
-    this.destroyed = false
   }
 
   public override encipher(): crypto.Cipher {
     const { algorithm, key, iv } = this
     invariant(
-      !this.destroyed,
+      this.alive,
       '[AesCipher] cannot call .encipher cause the iv and key have been destroyed.',
     )
 
@@ -38,7 +36,7 @@ export class AesCipher extends BaseCipher implements ICipher {
   public override decipher(): crypto.Cipher {
     const { algorithm, key, iv } = this
     invariant(
-      !this.destroyed,
+      this.alive,
       '[AesCipher] cannot call .encipher cause the iv and key have been destroyed.',
     )
 
@@ -47,10 +45,10 @@ export class AesCipher extends BaseCipher implements ICipher {
   }
 
   public override cleanup(): void {
-    if (!this.destroyed) {
+    if (this.alive) {
       destroyBuffer(this.iv)
       destroyBuffer(this.key)
-      this.destroyed = true
+      super.cleanup()
     }
   }
 }

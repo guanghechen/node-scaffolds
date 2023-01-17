@@ -17,7 +17,7 @@ describe('AesCipher', function () {
     let partFilepaths: string[] = []
 
     beforeAll(async () => {
-      const secret = cipherFactory.createSecret()
+      const secret = cipherFactory.createRandomSecret()
       const cipher = cipherFactory.initFromSecret(secret)
       fileCipher = new FileCipher({ cipher, logger })
 

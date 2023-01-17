@@ -30,7 +30,7 @@ export class AesCipherFactory implements ICipherFactory {
     this.algorithm = options.algorithm ?? 'aes-256-gcm'
   }
 
-  public createSecret(): Buffer {
+  public createRandomSecret(): Buffer {
     const { ivSize, keySize } = this
     const iv: Buffer = createRandomIv(ivSize)
     const key: Buffer = createRandomKey(keySize)

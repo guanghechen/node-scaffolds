@@ -1,7 +1,8 @@
 import type { ICipher } from '@guanghechen/helper-cipher'
-import { AESCipher, CipherCatalog } from '@guanghechen/helper-cipher'
+import { AesCipherFactory, CipherCatalog, FileCipher } from '@guanghechen/helper-cipher'
 import { createCommitAll } from '@guanghechen/helper-commander'
 import { collectAllFilesSync } from '@guanghechen/helper-file'
+import invariant from '@guanghechen/invariant'
 import commandExists from 'command-exists'
 import { execa } from 'execa'
 import fs from 'fs-extra'
@@ -18,7 +19,7 @@ export class GitCipherEncryptProcessor {
   constructor(context: IGitCipherEncryptContext) {
     this.context = context
     this.secretMaster = new SecretMaster({
-      cipherHelperCreator: { create: () => new AESCipher() },
+      cipherFactory: new AesCipherFactory(),
       secretFileEncoding: context.encoding,
       secretContentEncoding: 'hex',
       showAsterisk: context.showAsterisk,
@@ -29,18 +30,19 @@ export class GitCipherEncryptProcessor {
 
   public async encrypt(): Promise<void> {
     const hasGitInstalled: boolean = commandExists.sync('git')
-    if (!hasGitInstalled) {
-      throw new Error('Cannot find git, have you installed it?')
-    }
+    invariant(hasGitInstalled, '[processor.encrypt] Cannot find git, have you installed it?')
 
     const { context, secretMaster } = this
     logger.debug('context:', context)
 
     await secretMaster.load(context.secretFilepath)
 
-    const cipher: ICipher = secretMaster.getCipher()
+    const cipher: ICipher | null = secretMaster.cipher
+    invariant(cipher != null, '[processor.encrypt] Secret cipher is not available!')
+
+    const fileCipher = new FileCipher({ cipher, logger })
     const catalog = new CipherCatalog({
-      cipher,
+      fileCipher,
       sourceRootDir: context.plaintextRootDir,
       targetRootDir: context.ciphertextRootDir,
       maxTargetFileSize: context.maxTargetFileSize,

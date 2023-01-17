@@ -1,4 +1,4 @@
-import type { ICipher } from '@guanghechen/helper-cipher'
+import type { ICipher, ICipherFactory } from '@guanghechen/helper-cipher'
 import { calcMac } from '@guanghechen/helper-cipher'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { coverBoolean, coverNumber, coverString } from '@guanghechen/helper-option'
@@ -8,10 +8,6 @@ import { logger } from '../env/logger'
 import { ErrorCode, EventTypes, eventBus } from './events'
 import * as io from './io'
 
-interface ICipherHelperCreator {
-  create(): ICipher
-}
-
 /**
  * Params for SecretMaster.constructor
  */
@@ -19,7 +15,7 @@ export interface ISecretMasterParams {
   /**
    * Factory class that produces Cipher
    */
-  cipherHelperCreator: ICipherHelperCreator
+  cipherFactory: ICipherFactory
 
   /**
    * Encoding of secret file
@@ -58,35 +54,24 @@ export interface ISecretMasterParams {
   maxPasswordLength?: number
 }
 
-/**
- * @member secretCipher           cipher initialized by secret
- * @member cipherHelperCreator    factory to produce Cipher
- * @member secretFileEncoding     encoding of secret file
- * @member secretContentEncoding  encoding of secret content
- * @member showAsterisk           whether to print password asterisks
- * @member maxRetryTimes          maximum times of failed password attempts allowed
- * @member minPasswordLength      minimum length of password
- * @member maxPasswordLength      maximum length of password
- * @member encryptedSecret        encrypted secret
- * @member encryptedSecretMac     encrypted mac of secret plaintext
- * @member cleanupTimer
- * @member cleanupTimeout
- */
 export class SecretMaster {
-  protected readonly secretCipher: ICipher
-  protected readonly cipherHelperCreator: ICipherHelperCreator
-  protected readonly secretFileEncoding: BufferEncoding
-  protected readonly secretContentEncoding: BufferEncoding
-  protected readonly showAsterisk: boolean
-  protected readonly maxRetryTimes: number
-  protected readonly minPasswordLength: number
-  protected readonly maxPasswordLength: number
-  protected encryptedSecret: Buffer | null = null
-  protected encryptedSecretMac: Buffer | null = null
+  protected readonly cipherFactory: ICipherFactory // factory to produce Cipher
+  protected readonly secretFileEncoding: BufferEncoding // encoding of secret file
+  protected readonly secretContentEncoding: BufferEncoding // encoding of secret content
+  protected readonly showAsterisk: boolean // whether to print password asterisks
+  protected readonly maxRetryTimes: number // maximum times of failed password attempts allowed
+  protected readonly minPasswordLength: number // minimum length of password
+  protected readonly maxPasswordLength: number // maximum length of password
+  protected _secretCipher: ICipher | null // cipher initialized by secret
+  protected _encryptedSecret: Buffer | null // encrypted secret
+  protected _encryptedSecretMac: Buffer | null // encrypted mac of secret plaintext
 
   constructor(params: ISecretMasterParams) {
-    this.secretCipher = params.cipherHelperCreator.create()
-    this.cipherHelperCreator = params.cipherHelperCreator
+    this._secretCipher = null
+    this._encryptedSecret = null
+    this._encryptedSecretMac = null
+
+    this.cipherFactory = params.cipherFactory
     this.secretFileEncoding = coverString('utf8', params.secretFileEncoding, isNonBlankString)
     this.secretContentEncoding = coverString(
       'hex',
@@ -112,7 +97,7 @@ export class SecretMaster {
       }
     }
 
-    const { secretCipher, cipherHelperCreator, secretContentEncoding, secretFileEncoding } = this
+    const { cipherFactory, secretContentEncoding, secretFileEncoding } = this
     const secretContent: string = await fs.readFile(secretFilepath, secretFileEncoding)
     const secretSepIndex = secretContent.indexOf('.')
     const encryptedSecret: Buffer = Buffer.from(
@@ -124,12 +109,12 @@ export class SecretMaster {
       secretContentEncoding,
     )
 
-    this.encryptedSecret = encryptedSecret
-    this.encryptedSecretMac = encryptedSecretMac
+    this._encryptedSecret = encryptedSecret
+    this._encryptedSecretMac = encryptedSecretMac
 
     let secret: Buffer | null = null
     let password: Buffer | null = null
-    const passwordCipher: ICipher = cipherHelperCreator.create()
+    let passwordCipher: ICipher | null = null
     try {
       password = await this.askPassword()
       if (password == null) {
@@ -138,15 +123,17 @@ export class SecretMaster {
           message: 'Password incorrect',
         }
       }
-      passwordCipher.initFromPassword(password)
+      passwordCipher = cipherFactory.initFromPassword(password)
       secret = passwordCipher.decrypt(encryptedSecret)
-      secretCipher.initFromSecret(secret)
+
+      this._secretCipher?.cleanup()
+      this._secretCipher = cipherFactory.initFromSecret(secret)
     } finally {
       destroyBuffer(secret)
       destroyBuffer(password)
       secret = null
       password = null
-      passwordCipher.cleanup()
+      passwordCipher?.cleanup()
     }
   }
 
@@ -155,9 +142,10 @@ export class SecretMaster {
    * @param secretFilepath absolute filepath of secret file
    */
   public async save(secretFilepath: string): Promise<void | never> {
-    const { encryptedSecret, encryptedSecretMac, secretContentEncoding, secretFileEncoding } = this
+    const { _encryptedSecret, _encryptedSecretMac, secretContentEncoding, secretFileEncoding } =
+      this
 
-    if (encryptedSecret == null || encryptedSecretMac == null) {
+    if (_encryptedSecret == null || _encryptedSecretMac == null) {
       throw {
         code: ErrorCode.NULL_POINTER_ERROR,
         message: '[save] encryptedSecret / encryptedSecretMac are not specified',
@@ -165,9 +153,9 @@ export class SecretMaster {
     }
 
     const secretContent =
-      encryptedSecret.toString(secretContentEncoding) +
+      _encryptedSecret.toString(secretContentEncoding) +
       '.' +
-      encryptedSecretMac.toString(secretContentEncoding)
+      _encryptedSecretMac.toString(secretContentEncoding)
     await fs.writeFile(secretFilepath, secretContent, secretFileEncoding)
   }
 
@@ -176,7 +164,7 @@ export class SecretMaster {
    */
   public async recreate(params: Partial<ISecretMasterParams> = {}): Promise<SecretMaster> {
     const {
-      cipherHelperCreator,
+      cipherFactory,
       secretContentEncoding,
       showAsterisk,
       maxRetryTimes,
@@ -185,7 +173,7 @@ export class SecretMaster {
     } = this
 
     const secretMaster = new SecretMaster({
-      cipherHelperCreator,
+      cipherFactory,
       secretContentEncoding,
       showAsterisk,
       maxRetryTimes,
@@ -196,7 +184,8 @@ export class SecretMaster {
 
     let secret: Buffer | null = null
     let password: Buffer | null = null
-    const passwordCipher: ICipher = cipherHelperCreator.create()
+    let passwordCipher: ICipher | null = null
+
     try {
       password = await io.inputPassword(
         'Password: ',
@@ -221,36 +210,36 @@ export class SecretMaster {
       }
 
       // use password to encrypt new secret
-      passwordCipher.initFromPassword(password)
+      passwordCipher = cipherFactory.initFromPassword(password)
 
-      secret = secretMaster.secretCipher.createSecret()
+      secret = cipherFactory.createRandomSecret()
       const secretMac: Buffer = calcMac(secret)
       const encryptedSecret = passwordCipher.encrypt(secret)
       const encryptedSecretMac = passwordCipher.encrypt(secretMac)
 
       // use new secret to init secretMaster
-      secretMaster.encryptedSecret = encryptedSecret
-      secretMaster.encryptedSecretMac = encryptedSecretMac
-      secretMaster.secretCipher.initFromSecret(secret)
+      secretMaster._encryptedSecret = encryptedSecret
+      secretMaster._encryptedSecretMac = encryptedSecretMac
+      secretMaster._secretCipher = cipherFactory.initFromSecret(secret)
     } finally {
       destroyBuffer(secret)
       destroyBuffer(password)
       secret = null
       password = null
-      passwordCipher.cleanup()
+      passwordCipher?.cleanup()
     }
     return secretMaster
   }
 
-  public getCipher(): ICipher {
-    return this.secretCipher
+  public get cipher(): ICipher | null {
+    return this._secretCipher?.alive ? this._secretCipher : null
   }
 
   /**
    * Destroy secret and sensitive data
    */
   public cleanup(): void {
-    this.secretCipher.cleanup()
+    this._secretCipher?.cleanup()
   }
 
   /**
@@ -280,8 +269,8 @@ export class SecretMaster {
    * @param password
    */
   protected testPassword(password: Buffer): boolean {
-    const { cipherHelperCreator, encryptedSecret, encryptedSecretMac } = this
-    if (encryptedSecret == null || encryptedSecretMac == null) {
+    const { cipherFactory, _encryptedSecret, _encryptedSecretMac } = this
+    if (_encryptedSecret == null || _encryptedSecretMac == null) {
       logger.error('[testPassword] encryptedSecret / encryptedSecretMac are not specified')
       return false
     }
@@ -290,12 +279,12 @@ export class SecretMaster {
     let plainSecret: Buffer | null = null
     let plainSecretMac: Buffer | null = null
     let mac: Buffer | null = null
-    const cipher = cipherHelperCreator.create()
+    let cipher: ICipher | null = null
 
     try {
-      cipher.initFromPassword(password)
-      plainSecret = cipher.decrypt(encryptedSecret)
-      plainSecretMac = cipher.decrypt(encryptedSecretMac)
+      cipher = cipherFactory.initFromPassword(password)
+      plainSecret = cipher.decrypt(_encryptedSecret)
+      plainSecretMac = cipher.decrypt(_encryptedSecretMac)
       mac = calcMac(plainSecret)
       if (mac.compare(plainSecretMac) === 0) {
         result = true
@@ -304,7 +293,7 @@ export class SecretMaster {
       destroyBuffer(plainSecret)
       destroyBuffer(plainSecretMac)
       destroyBuffer(mac)
-      cipher.cleanup()
+      cipher?.cleanup()
     }
     return result
   }

@@ -2,6 +2,11 @@ import type { Cipher } from 'node:crypto'
 
 export interface ICipher {
   /**
+   * Check if this instance available.
+   */
+  readonly alive: boolean
+
+  /**
    * Construct an encipher.
    */
   encipher(): Cipher
@@ -43,5 +48,5 @@ export interface ICipherFactory {
   /**
    * Create a secret with key
    */
-  createSecret(): Buffer
+  createRandomSecret(): Buffer
 }

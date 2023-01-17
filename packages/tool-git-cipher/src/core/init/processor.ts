@@ -1,5 +1,5 @@
 import type { ICipher } from '@guanghechen/helper-cipher'
-import { AESCipher, CipherCatalog } from '@guanghechen/helper-cipher'
+import { AesCipherFactory, CipherCatalog, FileCipher } from '@guanghechen/helper-cipher'
 import { createInitialCommit, installDependencies } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import {
@@ -9,6 +9,7 @@ import {
 } from '@guanghechen/helper-path'
 import { runPlop } from '@guanghechen/helper-plop'
 import { toLowerCase } from '@guanghechen/helper-string'
+import invariant from '@guanghechen/invariant'
 import commandExists from 'command-exists'
 import { execa } from 'execa'
 import inquirer from 'inquirer'
@@ -26,7 +27,7 @@ export class GitCipherInitProcessor {
   constructor(context: IGitCipherInitContext) {
     this.context = context
     this.secretMaster = new SecretMaster({
-      cipherHelperCreator: { create: () => new AESCipher() },
+      cipherFactory: new AesCipherFactory(),
       secretFileEncoding: context.encoding,
       secretContentEncoding: 'hex',
       showAsterisk: context.showAsterisk,
@@ -142,11 +143,14 @@ export class GitCipherInitProcessor {
    */
   protected async createIndexFile(): Promise<void> {
     const { context, secretMaster } = this
-    const cipher: ICipher = secretMaster.getCipher()
-
     mkdirsIfNotExists(context.plaintextRootDir, true)
+
+    const cipher: ICipher | null = secretMaster.cipher
+    invariant(cipher != null, '[processor.encrypt] Secret cipher is not available!')
+
+    const fileCipher = new FileCipher({ cipher, logger })
     const catalog = new CipherCatalog({
-      cipher,
+      fileCipher,
       sourceRootDir: context.plaintextRootDir,
       targetRootDir: context.ciphertextRootDir,
       maxTargetFileSize: context.maxTargetFileSize,

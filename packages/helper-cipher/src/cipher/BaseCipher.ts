@@ -6,6 +6,16 @@ import type { ICipher } from '../types/cipher'
  * ICipher base class.
  */
 export abstract class BaseCipher implements ICipher {
+  protected _alive: boolean
+
+  constructor() {
+    this._alive = true
+  }
+
+  public get alive(): boolean {
+    return this._alive
+  }
+
   // override
   public encrypt(plainData: Readonly<Buffer>): Buffer | never {
     const encipher = this.encipher()
@@ -44,12 +54,13 @@ export abstract class BaseCipher implements ICipher {
     return plainData
   }
 
+  public cleanup(): void {
+    this._alive = true
+  }
+
   // override
   public abstract encipher(): Cipher
 
   // override
   public abstract decipher(): Cipher
-
-  // override
-  public abstract cleanup(): void
 }
