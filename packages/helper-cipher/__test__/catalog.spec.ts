@@ -2,7 +2,7 @@ import { collectAllFilesSync } from '@guanghechen/helper-file'
 import { desensitize, locateFixtures, unlinkSync } from 'jest.helper'
 import fs from 'node:fs'
 import path from 'node:path'
-import { AESCipher, CipherCatalog } from '../src'
+import { AesCipher, CipherCatalog } from '../src'
 
 function expectEqual(catalog1: CipherCatalog, catalog2: CipherCatalog): void {
   expect(desensitize((catalog1 as any).items)).toEqual(desensitize((catalog2 as any).items))
@@ -10,7 +10,7 @@ function expectEqual(catalog1: CipherCatalog, catalog2: CipherCatalog): void {
 
 describe('CipherCatalog', function () {
   const password = Buffer.from('@guanghechen/helper-cipher')
-  const cipher = new AESCipher()
+  const cipher = new AesCipher()
   cipher.initFromPassword(password)
 
   describe('preserve', function () {
@@ -23,14 +23,14 @@ describe('CipherCatalog', function () {
 
       const catalog2 = new CipherCatalog({
         cipher,
-        sourceRootDir: catalog1.sourceRootDir,
-        targetRootDir: catalog1.targetRootDir,
+        sourceRootDir: catalog1.pathResolver.sourceRootDir,
+        targetRootDir: catalog1.pathResolver.targetRootDir,
       })
 
       const catalogIndexFilepath = locateFixtures('catalog/catalog.load-or-save.txt')
 
       catalog1.cleanup()
-      const files = collectAllFilesSync(catalog1.sourceRootDir)
+      const files = collectAllFilesSync(catalog1.pathResolver.sourceRootDir)
       for (const file of files) expect(catalog1.isModified(file)).toEqual(true)
       for (const file of files) await catalog1.register(file)
 
@@ -58,16 +58,16 @@ describe('CipherCatalog', function () {
 
       catalog.cleanup()
 
-      const tmpSourceFilepath = path.join(catalog.sourceRootDir, 'xx-' + Math.random())
+      const tmpSourceFilepath = path.join(catalog.pathResolver.sourceRootDir, 'xx-' + Math.random())
       fs.writeFileSync(tmpSourceFilepath, 'ss')
 
-      expect(collectAllFilesSync(catalog.targetRootDir).length).toEqual(0)
-      const sourceFilepaths = collectAllFilesSync(catalog.sourceRootDir)
+      expect(collectAllFilesSync(catalog.pathResolver.targetRootDir).length).toEqual(0)
+      const sourceFilepaths = collectAllFilesSync(catalog.pathResolver.sourceRootDir)
       for (const file of sourceFilepaths) {
         await catalog.register(file)
       }
 
-      const targetFilepaths = collectAllFilesSync(catalog.targetRootDir)
+      const targetFilepaths = collectAllFilesSync(catalog.pathResolver.targetRootDir)
       expect(targetFilepaths.length).toEqual(3)
 
       expect(() => catalog.checkIntegrity()).not.toThrow()
@@ -87,9 +87,9 @@ describe('CipherCatalog', function () {
 
       for (const file of sourceFilepaths) await catalog.register(file)
       unlinkSync(tmpSourceFilepath)
-      expect(collectAllFilesSync(catalog.targetRootDir).length).toEqual(3)
+      expect(collectAllFilesSync(catalog.pathResolver.targetRootDir).length).toEqual(3)
       catalog.cleanup()
-      expect(collectAllFilesSync(catalog.targetRootDir).length).toEqual(2)
+      expect(collectAllFilesSync(catalog.pathResolver.targetRootDir).length).toEqual(2)
     })
 
     test('basic', async function () {
@@ -101,8 +101,8 @@ describe('CipherCatalog', function () {
 
       const catalog2 = new CipherCatalog({
         cipher,
-        sourceRootDir: catalog1.sourceRootDir,
-        targetRootDir: catalog1.targetRootDir,
+        sourceRootDir: catalog1.pathResolver.sourceRootDir,
+        targetRootDir: catalog1.pathResolver.targetRootDir,
       })
 
       const catalogIndexFilepath = locateFixtures('catalog/catalog.basic.txt')
@@ -115,7 +115,7 @@ describe('CipherCatalog', function () {
         fs.readFileSync(catalogIndexFilepath, catalog1.sourceEncoding),
       )
 
-      const files = collectAllFilesSync(catalog1.sourceRootDir)
+      const files = collectAllFilesSync(catalog1.pathResolver.sourceRootDir)
       for (const file of files) {
         await catalog2.register(file)
       }
@@ -135,7 +135,7 @@ describe('CipherCatalog', function () {
       })
 
       catalog.cleanup()
-      const sourceFiles = collectAllFilesSync(catalog.sourceRootDir).sort()
+      const sourceFiles = collectAllFilesSync(catalog.pathResolver.sourceRootDir).sort()
       for (const file of sourceFiles) {
         await catalog.register(file)
       }

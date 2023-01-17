@@ -141,10 +141,6 @@ export abstract class BaseCipher implements ICipher {
     decipher.destroy()
   }
 
-  protected abstract encipher(): Cipher
-
-  protected abstract decipher(): Cipher
-
   // @override
   public abstract createSecret(): Buffer
 
@@ -156,4 +152,8 @@ export abstract class BaseCipher implements ICipher {
 
   // @override
   public abstract cleanup(): void
+
+  protected abstract encipher(): Cipher
+
+  protected abstract decipher(): Cipher
 }

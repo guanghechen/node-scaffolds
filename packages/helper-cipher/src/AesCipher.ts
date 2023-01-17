@@ -6,7 +6,7 @@ import { BaseCipher } from './BaseCipher'
 import type { ICipher } from './types/cipher'
 import { createRandomIv, createRandomKey } from './util/key'
 
-export interface IAESCipherOptions {
+export interface IAesCipherOptions {
   /**
    *
    */
@@ -25,14 +25,14 @@ export interface IAESCipherOptions {
   key?: Buffer
 }
 
-export class AESCipher extends BaseCipher implements ICipher {
+export class AesCipher extends BaseCipher implements ICipher {
   protected readonly ivSize = 32
   protected readonly keySize = 32
   protected readonly algorithm: crypto.CipherGCMTypes
   protected iv: Buffer | null
   protected key: Buffer | null
 
-  constructor(options: IAESCipherOptions = {}) {
+  constructor(options: IAesCipherOptions = {}) {
     super(options.logger)
     this.algorithm = options.algorithm ?? 'aes-256-gcm'
     this.key = options.key || null
@@ -93,6 +93,13 @@ export class AESCipher extends BaseCipher implements ICipher {
     this.key = key
   }
 
+  public override cleanup(): void {
+    destroyBuffer(this.iv)
+    destroyBuffer(this.key)
+    this.iv = null
+    this.key = null
+  }
+
   protected override encipher(): crypto.Cipher {
     const { algorithm, key, iv } = this
     invariant(key != null && iv != null, 'NULL_POINTER_ERROR: iv / key is null')
@@ -107,12 +114,5 @@ export class AESCipher extends BaseCipher implements ICipher {
 
     const decipher = crypto.createCipheriv(algorithm, key, iv)
     return decipher
-  }
-
-  public override cleanup(): void {
-    destroyBuffer(this.iv)
-    destroyBuffer(this.key)
-    this.iv = null
-    this.key = null
   }
 }

@@ -1,4 +1,4 @@
-export * from './AESCipher'
+export * from './AesCipher'
 export * from './BaseCipher'
 export * from './CipherCatalog'
 export * from './CipherPathResolver'

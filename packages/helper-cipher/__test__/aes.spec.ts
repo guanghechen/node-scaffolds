@@ -2,12 +2,12 @@ import ChalkLogger from '@guanghechen/chalk-logger'
 import { BigFileHelper, calcFilePartItemsByCount } from '@guanghechen/helper-file'
 import { locateFixtures, unlinkSync } from 'jest.helper'
 import fs from 'node:fs'
-import { AESCipher, calcMac } from '../src'
+import { AesCipher, calcMac } from '../src'
 
-describe('AESCipher', function () {
+describe('AesCipher', function () {
   describe('init by secret', function () {
     const logger = new ChalkLogger({ flags: { colorful: false, date: false } })
-    const cipher = new AESCipher({ logger })
+    const cipher = new AesCipher({ logger })
 
     const fileHelper = new BigFileHelper()
     const sourceFilepath = locateFixtures('basic/big-file.md')
@@ -210,7 +210,7 @@ describe('AESCipher', function () {
 
   describe('init by password', function () {
     const logger = new ChalkLogger({ flags: { colorful: false, date: false } })
-    const cipher = new AESCipher({ logger })
+    const cipher = new AesCipher({ logger })
 
     const fileHelper = new BigFileHelper()
     const sourceFilepath = locateFixtures('basic/big-file.md')
