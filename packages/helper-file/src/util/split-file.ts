@@ -67,3 +67,34 @@ export function calcFilePartItemsByCount(filepath: string, _partTotal: number): 
   parts[parts.length - 1].end = totalSize
   return parts
 }
+
+/**
+ * Calculate names of parts of sourcefile respectively.
+ *
+ * @param parts
+ * @param partCodePrefix
+ * @returns
+ */
+export function calcFilePartNames(parts: IFilePartItem[], partCodePrefix: string): string[] {
+  if (parts.length === 0) return []
+  if (parts.length === 1) return ['']
+
+  // Part name (file name of part)
+  // get the max number of digits to generate for part number
+  // ex. if original file is split into 4 files, then it will be 1
+  // ex. if original file is split into 14 files, then it will be 2
+  // etc.
+  const maxPaddingCount = String(parts.length).length
+
+  const partNames = parts.map(part => {
+    // construct part number for current file part, e.g. (assume the partCodePrefix is ".ghc-part")
+    //
+    //    <file>.ghc-part01
+    //    ...
+    //    <file>.ghc-part14
+    const partCode = String(part.sid).padStart(maxPaddingCount, '0')
+    return partCodePrefix + partCode
+  })
+
+  return partNames
+}

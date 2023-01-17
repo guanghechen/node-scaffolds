@@ -2,6 +2,7 @@ import { consumeStream, consumeStreams } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
 import fs from 'node:fs'
 import type { IFilePartItem } from './types'
+import { calcFilePartNames } from './util/split-file'
 
 export interface IBigFileHelperOptions {
   /**
@@ -12,7 +13,6 @@ export interface IBigFileHelperOptions {
 
   /**
    * Buffer encoding.
-   * @default undefined
    */
   readonly encoding?: BufferEncoding
 }
@@ -39,23 +39,8 @@ export class BigFileHelper {
   public calcPartFilepaths(filepath: string, parts: IFilePartItem[]): string[] {
     if (parts.length <= 1) return [filepath]
 
-    // Part name (file name of part)
-    // get the max number of digits to generate for part number
-    // ex. if original file is split into 4 files, then it will be 1
-    // ex. if original file is split into 14 files, then it will be 2
-    // etc.
-    const maxPaddingCount = String(parts.length).length
-
-    const partFilepaths = parts.map(part => {
-      // construct part number for current file part
-      // <file>.sf-part01
-      // ...
-      // <file>.sf-part14
-      const partCode = String(part.sid).padStart(maxPaddingCount, '0')
-      return filepath + this.partSuffix + partCode
-    })
-
-    return partFilepaths
+    const partNames = calcFilePartNames(parts, this.partSuffix)
+    return partNames.map(partName => filepath + partName)
   }
 
   /**
