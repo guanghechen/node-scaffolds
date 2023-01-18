@@ -1,6 +1,6 @@
 import type { FileChangeType } from '../constant'
 
-export interface IFileCipherItem {
+export interface IFileCipherCatalogItem {
   /**
    * The path of the source file (relative path of the source root directory).
    *
@@ -27,19 +27,23 @@ export interface IFileCipherItem {
    * The size of the source file (in bytes).
    */
   size: number
+  /**
+   * Whether if keep plain.
+   */
+  keepPlain: boolean
 }
 
-export type IFileCipherItemDiff =
+export type IFileCipherCatalogItemDiff =
   | {
       changeType: FileChangeType.ADDED
-      newItem: Readonly<IFileCipherItem>
+      newItem: Readonly<IFileCipherCatalogItem>
     }
   | {
       changeType: FileChangeType.MODIFIED
-      oldItem: Readonly<IFileCipherItem>
-      newItem: Readonly<IFileCipherItem>
+      oldItem: Readonly<IFileCipherCatalogItem>
+      newItem: Readonly<IFileCipherCatalogItem>
     }
   | {
       changeType: FileChangeType.REMOVED
-      oldItem: Readonly<IFileCipherItem>
+      oldItem: Readonly<IFileCipherCatalogItem>
     }
