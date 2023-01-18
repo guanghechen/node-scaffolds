@@ -1,7 +1,7 @@
 import { destroyBuffer } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
-import crypto from 'crypto'
-import type { ICipher } from '../../types/cipher'
+import crypto from 'node:crypto'
+import type { ICipher } from '../../types/ICipher'
 import { BaseCipher } from '../BaseCipher'
 
 export interface IAesCipherProps {

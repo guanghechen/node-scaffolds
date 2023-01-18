@@ -1,6 +1,6 @@
 import { destroyBuffers } from '@guanghechen/helper-stream'
-import type { Cipher } from 'crypto'
-import type { ICipher } from '../types/cipher'
+import type { Cipher } from 'node:crypto'
+import type { ICipher } from '../types/ICipher'
 
 /**
  * ICipher base class.

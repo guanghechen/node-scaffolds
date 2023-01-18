@@ -1,4 +1,4 @@
-import type { ICipher } from './cipher'
+import type { ICipher } from './ICipher'
 
 export interface IFileCipher {
   readonly cipher: ICipher

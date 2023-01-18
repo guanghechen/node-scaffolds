@@ -1,6 +1,6 @@
 import { list2map } from '@guanghechen/helper-func'
 import { FileChangeType } from '../constant'
-import type { IFileCipherItem, IFileCipherItemDiff } from '../types/cipher-item'
+import type { IFileCipherItem, IFileCipherItemDiff } from '../types/IFileCipherItem'
 
 export const isSameFileCipherItem = (
   oldItem: Readonly<IFileCipherItem>,

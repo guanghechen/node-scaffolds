@@ -1,6 +1,7 @@
 import { destroyBuffer } from '@guanghechen/helper-stream'
-import type crypto from 'crypto'
-import type { ICipher, ICipherFactory } from '../../types/cipher'
+import type crypto from 'node:crypto'
+import type { ICipher } from '../../types/ICipher'
+import type { ICipherFactory } from '../../types/ICipherFactory'
 import { createRandomIv, createRandomKey } from '../../util/key'
 import { AesCipher } from './AesCipher'
 

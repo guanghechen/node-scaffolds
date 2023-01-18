@@ -1,12 +1,12 @@
 import type { Logger } from '@guanghechen/chalk-logger'
 import { mkdirsIfNotExists } from '@guanghechen/helper-path'
 import { consumeStream, consumeStreams, destroyBuffers } from '@guanghechen/helper-stream'
-import type { Cipher } from 'crypto'
+import type { Cipher } from 'node:crypto'
 import fs from 'node:fs'
-import type { ICipher } from '../types/cipher'
-import type { IFileCipher } from '../types/file-cipher'
+import type { ICipher } from '../types/ICipher'
+import type { IFileCipher } from '../types/IFileCipher'
 
-export interface IBaseCipherProps {
+interface IFileCipherProps {
   readonly cipher: ICipher
   readonly logger?: Logger
 }
@@ -18,7 +18,7 @@ export class FileCipher implements IFileCipher {
   public readonly cipher: ICipher
   protected readonly logger?: Logger
 
-  constructor(props: IBaseCipherProps) {
+  constructor(props: IFileCipherProps) {
     this.cipher = props.cipher
     this.logger = props.logger
   }

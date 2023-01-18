@@ -7,12 +7,12 @@ import {
 import { mkdirsIfNotExists } from '@guanghechen/helper-path'
 import { destroyBuffer } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
-import crypto from 'crypto'
+import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { CipherPathResolver } from './CipherPathResolver'
 import type { ICatalogIndex, ICatalogItem } from './types/catalog'
-import type { IFileCipher } from './types/file-cipher'
+import type { IFileCipher } from './types/IFileCipher'
 import { calcFingerprint, calcMacFromFile } from './util/mac'
 
 export interface ICipherCatalogOptions {

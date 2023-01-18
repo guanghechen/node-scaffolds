@@ -1,6 +1,6 @@
 import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-path'
 import { destroyBuffers } from '@guanghechen/helper-stream'
-import crypto from 'crypto'
+import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 
 /**
@@ -8,7 +8,7 @@ import fs from 'node:fs'
  * @param pieces
  */
 export function calcMac(...pieces: Array<Readonly<Buffer>>): Buffer {
-  const sha256 = crypto.createHash('sha256')
+  const sha256 = createHash('sha256')
   for (const piece of pieces) {
     sha256.update(piece as Buffer)
   }
