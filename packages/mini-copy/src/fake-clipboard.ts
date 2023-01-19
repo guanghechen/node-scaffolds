@@ -1,13 +1,13 @@
-import type { ChalkLogger } from '@guanghechen/chalk-logger'
 import { mkdirsIfNotExists, writeFile } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
+import type { ILogger } from '@guanghechen/utility-types'
 import { existsSync, statSync } from 'node:fs'
 import fs from 'node:fs/promises'
 
 export interface IFakeClipboardProps {
   filepath: string
   encoding?: BufferEncoding
-  logger?: ChalkLogger
+  logger?: ILogger
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -19,7 +19,7 @@ export interface IFakeClipboardWriteOptions {}
 export class FakeClipboard {
   public readonly filepath: string
   public readonly encoding: BufferEncoding
-  public readonly logger: ChalkLogger | null = null
+  public readonly logger: ILogger | null = null
   private isInitialized = false
 
   constructor(props: IFakeClipboardProps) {

@@ -1,5 +1,5 @@
-import type { Logger } from '@guanghechen/chalk-logger'
 import invariant from '@guanghechen/invariant'
+import type { ILogger } from '@guanghechen/utility-types'
 import type { WriteFileOptions } from 'node:fs'
 import { existsSync, mkdirSync, statSync } from 'node:fs'
 import fs from 'node:fs/promises'
@@ -13,7 +13,7 @@ import path from 'node:path'
 export async function emptyDir(
   dirpath: string,
   createIfNotExist = true,
-  logger?: Logger,
+  logger?: ILogger,
 ): Promise<void> {
   if (existsSync(dirpath)) {
     invariant(statSync(dirpath).isDirectory(), `[emptyDir] not a directory. (${dirpath})`)
@@ -53,7 +53,7 @@ export function ensureCriticalFilepathExistsSync(filepath: string | null): void 
  * @param filepath  the give file path
  * @param isDir     Whether the given path is a directory
  */
-export function mkdirsIfNotExists(filepath: string, isDir: boolean, logger?: Logger): void {
+export function mkdirsIfNotExists(filepath: string, isDir: boolean, logger?: ILogger): void {
   const dirpath = isDir ? filepath : path.dirname(filepath)
   if (existsSync(dirpath)) return
 

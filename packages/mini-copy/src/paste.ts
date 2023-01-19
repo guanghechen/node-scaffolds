@@ -1,4 +1,4 @@
-import type { ChalkLogger } from '@guanghechen/chalk-logger'
+import type { ILogger } from '@guanghechen/utility-types'
 import clipboardy from 'clipboardy'
 import { execa } from 'execa'
 import { DEFAULT_LINE_END } from './constant'
@@ -20,7 +20,7 @@ export interface IPasteOptions {
   /**
    * Logger.
    */
-  logger?: ChalkLogger
+  logger?: ILogger
   /**
    * System line-ending symbol.
    */

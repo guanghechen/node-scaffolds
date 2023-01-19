@@ -618,13 +618,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-cipher@workspace:packages/helper-cipher"
   dependencies:
-    "@guanghechen/chalk-logger": ^3.0.2
     "@guanghechen/helper-file": ^3.0.2
     "@guanghechen/helper-fs": ^3.0.2
     "@guanghechen/helper-func": ^3.0.2
     "@guanghechen/helper-path": ^3.0.2
     "@guanghechen/helper-stream": ^3.0.2
     "@guanghechen/invariant": ^3.0.2
+    "@guanghechen/utility-types": ^3.0.2
     cross-env: ^7.0.3
     jest: ^29.3.1
     rimraf: ^4.1.1
@@ -671,8 +671,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-fs@workspace:packages/helper-fs"
   dependencies:
-    "@guanghechen/chalk-logger": ^3.0.2
     "@guanghechen/invariant": ^3.0.2
+    "@guanghechen/utility-types": ^3.0.2
     cross-env: ^7.0.3
     jest: ^29.3.1
     rimraf: ^4.1.1
@@ -742,7 +742,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-path@workspace:packages/helper-path"
   dependencies:
-    "@guanghechen/chalk-logger": ^3.0.2
     cross-env: ^7.0.3
     jest: ^29.3.1
     rimraf: ^4.1.1
@@ -819,9 +818,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/mini-copy@workspace:packages/mini-copy"
   dependencies:
-    "@guanghechen/chalk-logger": ^3.0.2
     "@guanghechen/helper-fs": ^3.0.2
     "@guanghechen/invariant": ^3.0.2
+    "@guanghechen/utility-types": ^3.0.2
     clipboardy: ^3.0.0
     cross-env: ^7.0.3
     execa: ^6.1.0

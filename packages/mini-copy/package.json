@@ -40,9 +40,9 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@guanghechen/chalk-logger": "^3.0.2",
     "@guanghechen/helper-fs": "^3.0.2",
     "@guanghechen/invariant": "^3.0.2",
+    "@guanghechen/utility-types": "^3.0.2",
     "clipboardy": "^3.0.0",
     "execa": "^6.1.0"
   },

@@ -1,5 +1,5 @@
 import { isFunction } from '@guanghechen/helper-is'
-import type { Mutable } from '@guanghechen/utility-types'
+import type { ILogger, Mutable } from '@guanghechen/utility-types'
 import type { ChalkInstance } from 'chalk'
 import chalk from 'chalk'
 import dayjs from 'dayjs'
@@ -28,7 +28,7 @@ export interface ILoggerOptions {
   write?(text: string): void
 }
 
-export class Logger {
+export class Logger implements ILogger {
   public readonly name: string
   public readonly mode: 'normal' | 'loose' = 'normal'
   public readonly level: Level
