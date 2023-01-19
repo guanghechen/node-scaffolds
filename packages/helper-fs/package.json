@@ -1,7 +1,7 @@
 {
-  "name": "@guanghechen/helper-path",
+  "name": "@guanghechen/helper-fs",
   "version": "3.0.2",
-  "description": "Utilities to handle url path and file path.",
+  "description": "Provide some enhanced methods base on `node:fs`.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x",
-    "directory": "packages/helper-path"
+    "directory": "packages/helper-fs"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-path#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-fs#readme",
   "keywords": [
     "url path",
     "file path"
@@ -41,6 +41,9 @@
     "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
     "prepublishOnly": "yarn build",
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
+  },
+  "dependencies": {
+    "@guanghechen/invariant": "^3.0.2"
   },
   "devDependencies": {
     "@guanghechen/chalk-logger": "^3.0.2",

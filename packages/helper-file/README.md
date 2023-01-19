@@ -91,8 +91,7 @@ Name                                | Description
 `bigFileHelper`                     | Default instance of `BigFleHelper`
 `calcFilePartItemsBySize`           | Generate file part items by part size
 `calcFilePartItemsByCount`          | Generate file part items by total of parts
-`collectAllFiles`                   | Collect all files under the given directory
-`collectAllFilesSync`               | Collect all files under the given directory (synchronizing)
+`calcFilePartNames`                 | Generate file part names (suffix)
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-file#readme

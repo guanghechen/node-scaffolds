@@ -12,12 +12,22 @@ describe('calcFilePartItemsByCount', function () {
     const filepath = locateFixtures('a.md')
     expect(calcFilePartItemsByCount(filepath, 4)).toMatchSnapshot()
   })
+
+  test('empty file', function () {
+    const filepath = locateFixtures('b.md')
+    expect(calcFilePartItemsByCount(filepath, 1024)).toEqual([{ sid: 1, start: 0, end: 0 }])
+  })
 })
 
 describe('calcFilePartItemsBySize', function () {
   test('basic', function () {
     const filepath = locateFixtures('a.md')
     expect(calcFilePartItemsBySize(filepath, 1024)).toMatchSnapshot()
+  })
+
+  test('empty file', function () {
+    const filepath = locateFixtures('b.md')
+    expect(calcFilePartItemsBySize(filepath, 1024)).toEqual([{ sid: 1, start: 0, end: 0 }])
   })
 })
 

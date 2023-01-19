@@ -1,12 +1,12 @@
 import { desensitize, locateFixtures } from 'jest.helper'
 import { collectAllFiles, collectAllFilesSync } from '../src'
 
-describe('collectAllFiles', function () {
-  test('default predicate', async function () {
+describe('collectAllFiles', () => {
+  test('default predicate', async () => {
     expect(desensitize(await collectAllFiles(locateFixtures('basic')))).toMatchSnapshot()
   })
 
-  test('yaml file only', async function () {
+  test('yaml file only', async () => {
     expect(
       desensitize(await collectAllFiles(locateFixtures('basic'), p => /\.(?:yml|yaml)$/.test(p))),
     ).toMatchSnapshot()
@@ -20,23 +20,23 @@ describe('collectAllFiles', function () {
     ).toMatchSnapshot()
   })
 
-  test('collect start from file', async function () {
+  test('collect start from file', async () => {
     expect(desensitize(await collectAllFiles(locateFixtures('basic/config.yml')))).toMatchSnapshot()
   })
 })
 
-describe('collectAllFilesSync', function () {
-  test('default predicate', function () {
+describe('collectAllFilesSync', () => {
+  test('default predicate', () => {
     expect(desensitize(collectAllFilesSync(locateFixtures('basic')))).toMatchSnapshot()
   })
 
-  test('yaml file only', function () {
+  test('yaml file only', () => {
     expect(
       desensitize(collectAllFilesSync(locateFixtures('basic'), p => /\.(?:yml|yaml)$/.test(p))),
     ).toMatchSnapshot()
   })
 
-  test('collect start from file', function () {
+  test('collect start from file', () => {
     expect(desensitize(collectAllFilesSync(locateFixtures('basic/config.yml')))).toMatchSnapshot()
   })
 })

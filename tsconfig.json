@@ -10,6 +10,7 @@
       "@guanghechen/helper-cipher": ["packages/helper-cipher/src"],
       "@guanghechen/helper-commander": ["packages/helper-commander/src"],
       "@guanghechen/helper-file": ["packages/helper-file/src"],
+      "@guanghechen/helper-fs": ["packages/helper-fs/src"],
       "@guanghechen/helper-func": ["packages/helper-func/src"],
       "@guanghechen/helper-is": ["packages/helper-is/src"],
       "@guanghechen/helper-jest": ["packages/helper-jest/src"],

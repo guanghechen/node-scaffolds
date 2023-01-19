@@ -1,4 +1,6 @@
-import fs from 'node:fs'
+import type { Stats } from 'node:fs'
+import { readdirSync, statSync } from 'node:fs'
+import fs from 'node:fs/promises'
 import path from 'node:path'
 
 /**
@@ -9,16 +11,16 @@ import path from 'node:path'
  */
 export async function collectAllFiles(
   dir: string,
-  predicate?: ((p: string, stat: fs.Stats) => Promise<boolean> | boolean) | null,
+  predicate?: ((p: string, stat: Stats) => Promise<boolean> | boolean) | null,
 ): Promise<string[]> {
   const results: string[] = []
   await collect(dir)
   return results
 
   async function collect(filepath: string): Promise<void> {
-    const stat = fs.statSync(filepath)
+    const stat = statSync(filepath)
     if (stat.isDirectory()) {
-      const filenames = fs.readdirSync(filepath)
+      const filenames = await fs.readdir(filepath)
       for (const filename of filenames) {
         const nextFilepath = path.join(filepath, filename)
         await collect(nextFilepath)
@@ -42,16 +44,16 @@ export async function collectAllFiles(
  */
 export function collectAllFilesSync(
   dir: string,
-  predicate?: ((p: string, stat: fs.Stats) => boolean) | null,
+  predicate?: ((p: string, stat: Stats) => boolean) | null,
 ): string[] {
   const results: string[] = []
   collect(dir)
   return results
 
   function collect(filepath: string): void {
-    const stat = fs.statSync(filepath)
+    const stat = statSync(filepath)
     if (stat.isDirectory()) {
-      const filenames = fs.readdirSync(filepath)
+      const filenames = readdirSync(filepath)
       for (const filename of filenames) {
         const nextFilepath = path.join(filepath, filename)
         collect(nextFilepath)

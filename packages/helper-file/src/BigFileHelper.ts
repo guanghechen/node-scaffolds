@@ -2,7 +2,7 @@ import { consumeStream, consumeStreams } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
 import fs from 'node:fs'
 import type { IFilePartItem } from './types'
-import { calcFilePartNames } from './util/split-file'
+import { calcFilePartNames } from './util'
 
 export interface IBigFileHelperOptions {
   /**

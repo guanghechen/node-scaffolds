@@ -1,6 +1,6 @@
 import invariant from '@guanghechen/invariant'
 import fs from 'node:fs'
-import type { IFilePartItem } from '../types'
+import type { IFilePartItem } from './types'
 
 /**
  * Generate file part items by part size.
@@ -16,7 +16,7 @@ export function calcFilePartItemsBySize(filepath: string, _partSize: number): IF
   invariant(stat.isFile(), `'${filepath}' is not a file!`)
 
   const totalSize = stat.size
-  if (totalSize <= 0) return []
+  if (totalSize <= 0) return [{ sid: 1, start: 0, end: 0 }]
 
   const partSize = Math.round(_partSize)
   const partTotal = Math.ceil(totalSize / partSize)
@@ -50,7 +50,7 @@ export function calcFilePartItemsByCount(filepath: string, _partTotal: number): 
   invariant(stat.isFile(), `'${filepath}' is not a file!`)
 
   const totalSize = stat.size
-  if (totalSize <= 0) return []
+  if (totalSize <= 0) return [{ sid: 1, start: 0, end: 0 }]
 
   const partTotal = Math.round(_partTotal)
   const partSize = Math.ceil(totalSize / partTotal)
