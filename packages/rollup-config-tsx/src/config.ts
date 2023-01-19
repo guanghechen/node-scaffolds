@@ -20,9 +20,7 @@ export function createPreprocessorConfig(
 ): RollupOptions {
   const {
     input,
-    output = {
-      dir: 'node_modules/.cache/.rollup.preprocess.dts',
-    },
+    output = { dir: 'node_modules/.cache/.rollup.preprocess.dts' },
     pluginOptions = {},
   } = options
 

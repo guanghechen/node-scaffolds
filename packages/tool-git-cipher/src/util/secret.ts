@@ -1,9 +1,11 @@
 import type { ICipher, ICipherFactory } from '@guanghechen/helper-cipher'
 import { calcMac } from '@guanghechen/helper-cipher'
+import { writeFile } from '@guanghechen/helper-fs'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { coverBoolean, coverNumber, coverString } from '@guanghechen/helper-option'
 import { destroyBuffer } from '@guanghechen/helper-stream'
-import fs from 'fs-extra'
+import { existsSync } from 'node:fs'
+import fs from 'node:fs/promises'
 import { logger } from '../env/logger'
 import { ErrorCode, EventTypes, eventBus } from './events'
 import * as io from './io'
@@ -90,7 +92,7 @@ export class SecretMaster {
    * @param secretFilepath absolute filepath of secret file
    */
   public async load(secretFilepath: string): Promise<void> {
-    if (!fs.existsSync(secretFilepath)) {
+    if (!existsSync(secretFilepath)) {
       throw {
         code: ErrorCode.FILEPATH_NOT_FOUND,
         message: `cannot find secret file (${secretFilepath})`,
@@ -156,7 +158,7 @@ export class SecretMaster {
       _encryptedSecret.toString(secretContentEncoding) +
       '.' +
       _encryptedSecretMac.toString(secretContentEncoding)
-    await fs.writeFile(secretFilepath, secretContent, secretFileEncoding)
+    await writeFile(secretFilepath, secretContent, secretFileEncoding)
   }
 
   /**

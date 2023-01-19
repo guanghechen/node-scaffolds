@@ -66,12 +66,12 @@ export function normalizeTarget(
       ...config.globbyOptions,
       ...target.globbyOptions,
     },
-    fsExtraOptions: {
+    fsOptions: {
       copy: {
-        ...config.fsExtraOptions.copy,
-        ...target.fsExtraOptions?.copy,
+        ...config.fsOptions.copy,
+        ...target.fsOptions?.copy,
       },
-      outputFile: target.fsExtraOptions?.outputFile ?? config.fsExtraOptions?.outputFile,
+      writeFile: target.fsOptions?.writeFile ?? config.fsOptions?.writeFile,
     },
   }
   return configTarget
@@ -92,7 +92,7 @@ export function normalizeOptions(options: IOptions): IConfig {
     hook = 'buildEnd',
     watchHook = 'buildStart',
     globbyOptions = {},
-    fsExtraOptions = {},
+    fsOptions = {},
   } = options
 
   const config: IConfig = {
@@ -103,9 +103,9 @@ export function normalizeOptions(options: IOptions): IConfig {
     hook,
     watchHook,
     globbyOptions: globbyOptions,
-    fsExtraOptions: {
-      copy: fsExtraOptions.copy ?? {},
-      outputFile: fsExtraOptions.outputFile,
+    fsOptions: {
+      copy: fsOptions.copy ?? {},
+      writeFile: fsOptions.writeFile,
     },
   }
   config.targets = targets ? targets.map(target => normalizeTarget(config, target)) : []

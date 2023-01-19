@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+import fs from 'node:fs/promises'
 import path from 'node:path'
 import url from 'node:url'
 import { rollup } from 'rollup'
@@ -45,7 +45,7 @@ async function build(dependencies: string[]): Promise<RollupOutput[]> {
 }
 
 afterEach(async () => {
-  await fs.remove('lib')
+  await fs.rm('lib', { recursive: true, force: true })
   process.chdir(__dirname)
 })
 
@@ -53,14 +53,12 @@ describe('build', () => {
   test('simple', async () => {
     const caseDir = resolveCaseDir('simple')
     process.chdir(caseDir)
-    const results = await build(['fs-extra', '@guanghechen/rollup-config'])
+    const results = await build(['@guanghechen/rollup-config'])
     for (const result of results) {
       const { format, ...output } = result as any
       const data = output.code != null ? output.code : output
       expect(data).toMatchSnapshot(`rollup ${format}`)
     }
-    // expect(
-    //   fs.existsSync(path.join(caseDir, 'lib/types/index.d.ts')),
-    // ).toBeTruthy()
+    // expect(existsSync(path.join(caseDir, 'lib/types/index.d.ts'))).toBeTruthy()
   }, 60000)
 })

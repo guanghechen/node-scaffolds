@@ -1,12 +1,9 @@
 import type { ICipher } from '@guanghechen/helper-cipher'
 import { AesCipherFactory, CipherCatalog, FileCipher } from '@guanghechen/helper-cipher'
 import { createInitialCommit, installDependencies } from '@guanghechen/helper-commander'
+import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import { isNonBlankString } from '@guanghechen/helper-is'
-import {
-  absoluteOfWorkspace,
-  mkdirsIfNotExists,
-  relativeOfWorkspace,
-} from '@guanghechen/helper-path'
+import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
 import { runPlop } from '@guanghechen/helper-plop'
 import { toLowerCase } from '@guanghechen/helper-string'
 import invariant from '@guanghechen/invariant'

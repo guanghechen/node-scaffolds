@@ -1,5 +1,5 @@
-import type { CopyOptions, WriteFileOptions } from 'fs-extra'
 import type { Options as GlobbyOptions } from 'globby'
+import type { CopyOptions, WriteFileOptions } from 'node:fs'
 import type { IOptionRename, IOptionTransform } from './option'
 
 export interface IConfig {
@@ -37,11 +37,11 @@ export interface IConfig {
    */
   globbyOptions: GlobbyOptions
   /**
-   * Default options of 'fs-extra'.
+   * Default options of 'fs'.
    */
-  fsExtraOptions: {
+  fsOptions: {
     copy: CopyOptions
-    outputFile?: WriteFileOptions
+    writeFile?: WriteFileOptions
   }
 }
 
@@ -83,11 +83,11 @@ export interface IConfigTarget {
    */
   globbyOptions: GlobbyOptions
   /**
-   * Default options of 'fs-extra'.
+   * Default options of 'node:fs'.
    */
-  fsExtraOptions: {
+  fsOptions: {
     copy: CopyOptions
-    outputFile?: WriteFileOptions
+    writeFile?: WriteFileOptions
   }
 }
 

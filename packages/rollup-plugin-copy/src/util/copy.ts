@@ -1,5 +1,6 @@
+import { writeFile } from '@guanghechen/helper-fs'
 import chalk from 'chalk'
-import fs from 'fs-extra'
+import fs from 'node:fs/promises'
 import type { ICopyTargetItem } from '../types'
 import { logger } from './logger'
 import { relativePath } from './path'
@@ -16,7 +17,7 @@ export async function copySingleItem(workspace: string, item: ICopyTargetItem): 
     try {
       const rawContents = await fs.readFile(srcPath)
       const contents = await target.transform(rawContents, srcPath, destPath)
-      await fs.outputFile(destPath, contents, target.fsExtraOptions.outputFile)
+      await writeFile(destPath, contents, target.fsOptions.writeFile)
     } catch (error) {
       console.error(error)
       enqueue(item)
@@ -24,7 +25,10 @@ export async function copySingleItem(workspace: string, item: ICopyTargetItem): 
       return
     }
   } else {
-    await fs.copy(srcPath, destPath, target.fsExtraOptions.copy)
+    await fs.cp(srcPath, destPath, {
+      recursive: true,
+      ...target.fsOptions.copy,
+    })
   }
 
   logger.verbose(() => {

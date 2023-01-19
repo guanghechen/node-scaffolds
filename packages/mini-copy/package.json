@@ -41,10 +41,10 @@
   },
   "dependencies": {
     "@guanghechen/chalk-logger": "^3.0.2",
+    "@guanghechen/helper-fs": "^3.0.2",
     "@guanghechen/invariant": "^3.0.2",
     "clipboardy": "^3.0.0",
-    "execa": "^6.1.0",
-    "fs-extra": "^11.1.0"
+    "execa": "^6.1.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

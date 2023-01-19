@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`build simple: rollup cjs 1`] = `
+exports[`build modules: rollup cjs 1`] = `
 "'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -30,7 +30,7 @@ exports.default = index;
 "
 `;
 
-exports[`build simple: rollup cjs 2`] = `
+exports[`build modules: rollup cjs 2`] = `
 {
   "fileName": "index.css",
   "name": undefined,
@@ -75,7 +75,7 @@ exports[`build simple: rollup cjs 2`] = `
 }
 `;
 
-exports[`build simple: rollup es 1`] = `
+exports[`build modules: rollup es 1`] = `
 "import React from 'react';
 
 /**
@@ -92,7 +92,7 @@ export { Greet, GreetProps, _default as default };
 "
 `;
 
-exports[`build simple: rollup esm 1`] = `
+exports[`build modules: rollup esm 1`] = `
 "import React from 'react';
 import cn from 'clsx';
 
@@ -117,7 +117,7 @@ export { Greet, index as default };
 "
 `;
 
-exports[`build simple: rollup esm 2`] = `
+exports[`build modules: rollup esm 2`] = `
 {
   "fileName": "index.css",
   "name": undefined,
@@ -162,7 +162,7 @@ exports[`build simple: rollup esm 2`] = `
 }
 `;
 
-exports[`build simple: rollup undefined 1`] = `
+exports[`build modules: rollup undefined 1`] = `
 "function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;

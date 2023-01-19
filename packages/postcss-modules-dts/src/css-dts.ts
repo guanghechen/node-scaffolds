@@ -1,5 +1,5 @@
+import { writeFile } from '@guanghechen/helper-fs'
 import { coverBoolean, coverString } from '@guanghechen/helper-option'
-import fs from 'fs-extra'
 import reservedWords from 'reserved-words'
 import type { ICssDtsProcessorProps, IGetCSSTokenHook } from './types'
 
@@ -34,9 +34,11 @@ export class CSSDtsProcessor implements IGetCSSTokenHook {
 
     const classNames: string[] = Object.keys(json)
     const dtsContent: string = this.calcDts(classNames)
-    await this.writeFile(cssPath, dtsContent)
+
+    // Generate *.d.ts
+    await writeFile(cssPath + '.d.ts', dtsContent)
     if (this.dtsForCompiledCss) {
-      await this.writeFile(outputFilePath, dtsContent)
+      await writeFile(outputFilePath + '.d.ts', dtsContent, { encoding: this.encoding })
     }
   }
 
@@ -58,17 +60,5 @@ export class CSSDtsProcessor implements IGetCSSTokenHook {
       .concat('\n}\n\n\n')
       .concat(`declare const ${uniqueName}: Stylesheet${semicolon}\n`)
       .concat(`export default ${uniqueName}${semicolon}\n`)
-  }
-
-  /**
-   * create .d.ts
-   * @param cssPath
-   * @param classNames
-   * @returns filePath of .d.ts created
-   */
-  protected async writeFile(cssPath: string, dtsContent: string): Promise<string> {
-    const dtsFilePath: string = cssPath + '.d.ts'
-    await fs.writeFile(dtsFilePath, dtsContent, { encoding: this.encoding })
-    return dtsFilePath
   }
 }

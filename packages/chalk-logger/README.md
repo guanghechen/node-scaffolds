@@ -282,7 +282,7 @@ loggerMock.restore()
   // demo/demo4.ts
   import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
   import chalk from 'chalk'
-  import fs from 'fs-extra'
+  import fs from 'node:fs'
   import path from 'node:path'
 
   const logFilepath = path.resolve(__dirname, 'orz.log')

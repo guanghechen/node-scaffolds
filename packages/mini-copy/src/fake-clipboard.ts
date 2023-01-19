@@ -1,7 +1,8 @@
 import type { ChalkLogger } from '@guanghechen/chalk-logger'
+import { mkdirsIfNotExists, writeFile } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
-import fs from 'fs-extra'
-import path from 'node:path'
+import { existsSync, statSync } from 'node:fs'
+import fs from 'node:fs/promises'
 
 export interface IFakeClipboardProps {
   filepath: string
@@ -35,20 +36,20 @@ export class FakeClipboard {
 
   public async write(content: string, _options: IFakeClipboardWriteOptions = {}): Promise<void> {
     await this.init()
-    await fs.writeFile(this.filepath!, content, this.encoding)
+    invariant(this.filepath != null, '[FakeClipboard.write] filepath is null/undefined.')
+    await writeFile(this.filepath, content, this.encoding)
   }
 
   protected async init(): Promise<void> {
     if (this.isInitialized) return
 
     const { filepath, logger } = this
-    if (fs.existsSync(filepath)) {
-      invariant(fs.statSync(filepath).isFile(), () => `[FakeClipboard] ${filepath} is not a file`)
+    if (existsSync(filepath)) {
+      invariant(statSync(filepath).isFile(), () => `[FakeClipboard] ${filepath} is not a file`)
       return
     }
-    const dirpath = path.dirname(filepath)
     logger?.verbose(`[FakeClipboard] init fake-clipboard (${filepath}).`)
-    fs.mkdirpSync(dirpath)
+    mkdirsIfNotExists(filepath, false)
     await fs.writeFile(filepath, '', this.encoding)
 
     this.isInitialized = true

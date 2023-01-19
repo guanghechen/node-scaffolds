@@ -1,10 +1,11 @@
 import type { Logger } from '@guanghechen/chalk-logger'
 import type { BigFileHelper, IFilePartItem } from '@guanghechen/helper-file'
 import { calcFilePartItemsBySize } from '@guanghechen/helper-file'
+import { isFileSync, mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import { list2map } from '@guanghechen/helper-func'
-import { isFileSync, mkdirsIfNotExists } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
-import { existsSync, promises as fs } from 'node:fs'
+import { existsSync } from 'node:fs'
+import fs from 'node:fs/promises'
 import type { CipherPathResolver } from './CipherPathResolver'
 import { FileChangeType } from './constant'
 import type { IFileCipher } from './types/IFileCipher'
@@ -51,20 +52,21 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     const { fileCipher, fileHelper, pathResolver, maxTargetFileSize, _itemMap } = this
 
     const add = async (item: IFileCipherCatalogItem, changeType: FileChangeType): Promise<void> => {
-      const { sourceFilepath, targetFilepath, fingerprint, size, keepPlain } = item
+      const { sourceFilepath, encryptedFilepath, fingerprint, size, keepPlain } = item
       const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(sourceFilepath)
       invariant(
         isFileSync(absoluteSourceFilepath),
         `[encryptDiff] Bad diff item (${changeType}), source file does not exist or it is not a file. (${sourceFilepath})`,
       )
 
-      const absoluteTargetFilepath = pathResolver.calcAbsoluteTargetFilepath(targetFilepath)
-      mkdirsIfNotExists(absoluteTargetFilepath, false, this.logger)
+      const absoluteEncryptedFilepath =
+        pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
+      mkdirsIfNotExists(absoluteEncryptedFilepath, false, this.logger)
 
       if (keepPlain) {
-        await fs.copyFile(absoluteSourceFilepath, absoluteTargetFilepath)
+        await fs.copyFile(absoluteSourceFilepath, absoluteEncryptedFilepath)
       } else {
-        await fileCipher.encryptFile(absoluteSourceFilepath, absoluteTargetFilepath)
+        await fileCipher.encryptFile(absoluteSourceFilepath, absoluteEncryptedFilepath)
       }
 
       let targetParts: string[] = []
@@ -72,21 +74,21 @@ export class FileCipherCatalog implements IFileCipherCatalog {
       // Split target file.
       {
         const parts: IFilePartItem[] = calcFilePartItemsBySize(
-          absoluteTargetFilepath,
+          absoluteEncryptedFilepath,
           maxTargetFileSize,
         )
         if (parts.length > 1) {
-          const partFilepaths: string[] = await fileHelper.split(absoluteTargetFilepath, parts)
-          targetParts = partFilepaths.map(p => pathResolver.calcRelativeTargetFilepath(p))
+          const partFilepaths: string[] = await fileHelper.split(absoluteEncryptedFilepath, parts)
+          targetParts = partFilepaths.map(p => pathResolver.calcRelativeEncryptedFilepath(p))
 
           // Remove the original big target file.
-          await fs.unlink(absoluteTargetFilepath)
+          await fs.unlink(absoluteEncryptedFilepath)
         }
       }
 
       _itemMap.set(sourceFilepath, {
         sourceFilepath,
-        targetFilepath,
+        encryptedFilepath,
         targetParts,
         fingerprint,
         size,
@@ -99,20 +101,22 @@ export class FileCipherCatalog implements IFileCipherCatalog {
       changeType: FileChangeType,
     ): Promise<void> => {
       const { sourceFilepath } = item
-      const targetFilepaths = this._collectTargetFilepaths(item)
+      const encryptedFilepaths = this._collectEncryptedFilepaths(item)
 
       // pre-check
-      for (const targetFilepath of targetFilepaths) {
-        const absoluteTargetFilepath = this.pathResolver.calcAbsoluteTargetFilepath(targetFilepath)
+      for (const encryptedFilepath of encryptedFilepaths) {
+        const absoluteEncryptedFilepath =
+          this.pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
         invariant(
-          isFileSync(absoluteTargetFilepath),
-          `[encryptDiff] Bad diff item (${changeType}), target file does not exist or it is not a file. (${targetFilepath})`,
+          isFileSync(absoluteEncryptedFilepath),
+          `[encryptDiff] Bad diff item (${changeType}), encrypted file does not exist or it is not a file. (${encryptedFilepath})`,
         )
       }
 
-      for (const targetFilepath of targetFilepaths) {
-        const absoluteTargetFilepath = this.pathResolver.calcAbsoluteTargetFilepath(targetFilepath)
-        await fs.unlink(absoluteTargetFilepath)
+      for (const encryptedFilepath of encryptedFilepaths) {
+        const absoluteEncryptedFilepath =
+          this.pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
+        await fs.unlink(absoluteEncryptedFilepath)
       }
       _itemMap.delete(sourceFilepath)
     }
@@ -121,11 +125,12 @@ export class FileCipherCatalog implements IFileCipherCatalog {
       const { changeType } = diffItem
       switch (changeType) {
         case FileChangeType.ADDED: {
-          const { targetFilepath } = diffItem.newItem
-          const absoluteTargetFilepath = pathResolver.calcAbsoluteTargetFilepath(targetFilepath)
+          const { encryptedFilepath } = diffItem.newItem
+          const absoluteEncryptedFilepath =
+            pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
           invariant(
-            !existsSync(absoluteTargetFilepath),
-            `[encryptDiff] Bad diff item (${changeType}), target file already exists. (${targetFilepath})`,
+            !existsSync(absoluteEncryptedFilepath),
+            `[encryptDiff] Bad diff item (${changeType}), encrypted file already exists. (${encryptedFilepath})`,
           )
 
           await add(diffItem.newItem, changeType)
@@ -155,17 +160,18 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     const { fileCipher, fileHelper, pathResolver, _itemMap } = this
 
     const add = async (item: IFileCipherCatalogItem, changeType: FileChangeType): Promise<void> => {
-      const targetFilepaths = this._collectTargetFilepaths(item)
-      const absoluteTargetFilepaths: string[] = []
+      const encryptedFilepaths = this._collectEncryptedFilepaths(item)
+      const absoluteEncryptedFilepaths: string[] = []
 
       // pre-check
-      for (const targetFilepath of targetFilepaths) {
-        const absoluteTargetFilepath = pathResolver.calcAbsoluteTargetFilepath(targetFilepath)
-        absoluteTargetFilepaths.push(absoluteTargetFilepath)
+      for (const encryptedFilepath of encryptedFilepaths) {
+        const absoluteEncryptedFilepath =
+          pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
+        absoluteEncryptedFilepaths.push(absoluteEncryptedFilepath)
 
         invariant(
-          isFileSync(absoluteTargetFilepath),
-          `[decryptDiff] Bad diff item (${changeType}), target file does not exist or it is not a file. (${targetFilepath})`,
+          isFileSync(absoluteEncryptedFilepath),
+          `[decryptDiff] Bad diff item (${changeType}), encrypted file does not exist or it is not a file. (${encryptedFilepath})`,
         )
       }
 
@@ -173,14 +179,14 @@ export class FileCipherCatalog implements IFileCipherCatalog {
       mkdirsIfNotExists(absoluteSourceFilepath, false, this.logger)
 
       if (item.keepPlain) {
-        await fileHelper.merge(absoluteTargetFilepaths, absoluteSourceFilepath)
+        await fileHelper.merge(absoluteEncryptedFilepaths, absoluteSourceFilepath)
       } else {
-        await fileCipher.decryptFiles(absoluteTargetFilepaths, absoluteSourceFilepath)
+        await fileCipher.decryptFiles(absoluteEncryptedFilepaths, absoluteSourceFilepath)
       }
 
       _itemMap.set(item.sourceFilepath, {
         sourceFilepath: item.sourceFilepath,
-        targetFilepath: item.targetFilepath,
+        encryptedFilepath: item.encryptedFilepath,
         targetParts: item.targetParts,
         fingerprint: item.fingerprint,
         size: item.size,
@@ -227,12 +233,13 @@ export class FileCipherCatalog implements IFileCipherCatalog {
           break
         }
         case FileChangeType.REMOVED: {
-          const targetFilepaths = this._collectTargetFilepaths(diffItem.oldItem)
-          for (const targetFilepath of targetFilepaths) {
-            const absoluteTargetFilepath = pathResolver.calcAbsoluteTargetFilepath(targetFilepath)
+          const encryptedFilepaths = this._collectEncryptedFilepaths(diffItem.oldItem)
+          for (const encryptedFilepath of encryptedFilepaths) {
+            const absoluteEncryptedFilepath =
+              pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
             invariant(
-              !existsSync(absoluteTargetFilepath),
-              `[decryptDiff] Bad diff item (REMOVED), target file should not exist. (${targetFilepath})`,
+              !existsSync(absoluteEncryptedFilepath),
+              `[decryptDiff] Bad diff item (REMOVED), encrypted file should not exist. (${encryptedFilepath})`,
             )
           }
 
@@ -243,7 +250,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     }
   }
 
-  protected _collectTargetFilepaths(item: Readonly<IFileCipherCatalogItem>): string[] {
-    return item.targetParts.length > 1 ? item.targetParts : [item.targetFilepath]
+  protected _collectEncryptedFilepaths(item: Readonly<IFileCipherCatalogItem>): string[] {
+    return item.targetParts.length > 1 ? item.targetParts : [item.encryptedFilepath]
   }
 }

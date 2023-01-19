@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@guanghechen/chalk-logger": "^3.0.2",
+    "@guanghechen/helper-fs": "^3.0.2",
     "@guanghechen/helper-is": "^3.0.2",
     "@guanghechen/helper-option": "^3.0.2",
     "@guanghechen/helper-path": "^3.0.2",

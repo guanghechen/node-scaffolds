@@ -1,10 +1,6 @@
 import type { IFilePartItem } from '@guanghechen/helper-file'
-import {
-  BigFileHelper,
-  calcFilePartItemsBySize,
-  collectAllFilesSync,
-} from '@guanghechen/helper-file'
-import { mkdirsIfNotExists } from '@guanghechen/helper-path'
+import { BigFileHelper, calcFilePartItemsBySize } from '@guanghechen/helper-file'
+import { collectAllFilesSync, mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import { destroyBuffer } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
 import crypto from 'node:crypto'
@@ -79,7 +75,7 @@ export class CipherCatalog {
       `[FILEPATH_NOT_FOUND] cannot find sourceRootDir: ${sourceRootDir}`,
     )
 
-    this.pathResolver = new CipherPathResolver({ sourceRootDir, targetRootDir })
+    this.pathResolver = new CipherPathResolver({ sourceRootDir, encryptedRootDir: targetRootDir })
     this.fileCipher = options.fileCipher
     this.fileHelper = new BigFileHelper({ encoding: undefined })
     this.sourceEncoding = sourceEncoding
@@ -212,9 +208,9 @@ export class CipherCatalog {
     }
 
     // Clean up unregistered target.
-    const targetFiles = collectAllFilesSync(pathResolver.targetRootDir)
+    const targetFiles = collectAllFilesSync(pathResolver.encryptedRootDir)
     for (const absoluteTargetFilepath of targetFiles) {
-      const part = pathResolver.calcRelativeTargetFilepath(absoluteTargetFilepath)
+      const part = pathResolver.calcRelativeEncryptedFilepath(absoluteTargetFilepath)
       if (tps.has(part)) continue
       fs.unlinkSync(absoluteTargetFilepath)
     }
@@ -237,12 +233,12 @@ export class CipherCatalog {
     const { pathResolver } = this
     for (const item of this.items) {
       for (const part of item.targetParts) {
-        const filepath = pathResolver.calcAbsoluteTargetFilepath(part)
+        const filepath = pathResolver.calcAbsoluteEncryptedFilepath(part)
         invariant(fs.existsSync(filepath), `[INTEGRITY DAMAGE] cannot found ${filepath}`)
       }
     }
 
-    const allTargetFiles = collectAllFilesSync(pathResolver.targetRootDir)
+    const allTargetFiles = collectAllFilesSync(pathResolver.encryptedRootDir)
     invariant(
       allTargetFiles.length === this.targetPartPathSet.size,
       `[INTEGRITY DAMAGE] there are ${this.items.length} files in index file,` +
@@ -306,7 +302,7 @@ export class CipherCatalog {
     for (const item of this.items) {
       const sourceBakFilepath = path.join(sourceBakRootDir, item.sourceFilepath)
       await this.fileCipher.decryptFiles(
-        item.targetParts.map(p => pathResolver.calcAbsoluteTargetFilepath(p)),
+        item.targetParts.map(p => pathResolver.calcAbsoluteEncryptedFilepath(p)),
         sourceBakFilepath,
       )
     }
@@ -355,7 +351,7 @@ export class CipherCatalog {
     const { pathResolver, fileCipher, fileHelper, targetPartPathSet: tps, maxTargetFileSize } = this
 
     const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(item.sourceFilepath)
-    const absoluteTargetFilepath = pathResolver.calcAbsoluteTargetFilepath(item.targetFilename)
+    const absoluteTargetFilepath = pathResolver.calcAbsoluteEncryptedFilepath(item.targetFilename)
 
     // Encrypt source file.
     await fileCipher.encryptFile(absoluteSourceFilepath, absoluteTargetFilepath)
@@ -371,7 +367,9 @@ export class CipherCatalog {
     if (partFilepaths.length > 1) fs.unlinkSync(absoluteTargetFilepath)
 
     // Update target parts.
-    const targetParts: string[] = partFilepaths.map(p => pathResolver.calcRelativeTargetFilepath(p))
+    const targetParts: string[] = partFilepaths.map(p =>
+      pathResolver.calcRelativeEncryptedFilepath(p),
+    )
     for (const filepath of item.targetParts) tps.delete(filepath)
     for (const filepath of targetParts) tps.add(filepath)
     for (const filepath of item.targetParts) {

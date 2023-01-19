@@ -135,7 +135,7 @@ Array of targets to copy. A target is an object with properties:
 
 - **globbyOptions** (`GlobbyOptions`): *Override the outer option.*
 
-- **fsExtraOptions** (options of `fs-extra`): *Override the outer option.*
+- **fsOptions** (options of `node:fs`): *Override the outer option.*
 
 
 Each object should have **src** and **dest** properties, **rename** and **transform** are optional. [globby](https://github.com/sindresorhus/globby) is used inside, check it for [glob pattern](https://github.com/sindresorhus/globby#globbing-patterns) examples.
@@ -333,16 +333,14 @@ copy({
 })
 ```
 
-### fsExtraOptions
-
-See [fs-extra copy function](https://github.com/jprichardson/node-fs-extra/blob/7.0.0/docs/copy.md)
+### fsOptions
 
 ```js
 copy({
   targets: [{ src: 'src/assets/**/*.js', dest: 'dist' }],
-  fsExtraOptions: {
-    copy: {} // Options of 'fs-extra'.copy
-    outputFile: { // Options of 'fs-extra'.outputFile
+  fsOptions: {
+    copy: {} // Options of 'node:fs'.copy
+    writeFile: { // Options of 'node:fs'.outputFile
       encoding: 'utf-8'
     }
   }

@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+import { isFileSync } from '@guanghechen/helper-fs'
 import { globby } from 'globby'
 import path from 'node:path'
 import util from 'util'
@@ -19,15 +19,6 @@ export { isPlainObject } from 'is-plain-object'
  */
 export function stringify(value: unknown): string {
   return util.inspect(value, { breakLength: Infinity })
-}
-
-/**
- * Determine if it is a file
- * @param filePath
- */
-export function isFileSync(filePath: string): boolean {
-  const fileStats = fs.statSync(filePath)
-  return fileStats.isFile()
 }
 
 /**

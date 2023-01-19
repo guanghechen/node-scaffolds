@@ -102,13 +102,13 @@ Utility functions for cipher contents or files.
   const catalog = new CipherCatalog({
     cipher,
     sourceRootDir: path.join(__dirname, 'workspace/source'),
-    targetRootDir: path.join(__dirname, 'workspace/target'),
+    encryptedRootDir: path.join(__dirname, 'workspace/target'),
   })
 
   catalog.calcAbsoluteSourceFilepath('a.md')              // Resolve the absolute path of a source file.
-  catalog.calcAbsoluteTargetFilepath('a.md')              // Resolve the absolute path of a target file.
+  catalog.calcAbsoluteEncryptedFilepath('a.md')              // Resolve the absolute path of a target file.
   catalog.calcRelativeSourceFilepath('<WORKSPACE>/a.md')  // Resolve the relative path of the source file.
-  catalog.calcRelativeTargetFilepath('<WORKSPACE>/a.md')  // Resolve the relative path of the target file.
+  catalog.calcRelativeEncryptedFilepath('<WORKSPACE>/a.md')  // Resolve the relative path of the target file.
   catalog.checkIntegrity()                                // Check if the index file is damaged.
   catalog.cleanup()                                       // Perform cleanup operations.
   catalog.decryptAll(bakSourceRootDir)                    // Decrypt all target files and output into the given directory.

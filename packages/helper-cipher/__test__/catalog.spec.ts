@@ -1,4 +1,4 @@
-import { collectAllFilesSync } from '@guanghechen/helper-file'
+import { collectAllFilesSync, rm } from '@guanghechen/helper-fs'
 import { desensitize, locateFixtures, unlinkSync } from 'jest.helper'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -25,7 +25,7 @@ describe('CipherCatalog', function () {
       const catalog2 = new CipherCatalog({
         fileCipher,
         sourceRootDir: catalog1.pathResolver.sourceRootDir,
-        targetRootDir: catalog1.pathResolver.targetRootDir,
+        targetRootDir: catalog1.pathResolver.encryptedRootDir,
       })
 
       const catalogIndexFilepath = locateFixtures('catalog/catalog.load-or-save.txt')
@@ -62,17 +62,17 @@ describe('CipherCatalog', function () {
       const tmpSourceFilepath = path.join(catalog.pathResolver.sourceRootDir, 'xx-' + Math.random())
       fs.writeFileSync(tmpSourceFilepath, 'ss')
 
-      expect(collectAllFilesSync(catalog.pathResolver.targetRootDir).length).toEqual(0)
+      expect(collectAllFilesSync(catalog.pathResolver.encryptedRootDir).length).toEqual(0)
       const sourceFilepaths = collectAllFilesSync(catalog.pathResolver.sourceRootDir)
       for (const file of sourceFilepaths) {
         await catalog.register(file)
       }
 
-      const targetFilepaths = collectAllFilesSync(catalog.pathResolver.targetRootDir)
-      expect(targetFilepaths.length).toEqual(3)
+      const encryptedFilepaths = collectAllFilesSync(catalog.pathResolver.encryptedRootDir)
+      expect(encryptedFilepaths.length).toEqual(3)
 
       expect(() => catalog.checkIntegrity()).not.toThrow()
-      fs.unlinkSync(targetFilepaths[0])
+      fs.unlinkSync(encryptedFilepaths[0])
       expect(() => catalog.checkIntegrity()).toThrow('[INTEGRITY DAMAGE] cannot found')
 
       expect((catalog as any).lastCheckTime).toEqual(null)
@@ -88,9 +88,9 @@ describe('CipherCatalog', function () {
 
       for (const file of sourceFilepaths) await catalog.register(file)
       unlinkSync(tmpSourceFilepath)
-      expect(collectAllFilesSync(catalog.pathResolver.targetRootDir).length).toEqual(3)
+      expect(collectAllFilesSync(catalog.pathResolver.encryptedRootDir).length).toEqual(3)
       catalog.cleanup()
-      expect(collectAllFilesSync(catalog.pathResolver.targetRootDir).length).toEqual(2)
+      expect(collectAllFilesSync(catalog.pathResolver.encryptedRootDir).length).toEqual(2)
     })
 
     test('basic', async function () {
@@ -103,7 +103,7 @@ describe('CipherCatalog', function () {
       const catalog2 = new CipherCatalog({
         fileCipher,
         sourceRootDir: catalog1.pathResolver.sourceRootDir,
-        targetRootDir: catalog1.pathResolver.targetRootDir,
+        targetRootDir: catalog1.pathResolver.encryptedRootDir,
       })
 
       const catalogIndexFilepath = locateFixtures('catalog/catalog.basic.txt')
@@ -142,7 +142,7 @@ describe('CipherCatalog', function () {
       }
 
       const sourceBakRootDir = locateFixtures('catalog/target/big-file-bak')
-      if (fs.existsSync(sourceBakRootDir)) fs.rmSync(sourceBakRootDir, { recursive: true })
+      await rm(sourceBakRootDir)
 
       await catalog.decryptAll(sourceBakRootDir)
 

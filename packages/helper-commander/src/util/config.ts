@@ -1,4 +1,4 @@
-import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-path'
+import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-fs'
 import yaml from 'js-yaml'
 import fs from 'node:fs'
 import path from 'node:path'

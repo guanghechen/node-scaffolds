@@ -1,3 +1,4 @@
+import { rm } from '@guanghechen/helper-fs'
 import {
   composeStringDesensitizers,
   createConsoleMock,
@@ -32,7 +33,7 @@ beforeEach(async function () {
 })
 
 afterEach(async function () {
-  fs.rmSync(outputDir, { recursive: true })
+  await rm(outputDir)
   process.chdir(initialCwd)
 })
 

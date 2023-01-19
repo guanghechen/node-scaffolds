@@ -14,7 +14,7 @@ const config = createRollupConfig({
     source: 'src/index.ts',
     main: 'lib/cjs/index.js',
     module: 'lib/esm/index.js',
-    dependencies: ['fs-extra'],
+    dependencies: [],
   },
   pluginOptions: {
     typescriptOptions: { tsconfig: 'tsconfig.src.json' },

@@ -1,5 +1,4 @@
-import fs from 'fs-extra'
-
+import fs from 'node:fs'
 
 /**
  * Check if the given filepath is an existed path of file.

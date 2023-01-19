@@ -1,4 +1,4 @@
-import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-path'
+import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-fs'
 import { destroyBuffers } from '@guanghechen/helper-stream'
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'

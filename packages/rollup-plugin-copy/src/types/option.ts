@@ -1,5 +1,5 @@
-import type { CopyOptions, WriteFileOptions } from 'fs-extra'
 import type { Options as GlobbyOptions } from 'globby'
+import type { CopyOptions, WriteFileOptions } from 'node:fs'
 
 /**
  * Options of @guanghechen/rollup-plugin-copy
@@ -117,11 +117,11 @@ export interface IOptions {
    */
   globbyOptions?: GlobbyOptions
   /**
-   * Default options of 'fs-extra'.
+   * Default options of 'node:fs'.
    */
-  fsExtraOptions?: {
+  fsOptions?: {
     copy?: CopyOptions
-    outputFile?: WriteFileOptions
+    writeFile?: WriteFileOptions
   }
 }
 
@@ -163,11 +163,11 @@ export interface IOptionTarget {
    */
   globbyOptions?: GlobbyOptions
   /**
-   * Default options of 'fs-extra'.
+   * Default options of 'node:fs'.
    */
-  fsExtraOptions?: {
+  fsOptions?: {
     copy?: CopyOptions
-    outputFile?: WriteFileOptions
+    writeFile?: WriteFileOptions
   }
 }
 

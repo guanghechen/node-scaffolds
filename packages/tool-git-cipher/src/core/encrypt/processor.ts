@@ -1,12 +1,12 @@
 import type { ICipher } from '@guanghechen/helper-cipher'
 import { AesCipherFactory, CipherCatalog, FileCipher } from '@guanghechen/helper-cipher'
 import { createCommitAll } from '@guanghechen/helper-commander'
-import { collectAllFilesSync } from '@guanghechen/helper-file'
+import { collectAllFilesSync, emptyDir } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import commandExists from 'command-exists'
 import { execa } from 'execa'
-import fs from 'fs-extra'
 import inquirer from 'inquirer'
+import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { logger } from '../../env/logger'
 import { SecretMaster } from '../../util/secret'
@@ -91,7 +91,7 @@ export class GitCipherEncryptProcessor {
     const { context } = this
 
     // Load from or Create a catalog index file.
-    if (fs.existsSync(context.indexFilepath)) {
+    if (existsSync(context.indexFilepath)) {
       await catalog.loadFromFile(context.indexFilepath)
     } else {
       await catalog.save(context.indexFilepath)
@@ -128,7 +128,7 @@ export class GitCipherEncryptProcessor {
     ])
     if (shouldEmptyOutDir) {
       logger.info('Emptying {}...', context.ciphertextRootDir)
-      await fs.emptyDir(context.ciphertextRootDir)
+      await emptyDir(context.ciphertextRootDir)
     }
 
     // Reset catalog.

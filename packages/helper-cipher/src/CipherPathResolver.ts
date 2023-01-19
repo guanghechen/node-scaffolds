@@ -7,9 +7,9 @@ export interface ICipherPathResolverProps {
   readonly sourceRootDir: string
 
   /**
-   * Root directory of target files.
+   * Root directory of encrypted files.
    */
-  readonly targetRootDir: string
+  readonly encryptedRootDir: string
 }
 
 export class CipherPathResolver {
@@ -19,13 +19,13 @@ export class CipherPathResolver {
   public readonly sourceRootDir: string
 
   /**
-   * Root directory of target files.
+   * Root directory of encrypted files.
    */
-  public readonly targetRootDir: string
+  public readonly encryptedRootDir: string
 
   constructor(props: ICipherPathResolverProps) {
     this.sourceRootDir = props.sourceRootDir
-    this.targetRootDir = props.targetRootDir
+    this.encryptedRootDir = props.encryptedRootDir
   }
 
   /**
@@ -38,11 +38,11 @@ export class CipherPathResolver {
   }
 
   /**
-   * Resolve the absolute path of a target file.
-   * @param targetFilepath
+   * Resolve the absolute path of a encrypted file.
+   * @param encryptedFilepath
    */
-  public calcAbsoluteTargetFilepath(targetFilepath: string): string {
-    const filepath = absoluteOfWorkspace(this.targetRootDir, targetFilepath)
+  public calcAbsoluteEncryptedFilepath(encryptedFilepath: string): string {
+    const filepath = absoluteOfWorkspace(this.encryptedRootDir, encryptedFilepath)
     return filepath
   }
 
@@ -56,11 +56,11 @@ export class CipherPathResolver {
   }
 
   /**
-   * Resolve the relative path of a target file.
-   * @param absoluteTargetFilepath
+   * Resolve the relative path of a encrypted file.
+   * @param absoluteEncryptedFilepath
    */
-  public calcRelativeTargetFilepath(absoluteTargetFilepath: string): string {
-    const filepath = relativeOfWorkspace(this.targetRootDir, absoluteTargetFilepath)
+  public calcRelativeEncryptedFilepath(absoluteEncryptedFilepath: string): string {
+    const filepath = relativeOfWorkspace(this.encryptedRootDir, absoluteEncryptedFilepath)
     return filepath.replace(/[/\\]+/g, '/')
   }
 }

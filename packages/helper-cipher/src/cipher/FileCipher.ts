@@ -1,5 +1,5 @@
 import type { Logger } from '@guanghechen/chalk-logger'
-import { mkdirsIfNotExists } from '@guanghechen/helper-path'
+import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import { consumeStream, consumeStreams, destroyBuffers } from '@guanghechen/helper-stream'
 import type { Cipher } from 'node:crypto'
 import fs from 'node:fs'

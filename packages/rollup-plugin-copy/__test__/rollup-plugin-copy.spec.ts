@@ -1,6 +1,8 @@
+import { rm, writeFile } from '@guanghechen/helper-fs'
 import { jest } from '@jest/globals'
 import chalk from 'chalk'
-import fs from 'fs-extra'
+import { existsSync } from 'node:fs'
+import fs from 'node:fs/promises'
 import path from 'node:path'
 import url from 'node:url'
 import { rollup, watch } from 'rollup'
@@ -17,8 +19,8 @@ function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-function readFile(filePath: string): Promise<string> {
-  return fs.readFile(filePath, encoding)
+function readFile(filepath: string): Promise<string> {
+  return fs.readFile(filepath, encoding)
 }
 
 async function build(pluginOptions?: IOptions): Promise<void> {
@@ -29,23 +31,21 @@ async function build(pluginOptions?: IOptions): Promise<void> {
 }
 
 afterEach(async () => {
-  await fs.remove('build')
-  await fs.remove('dist')
+  await rm('build')
+  await rm('dist')
 })
 
 describe('Copy', () => {
   test('No config passed', async () => {
     await build()
-
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
+    expect(existsSync('dist/asset-1.js')).toBe(false)
   })
 
   test('Empty array as target', async () => {
     await build({
       targets: [],
     })
-
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
+    expect(existsSync('dist/asset-1.js')).toBe(false)
   })
 
   test('Files', async () => {
@@ -58,8 +58,8 @@ describe('Copy', () => {
       ],
     })
 
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
-    expect(fs.pathExistsSync('dist/asset-2.js')).toBe(true)
+    expect(existsSync('dist/asset-1.js')).toBe(true)
+    expect(existsSync('dist/asset-2.js')).toBe(true)
   })
 
   test('Folders', async () => {
@@ -72,14 +72,14 @@ describe('Copy', () => {
       ],
     })
 
-    expect(fs.pathExistsSync('dist/css')).toBe(true)
-    expect(fs.pathExistsSync('dist/css/css-1.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/css/css-2.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss/scss-1.scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss/scss-2.scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss/nested')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss/nested/scss-3.scss')).toBe(true)
+    expect(existsSync('dist/css')).toBe(true)
+    expect(existsSync('dist/css/css-1.css')).toBe(true)
+    expect(existsSync('dist/css/css-2.css')).toBe(true)
+    expect(existsSync('dist/scss')).toBe(true)
+    expect(existsSync('dist/scss/scss-1.scss')).toBe(true)
+    expect(existsSync('dist/scss/scss-2.scss')).toBe(true)
+    expect(existsSync('dist/scss/nested')).toBe(true)
+    expect(existsSync('dist/scss/nested/scss-3.scss')).toBe(true)
   })
 
   test('Glob', async () => {
@@ -97,12 +97,12 @@ describe('Copy', () => {
       ],
     })
 
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
-    expect(fs.pathExistsSync('dist/asset-2.js')).toBe(true)
-    expect(fs.pathExistsSync('dist/css-1.css')).toBe(false)
-    expect(fs.pathExistsSync('dist/css-2.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss-1.scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss-2.scss')).toBe(false)
+    expect(existsSync('dist/asset-1.js')).toBe(true)
+    expect(existsSync('dist/asset-2.js')).toBe(true)
+    expect(existsSync('dist/css-1.css')).toBe(false)
+    expect(existsSync('dist/css-2.css')).toBe(true)
+    expect(existsSync('dist/scss-1.scss')).toBe(true)
+    expect(existsSync('dist/scss-2.scss')).toBe(false)
   })
 
   test('Multiple objects as targets', async () => {
@@ -113,13 +113,13 @@ describe('Copy', () => {
       ],
     })
 
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
-    expect(fs.pathExistsSync('dist/asset-2.js')).toBe(true)
-    expect(fs.pathExistsSync('dist/css')).toBe(true)
-    expect(fs.pathExistsSync('dist/css/css-1.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/css/css-2.css')).toBe(true)
-    expect(fs.pathExistsSync('build/css-1.css')).toBe(true)
-    expect(fs.pathExistsSync('build/css-2.css')).toBe(true)
+    expect(existsSync('dist/asset-1.js')).toBe(true)
+    expect(existsSync('dist/asset-2.js')).toBe(true)
+    expect(existsSync('dist/css')).toBe(true)
+    expect(existsSync('dist/css/css-1.css')).toBe(true)
+    expect(existsSync('dist/css/css-2.css')).toBe(true)
+    expect(existsSync('build/css-1.css')).toBe(true)
+    expect(existsSync('build/css-2.css')).toBe(true)
   })
 
   test('Multiple destinations', async () => {
@@ -132,16 +132,16 @@ describe('Copy', () => {
       ],
     })
 
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
-    expect(fs.pathExistsSync('dist/css')).toBe(true)
-    expect(fs.pathExistsSync('dist/css/css-1.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/css/css-2.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss-1.scss')).toBe(true)
-    expect(fs.pathExistsSync('build/asset-1.js')).toBe(true)
-    expect(fs.pathExistsSync('build/css')).toBe(true)
-    expect(fs.pathExistsSync('build/css/css-1.css')).toBe(true)
-    expect(fs.pathExistsSync('build/css/css-2.css')).toBe(true)
-    expect(fs.pathExistsSync('build/scss-1.scss')).toBe(true)
+    expect(existsSync('dist/asset-1.js')).toBe(true)
+    expect(existsSync('dist/css')).toBe(true)
+    expect(existsSync('dist/css/css-1.css')).toBe(true)
+    expect(existsSync('dist/css/css-2.css')).toBe(true)
+    expect(existsSync('dist/scss-1.scss')).toBe(true)
+    expect(existsSync('build/asset-1.js')).toBe(true)
+    expect(existsSync('build/css')).toBe(true)
+    expect(existsSync('build/css/css-1.css')).toBe(true)
+    expect(existsSync('build/css/css-2.css')).toBe(true)
+    expect(existsSync('build/scss-1.scss')).toBe(true)
   })
 
   test('Same target', async () => {
@@ -156,10 +156,10 @@ describe('Copy', () => {
       ],
     })
 
-    expect(fs.pathExistsSync('dist/css')).toBe(true)
-    expect(fs.pathExistsSync('dist/css/css-1.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/css/css-2.css')).toBe(true)
-    expect(fs.pathExistsSync('build/asset-1.js')).toBe(true)
+    expect(existsSync('dist/css')).toBe(true)
+    expect(existsSync('dist/css/css-1.css')).toBe(true)
+    expect(existsSync('dist/css/css-2.css')).toBe(true)
+    expect(existsSync('build/asset-1.js')).toBe(true)
   })
 
   test('Throw if target is not an object', async () => {
@@ -230,23 +230,23 @@ describe('Copy', () => {
       ],
     })
 
-    expect(fs.pathExistsSync('dist/asset-1-renamed.js')).toBe(true)
-    expect(fs.pathExistsSync('dist/css-renamed')).toBe(true)
-    expect(fs.pathExistsSync('dist/css-renamed/css-1.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/css-renamed/css-2.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/css-multiple/css-1.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/css-multiple/css-2.css')).toBe(false)
-    expect(fs.pathExistsSync('dist/asset-2-renamed.js')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss-renamed')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss-renamed/scss-1.scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss-renamed/scss-2.scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss-renamed/nested')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss-renamed/nested/scss-3.scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss-multiple/scss-1-renamed.scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss-multiple/scss-2-renamed.scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/scss-multiple/nested-renamed')).toBe(true)
-    expect(await fs.pathExists('dist/scss-multiple/nested-renamed/scss-3.scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/asset-3.js')).toBe(true)
+    expect(existsSync('dist/asset-1-renamed.js')).toBe(true)
+    expect(existsSync('dist/css-renamed')).toBe(true)
+    expect(existsSync('dist/css-renamed/css-1.css')).toBe(true)
+    expect(existsSync('dist/css-renamed/css-2.css')).toBe(true)
+    expect(existsSync('dist/css-multiple/css-1.css')).toBe(true)
+    expect(existsSync('dist/css-multiple/css-2.css')).toBe(false)
+    expect(existsSync('dist/asset-2-renamed.js')).toBe(true)
+    expect(existsSync('dist/scss-renamed')).toBe(true)
+    expect(existsSync('dist/scss-renamed/scss-1.scss')).toBe(true)
+    expect(existsSync('dist/scss-renamed/scss-2.scss')).toBe(true)
+    expect(existsSync('dist/scss-renamed/nested')).toBe(true)
+    expect(existsSync('dist/scss-renamed/nested/scss-3.scss')).toBe(true)
+    expect(existsSync('dist/scss-multiple/scss-1-renamed.scss')).toBe(true)
+    expect(existsSync('dist/scss-multiple/scss-2-renamed.scss')).toBe(true)
+    expect(existsSync('dist/scss-multiple/nested-renamed')).toBe(true)
+    expect(existsSync('dist/scss-multiple/nested-renamed/scss-3.scss')).toBe(true)
+    expect(existsSync('dist/asset-3.js')).toBe(true)
   })
 
   test('Throw if transform target is not a file', async () => {
@@ -287,23 +287,23 @@ describe('Copy', () => {
       ],
     })
 
-    expect(fs.pathExistsSync('dist/css-1.css')).toBe(true)
+    expect(existsSync('dist/css-1.css')).toBe(true)
     expect(await readFile('dist/css-1.css')).toEqual(expect.stringContaining('red'))
-    expect(fs.pathExistsSync('build/css-1.css')).toBe(true)
+    expect(existsSync('build/css-1.css')).toBe(true)
     expect(await readFile('build/css-1.css')).toEqual(expect.stringContaining('red'))
-    expect(fs.pathExistsSync('dist/scss-1.scss')).toBe(true)
+    expect(existsSync('dist/scss-1.scss')).toBe(true)
     expect(await readFile('dist/scss-1.scss')).toEqual(
       expect.not.stringContaining('background-color'),
     )
-    expect(fs.pathExistsSync('dist/scss-2.scss')).toBe(true)
+    expect(existsSync('dist/scss-2.scss')).toBe(true)
     expect(await readFile('dist/scss-2.scss')).toEqual(
       expect.not.stringContaining('background-color'),
     )
-    expect(fs.pathExistsSync('dist/nested/scss-3.scss')).toBe(true)
+    expect(existsSync('dist/nested/scss-3.scss')).toBe(true)
     expect(await readFile('dist/nested/scss-3.scss')).toEqual(
       expect.not.stringContaining('background-color'),
     )
-    expect(fs.pathExistsSync('dist/css/css-1.css')).toBe(true)
+    expect(existsSync('dist/css/css-1.css')).toBe(true)
     expect(await readFile('dist/css/css-1.css')).toEqual(expect.stringContaining('coral'))
   })
 })
@@ -442,10 +442,10 @@ describe('Options', () => {
       hook: 'buildStart',
     })
 
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
-    expect(fs.pathExistsSync('dist/css')).toBe(true)
-    expect(fs.pathExistsSync('dist/css/css-1.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/css/css-2.css')).toBe(true)
+    expect(existsSync('dist/asset-1.js')).toBe(true)
+    expect(existsSync('dist/css')).toBe(true)
+    expect(existsSync('dist/css/css-1.css')).toBe(true)
+    expect(existsSync('dist/css/css-2.css')).toBe(true)
   })
 
   test('Copy once', async () => {
@@ -465,23 +465,23 @@ describe('Options', () => {
 
     await sleep(1000)
 
-    const originalContent = fs.readFileSync('src/assets/asset-1.js', encoding)
-    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(originalContent)
+    const originalContent = await fs.readFile('src/assets/asset-1.js', encoding)
+    expect(await fs.readFile('dist/asset-1.js', encoding)).toEqual(originalContent)
 
     const newContent = `export const message = "waw"`
-    fs.writeFileSync('src/assets/asset-1.js', newContent, encoding)
+    await writeFile('src/assets/asset-1.js', newContent, encoding)
     await sleep(1000)
-    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(originalContent)
+    expect(await fs.readFile('dist/asset-1.js', encoding)).toEqual(originalContent)
 
     // Recover src/assets/asset-1.js
     await sleep(1000)
-    fs.writeFileSync('src/assets/asset-1.js', originalContent, encoding)
+    await writeFile('src/assets/asset-1.js', originalContent, encoding)
 
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
+    expect(existsSync('dist/asset-1.js')).toBe(true)
 
-    await fs.remove('dist')
+    await rm('dist')
 
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
+    expect(existsSync('dist/asset-1.js')).toBe(false)
 
     await replaceInFile({
       filepath: 'src/index.js',
@@ -492,7 +492,7 @@ describe('Options', () => {
 
     await sleep(1000)
 
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
+    expect(existsSync('dist/asset-1.js')).toBe(false)
 
     await watcher.close()
 
@@ -529,23 +529,23 @@ describe('Options', () => {
     })
 
     await sleep(1000)
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(true)
+    expect(existsSync('dist/asset-1.js')).toBe(true)
 
-    const originalContent = fs.readFileSync('src/assets/asset-1.js', encoding)
-    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(transform(originalContent))
+    const originalContent = await fs.readFile('src/assets/asset-1.js', encoding)
+    expect(await fs.readFile('dist/asset-1.js', encoding)).toEqual(transform(originalContent))
 
     const newContent = originalContent + `\nexport const message = "waw";`
-    fs.writeFileSync('src/assets/asset-1.js', newContent, encoding)
+    await writeFile('src/assets/asset-1.js', newContent, encoding)
     await sleep(1000)
-    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(transform(newContent))
+    expect(await fs.readFile('dist/asset-1.js', encoding)).toEqual(transform(newContent))
 
     // Recover src/assets/asset-1.js
-    fs.writeFileSync('src/assets/asset-1.js', originalContent, encoding)
+    await writeFile('src/assets/asset-1.js', originalContent, encoding)
     await sleep(3000)
-    expect(fs.readFileSync('dist/asset-1.js', encoding)).toEqual(transform(originalContent))
+    expect(await fs.readFile('dist/asset-1.js', encoding)).toEqual(transform(originalContent))
 
-    await fs.remove('dist')
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
+    await rm('dist')
+    expect(existsSync('dist/asset-1.js')).toBe(false)
 
     await replaceInFile({
       filepath: 'src/index.js',
@@ -556,7 +556,7 @@ describe('Options', () => {
 
     await sleep(1000)
 
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
+    expect(existsSync('dist/asset-1.js')).toBe(false)
 
     await watcher.close()
 
@@ -588,13 +588,13 @@ describe('Options', () => {
       flatten: false,
     })
 
-    expect(fs.pathExistsSync('dist/assets/asset-1.js')).toBe(true)
-    expect(fs.pathExistsSync('dist/assets/asset-2.js')).toBe(true)
-    expect(fs.pathExistsSync('dist/assets/css/css-1.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/assets/css/css-2.css')).toBe(true)
-    expect(fs.pathExistsSync('dist/assets/scss/scss-1-renamed.scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/assets/scss/scss-2-renamed.scss')).toBe(true)
-    expect(fs.pathExistsSync('dist/assets/scss/nested/scss-3-renamed.scss')).toBe(true)
+    expect(existsSync('dist/assets/asset-1.js')).toBe(true)
+    expect(existsSync('dist/assets/asset-2.js')).toBe(true)
+    expect(existsSync('dist/assets/css/css-1.css')).toBe(true)
+    expect(existsSync('dist/assets/css/css-2.css')).toBe(true)
+    expect(existsSync('dist/assets/scss/scss-1-renamed.scss')).toBe(true)
+    expect(existsSync('dist/assets/scss/scss-2-renamed.scss')).toBe(true)
+    expect(existsSync('dist/assets/scss/nested/scss-3-renamed.scss')).toBe(true)
   })
 
   test('Rest options', async () => {
@@ -605,7 +605,7 @@ describe('Options', () => {
       },
     })
 
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
+    expect(existsSync('dist/asset-1.js')).toBe(false)
   })
 
   test('Rest target options', async () => {
@@ -621,6 +621,6 @@ describe('Options', () => {
       ],
     })
 
-    expect(fs.pathExistsSync('dist/asset-1.js')).toBe(false)
+    expect(existsSync('dist/asset-1.js')).toBe(false)
   })
 })

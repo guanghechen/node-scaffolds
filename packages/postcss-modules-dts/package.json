@@ -42,9 +42,9 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
+    "@guanghechen/helper-fs": "^3.0.2",
     "@guanghechen/helper-option": "^3.0.2",
     "@types/reserved-words": "0.1.0",
-    "fs-extra": "^11.1.0",
     "reserved-words": "0.1.2"
   },
   "devDependencies": {

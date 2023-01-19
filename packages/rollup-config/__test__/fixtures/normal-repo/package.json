@@ -1,8 +1,6 @@
 {
   "private": true,
-  "dependencies": {
-    "fs-extra": "*"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "@guanghechen/not-existed-repo": "*",
     "rollup": "*"

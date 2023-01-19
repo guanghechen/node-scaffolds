@@ -1,4 +1,5 @@
-import fs from 'fs-extra'
+import { writeFile } from '@guanghechen/helper-fs'
+import fs from 'node:fs/promises'
 
 export async function replaceInFile(options: {
   filepath: string
@@ -9,5 +10,5 @@ export async function replaceInFile(options: {
   const { filepath, from, to, encoding } = options
   const content = await fs.readFile(filepath, { encoding })
   const resolvedContent = content.replaceAll(from, to)
-  await fs.writeFile(filepath, resolvedContent, { encoding })
+  await writeFile(filepath, resolvedContent, { encoding })
 }

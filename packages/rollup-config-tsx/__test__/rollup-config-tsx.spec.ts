@@ -1,9 +1,10 @@
-import { jest } from '@jest/globals'
-import fs from 'fs-extra'
+import { rm } from '@guanghechen/helper-fs'
+import { existsSync } from 'node:fs'
 import path from 'node:path'
 import url from 'node:url'
 import { rollup } from 'rollup'
 import type { OutputOptions, RollupOutput } from 'rollup'
+import type { IRollupConfigOptions } from '../src'
 import createRollupConfigs from '../src'
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
@@ -11,9 +12,8 @@ const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 // Resolve absolute dirPath of case
 const resolveCaseDir = (title: string): string => path.resolve(__dirname, 'fixtures', title)
 
-async function build(): Promise<RollupOutput[]> {
+async function build(configOptions: IRollupConfigOptions): Promise<RollupOutput[]> {
   // Create rollup config
-  const { default: configOptions } = await import(path.resolve('config.ts'))
   const configs = await createRollupConfigs(configOptions)
 
   const results: any[] = []
@@ -48,32 +48,47 @@ async function build(): Promise<RollupOutput[]> {
   return results
 }
 
-afterEach(async () => {
-  await fs.remove('lib')
-  await fs.remove('node_modules')
-  process.chdir(__dirname)
-})
-
 describe('build', function () {
-  // Timeout: 60s
-  jest.setTimeout(60000)
+  afterEach(async () => {
+    // Perform some cleanup operations.
+    await rm('lib')
+    await rm('node_modules')
+    await rm('src/style/index.styl.d.ts')
+    process.chdir(__dirname)
+  })
 
-  test('simple', async function () {
-    const caseDir = resolveCaseDir('simple')
+  test('modules', async function () {
+    const caseDir = resolveCaseDir('modules')
     process.chdir(caseDir)
 
-    const results = await build()
+    const { default: configOptions } = await import(path.join(caseDir, 'config.ts'))
+    const results = await build(configOptions)
     for (const result of results) {
       const { format, ...output } = result as any
       const data = output.code != null ? output.code : output
       expect(data).toMatchSnapshot(`rollup ${format}`)
     }
-    // expect(fs.existsSync('lib/types/index.d.ts')).toBeTruthy()
-    expect(fs.existsSync('lib/assets/font/tangerine.woff2')).toBeTruthy()
-    expect(fs.existsSync('lib/assets/image/background.jpeg')).toBeTruthy()
-    expect(fs.existsSync('src/style/index.styl.d.ts')).toBeTruthy()
+    // expect(fs.existsSync('lib/types/index.d.ts')).toEqual(true)
+    expect(existsSync('lib/assets/font/tangerine.woff2')).toEqual(true)
+    expect(existsSync('lib/assets/image/background.jpeg')).toEqual(true)
+    expect(existsSync('src/style/index.styl.d.ts')).toEqual(true)
+  }, 60000)
 
-    // Perform some cleanup operations.
-    await fs.remove('src/style/index.styl.d.ts')
-  })
+  // test('no modules', async function () {
+  //   const caseDir = resolveCaseDir('no_modules')
+  //   process.chdir(caseDir)
+
+  //   const { default: configOptions } = await import(path.join(caseDir, 'config.ts'))
+  //   const results = await build(configOptions)
+
+  //   for (const result of results) {
+  //     const { format, ...output } = result as any
+  //     const data = output.code != null ? output.code : output
+  //     expect(data).toMatchSnapshot(`rollup ${format}`)
+  //   }
+  //   // expect(fs.existsSync('lib/types/index.d.ts')).toEqual(true)
+  //   expect(existsSync('lib/assets/font/tangerine.woff2')).toEqual(true)
+  //   expect(existsSync('lib/assets/image/background.jpeg')).toEqual(true)
+  //   expect(existsSync('src/style/index.styl.d.ts')).toEqual(false)
+  // })
 })

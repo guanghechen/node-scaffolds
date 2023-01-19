@@ -8,9 +8,9 @@ export interface IFileCipherCatalogItem {
    */
   sourceFilepath: string
   /**
-   * The path of the target file (relative path of the target root directory).
+   * The path of the encrypted file (relative path of the target root directory).
    */
-  targetFilepath: string
+  encryptedFilepath: string
   /**
    * Parts path of the target file.
    *

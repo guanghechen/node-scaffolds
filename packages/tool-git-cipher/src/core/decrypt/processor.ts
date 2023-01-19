@@ -1,9 +1,9 @@
 import type { ICipher } from '@guanghechen/helper-cipher'
 import { AesCipherFactory, CipherCatalog, FileCipher } from '@guanghechen/helper-cipher'
+import { emptyDir } from '@guanghechen/helper-fs'
 import { coverString } from '@guanghechen/helper-option'
 import invariant from '@guanghechen/invariant'
 import commandExists from 'command-exists'
-import fs from 'fs-extra'
 import inquirer from 'inquirer'
 import { logger } from '../../env/logger'
 import { SecretMaster } from '../../util/secret'
@@ -57,7 +57,7 @@ export class GitCipherDecryptProcessor {
     ])
     if (shouldEmptyOutDir) {
       logger.info('Emptying {}...', outRootDir)
-      await fs.emptyDir(outRootDir)
+      await emptyDir(outRootDir)
     }
 
     await catalog.decryptAll(outRootDir)
