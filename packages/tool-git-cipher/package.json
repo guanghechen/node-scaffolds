@@ -44,7 +44,6 @@
     "@guanghechen/event-bus": "^3.0.2",
     "@guanghechen/helper-cipher": "^3.0.2",
     "@guanghechen/helper-commander": "^3.0.2",
-    "@guanghechen/helper-file": "^3.0.2",
     "@guanghechen/helper-fs": "^3.0.2",
     "@guanghechen/helper-is": "^3.0.2",
     "@guanghechen/helper-option": "^3.0.2",
