@@ -46,8 +46,7 @@
 </header>
 
 
-A monorepo contains some utility functions and configs for building `Node.js` /
-`Typescript` projects.
+A monorepo contains some utility functions and configs for building `Node.js` / `Typescript` projects.
 
 ## Overview
 
@@ -62,6 +61,7 @@ Package                               | Description
 [@guanghechen/helper-cipher][]        | Utility functions for cipher contents or files.
 [@guanghechen/helper-commander][]     | Utility functions for creating command line programs.
 [@guanghechen/helper-file]            | Utilities for handling files, such as split big file or merge multiple small files.
+[@guanghechen/helper-fs]              | Provide some enhanced methods base on `node:fs`.
 [@guanghechen/helper-func]            | Helpful utility funcs.
 [@guanghechen/helper-is][]            | Utilities to detect data type.
 [@guanghechen/helper-jest][]          | A collection of utility functions for jest tests
@@ -99,6 +99,7 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/helper-cipher]: ./packages/helper-cipher
 [@guanghechen/helper-commander]: ./packages/helper-commander
 [@guanghechen/helper-file]: ./packages/helper-file
+[@guanghechen/helper-fs]: ./packages/helper-fs
 [@guanghechen/helper-func]: ./packages/helper-func
 [@guanghechen/helper-is]: ./packages/helper-is
 [@guanghechen/helper-jest]: ./packages/helper-jest
