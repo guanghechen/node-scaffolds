@@ -881,7 +881,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
+"@guanghechen/rollup-config-cli@^3.0.2, @guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli"
   dependencies:
@@ -981,6 +981,7 @@ __metadata:
     "@guanghechen/helper-stream": ^3.0.2
     "@guanghechen/helper-string": ^3.0.2
     "@guanghechen/invariant": ^3.0.2
+    "@guanghechen/rollup-config-cli": ^3.0.2
     command-exists: ^1.2.9
     cross-env: ^7.0.3
     execa: ^6.1.0
@@ -1005,6 +1006,7 @@ __metadata:
     "@guanghechen/helper-path": ^3.0.2
     "@guanghechen/invariant": ^3.0.2
     "@guanghechen/mini-copy": ^3.0.2
+    "@guanghechen/rollup-config-cli": ^3.0.2
     cross-env: ^7.0.3
     inquirer: ^9.1.4
     rimraf: ^4.1.1
