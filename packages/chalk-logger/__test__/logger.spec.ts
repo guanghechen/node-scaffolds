@@ -106,6 +106,8 @@ describe('Logger', function () {
   })
 
   test('custom +dateChalk +nameChalk', function () {
+    const dateChalk = color2chalk([0, 0, 0], false)
+    const nameChalk = color2chalk([255, 255, 255], true)
     const logger = new Logger({
       name: 'complex',
       mode: 'normal',
@@ -115,8 +117,8 @@ describe('Logger', function () {
         colorful: true,
         date: true,
       },
-      dateChalk: color2chalk([25, 104, 179], false),
-      nameChalk: color2chalk([25, 104, 179], true),
+      dateChalk,
+      nameChalk,
     })
     const loggerMock = createLoggerMock({ logger, desensitize })
 

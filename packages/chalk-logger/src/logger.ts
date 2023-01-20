@@ -139,7 +139,8 @@ export class Logger implements ILogger {
         chalkedName = nameChalk(name as any)
       }
       title = name.length > 0 ? `${desc} ${chalkedName}` : desc
-      title = `[${title}]`
+      const delimiterColor = levelStyle.headerDelimiter.fg
+      title = delimiterColor('[') + title + delimiterColor(']')
     }
 
     if (dateInfo.length > 0) {

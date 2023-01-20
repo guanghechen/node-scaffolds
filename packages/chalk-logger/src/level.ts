@@ -28,6 +28,7 @@ export const levelOrdinalMap: Record<Level, number> = {
 export interface ILevelStyle {
   title: string
   header: ColorfulChalk
+  headerDelimiter: ColorfulChalk
   content: ColorfulChalk
 }
 
@@ -37,31 +38,37 @@ export const defaultLevelStyleMap: ILevelStyleMap = Object.freeze({
   [Level.DEBUG]: {
     title: 'debug',
     header: new ColorfulChalk('grey'),
+    headerDelimiter: new ColorfulChalk('grey'),
     content: new ColorfulChalk('grey'),
   },
   [Level.VERBOSE]: {
     title: 'verb ',
     header: new ColorfulChalk('cyan'),
+    headerDelimiter: new ColorfulChalk('grey'),
     content: new ColorfulChalk('cyan'),
   },
   [Level.INFO]: {
     title: 'info ',
     header: new ColorfulChalk('green'),
+    headerDelimiter: new ColorfulChalk('grey'),
     content: new ColorfulChalk('green'),
   },
   [Level.WARN]: {
     title: 'warn ',
     header: new ColorfulChalk('yellow'),
+    headerDelimiter: new ColorfulChalk('grey'),
     content: new ColorfulChalk('yellow'),
   },
   [Level.ERROR]: {
     title: 'error',
     header: new ColorfulChalk('red'),
+    headerDelimiter: new ColorfulChalk('grey'),
     content: new ColorfulChalk('red'),
   },
   [Level.FATAL]: {
     title: 'fatal',
     header: new ColorfulChalk('black', 'red'),
+    headerDelimiter: new ColorfulChalk('grey'),
     content: new ColorfulChalk('redBright'),
   },
 })
