@@ -23,29 +23,29 @@ exports[`resolveCommandConfigurationOptions basic 1`] = `
 exports[`resolveCommandConfigurationOptions basic 2`] = `
 [
   [
-    "[debug] cwd: <$WORKSPACE$>/packages/helper-commander
+    "[90m[[39mdebug[90m][39m cwd: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
   [
-    "[debug] workspace: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2
+    "[90m[[39mdebug[90m][39m workspace: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2
 ",
   ],
   [
-    "[debug] configPath: [
+    "[90m[[39mdebug[90m][39m configPath: [
   '<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/demo.config.yml',
 ]
 ",
   ],
   [
-    "[debug] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json
+    "[90m[[39mdebug[90m][39m parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json
 ",
   ],
   [
-    "[debug] parasticConfigEntry: @guanghechen/tool-demo
+    "[90m[[39mdebug[90m][39m parasticConfigEntry: @guanghechen/tool-demo
 ",
   ],
   [
-    "[debug] logLevel: debug
+    "[90m[[39mdebug[90m][39m logLevel: debug
 ",
   ],
 ]
@@ -100,27 +100,27 @@ exports[`resolveCommandConfigurationOptions with config 1`] = `
 exports[`resolveCommandConfigurationOptions with config 2`] = `
 [
   [
-    "[debug] cwd: <$WORKSPACE$>/packages/helper-commander
+    "[90m[[39mdebug[90m][39m cwd: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
   [
-    "[debug] workspace: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2
+    "[90m[[39mdebug[90m][39m workspace: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2
 ",
   ],
   [
-    "[debug] configPath: []
+    "[90m[[39mdebug[90m][39m configPath: []
 ",
   ],
   [
-    "[debug] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json
+    "[90m[[39mdebug[90m][39m parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json
 ",
   ],
   [
-    "[debug] parasticConfigEntry: @guanghechen/tool-demo
+    "[90m[[39mdebug[90m][39m parasticConfigEntry: @guanghechen/tool-demo
 ",
   ],
   [
-    "[debug] logLevel: debug
+    "[90m[[39mdebug[90m][39m logLevel: debug
 ",
   ],
 ]

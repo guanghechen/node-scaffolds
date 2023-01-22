@@ -9,47 +9,47 @@ exports[`command no sub-command with arguments: args 1`] = `
 exports[`command no sub-command with arguments: logs 1`] = `
 [
   [
-    "[debug ghc] cwd: <$WORKSPACE$>/packages/helper-commander
+    "[90m[[39mdebug ghc[90m][39m cwd: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
   [
-    "[debug ghc] workspace: <$WORKSPACE$>/packages/helper-commander
+    "[90m[[39mdebug ghc[90m][39m workspace: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
   [
-    "[debug ghc] configPath: []
+    "[90m[[39mdebug ghc[90m][39m configPath: []
 ",
   ],
   [
-    "[debug ghc] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/package.json
+    "[90m[[39mdebug ghc[90m][39m parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/package.json
 ",
   ],
   [
-    "[debug ghc] parasticConfigEntry: @guanghechen/helper-commander--demo
+    "[90m[[39mdebug ghc[90m][39m parasticConfigEntry: @guanghechen/helper-commander--demo
 ",
   ],
   [
-    "[debug ghc] logLevel: debug
+    "[90m[[39mdebug ghc[90m][39m logLevel: debug
 ",
   ],
   [
-    "[debug ghc] encoding: utf8
+    "[90m[[39mdebug ghc[90m][39m encoding: utf8
 ",
   ],
   [
-    "[debug ghc] input: undefined
+    "[90m[[39mdebug ghc[90m][39m input: undefined
 ",
   ],
   [
-    "[debug ghc] output: undefined
+    "[90m[[39mdebug ghc[90m][39m output: undefined
 ",
   ],
   [
-    "[debug ghc] force: true
+    "[90m[[39mdebug ghc[90m][39m force: true
 ",
   ],
   [
-    "[debug ghc] silence: false
+    "[90m[[39mdebug ghc[90m][39m silence: false
 ",
   ],
 ]
@@ -93,47 +93,47 @@ exports[`command no sub-command without arguments: args 1`] = `
 exports[`command no sub-command without arguments: logs 1`] = `
 [
   [
-    "[debug ghc] cwd: <$WORKSPACE$>/packages/helper-commander
+    "[90m[[39mdebug ghc[90m][39m cwd: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
   [
-    "[debug ghc] workspace: <$WORKSPACE$>/packages/helper-commander
+    "[90m[[39mdebug ghc[90m][39m workspace: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
   [
-    "[debug ghc] configPath: []
+    "[90m[[39mdebug ghc[90m][39m configPath: []
 ",
   ],
   [
-    "[debug ghc] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/package.json
+    "[90m[[39mdebug ghc[90m][39m parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/package.json
 ",
   ],
   [
-    "[debug ghc] parasticConfigEntry: @guanghechen/helper-commander--demo
+    "[90m[[39mdebug ghc[90m][39m parasticConfigEntry: @guanghechen/helper-commander--demo
 ",
   ],
   [
-    "[debug ghc] logLevel: debug
+    "[90m[[39mdebug ghc[90m][39m logLevel: debug
 ",
   ],
   [
-    "[debug ghc] encoding: utf8
+    "[90m[[39mdebug ghc[90m][39m encoding: utf8
 ",
   ],
   [
-    "[debug ghc] input: undefined
+    "[90m[[39mdebug ghc[90m][39m input: undefined
 ",
   ],
   [
-    "[debug ghc] output: undefined
+    "[90m[[39mdebug ghc[90m][39m output: undefined
 ",
   ],
   [
-    "[debug ghc] force: true
+    "[90m[[39mdebug ghc[90m][39m force: true
 ",
   ],
   [
-    "[debug ghc] silence: false
+    "[90m[[39mdebug ghc[90m][39m silence: false
 ",
   ],
 ]
