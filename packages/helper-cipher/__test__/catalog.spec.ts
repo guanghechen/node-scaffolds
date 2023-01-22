@@ -11,7 +11,12 @@ function expectEqual(catalog1: CipherCatalog, catalog2: CipherCatalog): void {
 describe('CipherCatalog', function () {
   const password = Buffer.from('@guanghechen/helper-cipher')
   const cipherFactory = new AesCipherFactory()
-  const cipher = cipherFactory.initFromPassword(password)
+  const cipher = cipherFactory.initFromPassword(password, {
+    salt: 'salt',
+    iterations: 100000,
+    keylen: 32,
+    digest: 'sha256',
+  })
   const fileCipher = new FileCipher({ cipher })
 
   describe('preserve', function () {

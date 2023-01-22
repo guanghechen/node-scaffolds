@@ -8,8 +8,7 @@ import fs from 'node:fs'
  * @param pieces
  */
 export function calcMac(...pieces: Array<Readonly<Buffer>>): Buffer {
-  // TODO: use sha256 instead.
-  const sha256 = createHash('sha1')
+  const sha256 = createHash('sha256')
   for (const piece of pieces) sha256.update(piece as Buffer)
   const mac: Buffer = sha256.digest()
   return mac
@@ -23,8 +22,7 @@ export function calcMac(...pieces: Array<Readonly<Buffer>>): Buffer {
  * @returns
  */
 export function calcMacFromString(text: string, textEncoding: BufferEncoding): Buffer {
-  // TODO: use sha256 instead.
-  const sha256 = createHash('sha1')
+  const sha256 = createHash('sha256')
   sha256.update(text, textEncoding)
   const mac: Buffer = sha256.digest()
   return mac
@@ -39,8 +37,7 @@ export function calcMacFromString(text: string, textEncoding: BufferEncoding): B
 export async function calcMacFromFile(filepath: string): Promise<Buffer | never> {
   ensureCriticalFilepathExistsSync(filepath)
 
-  // TODO: use sha256 instead.
-  const sha256 = createHash('sha1')
+  const sha256 = createHash('sha256')
   const stream = fs.createReadStream(filepath)
   for await (const chunk of stream) sha256.update(chunk)
   const mac: Buffer = sha256.digest()

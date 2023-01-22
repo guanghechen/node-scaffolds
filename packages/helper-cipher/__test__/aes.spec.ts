@@ -224,7 +224,12 @@ describe('AesCipher', function () {
 
     beforeAll(async function () {
       const password = calcMac(Buffer.from('@guanghechen/helper-cipher'))
-      const cipher = cipherFactory.initFromPassword(password)
+      const cipher = cipherFactory.initFromPassword(password, {
+        salt: 'salt',
+        iterations: 100000,
+        keylen: 32,
+        digest: 'sha256',
+      })
       fileCipher = new FileCipher({ cipher, logger })
 
       partFilepaths = await fileHelper.split(

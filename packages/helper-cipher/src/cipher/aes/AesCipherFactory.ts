@@ -1,7 +1,7 @@
 import { destroyBuffer } from '@guanghechen/helper-stream'
-import type crypto from 'node:crypto'
+import crypto from 'node:crypto'
 import type { ICipher } from '../../types/ICipher'
-import type { ICipherFactory } from '../../types/ICipherFactory'
+import type { ICipherFactory, IPBKDF2Options } from '../../types/ICipherFactory'
 import { createRandomIv, createRandomKey } from '../../util/key'
 import { AesCipher } from './AesCipher'
 
@@ -51,16 +51,16 @@ export class AesCipherFactory implements ICipherFactory {
   }
 
   public initFromSecret(secret: Readonly<Buffer>): ICipher | never {
-    const { iv, key } = this.parseSecret(secret)
+    const { iv, key } = this._parseSecret(secret)
     return new AesCipher({ iv, key, algorithm: this.algorithm })
   }
 
-  public initFromPassword(password: Readonly<Buffer>): ICipher | never {
-    const { iv, key } = this.parsePassword(password)
+  public initFromPassword(password: Readonly<Buffer>, options: IPBKDF2Options): ICipher | never {
+    const { iv, key } = this._parsePassword(password, options)
     return new AesCipher({ iv, key, algorithm: this.algorithm })
   }
 
-  protected parseSecret(secret: Readonly<Buffer>): { iv: Buffer; key: Buffer } {
+  protected _parseSecret(secret: Readonly<Buffer>): { iv: Buffer; key: Buffer } {
     const { ivSize, keySize } = this
     const iv: Buffer = Buffer.alloc(ivSize)
     const key: Buffer = Buffer.alloc(keySize)
@@ -69,24 +69,25 @@ export class AesCipherFactory implements ICipherFactory {
     return { iv, key }
   }
 
-  protected parsePassword(password: Readonly<Buffer>): { iv: Buffer; key: Buffer } {
-    const { ivSize, keySize } = this
-    const iv: Buffer = Buffer.alloc(ivSize)
-    const key: Buffer = Buffer.alloc(keySize)
-    let j = 0
+  protected _parsePassword(
+    password: Readonly<Buffer>,
+    options: IPBKDF2Options,
+  ): { iv: Buffer; key: Buffer } {
+    const master = crypto.pbkdf2Sync(
+      password,
+      options.salt,
+      options.iterations,
+      options.keylen,
+      options.digest,
+    )
 
-    // generate iv
-    for (let i = 0; i < ivSize; ++i) {
-      iv[i] = password[j]
-      j = (j + 1) % password.length
-    }
+    const keyHmac = crypto.createHmac('sha256', master)
+    keyHmac.update('key')
+    const key = keyHmac.digest()
 
-    // generate key
-    for (let i = 0; i < keySize; ++i) {
-      key[i] = password[j]
-      j = (j + 1) % password.length
-    }
-
+    const ivHmac = crypto.createHmac('sha256', master)
+    ivHmac.update('iv')
+    const iv = ivHmac.digest()
     return { iv, key }
   }
 }

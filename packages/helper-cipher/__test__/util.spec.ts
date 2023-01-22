@@ -52,9 +52,9 @@ describe('catalog', () => {
       }),
     ).toEqual({
       sourceFilepath: '1.md',
-      encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24b',
+      encryptedFilepath: '2a880f3b131302d849aeb685bf805e55e7992130914fca4ec59f22f317b44423',
       encryptedFileParts: [],
-      fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
+      fingerprint: '7540ddd55e0ab3e38dbd0c41e9ee9dc129f94bc3b491bbea8447f0e4dff6a72d',
       keepPlain: true,
       size: 452,
     })
@@ -68,9 +68,9 @@ describe('catalog', () => {
       }),
     ).toEqual({
       sourceFilepath: 'big-file.md',
-      encryptedFilepath: 'e401fe5a45a2fe62f211898bdf026d730a7fa076',
+      encryptedFilepath: 'b2babec80ba3fbf85c24a419dc6a567a79458775d728fe3f6edf5e8890466998',
       encryptedFileParts: ['.ghc-1', '.ghc-2', '.ghc-3', '.ghc-4', '.ghc-5', '.ghc-6'],
-      fingerprint: '69ec6ca7b731c639569a7574f2fe4f39da43c9d9',
+      fingerprint: 'c3f2b3d800195dcef15fe01479cabf9e05bfc25f2c2daa311805a2f013e9e76a',
       keepPlain: false,
       size: 5258,
     })
@@ -277,7 +277,7 @@ describe('mac', () => {
 
   test('calcMacFromString', () => {
     expect(calcMacFromString('hello, world!', 'utf8').toString('hex')).toEqual(
-      '1f09d30c707d53f3d16c530dd73d70a6ce7596a9',
+      '68e656b251e67e8358bef8483ab0d51c6619f3e7a1a9f0e75838d41ff368f728',
     )
   })
 
@@ -325,7 +325,7 @@ describe('mac', () => {
 
   test('calcFingerprintFromString', () => {
     expect(calcFingerprintFromString('hello, world!', 'utf8')).toEqual(
-      '1f09d30c707d53f3d16c530dd73d70a6ce7596a9',
+      '68e656b251e67e8358bef8483ab0d51c6619f3e7a1a9f0e75838d41ff368f728',
     )
   })
 
