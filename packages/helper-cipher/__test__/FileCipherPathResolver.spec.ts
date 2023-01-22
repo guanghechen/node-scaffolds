@@ -14,7 +14,13 @@ describe('FileCipherPathResolver', () => {
       path.join(sourceRootDir, 'waw.txt'),
     )
 
-    expect(pathResolver.calcAbsoluteSourceFilepath('/waw.txt')).toEqual('/waw.txt')
+    expect(pathResolver.calcAbsoluteSourceFilepath(path.join(sourceRootDir, 'waw2.txt'))).toEqual(
+      path.join(sourceRootDir, 'waw2.txt'),
+    )
+
+    expect(() => pathResolver.calcAbsoluteSourceFilepath('/waw.txt')).toThrow(
+      /Not under the sourceRootDir:/,
+    )
   })
 
   test('calcAbsoluteEncryptedFilepath', () => {
@@ -22,7 +28,13 @@ describe('FileCipherPathResolver', () => {
       path.join(encryptedRootDir, 'waw.txt'),
     )
 
-    expect(pathResolver.calcAbsoluteEncryptedFilepath('/waw.txt')).toEqual('/waw.txt')
+    expect(
+      pathResolver.calcAbsoluteEncryptedFilepath(path.join(encryptedRootDir, 'waw2.txt')),
+    ).toEqual(path.join(encryptedRootDir, 'waw2.txt'))
+
+    expect(() => pathResolver.calcAbsoluteEncryptedFilepath('/waw.txt')).toThrow(
+      /Not under the encryptedRootDir:/,
+    )
   })
 
   test('calcRelativeSourceFilepath', () => {

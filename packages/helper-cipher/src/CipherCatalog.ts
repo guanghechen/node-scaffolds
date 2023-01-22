@@ -9,7 +9,7 @@ import path from 'node:path'
 import { FileCipherPathResolver } from './FileCipherPathResolver'
 import type { ICatalogIndex, ICatalogItem } from './types/catalog'
 import type { IFileCipher } from './types/IFileCipher'
-import { calcFingerprint, calcMacFromFile } from './util/mac'
+import { calcFingerprintFromFile } from './util/mac'
 
 export interface ICipherCatalogOptions {
   /**
@@ -264,8 +264,7 @@ export class CipherCatalog {
     const stat: fs.Stats = fs.statSync(absoluteSourceFilepath)
     const size = stat.size
     const mtime = stat.mtime.toISOString()
-    const mac = await calcMacFromFile(absoluteSourceFilepath)
-    const fingerprint = calcFingerprint(mac)
+    const fingerprint = await calcFingerprintFromFile(absoluteSourceFilepath)
 
     let item: ICatalogItem | undefined = sfm.get(sourceFilepath)
     if (item != null) {

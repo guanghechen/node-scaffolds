@@ -18,7 +18,7 @@ export interface IFileCipherCatalogItem {
    * where each element of the array corresponds to the file path (relative path of the target root
    * directory) of each part.
    */
-  targetParts: string[]
+  encryptedFileParts: string[]
   /**
    * Fingerprint of contents of the source file.
    */

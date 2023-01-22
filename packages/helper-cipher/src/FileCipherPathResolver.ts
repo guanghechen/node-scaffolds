@@ -35,8 +35,16 @@ export class FileCipherPathResolver {
    * @param sourceFilepath
    */
   public calcAbsoluteSourceFilepath(sourceFilepath: string): string {
-    const filepath = absoluteOfWorkspace(this.sourceRootDir, sourceFilepath)
-    return filepath
+    if (path.isAbsolute(sourceFilepath)) {
+      invariant(
+        !path.relative(this.sourceRootDir, sourceFilepath).startsWith('..'),
+        `[calcAbsoluteSourceFilepath] Not under the sourceRootDir: ${sourceFilepath}`,
+      )
+      return sourceFilepath
+    } else {
+      const filepath = absoluteOfWorkspace(this.sourceRootDir, sourceFilepath)
+      return filepath
+    }
   }
 
   /**
@@ -44,8 +52,16 @@ export class FileCipherPathResolver {
    * @param encryptedFilepath
    */
   public calcAbsoluteEncryptedFilepath(encryptedFilepath: string): string {
-    const filepath = absoluteOfWorkspace(this.encryptedRootDir, encryptedFilepath)
-    return filepath
+    if (path.isAbsolute(encryptedFilepath)) {
+      invariant(
+        !path.relative(this.encryptedRootDir, encryptedFilepath).startsWith('..'),
+        `[calcAbsoluteEncryptedFilepath] Not under the encryptedRootDir: ${encryptedFilepath}`,
+      )
+      return encryptedFilepath
+    } else {
+      const filepath = absoluteOfWorkspace(this.encryptedRootDir, encryptedFilepath)
+      return filepath
+    }
   }
 
   /**

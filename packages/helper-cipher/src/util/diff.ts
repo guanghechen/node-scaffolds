@@ -12,6 +12,7 @@ export const isSameFileCipherItem = (
   if (oldItem === newItem) return true
 
   return (
+    oldItem.sourceFilepath === newItem.sourceFilepath &&
     oldItem.encryptedFilepath === newItem.encryptedFilepath &&
     oldItem.fingerprint === newItem.fingerprint &&
     oldItem.size === newItem.size &&

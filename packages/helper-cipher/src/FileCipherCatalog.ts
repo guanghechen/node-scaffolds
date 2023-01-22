@@ -89,7 +89,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
       _itemMap.set(sourceFilepath, {
         sourceFilepath,
         encryptedFilepath,
-        targetParts,
+        encryptedFileParts: targetParts,
         fingerprint,
         size,
         keepPlain,
@@ -187,7 +187,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
       _itemMap.set(item.sourceFilepath, {
         sourceFilepath: item.sourceFilepath,
         encryptedFilepath: item.encryptedFilepath,
-        targetParts: item.targetParts,
+        encryptedFileParts: item.encryptedFileParts,
         fingerprint: item.fingerprint,
         size: item.size,
         keepPlain: item.keepPlain,
@@ -251,6 +251,6 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   }
 
   protected _collectEncryptedFilepaths(item: Readonly<IFileCipherCatalogItem>): string[] {
-    return item.targetParts.length > 1 ? item.targetParts : [item.encryptedFilepath]
+    return item.encryptedFileParts.length > 1 ? item.encryptedFileParts : [item.encryptedFilepath]
   }
 }
