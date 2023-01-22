@@ -1,6 +1,6 @@
 import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
 
-export interface ICipherPathResolverProps {
+export interface IFileCipherPathResolverProps {
   /**
    * Root directory of source files.
    */
@@ -12,7 +12,7 @@ export interface ICipherPathResolverProps {
   readonly encryptedRootDir: string
 }
 
-export class CipherPathResolver {
+export class FileCipherPathResolver {
   /**
    * Root directory of source files.
    */
@@ -23,7 +23,7 @@ export class CipherPathResolver {
    */
   public readonly encryptedRootDir: string
 
-  constructor(props: ICipherPathResolverProps) {
+  constructor(props: IFileCipherPathResolverProps) {
     this.sourceRootDir = props.sourceRootDir
     this.encryptedRootDir = props.encryptedRootDir
   }

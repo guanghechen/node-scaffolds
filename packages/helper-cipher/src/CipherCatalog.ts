@@ -6,7 +6,7 @@ import invariant from '@guanghechen/invariant'
 import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
-import { CipherPathResolver } from './CipherPathResolver'
+import { FileCipherPathResolver } from './FileCipherPathResolver'
 import type { ICatalogIndex, ICatalogItem } from './types/catalog'
 import type { IFileCipher } from './types/IFileCipher'
 import { calcFingerprint, calcMacFromFile } from './util/mac'
@@ -54,7 +54,7 @@ export class CipherCatalog {
   public readonly sourceEncoding: BufferEncoding
   public readonly cipheredIndexEncoding: BufferEncoding
   public readonly maxTargetFileSize: number
-  public readonly pathResolver: CipherPathResolver
+  public readonly pathResolver: FileCipherPathResolver
   protected readonly fileCipher: IFileCipher
   protected readonly fileHelper: BigFileHelper
   protected readonly items: Array<Readonly<ICatalogItem>>
@@ -75,7 +75,10 @@ export class CipherCatalog {
       `[FILEPATH_NOT_FOUND] cannot find sourceRootDir: ${sourceRootDir}`,
     )
 
-    this.pathResolver = new CipherPathResolver({ sourceRootDir, encryptedRootDir: targetRootDir })
+    this.pathResolver = new FileCipherPathResolver({
+      sourceRootDir,
+      encryptedRootDir: targetRootDir,
+    })
     this.fileCipher = options.fileCipher
     this.fileHelper = new BigFileHelper({ encoding: undefined })
     this.sourceEncoding = sourceEncoding

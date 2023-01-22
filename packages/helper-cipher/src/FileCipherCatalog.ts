@@ -6,8 +6,8 @@ import { list2map } from '@guanghechen/helper-func'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
-import type { CipherPathResolver } from './CipherPathResolver'
 import { FileChangeType } from './constant'
+import type { FileCipherPathResolver } from './FileCipherPathResolver'
 import type { IFileCipher } from './types/IFileCipher'
 import type { IFileCipherCatalog } from './types/IFileCipherCatalog'
 import type {
@@ -16,7 +16,7 @@ import type {
 } from './types/IFileCipherCatalogItem'
 
 export interface IFileCipherCatalogProps {
-  pathResolver: CipherPathResolver
+  pathResolver: FileCipherPathResolver
   fileCipher: IFileCipher
   fileHelper: BigFileHelper
   maxTargetFileSize: number
@@ -25,7 +25,7 @@ export interface IFileCipherCatalogProps {
 }
 
 export class FileCipherCatalog implements IFileCipherCatalog {
-  public readonly pathResolver: CipherPathResolver
+  public readonly pathResolver: FileCipherPathResolver
   public readonly fileCipher: IFileCipher
   public readonly fileHelper: BigFileHelper
   public readonly maxTargetFileSize: number
