@@ -1,4 +1,6 @@
 import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
+import invariant from '@guanghechen/invariant'
+import path from 'node:path'
 
 export interface IFileCipherPathResolverProps {
   /**
@@ -52,6 +54,10 @@ export class FileCipherPathResolver {
    */
   public calcRelativeSourceFilepath(absoluteSourceFilepath: string): string {
     const filepath = relativeOfWorkspace(this.sourceRootDir, absoluteSourceFilepath)
+    invariant(
+      !path.isAbsolute(filepath) && !filepath.startsWith('..'),
+      `Not under the sourceRootDir: ${absoluteSourceFilepath}`,
+    )
     return filepath.replace(/[/\\]+/g, '/')
   }
 
@@ -61,6 +67,10 @@ export class FileCipherPathResolver {
    */
   public calcRelativeEncryptedFilepath(absoluteEncryptedFilepath: string): string {
     const filepath = relativeOfWorkspace(this.encryptedRootDir, absoluteEncryptedFilepath)
+    invariant(
+      !path.isAbsolute(filepath) && !filepath.startsWith('..'),
+      `Not under the encryptedRootDir: ${absoluteEncryptedFilepath}`,
+    )
     return filepath.replace(/[/\\]+/g, '/')
   }
 }
