@@ -36,7 +36,7 @@ export const calcFileCipherCatalogItem = async (
     sourceFilepath,
     encryptedFilepath,
     fingerprint,
-    encryptedFileParts,
+    encryptedFileParts: encryptedFileParts.length > 1 ? encryptedFileParts : [],
     size: fileSize,
     keepPlain: options.keepPlain,
   }

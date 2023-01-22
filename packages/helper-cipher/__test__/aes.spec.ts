@@ -23,7 +23,7 @@ describe('AesCipher', function () {
 
       partFilepaths = await fileHelper.split(
         sourceFilepath,
-        calcFilePartItemsByCount(sourceFilepath, 5),
+        calcFilePartItemsByCount(fs.statSync(sourceFilepath).size, 5),
       )
     })
 
@@ -57,7 +57,7 @@ describe('AesCipher', function () {
 
           cipherPartFilepaths = await fileHelper.split(
             cipherFilepath,
-            calcFilePartItemsByCount(cipherFilepath, 5),
+            calcFilePartItemsByCount(fs.statSync(cipherFilepath).size, 5),
           )
           expect(cipherPartFilepaths.length).toEqual(5)
 
@@ -184,7 +184,7 @@ describe('AesCipher', function () {
 
           cipherPartFilepaths = await fileHelper.split(
             cipherFilepath,
-            calcFilePartItemsByCount(cipherFilepath, 5),
+            calcFilePartItemsByCount(fs.statSync(cipherFilepath).size, 5),
           )
           expect(cipherPartFilepaths.length).toEqual(5)
 
@@ -229,7 +229,7 @@ describe('AesCipher', function () {
 
       partFilepaths = await fileHelper.split(
         sourceFilepath,
-        calcFilePartItemsByCount(sourceFilepath, 5),
+        calcFilePartItemsByCount(fs.statSync(sourceFilepath).size, 5),
       )
     })
 
@@ -316,7 +316,7 @@ describe('AesCipher', function () {
 
           cipherPartFilepaths = await fileHelper.split(
             cipherFilepath,
-            calcFilePartItemsByCount(cipherFilepath, 5),
+            calcFilePartItemsByCount(fs.statSync(cipherFilepath).size, 5),
           )
           expect(cipherPartFilepaths.length).toEqual(5)
 

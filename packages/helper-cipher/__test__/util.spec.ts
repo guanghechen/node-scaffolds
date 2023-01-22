@@ -1,6 +1,9 @@
 import { locateFixtures } from 'jest.helper'
+import path from 'node:path'
 import type { IFileCipherCatalogItem } from '../src'
 import {
+  FileChangeType,
+  FileCipherPathResolver,
   calcFingerprintFromFile,
   calcFingerprintFromMac,
   calcFingerprintFromString,
@@ -9,8 +12,70 @@ import {
   calcMacFromString,
   createRandomIv,
   createRandomKey,
+  diffFileCipherItems,
   isSameFileCipherItem,
 } from '../src'
+import { calcFileCipherCatalogItem, normalizeSourceFilepath } from '../src/util/catalog'
+
+describe('catalog', () => {
+  const sourceRootDir = locateFixtures('basic')
+  const encryptedRootDir = path.join(path.dirname(sourceRootDir), 'src_encrypted')
+  const pathResolver = new FileCipherPathResolver({ sourceRootDir, encryptedRootDir })
+
+  test('normalizeSourceFilepath', () => {
+    expect(normalizeSourceFilepath('a.txt', pathResolver)).toEqual('a.txt')
+    expect(normalizeSourceFilepath('a.txt/', pathResolver)).toEqual('a.txt')
+    expect(normalizeSourceFilepath('./a.txt', pathResolver)).toEqual('a.txt')
+    expect(normalizeSourceFilepath('./a.txt/', pathResolver)).toEqual('a.txt')
+    expect(normalizeSourceFilepath('a/b/c//d/e/a.txt', pathResolver)).toEqual('a/b/c/d/e/a.txt')
+    expect(() => normalizeSourceFilepath('/a.txt', pathResolver)).toThrow(
+      /Invariant failed: Not under the sourceRootDir:/,
+    )
+    expect(() => normalizeSourceFilepath('../a.txt', pathResolver)).toThrow(
+      /Invariant failed: Not under the sourceRootDir:/,
+    )
+    expect(() => normalizeSourceFilepath('..', pathResolver)).toThrow(
+      /Invariant failed: Not under the sourceRootDir:/,
+    )
+    expect(
+      normalizeSourceFilepath(pathResolver.calcAbsoluteSourceFilepath('a.txt'), pathResolver),
+    ).toEqual('a.txt')
+  })
+
+  test('calcFileCipherCatalogItem', async () => {
+    expect(
+      await calcFileCipherCatalogItem('1.md', {
+        keepPlain: true,
+        maxTargetSize: 1024,
+        partCodePrefix: '.ghc',
+        pathResolver,
+      }),
+    ).toEqual({
+      sourceFilepath: '1.md',
+      encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24b',
+      encryptedFileParts: [],
+      fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
+      keepPlain: true,
+      size: 452,
+    })
+
+    expect(
+      await calcFileCipherCatalogItem('big-file.md', {
+        keepPlain: false,
+        maxTargetSize: 1024,
+        partCodePrefix: '.ghc-',
+        pathResolver,
+      }),
+    ).toEqual({
+      sourceFilepath: 'big-file.md',
+      encryptedFilepath: 'e401fe5a45a2fe62f211898bdf026d730a7fa076',
+      encryptedFileParts: ['.ghc-1', '.ghc-2', '.ghc-3', '.ghc-4', '.ghc-5', '.ghc-6'],
+      fingerprint: '69ec6ca7b731c639569a7574f2fe4f39da43c9d9',
+      keepPlain: false,
+      size: 5258,
+    })
+  })
+})
 
 describe('diff', () => {
   test('isSameFileCipherItem', () => {
@@ -42,6 +107,131 @@ describe('diff', () => {
     ).toEqual(true)
     expect(isSameFileCipherItem(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
     expect(isSameFileCipherItem(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
+  })
+
+  test('diffFileCipherItems', () => {
+    const oldItems = [
+      {
+        sourceFilepath: '1.md',
+        encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24b',
+        encryptedFileParts: [],
+        fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
+        keepPlain: true,
+        size: 452,
+      },
+      {
+        sourceFilepath: '2.md',
+        encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24t',
+        encryptedFileParts: [],
+        fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
+        keepPlain: true,
+        size: 452,
+      },
+      {
+        sourceFilepath: '3.md',
+        encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24o',
+        encryptedFileParts: [],
+        fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
+        keepPlain: true,
+        size: 452,
+      },
+    ]
+
+    const newItems = [
+      {
+        sourceFilepath: '2.md',
+        encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24t',
+        encryptedFileParts: [''],
+        fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
+        keepPlain: true,
+        size: 452,
+      },
+      {
+        sourceFilepath: '3.md',
+        encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24o',
+        encryptedFileParts: [],
+        fingerprint: '01ec9cc89186ab8a608814a9a124f4fdb0494ef4',
+        keepPlain: true,
+        size: 931,
+      },
+      {
+        sourceFilepath: '4.md',
+        encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24q',
+        encryptedFileParts: [],
+        fingerprint: '01ec9cc89186ab8a608814a9a124f4fdb0494e94',
+        keepPlain: true,
+        size: 1031,
+      },
+      {
+        sourceFilepath: '5.md',
+        encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24x',
+        encryptedFileParts: [],
+        fingerprint: '01ec9cc89186ab8a608814a9a124f4fdb0494e94',
+        keepPlain: true,
+        size: 931,
+      },
+    ]
+
+    expect(diffFileCipherItems(oldItems, [])).toEqual(
+      oldItems.map(item => ({ changeType: FileChangeType.REMOVED, oldItem: item })),
+    )
+    expect(diffFileCipherItems([], newItems)).toEqual(
+      newItems.map(item => ({ changeType: FileChangeType.ADDED, newItem: item })),
+    )
+    expect(diffFileCipherItems(oldItems, newItems)).toEqual([
+      {
+        changeType: 'removed',
+        oldItem: {
+          sourceFilepath: '1.md',
+          encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24b',
+          encryptedFileParts: [],
+          fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
+          keepPlain: true,
+          size: 452,
+        },
+      },
+      {
+        changeType: 'added',
+        newItem: {
+          sourceFilepath: '4.md',
+          encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24q',
+          encryptedFileParts: [],
+          fingerprint: '01ec9cc89186ab8a608814a9a124f4fdb0494e94',
+          keepPlain: true,
+          size: 1031,
+        },
+      },
+      {
+        changeType: 'added',
+        newItem: {
+          sourceFilepath: '5.md',
+          encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24x',
+          encryptedFileParts: [],
+          fingerprint: '01ec9cc89186ab8a608814a9a124f4fdb0494e94',
+          keepPlain: true,
+          size: 931,
+        },
+      },
+      {
+        changeType: 'modified',
+        newItem: {
+          sourceFilepath: '3.md',
+          encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24o',
+          encryptedFileParts: [],
+          fingerprint: '01ec9cc89186ab8a608814a9a124f4fdb0494ef4',
+          keepPlain: true,
+          size: 931,
+        },
+        oldItem: {
+          sourceFilepath: '3.md',
+          encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24o',
+          encryptedFileParts: [],
+          fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
+          keepPlain: true,
+          size: 452,
+        },
+      },
+    ])
   })
 })
 
