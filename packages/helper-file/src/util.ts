@@ -5,21 +5,17 @@ import type { IFilePartItem } from './types'
 /**
  * Generate file part items by part size.
  *
- * @param filepath
+ * @param fileSize
  * @param _partSize
  * @returns
  */
-export function calcFilePartItemsBySize(filepath: string, _partSize: number): IFilePartItem[] {
+export function calcFilePartItemsBySize(fileSize: number, _partSize: number): IFilePartItem[] {
   invariant(_partSize >= 1, 'Part size should be a positive integer!')
 
-  const stat = fs.statSync(filepath)
-  invariant(stat.isFile(), `'${filepath}' is not a file!`)
-
-  const totalSize = stat.size
-  if (totalSize <= 0) return [{ sid: 1, start: 0, end: 0 }]
+  if (fileSize <= 0) return [{ sid: 1, start: 0, end: 0 }]
 
   const partSize = Math.round(_partSize)
-  const partTotal = Math.ceil(totalSize / partSize)
+  const partTotal = Math.ceil(fileSize / partSize)
   invariant(partTotal > 0, 'Part size is too small!')
 
   const parts: IFilePartItem[] = []
@@ -32,7 +28,7 @@ export function calcFilePartItemsBySize(filepath: string, _partSize: number): IF
   }
 
   // Resize the size of the last part.
-  parts[parts.length - 1].end = totalSize
+  parts[parts.length - 1].end = fileSize
   return parts
 }
 
@@ -43,17 +39,13 @@ export function calcFilePartItemsBySize(filepath: string, _partSize: number): IF
  * @param _partTotal
  * @returns
  */
-export function calcFilePartItemsByCount(filepath: string, _partTotal: number): IFilePartItem[] {
+export function calcFilePartItemsByCount(fileSize: number, _partTotal: number): IFilePartItem[] {
   invariant(_partTotal >= 1, 'Total of part should be a positive integer!')
 
-  const stat = fs.statSync(filepath)
-  invariant(stat.isFile(), `'${filepath}' is not a file!`)
-
-  const totalSize = stat.size
-  if (totalSize <= 0) return [{ sid: 1, start: 0, end: 0 }]
+  if (fileSize <= 0) return [{ sid: 1, start: 0, end: 0 }]
 
   const partTotal = Math.round(_partTotal)
-  const partSize = Math.ceil(totalSize / partTotal)
+  const partSize = Math.ceil(fileSize / partTotal)
   const parts: IFilePartItem[] = []
   for (let i = 0; i < partTotal; ++i) {
     parts.push({
@@ -64,7 +56,7 @@ export function calcFilePartItemsByCount(filepath: string, _partTotal: number): 
   }
 
   // Resize the size of the last part.
-  parts[parts.length - 1].end = totalSize
+  parts[parts.length - 1].end = fileSize
   return parts
 }
 

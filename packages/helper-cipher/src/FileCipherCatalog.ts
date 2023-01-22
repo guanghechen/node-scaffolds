@@ -14,6 +14,7 @@ import type {
   IFileCipherCatalogItem,
   IFileCipherCatalogItemDiff,
 } from './types/IFileCipherCatalogItem'
+import { normalizeSourceFilepath } from './util/catalog'
 
 export interface IFileCipherCatalogProps {
   pathResolver: FileCipherPathResolver
@@ -37,7 +38,9 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     this.fileCipher = props.fileCipher
     this.fileHelper = props.fileHelper
     this.maxTargetFileSize = props.maxTargetFileSize
-    this._itemMap = list2map(props.initialItems?.slice() ?? [], item => item.sourceFilepath)
+    this._itemMap = list2map(props.initialItems?.slice() ?? [], item =>
+      normalizeSourceFilepath(item.sourceFilepath, this.pathResolver),
+    )
   }
 
   public get currentItems(): IFileCipherCatalogItem[] {
@@ -69,27 +72,28 @@ export class FileCipherCatalog implements IFileCipherCatalog {
         await fileCipher.encryptFile(absoluteSourceFilepath, absoluteEncryptedFilepath)
       }
 
-      let targetParts: string[] = []
+      let encryptedFileParts: string[] = []
 
       // Split target file.
       {
         const parts: IFilePartItem[] = calcFilePartItemsBySize(
-          absoluteEncryptedFilepath,
+          await fs.stat(absoluteEncryptedFilepath).then(md => md.size),
           maxTargetFileSize,
         )
         if (parts.length > 1) {
           const partFilepaths: string[] = await fileHelper.split(absoluteEncryptedFilepath, parts)
-          targetParts = partFilepaths.map(p => pathResolver.calcRelativeEncryptedFilepath(p))
+          encryptedFileParts = partFilepaths.map(p => pathResolver.calcRelativeEncryptedFilepath(p))
 
           // Remove the original big target file.
           await fs.unlink(absoluteEncryptedFilepath)
         }
       }
 
-      _itemMap.set(sourceFilepath, {
+      const key = normalizeSourceFilepath(sourceFilepath, pathResolver)
+      _itemMap.set(key, {
         sourceFilepath,
         encryptedFilepath,
-        encryptedFileParts: targetParts,
+        encryptedFileParts,
         fingerprint,
         size,
         keepPlain,
@@ -118,7 +122,9 @@ export class FileCipherCatalog implements IFileCipherCatalog {
           this.pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
         await fs.unlink(absoluteEncryptedFilepath)
       }
-      _itemMap.delete(sourceFilepath)
+
+      const key = normalizeSourceFilepath(sourceFilepath, pathResolver)
+      _itemMap.delete(key)
     }
 
     for (const diffItem of diffItems) {
@@ -184,7 +190,8 @@ export class FileCipherCatalog implements IFileCipherCatalog {
         await fileCipher.decryptFiles(absoluteEncryptedFilepaths, absoluteSourceFilepath)
       }
 
-      _itemMap.set(item.sourceFilepath, {
+      const key = normalizeSourceFilepath(item.sourceFilepath, pathResolver)
+      _itemMap.set(key, {
         sourceFilepath: item.sourceFilepath,
         encryptedFilepath: item.encryptedFilepath,
         encryptedFileParts: item.encryptedFileParts,
@@ -208,7 +215,8 @@ export class FileCipherCatalog implements IFileCipherCatalog {
 
       await fs.unlink(absoluteSourceFilepath)
 
-      _itemMap.delete(sourceFilepath)
+      const key = normalizeSourceFilepath(item.sourceFilepath, pathResolver)
+      _itemMap.delete(key)
     }
 
     // source filepath should always pointer to the plain contents,

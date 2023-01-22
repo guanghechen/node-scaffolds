@@ -360,7 +360,7 @@ export class CipherCatalog {
 
     // Split target file.
     const parts: IFilePartItem[] = calcFilePartItemsBySize(
-      absoluteTargetFilepath,
+      fs.statSync(absoluteTargetFilepath).size,
       maxTargetFileSize,
     )
     const partFilepaths: string[] = await fileHelper.split(absoluteTargetFilepath, parts)

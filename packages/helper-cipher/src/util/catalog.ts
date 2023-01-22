@@ -1,6 +1,6 @@
 import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/helper-file'
 import { normalizeUrlPath } from '@guanghechen/helper-path'
-import fs from 'node:fs'
+import fs from 'node:fs/promises'
 import type { FileCipherPathResolver } from '../FileCipherPathResolver'
 import type { IFileCipherCatalogItem } from '../types/IFileCipherCatalogItem'
 import { calcFingerprintFromFile, calcFingerprintFromString } from './mac'
@@ -25,10 +25,11 @@ export const calcFileCipherCatalogItem = async (
   const absoluteSourceFilepath = options.pathResolver.calcAbsoluteSourceFilepath(sourceFilepath)
   const sourceFilepathKey = normalizeSourceFilepath(sourceFilepath, options.pathResolver)
 
+  const fileSize = await fs.stat(absoluteSourceFilepath).then(md => md.size)
   const fingerprint: string = await calcFingerprintFromFile(absoluteSourceFilepath)
   const encryptedFilepath: string = calcFingerprintFromString(sourceFilepathKey, 'utf8')
   const encryptedFileParts = calcFilePartNames(
-    calcFilePartItemsBySize(absoluteSourceFilepath, options.maxTargetSize),
+    calcFilePartItemsBySize(fileSize, options.maxTargetSize),
     options.partCodePrefix,
   )
   const item: IFileCipherCatalogItem = {
@@ -36,7 +37,7 @@ export const calcFileCipherCatalogItem = async (
     encryptedFilepath,
     fingerprint,
     encryptedFileParts,
-    size: fs.statSync(absoluteSourceFilepath).size,
+    size: fileSize,
     keepPlain: options.keepPlain,
   }
   return item
