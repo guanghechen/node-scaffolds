@@ -4,6 +4,7 @@ import type { IFileCipherCatalogItem } from '../src'
 import {
   FileChangeType,
   FileCipherPathResolver,
+  calcFileCipherCatalogItem,
   calcFingerprintFromFile,
   calcFingerprintFromMac,
   calcFingerprintFromString,
@@ -14,8 +15,8 @@ import {
   createRandomKey,
   diffFileCipherItems,
   isSameFileCipherItem,
+  normalizeSourceFilepath,
 } from '../src'
-import { calcFileCipherCatalogItem, normalizeSourceFilepath } from '../src/util/catalog'
 
 describe('catalog', () => {
   const sourceRootDir = locateFixtures('basic')

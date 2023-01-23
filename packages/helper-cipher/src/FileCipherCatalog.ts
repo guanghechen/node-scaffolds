@@ -82,7 +82,11 @@ export class FileCipherCatalog implements IFileCipherCatalog {
         )
         if (parts.length > 1) {
           const partFilepaths: string[] = await fileHelper.split(absoluteEncryptedFilepath, parts)
-          encryptedFileParts = partFilepaths.map(p => pathResolver.calcRelativeEncryptedFilepath(p))
+          const relativeEncryptedFilepath =
+            pathResolver.calcRelativeEncryptedFilepath(encryptedFilepath)
+          encryptedFileParts = partFilepaths.map(p =>
+            pathResolver.calcRelativeEncryptedFilepath(p).slice(relativeEncryptedFilepath.length),
+          )
 
           // Remove the original big target file.
           await fs.unlink(absoluteEncryptedFilepath)

@@ -84,9 +84,9 @@ export function calcFilePartNames(
   const partNames = parts.map(part => {
     // construct part number for current file part, e.g. (assume the partCodePrefix is ".ghc-part")
     //
-    //    <file>.ghc-part01
+    //    .ghc-part01
     //    ...
-    //    <file>.ghc-part14
+    //    .ghc-part14
     const partCode = String(part.sid).padStart(maxPaddingCount, '0')
     return partCodePrefix + partCode
   })
