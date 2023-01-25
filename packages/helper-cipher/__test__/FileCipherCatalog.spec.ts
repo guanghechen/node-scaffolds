@@ -1,5 +1,5 @@
 import { BigFileHelper } from '@guanghechen/helper-file'
-import { mkdirsIfNotExists, rm, writeFile } from '@guanghechen/helper-fs'
+import { emptyDir, mkdirsIfNotExists, rm, writeFile } from '@guanghechen/helper-fs'
 import { locateFixtures } from 'jest.helper'
 import { existsSync, readFileSync } from 'node:fs'
 import fs from 'node:fs/promises'
@@ -55,11 +55,11 @@ describe('FileCipherCatalog', () => {
   const compareCatalogItem = (x: IFileCipherCatalogItem, y: IFileCipherCatalogItem): number =>
     x.sourceFilepath.localeCompare(y.sourceFilepath)
 
-  beforeAll(async () => {
-    mkdirsIfNotExists(workspaceDir, true)
+  beforeEach(async () => {
+    await emptyDir(workspaceDir, true)
   })
 
-  afterAll(async () => {
+  afterEach(async () => {
     await rm(workspaceDir)
   })
 
@@ -172,5 +172,26 @@ describe('FileCipherCatalog', () => {
       expect(existsSync(absoluteEncryptedFilepathB)).toEqual(true)
       expect(readFileSync(absoluteEncryptedFilepathB, encoding)).toEqual('Hello, B2')
     }
+  })
+
+  test('decryptDiff', async () => {
+    const bakRootDir: string = path.join(workspaceDir, 'src_backup')
+    const pathResolver2 = new FileCipherPathResolver({
+      sourceRootDir: bakRootDir,
+      encryptedRootDir,
+    })
+    const catalog2 = new FileCipherCatalog({
+      pathResolver: pathResolver2,
+      fileCipher,
+      fileHelper,
+      maxTargetFileSize: 1024,
+    })
+
+    expect(existsSync(filepathA)).toEqual(false)
+
+    await writeFile(filepathA, 'Hello, Alice')
+    const itemA = catalog
+
+    await catalog.encryptDiff()
   })
 })
