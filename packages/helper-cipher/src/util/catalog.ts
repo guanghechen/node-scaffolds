@@ -23,7 +23,9 @@ export const calcFileCipherCatalogItem = async (
   },
 ): Promise<IFileCipherCatalogItem | never> => {
   const absoluteSourceFilepath = options.pathResolver.calcAbsoluteSourceFilepath(sourceFilepath)
-  const sourceFilepathKey = normalizeSourceFilepath(sourceFilepath, options.pathResolver)
+  const relativeSourceFilepath =
+    options.pathResolver.calcRelativeSourceFilepath(absoluteSourceFilepath)
+  const sourceFilepathKey = normalizeSourceFilepath(relativeSourceFilepath, options.pathResolver)
 
   const fileSize = await fs.stat(absoluteSourceFilepath).then(md => md.size)
   const fingerprint: string = await calcFingerprintFromFile(absoluteSourceFilepath)
@@ -33,7 +35,7 @@ export const calcFileCipherCatalogItem = async (
     options.partCodePrefix,
   )
   const item: IFileCipherCatalogItem = {
-    sourceFilepath,
+    sourceFilepath: relativeSourceFilepath,
     encryptedFilepath,
     encryptedFileParts: encryptedFileParts.length > 1 ? encryptedFileParts : [],
     fingerprint,

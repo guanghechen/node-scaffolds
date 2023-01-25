@@ -18,6 +18,7 @@ describe('FileCipherCatalog', () => {
   const workspaceDir: string = locateFixtures('__fictitious__')
   const sourceRootDir: string = path.join(workspaceDir, 'src')
   const encryptedRootDir: string = path.join(workspaceDir, 'src_encrypted')
+  const bakRootDir: string = path.join(workspaceDir, 'src_backup')
   const pathResolver = new FileCipherPathResolver({ sourceRootDir, encryptedRootDir })
   const encoding: BufferEncoding = 'utf8'
   const filepathA: string = pathResolver.calcAbsoluteSourceFilepath('a.txt')
@@ -195,7 +196,6 @@ describe('FileCipherCatalog', () => {
   })
 
   test('decryptDiff', async () => {
-    const bakRootDir: string = path.join(workspaceDir, 'src_backup')
     const pathResolver2 = new FileCipherPathResolver({
       sourceRootDir: bakRootDir,
       encryptedRootDir,
@@ -249,6 +249,20 @@ describe('FileCipherCatalog', () => {
     ])
     await expect(
       catalog.checkIntegrity({ sourceFiles: true, encryptedFiles: true }),
+    ).resolves.toBeUndefined()
+
+    await catalog2.decryptDiff([
+      {
+        changeType: FileChangeType.ADDED,
+        newItem: itemA,
+      },
+      {
+        changeType: FileChangeType.ADDED,
+        newItem: itemC,
+      },
+    ])
+    await expect(
+      catalog2.checkIntegrity({ sourceFiles: true, encryptedFiles: true }),
     ).resolves.toBeUndefined()
   })
 })

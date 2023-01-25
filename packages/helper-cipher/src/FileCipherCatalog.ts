@@ -305,6 +305,8 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   }
 
   protected _collectEncryptedFilepaths(item: Readonly<IFileCipherCatalogItem>): string[] {
-    return item.encryptedFileParts.length > 1 ? item.encryptedFileParts : [item.encryptedFilepath]
+    return item.encryptedFileParts.length > 1
+      ? item.encryptedFileParts.map(part => item.encryptedFilepath + part)
+      : [item.encryptedFilepath]
   }
 }
