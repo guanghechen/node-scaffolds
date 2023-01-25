@@ -1,5 +1,5 @@
 import { BigFileHelper } from '@guanghechen/helper-file'
-import { emptyDir, mkdirsIfNotExists, rm, writeFile } from '@guanghechen/helper-fs'
+import { emptyDir, rm, writeFile } from '@guanghechen/helper-fs'
 import { locateFixtures } from 'jest.helper'
 import { existsSync, readFileSync } from 'node:fs'
 import fs from 'node:fs/promises'
@@ -43,6 +43,7 @@ describe('FileCipherCatalog', () => {
   const calcCatalogItem = (
     sourceFilepath: string,
     keepPlain: boolean,
+    pathResolver: FileCipherPathResolver,
   ): Promise<IFileCipherCatalogItem | never> => {
     return calcFileCipherCatalogItem(sourceFilepath, {
       keepPlain,
@@ -56,6 +57,7 @@ describe('FileCipherCatalog', () => {
     x.sourceFilepath.localeCompare(y.sourceFilepath)
 
   beforeEach(async () => {
+    catalog.clear()
     await emptyDir(workspaceDir, true)
   })
 
@@ -75,8 +77,8 @@ describe('FileCipherCatalog', () => {
     expect(catalog.currentItems.sort(compareCatalogItem)).toEqual([])
 
     {
-      const itemA = await calcCatalogItem(filepathA, false)
-      const itemB = await calcCatalogItem(filepathB, false)
+      const itemA = await calcCatalogItem(filepathA, false, pathResolver)
+      const itemB = await calcCatalogItem(filepathB, false, pathResolver)
 
       await catalog.encryptDiff([
         {
@@ -88,6 +90,9 @@ describe('FileCipherCatalog', () => {
           newItem: itemB,
         },
       ])
+      await expect(
+        catalog.checkIntegrity({ sourceFiles: true, encryptedFiles: true }),
+      ).resolves.toBeUndefined()
 
       const absoluteEncryptedFilepathA = pathResolver.calcAbsoluteEncryptedFilepath(
         itemA.encryptedFilepath,
@@ -112,6 +117,9 @@ describe('FileCipherCatalog', () => {
           },
         ]),
       ).rejects.toThrow('[encryptDiff] Bad diff item (removed), source file should not exist.')
+      await expect(
+        catalog.checkIntegrity({ sourceFiles: true, encryptedFiles: true }),
+      ).resolves.toBeUndefined()
 
       expect(catalog.currentItems.sort(compareCatalogItem)).toEqual(
         [itemA, itemB].sort(compareCatalogItem),
@@ -124,6 +132,9 @@ describe('FileCipherCatalog', () => {
           oldItem: itemA,
         },
       ])
+      await expect(
+        catalog.checkIntegrity({ sourceFiles: true, encryptedFiles: true }),
+      ).resolves.toBeUndefined()
 
       expect(catalog.currentItems.sort(compareCatalogItem)).toEqual([itemB])
       expect(existsSync(absoluteEncryptedFilepathA)).toEqual(false)
@@ -141,9 +152,12 @@ describe('FileCipherCatalog', () => {
       ).rejects.toThrow(
         '[encryptDiff] Bad diff item (modified), encrypted file does not exist or it is not a file.',
       )
+      await expect(
+        catalog.checkIntegrity({ sourceFiles: true, encryptedFiles: true }),
+      ).resolves.toBeUndefined()
 
       await writeFile(filepathB, 'Hello, B2', encoding)
-      const itemB2 = await calcCatalogItem(filepathB, true)
+      const itemB2 = await calcCatalogItem(filepathB, true, pathResolver)
       await catalog.encryptDiff([
         {
           changeType: FileChangeType.MODIFIED,
@@ -151,6 +165,9 @@ describe('FileCipherCatalog', () => {
           newItem: itemB2,
         },
       ])
+      await expect(
+        catalog.checkIntegrity({ sourceFiles: true, encryptedFiles: true }),
+      ).resolves.toBeUndefined()
 
       expect(catalog.currentItems.sort(compareCatalogItem)).toEqual([itemB2])
       expect(existsSync(absoluteEncryptedFilepathA)).toEqual(false)
@@ -159,13 +176,16 @@ describe('FileCipherCatalog', () => {
 
       const contentC = 'waw'.repeat(1037).concat('1234@123589op#kdf%df')
       await writeFile(filepathC, contentC, encoding)
-      const itemC = await calcCatalogItem(filepathC, false)
+      const itemC = await calcCatalogItem(filepathC, false, pathResolver)
       await catalog.encryptDiff([
         {
           changeType: FileChangeType.ADDED,
           newItem: itemC,
         },
       ])
+      await expect(
+        catalog.checkIntegrity({ sourceFiles: true, encryptedFiles: true }),
+      ).resolves.toBeUndefined()
 
       expect(catalog.currentItems.sort(compareCatalogItem)).toEqual([itemB2, itemC])
       expect(existsSync(absoluteEncryptedFilepathA)).toEqual(false)
@@ -190,8 +210,45 @@ describe('FileCipherCatalog', () => {
     expect(existsSync(filepathA)).toEqual(false)
 
     await writeFile(filepathA, 'Hello, Alice')
-    const itemA = catalog
+    const itemA = await calcCatalogItem(filepathA, false, pathResolver)
 
-    await catalog.encryptDiff()
+    await catalog.encryptDiff([
+      {
+        changeType: FileChangeType.ADDED,
+        newItem: itemA,
+      },
+    ])
+
+    await expect(
+      catalog.checkIntegrity({ sourceFiles: true, encryptedFiles: true }),
+    ).resolves.toBeUndefined()
+
+    const absoluteEncryptedFilepathA = pathResolver.calcAbsoluteEncryptedFilepath(
+      itemA.encryptedFilepath,
+    )
+    const contentA = await fs.readFile(absoluteEncryptedFilepathA)
+    await fs.unlink(absoluteEncryptedFilepathA)
+    await expect(catalog.checkIntegrity({ sourceFiles: true })).resolves.toBeUndefined()
+    await expect(() => catalog.checkIntegrity({ encryptedFiles: true })).rejects.toThrow(
+      'Missing encrypted file.',
+    )
+    await writeFile(absoluteEncryptedFilepathA, contentA)
+
+    await expect(
+      catalog.checkIntegrity({ sourceFiles: true, encryptedFiles: true }),
+    ).resolves.toBeUndefined()
+
+    const contentC = 'waw'.repeat(1037).concat('1234@123589op#kdf%df')
+    await writeFile(filepathC, contentC, encoding)
+    const itemC = await calcCatalogItem(filepathC, false, pathResolver)
+    await catalog.encryptDiff([
+      {
+        changeType: FileChangeType.ADDED,
+        newItem: itemC,
+      },
+    ])
+    await expect(
+      catalog.checkIntegrity({ sourceFiles: true, encryptedFiles: true }),
+    ).resolves.toBeUndefined()
   })
 })

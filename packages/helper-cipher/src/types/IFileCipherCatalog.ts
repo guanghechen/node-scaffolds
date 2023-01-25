@@ -7,9 +7,14 @@ export interface IFileCipherCatalog {
   currentItems: IFileCipherCatalogItem[]
 
   /**
+   * Clear the catalog items.
+   */
+  clear(): void
+
+  /**
    * Check the file for corruption.
    */
-  checkIntegrity(): Promise<void | never>
+  checkIntegrity(params: { sourceFiles?: boolean; encryptedFiles?: boolean }): Promise<void | never>
 
   /**
    * Update the encrypted data based on the catalog items diff.

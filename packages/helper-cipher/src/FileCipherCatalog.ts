@@ -47,8 +47,50 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     return Array.from(this._itemMap.values())
   }
 
-  public checkIntegrity(): Promise<void> {
-    throw new Error('Method not implemented.')
+  public clear(): void {
+    this._itemMap.clear()
+  }
+
+  public async checkIntegrity(params: {
+    sourceFiles?: boolean
+    encryptedFiles?: boolean
+  }): Promise<void | never> {
+    const { _itemMap, pathResolver } = this
+    if (params.sourceFiles) {
+      this.logger?.debug('[checkIntegrity] checking source files.')
+      for (const item of _itemMap.values()) {
+        const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(item.sourceFilepath)
+        invariant(
+          isFileSync(absoluteSourceFilepath),
+          `[checkIntegrity] Missing source file. (${absoluteSourceFilepath})`,
+        )
+      }
+    }
+
+    if (params.encryptedFiles) {
+      this.logger?.debug('[checkIntegrity] checking encrypted files.')
+      for (const item of _itemMap.values()) {
+        if (item.encryptedFileParts.length > 1) {
+          for (const filePart of item.encryptedFileParts) {
+            const encryptedFilepath = item.encryptedFilepath + filePart
+            const absoluteEncryptedFilepath =
+              pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
+            invariant(
+              isFileSync(absoluteEncryptedFilepath),
+              `[checkIntegrity] Missing encrypted file part. (${absoluteEncryptedFilepath})`,
+            )
+          }
+        } else {
+          const absoluteEncryptedFilepath = pathResolver.calcAbsoluteEncryptedFilepath(
+            item.encryptedFilepath,
+          )
+          invariant(
+            isFileSync(absoluteEncryptedFilepath),
+            `[checkIntegrity] Missing encrypted file. (${absoluteEncryptedFilepath})`,
+          )
+        }
+      }
+    }
   }
 
   public async encryptDiff(diffItems: ReadonlyArray<IFileCipherCatalogItemDiff>): Promise<void> {
