@@ -1,4 +1,4 @@
-import type { Option as ICommandOptions, OptionValues } from 'commander'
+import type { OptionValues } from 'commander'
 import { Command as Command$ } from 'commander'
 import type { ICommandConfigurationOptions } from '../types/configuration'
 
@@ -19,7 +19,6 @@ export type ICommandActionCallback<T extends ICommandConfigurationOptions> = (
 
 export class Command extends Command$ {
   // add missing type declarations
-  public options: ICommandOptions[]
   protected _actionHandler: ((args: string[]) => void) | null | undefined
   protected _args: string[]
   protected _optionValues: object
@@ -30,7 +29,6 @@ export class Command extends Command$ {
   constructor() {
     super()
 
-    this.options = []
     this._args = []
     this._optionValues = {}
     this._storeOptionsAsProperties = false

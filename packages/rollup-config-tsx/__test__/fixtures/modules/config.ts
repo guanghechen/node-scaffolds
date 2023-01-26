@@ -1,7 +1,7 @@
 import url from 'node:url'
 import path from 'node:path'
 import type {CustomTransformFunction} from 'postcss-url'
-import manifest from './package.json'
+import manifest from './package.json' assert { type: 'json' }
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 

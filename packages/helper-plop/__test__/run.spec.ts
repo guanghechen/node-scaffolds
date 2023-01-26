@@ -13,7 +13,7 @@ import type { InputQuestion } from 'inquirer'
 import fs from 'node:fs'
 import path from 'node:path'
 import url from 'node:url'
-import manifest from '../package.json'
+import manifest from '../package.json' assert { type: 'json' }
 import {
   createNpmPackagePrompts,
   resolveNpmPackageAnswers,
