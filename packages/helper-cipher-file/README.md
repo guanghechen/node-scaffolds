@@ -68,13 +68,85 @@ Utility functions for encrypt / decrypt files.
 
 ## Usage
 
+* `FileCipherPathResolver`
+
+  ```typescript
+  import path from 'node:path'
+  import url from 'node:url'
+  import { FileCipherPathResolver } from '@guanghechen/helper-cipher-file'
+
+  const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
+  const sourceRootDir = path.join(__dirname, 'src')
+  const encryptedRootDir = path.join(__dirname, 'lib')
+  const pathResolver = new FileCipherPathResolver({ sourceRootDir, encryptedRootDir })
+
+  // calcAbsoluteSourceFilepath
+  pathResolver.calcAbsoluteSourceFilepath('waw.txt') // => path.join(sourceRootDir, 'waw.txt')
+
+  // calcAbsoluteEncryptedFilepath
+  pathResolver.calcAbsoluteEncryptedFilepath('waw.txt') // => path.join(encryptedRootDir, 'waw.txt')
+
+  // calcRelativeSourceFilepath
+  pathResolver.calcRelativeSourceFilepath(path.join(sourceRootDir, 'waw.txt')) // => 'waw.txt'
+
+  // calcRelativeEncryptedFilepath
+  pathResolver.calcRelativeEncryptedFilepath(path.join(encryptedRootDir, 'waw.txt')) // => 'waw.txt'
+  ```
+
+* `FileCipherPathResolver`
+
+  ```typescript
+
+  ```
+
+* `FileCipher`
+
+  ```typescript
+  import ChalkLogger from '@guanghechen/chalk-logger'
+  import { AesCipherFactory } from '@guanghechen/helper-cipher'
+  import { FileCipher } from '@guanghechen/helper-cipher-file'
+
+  const logger = new ChalkLogger({ flags: { colorful: false, date: false } })
+  const cipherFactory = new AesCipherFactory()
+  const fileCipher = new FileCipher({ cipher, logger })
+
+  // Encrypt multiple files and concatenate the encrypted contents.
+  const encryptedContent: Buffer = await fileCipher.encryptFromFiles([sourceFilepath, sourceFilepath2, ...])
+
+  // Encrypt multiple files and concatenate the decrypted contents.
+  const decryptedContent: Buffer = await fileCipher.decryptFromFiles([encryptedFilepath1, encryptedFilepath2, ...])
+
+  // Encrypt multiple files and write the concatenated encrypted contents into another file.
+  await fileCipher.encryptFile([sourceFilepath1, sourceFilepath2, ...], outputFilepath)
+
+  // Decrypt multiple files and write the concatenated decrypted contents into another file.
+  await fileCipher.decryptFiles([encryptedFilepath1, encryptedFilepath2, ...], outputFilepath)
+
+  // Decrypt file and write the encrypted content into another file.
+  await fileCipher.encryptFiles([sourceFilepath1, sourceFilepath2, ...], outputFilepath)
+
+  // Decrypt file and write the encrypted content into another file.
+  await fileCipher.decryptFiles([encryptedFilepath1, encryptedFilepath2, ...], outputFilepath)
+  ```
 
 
 ### Overview
 
-Name                                | Description
-:----------------------------------:|:----------------------------:
-
+Name                      | Description
+:------------------------:|:----------------------------:
+FileCipher                | Encrypt / Decrypt files.
+FileCipherCatalog         | Encrypt / Decrypt files with catalog.
+FileCipherPathResolver    | Resolve the relative / absolute filepaths.
+calcFileCipherCatalogItem |
+diffFileCipherItems       |
+isSameFileCipherItem      |
+normalizeSourceFilepath   |
+calcMac                   | Calc mac (Message Authentication Code).
+calcMacFromString         | Calc mac (Message Authentication Code) from literal string.
+calcMacFromFile           | Calc mac (Message Authentication Code) from fle.
+calcFingerprintFromMac    | Calc fingerprint from mac.
+calcFingerprintFromString | Calc fingerprint from literal string.
+calcFingerprintFromFile   | Calc fingerprint from file.
 
 
 

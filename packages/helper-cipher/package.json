@@ -1,7 +1,7 @@
 {
   "name": "@guanghechen/helper-cipher",
   "version": "3.0.2",
-  "description": "Cipher helper",
+  "description": "Utility functions for cipher contents.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"

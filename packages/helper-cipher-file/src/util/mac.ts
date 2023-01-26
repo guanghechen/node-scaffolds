@@ -15,7 +15,7 @@ export function calcMac(...pieces: Array<Readonly<Buffer | string>>): Buffer {
 }
 
 /**
- * Calc Message Authentication code from literal string.
+ * Calc Message Authentication Code from literal string.
  *
  * @param text
  * @param textEncoding
