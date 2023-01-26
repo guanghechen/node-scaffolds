@@ -1,7 +1,7 @@
-import { destroyBuffer } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
 import crypto from 'node:crypto'
 import type { ICipher } from '../../types/ICipher'
+import { destroyBuffer } from '../../util'
 import { BaseCipher } from '../BaseCipher'
 
 export interface IAesCipherProps {
@@ -26,7 +26,7 @@ export class AesCipher extends BaseCipher implements ICipher {
     const { algorithm, key, iv } = this
     invariant(
       this.alive,
-      '[AesCipher] cannot call .encipher cause the iv and key have been destroyed.',
+      '[AesCipher] cannot call `.encipher()` cause the iv and key have been destroyed.',
     )
 
     const encipher = crypto.createCipheriv(algorithm, key, iv)
@@ -37,7 +37,7 @@ export class AesCipher extends BaseCipher implements ICipher {
     const { algorithm, key, iv } = this
     invariant(
       this.alive,
-      '[AesCipher] cannot call .encipher cause the iv and key have been destroyed.',
+      '[AesCipher] cannot call `.decipher()` cause the iv and key have been destroyed.',
     )
 
     const decipher = crypto.createCipheriv(algorithm, key, iv)

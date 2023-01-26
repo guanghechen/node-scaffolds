@@ -7,9 +7,9 @@ import fs from 'node:fs'
  *
  * @param pieces
  */
-export function calcMac(...pieces: Array<Readonly<Buffer>>): Buffer {
+export function calcMac(...pieces: Array<Readonly<Buffer | string>>): Buffer {
   const sha256 = createHash('sha256')
-  for (const piece of pieces) sha256.update(piece as Buffer)
+  for (const piece of pieces) sha256.update(piece)
   const mac: Buffer = sha256.digest()
   return mac
 }

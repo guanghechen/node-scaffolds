@@ -1,3 +1,5 @@
+import ChalkLogger from '@guanghechen/chalk-logger'
+import { AesCipherFactory } from '@guanghechen/helper-cipher'
 import { BigFileHelper } from '@guanghechen/helper-file'
 import { emptyDir, rm, writeFile } from '@guanghechen/helper-fs'
 import { locateFixtures } from 'jest.helper'
@@ -6,7 +8,6 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import type { IFileCipherCatalogItem } from '../src'
 import {
-  AesCipherFactory,
   FileChangeType,
   FileCipher,
   FileCipherCatalog,
@@ -205,11 +206,15 @@ describe('FileCipherCatalog', () => {
       sourceRootDir: bakRootDir,
       encryptedRootDir,
     })
+
+    const logger = new ChalkLogger({ flags: { colorful: false, date: false } })
     const catalog2 = new FileCipherCatalog({
       pathResolver: pathResolver2,
       fileCipher,
       fileHelper,
       maxTargetFileSize: 1024,
+      initialItems: [],
+      logger,
     })
 
     expect(existsSync(filepathA)).toEqual(false)
@@ -300,6 +305,25 @@ describe('FileCipherCatalog', () => {
       },
       {
         changeType: FileChangeType.ADDED,
+        newItem: itemB,
+      },
+    ])
+    await expect(
+      catalog2.checkIntegrity({ sourceFiles: true, encryptedFiles: true }),
+    ).resolves.toBeUndefined()
+
+    await writeFile(filepathB, 'Hello, B2', encoding)
+    await catalog.encryptDiff([
+      {
+        changeType: FileChangeType.MODIFIED,
+        oldItem: itemB,
+        newItem: itemB,
+      },
+    ])
+    await catalog2.decryptDiff([
+      {
+        changeType: FileChangeType.MODIFIED,
+        oldItem: itemB,
         newItem: itemB,
       },
     ])

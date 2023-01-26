@@ -1,7 +1,7 @@
 {
-  "name": "@guanghechen/helper-cipher",
+  "name": "@guanghechen/helper-cipher-file",
   "version": "3.0.2",
-  "description": "Cipher helper",
+  "description": "Utility functions for encrypt / decrypt files.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x",
-    "directory": "packages/helper-cipher"
+    "directory": "packages/helper-cipher-file"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-cipher#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-cipher-file#readme",
   "keywords": [
     "cipher",
     "cipher helper"
@@ -43,7 +43,14 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/invariant": "^3.0.2"
+    "@guanghechen/helper-cipher": "^3.0.2",
+    "@guanghechen/helper-file": "^3.0.2",
+    "@guanghechen/helper-fs": "^3.0.2",
+    "@guanghechen/helper-func": "^3.0.2",
+    "@guanghechen/helper-path": "^3.0.2",
+    "@guanghechen/helper-stream": "^3.0.2",
+    "@guanghechen/invariant": "^3.0.2",
+    "@guanghechen/utility-types": "^3.0.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

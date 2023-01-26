@@ -1,8 +1,7 @@
-import { destroyBuffer } from '@guanghechen/helper-stream'
 import crypto from 'node:crypto'
 import type { ICipher } from '../../types/ICipher'
 import type { ICipherFactory, IPBKDF2Options } from '../../types/ICipherFactory'
-import { createRandomIv, createRandomKey } from '../../util/key'
+import { destroyBuffer } from '../../util'
 import { AesCipher } from './AesCipher'
 
 export interface IAesCipherFactoryProps {
@@ -33,8 +32,8 @@ export class AesCipherFactory implements ICipherFactory {
 
   public createRandomSecret(): Buffer {
     const { ivSize, keySize } = this
-    const iv: Buffer = createRandomIv(ivSize)
-    const key: Buffer = createRandomKey(keySize)
+    const iv: Buffer = crypto.randomBytes(ivSize)
+    const key: Buffer = crypto.randomBytes(keySize)
     const secret: Buffer = Buffer.alloc(iv.length + key.length)
 
     {

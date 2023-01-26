@@ -30,7 +30,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   public readonly fileCipher: IFileCipher
   public readonly fileHelper: BigFileHelper
   public readonly maxTargetFileSize: number
-  protected readonly logger?: Logger
+  protected readonly _logger?: Logger
   private readonly _itemMap: Map<string, IFileCipherCatalogItem>
 
   constructor(props: IFileCipherCatalogProps) {
@@ -38,6 +38,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     this.fileCipher = props.fileCipher
     this.fileHelper = props.fileHelper
     this.maxTargetFileSize = props.maxTargetFileSize
+    this._logger = props.logger
     this._itemMap = list2map(props.initialItems?.slice() ?? [], item =>
       normalizeSourceFilepath(item.sourceFilepath, this.pathResolver),
     )
@@ -57,7 +58,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   }): Promise<void | never> {
     const { _itemMap, pathResolver } = this
     if (params.sourceFiles) {
-      this.logger?.debug('[checkIntegrity] checking source files.')
+      this._logger?.debug('[checkIntegrity] checking source files.')
       for (const item of _itemMap.values()) {
         const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(item.sourceFilepath)
         invariant(
@@ -68,7 +69,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     }
 
     if (params.encryptedFiles) {
-      this.logger?.debug('[checkIntegrity] checking encrypted files.')
+      this._logger?.debug('[checkIntegrity] checking encrypted files.')
       for (const item of _itemMap.values()) {
         if (item.encryptedFileParts.length > 1) {
           for (const filePart of item.encryptedFileParts) {
@@ -106,7 +107,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
 
       const absoluteEncryptedFilepath =
         pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
-      mkdirsIfNotExists(absoluteEncryptedFilepath, false, this.logger)
+      mkdirsIfNotExists(absoluteEncryptedFilepath, false, this._logger)
 
       if (keepPlain) {
         await fs.copyFile(absoluteSourceFilepath, absoluteEncryptedFilepath)
@@ -228,7 +229,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
       }
 
       const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(item.sourceFilepath)
-      mkdirsIfNotExists(absoluteSourceFilepath, false, this.logger)
+      mkdirsIfNotExists(absoluteSourceFilepath, false, this._logger)
 
       if (item.keepPlain) {
         await fileHelper.merge(absoluteEncryptedFilepaths, absoluteSourceFilepath)

@@ -1,6 +1,6 @@
-import { destroyBuffers } from '@guanghechen/helper-stream'
 import type { Cipher } from 'node:crypto'
 import type { ICipher } from '../types/ICipher'
+import { destroyBuffers } from '../util'
 
 /**
  * ICipher base class.
@@ -55,7 +55,7 @@ export abstract class BaseCipher implements ICipher {
   }
 
   public cleanup(): void {
-    this._alive = true
+    this._alive = false
   }
 
   // override

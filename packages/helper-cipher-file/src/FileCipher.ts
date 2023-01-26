@@ -1,10 +1,10 @@
+import type { ICipher } from '@guanghechen/helper-cipher'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import { consumeStream, consumeStreams, destroyBuffers } from '@guanghechen/helper-stream'
 import type { ILogger } from '@guanghechen/utility-types'
 import type { Cipher } from 'node:crypto'
 import fs from 'node:fs'
-import type { ICipher } from '../types/ICipher'
-import type { IFileCipher } from '../types/IFileCipher'
+import type { IFileCipher } from './types/IFileCipher'
 
 interface IFileCipherProps {
   readonly cipher: ICipher
