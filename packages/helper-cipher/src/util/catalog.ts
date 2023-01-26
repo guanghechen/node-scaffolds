@@ -29,7 +29,9 @@ export const calcFileCipherCatalogItem = async (
 
   const fileSize = await fs.stat(absoluteSourceFilepath).then(md => md.size)
   const fingerprint: string = await calcFingerprintFromFile(absoluteSourceFilepath)
-  const encryptedFilepath: string = calcFingerprintFromString(sourceFilepathKey, 'utf8')
+  const encryptedFilepath: string = options.keepPlain
+    ? relativeSourceFilepath
+    : calcFingerprintFromString(sourceFilepathKey, 'utf8')
   const encryptedFileParts = calcFilePartNames(
     calcFilePartItemsBySize(fileSize, options.maxTargetSize),
     options.partCodePrefix,

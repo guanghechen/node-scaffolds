@@ -53,7 +53,7 @@ describe('catalog', () => {
       }),
     ).toEqual({
       sourceFilepath: '1.md',
-      encryptedFilepath: '2a880f3b131302d849aeb685bf805e55e7992130914fca4ec59f22f317b44423',
+      encryptedFilepath: '1.md',
       encryptedFileParts: [],
       fingerprint: '7540ddd55e0ab3e38dbd0c41e9ee9dc129f94bc3b491bbea8447f0e4dff6a72d',
       keepPlain: true,
@@ -114,7 +114,7 @@ describe('diff', () => {
     const oldItems = [
       {
         sourceFilepath: '1.md',
-        encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24b',
+        encryptedFilepath: '1.md',
         encryptedFileParts: [],
         fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
         keepPlain: true,
@@ -122,7 +122,7 @@ describe('diff', () => {
       },
       {
         sourceFilepath: '2.md',
-        encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24t',
+        encryptedFilepath: '2.md',
         encryptedFileParts: [],
         fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
         keepPlain: true,
@@ -133,7 +133,7 @@ describe('diff', () => {
         encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24o',
         encryptedFileParts: [],
         fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
-        keepPlain: true,
+        keepPlain: false,
         size: 452,
       },
     ]
@@ -142,9 +142,9 @@ describe('diff', () => {
       {
         sourceFilepath: '2.md',
         encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24t',
-        encryptedFileParts: [''],
+        encryptedFileParts: [],
         fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
-        keepPlain: true,
+        keepPlain: false,
         size: 452,
       },
       {
@@ -184,7 +184,7 @@ describe('diff', () => {
         changeType: 'removed',
         oldItem: {
           sourceFilepath: '1.md',
-          encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24b',
+          encryptedFilepath: '1.md',
           encryptedFileParts: [],
           fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
           keepPlain: true,
@@ -216,6 +216,25 @@ describe('diff', () => {
       {
         changeType: 'modified',
         newItem: {
+          sourceFilepath: '2.md',
+          encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24t',
+          encryptedFileParts: [],
+          fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
+          keepPlain: false,
+          size: 452,
+        },
+        oldItem: {
+          sourceFilepath: '2.md',
+          encryptedFilepath: '2.md',
+          encryptedFileParts: [],
+          fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
+          keepPlain: true,
+          size: 452,
+        },
+      },
+      {
+        changeType: 'modified',
+        newItem: {
           sourceFilepath: '3.md',
           encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24o',
           encryptedFileParts: [],
@@ -228,7 +247,7 @@ describe('diff', () => {
           encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24o',
           encryptedFileParts: [],
           fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
-          keepPlain: true,
+          keepPlain: false,
           size: 452,
         },
       },
