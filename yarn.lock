@@ -831,6 +831,7 @@ __metadata:
   resolution: "@guanghechen/invariant@workspace:packages/invariant"
   dependencies:
     cross-env: ^7.0.3
+    jest: ^29.4.0
     rimraf: ^4.1.2
     rollup: ^3.10.1
   languageName: unknown

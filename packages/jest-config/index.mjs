@@ -78,7 +78,7 @@ export async function tsMonorepoConfig(repositoryRootDir, options = {}) {
     ],
     coverageDirectory: '<rootDir>/coverage/',
     coveragePathIgnorePatterns: [],
-    coverageProvider: 'v8',
+    coverageProvider: 'babel',
     coverageThreshold: {
       global: {
         branches: 80,
