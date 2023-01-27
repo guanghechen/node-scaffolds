@@ -13,6 +13,7 @@
       "@guanghechen/helper-file": ["packages/helper-file/src"],
       "@guanghechen/helper-fs": ["packages/helper-fs/src"],
       "@guanghechen/helper-func": ["packages/helper-func/src"],
+      "@guanghechen/helper-git": ["packages/helper-git/src"],
       "@guanghechen/helper-is": ["packages/helper-is/src"],
       "@guanghechen/helper-jest": ["packages/helper-jest/src"],
       "@guanghechen/helper-npm": ["packages/helper-npm/src"],
