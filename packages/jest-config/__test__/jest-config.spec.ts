@@ -1,6 +1,6 @@
 import path from 'node:path'
 import url from 'node:url'
-import { resolveModuleNameMapper, tsMonorepoConfig } from '../index.mjs'
+import { resolveModuleNameMapper, tsMonorepoConfig } from '../src'
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
@@ -9,14 +9,19 @@ afterEach(() => {
   process.chdir(originalCwd)
 })
 
-const resolveFixturePath = p => path.join(__dirname, 'fixtures', p)
-const desensitizeModuleNameMapper = moduleNameMapper => {
+const resolveFixturePath = (p: string): string => path.join(__dirname, 'fixtures', p)
+const desensitizeModuleNameMapper = (
+  moduleNameMapper: Record<string, string | string[]> | undefined,
+): Record<string, string> => {
   const result = {}
-  for (const key of Object.keys(moduleNameMapper)) {
-    if (Array.isArray(moduleNameMapper[key])) {
-      result[key] = moduleNameMapper[key].map(p => '<WORKSPACE>/' + path.relative(__dirname, p))
-    } else {
-      result[key] = '<WORKSPACE>/' + path.relative(__dirname, moduleNameMapper[key])
+  if (moduleNameMapper) {
+    for (const key of Object.keys(moduleNameMapper)) {
+      const values = moduleNameMapper[key]
+      if (Array.isArray(values)) {
+        result[key] = values.map(p => '<WORKSPACE>/' + path.relative(__dirname, p))
+      } else {
+        result[key] = '<WORKSPACE>/' + path.relative(__dirname, values)
+      }
     }
   }
   return result

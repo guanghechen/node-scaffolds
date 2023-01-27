@@ -17,7 +17,7 @@ exports[`resolveModuleNameMapper custom tsconfig name: custom-tsconfig-name 1`] 
 
 exports[`tsMonorepoConfig 1`] = `
 {
-  "bail": true,
+  "bail": 1,
   "collectCoverage": false,
   "collectCoverageFrom": [
     "<rootDir>/cli.js",

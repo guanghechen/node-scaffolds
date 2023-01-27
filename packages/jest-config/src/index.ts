@@ -1,24 +1,26 @@
-const fs = require('fs')
-const path = require('path')
+import type { Config } from 'jest'
+import fs from 'node:fs'
+import path from 'node:path'
 
 /**
  * Calculate moduleNameMapper from tsconfig.compilerOptions.paths
- * @param {string} rootDir
- * @param {string|undefined} tsconfigFilename
- * @returns {Promise<Record<string, string | string[]>>}
  */
-async function resolveModuleNameMapper(rootDir, tsconfigFilename = 'tsconfig.json') {
+export async function resolveModuleNameMapper(
+  rootDir: string,
+  tsconfigFilename = 'tsconfig.json',
+): Promise<Record<string, string | string[]>> {
   const tsconfigFilepath = path.resolve(rootDir, tsconfigFilename)
   if (!fs.existsSync(tsconfigFilepath)) return {}
 
-  const tsconfig = require(tsconfigFilepath)
+  const { default: tsconfig } = await import(tsconfigFilepath, { assert: { type: 'json' } })
   if (tsconfig.compilerOptions == null || tsconfig.compilerOptions.paths == null) {
     return {}
   }
 
   const mapper = {}
-  const pathAlias = Object.entries(tsconfig.compilerOptions.paths)
-  for (const [moduleName, modulePaths] of pathAlias) {
+  const pathAlias = tsconfig.compilerOptions.paths as Record<string, string[]>
+  for (const moduleName of Object.keys(pathAlias)) {
+    const modulePaths: string[] = pathAlias[moduleName]
     const paths = modulePaths.map(p => {
       let index = 0
       const filepath = path.join(rootDir, p)
@@ -27,7 +29,7 @@ async function resolveModuleNameMapper(rootDir, tsconfigFilename = 'tsconfig.jso
         return '$' + index
       })
     })
-    let pattern =
+    const pattern =
       '^' + moduleName.replace(/[-\\^$+?.()|[\]{}]/g, '\\$&').replace(/[*]/g, '(.+)') + '$'
     mapper[pattern] = paths.length === 1 ? paths[0] : paths
   }
@@ -36,19 +38,18 @@ async function resolveModuleNameMapper(rootDir, tsconfigFilename = 'tsconfig.jso
 
 /**
  * Create basic jest config
- * @param {string} repositoryRootDir
- * @param {{
- *   useESM?: boolean
- * }}
  */
-async function tsMonorepoConfig(repositoryRootDir, options = {}) {
+export async function tsMonorepoConfig(
+  repositoryRootDir: string,
+  options: { useESM?: boolean } = {},
+): Promise<Config> {
   const moduleNameMapper = {
-    ...await resolveModuleNameMapper(repositoryRootDir),
-    ...await resolveModuleNameMapper(path.resolve()),
+    ...(await resolveModuleNameMapper(repositoryRootDir)),
+    ...(await resolveModuleNameMapper(path.resolve())),
   }
 
   return {
-    bail: true,
+    bail: 1,
     verbose: true,
     errorOnDeprecated: true,
     roots: ['src', '__test__'].filter(p => fs.existsSync(p)).map(p => `<rootDir>/${p}`),
@@ -89,9 +90,4 @@ async function tsMonorepoConfig(repositoryRootDir, options = {}) {
     },
     coverageReporters: ['text', 'text-summary'],
   }
-}
-
-module.exports = {
-  tsMonorepoConfig,
-  resolveModuleNameMapper,
 }
