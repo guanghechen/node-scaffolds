@@ -42,12 +42,12 @@
   "dependencies": {
     "@guanghechen/helper-func": "^3.0.2",
     "@guanghechen/helper-is": "^3.0.2",
-    "@jest/globals": "^29.4.0",
-    "jest": "^29.4.0"
+    "@jest/globals": "^29.4.1",
+    "jest": "^29.4.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
     "rimraf": "^4.1.2",
-    "rollup": "^3.10.1"
+    "rollup": "^3.11.0"
   }
 }

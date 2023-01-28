@@ -34,6 +34,7 @@ exports[`build simple: rollup cjs 2`] = `
 {
   "fileName": "index.js.map",
   "name": undefined,
+  "needsCodeReference": false,
   "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":[null,null],"names":["data"],"mappings":";;;;;;;;;;;;;AAQM,SAAU,UAAU,CAAE,QAAgB,EAAA;AAC1C,IAAA,IAAI,CAAC,EAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAAE,QAAA,OAAO,KAAK,CAAA;IAC1C,OAAO,EAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE,CAAA;AACvC;;ACNA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEA,MAAI,CAAC,CAAA;AAC1B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC,CAAA;AAEnC,YAAA,CAAe,YAAM,EAAA,OAAAA,MAAI,CAAA,EAAA;;;;;"}",
   "type": "asset",
 }
@@ -87,6 +88,7 @@ exports[`build simple: rollup esm 2`] = `
 {
   "fileName": "index.js.map",
   "name": undefined,
+  "needsCodeReference": false,
   "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":[null,null],"names":["data"],"mappings":";;;;;;;;;AAQM,SAAU,UAAU,CAAE,QAAgB,EAAA;AAC1C,IAAA,IAAI,CAAC,EAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAAE,QAAA,OAAO,KAAK,CAAA;IAC1C,OAAO,EAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE,CAAA;AACvC;;ACNA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEA,MAAI,CAAC,CAAA;AAC1B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC,CAAA;AAEnC,YAAA,CAAe,YAAM,EAAA,OAAAA,MAAI,CAAA,EAAA;;;;"}",
   "type": "asset",
 }
