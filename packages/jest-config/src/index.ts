@@ -1,4 +1,4 @@
-import type { Config } from 'jest'
+import type { Config as IJestConfig } from 'jest'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -42,13 +42,13 @@ export async function resolveModuleNameMapper(
 export async function tsMonorepoConfig(
   repositoryRootDir: string,
   options: { useESM?: boolean } = {},
-): Promise<Config> {
+): Promise<IJestConfig> {
   const moduleNameMapper = {
     ...(await resolveModuleNameMapper(repositoryRootDir)),
     ...(await resolveModuleNameMapper(path.resolve())),
   }
 
-  return {
+  const config: IJestConfig = {
     bail: 1,
     verbose: true,
     errorOnDeprecated: true,
@@ -90,4 +90,9 @@ export async function tsMonorepoConfig(
     },
     coverageReporters: ['text', 'text-summary'],
   }
+
+  if (options?.useESM) {
+    config.preset = 'ts-jest/presets/default-esm'
+  }
+  return config
 }

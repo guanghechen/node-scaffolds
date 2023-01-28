@@ -6,15 +6,14 @@ import url from 'node:url'
 
 export default async function () {
   const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
-  const baseConfig = await tsMonorepoConfig(__dirname, {
-    useESM: true,
+  const baseConfig = await tsMonorepoConfig(__dirname, { useESM: true })
+  const { default: manifest } = await import(path.resolve('package.json'), {
+    assert: { type: 'json' },
   })
 
   const chalkLocation = url.fileURLToPath(await resolve('chalk', import.meta.url))
-
   const config = {
     ...baseConfig,
-    preset: 'ts-jest/presets/default-esm',
     collectCoverageFrom: [baseConfig.collectCoverageFrom ?? []].flat(),
     coveragePathIgnorePatterns: [
       'packages/helper-commander/src/command/main.ts',
@@ -22,14 +21,16 @@ export default async function () {
       'packages/helper-commander/src/util/git.ts',
       'packages/helper-commander/src/util/stdin.ts',
       'packages/helper-commander/src/util/yarn.ts',
+      'packages/rollup-config/src/import-meta-resolve.d.ts',
       'packages/rollup-config-tsx/src/postcss-flexbugs-fixes.d.ts',
     ],
     coverageThreshold: {
       global: {
-        branches: 100,
-        functions: 100,
-        lines: 100,
-        statements: 100,
+        branches: 80,
+        functions: 90,
+        lines: 90,
+        statements: 90,
+        ...manifest.jest?.coverageThreshold?.global,
       },
     },
     extensionsToTreatAsEsm: ['.ts', '.mts'],

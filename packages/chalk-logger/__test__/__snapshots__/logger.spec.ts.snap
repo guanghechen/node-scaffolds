@@ -24147,15 +24147,15 @@ b
 exports[`Logger custom +dateChalk +nameChalk 1`] = `
 [
   [
-    "[48;2;0;0;0m<$Date$>[49m [90m[[39m[90mdebug[39m [38;2;255;255;255mcomplex[39m[90m][39m [90m1, ooo, null, true, false, undefined[39m
+    "[40m<$Date$>[49m [90m[[39m[90mdebug[39m [37mcomplex[39m[90m][39m [90m1, ooo, null, true, false, undefined[39m
 [90m[39m",
   ],
   [
-    "[48;2;0;0;0m<$Date$>[49m [90m[[39m[90mdebug[39m [38;2;255;255;255mcomplex[39m[90m][39m [90mThis is a literal string[39m
+    "[40m<$Date$>[49m [90m[[39m[90mdebug[39m [37mcomplex[39m[90m][39m [90mThis is a literal string[39m
 [90m[39m",
   ],
   [
-    "[48;2;0;0;0m<$Date$>[49m [90m[[39m[90mdebug[39m [38;2;255;255;255mcomplex[39m[90m][39m [90mOutput object: {[39m
+    "[40m<$Date$>[49m [90m[[39m[90mdebug[39m [37mcomplex[39m[90m][39m [90mOutput object: {[39m
 [90m  x: 1,[39m
 [90m  y: {[39m
 [90m    z: 'o',[39m
@@ -24164,7 +24164,7 @@ exports[`Logger custom +dateChalk +nameChalk 1`] = `
 [90m[39m",
   ],
   [
-    "[48;2;0;0;0m<$Date$>[49m [90m[[39m[90mdebug[39m [38;2;255;255;255mcomplex[39m[90m][39m [90mx y z {[39m
+    "[40m<$Date$>[49m [90m[[39m[90mdebug[39m [37mcomplex[39m[90m][39m [90mx y z {[39m
 [90m  c: {[39m
 [90m    a: 'hello',[39m
 [90m  },[39m
@@ -24175,7 +24175,7 @@ exports[`Logger custom +dateChalk +nameChalk 1`] = `
 [90m[39m",
   ],
   [
-    "[48;2;0;0;0m<$Date$>[49m [90m[[39m[90mdebug[39m [38;2;255;255;255mcomplex[39m[90m][39m [90muser(<>) {[39m
+    "[40m<$Date$>[49m [90m[[39m[90mdebug[39m [37mcomplex[39m[90m][39m [90muser(<>) {[39m
 [90m  username: 'lemon-clown',[39m
 [90m  avatar: 'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',[39m
 [90m}[39m

@@ -6,13 +6,13 @@ import type { OutputOptions, RollupOptions } from 'rollup'
 import dts from 'rollup-plugin-dts'
 import builtinModules from './builtin-modules.json' assert { type: 'json' }
 import { collectAllDependencies, getDefaultDependencyFields } from './dependency'
-import { convertToBoolean, coverBoolean, isArray } from './option-helper'
 import type {
   IRawRollupConfigEnvs,
   IRollupConfigEnvs,
   IRollupConfigOptions,
   IRollupManifestOptions,
 } from './types'
+import { convertToBoolean, coverBoolean, isArray } from './util'
 
 const builtinExternals: string[] = builtinModules.concat(['glob', 'sync'])
 

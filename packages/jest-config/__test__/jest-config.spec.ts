@@ -67,53 +67,107 @@ describe('resolveModuleNameMapper', () => {
   })
 })
 
-test('tsMonorepoConfig', async () => {
-  const rootDir = resolveFixturePath('basic')
-  process.chdir(rootDir)
-  const config = await tsMonorepoConfig(rootDir)
-  config.moduleNameMapper = desensitizeModuleNameMapper(config.moduleNameMapper)
-  expect(config).toEqual({
-    bail: 1,
-    collectCoverage: false,
-    collectCoverageFrom: [
-      '<rootDir>/cli.js',
-      '<rootDir>/index.js',
-      '<rootDir>/src/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}',
-      '<rootDir>/src/**/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}',
-    ],
-    coverageDirectory: '<rootDir>/coverage/',
-    coveragePathIgnorePatterns: [],
-    coverageProvider: 'v8',
-    coverageReporters: ['text', 'text-summary'],
-    coverageThreshold: {
-      global: {
-        branches: 80,
-        functions: 80,
-        lines: 80,
-        statements: 80,
-      },
-    },
-    errorOnDeprecated: true,
-    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'mts', 'mjs', 'cts', 'cjs', 'node'],
-    moduleNameMapper: {
-      '^@/(.+)$': '<WORKSPACE>/fixtures/basic/src/$1',
-    },
-    roots: ['<rootDir>/src'],
-    testEnvironment: 'node',
-    testEnvironmentOptions: {
-      url: 'http://localhost/',
-    },
-    testPathIgnorePatterns: ['/coverage/', '/lib/', '/node_modules/'],
-    testRegex: '/(__test__)/[^/]+\\.spec\\.[cm]?[jt]sx?$',
-    transform: {
-      '^.+\\.[cm]?tsx?$': [
-        'ts-jest',
-        {
-          tsconfig: '<rootDir>/tsconfig.json',
-          useESM: undefined,
-        },
+describe('tsMonorepoConfig', () => {
+  test('basic', async () => {
+    const rootDir = resolveFixturePath('basic')
+    process.chdir(rootDir)
+    const config = await tsMonorepoConfig(rootDir)
+    config.moduleNameMapper = desensitizeModuleNameMapper(config.moduleNameMapper)
+    expect(config).toEqual({
+      bail: 1,
+      collectCoverage: false,
+      collectCoverageFrom: [
+        '<rootDir>/cli.js',
+        '<rootDir>/index.js',
+        '<rootDir>/src/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}',
+        '<rootDir>/src/**/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}',
       ],
-    },
-    verbose: true,
+      coverageDirectory: '<rootDir>/coverage/',
+      coveragePathIgnorePatterns: [],
+      coverageProvider: 'v8',
+      coverageReporters: ['text', 'text-summary'],
+      coverageThreshold: {
+        global: {
+          branches: 80,
+          functions: 80,
+          lines: 80,
+          statements: 80,
+        },
+      },
+      errorOnDeprecated: true,
+      moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'mts', 'mjs', 'cts', 'cjs', 'node'],
+      moduleNameMapper: {
+        '^@/(.+)$': '<WORKSPACE>/fixtures/basic/src/$1',
+      },
+      roots: ['<rootDir>/src'],
+      testEnvironment: 'node',
+      testEnvironmentOptions: {
+        url: 'http://localhost/',
+      },
+      testPathIgnorePatterns: ['/coverage/', '/lib/', '/node_modules/'],
+      testRegex: '/(__test__)/[^/]+\\.spec\\.[cm]?[jt]sx?$',
+      transform: {
+        '^.+\\.[cm]?tsx?$': [
+          'ts-jest',
+          {
+            tsconfig: '<rootDir>/tsconfig.json',
+            useESM: undefined,
+          },
+        ],
+      },
+      verbose: true,
+    })
+  })
+
+  test('useESM', async () => {
+    const rootDir = resolveFixturePath('basic')
+    process.chdir(rootDir)
+    const config = await tsMonorepoConfig(rootDir, { useESM: true })
+    config.moduleNameMapper = desensitizeModuleNameMapper(config.moduleNameMapper)
+    expect(config).toEqual({
+      bail: 1,
+      collectCoverage: false,
+      collectCoverageFrom: [
+        '<rootDir>/cli.js',
+        '<rootDir>/index.js',
+        '<rootDir>/src/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}',
+        '<rootDir>/src/**/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}',
+      ],
+      coverageDirectory: '<rootDir>/coverage/',
+      coveragePathIgnorePatterns: [],
+      coverageProvider: 'v8',
+      coverageReporters: ['text', 'text-summary'],
+      coverageThreshold: {
+        global: {
+          branches: 80,
+          functions: 80,
+          lines: 80,
+          statements: 80,
+        },
+      },
+      errorOnDeprecated: true,
+      moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'mts', 'mjs', 'cts', 'cjs', 'node'],
+      moduleNameMapper: {
+        '^@/(.+)$': '<WORKSPACE>/fixtures/basic/src/$1',
+      },
+      preset: 'ts-jest/presets/default-esm',
+      roots: ['<rootDir>/src'],
+      testEnvironment: 'node',
+      testEnvironmentOptions: {
+        url: 'http://localhost/',
+      },
+      testPathIgnorePatterns: ['/coverage/', '/lib/', '/node_modules/'],
+      testRegex: '/(__test__)/[^/]+\\.spec\\.[cm]?[jt]sx?$',
+      transform: {
+        '^.+\\.[cm]?tsx?$': [
+          'ts-jest',
+          {
+            tsconfig: '<rootDir>/tsconfig.json',
+            useESM: true,
+          },
+        ],
+      },
+      verbose: true,
+    })
   })
 })

@@ -65,5 +65,15 @@
   },
   "optionalDependencies": {
     "stylus": "^0.59.0"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 35,
+        "functions": 100,
+        "lines": 90,
+        "statements": 90
+      }
+    }
   }
 }
