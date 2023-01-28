@@ -5,8 +5,6 @@ import util from 'util'
 import type { IConfigTarget, ICopyTargetItem } from '../types'
 import { findExpandedFilepath, isMatch, relativePath, resolvePath } from './path'
 
-export { isPlainObject } from 'is-plain-object'
-
 /**
  * Stringify data
  * @param value

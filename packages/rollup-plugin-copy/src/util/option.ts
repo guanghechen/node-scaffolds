@@ -1,3 +1,4 @@
+import { isPlainObject } from '@guanghechen/helper-is'
 import dirGlob from 'dir-glob'
 import type {
   IConfig,
@@ -7,7 +8,7 @@ import type {
   IOptionTarget,
   IOptions,
 } from '../types'
-import { isPlainObject, stringify } from './common'
+import { stringify } from './common'
 
 /**
  * Normalize `options.targets.$.rename`.
