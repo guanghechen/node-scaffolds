@@ -202,3 +202,21 @@ export const isPromise = (obj: unknown): obj is Promise<unknown> => {
     typeof (obj as Promise<unknown>).then === 'function'
   )
 }
+
+/**
+ * Check if the given value is a plain object.
+ * @param v
+ * @returns
+ * @see https://github.com/jonschlinkert/is-plain-object
+ */
+export const isPlainObject = (v: unknown): v is object => {
+  if (isObject(v) === false) return false
+
+  // If has modified constructor
+  const ctor = (v as object).constructor
+  if (ctor === undefined) return true
+
+  // If has modified prototype
+  const prot = ctor.prototype
+  return isObject(prot) && prot.hasOwnProperty('isPrototypeOf')
+}

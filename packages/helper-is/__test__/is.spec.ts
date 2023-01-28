@@ -16,6 +16,7 @@ import {
   isNumber,
   isNumberLike,
   isObject,
+  isPlainObject,
   isPrimitiveBoolean,
   isPrimitiveInteger,
   isPrimitiveNumber,
@@ -27,8 +28,8 @@ import {
   isUndefined,
 } from '../src'
 
-describe('is', function () {
-  describe('isUndefined', function () {
+describe('is', () => {
+  describe('isUndefined', () => {
     test('`undefined` is undefined', () => expect(isUndefined(undefined)).toBe(true))
     test('`null` is not undefined', () => expect(isUndefined(null)).toBe(false))
     test('`false` is not undefined', () => expect(isUndefined(false)).toBe(false))
@@ -38,7 +39,7 @@ describe('is', function () {
     test('empty object is not undefined', () => expect(isUndefined({})).toBe(false))
   })
 
-  describe('isBoolean', function () {
+  describe('isBoolean', () => {
     test('`false` is a boolean type', () => expect(isBoolean(false)).toBe(true))
     test('`true` is a boolean type', () => expect(isBoolean(true)).toBe(true))
     test('`new Boolean(undefined)` is a boolean type', () =>
@@ -54,14 +55,14 @@ describe('is', function () {
     test('empty object is not a boolean type', () => expect(isBoolean({})).toBe(false))
   })
 
-  describe('isDate', function () {
+  describe('isDate', () => {
     test('Instance of Date is a date', () => expect(isDate(new Date())).toBe(true))
     test('Date string is not a date', () => expect(isDate('2021-04-03T07:49:56.260Z')).toBe(false))
     test('null is not a date', () => expect(isDate(null)).toBe(false))
     test('undefined is not a date', () => expect(isDate(undefined)).toBe(false))
   })
 
-  describe('isNumber', function () {
+  describe('isNumber', () => {
     test('`0` is a number', () => expect(isNumber(0)).toBe(true))
     test('`1` is a number', () => expect(isNumber(1)).toBe(true))
     test('`-1` is a number', () => expect(isNumber(-1)).toBe(true))
@@ -76,7 +77,7 @@ describe('is', function () {
     test('bigint is not a number', () => expect(isNumber(BigInt(233))).toBe(false))
   })
 
-  describe('isString', function () {
+  describe('isString', () => {
     test("`'x'` is a string", () => expect(isString('x')).toBe(true))
     test('`new String(1)` is a string', () => expect(isString(new String(1))).toBe(true))
     test('`undefined` is not a string', () => expect(isString(undefined)).toBe(false))
@@ -86,7 +87,7 @@ describe('is', function () {
     test('empty object is not a string', () => expect(isString({})).toBe(false))
   })
 
-  describe('isBigint', function () {
+  describe('isBigint', () => {
     test('`BigInt(0)` is a bigint', () => expect(isBigint(BigInt(0))).toBe(true))
     test('`0` is not a bigint', () => expect(isBigint(0)).toBe(false))
     test('`undefined` is not a bigint', () => expect(isBigint(undefined)).toBe(false))
@@ -96,7 +97,7 @@ describe('is', function () {
     test('empty object is not a bigint', () => expect(isBigint({})).toBe(false))
   })
 
-  describe('isSymbol', function () {
+  describe('isSymbol', () => {
     test("`Symbol('x')` is a symbol", () => expect(isSymbol(Symbol('x'))).toBe(true))
     test("`Symbol.for('x')` is a symbol", () => expect(isSymbol(Symbol.for('x'))).toBe(true))
     test('`undefined` is not a symbol', () => expect(isSymbol(undefined)).toBe(false))
@@ -106,7 +107,7 @@ describe('is', function () {
     test('empty object is not a symbol', () => expect(isSymbol({})).toBe(false))
   })
 
-  describe('isInteger', function () {
+  describe('isInteger', () => {
     test('`-1` is a integer', () => expect(isInteger(-1)).toBe(true))
     test("new Number(`'1')` is a integer", () => expect(isInteger(new Number('-1'))).toBe(true))
     test('`1.000` is not a integer', () => expect(isInteger(1.0)).toBe(true))
@@ -119,7 +120,7 @@ describe('is', function () {
     test('bigint is not a integer', () => expect(isInteger(BigInt(1))).toBe(false))
   })
 
-  describe('isArray', function () {
+  describe('isArray', () => {
     test('`new Array(3)` is an array', () => expect(isArray(new Array(3))).toBe(true))
     test("`[1, 2, 'x']` is an array", () => expect(isArray([1, 2, 'x'])).toBe(true))
     test('`undefined` is not an array', () => expect(isArray(undefined)).toBe(false))
@@ -130,7 +131,7 @@ describe('is', function () {
     test('array like object is not an array', () => expect(isArray({ 1: 'waw' })).toBe(false))
   })
 
-  describe('isObject', function () {
+  describe('isObject', () => {
     test('`new Object()` is an object', () => expect(isObject(new Object())).toBe(true))
     test('array like object is an object', () => expect(isObject({ 1: 'waw' })).toBe(true))
     test('empty object is an object', () => expect(isObject({})).toBe(true))
@@ -140,12 +141,12 @@ describe('is', function () {
     test('`null` is not an object', () => expect(isObject(null)).toBe(false))
   })
 
-  describe('isFunction', function () {
+  describe('isFunction', () => {
     test('lambda expressions is a function', () => expect(isFunction(() => {})).toBe(true))
     test('anonymous function is a function', () => expect(isFunction(() => {})).toBe(true))
     test('instance of Function is a function', () =>
       expect(isFunction(new Function("console.log('waw')"))).toBe(true))
-    test('async function', () => expect(isFunction(async function () {})).toBe(true))
+    test('async function', () => expect(isFunction(async () => {})).toBe(true))
     test('anonymous async function', () => expect(isFunction(async () => {})).toBe(true))
     test('empty object is not a function', () => expect(isFunction({})).toBe(false))
     test('function string is not a function', () =>
@@ -154,7 +155,7 @@ describe('is', function () {
     test('`null` is not a function', () => expect(isFunction(null)).toBe(false))
   })
 
-  describe('isPrimitiveBoolean', function () {
+  describe('isPrimitiveBoolean', () => {
     test('`false` is a primitive boolean', () => expect(isPrimitiveBoolean(false)).toBe(true))
     test('`true` is a primitive boolean', () => expect(isPrimitiveBoolean(true)).toBe(true))
     test('`new Boolean(false)` is not a primitive boolean type', () =>
@@ -166,7 +167,7 @@ describe('is', function () {
     test('`null` is not a primitive boolean', () => expect(isPrimitiveBoolean(null)).toBe(false))
   })
 
-  describe('isPrimitiveNumber', function () {
+  describe('isPrimitiveNumber', () => {
     test('`0` is a primitive number', () => expect(isPrimitiveNumber(0)).toBe(true))
     test('`1` is a primitive number', () => expect(isPrimitiveNumber(1)).toBe(true))
     test('`-1` is a primitive number', () => expect(isPrimitiveNumber(-1)).toBe(true))
@@ -184,7 +185,7 @@ describe('is', function () {
       expect(isPrimitiveNumber(BigInt(233))).toBe(false))
   })
 
-  describe('isPrimitiveInteger', function () {
+  describe('isPrimitiveInteger', () => {
     test('`-1` is a primitive integer', () => expect(isPrimitiveInteger(-1)).toBe(true))
     test('new Number(`1`) is not a primitive integer', () =>
       expect(isPrimitiveInteger(new Number(1))).toBe(false))
@@ -202,7 +203,7 @@ describe('is', function () {
       expect(isPrimitiveInteger(BigInt(1))).toBe(false))
   })
 
-  describe('isPrimitiveString', function () {
+  describe('isPrimitiveString', () => {
     test("`'x'` is a primitive string", () => expect(isPrimitiveString('x')).toBe(true))
     test("`new String('x')` is not a primitive string", () =>
       expect(isPrimitiveString(new String('x'))).toBe(false))
@@ -215,7 +216,7 @@ describe('is', function () {
     test('empty object is not a primitive string', () => expect(isPrimitiveString({})).toBe(false))
   })
 
-  describe('isNotEmptyString', function () {
+  describe('isNotEmptyString', () => {
     test("`'x'` is a non-empty string", () => expect(isNonBlankString('x')).toBe(true))
     test("`''` is not a non-empty string", () => expect(isNonBlankString('')).toBe(false))
     test("`new String('x')` is a non-empty string", () =>
@@ -228,7 +229,7 @@ describe('is', function () {
     test('empty object is not a non-empty string', () => expect(isNonBlankString({})).toBe(false))
   })
 
-  describe('isNotEmptyArray', function () {
+  describe('isNotEmptyArray', () => {
     test('`new Array(3)` is a non-empty array', () =>
       expect(isNotEmptyArray(new Array(3))).toBe(true))
     test("`[1, 2, 'x']` is a non-empty array", () =>
@@ -243,7 +244,7 @@ describe('is', function () {
       expect(isNotEmptyArray({ 1: 'waw' })).toBe(false))
   })
 
-  describe('isEmptyObject', function () {
+  describe('isEmptyObject', () => {
     test('`new Object()` is an empty object', () => expect(isEmptyObject(new Object())).toBe(true))
     test('`new Object({ x: 1 })` is not an empty object', () =>
       expect(isEmptyObject(new Object({ x: 1 }))).toBe(false))
@@ -254,7 +255,7 @@ describe('is', function () {
     test('`null` is not an empty object', () => expect(isEmptyObject(null)).toBe(false))
   })
 
-  describe('isNotEmptyObject', function () {
+  describe('isNotEmptyObject', () => {
     test('`new Object()` is a non-empty object', () =>
       expect(isNotEmptyObject(new Object())).toBe(false))
     test('`new Object({ x: 1 })` is a non-empty object', () =>
@@ -269,7 +270,7 @@ describe('is', function () {
     test('`null` is not a non-empty object', () => expect(isNotEmptyObject(null)).toBe(false))
   })
 
-  describe('isNumberLike', function () {
+  describe('isNumberLike', () => {
     test('`0` is a number like', () => expect(isNumberLike(0)).toBe(true))
     test('`1` is a number like', () => expect(isNumberLike(1)).toBe(true))
     test('`-1` is a number like', () => expect(isNumberLike(-1)).toBe(true))
@@ -286,7 +287,7 @@ describe('is', function () {
     test('bigint is not a number like', () => expect(isNumberLike(BigInt(233))).toBe(false))
   })
 
-  describe('isArrayOfT', function () {
+  describe('isArrayOfT', () => {
     test('string[], isString', () => expect(isArrayOfT(['a', 'b'], isString)).toBe(true))
     test('string[], isNumber', () => expect(isArrayOfT(['a', 'b'], isNumber)).toBe(false))
     test('(string|number)[], isString', () =>
@@ -301,7 +302,7 @@ describe('is', function () {
     test('undefined, isString', () => expect(isArrayOfT(undefined, isString)).toBe(false))
   })
 
-  describe('isTwoDimensionArrayOfT', function () {
+  describe('isTwoDimensionArrayOfT', () => {
     test('string[][], isString', () =>
       expect(isTwoDimensionArrayOfT([['a', 'b'], ['b']], isString)).toBe(true))
     test('string[], isString', () =>
@@ -323,7 +324,7 @@ describe('is', function () {
     test('string, isString', () => expect(isTwoDimensionArrayOfT('c', isString)).toBe(false))
   })
 
-  describe('isPromise', function () {
+  describe('isPromise', () => {
     test('isPromise', () => {
       expect(isPromise(new Promise(() => {}))).toEqual(true)
       expect(isPromise(Promise.resolve('waw'))).toEqual(true)
@@ -332,8 +333,35 @@ describe('is', function () {
       expect(isPromise(false)).toEqual(false)
       expect(isPromise(true)).toEqual(false)
       expect(isPromise({})).toEqual(false)
-      expect(isPromise({ then: function () {} })).toEqual(true)
-      expect(isPromise({ then: async function () {} })).toEqual(true)
+      expect(isPromise({ then: () => {} })).toEqual(true)
+      expect(isPromise({ then: async () => {} })).toEqual(true)
+    })
+  })
+
+  describe('isPlainObject', () => {
+    test('truthy', () => {
+      expect(isPlainObject(Object.create({}))).toEqual(true)
+      expect(isPlainObject(Object.create(Object.prototype))).toEqual(true)
+      expect(isPlainObject({ foo: 'bar' })).toEqual(true)
+      expect(isPlainObject({})).toEqual(true)
+      expect(isPlainObject(Object.create(null))).toEqual(true)
+    })
+
+    test('falsy', () => {
+      class Student {
+        protected readonly profile: unknown
+        constructor() {
+          this.profile = {}
+        }
+      }
+
+      expect(isPlainObject(/foo/)).toEqual(false)
+      expect(isPlainObject(function () {})).toEqual(false)
+      expect(isPlainObject(1)).toEqual(false)
+      expect(isPlainObject(['foo', 'bar'])).toEqual(false)
+      expect(isPlainObject([])).toEqual(false)
+      expect(isPlainObject(new Student())).toEqual(false)
+      expect(isPlainObject(null)).toEqual(false)
     })
   })
 })

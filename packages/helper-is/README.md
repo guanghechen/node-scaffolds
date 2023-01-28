@@ -75,6 +75,7 @@ Name                  | Description
 `isString`            | Check if the given data is a `string` / `String` type
 `isSymbol`            | Check if the given data is a `symbol` type
 `isUndefined`         | Check if the given data is a `undefined` type
+`isPlainObject`       | Check if the given value is a plain object.
 `isPrimitiveBoolean`  | Check if the given data is a `boolean` type
 `isPrimitiveInteger`  | Check if the given data is a `integer` type
 `isPrimitiveNumber`   | Check if the given data is a `number` type
