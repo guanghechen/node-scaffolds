@@ -1,7 +1,7 @@
 import type { Logger } from '@guanghechen/chalk-logger'
 import type { BigFileHelper, IFilePartItem } from '@guanghechen/helper-file'
 import { calcFilePartItemsBySize } from '@guanghechen/helper-file'
-import { isFileSync, mkdirsIfNotExists } from '@guanghechen/helper-fs'
+import { isFileSync, mkdirsIfNotExists, rm } from '@guanghechen/helper-fs'
 import { list2map } from '@guanghechen/helper-func'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
@@ -9,20 +9,29 @@ import fs from 'node:fs/promises'
 import { FileChangeType } from './constant'
 import type { FileCipherPathResolver } from './FileCipherPathResolver'
 import type { IFileCipher } from './types/IFileCipher'
-import type { IFileCipherCatalog } from './types/IFileCipherCatalog'
+import type {
+  ICalcDiffItemsParams,
+  ICheckIntegrityParams,
+  IDecryptDiffParams,
+  IEncryptDiffParams,
+  IFileCipherCatalog,
+} from './types/IFileCipherCatalog'
 import type {
   IFileCipherCatalogItem,
   IFileCipherCatalogItemDiff,
 } from './types/IFileCipherCatalogItem'
-import { normalizeSourceFilepath } from './util/catalog'
+import { calcFileCipherCatalogItem, normalizeSourceFilepath } from './util/catalog'
+import { isSameFileCipherItem } from './util/diff'
 
 export interface IFileCipherCatalogProps {
   pathResolver: FileCipherPathResolver
   fileCipher: IFileCipher
   fileHelper: BigFileHelper
   maxTargetFileSize: number
+  partCodePrefix: string
   initialItems?: IFileCipherCatalogItem[]
   logger?: Logger
+  isKeepPlain(relativeSourceFilepath: string): boolean
 }
 
 export class FileCipherCatalog implements IFileCipherCatalog {
@@ -30,6 +39,8 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   public readonly fileCipher: IFileCipher
   public readonly fileHelper: BigFileHelper
   public readonly maxTargetFileSize: number
+  public readonly partCodePrefix: string
+  protected readonly isKeepPlain: (relativeSourceFilepath: string) => boolean
   protected readonly _logger?: Logger
   private readonly _itemMap: Map<string, IFileCipherCatalogItem>
 
@@ -38,6 +49,8 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     this.fileCipher = props.fileCipher
     this.fileHelper = props.fileHelper
     this.maxTargetFileSize = props.maxTargetFileSize
+    this.partCodePrefix = props.partCodePrefix
+    this.isKeepPlain = props.isKeepPlain
     this._logger = props.logger
     this._itemMap = list2map(props.initialItems?.slice() ?? [], item =>
       normalizeSourceFilepath(item.sourceFilepath, this.pathResolver),
@@ -52,10 +65,38 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     this._itemMap.clear()
   }
 
-  public async checkIntegrity(params: {
-    sourceFiles?: boolean
-    encryptedFiles?: boolean
-  }): Promise<void | never> {
+  public async calcDiffItems(params: ICalcDiffItemsParams): Promise<IFileCipherCatalogItemDiff[]> {
+    const { sourceFilepaths, isKeepPlain = this.isKeepPlain } = params
+    const { _itemMap, pathResolver } = this
+    const result: IFileCipherCatalogItemDiff[] = []
+    for (const sourceFilepath of sourceFilepaths) {
+      const key = normalizeSourceFilepath(sourceFilepath, pathResolver)
+      const oldItem = _itemMap.get(key)
+      const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(sourceFilepath)
+      const relativeSourceFilepath = pathResolver.calcRelativeSourceFilepath(absoluteSourceFilepath)
+      const isSrcFileExists = isFileSync(absoluteSourceFilepath)
+
+      if (!isSrcFileExists && oldItem) {
+        result.push({ changeType: FileChangeType.REMOVED, oldItem })
+        continue
+      }
+
+      const newItem: IFileCipherCatalogItem = await calcFileCipherCatalogItem(sourceFilepath, {
+        keepPlain: isKeepPlain(relativeSourceFilepath),
+        maxTargetFileSize: this.maxTargetFileSize,
+        partCodePrefix: this.partCodePrefix,
+        pathResolver: this.pathResolver,
+      })
+      if (oldItem) {
+        if (!isSameFileCipherItem(oldItem, newItem)) {
+          result.push({ changeType: FileChangeType.MODIFIED, oldItem, newItem })
+        }
+      } else result.push({ changeType: FileChangeType.ADDED, newItem })
+    }
+    return result
+  }
+
+  public async checkIntegrity(params: ICheckIntegrityParams): Promise<void | never> {
     const { _itemMap, pathResolver } = this
     if (params.sourceFiles) {
       this._logger?.debug('[checkIntegrity] checking source files.')
@@ -94,7 +135,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     }
   }
 
-  public async encryptDiff(diffItems: ReadonlyArray<IFileCipherCatalogItemDiff>): Promise<void> {
+  public async encryptDiff({ diffItems }: IEncryptDiffParams): Promise<void> {
     const { fileCipher, fileHelper, pathResolver, maxTargetFileSize, _itemMap } = this
 
     const add = async (item: IFileCipherCatalogItem, changeType: FileChangeType): Promise<void> => {
@@ -178,14 +219,11 @@ export class FileCipherCatalog implements IFileCipherCatalog {
       const { changeType } = diffItem
       switch (changeType) {
         case FileChangeType.ADDED: {
-          const { encryptedFilepath } = diffItem.newItem
-          const absoluteEncryptedFilepath =
-            pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
-          invariant(
-            !existsSync(absoluteEncryptedFilepath),
-            `[encryptDiff] Bad diff item (${changeType}), encrypted file already exists. (${encryptedFilepath})`,
+          await this._ensureEncryptedPathNotExist(
+            diffItem.newItem,
+            encryptedFilepath =>
+              `[encryptDiff] Bad diff item (${changeType}), encrypted file already exists. (${encryptedFilepath})`,
           )
-
           await add(diffItem.newItem, changeType)
           break
         }
@@ -195,13 +233,11 @@ export class FileCipherCatalog implements IFileCipherCatalog {
           break
         }
         case FileChangeType.REMOVED: {
-          const { sourceFilepath } = diffItem.oldItem
-          const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(sourceFilepath)
-          invariant(
-            !existsSync(absoluteSourceFilepath),
-            `[encryptDiff] Bad diff item (${changeType}), source file should not exist. (${sourceFilepath})`,
+          await this._ensureSourcePathNotExist(
+            diffItem.oldItem,
+            sourceFilepath =>
+              `[encryptDiff] Bad diff item (${changeType}), source file should not exist. (${sourceFilepath})`,
           )
-
           await remove(diffItem.oldItem, changeType)
           break
         }
@@ -209,7 +245,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     }
   }
 
-  public async decryptDiff(diffItems: ReadonlyArray<IFileCipherCatalogItemDiff>): Promise<void> {
+  public async decryptDiff({ diffItems }: IDecryptDiffParams): Promise<void> {
     const { fileCipher, fileHelper, pathResolver, _itemMap } = this
 
     const add = async (item: IFileCipherCatalogItem, changeType: FileChangeType): Promise<void> => {
@@ -272,13 +308,11 @@ export class FileCipherCatalog implements IFileCipherCatalog {
       const { changeType } = diffItem
       switch (changeType) {
         case FileChangeType.ADDED: {
-          const { sourceFilepath } = diffItem.newItem
-          const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(sourceFilepath)
-          invariant(
-            !existsSync(absoluteSourceFilepath),
-            `[decryptDiff] Bad diff item (${changeType}), source file already exists. (${sourceFilepath})`,
+          await this._ensureSourcePathNotExist(
+            diffItem.newItem,
+            sourceFilepath =>
+              `[decryptDiff] Bad diff item (${changeType}), source file already exists. (${sourceFilepath})`,
           )
-
           await add(diffItem.newItem, changeType)
           break
         }
@@ -288,20 +322,38 @@ export class FileCipherCatalog implements IFileCipherCatalog {
           break
         }
         case FileChangeType.REMOVED: {
-          const encryptedFilepaths = this._collectEncryptedFilepaths(diffItem.oldItem)
-          for (const encryptedFilepath of encryptedFilepaths) {
-            const absoluteEncryptedFilepath =
-              pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
-            invariant(
-              !existsSync(absoluteEncryptedFilepath),
+          await this._ensureEncryptedPathNotExist(
+            diffItem.oldItem,
+            encryptedFilepath =>
               `[decryptDiff] Bad diff item (REMOVED), encrypted file should not exist. (${encryptedFilepath})`,
-            )
-          }
-
+          )
           await remove(diffItem.oldItem, changeType)
           break
         }
       }
+    }
+  }
+
+  // @overridable
+  protected async _ensureSourcePathNotExist(
+    item: Readonly<IFileCipherCatalogItem>,
+    getErrorMsg: (sourceFilepath: string) => string,
+  ): Promise<void> {
+    const { sourceFilepath } = item
+    const absoluteSourceFilepath = this.pathResolver.calcAbsoluteSourceFilepath(sourceFilepath)
+    invariant(!existsSync(absoluteSourceFilepath), () => getErrorMsg(sourceFilepath))
+  }
+
+  // @overridable
+  protected async _ensureEncryptedPathNotExist(
+    item: Readonly<IFileCipherCatalogItem>,
+    getErrorMsg: (encryptedFilepath: string) => string,
+  ): Promise<void | never> {
+    const encryptedFilepaths = this._collectEncryptedFilepaths(item)
+    for (const encryptedFilepath of encryptedFilepaths) {
+      const absoluteEncryptedFilepath =
+        this.pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
+      invariant(!existsSync(absoluteEncryptedFilepath), () => getErrorMsg(encryptedFilepath))
     }
   }
 

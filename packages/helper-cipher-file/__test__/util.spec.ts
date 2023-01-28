@@ -46,8 +46,8 @@ describe('catalog', () => {
     expect(
       await calcFileCipherCatalogItem('1.md', {
         keepPlain: true,
-        maxTargetSize: 1024,
-        partCodePrefix: '.ghc',
+        maxTargetFileSize: 1024,
+        partCodePrefix: '.ghc-',
         pathResolver,
       }),
     ).toEqual({
@@ -62,7 +62,7 @@ describe('catalog', () => {
     expect(
       await calcFileCipherCatalogItem('big-file.md', {
         keepPlain: false,
-        maxTargetSize: 1024,
+        maxTargetFileSize: 1024,
         partCodePrefix: '.ghc-',
         pathResolver,
       }),

@@ -17,7 +17,7 @@ export const calcFileCipherCatalogItem = async (
   sourceFilepath: string,
   options: {
     keepPlain: boolean
-    maxTargetSize: number
+    maxTargetFileSize: number
     partCodePrefix: string
     pathResolver: FileCipherPathResolver
   },
@@ -33,7 +33,7 @@ export const calcFileCipherCatalogItem = async (
     ? relativeSourceFilepath
     : calcFingerprintFromString(sourceFilepathKey, 'utf8')
   const encryptedFileParts = calcFilePartNames(
-    calcFilePartItemsBySize(fileSize, options.maxTargetSize),
+    calcFilePartItemsBySize(fileSize, options.maxTargetFileSize),
     options.partCodePrefix,
   )
   const item: IFileCipherCatalogItem = {
