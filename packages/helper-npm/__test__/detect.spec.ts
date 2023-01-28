@@ -38,5 +38,6 @@ describe('detectPackageAuthor', () => {
     expect(detectPackageAuthor(locateFixtures('monorepo1'))).toEqual('guanghechen')
     expect(detectPackageAuthor(locateFixtures('monorepo2'))).toEqual('waw')
     expect(detectPackageAuthor(locateFixtures('normal-repo'))).toBeNull()
+    expect(detectPackageAuthor(locateFixtures('normal-repo2'))).toEqual('waw2')
   })
 })

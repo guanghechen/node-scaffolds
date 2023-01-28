@@ -14,7 +14,7 @@ import { isPlainObject, stringify } from './common'
  * @param rename
  * @returns
  */
-export function normalizeRename(rename: IOptionRename): IConfigRename {
+function normalizeRename(rename: IOptionRename): IConfigRename {
   if (typeof rename === 'string') return () => rename
   return rename
 }

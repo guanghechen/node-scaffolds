@@ -3,13 +3,7 @@ import { globby } from 'globby'
 import path from 'node:path'
 import util from 'util'
 import type { IConfigTarget, ICopyTargetItem } from '../types'
-import {
-  findEarliestAncestralDirpath,
-  findExpandedFilepath,
-  isMatch,
-  relativePath,
-  resolvePath,
-} from './path'
+import { findExpandedFilepath, isMatch, relativePath, resolvePath } from './path'
 
 export { isPlainObject } from 'is-plain-object'
 
@@ -68,15 +62,6 @@ export function generateCopyTarget(
    */
   function renameTarget(oldFileName: string, srcPath: string): string {
     if (!rename) return originalDestPath
-
-    if (typeof rename === 'string') {
-      const dirname: string = isFileSync(filepath) ? path.dirname(filepath) : filepath
-      const baseDirname: string | null = findEarliestAncestralDirpath(workspace, dirname, patterns)
-      if (baseDirname) return path.join(dest, srcPath.replace(baseDirname, rename))
-
-      const newFilename: string = rename
-      return resolvePath(workspace, destinationFolder, newFilename)
-    }
 
     const { name, ext } = path.parse(oldFileName)
     const newFilename: string = rename(name, ext.replace(/^(\.)?/, ''), srcPath)

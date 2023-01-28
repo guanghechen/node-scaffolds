@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "author": "waw2",
+  "peerDependencies": {
+    "@guanghechen/not-existed-repo": "*",
+    "rollup": "*"
+  }
+}

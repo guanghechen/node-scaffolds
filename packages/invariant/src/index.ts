@@ -15,7 +15,7 @@ export function invariant(
   if (condition) return
 
   // Strip out errors messages in production environment.
-  /* istanbul ignore next */
+  /* c8 ignore next */
   if (isProduction) throw new Error(prefix)
 
   // Throw an error when the condition fails.

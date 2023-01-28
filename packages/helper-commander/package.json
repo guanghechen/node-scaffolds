@@ -53,8 +53,8 @@
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
-    "@types/js-yaml": "^4.0.5",
     "cross-env": "^7.0.3",
+    "jest": "^29.4.1",
     "rimraf": "^4.1.2",
     "rollup": "^3.11.0"
   }

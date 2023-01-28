@@ -91,6 +91,6 @@ export interface IConfigTarget {
   }
 }
 
-export type IConfigRename = IOptionRename
+export type IConfigRename = (name: string, ext: string, srcPath: string) => string
 
 export type IConfigTransform = IOptionTransform

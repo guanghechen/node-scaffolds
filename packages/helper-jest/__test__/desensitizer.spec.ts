@@ -6,21 +6,42 @@ import {
   createPackageVersionDesensitizer,
 } from '../src'
 
-describe('createFilepathDesensitizer', function () {
-  test('*nix', function () {
+describe('createFilepathDesensitizer', () => {
+  test('*nix', () => {
     const desensitize = createFilepathDesensitizer('/a/b/c')
     expect(desensitize('sfe /a/b/c/d')).toEqual('sfe <WORKSPACE>/d')
     expect(desensitize('sfe /a\\b/c/d')).toEqual('sfe <WORKSPACE>/d')
   })
 
-  test('windows', function () {
+  test('windows', () => {
     const desensitize = createFilepathDesensitizer('C:\\a\\b\\c')
     expect(desensitize('sfe C:\\a\\b\\c\\d')).toEqual('sfe <WORKSPACE>\\d')
   })
 })
 
-describe('createPackageVersionDesensitizer', function () {
-  test('basic', function () {
+describe('createPackageVersionDesensitizer', () => {
+  test('basic', () => {
+    const desensitize = createPackageVersionDesensitizer(() => '1.0.0-alpha')
+
+    expect(desensitize(`"@guanghechen/test-waw": "^0.1.0"`)).toEqual(
+      `"@guanghechen/test-waw": "^1.0.0-alpha"`,
+    )
+    expect(desensitize(`"@guanghechen/test-waw": "0.1.0"`)).toEqual(
+      `"@guanghechen/test-waw": "1.0.0-alpha"`,
+    )
+    expect(desensitize(`"@guanghechen/waw": "^0.1.0"`)).toEqual(
+      `"@guanghechen/waw": "^1.0.0-alpha"`,
+    )
+
+    expect(desensitize('^0.1.0', '@guanghechen/test-waw')).toEqual('^1.0.0-alpha')
+    expect(desensitize('~0.1.0', '@guanghechen/test-waw')).toEqual('~1.0.0-alpha')
+    expect(desensitize('0.1.0', '@guanghechen/test-waw')).toEqual('1.0.0-alpha')
+    expect(desensitize('^0.1.0', '@guanghechen/waw')).toEqual('^1.0.0-alpha')
+    expect(desensitize('~0.1.0', '@guanghechen/waw')).toEqual('~1.0.0-alpha')
+    expect(desensitize('0.1.0', '@guanghechen/waw')).toEqual('1.0.0-alpha')
+  })
+
+  test('custom testPackageName', () => {
     const desensitize = createPackageVersionDesensitizer(
       () => '1.0.0-alpha',
       packageName => /^@guanghechen\/test/.test(packageName),
@@ -33,11 +54,18 @@ describe('createPackageVersionDesensitizer', function () {
       `"@guanghechen/test-waw": "1.0.0-alpha"`,
     )
     expect(desensitize(`"@guanghechen/waw": "^0.1.0"`)).toEqual(`"@guanghechen/waw": "^0.1.0"`)
+
+    expect(desensitize('^0.1.0', '@guanghechen/test-waw')).toEqual('^1.0.0-alpha')
+    expect(desensitize('~0.1.0', '@guanghechen/test-waw')).toEqual('~1.0.0-alpha')
+    expect(desensitize('0.1.0', '@guanghechen/test-waw')).toEqual('1.0.0-alpha')
+    expect(desensitize('^0.1.0', '@guanghechen/waw')).toEqual('^0.1.0')
+    expect(desensitize('~0.1.0', '@guanghechen/waw')).toEqual('~0.1.0')
+    expect(desensitize('0.1.0', '@guanghechen/waw')).toEqual('0.1.0')
   })
 })
 
-describe('composeStringDesensitizers', function () {
-  test('basic', function () {
+describe('composeStringDesensitizers', () => {
+  test('basic', () => {
     const desensitize = composeStringDesensitizers(
       text => text.replace(/(?<=^|\b)alpha(?=\b|$)/gi, 'α'),
       text => text.replace(/(?<=^|\b)beta(?=\b|$)/gi, 'β'),
@@ -49,8 +77,8 @@ describe('composeStringDesensitizers', function () {
   })
 })
 
-describe('createJsonDesensitizer', function () {
-  test('basic', function () {
+describe('createJsonDesensitizer', () => {
+  test('basic', () => {
     const desensitize = createJsonDesensitizer(
       {
         string: text => text.replace(/(?<=^|\b)alpha(?=\b|$)/gi, 'α'),
@@ -75,7 +103,7 @@ describe('createJsonDesensitizer', function () {
     })
   })
 
-  test('default', function () {
+  test('default', () => {
     const desensitize = createJsonDesensitizer()
     const gender = Symbol('female')
     expect(
@@ -93,7 +121,7 @@ describe('createJsonDesensitizer', function () {
     })
   })
 
-  test('fallback', function () {
+  test('fallback', () => {
     const desensitize = createJsonDesensitizer({
       fallback: data => (isSymbol(data) ? null : data),
     })

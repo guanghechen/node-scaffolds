@@ -48,6 +48,7 @@ export async function collectAllDependencies(
         nextPackageJsonPath = locateNearestFilepath(dependencyPath, 'package.json')
       }
     } catch (e: any) {
+      /* c8 ignore start */
       switch (e.code) {
         case 'ERR_MODULE_NOT_FOUND':
           if (isAbsentAllowed!(dependency)) return
@@ -58,6 +59,7 @@ export async function collectAllDependencies(
           console.error(e)
           return
       }
+      /* c8 ignore end */
     }
 
     if (nextPackageJsonPath == null) {

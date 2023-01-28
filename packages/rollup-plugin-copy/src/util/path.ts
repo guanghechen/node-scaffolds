@@ -74,28 +74,3 @@ export function findExpandedFilepath(
     return path.join(dirs.slice(i + 1).join(path.sep), filename)
   }
 }
-
-/**
- * Find the earliest ancestral path which matched the glob patterns.
- *
- * @param workspace
- * @param dirpath
- * @param patterns
- * @returns
- */
-export function findEarliestAncestralDirpath(
-  workspace: string,
-  dirpath: string,
-  patterns: string[],
-): string | null {
-  const srcPath: string = relativePath(workspace, dirpath)
-  const dirs: string[] = srcPath.split(/[/\\]+/g)
-
-  let i: number = dirs.length
-  for (; i >= 0; --i) {
-    const p: string = dirs.slice(0, i).join('/')
-    const matched: boolean = isMatch(workspace, p, patterns)
-    if (!matched) break
-  }
-  return i === dirs.length ? null : dirs.slice(0, i + 1).join(path.sep)
-}
