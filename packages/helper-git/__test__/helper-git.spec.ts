@@ -5,9 +5,11 @@ import { createConsoleMock } from '@guanghechen/helper-jest'
 import type { ILogger } from '@guanghechen/utility-types'
 import type { Options as IExecaOptions } from 'execa'
 import { locateFixtures } from 'jest.helper'
+import { existsSync } from 'node:fs'
 import path from 'node:path'
 import {
   checkBranch,
+  cleanUntrackedFilepaths,
   commitAll,
   commitStaged,
   getCommitInTopology,
@@ -208,6 +210,41 @@ function runTest(params: IRunTestParams): void {
   afterEach(async () => {
     logMock.restore()
     await rm(workspaceDir)
+  })
+
+  test('cleanUntrackedFilepaths', async () => {
+    await initGitRepo({
+      cwd: workspaceDir,
+      defaultBranch: 'main',
+      authorName: 'guanghechen',
+      authorEmail: 'example@gmail.com',
+    })
+
+    const p0 = path.join(workspaceDir, '/a/b/c/d.txt')
+    const p1 = path.join(workspaceDir, '/a/c/d/e.txt')
+    const p2 = path.join(workspaceDir, '/a/b')
+
+    await writeFile(p0, 'hello p1')
+    await writeFile(p1, 'hello p1')
+    await commitAll(commitTable.A)
+
+    await rm(p0)
+    await rm(p1)
+    await commitAll(commitTable.B)
+
+    expect(existsSync(p0)).toEqual(false)
+    expect(existsSync(p1)).toEqual(false)
+    expect(existsSync(path.dirname(p0))).toEqual(true)
+    expect(existsSync(path.dirname(p1))).toEqual(true)
+    expect(existsSync(p2)).toEqual(true)
+    await cleanUntrackedFilepaths({ ...ctx, filepaths: [p2] })
+    expect(existsSync(path.dirname(p0))).toEqual(false)
+    expect(existsSync(path.dirname(p1))).toEqual(true)
+    expect(existsSync(p2)).toEqual(false)
+
+    await writeFile(p2, 'hello p2')
+    await commitAll(commitTable.C)
+    expect(existsSync(p2)).toEqual(true)
   })
 
   test('comprehensive', async () => {

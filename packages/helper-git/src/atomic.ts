@@ -3,6 +3,7 @@ import type { Options as IExecaOptions } from 'execa'
 import type {
   ICommitViewOptions,
   IGitCheckOptions,
+  IGitCleanUntrackedOptions,
   IGitCommitDagNode,
   IGitCommitOptions,
   IGitMergeOptions,
@@ -110,6 +111,18 @@ export const mergeCommits = async (options: IGitMergeOptions): Promise<void> => 
   if (options.committerEmail) env.GIT_COMMITTER_EMAIL = options.committerEmail
 
   options?.logger?.debug(`[checkBranch] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  const execaOptions: IExecaOptions = { ...options.execaOptions, cwd, env, extendEnv: true }
+  await safeExeca('git', args, execaOptions)
+}
+
+export const cleanUntrackedFilepaths = async (
+  options: IGitCleanUntrackedOptions,
+): Promise<void> => {
+  const cwd: string = options.cwd
+  const env: NodeJS.ProcessEnv = { ...options.execaOptions?.env }
+  const args: string[] = ['clean', '-df', ...options.filepaths]
+
+  options?.logger?.debug(`[cleanUntrackedFilepaths] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...options.execaOptions, cwd, env, extendEnv: true }
   await safeExeca('git', args, execaOptions)
 }

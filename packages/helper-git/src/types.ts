@@ -55,6 +55,13 @@ export interface IGitStageOptions {
   logger?: ILogger
 }
 
+export interface IGitCleanUntrackedOptions {
+  cwd: string
+  filepaths: string[]
+  execaOptions?: IExecaOptions
+  logger?: ILogger
+}
+
 export interface ICommitViewOptions {
   cwd: string
   commitId: string
