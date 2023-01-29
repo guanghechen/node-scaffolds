@@ -79,6 +79,7 @@ function runTest(params: IRunTestParams): void {
       committerDate: '2023-01-26T07:29:33.000Z',
       committerName: 'guanghechen_a',
       committerEmail: 'exmaple_a@gmail.com',
+      amend: false,
     },
     B: {
       ...ctx,
@@ -91,6 +92,7 @@ function runTest(params: IRunTestParams): void {
       committerDate: '2023-01-27T03:50:35.000Z',
       committerName: 'guanghechen_b',
       committerEmail: 'exmaple_b@gmail.com',
+      amend: false,
     },
     C: {
       ...ctx,
@@ -103,6 +105,7 @@ function runTest(params: IRunTestParams): void {
       committerDate: '2023-01-27T03:50:35.000Z',
       committerName: 'guanghechen_c',
       committerEmail: 'exmaple_c@gmail.com',
+      amend: false,
     },
     D: {
       ...ctx,
@@ -115,6 +118,7 @@ function runTest(params: IRunTestParams): void {
       committerDate: '2023-01-27T03:53:37.000Z',
       committerName: 'guanghechen_d',
       committerEmail: 'exmaple_d@gmail.com',
+      amend: false,
     },
     E: {
       ...ctx,
@@ -127,6 +131,7 @@ function runTest(params: IRunTestParams): void {
       committerDate: '2023-01-27T06:58:43.000Z',
       committerName: 'guanghechen_e',
       committerEmail: 'exmaple_e@gmail.com',
+      amend: false,
     },
     F: {
       ...ctx,
@@ -151,6 +156,7 @@ function runTest(params: IRunTestParams): void {
       committerDate: '2023-01-27T06:59:42.000Z',
       committerName: 'guanghechen_g',
       committerEmail: 'exmaple_g@gmail.com',
+      amend: false,
     },
     H: {
       ...ctx,
@@ -163,6 +169,7 @@ function runTest(params: IRunTestParams): void {
       committerDate: '2023-01-27T07:00:08.000Z',
       committerName: 'guanghechen_h',
       committerEmail: 'exmaple_h@gmail.com',
+      amend: false,
     },
     I: {
       ...ctx,
@@ -175,6 +182,7 @@ function runTest(params: IRunTestParams): void {
       committerDate: '2023-01-27T07:00:30.000Z',
       committerName: 'guanghechen_i',
       committerEmail: 'exmaple_i@gmail.com',
+      amend: false,
     },
     J: {
       ...ctx,
@@ -187,6 +195,7 @@ function runTest(params: IRunTestParams): void {
       committerDate: '2023-01-27T07:00:45.000Z',
       committerName: 'guanghechen_i',
       committerEmail: 'exmaple_i@gmail.com',
+      amend: false,
     },
     K: {
       ...ctx,
@@ -199,6 +208,7 @@ function runTest(params: IRunTestParams): void {
       committerDate: '2023-01-27T07:01:01.000Z',
       committerName: 'guanghechen_i',
       committerEmail: 'exmaple_i@gmail.com',
+      amend: false,
     },
   }
 
@@ -245,6 +255,46 @@ function runTest(params: IRunTestParams): void {
     await writeFile(p2, 'hello p2')
     await commitAll(commitTable.C)
     expect(existsSync(p2)).toEqual(true)
+  })
+
+  test('amend commit', async () => {
+    await initGitRepo({
+      cwd: workspaceDir,
+      defaultBranch: 'main',
+      authorName: 'guanghechen',
+      authorEmail: 'example@gmail.com',
+    })
+
+    await writeFile(filepathA, 'A -- Hello, A.')
+    await commitAll(commitTable.A)
+    expect(await getCommitInTopology({ ...ctx, commitId: 'HEAD' })).toEqual([
+      { id: commitIdTable.A, parents: [] },
+    ])
+
+    await writeFile(filepathB, 'B -- Hello, B.')
+    await commitAll(commitTable.B)
+    expect(await getCommitInTopology({ ...ctx, commitId: 'HEAD' })).toEqual([
+      { id: commitIdTable.A, parents: [] },
+      { id: commitIdTable.B, parents: [commitIdTable.A] },
+    ])
+
+    await writeFile(filepathB, 'B -- Hello, B, amend contents.')
+    await commitAll({ ...commitTable.B, amend: true })
+
+    expect(await getCommitInTopology({ ...ctx, commitId: 'HEAD' })).toEqual([
+      { id: commitIdTable.A, parents: [] },
+      {
+        id: 'cfc43672f861a7e7ff280ef0b3ec3f28a57b13ad',
+        parents: ['84f1f5f57c0a5b24cb085578d87553f1e5fe48c7'],
+      },
+    ])
+
+    await writeFile(filepathB, 'B -- Hello, B.')
+    await commitAll({ ...commitTable.B, amend: true })
+    expect(await getCommitInTopology({ ...ctx, commitId: 'HEAD' })).toEqual([
+      { id: commitIdTable.A, parents: [] },
+      { id: commitIdTable.B, parents: [commitIdTable.A] },
+    ])
   })
 
   test('comprehensive', async () => {

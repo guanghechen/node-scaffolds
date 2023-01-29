@@ -60,7 +60,9 @@ export const stageAll = async (options: IGitStageOptions): Promise<void> => {
 export const commitStaged = async (options: IGitCommitOptions): Promise<void> => {
   const cwd: string = options.cwd
   const env: NodeJS.ProcessEnv = { ...options.execaOptions?.env }
-  const args: string[] = ['commit', '-m', options.message]
+  const args: string[] = ['commit', options.amend && '--amend', '-m', options.message].filter(
+    (x): x is string => !!x,
+  )
 
   if (options.authorDate) {
     const date = dayjs(options.authorDate).format('ddd MMM DD HH:mm:ss YYYY ZZ')

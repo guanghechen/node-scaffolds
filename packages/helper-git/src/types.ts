@@ -13,19 +13,6 @@ export interface IGitCheckOptions {
   logger?: ILogger
 }
 
-export interface IGitCommitOptions {
-  cwd: string
-  message: string
-  authorDate?: string
-  authorName?: string
-  authorEmail?: string
-  committerDate?: string
-  committerName?: string
-  committerEmail?: string
-  execaOptions?: IExecaOptions
-  logger?: ILogger
-}
-
 export interface IGitCommitInfo {
   authorDate: string
   authorName: string
@@ -34,6 +21,14 @@ export interface IGitCommitInfo {
   committerName: string
   committerEmail: string
   message: string
+}
+
+export interface IGitCommitOptions extends Partial<IGitCommitInfo> {
+  cwd: string
+  message: string
+  amend: boolean
+  execaOptions?: IExecaOptions
+  logger?: ILogger
 }
 
 export interface IGitInitOptions {
@@ -45,8 +40,12 @@ export interface IGitInitOptions {
   logger?: ILogger
 }
 
-export interface IGitMergeOptions extends IGitCommitOptions {
+export interface IGitMergeOptions extends Partial<IGitCommitInfo> {
+  cwd: string
+  message: string
   parentIds: string[]
+  execaOptions?: IExecaOptions
+  logger?: ILogger
 }
 
 export interface IGitStageOptions {
