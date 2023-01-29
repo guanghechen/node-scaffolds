@@ -1,15 +1,18 @@
 import invariant from '@guanghechen/invariant'
+import type { ILogger } from '@guanghechen/utility-types'
 import dayjs from 'dayjs'
 import type { Options as IExecaOptions } from 'execa'
-import type {
-  ICommitViewChangedFilesOptions,
-  ICommitViewOptions,
-  ICommitViewShowInfoOptions,
-  IGitCommitInfo,
-} from './types'
-import { safeExeca } from './util'
+import type { IGitCommitInfo } from '../types'
+import { safeExeca } from '../util'
 
-export const listAllFiles = async (options: ICommitViewOptions): Promise<string[]> => {
+export interface IListAllFilesOptions {
+  cwd: string
+  commitId: string
+  execaOptions?: IExecaOptions
+  logger?: ILogger
+}
+
+export const listAllFiles = async (options: IListAllFilesOptions): Promise<string[]> => {
   const execaOptions: IExecaOptions = { ...options.execaOptions, cwd: options.cwd }
   const result = await safeExeca(
     'git',
@@ -20,9 +23,15 @@ export const listAllFiles = async (options: ICommitViewOptions): Promise<string[
   return files
 }
 
-export const listChangedFiles = async (
-  options: ICommitViewChangedFilesOptions,
-): Promise<string[]> => {
+export interface IListChangedFilesOptions {
+  cwd: string
+  commitId: string
+  parentIds: string[]
+  execaOptions?: IExecaOptions
+  logger?: ILogger
+}
+
+export const listChangedFiles = async (options: IListChangedFilesOptions): Promise<string[]> => {
   if (options.parentIds.length <= 0) return await listAllFiles(options)
 
   const execaOptions: IExecaOptions = { ...options.execaOptions, cwd: options.cwd }
@@ -64,8 +73,19 @@ const regex = new RegExp(
     .join('\\n\\s*'),
 )
 
+export interface IShowCommitInfoOptions {
+  cwd: string
+  commitId: string
+  execaOptions?: IExecaOptions
+  logger?: ILogger
+  /**
+   * @default '    '
+   */
+  messagePrefix?: string
+}
+
 export const showCommitInfo = async (
-  options: ICommitViewShowInfoOptions,
+  options: IShowCommitInfoOptions,
 ): Promise<IGitCommitInfo | never> => {
   const messagePrefix: string = options.messagePrefix ?? '    '
   const execaOptions: IExecaOptions = { ...options.execaOptions, cwd: options.cwd }

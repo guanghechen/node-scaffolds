@@ -1,9 +1,17 @@
+import type { ILogger } from '@guanghechen/utility-types'
 import type { Options as IExecaOptions } from 'execa'
 import { execa } from 'execa'
-import { commitStaged, stageAll } from './atomic'
-import type { IGitCommitOptions, IGitInitOptions, IGitStageOptions } from './types'
 
-export const initGitRepo = async (options: IGitInitOptions): Promise<void> => {
+export interface IInitGitRepoOptions {
+  cwd: string
+  defaultBranch?: string
+  authorName?: string
+  authorEmail?: string
+  execaOptions?: IExecaOptions
+  logger?: ILogger
+}
+
+export const initGitRepo = async (options: IInitGitRepoOptions): Promise<void> => {
   options?.logger?.debug(`[initGitRepo] cwd: {}`, options.cwd)
 
   // create init commit
@@ -19,9 +27,4 @@ export const initGitRepo = async (options: IGitInitOptions): Promise<void> => {
   if (options.authorEmail) {
     await execa('git', ['config', 'user.email', options.authorEmail], execaOptions)
   }
-}
-
-export const commitAll = async (options: IGitCommitOptions & IGitStageOptions): Promise<void> => {
-  await stageAll(options)
-  await commitStaged(options)
 }
