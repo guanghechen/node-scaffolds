@@ -14,6 +14,7 @@ export interface IGitCheckOptions {
 }
 
 export interface IGitCommitInfo {
+  commitId: string
   authorDate: string
   authorName: string
   authorEmail: string
@@ -23,10 +24,18 @@ export interface IGitCommitInfo {
   message: string
 }
 
-export interface IGitCommitOptions extends Partial<IGitCommitInfo> {
+export interface IGitCommitOptions extends Partial<Omit<IGitCommitInfo, 'commitId'>> {
   cwd: string
   message: string
   amend: boolean
+  execaOptions?: IExecaOptions
+  logger?: ILogger
+}
+
+export interface IGitMergeOptions extends Partial<Omit<IGitCommitInfo, 'commitId'>> {
+  cwd: string
+  message: string
+  parentIds: string[]
   execaOptions?: IExecaOptions
   logger?: ILogger
 }
@@ -36,14 +45,6 @@ export interface IGitInitOptions {
   defaultBranch?: string
   authorName?: string
   authorEmail?: string
-  execaOptions?: IExecaOptions
-  logger?: ILogger
-}
-
-export interface IGitMergeOptions extends Partial<IGitCommitInfo> {
-  cwd: string
-  message: string
-  parentIds: string[]
   execaOptions?: IExecaOptions
   logger?: ILogger
 }

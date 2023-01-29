@@ -53,6 +53,7 @@ export const listChangedFiles = async (
 
 const regex = new RegExp(
   [
+    /commit\s*([\da-f]+)(?:[\s\S]*?)/, // commit id
     /Author:\s*([\S ]+?)\s*<([^>]+)>/, // author name and author email
     /AuthorDate:\s*([^\n]+?)/, // author date
     /Commit:\s*([\S ]+?)\s*<([^>]+)>/, // committer name and committer email
@@ -79,6 +80,7 @@ export const showCommitInfo = async (
 
   const [
     ,
+    commitId,
     authorName,
     authorEmail,
     authorDate,
@@ -92,6 +94,7 @@ export const showCommitInfo = async (
     .map(line => (line.startsWith(messagePrefix) ? line.slice(messagePrefix.length) : line))
     .join('\n')
   return {
+    commitId,
     authorDate: dayjs(authorDate).toISOString(),
     authorName: authorName.trim(),
     authorEmail: authorEmail.trim(),

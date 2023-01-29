@@ -422,6 +422,7 @@ function runTest(params: IRunTestParams): void {
       const commit = commitTable[symbol]
       expect({ ...(await showCommitInfo(commit)), symbol }).toEqual({
         symbol,
+        commitId: commit.commitId,
         authorDate: commit.authorDate,
         authorName: commit.authorName,
         authorEmail: commit.authorEmail,
