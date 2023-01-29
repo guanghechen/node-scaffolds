@@ -6,6 +6,7 @@ import type {
   IGitCleanUntrackedOptions,
   IGitCommitDagNode,
   IGitCommitOptions,
+  IGitGetCommitIdByMessageOptions,
   IGitMergeOptions,
   IGitStageOptions,
 } from './types'
@@ -127,6 +128,24 @@ export const cleanUntrackedFilepaths = async (
   options?.logger?.debug(`[cleanUntrackedFilepaths] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...options.execaOptions, cwd, env, extendEnv: true }
   await safeExeca('git', args, execaOptions)
+}
+
+/**
+ * Get the commit ID by commit message.
+ * @param options
+ * @returns
+ */
+export const getCommitIdByMessage = async (
+  options: IGitGetCommitIdByMessageOptions,
+): Promise<string | never> => {
+  const cwd: string = options.cwd
+  const env: NodeJS.ProcessEnv = { ...options.execaOptions?.env }
+  const args: string[] = ['rev-parse', `:/${options.messagePattern}`]
+
+  options?.logger?.debug(`[getCommitIdByMessage] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  const execaOptions: IExecaOptions = { ...options.execaOptions, cwd, env, extendEnv: true }
+  const result = await safeExeca('git', args, execaOptions)
+  return result.stdout.trim()
 }
 
 export const getCommitInTopology = async (

@@ -12,6 +12,7 @@ import {
   cleanUntrackedFilepaths,
   commitAll,
   commitStaged,
+  getCommitIdByMessage,
   getCommitInTopology,
   hasUncommittedContent,
   initGitRepo,
@@ -316,6 +317,9 @@ function runTest(params: IRunTestParams): void {
 
     await commitAll(commitTable.A)
     expect(await hasUncommittedContent(ctx)).toEqual(false)
+    expect(await getCommitIdByMessage({ ...ctx, messagePattern: commitTable.A.message })).toEqual(
+      commitIdTable.A,
+    )
 
     await writeFile(filepathB, 'B -- Hello, B.')
     expect(await hasUncommittedContent(ctx)).toEqual(true)
@@ -328,6 +332,9 @@ function runTest(params: IRunTestParams): void {
 
     await commitStaged(commitTable.B)
     expect(await hasUncommittedContent(ctx)).toEqual(true)
+    expect(await getCommitIdByMessage({ ...ctx, messagePattern: commitTable.B.message })).toEqual(
+      commitIdTable.B,
+    )
 
     await commitAll(commitTable.C)
     expect(await hasUncommittedContent(ctx)).toEqual(false)
@@ -355,6 +362,13 @@ function runTest(params: IRunTestParams): void {
     await writeFile(filepathB, 'H -- Hello, B.')
     await rm(filepathA)
     await commitAll(commitTable.H)
+
+    expect(await getCommitIdByMessage({ ...ctx, messagePattern: commitTable.C.message })).toEqual(
+      commitIdTable.C,
+    )
+    expect(await getCommitIdByMessage({ ...ctx, messagePattern: commitTable.H.message })).toEqual(
+      commitIdTable.H,
+    )
 
     await checkBranch({ ...ctx, commitId: commitIdTable.B })
     await writeFile(filepathB, 'I -- Hello, B.')

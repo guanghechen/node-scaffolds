@@ -62,6 +62,13 @@ export interface IGitCleanUntrackedOptions {
   logger?: ILogger
 }
 
+export interface IGitGetCommitIdByMessageOptions {
+  cwd: string
+  messagePattern: string
+  execaOptions?: IExecaOptions
+  logger?: ILogger
+}
+
 export interface ICommitViewOptions {
   cwd: string
   commitId: string
