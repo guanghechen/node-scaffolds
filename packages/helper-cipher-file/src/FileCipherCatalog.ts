@@ -1,7 +1,7 @@
 import type { Logger } from '@guanghechen/chalk-logger'
 import type { BigFileHelper, IFilePartItem } from '@guanghechen/helper-file'
 import { calcFilePartItemsBySize } from '@guanghechen/helper-file'
-import { isFileSync, mkdirsIfNotExists, rm } from '@guanghechen/helper-fs'
+import { isFileSync, mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import { list2map } from '@guanghechen/helper-func'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'

@@ -218,5 +218,7 @@ export const isPlainObject = (v: unknown): v is object => {
 
   // If has modified prototype
   const prot = ctor.prototype
+
+  // eslint-disable-next-line no-prototype-builtins
   return isObject(prot) && prot.hasOwnProperty('isPrototypeOf')
 }

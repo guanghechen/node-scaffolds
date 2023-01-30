@@ -1,6 +1,6 @@
 import type { Options as GlobbyOptions } from 'globby'
 import type { CopyOptions, WriteFileOptions } from 'node:fs'
-import type { IOptionRename, IOptionTransform } from './option'
+import type { IOptionTransform } from './option'
 
 export interface IConfig {
   /**
