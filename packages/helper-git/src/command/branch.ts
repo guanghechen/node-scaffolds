@@ -3,7 +3,7 @@ import type { IGitCommandBaseParams } from '../types'
 import { safeExeca } from '../util'
 
 export interface ICheckBranchParams extends IGitCommandBaseParams {
-  commitId: string
+  branchOrCommitId: string
 }
 
 /**
@@ -13,9 +13,39 @@ export interface ICheckBranchParams extends IGitCommandBaseParams {
 export const checkBranch = async (params: ICheckBranchParams): Promise<void> => {
   const cwd: string = params.cwd
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
-  const args: string[] = ['checkout', params.commitId]
+  const args: string[] = ['checkout', params.branchOrCommitId]
 
   params?.logger?.debug(`[checkBranch] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
+  await safeExeca('git', args, execaOptions)
+}
+
+export interface ICreateBranchParams extends IGitCommandBaseParams {
+  newBranchName: string
+  branchOrCommitId: string
+}
+
+export const createBranch = async (params: ICreateBranchParams): Promise<void> => {
+  const cwd: string = params.cwd
+  const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
+  const args: string[] = ['branch', params.newBranchName, params.branchOrCommitId]
+
+  params?.logger?.debug(`[createBranch] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
+  await safeExeca('git', args, execaOptions)
+}
+
+export interface IDeleteBranchParams extends IGitCommandBaseParams {
+  branchName: string
+  force: boolean
+}
+
+export const deleteBranch = async (params: IDeleteBranchParams): Promise<void> => {
+  const cwd: string = params.cwd
+  const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
+  const args: string[] = ['branch', params.force ? '-D' : '-d', params.branchName]
+
+  params?.logger?.debug(`[deleteBranch] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
   await safeExeca('git', args, execaOptions)
 }
@@ -54,5 +84,5 @@ export const getAllLocalBranches = async (
     if (branch !== null) branches.push(branch)
   })
 
-  return { currentBranch, branches }
+  return { currentBranch, branches: branches.sort() }
 }

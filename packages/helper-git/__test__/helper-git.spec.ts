@@ -7,11 +7,15 @@ import type { Options as IExecaOptions } from 'execa'
 import { locateFixtures } from 'jest.helper'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
+import type { IGitCommandBaseParams, IGitCommitInfo } from '../src'
 import {
   checkBranch,
   cleanUntrackedFilepaths,
   commitAll,
   commitStaged,
+  createBranch,
+  deleteBranch,
+  getAllLocalBranches,
   getCommitIdByMessage,
   getCommitInTopology,
   hasUncommittedContent,
@@ -26,7 +30,7 @@ import {
 
 describe('atomic', () => {
   const workspaceDir: string = locateFixtures('__fictitious__0')
-  runTest({ workspaceDir, defaultBranch: 'main' })
+  runTest({ workspaceDir, defaultBranch: 'ghc-main' })
 })
 
 describe('atomic -- logger', () => {
@@ -55,7 +59,13 @@ function runTest(params: IRunTestParams): void {
   const filepathD: string = path.join(workspaceDir, fpD)
   const filepathE: string = path.join(workspaceDir, fpE)
 
-  const ctx = { cwd: workspaceDir, logger, execaOptions }
+  interface ICommitItem extends IGitCommandBaseParams, IGitCommitInfo {
+    branchName: string
+    parentIds: string[]
+    amend: boolean
+  }
+
+  const ctx: IGitCommandBaseParams = { cwd: workspaceDir, logger, execaOptions }
   const commitIdTable = {
     A: '84f1f5f57c0a5b24cb085578d87553f1e5fe48c7',
     B: 'f4b640a9cb5e463eb909e1bd48765233bf12d3fe',
@@ -69,9 +79,10 @@ function runTest(params: IRunTestParams): void {
     J: '91f95134093178854e26d35ab436d1086fde0f55',
     K: '255a5a0dffcfe808a24fc39612509b4d88b6c45f',
   }
-  const commitTable = {
+  const commitTable: Record<string, ICommitItem> = {
     A: {
       ...ctx,
+      branchName: 'A',
       commitId: commitIdTable.A,
       parentIds: [],
       message: 'A -- add a',
@@ -85,6 +96,7 @@ function runTest(params: IRunTestParams): void {
     },
     B: {
       ...ctx,
+      branchName: 'B',
       commitId: commitIdTable.B,
       parentIds: [commitIdTable.A],
       message: 'B -- add b',
@@ -98,6 +110,7 @@ function runTest(params: IRunTestParams): void {
     },
     C: {
       ...ctx,
+      branchName: 'C',
       commitId: commitIdTable.C,
       parentIds: [commitIdTable.B],
       message: 'C -- update a',
@@ -111,6 +124,7 @@ function runTest(params: IRunTestParams): void {
     },
     D: {
       ...ctx,
+      branchName: 'D',
       commitId: commitIdTable.D,
       parentIds: [commitIdTable.C],
       message: 'D -- update b, add c',
@@ -124,6 +138,7 @@ function runTest(params: IRunTestParams): void {
     },
     E: {
       ...ctx,
+      branchName: 'E',
       commitId: commitIdTable.E,
       parentIds: [commitIdTable.C],
       message: 'E -- update a',
@@ -137,6 +152,7 @@ function runTest(params: IRunTestParams): void {
     },
     F: {
       ...ctx,
+      branchName: 'F',
       commitId: commitIdTable.F,
       parentIds: [commitIdTable.E, commitIdTable.D],
       message: 'F -- merge D and E (fix conflict)',
@@ -146,9 +162,11 @@ function runTest(params: IRunTestParams): void {
       committerDate: '2023-01-27T06:59:16.000Z',
       committerName: 'guanghechen_f',
       committerEmail: 'exmaple_f@gmail.com',
+      amend: false,
     },
     G: {
       ...ctx,
+      branchName: 'G',
       commitId: commitIdTable.G,
       parentIds: [commitIdTable.E],
       message: 'G -- add d',
@@ -162,6 +180,7 @@ function runTest(params: IRunTestParams): void {
     },
     H: {
       ...ctx,
+      branchName: 'H',
       commitId: commitIdTable.H,
       parentIds: [commitIdTable.F],
       message: 'H -- update b, delete a',
@@ -175,6 +194,7 @@ function runTest(params: IRunTestParams): void {
     },
     I: {
       ...ctx,
+      branchName: 'I',
       commitId: commitIdTable.I,
       parentIds: [commitIdTable.B],
       message: 'I -- update b, add c,e',
@@ -188,6 +208,7 @@ function runTest(params: IRunTestParams): void {
     },
     J: {
       ...ctx,
+      branchName: 'J',
       commitId: commitIdTable.J,
       parentIds: [commitIdTable.I, commitIdTable.G, commitIdTable.H],
       message: 'J -- merge H,G,I (fix conflict)',
@@ -201,6 +222,7 @@ function runTest(params: IRunTestParams): void {
     },
     K: {
       ...ctx,
+      branchName: 'K',
       commitId: commitIdTable.K,
       parentIds: [commitIdTable.J],
       message: 'K -- update d,e\ntest multilines message with quotes\'"\n\n  Will it be respected?',
@@ -280,13 +302,13 @@ function runTest(params: IRunTestParams): void {
 
     await writeFile(filepathA, 'A -- Hello, A.')
     await commitAll(commitTable.A)
-    expect(await getCommitInTopology({ ...ctx, commitId: 'HEAD' })).toEqual([
+    expect(await getCommitInTopology({ ...ctx, branchOrCommitId: 'HEAD' })).toEqual([
       { id: commitIdTable.A, parents: [] },
     ])
 
     await writeFile(filepathB, 'B -- Hello, B.')
     await commitAll(commitTable.B)
-    expect(await getCommitInTopology({ ...ctx, commitId: 'HEAD' })).toEqual([
+    expect(await getCommitInTopology({ ...ctx, branchOrCommitId: 'HEAD' })).toEqual([
       { id: commitIdTable.A, parents: [] },
       { id: commitIdTable.B, parents: [commitIdTable.A] },
     ])
@@ -294,7 +316,7 @@ function runTest(params: IRunTestParams): void {
     await writeFile(filepathB, 'B -- Hello, B, amend contents.')
     await commitAll({ ...commitTable.B, amend: true })
 
-    expect(await getCommitInTopology({ ...ctx, commitId: 'HEAD' })).toEqual([
+    expect(await getCommitInTopology({ ...ctx, branchOrCommitId: 'HEAD' })).toEqual([
       { id: commitIdTable.A, parents: [] },
       {
         id: 'cfc43672f861a7e7ff280ef0b3ec3f28a57b13ad',
@@ -304,7 +326,7 @@ function runTest(params: IRunTestParams): void {
 
     await writeFile(filepathB, 'B -- Hello, B.')
     await commitAll({ ...commitTable.B, amend: true })
-    expect(await getCommitInTopology({ ...ctx, commitId: 'HEAD' })).toEqual([
+    expect(await getCommitInTopology({ ...ctx, branchOrCommitId: 'HEAD' })).toEqual([
       { id: commitIdTable.A, parents: [] },
       { id: commitIdTable.B, parents: [commitIdTable.A] },
     ])
@@ -359,18 +381,18 @@ function runTest(params: IRunTestParams): void {
     await writeFile(filepathC, 'D -- Hello, C.')
     await commitAll(commitTable.D)
 
-    await checkBranch({ ...ctx, commitId: commitIdTable.C })
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.C })
     await writeFile(filepathA, 'E -- Hello, A.')
     await commitAll(commitTable.E)
 
-    await checkBranch({ ...ctx, commitId: commitIdTable.E })
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.E })
     await mergeCommits({ ...commitTable.F, parentIds: [commitIdTable.E, commitIdTable.D] })
 
-    await checkBranch({ ...ctx, commitId: commitIdTable.E })
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.E })
     await writeFile(filepathD, 'G -- Hello, D.')
     await commitAll(commitTable.G)
 
-    await checkBranch({ ...ctx, commitId: commitIdTable.F })
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.F })
     await writeFile(filepathB, 'H -- Hello, B.')
     await rm(filepathA)
     await commitAll(commitTable.H)
@@ -382,12 +404,12 @@ function runTest(params: IRunTestParams): void {
       commitIdTable.H,
     )
 
-    await checkBranch({ ...ctx, commitId: commitIdTable.B })
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.B })
     await writeFile(filepathB, 'I -- Hello, B.')
     await writeFile(filepathC, 'I -- Hello, C.')
     await commitAll(commitTable.I)
 
-    await checkBranch({ ...ctx, commitId: commitIdTable.I })
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.I })
     await expect(() =>
       mergeCommits({
         ...commitTable.J,
@@ -404,7 +426,7 @@ function runTest(params: IRunTestParams): void {
     await commitAll(commitTable.K)
 
     // test getCommitInTopology
-    expect(await getCommitInTopology({ ...ctx, commitId: 'HEAD' })).toEqual([
+    expect(await getCommitInTopology({ ...ctx, branchOrCommitId: 'HEAD' })).toEqual([
       { id: commitIdTable.A, parents: [] },
       { id: commitIdTable.B, parents: [commitIdTable.A] },
       { id: commitIdTable.C, parents: [commitIdTable.B] },
@@ -418,36 +440,40 @@ function runTest(params: IRunTestParams): void {
       { id: commitIdTable.K, parents: [commitIdTable.J] },
     ])
     // test listAllFiles
-    expect(await listAllFiles(commitTable.A)).toEqual([fpA])
-    expect(await listAllFiles(commitTable.B)).toEqual([fpA, fpB])
-    expect(await listAllFiles(commitTable.C)).toEqual([fpA, fpB])
-    expect(await listAllFiles(commitTable.D)).toEqual([fpA, fpB, fpC])
-    expect(await listAllFiles(commitTable.E)).toEqual([fpA, fpB])
-    expect(await listAllFiles(commitTable.F)).toEqual([fpA, fpB, fpC])
-    expect(await listAllFiles(commitTable.G)).toEqual([fpA, fpB, fpD])
-    expect(await listAllFiles(commitTable.H)).toEqual([fpB, fpC])
-    expect(await listAllFiles(commitTable.I)).toEqual([fpA, fpB, fpC])
-    expect(await listAllFiles(commitTable.J)).toEqual([fpB, fpC, fpD, fpE])
-    expect(await listAllFiles(commitTable.K)).toEqual([fpB, fpC, fpD, fpE])
+    const wListAllFiles = (commit: ICommitItem): ReturnType<typeof listAllFiles> =>
+      listAllFiles({ ...commit, branchOrCommitId: commit.commitId })
+    expect(await wListAllFiles(commitTable.A)).toEqual([fpA])
+    expect(await wListAllFiles(commitTable.B)).toEqual([fpA, fpB])
+    expect(await wListAllFiles(commitTable.C)).toEqual([fpA, fpB])
+    expect(await wListAllFiles(commitTable.D)).toEqual([fpA, fpB, fpC])
+    expect(await wListAllFiles(commitTable.E)).toEqual([fpA, fpB])
+    expect(await wListAllFiles(commitTable.F)).toEqual([fpA, fpB, fpC])
+    expect(await wListAllFiles(commitTable.G)).toEqual([fpA, fpB, fpD])
+    expect(await wListAllFiles(commitTable.H)).toEqual([fpB, fpC])
+    expect(await wListAllFiles(commitTable.I)).toEqual([fpA, fpB, fpC])
+    expect(await wListAllFiles(commitTable.J)).toEqual([fpB, fpC, fpD, fpE])
+    expect(await wListAllFiles(commitTable.K)).toEqual([fpB, fpC, fpD, fpE])
 
     // listChangedFiles
-    expect((await listChangedFiles(commitTable.A)).sort()).toEqual([fpA])
-    expect((await listChangedFiles(commitTable.B)).sort()).toEqual([fpB])
-    expect((await listChangedFiles(commitTable.C)).sort()).toEqual([fpA])
-    expect((await listChangedFiles(commitTable.D)).sort()).toEqual([fpB, fpC])
-    expect((await listChangedFiles(commitTable.E)).sort()).toEqual([fpA])
-    expect((await listChangedFiles(commitTable.F)).sort()).toEqual([fpA, fpB, fpC])
-    expect((await listChangedFiles(commitTable.G)).sort()).toEqual([fpD])
-    expect((await listChangedFiles(commitTable.H)).sort()).toEqual([fpA, fpB])
-    expect((await listChangedFiles(commitTable.I)).sort()).toEqual([fpB, fpC])
-    expect((await listChangedFiles(commitTable.J)).sort()).toEqual([fpA, fpB, fpC, fpD])
-    expect((await listChangedFiles(commitTable.K)).sort()).toEqual([fpD, fpE])
+    const wListChangedFiles = (commit: ICommitItem): ReturnType<typeof listChangedFiles> =>
+      listChangedFiles({ ...commit, branchOrCommitId: commit.commitId })
+    expect((await wListChangedFiles(commitTable.A)).sort()).toEqual([fpA])
+    expect((await wListChangedFiles(commitTable.B)).sort()).toEqual([fpB])
+    expect((await wListChangedFiles(commitTable.C)).sort()).toEqual([fpA])
+    expect((await wListChangedFiles(commitTable.D)).sort()).toEqual([fpB, fpC])
+    expect((await wListChangedFiles(commitTable.E)).sort()).toEqual([fpA])
+    expect((await wListChangedFiles(commitTable.F)).sort()).toEqual([fpA, fpB, fpC])
+    expect((await wListChangedFiles(commitTable.G)).sort()).toEqual([fpD])
+    expect((await wListChangedFiles(commitTable.H)).sort()).toEqual([fpA, fpB])
+    expect((await wListChangedFiles(commitTable.I)).sort()).toEqual([fpB, fpC])
+    expect((await wListChangedFiles(commitTable.J)).sort()).toEqual([fpA, fpB, fpC, fpD])
+    expect((await wListChangedFiles(commitTable.K)).sort()).toEqual([fpD, fpE])
 
     // showCommitInfo
-    for (const symbol of Object.keys(commitTable)) {
-      const commit = commitTable[symbol]
-      expect({ ...(await showCommitInfo(commit)), symbol }).toEqual({
-        symbol,
+    const wShowCommitInfo = (commit: ICommitItem): ReturnType<typeof showCommitInfo> =>
+      showCommitInfo({ ...commit, branchOrCommitId: commit.commitId })
+    for (const commit of Object.values(commitTable)) {
+      expect(await wShowCommitInfo(commit)).toEqual({
         commitId: commit.commitId,
         authorDate: commit.authorDate,
         authorName: commit.authorName,
@@ -468,5 +494,60 @@ function runTest(params: IRunTestParams): void {
         `merge ${commitIdTable.I} ${commitIdTable.G} ${commitIdTable.H} -m 'J -- merge H,G,I (fix conflict)'`,
       ],
     ])
+
+    // createBranch
+    await createBranch({ ...ctx, newBranchName: 'A', branchOrCommitId: commitIdTable.A })
+    await createBranch({ ...ctx, newBranchName: 'B', branchOrCommitId: commitIdTable.B })
+    await createBranch({ ...ctx, newBranchName: 'C', branchOrCommitId: commitIdTable.C })
+    await createBranch({ ...ctx, newBranchName: 'D', branchOrCommitId: commitIdTable.D })
+    await createBranch({ ...ctx, newBranchName: 'E', branchOrCommitId: commitIdTable.E })
+    await createBranch({ ...ctx, newBranchName: 'F', branchOrCommitId: commitIdTable.F })
+    await createBranch({ ...ctx, newBranchName: 'G', branchOrCommitId: commitIdTable.G })
+    await createBranch({ ...ctx, newBranchName: 'H', branchOrCommitId: commitIdTable.H })
+    await createBranch({ ...ctx, newBranchName: 'I', branchOrCommitId: commitIdTable.I })
+    await createBranch({ ...ctx, newBranchName: 'J', branchOrCommitId: commitIdTable.J })
+    await createBranch({ ...ctx, newBranchName: 'K', branchOrCommitId: commitIdTable.K })
+    const allBranches = Object.values(commitTable)
+      .map(commit => commit.branchName)
+      .concat(defaultBranch ? [defaultBranch] : ['main'])
+
+    expect(await getAllLocalBranches({ ...ctx })).toEqual({
+      currentBranch: null,
+      branches: allBranches,
+    })
+
+    for (const commit of Object.values(commitTable)) {
+      expect(await showCommitInfo({ ...ctx, branchOrCommitId: commit.branchName })).toEqual({
+        commitId: commit.commitId,
+        authorDate: commit.authorDate,
+        authorName: commit.authorName,
+        authorEmail: commit.authorEmail,
+        committerDate: commit.committerDate,
+        committerName: commit.committerName,
+        committerEmail: commit.committerEmail,
+        message: commit.message,
+      })
+    }
+
+    await checkBranch({ ...ctx, branchOrCommitId: commitTable.I.branchName })
+    expect(await getAllLocalBranches({ ...ctx })).toEqual({
+      currentBranch: commitTable.I.branchName,
+      branches: allBranches,
+    })
+
+    // Try to delete a unmerged branch.
+    await expect(() =>
+      deleteBranch({ ...ctx, branchName: commitTable.K.branchName, force: false }),
+    ).rejects.toThrow(/The branch ['"]([\s\S]+)['"] is not fully merged/)
+
+    // Force delete a unmerged branch.
+    await expect(
+      deleteBranch({ ...ctx, branchName: commitTable.K.branchName, force: true }),
+    ).resolves.toBeUndefined()
+
+    // Try delete a nonexistent branch.
+    await expect(() =>
+      deleteBranch({ ...ctx, branchName: commitTable.K.branchName, force: false }),
+    ).rejects.toThrow(/branch ['"]([\s\S]+)['"] not found/)
   })
 }

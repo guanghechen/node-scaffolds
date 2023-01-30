@@ -25,7 +25,7 @@ export const getCommitIdByMessage = async (
 }
 
 export interface IGetCommitInTopologyParams extends IGitCommandBaseParams {
-  commitId: string
+  branchOrCommitId: string
 }
 
 export const getCommitInTopology = async (
@@ -35,7 +35,7 @@ export const getCommitInTopology = async (
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
   const args: string[] = [
     'log',
-    params.commitId,
+    params.branchOrCommitId,
     '--topo-order',
     '--date-order',
     '--reverse',

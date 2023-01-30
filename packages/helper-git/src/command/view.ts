@@ -5,14 +5,14 @@ import type { IGitCommandBaseParams, IGitCommitInfo } from '../types'
 import { safeExeca } from '../util'
 
 export interface IListAllFilesParams extends IGitCommandBaseParams {
-  commitId: string
+  branchOrCommitId: string
 }
 
 export const listAllFiles = async (params: IListAllFilesParams): Promise<string[]> => {
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
   const result = await safeExeca(
     'git',
-    ['ls-tree', '--name-only', '-r', params.commitId],
+    ['ls-tree', '--name-only', '-r', params.branchOrCommitId],
     execaOptions,
   )
   const files: string[] = result.stdout.trim().split(/\s*\n+\s*/g)
@@ -20,7 +20,7 @@ export const listAllFiles = async (params: IListAllFilesParams): Promise<string[
 }
 
 export interface IListChangedFilesParams extends IGitCommandBaseParams {
-  commitId: string
+  branchOrCommitId: string
   parentIds: string[]
 }
 
@@ -34,11 +34,11 @@ export const listChangedFiles = async (params: IListChangedFilesParams): Promise
       const pFiles: string[] = await getChangedFilesFromCommitId(parentId)
       for (const id of pFiles) fileSet.add(id)
     }
-    const files: string[] = await getChangedFilesFromCommitId(params.commitId)
+    const files: string[] = await getChangedFilesFromCommitId(params.branchOrCommitId)
     for (const id of files) fileSet.add(id)
     return Array.from(fileSet).filter(x => !!x)
   } else {
-    const files: string[] = await getChangedFilesFromCommitId(params.commitId)
+    const files: string[] = await getChangedFilesFromCommitId(params.branchOrCommitId)
     return files.filter(x => !!x)
   }
 
@@ -67,7 +67,7 @@ const regex = new RegExp(
 )
 
 export interface IShowCommitInfoParams extends IGitCommandBaseParams {
-  commitId: string
+  branchOrCommitId: string
   /**
    * @default '    '
    */
@@ -81,7 +81,7 @@ export const showCommitInfo = async (
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
   const result = await safeExeca(
     'git',
-    ['log', '-1', '--format=fuller', params.commitId],
+    ['log', '-1', '--format=fuller', params.branchOrCommitId],
     execaOptions,
   )
   const text: string = result.stdout
