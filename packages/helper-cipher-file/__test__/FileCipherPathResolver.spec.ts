@@ -1,6 +1,6 @@
 import path from 'node:path'
 import url from 'node:url'
-import { FileCipherPathResolver } from '../src/FileCipherPathResolver'
+import { FileCipherPathResolver } from '../src'
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
