@@ -1,4 +1,5 @@
 import type { Cipher } from 'node:crypto'
+import { randomBytes } from 'node:crypto'
 import type { ICipher } from '../types/ICipher'
 import { destroyBuffers } from '../util'
 
@@ -17,7 +18,7 @@ export abstract class BaseCipher implements ICipher {
   }
 
   // override
-  public encrypt(plainData: Readonly<Buffer>): Buffer | never {
+  public encrypt(plainData: Readonly<Buffer>): Buffer {
     const encipher = this.encipher()
     const cipherDataPieces: Buffer[] = []
     let cipherData: Buffer
@@ -36,7 +37,7 @@ export abstract class BaseCipher implements ICipher {
   }
 
   // override
-  public decrypt(cipherData: Readonly<Buffer>): Buffer | never {
+  public decrypt(cipherData: Readonly<Buffer>): Buffer {
     const decipher = this.decipher()
     const plainDataPieces: Buffer[] = []
     let plainData: Buffer
@@ -54,6 +55,22 @@ export abstract class BaseCipher implements ICipher {
     return plainData
   }
 
+  // override
+  public encryptJson(plainData: unknown): Buffer {
+    const content = JSON.stringify(plainData)
+    const sealedContent = this._seal(content)
+    const buffer = Buffer.from(sealedContent, 'utf8')
+    return this.encrypt(buffer)
+  }
+
+  // override
+  public decryptJson(cipherData: Readonly<Buffer>): unknown {
+    const plainData: Buffer = this.decrypt(cipherData)
+    const jsonContent: string = this._strip(plainData.toString('utf8'))
+    const data = JSON.parse(jsonContent)
+    return data
+  }
+
   public cleanup(): void {
     this._alive = false
   }
@@ -63,4 +80,30 @@ export abstract class BaseCipher implements ICipher {
 
   // override
   public abstract decipher(): Cipher
+
+  /**
+   * Adds some random characters for obfuscation.
+   * @param content
+   */
+  protected _seal(content: string): string {
+    const startSaltSize = Math.ceil(Math.random() * 70 + 30)
+    const endSaltSize = Math.ceil(Math.random() * 70 + 30)
+    return (
+      '#' +
+      randomBytes(startSaltSize).toString('hex') +
+      '#' +
+      content +
+      '#' +
+      randomBytes(endSaltSize).toString('hex') +
+      '#'
+    )
+  }
+
+  /**
+   * Remove salts.
+   * @param content
+   */
+  protected _strip(content: string): string {
+    return content.replace(/^#[\da-f]+#/i, '').replace(/#[\da-f]+#$/i, '')
+  }
 }

@@ -20,6 +20,19 @@ describe('AesCipher', function () {
       expect(cipher.decrypt(cipherData)).toEqual(originalContent)
     })
 
+    test('encryptJson / decryptJson', () => {
+      const plainData = {
+        name: 'alice',
+        gender: 'female',
+        age: 33,
+      }
+      const plainContent = JSON.stringify(plainData)
+      const cipherData = cipher.encryptJson(plainData)
+      expect(cipherData).not.toEqual(plainContent)
+      expect(cipherData.byteLength).toBeGreaterThan(plainContent.length)
+      expect(cipher.decryptJson(cipherData)).toEqual(plainData)
+    })
+
     test('cleanup', () => {
       expect(() => cipher.encipher()).not.toThrow()
       expect(() => cipher.decipher()).not.toThrow()

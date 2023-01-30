@@ -17,17 +17,29 @@ export interface ICipher {
   decipher(): Cipher
 
   /**
-   * Encrypt plain data
+   * Encrypt plain data.
    */
   encrypt(plainData: Readonly<Buffer>): Buffer
 
   /**
-   * Decrypt cipher data
+   * Decrypt cipher data.
    */
   decrypt(cipherData: Readonly<Buffer>): Buffer
 
   /**
-   * Destroy secret and sensitive data
+   * Encrypt plain json data.
+   * @param plainData
+   */
+  encryptJson(plainData: unknown): Buffer
+
+  /**
+   * Decrypt plain json data.
+   * @param plainData
+   */
+  decryptJson(cipherData: Readonly<Buffer>): unknown
+
+  /**
+   * Destroy secret and sensitive data.
    */
   cleanup(): void
 }
