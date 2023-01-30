@@ -45,53 +45,53 @@ describe('JsonConfigKeeper', function () {
     const userConfigKeeper = new JsonConfigKeeper<IUser>({
       __version__: '2023-01-30',
       cipher,
-      configFilepath: path.join(workspaceDir, 'user.txt'),
+      filepath: path.join(workspaceDir, 'user.txt'),
     })
 
-    expect(existsSync(userConfigKeeper.configFilepath)).toEqual(false)
+    expect(existsSync(userConfigKeeper.filepath)).toEqual(false)
     expect(await userConfigKeeper.load()).toEqual(null)
 
     await userConfigKeeper.save(alice)
-    expect(existsSync(userConfigKeeper.configFilepath)).toEqual(true)
+    expect(existsSync(userConfigKeeper.filepath)).toEqual(true)
     expect(await userConfigKeeper.load()).toEqual(alice)
 
     await userConfigKeeper.save(bob)
     expect(await userConfigKeeper.load()).toEqual(bob)
 
     await userConfigKeeper.remove()
-    expect(existsSync(userConfigKeeper.configFilepath)).toEqual(false)
+    expect(existsSync(userConfigKeeper.filepath)).toEqual(false)
   })
 
   test('default data', async () => {
     const userConfigKeeper = new JsonConfigKeeper<IUser>({
       __version__: '2023-01-30',
       cipher,
-      configFilepath: path.join(workspaceDir, 'user.txt'),
+      filepath: path.join(workspaceDir, 'user.txt'),
       getDefaultData: () => ({ ...alice }),
     })
 
-    expect(existsSync(userConfigKeeper.configFilepath)).toEqual(false)
+    expect(existsSync(userConfigKeeper.filepath)).toEqual(false)
     expect(await userConfigKeeper.load()).toEqual(alice)
 
     await userConfigKeeper.save(bob)
-    expect(existsSync(userConfigKeeper.configFilepath)).toEqual(true)
+    expect(existsSync(userConfigKeeper.filepath)).toEqual(true)
     expect(await userConfigKeeper.load()).toEqual(bob)
 
     await userConfigKeeper.remove()
-    expect(existsSync(userConfigKeeper.configFilepath)).toEqual(false)
+    expect(existsSync(userConfigKeeper.filepath)).toEqual(false)
   })
 
   test('inconsistent version', async () => {
     const userConfigKeeper = new JsonConfigKeeper<IUser>({
       __version__: '2023-01-30',
       cipher,
-      configFilepath: path.join(workspaceDir, 'user.txt'),
+      filepath: path.join(workspaceDir, 'user.txt'),
     })
 
     const userConfigKeeper2 = new JsonConfigKeeper<IUser>({
       __version__: '2023-01-31',
       cipher,
-      configFilepath: path.join(workspaceDir, 'user.txt'),
+      filepath: path.join(workspaceDir, 'user.txt'),
     })
 
     await userConfigKeeper.save(alice)
@@ -112,7 +112,7 @@ describe('JsonConfigKeeper', function () {
     const userConfigKeeper = new JsonConfigKeeper<IUser2, IUser2Raw>({
       __version__: '2023-01-30',
       cipher,
-      configFilepath: path.join(workspaceDir, 'user.txt'),
+      filepath: path.join(workspaceDir, 'user.txt'),
       serialize: user => ({ ...user, contacts: Array.from(user.contacts) }),
       deserialize: user => ({ ...user, contacts: new Set(user.contacts) }),
     })

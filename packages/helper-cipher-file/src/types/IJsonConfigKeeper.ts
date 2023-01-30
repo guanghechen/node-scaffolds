@@ -5,6 +5,11 @@ export interface IJsonConfig {
 
 export interface IJsonConfigKeeper<D> {
   /**
+   * Config file path.
+   */
+  readonly filepath: string
+
+  /**
    * Load config data.
    */
   load(): Promise<D | null>

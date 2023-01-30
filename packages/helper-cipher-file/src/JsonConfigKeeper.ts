@@ -7,7 +7,7 @@ import type { IJsonConfig, IJsonConfigKeeper } from './types/IJsonConfigKeeper'
 
 export interface IGitCipherConfigProps<Data, Raw = Data> {
   readonly cipher: ICipher
-  readonly configFilepath: string
+  readonly filepath: string
   readonly __version__: string
   getDefaultData?(): Data | null
   serialize?(data: Data): Raw
@@ -16,7 +16,7 @@ export interface IGitCipherConfigProps<Data, Raw = Data> {
 
 export class JsonConfigKeeper<Data, Raw = Data> implements IJsonConfigKeeper<Data> {
   public readonly cipher: ICipher
-  public readonly configFilepath: string
+  public readonly filepath: string
   private readonly __version__: string
   private readonly getDefaultData: () => Data | null
   private readonly serialize: (data: Data) => Raw
@@ -24,7 +24,7 @@ export class JsonConfigKeeper<Data, Raw = Data> implements IJsonConfigKeeper<Dat
 
   constructor(props: IGitCipherConfigProps<Data, Raw>) {
     this.cipher = props.cipher
-    this.configFilepath = props.configFilepath
+    this.filepath = props.filepath
     this.__version__ = props.__version__
     this.getDefaultData = props.getDefaultData ?? (() => null)
     this.serialize = props.serialize ?? (data => data as unknown as Raw)
@@ -32,14 +32,14 @@ export class JsonConfigKeeper<Data, Raw = Data> implements IJsonConfigKeeper<Dat
   }
 
   public async load(): Promise<Data | null> {
-    if (!existsSync(this.configFilepath)) return this.getDefaultData()
+    if (!existsSync(this.filepath)) return this.getDefaultData()
 
     invariant(
-      statSync(this.configFilepath).isFile(),
-      `[JsonConfigKeeper.load] not a file. (${this.configFilepath})`,
+      statSync(this.filepath).isFile(),
+      `[JsonConfigKeeper.load] not a file. (${this.filepath})`,
     )
 
-    const encryptedContent: Buffer = await fs.readFile(this.configFilepath)
+    const encryptedContent: Buffer = await fs.readFile(this.filepath)
     const config = this.cipher.decryptJson(encryptedContent) as IJsonConfig
 
     invariant(
@@ -53,10 +53,10 @@ export class JsonConfigKeeper<Data, Raw = Data> implements IJsonConfigKeeper<Dat
     const serializedData = this.serialize(data)
     const config: IJsonConfig = { version: this.__version__, data: serializedData }
     const encryptedContent: Buffer = this.cipher.encryptJson(config)
-    await writeFile(this.configFilepath, encryptedContent)
+    await writeFile(this.filepath, encryptedContent)
   }
 
   public async remove(): Promise<void> {
-    await rm(this.configFilepath)
+    await rm(this.filepath)
   }
 }
