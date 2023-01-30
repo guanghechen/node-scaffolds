@@ -9,7 +9,7 @@ export async function safeExeca(
   options?: IExecaOptions,
 ): Promise<IExecaReturnValue | never> {
   try {
-    const result: IExecaReturnValue = await execa(file, args, options)
+    const result: IExecaReturnValue = await execa(file, args, { ...options, encoding: 'utf8' })
     return result
   } catch (error) {
     const cmdArgs = args

@@ -18,6 +18,7 @@ import {
   getAllLocalBranches,
   getCommitIdByMessage,
   getCommitInTopology,
+  getCommitWithMessageList,
   hasUncommittedContent,
   initGitRepo,
   isGitRepo,
@@ -69,15 +70,15 @@ function runTest(params: IRunTestParams): void {
   const commitIdTable = {
     A: '84f1f5f57c0a5b24cb085578d87553f1e5fe48c7',
     B: 'f4b640a9cb5e463eb909e1bd48765233bf12d3fe',
-    C: 'bfd8cc6e604d822d0e52a61832c1075c0794d4da',
-    D: '19a298394c47a54f7a15fb07f58377f589b4581f',
-    E: '5050fc5af5f05488d3dcbd52e88cfdeaadd6504b',
-    F: '1bf5a2fb090f6391fc443cd927600fe2244acaac',
-    G: '36c32cac7e14587b9ea231c3518a03a840bd00da',
-    H: '1787ea51e5c2a984f6d9fe7b36e2510c9a100975',
+    C: '03ccebb25239dd2ee5668d93fc53863695b80c70',
+    D: 'f678d3d37d0abc0b9accdbd67f9ba709b0aedfdd',
+    E: '4f0c120f672eb1ad409f75c485c4e44c126b175a',
+    F: '0077971e26cda1e5a08f65751283b68672b1e406',
+    G: 'a4f432114140d05e7d93b8e701ef5893ab1999be',
+    H: 'c3c9eddb6681617cb7c9d899db682c01e1b24744',
     I: 'eeafa8079b3acd7778beb136844b8c72091add48',
-    J: '91f95134093178854e26d35ab436d1086fde0f55',
-    K: '255a5a0dffcfe808a24fc39612509b4d88b6c45f',
+    J: 'b1e22cbfa0d8cb946db918325620c4c6f7eb8955',
+    K: '681fcae12e8b8ff91cc6d320fe9e3c0f621d5711',
   }
   const commitTable: Record<string, ICommitItem> = {
     A: {
@@ -117,7 +118,7 @@ function runTest(params: IRunTestParams): void {
       authorDate: '2023-01-27T03:51:32.000Z',
       authorName: 'guanghechen_c',
       authorEmail: 'exmaple_c@gmail.com',
-      committerDate: '2023-01-27T03:50:35.000Z',
+      committerDate: '2023-01-27T03:51:32.000Z',
       committerName: 'guanghechen_c',
       committerEmail: 'exmaple_c@gmail.com',
       amend: false,
@@ -528,6 +529,52 @@ function runTest(params: IRunTestParams): void {
         message: commit.message,
       })
     }
+
+    // getCommitWithMessageList
+    expect(
+      await getCommitWithMessageList({
+        ...ctx,
+        branches: [commitTable.C.branchName, commitTable.I.branchName],
+      }),
+    ).toEqual([
+      { id: commitTable.I.commitId, message: commitTable.I.message },
+      { id: commitTable.C.commitId, message: commitTable.C.message },
+      { id: commitTable.B.commitId, message: commitTable.B.message },
+      { id: commitTable.A.commitId, message: commitTable.A.message },
+    ])
+
+    expect(
+      await getCommitWithMessageList({
+        ...ctx,
+        branches: [commitTable.K.branchName],
+      }),
+    ).toEqual([
+      { id: commitTable.K.commitId, message: commitTable.K.message },
+      { id: commitTable.J.commitId, message: commitTable.J.message },
+      { id: commitTable.I.commitId, message: commitTable.I.message },
+      { id: commitTable.H.commitId, message: commitTable.H.message },
+      { id: commitTable.G.commitId, message: commitTable.G.message },
+      { id: commitTable.F.commitId, message: commitTable.F.message },
+      { id: commitTable.E.commitId, message: commitTable.E.message },
+      { id: commitTable.D.commitId, message: commitTable.D.message },
+      { id: commitTable.C.commitId, message: commitTable.C.message },
+      { id: commitTable.B.commitId, message: commitTable.B.message },
+      { id: commitTable.A.commitId, message: commitTable.A.message },
+    ])
+
+    expect(await getCommitWithMessageList({ ...ctx, branches: [] })).toEqual([
+      { id: commitTable.K.commitId, message: commitTable.K.message },
+      { id: commitTable.J.commitId, message: commitTable.J.message },
+      { id: commitTable.I.commitId, message: commitTable.I.message },
+      { id: commitTable.H.commitId, message: commitTable.H.message },
+      { id: commitTable.G.commitId, message: commitTable.G.message },
+      { id: commitTable.F.commitId, message: commitTable.F.message },
+      { id: commitTable.E.commitId, message: commitTable.E.message },
+      { id: commitTable.D.commitId, message: commitTable.D.message },
+      { id: commitTable.C.commitId, message: commitTable.C.message },
+      { id: commitTable.B.commitId, message: commitTable.B.message },
+      { id: commitTable.A.commitId, message: commitTable.A.message },
+    ])
 
     await checkBranch({ ...ctx, branchOrCommitId: commitTable.I.branchName })
     expect(await getAllLocalBranches({ ...ctx })).toEqual({

@@ -6,6 +6,11 @@ export interface IGitCommitDagNode {
   parents: string[]
 }
 
+export interface IGitCommitWithMessage {
+  id: string
+  message: string
+}
+
 export interface IGitCommitInfo {
   commitId: string
   authorDate: string
