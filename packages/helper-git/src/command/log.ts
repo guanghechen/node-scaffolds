@@ -1,56 +1,49 @@
-import type { ILogger } from '@guanghechen/utility-types'
 import type { Options as IExecaOptions } from 'execa'
-import type { IGitCommitDagNode } from '../types'
+import type { IGitCommandBaseParams, IGitCommitDagNode } from '../types'
 import { safeExeca } from '../util'
 
-export interface IGitGetCommitIdByMessageOptions {
-  cwd: string
+export interface IGitGetCommitIdByMessageParams extends IGitCommandBaseParams {
   messagePattern: string
-  execaOptions?: IExecaOptions
-  logger?: ILogger
 }
 
 /**
  * Get the commit ID by commit message.
- * @param options
+ * @param params
  * @returns
  */
 export const getCommitIdByMessage = async (
-  options: IGitGetCommitIdByMessageOptions,
+  params: IGitGetCommitIdByMessageParams,
 ): Promise<string | never> => {
-  const cwd: string = options.cwd
-  const env: NodeJS.ProcessEnv = { ...options.execaOptions?.env }
-  const args: string[] = ['rev-parse', `:/${options.messagePattern}`]
+  const cwd: string = params.cwd
+  const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
+  const args: string[] = ['rev-parse', `:/${params.messagePattern}`]
 
-  options?.logger?.debug(`[getCommitIdByMessage] cwd: {}, args: {}, env: {}`, cwd, args, env)
-  const execaOptions: IExecaOptions = { ...options.execaOptions, cwd, env, extendEnv: true }
+  params?.logger?.debug(`[getCommitIdByMessage] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
   const result = await safeExeca('git', args, execaOptions)
   return result.stdout.trim()
 }
 
-export interface IGetCommitInTopologyOptions {
-  cwd: string
+export interface IGetCommitInTopologyParams extends IGitCommandBaseParams {
   commitId: string
-  execaOptions?: IExecaOptions
-  logger?: ILogger
 }
 
 export const getCommitInTopology = async (
-  options: IGetCommitInTopologyOptions,
+  params: IGetCommitInTopologyParams,
 ): Promise<IGitCommitDagNode[]> => {
-  const cwd: string = options.cwd
-  const env: NodeJS.ProcessEnv = { ...options.execaOptions?.env }
+  const cwd: string = params.cwd
+  const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
   const args: string[] = [
     'log',
-    options.commitId,
+    params.commitId,
     '--topo-order',
     '--date-order',
     '--reverse',
     '--pretty=format:"%H %P"',
   ]
 
-  options?.logger?.debug(`[hasUnCommitContent] cwd: {}, args: {}, env: {}`, cwd, args, env)
-  const execaOptions: IExecaOptions = { ...options.execaOptions, cwd, env, extendEnv: true }
+  params?.logger?.debug(`[hasUnCommitContent] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
   const result = await safeExeca('git', args, execaOptions)
   const commits: IGitCommitDagNode[] = result.stdout
     .trim()

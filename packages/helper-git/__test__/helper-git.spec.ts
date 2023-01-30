@@ -16,6 +16,7 @@ import {
   getCommitInTopology,
   hasUncommittedContent,
   initGitRepo,
+  isGitRepo,
   listAllFiles,
   listChangedFiles,
   mergeCommits,
@@ -221,6 +222,17 @@ function runTest(params: IRunTestParams): void {
   afterEach(async () => {
     logMock.restore()
     await rm(workspaceDir)
+  })
+
+  test('initGitRepo', async () => {
+    expect(isGitRepo(workspaceDir)).toEqual(false)
+    await initGitRepo({
+      cwd: workspaceDir,
+      defaultBranch: 'main',
+      authorName: 'guanghechen',
+      authorEmail: 'example@gmail.com',
+    })
+    expect(isGitRepo(workspaceDir)).toEqual(true)
   })
 
   test('cleanUntrackedFilepaths', async () => {

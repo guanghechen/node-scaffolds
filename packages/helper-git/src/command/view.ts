@@ -1,51 +1,44 @@
 import invariant from '@guanghechen/invariant'
-import type { ILogger } from '@guanghechen/utility-types'
 import dayjs from 'dayjs'
 import type { Options as IExecaOptions } from 'execa'
-import type { IGitCommitInfo } from '../types'
+import type { IGitCommandBaseParams, IGitCommitInfo } from '../types'
 import { safeExeca } from '../util'
 
-export interface IListAllFilesOptions {
-  cwd: string
+export interface IListAllFilesParams extends IGitCommandBaseParams {
   commitId: string
-  execaOptions?: IExecaOptions
-  logger?: ILogger
 }
 
-export const listAllFiles = async (options: IListAllFilesOptions): Promise<string[]> => {
-  const execaOptions: IExecaOptions = { ...options.execaOptions, cwd: options.cwd }
+export const listAllFiles = async (params: IListAllFilesParams): Promise<string[]> => {
+  const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
   const result = await safeExeca(
     'git',
-    ['ls-tree', '--name-only', '-r', options.commitId],
+    ['ls-tree', '--name-only', '-r', params.commitId],
     execaOptions,
   )
   const files: string[] = result.stdout.trim().split(/\s*\n+\s*/g)
   return files
 }
 
-export interface IListChangedFilesOptions {
-  cwd: string
+export interface IListChangedFilesParams extends IGitCommandBaseParams {
   commitId: string
   parentIds: string[]
-  execaOptions?: IExecaOptions
-  logger?: ILogger
 }
 
-export const listChangedFiles = async (options: IListChangedFilesOptions): Promise<string[]> => {
-  if (options.parentIds.length <= 0) return await listAllFiles(options)
+export const listChangedFiles = async (params: IListChangedFilesParams): Promise<string[]> => {
+  if (params.parentIds.length <= 0) return await listAllFiles(params)
 
-  const execaOptions: IExecaOptions = { ...options.execaOptions, cwd: options.cwd }
-  if (options.parentIds.length > 1) {
+  const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
+  if (params.parentIds.length > 1) {
     const fileSet: Set<string> = new Set()
-    for (const parentId of options.parentIds) {
+    for (const parentId of params.parentIds) {
       const pFiles: string[] = await getChangedFilesFromCommitId(parentId)
       for (const id of pFiles) fileSet.add(id)
     }
-    const files: string[] = await getChangedFilesFromCommitId(options.commitId)
+    const files: string[] = await getChangedFilesFromCommitId(params.commitId)
     for (const id of files) fileSet.add(id)
     return Array.from(fileSet).filter(x => !!x)
   } else {
-    const files: string[] = await getChangedFilesFromCommitId(options.commitId)
+    const files: string[] = await getChangedFilesFromCommitId(params.commitId)
     return files.filter(x => !!x)
   }
 
@@ -73,11 +66,8 @@ const regex = new RegExp(
     .join('\\n\\s*'),
 )
 
-export interface IShowCommitInfoOptions {
-  cwd: string
+export interface IShowCommitInfoParams extends IGitCommandBaseParams {
   commitId: string
-  execaOptions?: IExecaOptions
-  logger?: ILogger
   /**
    * @default '    '
    */
@@ -85,13 +75,13 @@ export interface IShowCommitInfoOptions {
 }
 
 export const showCommitInfo = async (
-  options: IShowCommitInfoOptions,
+  params: IShowCommitInfoParams,
 ): Promise<IGitCommitInfo | never> => {
-  const messagePrefix: string = options.messagePrefix ?? '    '
-  const execaOptions: IExecaOptions = { ...options.execaOptions, cwd: options.cwd }
+  const messagePrefix: string = params.messagePrefix ?? '    '
+  const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
   const result = await safeExeca(
     'git',
-    ['log', '-1', '--format=fuller', options.commitId],
+    ['log', '-1', '--format=fuller', params.commitId],
     execaOptions,
   )
   const text: string = result.stdout

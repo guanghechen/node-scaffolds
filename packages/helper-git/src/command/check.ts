@@ -1,27 +1,23 @@
-import type { ILogger } from '@guanghechen/utility-types'
 import type { Options as IExecaOptions } from 'execa'
+import type { IGitCommandBaseParams } from '../types'
 import { safeExeca } from '../util'
 
-export interface IHasUncommittedContentOptions {
-  cwd: string
-  execaOptions?: IExecaOptions
-  logger?: ILogger
-}
+export interface IHasUncommittedContentParams extends IGitCommandBaseParams {}
 
 /**
  * Check if there are any uncommitted content.
- * @param options
+ * @param params
  * @returns
  */
 export const hasUncommittedContent = async (
-  options: IHasUncommittedContentOptions,
+  params: IHasUncommittedContentParams,
 ): Promise<boolean> => {
-  const cwd: string = options.cwd
-  const env: NodeJS.ProcessEnv = { ...options.execaOptions?.env }
+  const cwd: string = params.cwd
+  const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
   const args: string[] = ['status', '-s', '-uall']
 
-  options?.logger?.debug(`[hasUnCommitContent] cwd: {}, args: {}, env: {}`, cwd, args, env)
-  const execaOptions: IExecaOptions = { ...options.execaOptions, cwd, env, extendEnv: true }
+  params?.logger?.debug(`[hasUnCommitContent] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
   const result = await safeExeca('git', args, execaOptions)
   return Boolean(result.stdout.trim())
 }

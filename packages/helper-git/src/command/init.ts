@@ -1,30 +1,27 @@
-import type { ILogger } from '@guanghechen/utility-types'
 import type { Options as IExecaOptions } from 'execa'
 import { execa } from 'execa'
+import type { IGitCommandBaseParams } from '../types'
 
-export interface IInitGitRepoOptions {
-  cwd: string
+export interface IInitGitRepoParams extends IGitCommandBaseParams {
   defaultBranch?: string
   authorName?: string
   authorEmail?: string
-  execaOptions?: IExecaOptions
-  logger?: ILogger
 }
 
-export const initGitRepo = async (options: IInitGitRepoOptions): Promise<void> => {
-  options?.logger?.debug(`[initGitRepo] cwd: {}`, options.cwd)
+export const initGitRepo = async (params: IInitGitRepoParams): Promise<void> => {
+  params?.logger?.debug(`[initGitRepo] cwd: {}`, params.cwd)
 
   // create init commit
-  const execaOptions: IExecaOptions = { ...options.execaOptions, cwd: options.cwd }
+  const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
   await execa('git', ['init'], execaOptions)
-  await execa('git', ['branch', '-m', options.defaultBranch ?? 'main'], execaOptions)
+  await execa('git', ['branch', '-m', params.defaultBranch ?? 'main'], execaOptions)
   await execa('git', ['config', 'commit.gpgSign', 'false'], execaOptions)
 
-  if (options.authorName) {
-    await execa('git', ['config', 'user.name', options.authorName], execaOptions)
+  if (params.authorName) {
+    await execa('git', ['config', 'user.name', params.authorName], execaOptions)
   }
 
-  if (options.authorEmail) {
-    await execa('git', ['config', 'user.email', options.authorEmail], execaOptions)
+  if (params.authorEmail) {
+    await execa('git', ['config', 'user.email', params.authorEmail], execaOptions)
   }
 }

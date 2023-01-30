@@ -1,22 +1,17 @@
-import type { ILogger } from '@guanghechen/utility-types'
 import type { Options as IExecaOptions } from 'execa'
+import type { IGitCommandBaseParams } from '../types'
 import { safeExeca } from '../util'
 
-export interface IGitCleanUntrackedOptions {
-  cwd: string
+export interface IGitCleanUntrackedParams extends IGitCommandBaseParams {
   filepaths: string[]
-  execaOptions?: IExecaOptions
-  logger?: ILogger
 }
 
-export const cleanUntrackedFilepaths = async (
-  options: IGitCleanUntrackedOptions,
-): Promise<void> => {
-  const cwd: string = options.cwd
-  const env: NodeJS.ProcessEnv = { ...options.execaOptions?.env }
-  const args: string[] = ['clean', '-df', ...options.filepaths]
+export const cleanUntrackedFilepaths = async (params: IGitCleanUntrackedParams): Promise<void> => {
+  const cwd: string = params.cwd
+  const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
+  const args: string[] = ['clean', '-df', ...params.filepaths]
 
-  options?.logger?.debug(`[cleanUntrackedFilepaths] cwd: {}, args: {}, env: {}`, cwd, args, env)
-  const execaOptions: IExecaOptions = { ...options.execaOptions, cwd, env, extendEnv: true }
+  params?.logger?.debug(`[cleanUntrackedFilepaths] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
   await safeExeca('git', args, execaOptions)
 }

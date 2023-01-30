@@ -1,23 +1,19 @@
-import type { ILogger } from '@guanghechen/utility-types'
 import type { Options as IExecaOptions } from 'execa'
+import type { IGitCommandBaseParams } from '../types'
 import { safeExeca } from '../util'
 
-export interface IStageAllOptions {
-  cwd: string
-  execaOptions?: IExecaOptions
-  logger?: ILogger
-}
+export interface IStageAllParams extends IGitCommandBaseParams {}
 
 /**
  * Stage all uncommitted files.
- * @param options
+ * @param params
  */
-export const stageAll = async (options: IStageAllOptions): Promise<void> => {
-  const cwd: string = options.cwd
-  const env: NodeJS.ProcessEnv = { ...options.execaOptions?.env }
+export const stageAll = async (params: IStageAllParams): Promise<void> => {
+  const cwd: string = params.cwd
+  const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
   const args: string[] = ['add', '-A']
 
-  options?.logger?.debug(`[stageAll] cwd: {}, args: {}, env: {}`, cwd, args, env)
-  const execaOptions: IExecaOptions = { ...options.execaOptions, cwd, env, extendEnv: true }
+  params?.logger?.debug(`[stageAll] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
   await safeExeca('git', args, execaOptions)
 }
