@@ -62,11 +62,13 @@ Helpful utility funcs.
 
 ## Usage
 
-Name        | Description
-:----------:|:----------------------------------------------------------------
-`delay`     | Waiting a given million seconds.
-`identity`  | Return the input data directly.
-`list2map`  | Create a map from list.
-`noop`      | Do nothing.
+Name              | Description
+:----------------:|:----------------------------------------------------------------
+`delay`           | Waiting a given million seconds.
+`filterIterable`  | `.filter` method for Iterable structure.
+`identity`        | Return the input data directly.
+`list2map`        | Create a map from list.
+`mapIterable`     | `.map` method for Iterable structure.
+`noop`            | Do nothing.
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-func#readme
