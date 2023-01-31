@@ -53,9 +53,11 @@ export interface ICheckIntegrityParams {
 }
 
 export interface IEncryptDiffParams {
+  strictCheck: boolean
   diffItems: ReadonlyArray<IFileCipherCatalogItemDiff>
 }
 
 export interface IDecryptDiffParams {
+  strictCheck: boolean
   diffItems: ReadonlyArray<IFileCipherCatalogItemDiff>
 }

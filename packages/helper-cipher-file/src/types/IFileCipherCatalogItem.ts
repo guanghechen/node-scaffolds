@@ -47,3 +47,9 @@ export type IFileCipherCatalogItemDiff =
       changeType: FileChangeType.REMOVED
       oldItem: Readonly<IFileCipherCatalogItem>
     }
+
+export interface IFileCipherCatalogItemDiffCombine {
+  changeType: FileChangeType
+  oldItem?: Readonly<IFileCipherCatalogItem>
+  newItem?: Readonly<IFileCipherCatalogItem>
+}
