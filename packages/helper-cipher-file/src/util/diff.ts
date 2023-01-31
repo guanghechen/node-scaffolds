@@ -3,6 +3,7 @@ import { FileChangeType } from '../constant'
 import type {
   IFileCipherCatalogItem,
   IFileCipherCatalogItemDiff,
+  IFileCipherCatalogItemDiffCombine,
 } from '../types/IFileCipherCatalogItem'
 
 export const isSameFileCipherItem = (
@@ -76,4 +77,42 @@ export const diffFileCipherItems = (
   }
 
   return [...removedItems, ...addedItems, ...modifiedItems]
+}
+
+export const collectAffectedSrcFilepaths = (
+  diffItems: ReadonlyArray<IFileCipherCatalogItemDiff>,
+): string[] => {
+  const files: Set<string> = new Set()
+  const collect = (item: IFileCipherCatalogItem): void => {
+    files.add(item.sourceFilepath)
+  }
+
+  for (let i = 0; i < diffItems.length; ++i) {
+    const item = diffItems[i] as IFileCipherCatalogItemDiffCombine
+    if (item.oldItem) collect(item.oldItem)
+    if (item.newItem) collect(item.newItem)
+  }
+  return Array.from(files)
+}
+
+export const collectAffectedEncFilepaths = (
+  diffItems: ReadonlyArray<IFileCipherCatalogItemDiff>,
+): string[] => {
+  const files: Set<string> = new Set()
+  const collect = (item: IFileCipherCatalogItem): void => {
+    if (item.encryptedFileParts.length > 1) {
+      for (const filePart of item.encryptedFileParts) {
+        files.add(item.encryptedFilepath + filePart)
+      }
+    } else {
+      files.add(item.encryptedFilepath)
+    }
+  }
+
+  for (let i = 0; i < diffItems.length; ++i) {
+    const item = diffItems[i] as IFileCipherCatalogItemDiffCombine
+    if (item.oldItem) collect(item.oldItem)
+    if (item.newItem) collect(item.newItem)
+  }
+  return Array.from(files)
 }

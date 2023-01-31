@@ -1,7 +1,7 @@
 import { locateFixtures } from 'jest.helper'
 import crypto from 'node:crypto'
 import path from 'node:path'
-import type { IFileCipherCatalogItem } from '../src'
+import type { IFileCipherCatalogItem, IFileCipherCatalogItemDiff } from '../src'
 import {
   FileChangeType,
   FileCipherPathResolver,
@@ -12,6 +12,8 @@ import {
   calcMac,
   calcMacFromFile,
   calcMacFromString,
+  collectAffectedEncFilepaths,
+  collectAffectedSrcFilepaths,
   diffFileCipherItems,
   isSameFileCipherItem,
   normalizeSourceFilepath,
@@ -250,6 +252,63 @@ describe('diff', () => {
           size: 452,
         },
       },
+    ])
+  })
+
+  test('collectAffectedSrcFilepaths / collectAffectedEncFilepaths', () => {
+    const diffItems: IFileCipherCatalogItemDiff[] = [
+      {
+        changeType: FileChangeType.ADDED,
+        newItem: {
+          sourceFilepath: 'a.txt',
+          encryptedFilepath: 'a.txt',
+          encryptedFileParts: ['.ghc-part01', '.ghc-part02', '.ghc-part03'],
+          fingerprint: '',
+          size: 3000,
+          keepPlain: true,
+        },
+      },
+      {
+        changeType: FileChangeType.REMOVED,
+        oldItem: {
+          sourceFilepath: 'b.txt',
+          encryptedFilepath: 'b.txt',
+          encryptedFileParts: ['.ghc-part01', '.ghc-part02', '.ghc-part03'],
+          fingerprint: '',
+          size: 3000,
+          keepPlain: true,
+        },
+      },
+      {
+        changeType: FileChangeType.MODIFIED,
+        oldItem: {
+          sourceFilepath: 'c/b/d.txt',
+          encryptedFilepath: 'b.txt',
+          encryptedFileParts: ['.ghc-part01', '.ghc-part02', '.ghc-part03'],
+          fingerprint: '',
+          size: 3000,
+          keepPlain: true,
+        },
+        newItem: {
+          sourceFilepath: 'c/b/d.txt',
+          encryptedFilepath: 'c.txt',
+          encryptedFileParts: [],
+          fingerprint: '',
+          size: 310,
+          keepPlain: true,
+        },
+      },
+    ]
+
+    expect(collectAffectedSrcFilepaths(diffItems)).toEqual(['a.txt', 'b.txt', 'c/b/d.txt'])
+    expect(collectAffectedEncFilepaths(diffItems)).toEqual([
+      'a.txt.ghc-part01',
+      'a.txt.ghc-part02',
+      'a.txt.ghc-part03',
+      'b.txt.ghc-part01',
+      'b.txt.ghc-part02',
+      'b.txt.ghc-part03',
+      'c.txt',
     ])
   })
 })
