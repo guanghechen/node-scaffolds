@@ -4,17 +4,13 @@ export interface IFileCipherCatalog {
   /**
    * Get current catalog items.
    */
-  currentItems: IFileCipherCatalogItem[]
+  items: Iterable<IFileCipherCatalogItem>
 
   /**
-   * Clear the catalog items.
+   * Clear the catalog items and init with the new given items.
+   * @param items
    */
-  clear(): void
-
-  /**
-   * Calculate diff items.
-   */
-  calcDiffItems(params: ICalcDiffItemsParams): Promise<IFileCipherCatalogItemDiff[]>
+  reset(items?: Iterable<IFileCipherCatalogItem>): void
 
   /**
    * Check the file for corruption.
@@ -22,18 +18,42 @@ export interface IFileCipherCatalog {
   checkIntegrity(params: ICheckIntegrityParams): Promise<void | never>
 
   /**
-   * Update the encrypted data based on the catalog items diff.
+   * Apply catalog diffs.
+   * @param diffItems
    */
-  encryptDiff(params: IEncryptDiffParams): Promise<void>
+  applyDiff(diffItems: Iterable<IFileCipherCatalogItemDiff>): void
 
   /**
-   * Update the plain data based on the catalog items diff.
+   * Generate a catalog item.
    */
-  decryptDiff(params: IDecryptDiffParams): Promise<void>
+  calcCatalogItem(params: ICalcCatalogItemParams): Promise<IFileCipherCatalogItem | never>
+
+  /**
+   * Calculate diff items with the new catalog items.
+   */
+  diffFromCatalogItems(params: IDiffFromCatalogItemsParams): IFileCipherCatalogItemDiff[]
+
+  /**
+   * Calculate diff items.
+   */
+  diffFromSourceFiles(params: IDiffFromSourceFiles): Promise<IFileCipherCatalogItemDiff[]>
 }
 
-export interface ICalcDiffItemsParams {
-  sourceFilepaths: string[]
+export interface ICheckIntegrityParams {
+  flags: {
+    /**
+     * Check integrity for source files.
+     */
+    sourceFiles?: boolean
+    /**
+     * Check integrity for encrypted files.
+     */
+    encryptedFiles?: boolean
+  }
+}
+
+export interface ICalcCatalogItemParams {
+  sourceFilepath: string
   /**
    * Check if a sourcefile should be keep plain.
    * @param relativeSourceFilepath Relative source filepath
@@ -41,23 +61,15 @@ export interface ICalcDiffItemsParams {
   isKeepPlain?(relativeSourceFilepath: string): boolean
 }
 
-export interface ICheckIntegrityParams {
-  /**
-   * Check integrity for source files.
-   */
-  sourceFiles?: boolean
-  /**
-   * Check integrity for encrypted files.
-   */
-  encryptedFiles?: boolean
+export interface IDiffFromCatalogItemsParams {
+  newItems: Iterable<IFileCipherCatalogItem>
 }
 
-export interface IEncryptDiffParams {
-  strictCheck: boolean
-  diffItems: ReadonlyArray<IFileCipherCatalogItemDiff>
-}
-
-export interface IDecryptDiffParams {
-  strictCheck: boolean
-  diffItems: ReadonlyArray<IFileCipherCatalogItemDiff>
+export interface IDiffFromSourceFiles {
+  sourceFilepaths: string[]
+  /**
+   * Check if a sourcefile should be keep plain.
+   * @param relativeSourceFilepath Relative source filepath
+   */
+  isKeepPlain?(relativeSourceFilepath: string): boolean
 }

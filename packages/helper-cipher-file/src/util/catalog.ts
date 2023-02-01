@@ -1,9 +1,10 @@
-import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/helper-file'
 import { normalizeUrlPath } from '@guanghechen/helper-path'
-import fs from 'node:fs/promises'
 import type { FileCipherPathResolver } from '../FileCipherPathResolver'
-import type { IFileCipherCatalogItem } from '../types/IFileCipherCatalogItem'
-import { calcFingerprintFromFile, calcFingerprintFromString } from './mac'
+import type {
+  IFileCipherCatalogItem,
+  IFileCipherCatalogItemDiff,
+  IFileCipherCatalogItemDiffCombine,
+} from '../types/IFileCipherCatalogItem'
 
 export const normalizeSourceFilepath = (
   sourceFilepath: string,
@@ -13,36 +14,55 @@ export const normalizeSourceFilepath = (
   return normalizeUrlPath(fp)
 }
 
-export const calcFileCipherCatalogItem = async (
-  sourceFilepath: string,
-  options: {
-    keepPlain: boolean
-    maxTargetFileSize: number
-    partCodePrefix: string
-    pathResolver: FileCipherPathResolver
-  },
-): Promise<IFileCipherCatalogItem | never> => {
-  const absoluteSourceFilepath = options.pathResolver.calcAbsoluteSourceFilepath(sourceFilepath)
-  const relativeSourceFilepath =
-    options.pathResolver.calcRelativeSourceFilepath(absoluteSourceFilepath)
-  const sourceFilepathKey = normalizeSourceFilepath(relativeSourceFilepath, options.pathResolver)
+export const isSameFileCipherItem = (
+  oldItem: Readonly<IFileCipherCatalogItem>,
+  newItem: Readonly<IFileCipherCatalogItem>,
+): boolean => {
+  if (oldItem === newItem) return true
 
-  const fileSize = await fs.stat(absoluteSourceFilepath).then(md => md.size)
-  const fingerprint: string = await calcFingerprintFromFile(absoluteSourceFilepath)
-  const encryptedFilepath: string = options.keepPlain
-    ? relativeSourceFilepath
-    : calcFingerprintFromString(sourceFilepathKey, 'utf8')
-  const encryptedFileParts = calcFilePartNames(
-    calcFilePartItemsBySize(fileSize, options.maxTargetFileSize),
-    options.partCodePrefix,
+  return (
+    oldItem.sourceFilepath === newItem.sourceFilepath &&
+    oldItem.encryptedFilepath === newItem.encryptedFilepath &&
+    oldItem.fingerprint === newItem.fingerprint &&
+    oldItem.size === newItem.size &&
+    oldItem.keepPlain === newItem.keepPlain
   )
-  const item: IFileCipherCatalogItem = {
-    sourceFilepath: relativeSourceFilepath,
-    encryptedFilepath,
-    encryptedFileParts: encryptedFileParts.length > 1 ? encryptedFileParts : [],
-    fingerprint,
-    size: fileSize,
-    keepPlain: options.keepPlain,
+}
+
+export const collectAffectedSrcFilepaths = (
+  diffItems: ReadonlyArray<IFileCipherCatalogItemDiff>,
+): string[] => {
+  const files: Set<string> = new Set()
+  const collect = (item: IFileCipherCatalogItem): void => {
+    files.add(item.sourceFilepath)
   }
-  return item
+
+  for (let i = 0; i < diffItems.length; ++i) {
+    const item = diffItems[i] as IFileCipherCatalogItemDiffCombine
+    if (item.oldItem) collect(item.oldItem)
+    if (item.newItem) collect(item.newItem)
+  }
+  return Array.from(files)
+}
+
+export const collectAffectedEncFilepaths = (
+  diffItems: ReadonlyArray<IFileCipherCatalogItemDiff>,
+): string[] => {
+  const files: Set<string> = new Set()
+  const collect = (item: IFileCipherCatalogItem): void => {
+    if (item.encryptedFileParts.length > 1) {
+      for (const filePart of item.encryptedFileParts) {
+        files.add(item.encryptedFilepath + filePart)
+      }
+    } else {
+      files.add(item.encryptedFilepath)
+    }
+  }
+
+  for (let i = 0; i < diffItems.length; ++i) {
+    const item = diffItems[i] as IFileCipherCatalogItemDiffCombine
+    if (item.oldItem) collect(item.oldItem)
+    if (item.newItem) collect(item.newItem)
+  }
+  return Array.from(files)
 }

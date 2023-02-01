@@ -5,7 +5,6 @@ import type { IFileCipherCatalogItem, IFileCipherCatalogItemDiff } from '../src'
 import {
   FileChangeType,
   FileCipherPathResolver,
-  calcFileCipherCatalogItem,
   calcFingerprintFromFile,
   calcFingerprintFromMac,
   calcFingerprintFromString,
@@ -14,7 +13,6 @@ import {
   calcMacFromString,
   collectAffectedEncFilepaths,
   collectAffectedSrcFilepaths,
-  diffFileCipherItems,
   isSameFileCipherItem,
   normalizeSourceFilepath,
 } from '../src'
@@ -44,42 +42,6 @@ describe('catalog', () => {
     ).toEqual('a.txt')
   })
 
-  test('calcFileCipherCatalogItem', async () => {
-    expect(
-      await calcFileCipherCatalogItem('1.md', {
-        keepPlain: true,
-        maxTargetFileSize: 1024,
-        partCodePrefix: '.ghc-',
-        pathResolver,
-      }),
-    ).toEqual({
-      sourceFilepath: '1.md',
-      encryptedFilepath: '1.md',
-      encryptedFileParts: [],
-      fingerprint: '7540ddd55e0ab3e38dbd0c41e9ee9dc129f94bc3b491bbea8447f0e4dff6a72d',
-      keepPlain: true,
-      size: 452,
-    })
-
-    expect(
-      await calcFileCipherCatalogItem('big-file.md', {
-        keepPlain: false,
-        maxTargetFileSize: 1024,
-        partCodePrefix: '.ghc-',
-        pathResolver,
-      }),
-    ).toEqual({
-      sourceFilepath: 'big-file.md',
-      encryptedFilepath: 'b2babec80ba3fbf85c24a419dc6a567a79458775d728fe3f6edf5e8890466998',
-      encryptedFileParts: ['.ghc-1', '.ghc-2', '.ghc-3', '.ghc-4', '.ghc-5', '.ghc-6'],
-      fingerprint: '231a82e1bfea65dd3ca5402e70d23064accd6df6286a79e9e843a5dbec1d53af',
-      keepPlain: false,
-      size: 5333,
-    })
-  })
-})
-
-describe('diff', () => {
   test('isSameFileCipherItem', () => {
     const basicItem: IFileCipherCatalogItem = {
       sourceFilepath: 'waw.txt',
@@ -111,150 +73,6 @@ describe('diff', () => {
     expect(isSameFileCipherItem(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
   })
 
-  test('diffFileCipherItems', () => {
-    const oldItems = [
-      {
-        sourceFilepath: '1.md',
-        encryptedFilepath: '1.md',
-        encryptedFileParts: [],
-        fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
-        keepPlain: true,
-        size: 452,
-      },
-      {
-        sourceFilepath: '2.md',
-        encryptedFilepath: '2.md',
-        encryptedFileParts: [],
-        fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
-        keepPlain: true,
-        size: 452,
-      },
-      {
-        sourceFilepath: '3.md',
-        encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24o',
-        encryptedFileParts: [],
-        fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
-        keepPlain: false,
-        size: 452,
-      },
-    ]
-
-    const newItems = [
-      {
-        sourceFilepath: '2.md',
-        encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24t',
-        encryptedFileParts: [],
-        fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
-        keepPlain: false,
-        size: 452,
-      },
-      {
-        sourceFilepath: '3.md',
-        encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24o',
-        encryptedFileParts: [],
-        fingerprint: '01ec9cc89186ab8a608814a9a124f4fdb0494ef4',
-        keepPlain: true,
-        size: 931,
-      },
-      {
-        sourceFilepath: '4.md',
-        encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24q',
-        encryptedFileParts: [],
-        fingerprint: '01ec9cc89186ab8a608814a9a124f4fdb0494e94',
-        keepPlain: true,
-        size: 1031,
-      },
-      {
-        sourceFilepath: '5.md',
-        encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24x',
-        encryptedFileParts: [],
-        fingerprint: '01ec9cc89186ab8a608814a9a124f4fdb0494e94',
-        keepPlain: true,
-        size: 931,
-      },
-    ]
-
-    expect(diffFileCipherItems(oldItems, [])).toEqual(
-      oldItems.map(item => ({ changeType: FileChangeType.REMOVED, oldItem: item })),
-    )
-    expect(diffFileCipherItems([], newItems)).toEqual(
-      newItems.map(item => ({ changeType: FileChangeType.ADDED, newItem: item })),
-    )
-    expect(diffFileCipherItems(oldItems, newItems)).toEqual([
-      {
-        changeType: 'removed',
-        oldItem: {
-          sourceFilepath: '1.md',
-          encryptedFilepath: '1.md',
-          encryptedFileParts: [],
-          fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
-          keepPlain: true,
-          size: 452,
-        },
-      },
-      {
-        changeType: 'added',
-        newItem: {
-          sourceFilepath: '4.md',
-          encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24q',
-          encryptedFileParts: [],
-          fingerprint: '01ec9cc89186ab8a608814a9a124f4fdb0494e94',
-          keepPlain: true,
-          size: 1031,
-        },
-      },
-      {
-        changeType: 'added',
-        newItem: {
-          sourceFilepath: '5.md',
-          encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24x',
-          encryptedFileParts: [],
-          fingerprint: '01ec9cc89186ab8a608814a9a124f4fdb0494e94',
-          keepPlain: true,
-          size: 931,
-        },
-      },
-      {
-        changeType: 'modified',
-        newItem: {
-          sourceFilepath: '2.md',
-          encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24t',
-          encryptedFileParts: [],
-          fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
-          keepPlain: false,
-          size: 452,
-        },
-        oldItem: {
-          sourceFilepath: '2.md',
-          encryptedFilepath: '2.md',
-          encryptedFileParts: [],
-          fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
-          keepPlain: true,
-          size: 452,
-        },
-      },
-      {
-        changeType: 'modified',
-        newItem: {
-          sourceFilepath: '3.md',
-          encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24o',
-          encryptedFileParts: [],
-          fingerprint: '01ec9cc89186ab8a608814a9a124f4fdb0494ef4',
-          keepPlain: true,
-          size: 931,
-        },
-        oldItem: {
-          sourceFilepath: '3.md',
-          encryptedFilepath: 'b00148fa04d6199d170c98f34e3d86960f8ce24o',
-          encryptedFileParts: [],
-          fingerprint: '01ec0cc89186ab8a608814a9a124f4fdb0494ef4',
-          keepPlain: false,
-          size: 452,
-        },
-      },
-    ])
-  })
-
   test('collectAffectedSrcFilepaths / collectAffectedEncFilepaths', () => {
     const diffItems: IFileCipherCatalogItemDiff[] = [
       {
@@ -262,9 +80,9 @@ describe('diff', () => {
         newItem: {
           sourceFilepath: 'a.txt',
           encryptedFilepath: 'a.txt',
-          encryptedFileParts: ['.ghc-part01', '.ghc-part02', '.ghc-part03'],
-          fingerprint: '',
-          size: 3000,
+          encryptedFileParts: [],
+          fingerprint: '4e26698e6bebd87fc210bec49fea4da6210b5769dbff50b3479effa16799120f',
+          size: 9,
           keepPlain: true,
         },
       },
@@ -272,43 +90,48 @@ describe('diff', () => {
         changeType: FileChangeType.REMOVED,
         oldItem: {
           sourceFilepath: 'b.txt',
-          encryptedFilepath: 'b.txt',
-          encryptedFileParts: ['.ghc-part01', '.ghc-part02', '.ghc-part03'],
-          fingerprint: '',
-          size: 3000,
-          keepPlain: true,
+          encryptedFilepath:
+            'encrypted/ffa0da5d885fba09d903c782713b6b098c8cf21f56a3a35d9aa920613220d2e1',
+          encryptedFileParts: [],
+          fingerprint: '6fee185efd0ffc7c51f986dcd2eb513e0ce0b63249d9a3bb51efe0c1ed2cb615',
+          size: 135,
+          keepPlain: false,
         },
       },
       {
         changeType: FileChangeType.MODIFIED,
         oldItem: {
-          sourceFilepath: 'c/b/d.txt',
-          encryptedFilepath: 'b.txt',
-          encryptedFileParts: ['.ghc-part01', '.ghc-part02', '.ghc-part03'],
-          fingerprint: '',
-          size: 3000,
-          keepPlain: true,
+          sourceFilepath: 'c.txt',
+          encryptedFilepath:
+            'encrypted/4fe006196474bf40b078b5e230ccf558f791129837884cbc74daf74ef1164420',
+          encryptedFileParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
+          fingerprint: 'b835f16cc543838431fa5bbeceb8906c667c16af9f98779f54541aeae0ccdce2',
+          size: 3150,
+          keepPlain: false,
         },
         newItem: {
-          sourceFilepath: 'c/b/d.txt',
-          encryptedFilepath: 'c.txt',
-          encryptedFileParts: [],
-          fingerprint: '',
-          size: 310,
+          sourceFilepath: 'c.txt',
+          encryptedFilepath: 'd.txt',
+          encryptedFileParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
+          fingerprint: '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13',
+          size: 3150,
           keepPlain: true,
         },
       },
     ]
 
-    expect(collectAffectedSrcFilepaths(diffItems)).toEqual(['a.txt', 'b.txt', 'c/b/d.txt'])
+    expect(collectAffectedSrcFilepaths(diffItems)).toEqual(['a.txt', 'b.txt', 'c.txt'])
     expect(collectAffectedEncFilepaths(diffItems)).toEqual([
-      'a.txt.ghc-part01',
-      'a.txt.ghc-part02',
-      'a.txt.ghc-part03',
-      'b.txt.ghc-part01',
-      'b.txt.ghc-part02',
-      'b.txt.ghc-part03',
-      'c.txt',
+      'a.txt',
+      'encrypted/ffa0da5d885fba09d903c782713b6b098c8cf21f56a3a35d9aa920613220d2e1',
+      'encrypted/4fe006196474bf40b078b5e230ccf558f791129837884cbc74daf74ef1164420.ghc-part1',
+      'encrypted/4fe006196474bf40b078b5e230ccf558f791129837884cbc74daf74ef1164420.ghc-part2',
+      'encrypted/4fe006196474bf40b078b5e230ccf558f791129837884cbc74daf74ef1164420.ghc-part3',
+      'encrypted/4fe006196474bf40b078b5e230ccf558f791129837884cbc74daf74ef1164420.ghc-part4',
+      'd.txt.ghc-part1',
+      'd.txt.ghc-part2',
+      'd.txt.ghc-part3',
+      'd.txt.ghc-part4',
     ])
   })
 })

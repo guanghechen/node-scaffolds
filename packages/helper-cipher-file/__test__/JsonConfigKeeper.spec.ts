@@ -7,7 +7,7 @@ import path from 'node:path'
 import { JsonConfigKeeper } from '../src'
 
 describe('JsonConfigKeeper', function () {
-  const workspaceDir: string = locateFixtures('__fictitious__0')
+  const workspaceDir: string = locateFixtures('__fictitious__.JsonConfigKeeper')
   const cipherFactory = new AesCipherFactory()
   let cipher: ICipher
 
