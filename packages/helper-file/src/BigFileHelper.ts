@@ -9,7 +9,7 @@ export interface IBigFileHelperOptions {
    * The suffix name of a file part.
    * @default '.ghc-part'
    */
-  readonly partSuffix?: string
+  readonly partCodePrefix?: string
 
   /**
    * Buffer encoding.
@@ -21,11 +21,11 @@ export interface IBigFileHelperOptions {
  * Inspired by https://github.com/tomvlk/node-split-file.
  */
 export class BigFileHelper {
-  public readonly partSuffix: string
+  public readonly partCodePrefix: string
   public readonly encoding?: BufferEncoding
 
   constructor(options: IBigFileHelperOptions = {}) {
-    this.partSuffix = options.partSuffix ?? '.ghc-part'
+    this.partCodePrefix = options.partCodePrefix ?? '.ghc-part'
     this.encoding = options.encoding
   }
 
@@ -39,7 +39,7 @@ export class BigFileHelper {
   public calcPartFilepaths(filepath: string, parts: IFilePartItem[]): string[] {
     if (parts.length <= 1) return [filepath]
 
-    const partNames = calcFilePartNames(parts, this.partSuffix)
+    const partNames = calcFilePartNames(parts, this.partCodePrefix)
     return partNames.map(partName => filepath + partName)
   }
 
