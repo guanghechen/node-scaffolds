@@ -10,7 +10,7 @@ describe('BigFileHelper', () => {
   const encoding: BufferEncoding = 'utf8'
   const maxTargetFileSize = 1024
   const partCodePrefix = '.ghc-part'
-  const fileHelper = new BigFileHelper({ encoding, partCodePrefix })
+  const fileHelper = new BigFileHelper({ partCodePrefix })
 
   const filepathA = path.join(workspaceDir, 'A.txt')
   const filepathB = path.join(workspaceDir, 'B.txt')

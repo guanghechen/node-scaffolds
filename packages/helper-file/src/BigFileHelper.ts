@@ -10,11 +10,6 @@ export interface IBigFileHelperOptions {
    * @default '.ghc-part'
    */
   readonly partCodePrefix?: string
-
-  /**
-   * Buffer encoding.
-   */
-  readonly encoding?: BufferEncoding
 }
 
 /**
@@ -22,11 +17,13 @@ export interface IBigFileHelperOptions {
  */
 export class BigFileHelper {
   public readonly partCodePrefix: string
-  public readonly encoding?: BufferEncoding
+
+  // !!! Don't try to override the encoding. The encoding should always be `undefined`,
+  // !!! so node:fs will return raw buffer instead of any structured or pretreated data.
+  private readonly _encoding: BufferEncoding | undefined = undefined
 
   constructor(options: IBigFileHelperOptions = {}) {
     this.partCodePrefix = options.partCodePrefix ?? '.ghc-part'
-    this.encoding = options.encoding
   }
 
   /**
@@ -62,7 +59,7 @@ export class BigFileHelper {
 
       // Create a range in the specified range of the file.
       const reader: NodeJS.ReadableStream = fs.createReadStream(filepath, {
-        encoding: this.encoding,
+        encoding: this._encoding,
         start: part.start,
         end: part.end - 1,
       })
@@ -89,12 +86,10 @@ export class BigFileHelper {
     invariant(inputFilepaths.length > 0, 'Input file list is empty!')
 
     const readers: NodeJS.ReadableStream[] = inputFilepaths.map(filepath =>
-      fs.createReadStream(filepath, {
-        encoding: this.encoding,
-      }),
+      fs.createReadStream(filepath, { encoding: this._encoding }),
     )
     const writer: NodeJS.WritableStream = fs.createWriteStream(outputFilepath, {
-      encoding: this.encoding,
+      encoding: this._encoding,
     })
 
     // The operation of merging files could not be processed in parallel.
