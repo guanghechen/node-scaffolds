@@ -1,3 +1,4 @@
+import type { FileCipherPathResolver } from '../FileCipherPathResolver'
 import type { IFileCipherCatalogItemDiff } from './IFileCipherCatalogItem'
 
 export interface IFileCipherBatcher {
@@ -14,10 +15,12 @@ export interface IFileCipherBatcher {
 
 export interface IBatchEncryptParams {
   strictCheck: boolean
+  pathResolver: FileCipherPathResolver
   diffItems: Iterable<IFileCipherCatalogItemDiff>
 }
 
 export interface IBatchDecryptParams {
   strictCheck: boolean
+  pathResolver: FileCipherPathResolver
   diffItems: Iterable<IFileCipherCatalogItemDiff>
 }
