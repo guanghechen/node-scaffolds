@@ -39,44 +39,42 @@ export class FileCipherBatcher implements IFileCipherBatcher {
   }
 
   public async batchEncrypt({ diffItems, strictCheck }: IBatchEncryptParams): Promise<void> {
-    const { fileCipher, fileHelper, pathResolver, maxTargetFileSize } = this
+    const { _logger, fileCipher, fileHelper, pathResolver, maxTargetFileSize } = this
 
     const add = async (item: IFileCipherCatalogItem, changeType: FileChangeType): Promise<void> => {
-      const { sourceFilepath, encryptedFilepath } = item
-      const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(sourceFilepath)
+      const { plainFilepath, cryptFilepath } = item
+      const absolutePlainFilepath = pathResolver.calcAbsolutePlainFilepath(plainFilepath)
       invariant(
-        isFileSync(absoluteSourceFilepath),
-        `[encryptDiff] Bad diff item (${changeType}), source file does not exist or it is not a file. (${sourceFilepath})`,
+        isFileSync(absolutePlainFilepath),
+        `[encryptDiff] Bad diff item (${changeType}), plain file does not exist or it is not a file. (${plainFilepath})`,
       )
 
-      const absoluteEncryptedFilepath =
-        pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
-      mkdirsIfNotExists(absoluteEncryptedFilepath, false, this._logger)
+      const absoluteCryptFilepath = pathResolver.calcAbsoluteCryptFilepath(cryptFilepath)
+      mkdirsIfNotExists(absoluteCryptFilepath, false, _logger)
 
       if (item.keepPlain) {
-        await fs.copyFile(absoluteSourceFilepath, absoluteEncryptedFilepath)
+        await fs.copyFile(absolutePlainFilepath, absoluteCryptFilepath)
       } else {
-        await fileCipher.encryptFile(absoluteSourceFilepath, absoluteEncryptedFilepath)
+        await fileCipher.encryptFile(absolutePlainFilepath, absoluteCryptFilepath)
       }
 
-      // Split target file.
+      // Split encrypted file.
       {
         const parts: IFilePartItem[] = calcFilePartItemsBySize(
-          await fs.stat(absoluteEncryptedFilepath).then(md => md.size),
+          await fs.stat(absoluteCryptFilepath).then(md => md.size),
           maxTargetFileSize,
         )
         if (parts.length > 1) {
-          const partFilepaths: string[] = await fileHelper.split(absoluteEncryptedFilepath, parts)
-          const relativeEncryptedFilepath =
-            pathResolver.calcRelativeEncryptedFilepath(encryptedFilepath)
+          const partFilepaths: string[] = await fileHelper.split(absoluteCryptFilepath, parts)
+          const relativeCryptFilepath = pathResolver.calcRelativeCryptFilepath(cryptFilepath)
 
           // eslint-disable-next-line no-param-reassign
-          item.encryptedFileParts = partFilepaths.map(p =>
-            pathResolver.calcRelativeEncryptedFilepath(p).slice(relativeEncryptedFilepath.length),
+          item.cryptFileParts = partFilepaths.map(p =>
+            pathResolver.calcRelativeCryptFilepath(p).slice(relativeCryptFilepath.length),
           )
 
-          // Remove the original big target file.
-          await fs.unlink(absoluteEncryptedFilepath)
+          // Remove the original big crypt file.
+          await fs.unlink(absoluteCryptFilepath)
         }
       }
     }
@@ -85,20 +83,19 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       item: IFileCipherCatalogItem,
       changeType: FileChangeType,
     ): Promise<void> => {
-      const encryptedFilepaths = this._collectEncryptedFilepaths(item)
+      const cryptFilepaths = this._collectCryptFilepaths(item)
 
       // pre-check
-      for (const encryptedFilepath of encryptedFilepaths) {
-        const absoluteEncryptedFilepath =
-          this.pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
+      for (const cryptFilepath of cryptFilepaths) {
+        const absoluteCryptFilepath = pathResolver.calcAbsoluteCryptFilepath(cryptFilepath)
         if (strictCheck) {
           invariant(
-            isFileSync(absoluteEncryptedFilepath),
-            `[encryptDiff] Bad diff item (${changeType}), encrypted file does not exist or it is not a file. (${encryptedFilepath})`,
+            isFileSync(absoluteCryptFilepath),
+            `[encryptDiff] Bad diff item (${changeType}), crypt file does not exist or it is not a file. (${cryptFilepath})`,
           )
-          await fs.unlink(absoluteEncryptedFilepath)
+          await fs.unlink(absoluteCryptFilepath)
         } else {
-          await rm(absoluteEncryptedFilepath)
+          await rm(absoluteCryptFilepath)
         }
       }
     }
@@ -107,11 +104,11 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       const { changeType } = diffItem
       switch (changeType) {
         case FileChangeType.ADDED: {
-          await this._ensureEncryptedPathNotExist(
+          await this._ensureCryptPathNotExist(
             diffItem.newItem,
             strictCheck,
-            encryptedFilepath =>
-              `[encryptDiff] Bad diff item (${changeType}), encrypted file already exists. (${encryptedFilepath})`,
+            cryptFilepath =>
+              `[encryptDiff] Bad diff item (${changeType}), crypt file already exists. (${cryptFilepath})`,
           )
           await add(diffItem.newItem, changeType)
           break
@@ -122,11 +119,11 @@ export class FileCipherBatcher implements IFileCipherBatcher {
           break
         }
         case FileChangeType.REMOVED: {
-          await this._ensureSourcePathNotExist(
+          await this._ensurePlainPathNotExist(
             diffItem.oldItem,
             strictCheck,
-            sourceFilepath =>
-              `[encryptDiff] Bad diff item (${changeType}), source file should not exist. (${sourceFilepath})`,
+            plainFilepath =>
+              `[encryptDiff] Bad diff item (${changeType}), plain file should not exist. (${plainFilepath})`,
           )
           await remove(diffItem.oldItem, changeType)
           break
@@ -136,31 +133,30 @@ export class FileCipherBatcher implements IFileCipherBatcher {
   }
 
   public async batchDecrypt({ diffItems, strictCheck }: IBatchDecryptParams): Promise<void> {
-    const { fileCipher, fileHelper, pathResolver } = this
+    const { _logger, fileCipher, fileHelper, pathResolver } = this
 
     const add = async (item: IFileCipherCatalogItem, changeType: FileChangeType): Promise<void> => {
-      const encryptedFilepaths = this._collectEncryptedFilepaths(item)
-      const absoluteEncryptedFilepaths: string[] = []
+      const cryptFilepaths = this._collectCryptFilepaths(item)
+      const absoluteCryptFilepaths: string[] = []
 
       // pre-check
-      for (const encryptedFilepath of encryptedFilepaths) {
-        const absoluteEncryptedFilepath =
-          pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
-        absoluteEncryptedFilepaths.push(absoluteEncryptedFilepath)
+      for (const cryptFilepath of cryptFilepaths) {
+        const absoluteCryptFilepath = pathResolver.calcAbsoluteCryptFilepath(cryptFilepath)
+        absoluteCryptFilepaths.push(absoluteCryptFilepath)
 
         invariant(
-          isFileSync(absoluteEncryptedFilepath),
-          `[decryptDiff] Bad diff item (${changeType}), encrypted file does not exist or it is not a file. (${encryptedFilepath})`,
+          isFileSync(absoluteCryptFilepath),
+          `[decryptDiff] Bad diff item (${changeType}), crypt file does not exist or it is not a file. (${cryptFilepath})`,
         )
       }
 
-      const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(item.sourceFilepath)
-      mkdirsIfNotExists(absoluteSourceFilepath, false, this._logger)
+      const absolutePlainFilepath = pathResolver.calcAbsolutePlainFilepath(item.plainFilepath)
+      mkdirsIfNotExists(absolutePlainFilepath, false, _logger)
 
       if (item.keepPlain) {
-        await fileHelper.merge(absoluteEncryptedFilepaths, absoluteSourceFilepath)
+        await fileHelper.merge(absoluteCryptFilepaths, absolutePlainFilepath)
       } else {
-        await fileCipher.decryptFiles(absoluteEncryptedFilepaths, absoluteSourceFilepath)
+        await fileCipher.decryptFiles(absoluteCryptFilepaths, absolutePlainFilepath)
       }
     }
 
@@ -168,31 +164,31 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       item: IFileCipherCatalogItem,
       changeType: FileChangeType,
     ): Promise<void> => {
-      const { sourceFilepath } = item
-      const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(sourceFilepath)
+      const { plainFilepath } = item
+      const absolutePlainFilepath = pathResolver.calcAbsolutePlainFilepath(plainFilepath)
 
       if (strictCheck) {
         invariant(
-          isFileSync(absoluteSourceFilepath),
-          `[decryptDiff] Bad diff item (${changeType}), source file does not exist or it is not a file. (${sourceFilepath})`,
+          isFileSync(absolutePlainFilepath),
+          `[decryptDiff] Bad diff item (${changeType}), plain file does not exist or it is not a file. (${plainFilepath})`,
         )
-        await fs.unlink(absoluteSourceFilepath)
+        await fs.unlink(absolutePlainFilepath)
       } else {
-        await rm(absoluteSourceFilepath)
+        await rm(absolutePlainFilepath)
       }
     }
 
-    // source filepath should always pointer to the plain contents,
-    // while target files indicate those encrypted contents.
+    // Plain filepath should always pointer to the plain contents,
+    // while crypt files indicate those encrypted contents.
     for (const diffItem of diffItems) {
       const { changeType } = diffItem
       switch (changeType) {
         case FileChangeType.ADDED: {
-          await this._ensureSourcePathNotExist(
+          await this._ensurePlainPathNotExist(
             diffItem.newItem,
             strictCheck,
-            sourceFilepath =>
-              `[decryptDiff] Bad diff item (${changeType}), source file already exists. (${sourceFilepath})`,
+            plainFilepath =>
+              `[decryptDiff] Bad diff item (${changeType}), plain file already exists. (${plainFilepath})`,
           )
           await add(diffItem.newItem, changeType)
           break
@@ -203,11 +199,11 @@ export class FileCipherBatcher implements IFileCipherBatcher {
           break
         }
         case FileChangeType.REMOVED: {
-          await this._ensureEncryptedPathNotExist(
+          await this._ensureCryptPathNotExist(
             diffItem.oldItem,
             strictCheck,
-            encryptedFilepath =>
-              `[decryptDiff] Bad diff item (REMOVED), encrypted file should not exist. (${encryptedFilepath})`,
+            cryptFilepath =>
+              `[decryptDiff] Bad diff item (REMOVED), crypt file should not exist. (${cryptFilepath})`,
           )
           await remove(diffItem.oldItem, changeType)
           break
@@ -217,41 +213,40 @@ export class FileCipherBatcher implements IFileCipherBatcher {
   }
 
   // @overridable
-  protected async _ensureSourcePathNotExist(
+  protected async _ensurePlainPathNotExist(
     item: Readonly<IFileCipherCatalogItem>,
     strictCheck: boolean,
-    getErrorMsg: (sourceFilepath: string) => string,
+    getErrorMsg: (plainFilepath: string) => string,
   ): Promise<void> {
-    const { sourceFilepath } = item
-    const absoluteSourceFilepath = this.pathResolver.calcAbsoluteSourceFilepath(sourceFilepath)
+    const { plainFilepath } = item
+    const absolutePlainFilepath = this.pathResolver.calcAbsolutePlainFilepath(plainFilepath)
     if (strictCheck) {
-      invariant(!existsSync(absoluteSourceFilepath), () => getErrorMsg(sourceFilepath))
+      invariant(!existsSync(absolutePlainFilepath), () => getErrorMsg(plainFilepath))
     } else {
-      await rm(absoluteSourceFilepath)
+      await rm(absolutePlainFilepath)
     }
   }
 
   // @overridable
-  protected async _ensureEncryptedPathNotExist(
+  protected async _ensureCryptPathNotExist(
     item: Readonly<IFileCipherCatalogItem>,
     strictCheck: boolean,
-    getErrorMsg: (encryptedFilepath: string) => string,
+    getErrorMsg: (cryptFilepath: string) => string,
   ): Promise<void | never> {
-    const encryptedFilepaths = this._collectEncryptedFilepaths(item)
-    for (const encryptedFilepath of encryptedFilepaths) {
-      const absoluteEncryptedFilepath =
-        this.pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
+    const cryptFilepaths = this._collectCryptFilepaths(item)
+    for (const cryptFilepath of cryptFilepaths) {
+      const absoluteCryptFilepath = this.pathResolver.calcAbsoluteCryptFilepath(cryptFilepath)
       if (strictCheck) {
-        invariant(!existsSync(absoluteEncryptedFilepath), () => getErrorMsg(encryptedFilepath))
+        invariant(!existsSync(absoluteCryptFilepath), () => getErrorMsg(cryptFilepath))
       } else {
-        await rm(absoluteEncryptedFilepath)
+        await rm(absoluteCryptFilepath)
       }
     }
   }
 
-  protected _collectEncryptedFilepaths(item: Readonly<IFileCipherCatalogItem>): string[] {
-    return item.encryptedFileParts.length > 1
-      ? item.encryptedFileParts.map(part => item.encryptedFilepath + part)
-      : [item.encryptedFilepath]
+  protected _collectCryptFilepaths(item: Readonly<IFileCipherCatalogItem>): string[] {
+    return item.cryptFileParts.length > 1
+      ? item.cryptFileParts.map(part => item.cryptFilepath + part)
+      : [item.cryptFilepath]
   }
 }

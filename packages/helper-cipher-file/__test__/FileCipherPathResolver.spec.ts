@@ -1,59 +1,70 @@
+import { emptyDir, rm } from '@guanghechen/helper-fs'
+import { locateFixtures } from 'jest.helper'
 import path from 'node:path'
-import url from 'node:url'
 import { FileCipherPathResolver } from '../src'
 
-const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
-
 describe('FileCipherPathResolver', () => {
-  const sourceRootDir = path.join(__dirname, 'src')
-  const encryptedRootDir = path.join(__dirname, 'lib')
-  const pathResolver = new FileCipherPathResolver({ sourceRootDir, encryptedRootDir })
+  const workspaceDir: string = locateFixtures('__fictitious__.FileCipherPathResolver')
+  const plainRootDir = path.join(workspaceDir, 'src')
+  const cryptRootDir = path.join(workspaceDir, 'src_encrypted')
+  const pathResolver = new FileCipherPathResolver({
+    plainRootDir: plainRootDir,
+    cryptRootDir: cryptRootDir,
+  })
 
-  test('calcAbsoluteSourceFilepath', () => {
-    expect(pathResolver.calcAbsoluteSourceFilepath('waw.txt')).toEqual(
-      path.join(sourceRootDir, 'waw.txt'),
+  beforeEach(async () => {
+    await emptyDir(workspaceDir)
+  })
+
+  afterEach(async () => {
+    await rm(workspaceDir)
+  })
+
+  test('calcAbsolutePlainFilepath', () => {
+    expect(pathResolver.calcAbsolutePlainFilepath('waw.txt')).toEqual(
+      path.join(plainRootDir, 'waw.txt'),
     )
 
-    expect(pathResolver.calcAbsoluteSourceFilepath(path.join(sourceRootDir, 'waw2.txt'))).toEqual(
-      path.join(sourceRootDir, 'waw2.txt'),
+    expect(pathResolver.calcAbsolutePlainFilepath(path.join(plainRootDir, 'waw2.txt'))).toEqual(
+      path.join(plainRootDir, 'waw2.txt'),
     )
 
-    expect(() => pathResolver.calcAbsoluteSourceFilepath('/waw.txt')).toThrow(
-      /Not under the sourceRootDir:/,
+    expect(() => pathResolver.calcAbsolutePlainFilepath('/waw.txt')).toThrow(
+      /Not under the plainRootDir:/,
     )
   })
 
-  test('calcAbsoluteEncryptedFilepath', () => {
-    expect(pathResolver.calcAbsoluteEncryptedFilepath('waw.txt')).toEqual(
-      path.join(encryptedRootDir, 'waw.txt'),
+  test('calcAbsoluteCryptFilepath', () => {
+    expect(pathResolver.calcAbsoluteCryptFilepath('waw.txt')).toEqual(
+      path.join(cryptRootDir, 'waw.txt'),
     )
 
-    expect(
-      pathResolver.calcAbsoluteEncryptedFilepath(path.join(encryptedRootDir, 'waw2.txt')),
-    ).toEqual(path.join(encryptedRootDir, 'waw2.txt'))
+    expect(pathResolver.calcAbsoluteCryptFilepath(path.join(cryptRootDir, 'waw2.txt'))).toEqual(
+      path.join(cryptRootDir, 'waw2.txt'),
+    )
 
-    expect(() => pathResolver.calcAbsoluteEncryptedFilepath('/waw.txt')).toThrow(
-      /Not under the encryptedRootDir:/,
+    expect(() => pathResolver.calcAbsoluteCryptFilepath('/waw.txt')).toThrow(
+      /Not under the cryptRootDir:/,
     )
   })
 
-  test('calcRelativeSourceFilepath', () => {
-    expect(pathResolver.calcRelativeSourceFilepath(path.join(sourceRootDir, 'waw.txt'))).toEqual(
+  test('calcRelativePlainFilepath', () => {
+    expect(pathResolver.calcRelativePlainFilepath(path.join(plainRootDir, 'waw.txt'))).toEqual(
       'waw.txt',
     )
 
-    expect(() => pathResolver.calcRelativeSourceFilepath('/waw.txt')).toThrow(
-      /Not under the sourceRootDir:/,
+    expect(() => pathResolver.calcRelativePlainFilepath('/waw.txt')).toThrow(
+      /Not under the plainRootDir:/,
     )
   })
 
-  test('calcRelativeEncryptedFilepath', () => {
-    expect(
-      pathResolver.calcRelativeEncryptedFilepath(path.join(encryptedRootDir, 'waw.txt')),
-    ).toEqual('waw.txt')
+  test('calcRelativeCryptFilepath', () => {
+    expect(pathResolver.calcRelativeCryptFilepath(path.join(cryptRootDir, 'waw.txt'))).toEqual(
+      'waw.txt',
+    )
 
-    expect(() => pathResolver.calcRelativeEncryptedFilepath('/waw.txt')).toThrow(
-      /Not under the encryptedRootDir:/,
+    expect(() => pathResolver.calcRelativeCryptFilepath('/waw.txt')).toThrow(
+      /Not under the cryptRootDir:/,
     )
   })
 })

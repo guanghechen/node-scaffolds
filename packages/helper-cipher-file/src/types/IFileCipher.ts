@@ -11,25 +11,25 @@ export interface IFileCipher {
   /**
    * Decrypt cipher data from ciphered files.
    */
-  decryptFromFiles(cipherFilepaths: string[]): Promise<Buffer>
+  decryptFromFiles(cryptFilepaths: string[]): Promise<Buffer>
 
   /**
-   * Encrypt contents from plainFilepath, and save into cipherFilepath.
+   * Encrypt contents from plainFilepath, and save into cryptFilepath.
    */
-  encryptFile(plainFilepath: string, cipherFilepath: string): Promise<void>
+  encryptFile(plainFilepath: string, cryptFilepath: string): Promise<void>
 
   /**
-   * Decrypt contents from cipherFilepath, and save into plainFilepath.
+   * Decrypt contents from cryptFilepath, and save into plainFilepath.
    */
-  decryptFile(cipherFilepath: string, plainFilepath: string): Promise<void>
+  decryptFile(cryptFilepath: string, plainFilepath: string): Promise<void>
 
   /**
    * Encrypt multiple plain files into a single ciphered file.
    */
-  encryptFiles(plainFilepaths: string[], cipherFilepath: string): Promise<void>
+  encryptFiles(plainFilepaths: string[], cryptFilepath: string): Promise<void>
 
   /**
    * Decrypt multiple ciphered files into a single plain file.
    */
-  decryptFiles(cipherFilepaths: string[], plainFilepath: string): Promise<void>
+  decryptFiles(cryptFilepaths: string[], plainFilepath: string): Promise<void>
 }

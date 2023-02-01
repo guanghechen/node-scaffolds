@@ -11,7 +11,7 @@ import type {
   ICalcCatalogItemParams,
   ICheckIntegrityParams,
   IDiffFromCatalogItemsParams,
-  IDiffFromSourceFiles,
+  IDiffFromPlainFiles,
   IFileCipherCatalog,
 } from './types/IFileCipherCatalog'
 import type {
@@ -19,32 +19,32 @@ import type {
   IFileCipherCatalogItemDiff,
   IFileCipherCatalogItemDiffCombine,
 } from './types/IFileCipherCatalogItem'
-import { isSameFileCipherItem, normalizeSourceFilepath } from './util/catalog'
+import { isSameFileCipherItem, normalizePlainFilepath } from './util/catalog'
 import { calcFingerprintFromFile, calcFingerprintFromString } from './util/mac'
 
 export interface IFileCipherCatalogProps {
   pathResolver: FileCipherPathResolver
   maxTargetFileSize: number
   partCodePrefix: string
-  encryptedDir: string
+  cryptDir: string
   logger?: Logger
-  isKeepPlain(relativeSourceFilepath: string): boolean
+  isKeepPlain(relativePlainFilepath: string): boolean
 }
 
 export class FileCipherCatalog implements IFileCipherCatalog {
   public readonly pathResolver: FileCipherPathResolver
   public readonly maxTargetFileSize: number
   public readonly partCodePrefix: string
-  public readonly encryptedDir: string
+  public readonly cryptDir: string
   protected readonly logger?: Logger
-  protected readonly isKeepPlain: (relativeSourceFilepath: string) => boolean
+  protected readonly isKeepPlain: (relativePlainFilepath: string) => boolean
   protected readonly _itemMap: Map<string, IFileCipherCatalogItem>
 
   constructor(props: IFileCipherCatalogProps) {
     this.pathResolver = props.pathResolver
     this.maxTargetFileSize = props.maxTargetFileSize
     this.partCodePrefix = props.partCodePrefix
-    this.encryptedDir = props.encryptedDir
+    this.cryptDir = props.cryptDir
     this.isKeepPlain = props.isKeepPlain
     this._itemMap = new Map()
     this.logger = props.logger
@@ -61,7 +61,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     _itemMap.clear()
     if (items) {
       for (const item of items) {
-        const key: string = normalizeSourceFilepath(item.sourceFilepath, pathResolver)
+        const key: string = normalizePlainFilepath(item.plainFilepath, pathResolver)
         _itemMap.set(key, item)
       }
     }
@@ -73,15 +73,15 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     for (const diffItem of diffItems) {
       const { oldItem, newItem } = diffItem as IFileCipherCatalogItemDiffCombine
       if (oldItem) {
-        const key = normalizeSourceFilepath(oldItem.sourceFilepath, pathResolver)
+        const key = normalizePlainFilepath(oldItem.plainFilepath, pathResolver)
         _itemMap.delete(key)
       }
       if (newItem) {
-        const key = normalizeSourceFilepath(newItem.sourceFilepath, pathResolver)
+        const key = normalizePlainFilepath(newItem.plainFilepath, pathResolver)
         _itemMap.set(key, {
-          sourceFilepath: newItem.sourceFilepath,
-          encryptedFilepath: newItem.encryptedFilepath,
-          encryptedFileParts: newItem.encryptedFileParts,
+          plainFilepath: newItem.plainFilepath,
+          cryptFilepath: newItem.cryptFilepath,
+          cryptFileParts: newItem.cryptFileParts,
           fingerprint: newItem.fingerprint,
           size: newItem.size,
           keepPlain: newItem.keepPlain,
@@ -92,28 +92,28 @@ export class FileCipherCatalog implements IFileCipherCatalog {
 
   // @override
   public async calcCatalogItem({
-    sourceFilepath,
+    plainFilepath,
     isKeepPlain = this.isKeepPlain,
   }: ICalcCatalogItemParams): Promise<IFileCipherCatalogItem | never> {
-    const { encryptedDir, maxTargetFileSize, partCodePrefix, pathResolver } = this
-    const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(sourceFilepath)
-    const relativeSourceFilepath = pathResolver.calcRelativeSourceFilepath(absoluteSourceFilepath)
-    const sourceFilepathKey = normalizeSourceFilepath(relativeSourceFilepath, pathResolver)
+    const { cryptDir, maxTargetFileSize, partCodePrefix, pathResolver } = this
+    const absolutePlainFilepath = pathResolver.calcAbsolutePlainFilepath(plainFilepath)
+    const relativePlainFilepath = pathResolver.calcRelativePlainFilepath(absolutePlainFilepath)
+    const plainFilepathKey = normalizePlainFilepath(relativePlainFilepath, pathResolver)
 
-    const fileSize = await fs.stat(absoluteSourceFilepath).then(md => md.size)
-    const fingerprint: string = await calcFingerprintFromFile(absoluteSourceFilepath)
-    const keepPlain: boolean = isKeepPlain(relativeSourceFilepath)
-    const encryptedFilepath: string = keepPlain
-      ? relativeSourceFilepath
-      : path.join(encryptedDir, calcFingerprintFromString(sourceFilepathKey, 'utf8'))
-    const encryptedFileParts = calcFilePartNames(
+    const fileSize = await fs.stat(absolutePlainFilepath).then(md => md.size)
+    const fingerprint: string = await calcFingerprintFromFile(absolutePlainFilepath)
+    const keepPlain: boolean = isKeepPlain(relativePlainFilepath)
+    const cryptFilepath: string = keepPlain
+      ? relativePlainFilepath
+      : path.join(cryptDir, calcFingerprintFromString(plainFilepathKey, 'utf8'))
+    const cryptFileParts = calcFilePartNames(
       calcFilePartItemsBySize(fileSize, maxTargetFileSize),
       partCodePrefix,
     )
     const item: IFileCipherCatalogItem = {
-      sourceFilepath: relativeSourceFilepath,
-      encryptedFilepath,
-      encryptedFileParts: encryptedFileParts.length > 1 ? encryptedFileParts : [],
+      plainFilepath: relativePlainFilepath,
+      cryptFilepath: cryptFilepath,
+      cryptFileParts: cryptFileParts.length > 1 ? cryptFileParts : [],
       fingerprint,
       size: fileSize,
       keepPlain,
@@ -124,37 +124,34 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   // @override
   public async checkIntegrity({ flags }: ICheckIntegrityParams): Promise<void | never> {
     const { _itemMap, logger, pathResolver } = this
-    if (flags.sourceFiles) {
-      logger?.debug('[checkIntegrity] checking source files.')
+    if (flags.plainFiles) {
+      logger?.debug('[checkIntegrity] checking plain files.')
       for (const item of _itemMap.values()) {
-        const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(item.sourceFilepath)
+        const absolutePlainFilepath = pathResolver.calcAbsolutePlainFilepath(item.plainFilepath)
         invariant(
-          isFileSync(absoluteSourceFilepath),
-          `[checkIntegrity] Missing source file. (${absoluteSourceFilepath})`,
+          isFileSync(absolutePlainFilepath),
+          `[checkIntegrity] Missing plain file. (${absolutePlainFilepath})`,
         )
       }
     }
 
-    if (flags.encryptedFiles) {
-      logger?.debug('[checkIntegrity] checking encrypted files.')
+    if (flags.cryptFiles) {
+      logger?.debug('[checkIntegrity] checking crypt files.')
       for (const item of _itemMap.values()) {
-        if (item.encryptedFileParts.length > 1) {
-          for (const filePart of item.encryptedFileParts) {
-            const encryptedFilepath = item.encryptedFilepath + filePart
-            const absoluteEncryptedFilepath =
-              pathResolver.calcAbsoluteEncryptedFilepath(encryptedFilepath)
+        if (item.cryptFileParts.length > 1) {
+          for (const filePart of item.cryptFileParts) {
+            const cryptFilepath = item.cryptFilepath + filePart
+            const absoluteCryptFilepath = pathResolver.calcAbsoluteCryptFilepath(cryptFilepath)
             invariant(
-              isFileSync(absoluteEncryptedFilepath),
-              `[checkIntegrity] Missing encrypted file part. (${absoluteEncryptedFilepath})`,
+              isFileSync(absoluteCryptFilepath),
+              `[checkIntegrity] Missing crypt file part. (${absoluteCryptFilepath})`,
             )
           }
         } else {
-          const absoluteEncryptedFilepath = pathResolver.calcAbsoluteEncryptedFilepath(
-            item.encryptedFilepath,
-          )
+          const absoluteCryptFilepath = pathResolver.calcAbsoluteCryptFilepath(item.cryptFilepath)
           invariant(
-            isFileSync(absoluteEncryptedFilepath),
-            `[checkIntegrity] Missing encrypted file. (${absoluteEncryptedFilepath})`,
+            isFileSync(absoluteCryptFilepath),
+            `[checkIntegrity] Missing crypt file. (${absoluteCryptFilepath})`,
           )
         }
       }
@@ -172,7 +169,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
 
     const newItemMap: Map<string, IFileCipherCatalogItem> = list2map(
       newItems,
-      item => item.sourceFilepath,
+      item => item.plainFilepath,
     )
     if (newItemMap.size < 1) {
       return mapIterable(oldItemMap.values(), oldItem => ({
@@ -187,7 +184,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
 
     // Collect removed and modified items.
     for (const oldItem of oldItemMap.values()) {
-      const newItem = newItemMap.get(oldItem.sourceFilepath)
+      const newItem = newItemMap.get(oldItem.plainFilepath)
       if (newItem === undefined) {
         removedItems.push({
           changeType: FileChangeType.REMOVED,
@@ -206,7 +203,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
 
     // Collect added items.
     for (const newItem of newItemMap.values()) {
-      if (!oldItemMap.has(newItem.sourceFilepath)) {
+      if (!oldItemMap.has(newItem.plainFilepath)) {
         addedItems.push({
           changeType: FileChangeType.ADDED,
           newItem,
@@ -219,19 +216,19 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   }
 
   // @override
-  public async diffFromSourceFiles({
-    sourceFilepaths,
+  public async diffFromPlainFiles({
+    plainFilepaths,
     isKeepPlain,
-  }: IDiffFromSourceFiles): Promise<IFileCipherCatalogItemDiff[]> {
+  }: IDiffFromPlainFiles): Promise<IFileCipherCatalogItemDiff[]> {
     const { pathResolver, _itemMap } = this
     const addedItems: IFileCipherCatalogItemDiff[] = []
     const modifiedItems: IFileCipherCatalogItemDiff[] = []
     const removedItems: IFileCipherCatalogItemDiff[] = []
-    for (const sourceFilepath of sourceFilepaths) {
-      const key = normalizeSourceFilepath(sourceFilepath, pathResolver)
+    for (const plainFilepath of plainFilepaths) {
+      const key = normalizePlainFilepath(plainFilepath, pathResolver)
       const oldItem = _itemMap.get(key)
-      const absoluteSourceFilepath = pathResolver.calcAbsoluteSourceFilepath(sourceFilepath)
-      const isSrcFileExists = isFileSync(absoluteSourceFilepath)
+      const absolutePlainFilepath = pathResolver.calcAbsolutePlainFilepath(plainFilepath)
+      const isSrcFileExists = isFileSync(absolutePlainFilepath)
 
       if (!isSrcFileExists && oldItem) {
         removedItems.push({ changeType: FileChangeType.REMOVED, oldItem })
@@ -239,7 +236,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
       }
 
       const newItem: IFileCipherCatalogItem = await this.calcCatalogItem({
-        sourceFilepath,
+        plainFilepath: plainFilepath,
         isKeepPlain,
       })
 

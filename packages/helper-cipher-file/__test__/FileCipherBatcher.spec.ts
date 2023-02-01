@@ -38,37 +38,37 @@ const getFingerprintOfEncryptedFile = async (filePartPaths: string | string[]): 
 
 describe('FileCipherBatcher', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.FileCipherBatcher')
-  const sourceRootDir: string = path.join(workspaceDir, 'src')
-  const encryptedRootDir: string = path.join(workspaceDir, 'src_encrypted')
+  const plainRootDir: string = path.join(workspaceDir, 'src')
+  const cryptRootDir: string = path.join(workspaceDir, 'src_encrypted')
   const bakRootDir: string = path.join(workspaceDir, 'src_backup')
-  const pathResolver = new FileCipherPathResolver({ sourceRootDir, encryptedRootDir })
-  const pathResolver2 = new FileCipherPathResolver({ sourceRootDir: bakRootDir, encryptedRootDir })
+  const pathResolver = new FileCipherPathResolver({ plainRootDir, cryptRootDir })
+  const pathResolver2 = new FileCipherPathResolver({ plainRootDir: bakRootDir, cryptRootDir })
   const logger = new ChalkLogger({ flags: { colorful: false, date: false } })
 
-  const filepathA: string = pathResolver.calcAbsoluteSourceFilepath(itemTable.A.sourceFilepath)
-  const filepathB: string = pathResolver.calcAbsoluteSourceFilepath(itemTable.B.sourceFilepath)
-  const filepathC: string = pathResolver.calcAbsoluteSourceFilepath(itemTable.C.sourceFilepath)
-  const filepathD: string = pathResolver.calcAbsoluteSourceFilepath(itemTable.D.sourceFilepath)
+  const filepathA: string = pathResolver.calcAbsolutePlainFilepath(itemTable.A.plainFilepath)
+  const filepathB: string = pathResolver.calcAbsolutePlainFilepath(itemTable.B.plainFilepath)
+  const filepathC: string = pathResolver.calcAbsolutePlainFilepath(itemTable.C.plainFilepath)
+  const filepathD: string = pathResolver.calcAbsolutePlainFilepath(itemTable.D.plainFilepath)
 
-  const filepath2A: string = pathResolver2.calcAbsoluteSourceFilepath(itemTable.A.sourceFilepath)
-  const filepath2B: string = pathResolver2.calcAbsoluteSourceFilepath(itemTable.B.sourceFilepath)
-  const filepath2C: string = pathResolver2.calcAbsoluteSourceFilepath(itemTable.C.sourceFilepath)
-  const filepath2D: string = pathResolver2.calcAbsoluteSourceFilepath(itemTable.D.sourceFilepath)
+  const filepath2A: string = pathResolver2.calcAbsolutePlainFilepath(itemTable.A.plainFilepath)
+  const filepath2B: string = pathResolver2.calcAbsolutePlainFilepath(itemTable.B.plainFilepath)
+  const filepath2C: string = pathResolver2.calcAbsolutePlainFilepath(itemTable.C.plainFilepath)
+  const filepath2D: string = pathResolver2.calcAbsolutePlainFilepath(itemTable.D.plainFilepath)
 
-  const encryptedFilepathA: string = pathResolver.calcAbsoluteEncryptedFilepath(
-    itemTable.A.encryptedFilepath,
+  const encryptedFilepathA: string = pathResolver.calcAbsoluteCryptFilepath(
+    itemTable.A.cryptFilepath,
   )
-  const encryptedFilepathA2: string = pathResolver.calcAbsoluteEncryptedFilepath(
-    itemTable.A2.encryptedFilepath,
+  const encryptedFilepathA2: string = pathResolver.calcAbsoluteCryptFilepath(
+    itemTable.A2.cryptFilepath,
   )
-  const encryptedFilepathB: string = pathResolver.calcAbsoluteEncryptedFilepath(
-    itemTable.B.encryptedFilepath,
+  const encryptedFilepathB: string = pathResolver.calcAbsoluteCryptFilepath(
+    itemTable.B.cryptFilepath,
   )
-  const encryptedFilepathsC: string[] = itemTable.C.encryptedFileParts.map(part =>
-    pathResolver.calcAbsoluteEncryptedFilepath(itemTable.C.encryptedFilepath + part),
+  const encryptedFilepathsC: string[] = itemTable.C.cryptFileParts.map(part =>
+    pathResolver.calcAbsoluteCryptFilepath(itemTable.C.cryptFilepath + part),
   )
-  const encryptedFilepathsD: string[] = itemTable.D.encryptedFileParts.map(part =>
-    pathResolver.calcAbsoluteEncryptedFilepath(itemTable.D.encryptedFilepath + part),
+  const encryptedFilepathsD: string[] = itemTable.D.cryptFileParts.map(part =>
+    pathResolver.calcAbsoluteCryptFilepath(itemTable.D.cryptFilepath + part),
   )
 
   const contentA: string = contentTable.A
@@ -96,7 +96,7 @@ describe('FileCipherBatcher', () => {
     pathResolver,
     maxTargetFileSize,
     partCodePrefix,
-    encryptedDir,
+    cryptDir: encryptedDir,
     logger,
     isKeepPlain: falsy,
   })
@@ -135,7 +135,7 @@ describe('FileCipherBatcher', () => {
 
       await assertPromiseThrow(
         () => cipherBatcher.batchEncrypt({ strictCheck: true, diffItems }),
-        'Bad diff item (added), encrypted file already exists.',
+        'Bad diff item (added), crypt file already exists.',
       )
       expect(existsSync(encryptedFilepathA)).toEqual(true)
       expect(existsSync(encryptedFilepathB)).toEqual(false)
@@ -157,7 +157,7 @@ describe('FileCipherBatcher', () => {
       await writeFile(filepathC, contentC, encoding)
       await assertPromiseThrow(
         () => cipherBatcher.batchEncrypt({ strictCheck: true, diffItems }),
-        '[encryptDiff] Bad diff item (removed), source file should not exist.',
+        '[encryptDiff] Bad diff item (removed), plain file should not exist.',
       )
 
       expect(existsSync(encryptedFilepathA)).toEqual(true)
@@ -240,7 +240,7 @@ describe('FileCipherBatcher', () => {
       mkdirsIfNotExists(filepath2A, true)
       await assertPromiseThrow(
         () => cipherBatcher2.batchDecrypt({ strictCheck: true, diffItems }),
-        'Bad diff item (added), source file already exists.',
+        'Bad diff item (added), plain file already exists.',
       )
       expect(existsSync(filepath2A)).toEqual(true)
       expect(existsSync(filepath2B)).toEqual(false)
@@ -258,7 +258,7 @@ describe('FileCipherBatcher', () => {
 
       await assertPromiseThrow(
         () => cipherBatcher2.batchDecrypt({ strictCheck: true, diffItems }),
-        'Bad diff item (REMOVED), encrypted file should not exist.',
+        'Bad diff item (REMOVED), crypt file should not exist.',
       )
 
       await rm(filepathA)
@@ -274,7 +274,7 @@ describe('FileCipherBatcher', () => {
 
       await assertPromiseThrow(
         () => cipherBatcher2.batchDecrypt({ strictCheck: true, diffItems }),
-        'Bad diff item (removed), source file does not exist or it is not a file.',
+        'Bad diff item (removed), plain file does not exist or it is not a file.',
       )
       await assertPromiseNotThrow(() =>
         cipherBatcher2.batchDecrypt({ strictCheck: false, diffItems }),

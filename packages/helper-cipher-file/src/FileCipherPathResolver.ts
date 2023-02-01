@@ -4,88 +4,81 @@ import path from 'node:path'
 
 export interface IFileCipherPathResolverProps {
   /**
-   * Root directory of source files.
+   * Root directory of plain source files.
    */
-  readonly sourceRootDir: string
+  readonly plainRootDir: string
 
   /**
    * Root directory of encrypted files.
    */
-  readonly encryptedRootDir: string
+  readonly cryptRootDir: string
 }
 
 export class FileCipherPathResolver {
-  /**
-   * Root directory of source files.
-   */
-  public readonly sourceRootDir: string
-
-  /**
-   * Root directory of encrypted files.
-   */
-  public readonly encryptedRootDir: string
+  public readonly plainRootDir: string
+  public readonly cryptRootDir: string
 
   constructor(props: IFileCipherPathResolverProps) {
-    this.sourceRootDir = props.sourceRootDir
-    this.encryptedRootDir = props.encryptedRootDir
+    this.plainRootDir = props.plainRootDir
+    this.cryptRootDir = props.cryptRootDir
   }
 
   /**
-   * Resolve the absolute path of a source file.
-   * @param sourceFilepath
+   * Resolve the absolute path of a plain source file.
+   * @param plainFilepath
    */
-  public calcAbsoluteSourceFilepath(sourceFilepath: string): string {
-    if (path.isAbsolute(sourceFilepath)) {
+  public calcAbsolutePlainFilepath(plainFilepath: string): string {
+    if (path.isAbsolute(plainFilepath)) {
       invariant(
-        !path.relative(this.sourceRootDir, sourceFilepath).startsWith('..'),
-        `[calcAbsoluteSourceFilepath] Not under the sourceRootDir: ${sourceFilepath}`,
+        !path.relative(this.plainRootDir, plainFilepath).startsWith('..'),
+        `[calcAbsolutePlainFilepath] Not under the plainRootDir: ${plainFilepath}`,
       )
-      return sourceFilepath
+      return plainFilepath
     } else {
-      const filepath = absoluteOfWorkspace(this.sourceRootDir, sourceFilepath)
+      const filepath = absoluteOfWorkspace(this.plainRootDir, plainFilepath)
       return filepath
     }
   }
 
   /**
    * Resolve the absolute path of a encrypted file.
-   * @param encryptedFilepath
+   * @param cryptFilepath
    */
-  public calcAbsoluteEncryptedFilepath(encryptedFilepath: string): string {
-    if (path.isAbsolute(encryptedFilepath)) {
+  public calcAbsoluteCryptFilepath(cryptFilepath: string): string {
+    if (path.isAbsolute(cryptFilepath)) {
       invariant(
-        !path.relative(this.encryptedRootDir, encryptedFilepath).startsWith('..'),
-        `[calcAbsoluteEncryptedFilepath] Not under the encryptedRootDir: ${encryptedFilepath}`,
+        !path.relative(this.cryptRootDir, cryptFilepath).startsWith('..'),
+        `[calcAbsoluteCryptFilepath] Not under the cryptRootDir: ${cryptFilepath}`,
       )
-      return encryptedFilepath
+      return cryptFilepath
     } else {
-      const filepath = absoluteOfWorkspace(this.encryptedRootDir, encryptedFilepath)
+      const filepath = absoluteOfWorkspace(this.cryptRootDir, cryptFilepath)
       return filepath
     }
   }
 
   /**
-   * Resolve the relative path of the source file.
-   * @param absoluteSourceFilepath
+   * Resolve the relative path of the plain source file.
+   * @param absolutePlainFilepath
    */
-  public calcRelativeSourceFilepath(absoluteSourceFilepath: string): string {
-    const filepath = relativeOfWorkspace(this.sourceRootDir, absoluteSourceFilepath)
+  public calcRelativePlainFilepath(absolutePlainFilepath: string): string {
+    const filepath = relativeOfWorkspace(this.plainRootDir, absolutePlainFilepath)
     invariant(
       !path.isAbsolute(filepath) && !filepath.startsWith('..'),
-      `Not under the sourceRootDir: ${absoluteSourceFilepath}`,
+      `Not under the plainRootDir: ${absolutePlainFilepath}`,
     )
     return filepath.replace(/[/\\]+/g, '/')
   }
 
   /**
    * Resolve the relative path of a encrypted file.
-   * @param absoluteEncryptedFilepath
+   * @param absoluteCryptFilepath
    */
-  public calcRelativeEncryptedFilepath(absoluteEncryptedFilepath: string): string {
-    const filepath = relativeOfWorkspace(this.encryptedRootDir, absoluteEncryptedFilepath)
+  public calcRelativeCryptFilepath(absoluteCryptFilepath: string): string {
+    const filepath = relativeOfWorkspace(this.cryptRootDir, absoluteCryptFilepath)
     invariant(
       !path.isAbsolute(filepath) && !filepath.startsWith('..'),
-      `Not under the encryptedRootDir: ${absoluteEncryptedFilepath}`,
+      `Not under the cryptRootDir: ${absoluteCryptFilepath}`,
     )
     return filepath.replace(/[/\\]+/g, '/')
   }

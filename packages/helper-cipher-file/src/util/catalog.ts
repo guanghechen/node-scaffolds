@@ -6,11 +6,11 @@ import type {
   IFileCipherCatalogItemDiffCombine,
 } from '../types/IFileCipherCatalogItem'
 
-export const normalizeSourceFilepath = (
-  sourceFilepath: string,
+export const normalizePlainFilepath = (
+  plainFilepath: string,
   pathResolver: FileCipherPathResolver,
 ): string => {
-  const fp = pathResolver.calcRelativeSourceFilepath(sourceFilepath).replace(/[/\\]+/, '/')
+  const fp = pathResolver.calcRelativePlainFilepath(plainFilepath).replace(/[/\\]+/, '/')
   return normalizeUrlPath(fp)
 }
 
@@ -21,20 +21,20 @@ export const isSameFileCipherItem = (
   if (oldItem === newItem) return true
 
   return (
-    oldItem.sourceFilepath === newItem.sourceFilepath &&
-    oldItem.encryptedFilepath === newItem.encryptedFilepath &&
+    oldItem.plainFilepath === newItem.plainFilepath &&
+    oldItem.cryptFilepath === newItem.cryptFilepath &&
     oldItem.fingerprint === newItem.fingerprint &&
     oldItem.size === newItem.size &&
     oldItem.keepPlain === newItem.keepPlain
   )
 }
 
-export const collectAffectedSrcFilepaths = (
+export const collectAffectedPlainFilepaths = (
   diffItems: ReadonlyArray<IFileCipherCatalogItemDiff>,
 ): string[] => {
   const files: Set<string> = new Set()
   const collect = (item: IFileCipherCatalogItem): void => {
-    files.add(item.sourceFilepath)
+    files.add(item.plainFilepath)
   }
 
   for (let i = 0; i < diffItems.length; ++i) {
@@ -45,17 +45,17 @@ export const collectAffectedSrcFilepaths = (
   return Array.from(files)
 }
 
-export const collectAffectedEncFilepaths = (
+export const collectAffectedCryptFilepaths = (
   diffItems: ReadonlyArray<IFileCipherCatalogItemDiff>,
 ): string[] => {
   const files: Set<string> = new Set()
   const collect = (item: IFileCipherCatalogItem): void => {
-    if (item.encryptedFileParts.length > 1) {
-      for (const filePart of item.encryptedFileParts) {
-        files.add(item.encryptedFilepath + filePart)
+    if (item.cryptFileParts.length > 1) {
+      for (const filePart of item.cryptFileParts) {
+        files.add(item.cryptFilepath + filePart)
       }
     } else {
-      files.add(item.encryptedFilepath)
+      files.add(item.cryptFilepath)
     }
   }
 

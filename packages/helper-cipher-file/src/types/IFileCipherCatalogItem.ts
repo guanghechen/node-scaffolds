@@ -2,29 +2,29 @@ import type { FileChangeType } from '../constant'
 
 export interface IFileCipherCatalogItem {
   /**
-   * The path of the source file (relative path of the source root directory).
+   * The path of the plain source file (relative path of the plain root directory).
    *
    * The value should be unique in file catalog.
    */
-  sourceFilepath: string
+  plainFilepath: string
   /**
-   * The path of the encrypted file (relative path of the target root directory).
+   * The path of the encrypted file (relative path of the encrypted root directory).
    */
-  encryptedFilepath: string
+  cryptFilepath: string
   /**
-   * Parts path of the target file.
+   * Parts path of the encrypted file.
    *
    * If this is a non-empty array, it means that the target file is split into multiple parts,
    * where each element of the array corresponds to the file path (relative path of the target root
    * directory) of each part.
    */
-  encryptedFileParts: string[]
+  cryptFileParts: string[]
   /**
-   * Fingerprint of contents of the source file.
+   * Fingerprint of contents of the plain file.
    */
   fingerprint: string
   /**
-   * The size of the source file (in bytes).
+   * The size of the plain file (in bytes).
    */
   size: number
   /**

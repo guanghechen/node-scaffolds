@@ -17,15 +17,18 @@ import {
 
 describe('FileCipherCatalog', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.FileCipherCatalog')
-  const sourceRootDir: string = path.join(workspaceDir, 'src')
-  const encryptedRootDir: string = path.join(workspaceDir, 'src_encrypted')
-  const pathResolver = new FileCipherPathResolver({ sourceRootDir, encryptedRootDir })
+  const plainRootDir: string = path.join(workspaceDir, 'src')
+  const cryptRootDir: string = path.join(workspaceDir, 'src_encrypted')
+  const pathResolver = new FileCipherPathResolver({
+    plainRootDir: plainRootDir,
+    cryptRootDir: cryptRootDir,
+  })
   const logger = new ChalkLogger({ name: 'FileCipherCatalog' })
 
-  const filepathA: string = pathResolver.calcAbsoluteSourceFilepath(itemTable.A.sourceFilepath)
-  const filepathB: string = pathResolver.calcAbsoluteSourceFilepath(itemTable.B.sourceFilepath)
-  const filepathC: string = pathResolver.calcAbsoluteSourceFilepath(itemTable.C.sourceFilepath)
-  const filepathD: string = pathResolver.calcAbsoluteSourceFilepath(itemTable.D.sourceFilepath)
+  const filepathA: string = pathResolver.calcAbsolutePlainFilepath(itemTable.A.plainFilepath)
+  const filepathB: string = pathResolver.calcAbsolutePlainFilepath(itemTable.B.plainFilepath)
+  const filepathC: string = pathResolver.calcAbsolutePlainFilepath(itemTable.C.plainFilepath)
+  const filepathD: string = pathResolver.calcAbsolutePlainFilepath(itemTable.D.plainFilepath)
 
   const contentA: string = contentTable.A
   const contentA2: string = contentTable.A2
@@ -35,7 +38,7 @@ describe('FileCipherCatalog', () => {
 
   const catalog = new FileCipherCatalog({
     pathResolver,
-    encryptedDir,
+    cryptDir: encryptedDir,
     maxTargetFileSize,
     partCodePrefix,
     logger,
@@ -82,23 +85,23 @@ describe('FileCipherCatalog', () => {
     expect(Array.from(catalog.items)).toEqual([])
 
     await writeFile(filepathA, contentA, encoding)
-    const itemA = await catalog.calcCatalogItem({ sourceFilepath: filepathA })
+    const itemA = await catalog.calcCatalogItem({ plainFilepath: filepathA })
 
     await writeFile(filepathA, contentA2, encoding)
     const itemA2 = await catalog.calcCatalogItem({
-      sourceFilepath: filepathA,
+      plainFilepath: filepathA,
       isKeepPlain: falsy,
     })
 
     await writeFile(filepathB, contentB, encoding)
-    const itemB = await catalog.calcCatalogItem({ sourceFilepath: filepathB })
+    const itemB = await catalog.calcCatalogItem({ plainFilepath: filepathB })
 
     await writeFile(filepathC, contentC, encoding)
-    const itemC = await catalog.calcCatalogItem({ sourceFilepath: filepathC })
+    const itemC = await catalog.calcCatalogItem({ plainFilepath: filepathC })
 
     await writeFile(filepathD, contentD, encoding)
     const itemD = await catalog.calcCatalogItem({
-      sourceFilepath: filepathD,
+      plainFilepath: filepathD,
       isKeepPlain: truthy,
     })
 
@@ -114,120 +117,120 @@ describe('FileCipherCatalog', () => {
     test('small files', async () => {
       expect(Array.from(catalog.items)).toEqual([])
       await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { sourceFiles: true, encryptedFiles: true } }),
+        catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
       )
 
       catalog.reset([itemTable.A, itemTable.B])
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { sourceFiles: true, encryptedFiles: true } }),
-        'Missing source file.',
+        () => catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        'Missing plain file.',
       )
       await assertPromiseNotThrow(() => catalog.checkIntegrity({ flags: {} }))
 
-      // Source files exist but the encrypted files not exist.
+      // Plain files exist but the crypt files not exist.
       await writeFile(filepathA, contentA, encoding)
       await writeFile(filepathB, contentB, encoding)
       await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { sourceFiles: true, encryptedFiles: false } }),
+        catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: false } }),
       )
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { sourceFiles: true, encryptedFiles: true } }),
-        'Missing encrypted file.',
+        () => catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        'Missing crypt file.',
       )
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { encryptedFiles: true } }),
-        'Missing encrypted file.',
+        () => catalog.checkIntegrity({ flags: { cryptFiles: true } }),
+        'Missing crypt file.',
       )
 
-      // Both source files and encrypted files are exist.
+      // Both plain files and crypt files are exist.
       await writeFile(
-        pathResolver.calcAbsoluteEncryptedFilepath(itemTable.A.encryptedFilepath),
+        pathResolver.calcAbsoluteCryptFilepath(itemTable.A.cryptFilepath),
         contentA,
         encoding,
       )
       await writeFile(
-        pathResolver.calcAbsoluteEncryptedFilepath(itemTable.B.encryptedFilepath),
+        pathResolver.calcAbsoluteCryptFilepath(itemTable.B.cryptFilepath),
         contentB,
         encoding,
       )
       await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { sourceFiles: true, encryptedFiles: true } }),
+        catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
       )
 
-      // Encrypted files exist but the source files not exist.
+      // Crypt files exist but the plain files not exist.
       await rm(filepathA)
       await rm(filepathB)
       await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { sourceFiles: false, encryptedFiles: true } }),
+        catalog.checkIntegrity({ flags: { plainFiles: false, cryptFiles: true } }),
       )
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { sourceFiles: true, encryptedFiles: true } }),
-        'Missing source file.',
+        () => catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        'Missing plain file.',
       )
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { sourceFiles: true } }),
-        'Missing source file.',
+        () => catalog.checkIntegrity({ flags: { plainFiles: true } }),
+        'Missing plain file.',
       )
     })
 
     test('big files', async () => {
       expect(Array.from(catalog.items)).toEqual([])
       await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { sourceFiles: true, encryptedFiles: true } }),
+        catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
       )
       await assertPromiseNotThrow(() => catalog.checkIntegrity({ flags: {} }))
 
       catalog.reset([itemTable.C, itemTable.D])
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { sourceFiles: true, encryptedFiles: true } }),
-        'Missing source file.',
+        () => catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        'Missing plain file.',
       )
 
-      // Source files exist but the encrypted files not exist.
+      // Plain files exist but the crypt files not exist.
       await writeFile(filepathC, contentC, encoding)
       await writeFile(filepathD, contentD, encoding)
       await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { sourceFiles: true, encryptedFiles: false } }),
+        catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: false } }),
       )
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { sourceFiles: true, encryptedFiles: true } }),
-        'Missing encrypted file part.',
+        () => catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        'Missing crypt file part.',
       )
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { encryptedFiles: true } }),
-        'Missing encrypted file part.',
+        () => catalog.checkIntegrity({ flags: { cryptFiles: true } }),
+        'Missing crypt file part.',
       )
 
-      // Both source files and encrypted files are exist.
-      for (const part of itemTable.C.encryptedFileParts) {
-        const absoluteEncryptedFilepath = pathResolver.calcAbsoluteEncryptedFilepath(
-          itemTable.C.encryptedFilepath + part,
+      // Both plain files and crypt files are exist.
+      for (const part of itemTable.C.cryptFileParts) {
+        const absoluteEncryptedFilepath = pathResolver.calcAbsoluteCryptFilepath(
+          itemTable.C.cryptFilepath + part,
         )
         await writeFile(absoluteEncryptedFilepath, contentC, encoding)
       }
-      for (const part of itemTable.D.encryptedFileParts) {
-        const absoluteEncryptedFilepath = pathResolver.calcAbsoluteEncryptedFilepath(
-          itemTable.D.encryptedFilepath + part,
+      for (const part of itemTable.D.cryptFileParts) {
+        const absoluteEncryptedFilepath = pathResolver.calcAbsoluteCryptFilepath(
+          itemTable.D.cryptFilepath + part,
         )
         await writeFile(absoluteEncryptedFilepath, contentD, encoding)
       }
       await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { sourceFiles: true, encryptedFiles: true } }),
+        catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
       )
 
-      // Encrypted files exist but the source files not exist.
+      // Crypt files exist but the plain files not exist.
       await rm(filepathC)
       await rm(filepathD)
       await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { sourceFiles: false, encryptedFiles: true } }),
+        catalog.checkIntegrity({ flags: { plainFiles: false, cryptFiles: true } }),
       )
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { sourceFiles: true, encryptedFiles: true } }),
-        'Missing source file.',
+        () => catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        'Missing plain file.',
       )
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { sourceFiles: true } }),
-        'Missing source file.',
+        () => catalog.checkIntegrity({ flags: { plainFiles: true } }),
+        'Missing plain file.',
       )
     })
   })
@@ -295,15 +298,15 @@ describe('FileCipherCatalog', () => {
     }
   })
 
-  test('diffFromSourceFiles', async () => {
+  test('diffFromPlainFiles', async () => {
     expect(Array.from(catalog.items)).toEqual([])
 
     // diffITems1
     {
       await writeFile(filepathA, contentA, encoding)
       await writeFile(filepathB, contentB, encoding)
-      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromSourceFiles({
-        sourceFilepaths: [filepathA, filepathB],
+      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
+        plainFilepaths: [filepathA, filepathB],
       })
 
       expect(diffItems).toEqual(diffItemsTable.step1)
@@ -316,8 +319,8 @@ describe('FileCipherCatalog', () => {
     {
       await rm(filepathA)
       await writeFile(filepathC, contentC, encoding)
-      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromSourceFiles({
-        sourceFilepaths: [filepathA, filepathB, filepathC],
+      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
+        plainFilepaths: [filepathA, filepathB, filepathC],
       })
 
       expect(diffItems).toEqual(diffItemsTable.step2)
@@ -330,8 +333,8 @@ describe('FileCipherCatalog', () => {
     {
       await rm(filepathB)
       await writeFile(filepathA, contentA, encoding)
-      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromSourceFiles({
-        sourceFilepaths: [filepathA, filepathB, filepathC],
+      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
+        plainFilepaths: [filepathA, filepathB, filepathC],
       })
 
       expect(diffItems).toEqual(diffItemsTable.step3)
@@ -345,8 +348,8 @@ describe('FileCipherCatalog', () => {
       await rm(filepathC)
       await writeFile(filepathD, contentD, encoding)
       await writeFile(filepathA, contentA2, encoding)
-      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromSourceFiles({
-        sourceFilepaths: [filepathA, filepathC, filepathD],
+      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
+        plainFilepaths: [filepathA, filepathC, filepathD],
         isKeepPlain: sourceFilepath => sourceFilepath === 'd.txt',
       })
 
@@ -360,8 +363,8 @@ describe('FileCipherCatalog', () => {
     {
       await rm(filepathA)
       await rm(filepathD)
-      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromSourceFiles({
-        sourceFilepaths: [filepathD, filepathA],
+      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
+        plainFilepaths: [filepathD, filepathA],
       })
 
       expect(diffItems).toEqual(diffItemsTable.step5)

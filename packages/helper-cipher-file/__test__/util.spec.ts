@@ -11,42 +11,45 @@ import {
   calcMac,
   calcMacFromFile,
   calcMacFromString,
-  collectAffectedEncFilepaths,
-  collectAffectedSrcFilepaths,
+  collectAffectedCryptFilepaths,
+  collectAffectedPlainFilepaths,
   isSameFileCipherItem,
-  normalizeSourceFilepath,
+  normalizePlainFilepath,
 } from '../src'
 
 describe('catalog', () => {
   const sourceRootDir = locateFixtures('basic')
   const encryptedRootDir = path.join(path.dirname(sourceRootDir), 'src_encrypted')
-  const pathResolver = new FileCipherPathResolver({ sourceRootDir, encryptedRootDir })
+  const pathResolver = new FileCipherPathResolver({
+    plainRootDir: sourceRootDir,
+    cryptRootDir: encryptedRootDir,
+  })
 
-  test('normalizeSourceFilepath', () => {
-    expect(normalizeSourceFilepath('a.txt', pathResolver)).toEqual('a.txt')
-    expect(normalizeSourceFilepath('a.txt/', pathResolver)).toEqual('a.txt')
-    expect(normalizeSourceFilepath('./a.txt', pathResolver)).toEqual('a.txt')
-    expect(normalizeSourceFilepath('./a.txt/', pathResolver)).toEqual('a.txt')
-    expect(normalizeSourceFilepath('a/b/c//d/e/a.txt', pathResolver)).toEqual('a/b/c/d/e/a.txt')
-    expect(() => normalizeSourceFilepath('/a.txt', pathResolver)).toThrow(
-      /Invariant failed: Not under the sourceRootDir:/,
+  test('normalizePlainFilepath', () => {
+    expect(normalizePlainFilepath('a.txt', pathResolver)).toEqual('a.txt')
+    expect(normalizePlainFilepath('a.txt/', pathResolver)).toEqual('a.txt')
+    expect(normalizePlainFilepath('./a.txt', pathResolver)).toEqual('a.txt')
+    expect(normalizePlainFilepath('./a.txt/', pathResolver)).toEqual('a.txt')
+    expect(normalizePlainFilepath('a/b/c//d/e/a.txt', pathResolver)).toEqual('a/b/c/d/e/a.txt')
+    expect(() => normalizePlainFilepath('/a.txt', pathResolver)).toThrow(
+      /Invariant failed: Not under the plainRootDir:/,
     )
-    expect(() => normalizeSourceFilepath('../a.txt', pathResolver)).toThrow(
-      /Invariant failed: Not under the sourceRootDir:/,
+    expect(() => normalizePlainFilepath('../a.txt', pathResolver)).toThrow(
+      /Invariant failed: Not under the plainRootDir:/,
     )
-    expect(() => normalizeSourceFilepath('..', pathResolver)).toThrow(
-      /Invariant failed: Not under the sourceRootDir:/,
+    expect(() => normalizePlainFilepath('..', pathResolver)).toThrow(
+      /Invariant failed: Not under the plainRootDir:/,
     )
     expect(
-      normalizeSourceFilepath(pathResolver.calcAbsoluteSourceFilepath('a.txt'), pathResolver),
+      normalizePlainFilepath(pathResolver.calcAbsolutePlainFilepath('a.txt'), pathResolver),
     ).toEqual('a.txt')
   })
 
   test('isSameFileCipherItem', () => {
     const basicItem: IFileCipherCatalogItem = {
-      sourceFilepath: 'waw.txt',
-      encryptedFilepath: calcMac(Buffer.from('waw.txt')).toString('hex'),
-      encryptedFileParts: [],
+      plainFilepath: 'waw.txt',
+      cryptFilepath: calcMac(Buffer.from('waw.txt')).toString('hex'),
+      cryptFileParts: [],
       fingerprint: '',
       size: 20,
       keepPlain: false,
@@ -54,33 +57,33 @@ describe('catalog', () => {
 
     expect(isSameFileCipherItem(basicItem, basicItem)).toEqual(true)
     expect(isSameFileCipherItem(basicItem, { ...basicItem })).toEqual(true)
-    expect(isSameFileCipherItem(basicItem, { ...basicItem, sourceFilepath: 'waw2.txt' })).toEqual(
+    expect(isSameFileCipherItem(basicItem, { ...basicItem, plainFilepath: 'waw2.txt' })).toEqual(
       false,
     )
-    expect(
-      isSameFileCipherItem(basicItem, { ...basicItem, encryptedFilepath: 'waw2.txt' }),
-    ).toEqual(false)
-    expect(
-      isSameFileCipherItem(basicItem, { ...basicItem, encryptedFileParts: ['waw2.txt'] }),
-    ).toEqual(true)
+    expect(isSameFileCipherItem(basicItem, { ...basicItem, cryptFilepath: 'waw2.txt' })).toEqual(
+      false,
+    )
+    expect(isSameFileCipherItem(basicItem, { ...basicItem, cryptFileParts: ['waw2.txt'] })).toEqual(
+      true,
+    )
     expect(
       isSameFileCipherItem(basicItem, {
         ...basicItem,
-        encryptedFileParts: ['waw2.txt', 'waw3.txt'],
+        cryptFileParts: ['waw2.txt', 'waw3.txt'],
       }),
     ).toEqual(true)
     expect(isSameFileCipherItem(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
     expect(isSameFileCipherItem(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
   })
 
-  test('collectAffectedSrcFilepaths / collectAffectedEncFilepaths', () => {
+  test('collectAffectedPlainFilepaths / collectAffectedCryptFilepaths', () => {
     const diffItems: IFileCipherCatalogItemDiff[] = [
       {
         changeType: FileChangeType.ADDED,
         newItem: {
-          sourceFilepath: 'a.txt',
-          encryptedFilepath: 'a.txt',
-          encryptedFileParts: [],
+          plainFilepath: 'a.txt',
+          cryptFilepath: 'a.txt',
+          cryptFileParts: [],
           fingerprint: '4e26698e6bebd87fc210bec49fea4da6210b5769dbff50b3479effa16799120f',
           size: 9,
           keepPlain: true,
@@ -89,10 +92,10 @@ describe('catalog', () => {
       {
         changeType: FileChangeType.REMOVED,
         oldItem: {
-          sourceFilepath: 'b.txt',
-          encryptedFilepath:
+          plainFilepath: 'b.txt',
+          cryptFilepath:
             'encrypted/ffa0da5d885fba09d903c782713b6b098c8cf21f56a3a35d9aa920613220d2e1',
-          encryptedFileParts: [],
+          cryptFileParts: [],
           fingerprint: '6fee185efd0ffc7c51f986dcd2eb513e0ce0b63249d9a3bb51efe0c1ed2cb615',
           size: 135,
           keepPlain: false,
@@ -101,18 +104,18 @@ describe('catalog', () => {
       {
         changeType: FileChangeType.MODIFIED,
         oldItem: {
-          sourceFilepath: 'c.txt',
-          encryptedFilepath:
+          plainFilepath: 'c.txt',
+          cryptFilepath:
             'encrypted/4fe006196474bf40b078b5e230ccf558f791129837884cbc74daf74ef1164420',
-          encryptedFileParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
+          cryptFileParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
           fingerprint: 'b835f16cc543838431fa5bbeceb8906c667c16af9f98779f54541aeae0ccdce2',
           size: 3150,
           keepPlain: false,
         },
         newItem: {
-          sourceFilepath: 'c.txt',
-          encryptedFilepath: 'd.txt',
-          encryptedFileParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
+          plainFilepath: 'c.txt',
+          cryptFilepath: 'd.txt',
+          cryptFileParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
           fingerprint: '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13',
           size: 3150,
           keepPlain: true,
@@ -120,8 +123,8 @@ describe('catalog', () => {
       },
     ]
 
-    expect(collectAffectedSrcFilepaths(diffItems)).toEqual(['a.txt', 'b.txt', 'c.txt'])
-    expect(collectAffectedEncFilepaths(diffItems)).toEqual([
+    expect(collectAffectedPlainFilepaths(diffItems)).toEqual(['a.txt', 'b.txt', 'c.txt'])
+    expect(collectAffectedCryptFilepaths(diffItems)).toEqual([
       'a.txt',
       'encrypted/ffa0da5d885fba09d903c782713b6b098c8cf21f56a3a35d9aa920613220d2e1',
       'encrypted/4fe006196474bf40b078b5e230ccf558f791129837884cbc74daf74ef1164420.ghc-part1',

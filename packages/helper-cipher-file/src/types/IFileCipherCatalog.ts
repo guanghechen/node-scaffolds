@@ -36,40 +36,40 @@ export interface IFileCipherCatalog {
   /**
    * Calculate diff items.
    */
-  diffFromSourceFiles(params: IDiffFromSourceFiles): Promise<IFileCipherCatalogItemDiff[]>
+  diffFromPlainFiles(params: IDiffFromPlainFiles): Promise<IFileCipherCatalogItemDiff[]>
 }
 
 export interface ICheckIntegrityParams {
   flags: {
     /**
-     * Check integrity for source files.
+     * Check integrity for plain files.
      */
-    sourceFiles?: boolean
+    plainFiles?: boolean
     /**
      * Check integrity for encrypted files.
      */
-    encryptedFiles?: boolean
+    cryptFiles?: boolean
   }
 }
 
 export interface ICalcCatalogItemParams {
-  sourceFilepath: string
+  plainFilepath: string
   /**
-   * Check if a sourcefile should be keep plain.
-   * @param relativeSourceFilepath Relative source filepath
+   * Determine if a plain file should be keep plain.
+   * @param relativePlainFilepath relative plain filepath
    */
-  isKeepPlain?(relativeSourceFilepath: string): boolean
+  isKeepPlain?(relativePlainFilepath: string): boolean
 }
 
 export interface IDiffFromCatalogItemsParams {
   newItems: Iterable<IFileCipherCatalogItem>
 }
 
-export interface IDiffFromSourceFiles {
-  sourceFilepaths: string[]
+export interface IDiffFromPlainFiles {
+  plainFilepaths: string[]
   /**
-   * Check if a sourcefile should be keep plain.
-   * @param relativeSourceFilepath Relative source filepath
+   * Determine if a plain file should be keep plain.
+   * @param relativePlainFilepath relative plain filepath
    */
-  isKeepPlain?(relativeSourceFilepath: string): boolean
+  isKeepPlain?(relativePlainFilepath: string): boolean
 }
