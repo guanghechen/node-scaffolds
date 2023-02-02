@@ -304,6 +304,7 @@ describe('FileCipherCatalog', () => {
       await writeFile(filepathB, contentB, encoding)
       const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathA, filepathB],
+        strickCheck: true,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step1)
@@ -312,12 +313,32 @@ describe('FileCipherCatalog', () => {
       expect(Array.from(catalog.items)).toEqual([itemTable.A, itemTable.B])
     }
 
+    // corner case
+    {
+      await assertPromiseThrow(
+        () =>
+          catalog.diffFromPlainFiles({
+            plainFilepaths: [filepathD],
+            strickCheck: true,
+          }),
+        `is removed but it's not in the catalog before`,
+      )
+
+      expect(
+        await catalog.diffFromPlainFiles({
+          plainFilepaths: [filepathD],
+          strickCheck: false,
+        }),
+      ).toEqual([])
+    }
+
     // diffItems2
     {
       await rm(filepathA)
       await writeFile(filepathC, contentC, encoding)
       const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathA, filepathB, filepathC],
+        strickCheck: true,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step2)
@@ -332,6 +353,7 @@ describe('FileCipherCatalog', () => {
       await writeFile(filepathA, contentA, encoding)
       const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathA, filepathB, filepathC],
+        strickCheck: true,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step3)
@@ -347,6 +369,7 @@ describe('FileCipherCatalog', () => {
       await writeFile(filepathA, contentA2, encoding)
       const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathA, filepathC, filepathD],
+        strickCheck: true,
         isKeepPlain: sourceFilepath => sourceFilepath === 'd.txt',
       })
 
@@ -362,6 +385,7 @@ describe('FileCipherCatalog', () => {
       await rm(filepathD)
       const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathD, filepathA],
+        strickCheck: true,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step5)

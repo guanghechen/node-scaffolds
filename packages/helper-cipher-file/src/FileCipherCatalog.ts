@@ -218,6 +218,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   // @override
   public async diffFromPlainFiles({
     plainFilepaths,
+    strickCheck,
     isKeepPlain,
   }: IDiffFromPlainFiles): Promise<IFileCipherCatalogItemDiff[]> {
     const { pathResolver, _itemMap } = this
@@ -230,22 +231,30 @@ export class FileCipherCatalog implements IFileCipherCatalog {
       const absolutePlainFilepath = pathResolver.calcAbsolutePlainFilepath(plainFilepath)
       const isSrcFileExists = isFileSync(absolutePlainFilepath)
 
-      if (!isSrcFileExists && oldItem) {
-        removedItems.push({ changeType: FileChangeType.REMOVED, oldItem })
-        continue
-      }
+      if (isSrcFileExists) {
+        const newItem: IFileCipherCatalogItem = await this.calcCatalogItem({
+          plainFilepath: plainFilepath,
+          isKeepPlain,
+        })
 
-      const newItem: IFileCipherCatalogItem = await this.calcCatalogItem({
-        plainFilepath: plainFilepath,
-        isKeepPlain,
-      })
-
-      if (oldItem) {
-        if (!isSameFileCipherItem(oldItem, newItem)) {
-          modifiedItems.push({ changeType: FileChangeType.MODIFIED, oldItem, newItem })
+        if (oldItem) {
+          if (!isSameFileCipherItem(oldItem, newItem)) {
+            modifiedItems.push({ changeType: FileChangeType.MODIFIED, oldItem, newItem })
+          }
+        } else {
+          addedItems.push({ changeType: FileChangeType.ADDED, newItem })
         }
       } else {
-        addedItems.push({ changeType: FileChangeType.ADDED, newItem })
+        if (oldItem) {
+          removedItems.push({ changeType: FileChangeType.REMOVED, oldItem })
+        }
+
+        if (strickCheck) {
+          invariant(
+            !!oldItem,
+            `[diffFromPlainFiles] plainFilepath(${plainFilepath}) is removed but it's not in the catalog before.`,
+          )
+        }
       }
     }
     return [...removedItems, ...addedItems, ...modifiedItems]

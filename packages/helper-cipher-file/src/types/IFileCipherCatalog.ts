@@ -68,6 +68,10 @@ export interface IDiffFromCatalogItemsParams {
 export interface IDiffFromPlainFiles {
   plainFilepaths: string[]
   /**
+   * Check some edge cases that shouldn't affect the final result, just for higher integrity check.
+   */
+  strickCheck: boolean
+  /**
    * Determine if a plain file should be keep plain.
    * @param relativePlainFilepath relative plain filepath
    */
