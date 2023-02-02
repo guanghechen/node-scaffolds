@@ -56,3 +56,14 @@ export const unlinkSync = (...filepaths: Array<string | null | undefined | strin
     for (const p of filepath) if (fs.existsSync(p)) fs.unlinkSync(p)
   }
 }
+
+export const assertPromiseThrow = async (
+  fn: () => Promise<unknown>,
+  errorPattern: string | RegExp,
+): Promise<void> => {
+  await expect(() => fn()).rejects.toThrow(errorPattern)
+}
+
+export const assertPromiseNotThrow = async (fn: () => Promise<unknown>): Promise<void> => {
+  await expect(fn().then(() => {})).resolves.toBeUndefined()
+}

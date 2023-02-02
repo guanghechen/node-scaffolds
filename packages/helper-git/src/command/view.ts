@@ -19,38 +19,27 @@ export const listAllFiles = async (params: IListAllFilesParams): Promise<string[
   return files
 }
 
-export interface IListChangedFilesParams extends IGitCommandBaseParams {
-  branchOrCommitId: string
-  parentIds: string[]
+export interface IListDiffFiles extends IGitCommandBaseParams {
+  branchOrCommitId1: string
+  branchOrCommitId2: string
 }
 
-export const listChangedFiles = async (params: IListChangedFilesParams): Promise<string[]> => {
-  if (params.parentIds.length <= 0) return await listAllFiles(params)
-
+export const listDiffFiles = async (params: IListDiffFiles): Promise<string[]> => {
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
-  if (params.parentIds.length > 1) {
-    const fileSet: Set<string> = new Set()
-    for (const parentId of params.parentIds) {
-      const pFiles: string[] = await getChangedFilesFromCommitId(parentId)
-      for (const id of pFiles) fileSet.add(id)
-    }
-    const files: string[] = await getChangedFilesFromCommitId(params.branchOrCommitId)
-    for (const id of files) fileSet.add(id)
-    return Array.from(fileSet).filter(x => !!x)
-  } else {
-    const files: string[] = await getChangedFilesFromCommitId(params.branchOrCommitId)
-    return files.filter(x => !!x)
-  }
+  const result = await safeExeca(
+    'git',
+    ['diff', '--name-status', params.branchOrCommitId1, params.branchOrCommitId2],
+    execaOptions,
+  )
 
-  async function getChangedFilesFromCommitId(commitId: string): Promise<string[]> {
-    const result = await safeExeca(
-      'git',
-      ['diff-tree', '--no-commit-id', '--name-only', '-r', commitId],
-      execaOptions,
-    )
-    const files: string[] = result.stdout.trim().split(/\s*\n+\s*/g)
-    return files
+  const lines: string[] = result.stdout.trim().split(/\s*\n+\s*/g)
+  const files: string[] = []
+  for (const line of lines) {
+    const [symbol, file1, file2] = line.trim().split(/\s+/g)
+    if (symbol[0] === 'R') files.push(file1, file2)
+    else files.push(file1)
   }
+  return files
 }
 
 const regex = new RegExp(

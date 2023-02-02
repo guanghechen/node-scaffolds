@@ -2,28 +2,6 @@ import type { Options as IExecaOptions } from 'execa'
 import type { IGitCommandBaseParams, IGitCommitDagNode, IGitCommitWithMessage } from '../types'
 import { safeExeca } from '../util'
 
-export interface IGitGetCommitIdByMessageParams extends IGitCommandBaseParams {
-  messagePattern: string
-}
-
-/**
- * Get the commit ID by commit message.
- * @param params
- * @returns
- */
-export const getCommitIdByMessage = async (
-  params: IGitGetCommitIdByMessageParams,
-): Promise<string | never> => {
-  const cwd: string = params.cwd
-  const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
-  const args: string[] = ['rev-parse', `:/${params.messagePattern}`]
-
-  params?.logger?.debug(`[getCommitIdByMessage] cwd: {}, args: {}, env: {}`, cwd, args, env)
-  const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  const result = await safeExeca('git', args, execaOptions)
-  return result.stdout.trim()
-}
-
 export interface IGetCommitInTopologyParams extends IGitCommandBaseParams {
   branchOrCommitId: string
 }
@@ -56,7 +34,7 @@ export const getCommitInTopology = async (
 }
 
 export interface IGetCommitWithMessageListParams extends IGitCommandBaseParams {
-  branches: string[]
+  branchOrCommitIds: string[]
 }
 
 export const getCommitWithMessageList = async (
@@ -64,7 +42,7 @@ export const getCommitWithMessageList = async (
 ): Promise<IGitCommitWithMessage[]> => {
   const cwd: string = params.cwd
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
-  const args: string[] = ['log', ...params.branches, `--pretty=format:"%H %B"`]
+  const args: string[] = ['log', ...params.branchOrCommitIds, `--pretty=format:"%H %B"`]
 
   params?.logger?.debug(`[getCommitIdByMessage] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }

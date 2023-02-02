@@ -8,12 +8,19 @@ export interface IMergeCommitsParams
     Partial<Omit<IGitCommitInfo, 'commitId'>> {
   message: string
   parentIds: string[]
+  strategy?: 'resolve' | 'recursive' | 'octopus' | 'ours' | 'subtree'
 }
 
 export const mergeCommits = async (params: IMergeCommitsParams): Promise<void> => {
   const cwd: string = params.cwd
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
-  const args: string[] = ['merge', ...params.parentIds, '-m', params.message]
+  const args: string[] = [
+    'merge',
+    ...params.parentIds,
+    params.strategy ? [`--strategy=${params.strategy}`] : [],
+    '-m',
+    params.message,
+  ].flat()
 
   if (params.authorDate) {
     const date = dayjs(params.authorDate).format('ddd MMM DD HH:mm:ss YYYY ZZ')

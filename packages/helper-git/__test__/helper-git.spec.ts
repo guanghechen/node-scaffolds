@@ -16,14 +16,12 @@ import {
   createBranch,
   deleteBranch,
   getAllLocalBranches,
-  getCommitIdByMessage,
   getCommitInTopology,
   getCommitWithMessageList,
   hasUncommittedContent,
   initGitRepo,
   isGitRepo,
   listAllFiles,
-  listChangedFiles,
   mergeCommits,
   showCommitInfo,
   stageAll,
@@ -352,9 +350,6 @@ function runTest(params: IRunTestParams): void {
 
     await commitAll(commitTable.A)
     expect(await hasUncommittedContent(ctx)).toEqual(false)
-    expect(await getCommitIdByMessage({ ...ctx, messagePattern: commitTable.A.message })).toEqual(
-      commitIdTable.A,
-    )
 
     await writeFile(filepathB, 'B -- Hello, B.')
     expect(await hasUncommittedContent(ctx)).toEqual(true)
@@ -367,9 +362,6 @@ function runTest(params: IRunTestParams): void {
 
     await commitStaged(commitTable.B)
     expect(await hasUncommittedContent(ctx)).toEqual(true)
-    expect(await getCommitIdByMessage({ ...ctx, messagePattern: commitTable.B.message })).toEqual(
-      commitIdTable.B,
-    )
 
     await commitAll(commitTable.C)
     expect(await hasUncommittedContent(ctx)).toEqual(false)
@@ -397,13 +389,6 @@ function runTest(params: IRunTestParams): void {
     await writeFile(filepathB, 'H -- Hello, B.')
     await rm(filepathA)
     await commitAll(commitTable.H)
-
-    expect(await getCommitIdByMessage({ ...ctx, messagePattern: commitTable.C.message })).toEqual(
-      commitIdTable.C,
-    )
-    expect(await getCommitIdByMessage({ ...ctx, messagePattern: commitTable.H.message })).toEqual(
-      commitIdTable.H,
-    )
 
     await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.B })
     await writeFile(filepathB, 'I -- Hello, B.')
@@ -454,21 +439,6 @@ function runTest(params: IRunTestParams): void {
     expect(await wListAllFiles(commitTable.I)).toEqual([fpA, fpB, fpC])
     expect(await wListAllFiles(commitTable.J)).toEqual([fpB, fpC, fpD, fpE])
     expect(await wListAllFiles(commitTable.K)).toEqual([fpB, fpC, fpD, fpE])
-
-    // listChangedFiles
-    const wListChangedFiles = (commit: ICommitItem): ReturnType<typeof listChangedFiles> =>
-      listChangedFiles({ ...commit, branchOrCommitId: commit.commitId })
-    expect((await wListChangedFiles(commitTable.A)).sort()).toEqual([fpA])
-    expect((await wListChangedFiles(commitTable.B)).sort()).toEqual([fpB])
-    expect((await wListChangedFiles(commitTable.C)).sort()).toEqual([fpA])
-    expect((await wListChangedFiles(commitTable.D)).sort()).toEqual([fpB, fpC])
-    expect((await wListChangedFiles(commitTable.E)).sort()).toEqual([fpA])
-    expect((await wListChangedFiles(commitTable.F)).sort()).toEqual([fpA, fpB, fpC])
-    expect((await wListChangedFiles(commitTable.G)).sort()).toEqual([fpD])
-    expect((await wListChangedFiles(commitTable.H)).sort()).toEqual([fpA, fpB])
-    expect((await wListChangedFiles(commitTable.I)).sort()).toEqual([fpB, fpC])
-    expect((await wListChangedFiles(commitTable.J)).sort()).toEqual([fpA, fpB, fpC, fpD])
-    expect((await wListChangedFiles(commitTable.K)).sort()).toEqual([fpD, fpE])
 
     // showCommitInfo
     const wShowCommitInfo = (commit: ICommitItem): ReturnType<typeof showCommitInfo> =>
@@ -534,7 +504,7 @@ function runTest(params: IRunTestParams): void {
     expect(
       await getCommitWithMessageList({
         ...ctx,
-        branches: [commitTable.C.branchName, commitTable.I.branchName],
+        branchOrCommitIds: [commitTable.C.branchName, commitTable.I.branchName],
       }),
     ).toEqual([
       { id: commitTable.I.commitId, message: commitTable.I.message },
@@ -546,7 +516,7 @@ function runTest(params: IRunTestParams): void {
     expect(
       await getCommitWithMessageList({
         ...ctx,
-        branches: [commitTable.K.branchName],
+        branchOrCommitIds: [commitTable.K.branchName],
       }),
     ).toEqual([
       { id: commitTable.K.commitId, message: commitTable.K.message },
@@ -562,7 +532,7 @@ function runTest(params: IRunTestParams): void {
       { id: commitTable.A.commitId, message: commitTable.A.message },
     ])
 
-    expect(await getCommitWithMessageList({ ...ctx, branches: [] })).toEqual([
+    expect(await getCommitWithMessageList({ ...ctx, branchOrCommitIds: [] })).toEqual([
       { id: commitTable.K.commitId, message: commitTable.K.message },
       { id: commitTable.J.commitId, message: commitTable.J.message },
       { id: commitTable.I.commitId, message: commitTable.I.message },
