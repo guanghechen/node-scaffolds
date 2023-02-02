@@ -5,7 +5,7 @@ import { existsSync, statSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import type { IJsonConfig, IJsonConfigKeeper } from './types/IJsonConfigKeeper'
 
-export interface IGitCipherConfigProps<Data, Raw = Data> {
+export interface IJsonConfigKeeperProps<Data, Raw = Data> {
   readonly cipher: ICipher
   readonly filepath: string
   readonly __version__: string
@@ -22,7 +22,7 @@ export class JsonConfigKeeper<Data, Raw = Data> implements IJsonConfigKeeper<Dat
   private readonly serialize: (data: Data) => Raw
   private readonly deserialize: (content: Raw) => Data
 
-  constructor(props: IGitCipherConfigProps<Data, Raw>) {
+  constructor(props: IJsonConfigKeeperProps<Data, Raw>) {
     this.cipher = props.cipher
     this.filepath = props.filepath
     this.__version__ = props.__version__

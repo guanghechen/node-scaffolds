@@ -19,10 +19,7 @@ describe('FileCipherCatalog', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.FileCipherCatalog')
   const plainRootDir: string = path.join(workspaceDir, 'src')
   const cryptRootDir: string = path.join(workspaceDir, 'src_encrypted')
-  const pathResolver = new FileCipherPathResolver({
-    plainRootDir: plainRootDir,
-    cryptRootDir: cryptRootDir,
-  })
+  const pathResolver = new FileCipherPathResolver({ plainRootDir, cryptRootDir })
   const logger = new ChalkLogger({ name: 'FileCipherCatalog' })
 
   const filepathA: string = pathResolver.calcAbsolutePlainFilepath(itemTable.A.plainFilepath)

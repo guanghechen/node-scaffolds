@@ -1,4 +1,3 @@
-import type { ILogger } from '@guanghechen/utility-types'
 import dayjs from 'dayjs'
 import type { Options as IExecaOptions } from 'execa'
 import type { IGitCommandBaseParams, IGitCommitInfo } from '../types'
