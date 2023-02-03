@@ -169,10 +169,7 @@ describe('GitCipher', () => {
         { id: commitIdTable.G, parents: [commitIdTable.B] },
         { id: commitIdTable.H, parents: [commitIdTable.G, commitIdTable.E] },
         { id: commitIdTable.I, parents: [commitIdTable.G] },
-        {
-          id: commitIdTable.J,
-          parents: [commitIdTable.I, commitIdTable.H, commitIdTable.F],
-        },
+        { id: commitIdTable.J, parents: [commitIdTable.I, commitIdTable.H, commitIdTable.F] },
         { id: commitIdTable.K, parents: [commitIdTable.J] },
       ])
       expect(
@@ -355,10 +352,7 @@ describe('GitCipher', () => {
           { id: commitIdTable.G, parents: [commitIdTable.B] },
           { id: commitIdTable.H, parents: [commitIdTable.G, commitIdTable.E] },
           { id: commitIdTable.I, parents: [commitIdTable.G] },
-          {
-            id: commitIdTable.J,
-            parents: [commitIdTable.I, commitIdTable.H, commitIdTable.F],
-          },
+          { id: commitIdTable.J, parents: [commitIdTable.I, commitIdTable.H, commitIdTable.F] },
           { id: commitIdTable.K, parents: [commitIdTable.J] },
         ])
         expect(

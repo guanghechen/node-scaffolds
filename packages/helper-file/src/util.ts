@@ -12,6 +12,7 @@ export function calcFilePartItemsBySize(fileSize: number, _partSize: number): IF
   invariant(_partSize >= 1, 'Part size should be a positive integer!')
 
   if (fileSize <= 0) return [{ sid: 1, start: 0, end: 0 }]
+  if (fileSize <= _partSize) return [{ sid: 1, start: 0, end: fileSize }]
 
   const partSize = Math.round(_partSize)
   const partTotal = Math.ceil(fileSize / partSize)

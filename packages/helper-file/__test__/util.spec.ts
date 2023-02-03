@@ -14,6 +14,14 @@ describe('util', () => {
   const contentG: string = readFileSync(locateFixtures('g.md'), encoding)
 
   test('calcFilePartItemsBySize', () => {
+    expect(() => calcFilePartItemsBySize(100, 0)).toThrow('Part size should be a positive integer!')
+    expect(() => calcFilePartItemsBySize(100, Number.NEGATIVE_INFINITY)).toThrow(
+      'Part size should be a positive integer!',
+    )
+
+    expect(calcFilePartItemsBySize(100, Number.POSITIVE_INFINITY)).toEqual([
+      { sid: 1, start: 0, end: 100 },
+    ])
     expect(calcFilePartItemsBySize(contentA.length, 1024)).toEqual([{ sid: 1, start: 0, end: 9 }])
     expect(calcFilePartItemsBySize(contentB.length, 1024)).toEqual([{ sid: 1, start: 0, end: 315 }])
     expect(calcFilePartItemsBySize(contentC.length, 1024)).toEqual([
@@ -52,6 +60,13 @@ describe('util', () => {
   })
 
   test('calcFilePartItemsByCount', () => {
+    expect(() => calcFilePartItemsByCount(100, 0)).toThrow(
+      'Total of part should be a positive integer!',
+    )
+    expect(() => calcFilePartItemsByCount(100, Number.NEGATIVE_INFINITY)).toThrow(
+      'Total of part should be a positive integer!',
+    )
+
     expect(calcFilePartItemsByCount(contentA.length, 1)).toEqual([{ sid: 1, start: 0, end: 9 }])
     expect(calcFilePartItemsByCount(contentB.length, 3)).toEqual([
       { sid: 1, start: 0, end: 105 },

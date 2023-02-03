@@ -1,5 +1,5 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import { emptyDir } from '@guanghechen/helper-fs'
+import { emptyDir, rm } from '@guanghechen/helper-fs'
 import type { IConsoleMock } from '@guanghechen/helper-jest'
 import { createConsoleMock } from '@guanghechen/helper-jest'
 import { locateFixtures } from 'jest.helper'
@@ -24,7 +24,7 @@ describe('view', () => {
   })
   afterEach(async () => {
     logMock.restore()
-    // await rm(workspaceDir)
+    await rm(workspaceDir)
   })
 
   test('listAllFiles', async () => {
