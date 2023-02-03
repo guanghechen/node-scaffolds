@@ -16,7 +16,6 @@ export interface IEncryptGitBranchParams {
   cipherBatcher: IFileCipherBatcher
   pathResolver: FileCipherPathResolver
   configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
-  multilineMessagePrefix?: string
   logger?: ILogger
 }
 
@@ -38,7 +37,6 @@ export async function encryptGitBranch(params: IEncryptGitBranchParams): Promise
     cipherBatcher,
     pathResolver,
     configKeeper,
-    multilineMessagePrefix,
     logger,
   } = params
   const plainCommitNodes = await getCommitInTopology({
@@ -57,7 +55,6 @@ export async function encryptGitBranch(params: IEncryptGitBranchParams): Promise
         cipherBatcher,
         pathResolver,
         configKeeper,
-        multilineMessagePrefix,
         logger,
       })
       const { commitId: cryptCommitId } = await showCommitInfo({

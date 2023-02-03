@@ -13,7 +13,6 @@ export interface IGitCipherProps {
   cipherBatcher: IFileCipherBatcher
   configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
   logger?: ILogger
-  multilineMessagePrefix?: string
 }
 
 export interface IGitCipherEncryptParams {
@@ -29,35 +28,31 @@ export class GitCipher {
   public readonly cipherBatcher: IFileCipherBatcher
   public readonly configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
   public readonly logger?: ILogger
-  public readonly multilineMessagePrefix?: string
 
   constructor(props: IGitCipherProps) {
     this.cipherBatcher = props.cipherBatcher
     this.configKeeper = props.configKeeper
     this.logger = props.logger
-    this.multilineMessagePrefix = props.multilineMessagePrefix
   }
 
   public async encrypt(params: IGitCipherEncryptParams): Promise<void> {
-    const { cipherBatcher, configKeeper, logger, multilineMessagePrefix } = this
+    const { cipherBatcher, configKeeper, logger } = this
     await encryptGitRepo({
       pathResolver: params.pathResolver,
       catalog: params.catalog,
       cipherBatcher,
       configKeeper,
       logger,
-      multilineMessagePrefix,
     })
   }
 
   public async decrypt(params: IGitCipherDecryptParams): Promise<void> {
-    const { cipherBatcher, configKeeper, logger, multilineMessagePrefix } = this
+    const { cipherBatcher, configKeeper, logger } = this
     await decryptGitRepo({
       pathResolver: params.pathResolver,
       cipherBatcher,
       configKeeper,
       logger,
-      multilineMessagePrefix,
     })
   }
 }

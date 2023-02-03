@@ -87,11 +87,7 @@ describe('view', () => {
     })
 
     const assertShowCommitInfo = async (commit: ICommitItem): Promise<void> => {
-      const info = await showCommitInfo({
-        ...ctx,
-        branchOrCommitId: commit.commitId,
-        messagePrefix: '    ',
-      })
+      const info = await showCommitInfo({ ...ctx, branchOrCommitId: commit.commitId })
       expect(info).toEqual({
         commitId: commit.commitId,
         authorDate: commit.authorDate,

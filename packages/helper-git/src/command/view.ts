@@ -57,16 +57,11 @@ const regex = new RegExp(
 
 export interface IShowCommitInfoParams extends IGitCommandBaseParams {
   branchOrCommitId: string
-  /**
-   * @default '    '
-   */
-  messagePrefix?: string
 }
 
 export const showCommitInfo = async (
   params: IShowCommitInfoParams,
 ): Promise<IGitCommitInfo | never> => {
-  const messagePrefix: string = params.messagePrefix ?? '    '
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
   const result = await safeExeca(
     'git',
@@ -88,9 +83,10 @@ export const showCommitInfo = async (
     committerDate,
     rawMessage,
   ] = match
+
   const message: string = rawMessage
     .split(/\n/g)
-    .map(line => (line.startsWith(messagePrefix) ? line.slice(messagePrefix.length) : line))
+    .map(line => line.replace(/^([ ]{4}|\t)/, ''))
     .join('\n')
   return {
     commitId,

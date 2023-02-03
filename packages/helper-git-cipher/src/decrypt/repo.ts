@@ -27,7 +27,6 @@ export interface IDecryptGitRepoParams {
   configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
   pathResolver: FileCipherPathResolver
   logger?: ILogger
-  multilineMessagePrefix?: string
 }
 
 /**
@@ -40,7 +39,7 @@ export interface IDecryptGitRepoParams {
  * @param params
  */
 export async function decryptGitRepo(params: IDecryptGitRepoParams): Promise<void> {
-  const { cipherBatcher, configKeeper, pathResolver, logger, multilineMessagePrefix } = params
+  const { cipherBatcher, configKeeper, pathResolver, logger } = params
   invariant(
     !(await hasUncommittedContent({ cwd: pathResolver.cryptRootDir, logger })),
     '[decryptGitRepo] crypt repo has uncommitted contents.',
@@ -110,7 +109,6 @@ export async function decryptGitRepo(params: IDecryptGitRepoParams): Promise<voi
 
       const { commitId: plainHeadCommitId } = await showCommitInfo({
         branchOrCommitId: 'HEAD',
-        messagePrefix: multilineMessagePrefix,
         cwd: pathResolver.plainRootDir,
         logger,
       })
@@ -124,7 +122,6 @@ export async function decryptGitRepo(params: IDecryptGitRepoParams): Promise<voi
     if (oldPlainLocalBranch.currentBranch) {
       const { commitId: plainHeadCommitId } = await showCommitInfo({
         branchOrCommitId: 'HEAD',
-        messagePrefix: multilineMessagePrefix,
         cwd: pathResolver.plainRootDir,
         logger,
       })

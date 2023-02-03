@@ -28,7 +28,6 @@ const encoding: BufferEncoding = 'utf8'
 const cryptDir = 'encrypted'
 const maxTargetFileSize = 1024
 const partCodePrefix = '.ghc-part'
-const multilineMessagePrefix = '    '
 
 const cryptCommitIdTable = {
   A: '67b26f8e00df18a608e465a5680efd30ced8d02d',
@@ -61,7 +60,7 @@ describe('GitCipher', () => {
   const cryptCtx: IGitCommandBaseParams = { cwd: cryptRootDir, logger, execaOptions: {} }
   const bakPlainCtx: IGitCommandBaseParams = { cwd: bakRootDir, logger, execaOptions: {} }
 
-  const fileHelper = new BigFileHelper({ partCodePrefix: partCodePrefix })
+  const fileHelper = new BigFileHelper({ partCodePrefix })
   const cipherFactory = new AesCipherFactory()
   const cipher = cipherFactory.initFromPassword(Buffer.from('guanghechen', encoding), {
     salt: 'salt',
@@ -81,12 +80,7 @@ describe('GitCipher', () => {
     cipher,
     filepath: path.join(cryptRootDir, 'catalog.ghc.txt'),
   })
-  const gitCipher = new GitCipher({
-    cipherBatcher,
-    configKeeper,
-    logger,
-    multilineMessagePrefix,
-  })
+  const gitCipher = new GitCipher({ cipherBatcher, configKeeper, logger })
 
   const catalog = new FileCipherCatalog({
     pathResolver,

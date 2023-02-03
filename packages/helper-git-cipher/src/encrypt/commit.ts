@@ -28,7 +28,6 @@ export interface IEncryptGitCommitParams {
   cipherBatcher: IFileCipherBatcher
   pathResolver: FileCipherPathResolver
   configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
-  multilineMessagePrefix?: string
   logger?: ILogger
 }
 
@@ -49,7 +48,6 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     cipherBatcher,
     pathResolver,
     configKeeper,
-    multilineMessagePrefix,
     logger,
   } = params
 
@@ -89,7 +87,6 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
 
   const signature: IGitCommitInfo = await showCommitInfo({
     branchOrCommitId: plainCommitNode.id,
-    messagePrefix: multilineMessagePrefix,
     cwd: pathResolver.plainRootDir,
     logger,
   })
