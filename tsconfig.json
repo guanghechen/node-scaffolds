@@ -34,9 +34,7 @@
       "@guanghechen/tool-mini-copy": ["packages/tool-mini-copy/src"],
       "@guanghechen/utility-types": ["packages/utility-types/src"],
       "jest.helper": ["jest.helper.mts"],
-      "@guanghechen/helper-git/__test__/_data-repo1": [
-        "packages/helper-git/__test__/_data-repo1.ts"
-      ]
+      "@guanghechen/helper-git/__test__/*": ["packages/helper-git/__test__/*"]
     }
   },
   "exclude": ["**/__test__/fixtures"]

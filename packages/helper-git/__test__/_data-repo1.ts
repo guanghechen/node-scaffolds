@@ -30,7 +30,7 @@ export interface IBuildRepo1Params {
 
 export interface IBuildRepo1Result {
   commitIdTable: Record<ISymbol, string>
-  commitTable: Record<string, ICommitItem>
+  commitTable: Record<ISymbol, ICommitItem>
   fpA: string
   fpB: string
   fpC: string
@@ -50,6 +50,109 @@ export interface IBuildRepo1Result {
   contentC3: string
   contentD: string
 }
+
+export const getCommitArgTable = (): Record<ISymbol, Omit<IGitCommitInfo, 'commitId'>> => ({
+  A: {
+    message: 'A -- +a1,+b1 (a1,b1)',
+    authorDate: '2023-01-26T07:29:33.000Z',
+    authorName: 'guanghechen_a',
+    authorEmail: 'exmaple_a@gmail.com',
+    committerDate: '2023-01-26T07:29:33.000Z',
+    committerName: 'guanghechen_a',
+    committerEmail: 'exmaple_a@gmail.com',
+  },
+  B: {
+    message: 'B -- a1->a2,+c1 (a2,b1,c1)',
+    authorDate: '2023-01-27T03:50:35.000Z',
+    authorName: 'guanghechen_b',
+    authorEmail: 'exmaple_b@gmail.com',
+    committerDate: '2023-01-27T03:50:35.000Z',
+    committerName: 'guanghechen_b',
+    committerEmail: 'exmaple_b@gmail.com',
+  },
+  C: {
+    message: 'C -- -a2 (b1,c1)',
+    authorDate: '2023-01-27T03:51:32.000Z',
+    authorName: 'guanghechen_c',
+    authorEmail: 'exmaple_c@gmail.com',
+    committerDate: '2023-01-27T03:51:32.000Z',
+    committerName: 'guanghechen_c',
+    committerEmail: 'exmaple_c@gmail.com',
+  },
+  D: {
+    message: 'D -- +a1,c1->c2 (a1,b1,c2)',
+    authorDate: '2023-01-27T03:53:37.000Z',
+    authorName: 'guanghechen_d',
+    authorEmail: 'exmaple_d@gmail.com',
+    committerDate: '2023-01-27T03:53:37.000Z',
+    committerName: 'guanghechen_d',
+    committerEmail: 'exmaple_d@gmail.com',
+  },
+  E: {
+    message: 'E -- -b1,c1->c2, (c2)',
+    authorDate: '2023-01-27T06:58:43.000Z',
+    authorName: 'guanghechen_e',
+    authorEmail: 'exmaple_e@gmail.com',
+    committerDate: '2023-01-27T06:58:43.000Z',
+    committerName: 'guanghechen_e',
+    committerEmail: 'exmaple_e@gmail.com',
+  },
+  F: {
+    message: 'F -- merge D and E <no conflict> (a1,c2)',
+    authorDate: '2023-01-27T06:59:16.000Z',
+    authorName: 'guanghechen_f',
+    authorEmail: 'exmaple_f@gmail.com',
+    committerDate: '2023-01-27T06:59:16.000Z',
+    committerName: 'guanghechen_f',
+    committerEmail: 'exmaple_f@gmail.com',
+  },
+  G: {
+    message: 'G -- c1->c3,b1->b2 (a2,b2,c3)',
+    authorDate: '2023-01-27T06:59:42.000Z',
+    authorName: 'guanghechen_g',
+    authorEmail: 'exmaple_g@gmail.com',
+    committerDate: '2023-01-27T06:59:42.000Z',
+    committerName: 'guanghechen_g',
+    committerEmail: 'exmaple_g@gmail.com',
+  },
+  H: {
+    message: 'H -- Merge E and G <conflict> (b2,c3)',
+    authorDate: '2023-01-27T07:00:08.000Z',
+    authorName: 'guanghechen_h',
+    authorEmail: 'exmaple_h@gmail.com',
+    committerDate: '2023-01-27T07:00:08.000Z',
+    committerName: 'guanghechen_h',
+    committerEmail: 'exmaple_h@gmail.com',
+  },
+  I: {
+    message: 'I -- b2->b1,+d (a2,b1,c3,d)',
+    authorDate: '2023-01-27T07:00:30.000Z',
+    authorName: 'guanghechen_i',
+    authorEmail: 'exmaple_i@gmail.com',
+    committerDate: '2023-01-27T07:00:30.000Z',
+    committerName: 'guanghechen_i',
+    committerEmail: 'exmaple_i@gmail.com',
+  },
+  J: {
+    message: 'J -- merge F,H,I <conflict> (a2,b2,c3,d)',
+    authorDate: '2023-01-27T07:00:45.000Z',
+    authorName: 'guanghechen_j',
+    authorEmail: 'exmaple_j@gmail.com',
+    committerDate: '2023-01-27T07:00:45.000Z',
+    committerName: 'guanghechen_i',
+    committerEmail: 'exmaple_i@gmail.com',
+  },
+  K: {
+    message:
+      'K -- d->e (a2,b2,c3,e)\n\nupdate d,e\ntest multilines message with quotes\'"\n\n  Will it be respected?',
+    authorDate: '2023-01-27T07:01:01.000Z',
+    authorName: 'guanghechen_k',
+    authorEmail: 'exmaple_k@gmail.com',
+    committerDate: '2023-01-27T07:01:01.000Z',
+    committerName: 'guanghechen_i',
+    committerEmail: 'exmaple_i@gmail.com',
+  },
+})
 
 /**
 
@@ -74,7 +177,6 @@ export interface IBuildRepo1Result {
 ```
 
  */
-
 export async function buildRepo1({
   repoDir,
   logger,
@@ -106,6 +208,7 @@ export async function buildRepo1({
 
   const ctx: IGitCommandBaseParams = { cwd: repoDir, logger, execaOptions }
 
+  const commitArgTable = getCommitArgTable()
   const commitIdTable = {
     A: '104269042e92f735f1a006a11ca60f91435e1530',
     B: '31e45924180c2280f47e95a6891fc4f1545b1af9',
@@ -119,19 +222,13 @@ export async function buildRepo1({
     J: 'c4edeedf7d521506621a8296d9bdd7463de9c417',
     K: '993cd742131484376043502ff676bbb9c74b7237',
   }
-  const commitTable: Record<string, ICommitItem> = {
+  const commitTable: Record<ISymbol, ICommitItem> = {
     A: {
       ...ctx,
       branchName: 'A',
       commitId: commitIdTable.A,
       parentIds: [],
-      message: 'A -- +a1,+b1 (a1,b1)',
-      authorDate: '2023-01-26T07:29:33.000Z',
-      authorName: 'guanghechen_a',
-      authorEmail: 'exmaple_a@gmail.com',
-      committerDate: '2023-01-26T07:29:33.000Z',
-      committerName: 'guanghechen_a',
-      committerEmail: 'exmaple_a@gmail.com',
+      ...commitArgTable.A,
       amend: false,
     },
     B: {
@@ -139,13 +236,7 @@ export async function buildRepo1({
       branchName: 'B',
       commitId: commitIdTable.B,
       parentIds: [commitIdTable.A],
-      message: 'B -- a1->a2,+c1 (a2,b1,c1)',
-      authorDate: '2023-01-27T03:50:35.000Z',
-      authorName: 'guanghechen_b',
-      authorEmail: 'exmaple_b@gmail.com',
-      committerDate: '2023-01-27T03:50:35.000Z',
-      committerName: 'guanghechen_b',
-      committerEmail: 'exmaple_b@gmail.com',
+      ...commitArgTable.B,
       amend: false,
     },
     C: {
@@ -153,13 +244,7 @@ export async function buildRepo1({
       branchName: 'C',
       commitId: commitIdTable.C,
       parentIds: [commitIdTable.B],
-      message: 'C -- -a2 (b1,c1)',
-      authorDate: '2023-01-27T03:51:32.000Z',
-      authorName: 'guanghechen_c',
-      authorEmail: 'exmaple_c@gmail.com',
-      committerDate: '2023-01-27T03:51:32.000Z',
-      committerName: 'guanghechen_c',
-      committerEmail: 'exmaple_c@gmail.com',
+      ...commitArgTable.C,
       amend: false,
     },
     D: {
@@ -167,13 +252,7 @@ export async function buildRepo1({
       branchName: 'D',
       commitId: commitIdTable.D,
       parentIds: [commitIdTable.C],
-      message: 'D -- +a1,c1->c2 (a1,b1,c2)',
-      authorDate: '2023-01-27T03:53:37.000Z',
-      authorName: 'guanghechen_d',
-      authorEmail: 'exmaple_d@gmail.com',
-      committerDate: '2023-01-27T03:53:37.000Z',
-      committerName: 'guanghechen_d',
-      committerEmail: 'exmaple_d@gmail.com',
+      ...commitArgTable.D,
       amend: false,
     },
     E: {
@@ -181,13 +260,7 @@ export async function buildRepo1({
       branchName: 'E',
       commitId: commitIdTable.E,
       parentIds: [commitIdTable.C],
-      message: 'E -- -b1,c1->c2, (c2)',
-      authorDate: '2023-01-27T06:58:43.000Z',
-      authorName: 'guanghechen_e',
-      authorEmail: 'exmaple_e@gmail.com',
-      committerDate: '2023-01-27T06:58:43.000Z',
-      committerName: 'guanghechen_e',
-      committerEmail: 'exmaple_e@gmail.com',
+      ...commitArgTable.E,
       amend: false,
     },
     F: {
@@ -195,13 +268,7 @@ export async function buildRepo1({
       branchName: 'F',
       commitId: commitIdTable.F,
       parentIds: [commitIdTable.E, commitIdTable.D],
-      message: 'F -- merge D and E <no conflict> (a1,c2)',
-      authorDate: '2023-01-27T06:59:16.000Z',
-      authorName: 'guanghechen_f',
-      authorEmail: 'exmaple_f@gmail.com',
-      committerDate: '2023-01-27T06:59:16.000Z',
-      committerName: 'guanghechen_f',
-      committerEmail: 'exmaple_f@gmail.com',
+      ...commitArgTable.F,
       amend: false,
     },
     G: {
@@ -209,13 +276,7 @@ export async function buildRepo1({
       branchName: 'G',
       commitId: commitIdTable.G,
       parentIds: [commitIdTable.B],
-      message: 'G -- c1->c3,b1->b2 (a2,b2,c3)',
-      authorDate: '2023-01-27T06:59:42.000Z',
-      authorName: 'guanghechen_g',
-      authorEmail: 'exmaple_g@gmail.com',
-      committerDate: '2023-01-27T06:59:42.000Z',
-      committerName: 'guanghechen_g',
-      committerEmail: 'exmaple_g@gmail.com',
+      ...commitArgTable.G,
       amend: false,
     },
     H: {
@@ -223,13 +284,7 @@ export async function buildRepo1({
       branchName: 'H',
       commitId: commitIdTable.H,
       parentIds: [commitIdTable.G, commitIdTable.E],
-      message: 'H -- Merge E and G <conflict> (b2,c3)',
-      authorDate: '2023-01-27T07:00:08.000Z',
-      authorName: 'guanghechen_h',
-      authorEmail: 'exmaple_h@gmail.com',
-      committerDate: '2023-01-27T07:00:08.000Z',
-      committerName: 'guanghechen_h',
-      committerEmail: 'exmaple_h@gmail.com',
+      ...commitArgTable.H,
       amend: false,
     },
     I: {
@@ -237,13 +292,7 @@ export async function buildRepo1({
       branchName: 'I',
       commitId: commitIdTable.I,
       parentIds: [commitIdTable.G],
-      message: 'I -- b2->b1,+d (a2,b1,c3,d)',
-      authorDate: '2023-01-27T07:00:30.000Z',
-      authorName: 'guanghechen_i',
-      authorEmail: 'exmaple_i@gmail.com',
-      committerDate: '2023-01-27T07:00:30.000Z',
-      committerName: 'guanghechen_i',
-      committerEmail: 'exmaple_i@gmail.com',
+      ...commitArgTable.I,
       amend: false,
     },
     J: {
@@ -251,13 +300,7 @@ export async function buildRepo1({
       branchName: 'J',
       commitId: commitIdTable.J,
       parentIds: [commitIdTable.I, commitIdTable.H, commitIdTable.F],
-      message: 'J -- merge F,H,I <conflict> (a2,b2,c3,d)',
-      authorDate: '2023-01-27T07:00:45.000Z',
-      authorName: 'guanghechen_j',
-      authorEmail: 'exmaple_j@gmail.com',
-      committerDate: '2023-01-27T07:00:45.000Z',
-      committerName: 'guanghechen_i',
-      committerEmail: 'exmaple_i@gmail.com',
+      ...commitArgTable.J,
       amend: false,
     },
     K: {
@@ -265,14 +308,7 @@ export async function buildRepo1({
       branchName: 'K',
       commitId: commitIdTable.K,
       parentIds: [commitIdTable.J],
-      message:
-        'K -- d->e (a2,b2,c3,e)\n\nupdate d,e\ntest multilines message with quotes\'"\n\n  Will it be respected?',
-      authorDate: '2023-01-27T07:01:01.000Z',
-      authorName: 'guanghechen_k',
-      authorEmail: 'exmaple_k@gmail.com',
-      committerDate: '2023-01-27T07:01:01.000Z',
-      committerName: 'guanghechen_i',
-      committerEmail: 'exmaple_i@gmail.com',
+      ...commitArgTable.K,
       amend: false,
     },
   }
