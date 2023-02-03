@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GitCipher from scratch: error log 1`] = `
+[
+  [
+    "[safeExeca] failed to run:",
+    "git",
+    "merge 06d25f06c6cd40756bf61624f1ee37bf014ec6d0 28fc4e74bf3bc436c21774dfc9947d60116d9716 -m 'H -- Merge E and G <conflict> (b2,c3)'",
+  ],
+]
+`;
+
+exports[`GitCipher incremental update: error log 1`] = `
+[
+  [
+    "[safeExeca] failed to run:",
+    "git",
+    "merge 06d25f06c6cd40756bf61624f1ee37bf014ec6d0 28fc4e74bf3bc436c21774dfc9947d60116d9716 -m 'H -- Merge E and G <conflict> (b2,c3)'",
+  ],
+]
+`;

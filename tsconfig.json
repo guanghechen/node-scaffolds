@@ -14,6 +14,7 @@
       "@guanghechen/helper-fs": ["packages/helper-fs/src"],
       "@guanghechen/helper-func": ["packages/helper-func/src"],
       "@guanghechen/helper-git": ["packages/helper-git/src"],
+      "@guanghechen/helper-git-cipher": ["packages/helper-git-cipher/src"],
       "@guanghechen/helper-is": ["packages/helper-is/src"],
       "@guanghechen/helper-jest": ["packages/helper-jest/src"],
       "@guanghechen/helper-npm": ["packages/helper-npm/src"],
@@ -33,7 +34,10 @@
       "@guanghechen/tool-git-cipher": ["packages/tool-git-cipher/src"],
       "@guanghechen/tool-mini-copy": ["packages/tool-mini-copy/src"],
       "@guanghechen/utility-types": ["packages/utility-types/src"],
-      "jest.helper": ["jest.helper.mts"]
+      "jest.helper": ["jest.helper.mts"],
+      "@guanghechen/helper-git/__test__/_data-repo1": [
+        "packages/helper-git/__test__/_data-repo1.ts"
+      ]
     }
   },
   "exclude": ["**/__test__/fixtures"]
