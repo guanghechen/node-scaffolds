@@ -9,7 +9,7 @@ import {
   contentTable,
   diffItemsTable,
   encoding,
-  encryptedDir,
+  encryptedFilesDir,
   itemTable,
   maxTargetFileSize,
   partCodePrefix,
@@ -35,7 +35,7 @@ describe('FileCipherCatalog', () => {
 
   const catalog = new FileCipherCatalog({
     pathResolver,
-    cryptDir: encryptedDir,
+    encryptedFilesDir,
     maxTargetFileSize,
     partCodePrefix,
     logger,

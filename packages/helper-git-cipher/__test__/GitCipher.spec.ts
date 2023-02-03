@@ -25,7 +25,7 @@ import path from 'node:path'
 import { GitCipher, GitCipherConfig } from '../src'
 
 const encoding: BufferEncoding = 'utf8'
-const cryptDir = 'encrypted'
+const encryptedFilesDir = 'encrypted'
 const maxTargetFileSize = 1024
 const partCodePrefix = '.ghc-part'
 
@@ -84,7 +84,7 @@ describe('GitCipher', () => {
 
   const catalog = new FileCipherCatalog({
     pathResolver,
-    cryptDir,
+    encryptedFilesDir,
     maxTargetFileSize,
     partCodePrefix,
     logger,

@@ -113,6 +113,6 @@ export const contentTable: Record<ISymbol, string> = {
 }
 
 export const encoding: BufferEncoding = 'utf8'
-export const encryptedDir = 'encrypted'
+export const encryptedFilesDir = 'encrypted'
 export const maxTargetFileSize = 1024
 export const partCodePrefix = '.ghc-part'

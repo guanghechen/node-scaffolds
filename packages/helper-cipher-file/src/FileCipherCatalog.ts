@@ -26,7 +26,7 @@ export interface IFileCipherCatalogProps {
   pathResolver: FileCipherPathResolver
   maxTargetFileSize: number
   partCodePrefix: string
-  cryptDir: string
+  encryptedFilesDir: string
   logger?: Logger
   isKeepPlain(relativePlainFilepath: string): boolean
 }
@@ -35,7 +35,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   public readonly pathResolver: FileCipherPathResolver
   public readonly maxTargetFileSize: number
   public readonly partCodePrefix: string
-  public readonly cryptDir: string
+  public readonly encryptedFilesDir: string
   protected readonly logger?: Logger
   protected readonly isKeepPlain: (relativePlainFilepath: string) => boolean
   protected readonly _itemMap: Map<string, IFileCipherCatalogItem>
@@ -44,7 +44,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     this.pathResolver = props.pathResolver
     this.maxTargetFileSize = props.maxTargetFileSize
     this.partCodePrefix = props.partCodePrefix
-    this.cryptDir = props.cryptDir
+    this.encryptedFilesDir = props.encryptedFilesDir
     this.isKeepPlain = props.isKeepPlain
     this._itemMap = new Map()
     this.logger = props.logger
@@ -95,7 +95,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     plainFilepath,
     isKeepPlain = this.isKeepPlain,
   }: ICalcCatalogItemParams): Promise<IFileCipherCatalogItem | never> {
-    const { cryptDir, maxTargetFileSize, partCodePrefix, pathResolver } = this
+    const { encryptedFilesDir, maxTargetFileSize, partCodePrefix, pathResolver } = this
     const absolutePlainFilepath = pathResolver.calcAbsolutePlainFilepath(plainFilepath)
     const relativePlainFilepath = pathResolver.calcRelativePlainFilepath(absolutePlainFilepath)
     const plainFilepathKey = normalizePlainFilepath(relativePlainFilepath, pathResolver)
@@ -105,7 +105,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     const keepPlain: boolean = isKeepPlain(relativePlainFilepath)
     const cryptFilepath: string = keepPlain
       ? relativePlainFilepath
-      : path.join(cryptDir, calcFingerprintFromString(plainFilepathKey, 'utf8'))
+      : path.join(encryptedFilesDir, calcFingerprintFromString(plainFilepathKey, 'utf8'))
     const cryptFileParts = calcFilePartNames(
       calcFilePartItemsBySize(fileSize, maxTargetFileSize),
       partCodePrefix,
