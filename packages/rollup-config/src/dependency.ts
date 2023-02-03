@@ -106,11 +106,8 @@ export async function collectAllDependencies(
 }
 
 function locateNearestFilepath(currentDir: string, filenames: string | string[]): string | null {
-  // Uniform parameter format.
-  if (!Array.isArray(filenames)) {
-    // eslint-disable-next-line no-param-reassign
-    filenames = [filenames]
-  }
+  // eslint-disable-next-line no-param-reassign
+  filenames = [filenames].flat()
 
   for (const filename of filenames) {
     const filepath = path.join(currentDir, filename)
@@ -118,7 +115,7 @@ function locateNearestFilepath(currentDir: string, filenames: string | string[])
   }
 
   const parentDir = path.dirname(currentDir)
-  if (parentDir === currentDir) return null
+  if (parentDir === currentDir || !path.isAbsolute(parentDir)) return null
 
   // Recursively locate.
   return locateNearestFilepath(parentDir, filenames)

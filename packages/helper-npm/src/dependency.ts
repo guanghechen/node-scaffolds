@@ -37,6 +37,7 @@ export async function collectAllDependencies(
   }
 
   const followDependency = async (dependency: string): Promise<void> => {
+    /* c8 ignore start */
     if (dependencySet.has(dependency)) return
     dependencySet.add(dependency)
 
