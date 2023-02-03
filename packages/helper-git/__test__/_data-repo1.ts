@@ -13,6 +13,7 @@ import {
   initGitRepo,
   listAllFiles,
   mergeCommits,
+  showCommitInfo,
 } from '../src'
 
 type ISymbol = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K'
@@ -153,6 +154,8 @@ export const getCommitArgTable = (): Record<ISymbol, Omit<IGitCommitInfo, 'commi
     committerEmail: 'exmaple_i@gmail.com',
   },
 })
+
+const isCI = !!process.env.GHC_IS_CI
 
 /**
 
@@ -320,6 +323,20 @@ export async function buildRepo1({
     authorName: 'guanghechen',
     authorEmail: 'example@gmail.com',
   })
+
+  const localCommitIdTable = { ...commitIdTable }
+  const finalCommitIdTableMap: Map<string, string> = new Map()
+  const resetCommitId = async (symbol: ISymbol): Promise<void> => {
+    if (isCI) {
+      const { commitId } = await showCommitInfo({ ...ctx, branchOrCommitId: 'HEAD' })
+      finalCommitIdTableMap.set(localCommitIdTable[symbol], commitId)
+      commitIdTable[symbol] = commitId
+      commitTable[symbol].commitId = commitId
+      commitTable[symbol].parentIds = commitTable[symbol].parentIds.map(
+        id => finalCommitIdTableMap.get(id)!,
+      )
+    }
+  }
 
   // A: +a1,+b1 (a1,b1)
   const stepA = async (): Promise<void> => {
@@ -496,18 +513,29 @@ export async function buildRepo1({
   }
 
   await stepA()
+  await resetCommitId('A')
   await stepB()
+  await resetCommitId('B')
   await stepC()
+  await resetCommitId('C')
   await stepD()
+  await resetCommitId('D')
   await stepE()
+  await resetCommitId('E')
   await stepF()
+  await resetCommitId('F')
   await stepG()
+  await resetCommitId('G')
   await stepH()
+  await resetCommitId('H')
   await stepI()
+  await resetCommitId('I')
   await stepJ()
+  await resetCommitId('J')
   await stepK()
+  await resetCommitId('K')
 
-  await checkBranch({ ...ctx, branchOrCommitId: 'HEAD' })
+  await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.K })
   await deleteBranch({ ...ctx, branchName: defaultBranch, force: true })
   await createBranch({ ...ctx, newBranchName: defaultBranch, branchOrCommitId: 'HEAD' })
   await checkBranch({ ...ctx, branchOrCommitId: defaultBranch })

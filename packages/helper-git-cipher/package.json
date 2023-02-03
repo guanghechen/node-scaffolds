@@ -37,7 +37,9 @@
   "scripts": {
     "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
     "prepublishOnly": "yarn build",
-    "test": "is-ci || cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
+    "test": "is-ci && yarn test:ci || yarn test:local",
+    "test:ci": "cross-env GHC_IS_CI=true yarn test:local",
+    "test:local": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
     "@guanghechen/helper-cipher-file": "^3.0.2",
