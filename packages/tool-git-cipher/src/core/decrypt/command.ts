@@ -7,14 +7,13 @@ import { logger } from '../../env/logger'
 import { resolveGlobalCommandOptions } from '../option'
 import type { ISubCommandDecryptOptions } from './option'
 import { getDefaultCommandDecryptOptions } from './option'
-/**
- * create Sub-command: decrypt (e)
- */
-export const createSubCommandDecrypt = function (
+
+// Create Sub-command: decrypt (e)
+export const createSubCommandDecrypt = (
   handle?: ISubCommandProcessor<ISubCommandDecryptOptions>,
   commandName = 'decrypt',
   aliases: string[] = ['d'],
-): Command {
+): Command => {
   const command = new Command()
 
   command
@@ -41,14 +40,8 @@ export const createSubCommandDecrypt = function (
       })()
       logger.debug('outDir:', outDir)
 
-      const resolvedOptions: ISubCommandDecryptOptions = {
-        ...defaultOptions,
-        outDir,
-      }
-
-      if (handle != null) {
-        await handle(resolvedOptions)
-      }
+      const resolvedOptions: ISubCommandDecryptOptions = { ...defaultOptions, outDir }
+      await handle?.(resolvedOptions)
     })
 
   return command

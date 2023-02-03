@@ -1,24 +1,39 @@
-import { calcMac } from '@guanghechen/helper-cipher'
+import { calcMac } from '@guanghechen/helper-cipher-file'
 import { destroyBuffer } from '@guanghechen/helper-stream'
-import type { ICustomError } from '../events'
-import { ErrorCode } from '../events'
-import { input } from './input'
+import type { ICustomError } from './events'
+import { ErrorCode } from './events'
+import { inputAnswer } from './input'
 
-/**
- *
- * @param question           Question to ask for input password
- * @param showAsterisk       Whether to print asterisks when entering a password
- * @param maxInputRetryTimes Max retry times due to the bad input
- * @param minimumSize        Minimum length of password
- * @param maximumSize        Maximum length of password
- */
-export async function inputPassword(
-  question: string,
-  showAsterisk: boolean,
+interface IInputPasswordParams {
+  /**
+   * Question to ask for input password.
+   */
+  question: string
+  /**
+   * Whether to print asterisks when entering a password.
+   */
+  showAsterisk: boolean
+  /**
+   * Max retry times due to the bad input.
+   */
+  maxInputRetryTimes?: number
+  /**
+   * Minimum length of password.
+   */
+  minimumSize?: number
+  /**
+   * Maximum length of password.
+   */
+  maximumSize?: number
+}
+
+export async function inputPassword({
+  question,
+  showAsterisk,
   maxInputRetryTimes = 3,
   minimumSize = -1,
   maximumSize = -1,
-): Promise<Buffer> {
+}: IInputPasswordParams): Promise<Buffer> {
   let hint: string
   const isValidPassword = (password: Buffer | null): boolean => {
     if (password == null || (minimumSize > 0 && password.length < minimumSize)) {
@@ -43,14 +58,14 @@ export async function inputPassword(
     return true
   }
 
-  const password: Buffer | null = await input(
-    question.padStart(20),
-    isValidPassword,
-    isValidCharacter,
-    () => `(${hint}) ${question}`,
-    maxInputRetryTimes,
+  const password: Buffer | null = await inputAnswer({
+    question: question.padStart(20),
+    maxRetryTimes: maxInputRetryTimes,
     showAsterisk,
-  )
+    isValidAnswer: isValidPassword,
+    isValidCharacter,
+    hintOnInvalidAnswer: () => `(${hint}) ${question}`,
+  })
 
   if (password == null) {
     const error: ICustomError = {
@@ -68,28 +83,43 @@ export async function inputPassword(
   return hashedPassword
 }
 
-/**
- * Ask for repeat password from terminal
- * @param password       The password entered earlier
- * @param question       Question to ask for input password
- * @param showAsterisk   Whether to print asterisks when entering a password
- * @param minimumSize    Minimum length of password
- * @param maximumSize    Maximum length of password
- */
-export async function confirmPassword(
-  password: Buffer,
+export interface IConfirmPasswordParams {
+  /**
+   * The password entered earlier
+   */
+  password: Buffer
+  /**
+   * Question to ask for input password
+   */
+  question?: string
+  /**
+   * Whether to print asterisks when entering a password
+   */
+  showAsterisk?: boolean
+  /**
+   * Minimum length of password
+   */
+  minimumSize?: number
+  /**
+   * Maximum length of password
+   */
+  maximumSize?: number
+}
+
+export async function confirmPassword({
+  password,
+  showAsterisk = true,
   question = 'Repeat Password: ',
-  showAsterisk: boolean,
   minimumSize = -1,
   maximumSize = -1,
-): Promise<boolean | never> {
-  const repeatedPassword: Buffer = await inputPassword(
+}: IConfirmPasswordParams): Promise<boolean | never> {
+  const repeatedPassword: Buffer = await inputPassword({
     question,
     showAsterisk,
-    1,
+    maxInputRetryTimes: 1,
     minimumSize,
     maximumSize,
-  )
+  })
   const isSame = (): boolean => {
     if (repeatedPassword.length !== password.length) return false
     for (let i = 0; i < password.length; ++i) {

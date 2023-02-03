@@ -5,6 +5,9 @@ import type { Options as IExecaOptions } from 'execa'
 import { execa } from 'execa'
 import inquirer from 'inquirer'
 
+// Check if the git installed.
+export const hasGitInstalled = (): boolean => commandExists.sync('git')
+
 /**
  * Create a git commit with all file changes
  *
@@ -27,13 +30,8 @@ export async function createInitialCommit(
   plopBypass: string[],
   logger?: ChalkLogger,
 ): Promise<void> {
-  /**
-   * If git is not installed yet, this operation will be skipped
-   */
-  const hasGitInstalled: boolean = commandExists.sync('git')
-  if (!hasGitInstalled) {
-    return
-  }
+  // If git is not installed yet, this operation will be skipped
+  if (!hasGitInstalled()) return
 
   let doInitialCommit: boolean
   if (plopBypass.length > 0) {

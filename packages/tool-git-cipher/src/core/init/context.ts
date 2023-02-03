@@ -1,64 +1,71 @@
+import type { IPBKDF2Options } from '@guanghechen/helper-cipher'
 import type { ISubCommandInitOptions } from './option'
 
-/**
- * Context variables for GitCipherInitContext
- */
 export interface IGitCipherInitContext {
   /**
-   * Path of currently executing command
+   * Path of currently executing command.
    */
   readonly cwd: string
   /**
-   * Working directory
+   * Working directory.
    */
   readonly workspace: string
   /**
-   * default encoding of files in the workspace
+   * Default encoding of files in the workspace.
    */
   readonly encoding: string
   /**
-   * path of secret file
+   * Options for PBKDF2 algorithm.
+   */
+  readonly pbkdf2Options: IPBKDF2Options
+  /**
+   * The path of secret file.
    */
   readonly secretFilepath: string
   /**
-   * path of index file of ciphertext files
+   * The path of catalog file of crypt repo.
    */
-  readonly indexFilepath: string
+  readonly catalogFilepath: string
   /**
-   * Encoding of ciphered index file
+   * The directory where the plain repo located.
    */
-  readonly cipheredIndexEncoding: string
+  readonly plainRootDir: string
   /**
-   * the directory where the encrypted files are stored
+   * The directory where the crypt repo located.
    */
-  readonly ciphertextRootDir: string
+  readonly cryptRootDir: string
   /**
-   * the directory where the source plaintext files are stored
+   * A relative path of cryptRootDir, where the encrypted files located.
    */
-  readonly plaintextRootDir: string
+  readonly encryptedFilesDir: string
   /**
-   * whether to print password asterisks
+   * Whether to print password asterisks.
    */
   readonly showAsterisk: boolean
   /**
-   * the minimum size required of password
+   * The minimum size required of password.
    */
   readonly minPasswordLength: number
   /**
-   * the maximum size required of password
+   * The maximum size required of password.
    */
   readonly maxPasswordLength: number
   /**
    * Max size (byte) of target file, once the file size exceeds this value,
    * the target file is split into multiple files.
    */
-  readonly maxTargetFileSize?: number
+  readonly maxTargetFileSize: number
+  /**
+   * Prefix of parts code.
+   */
+  readonly partCodePrefix: string
+  /**
+   * Glob patterns indicated which files should be keepPlain.
+   * @default []
+   */
+  readonly keepPlainPatterns: string[]
 }
 
-/**
- * Create GitCipherInitContext
- * @param options
- */
 export async function createGitCipherInitContextFromOptions(
   options: ISubCommandInitOptions,
 ): Promise<IGitCipherInitContext> {
@@ -66,15 +73,18 @@ export async function createGitCipherInitContextFromOptions(
     cwd: options.cwd,
     workspace: options.workspace,
     encoding: options.encoding,
+    pbkdf2Options: options.pbkdf2Options,
     secretFilepath: options.secretFilepath,
-    indexFilepath: options.indexFilepath,
-    cipheredIndexEncoding: options.cipheredIndexEncoding,
-    ciphertextRootDir: options.ciphertextRootDir,
-    plaintextRootDir: options.plaintextRootDir,
+    catalogFilepath: options.catalogFilepath,
+    plainRootDir: options.plainRootDir,
+    cryptRootDir: options.cryptRootDir,
+    encryptedFilesDir: options.encryptedFilesDir,
     showAsterisk: options.showAsterisk,
     minPasswordLength: options.minPasswordLength,
     maxPasswordLength: options.maxPasswordLength,
     maxTargetFileSize: options.maxTargetFileSize,
+    partCodePrefix: options.partCodePrefix,
+    keepPlainPatterns: options.keepPlainPatterns,
   }
   return context
 }

@@ -11,44 +11,29 @@ import type { ISubCommandDecryptOptions } from '../core/decrypt/option'
 import { GitCipherDecryptProcessor } from '../core/decrypt/processor'
 import { handleError } from './_util'
 
-/**
- * Process sub-command: 'decrypt'
- *
- * @param options
- * @returns {void|Promise<void>}
- */
-export const processSubCommandDecrypt: ISubCommandProcessor<ISubCommandDecryptOptions> =
-  async function (options: ISubCommandDecryptOptions): Promise<void> {
-    try {
-      const context: IGitCipherDecryptContext = await createGitCipherDecryptContextFromOptions(
-        options,
-      )
-      const processor = new GitCipherDecryptProcessor(context)
-      await processor.decrypt()
-    } catch (error) {
-      handleError(error)
-    }
+// Process sub-command: 'decrypt'
+export const processSubCommandDecrypt: ISubCommandProcessor<ISubCommandDecryptOptions> = async (
+  options: ISubCommandDecryptOptions,
+): Promise<void> => {
+  try {
+    const context: IGitCipherDecryptContext = await createGitCipherDecryptContextFromOptions(
+      options,
+    )
+    const processor = new GitCipherDecryptProcessor(context)
+    await processor.decrypt()
+  } catch (error) {
+    handleError(error)
   }
+}
 
-/**
- * Mount Sub-command: decrypt
- *
- * @param {Command}   parentCommand
- * @returns {void}
- */
+// Mount Sub-command: decrypt
 export const mountSubCommandDecrypt: ISubCommandMounter =
   createSubCommandMounter<ISubCommandDecryptOptions>(
     createSubCommandDecrypt,
     processSubCommandDecrypt,
   )
 
-/**
- * Execute sub-command: 'decrypt'
- *
- * @param {Command}   parentCommand
- * @param {string[]}  args
- * @returns {Promise}
- */
+// Execute sub-command: 'decrypt'
 export const execSubCommandDecrypt: ISubCommandExecutor =
   createSubCommandExecutor<ISubCommandDecryptOptions>(
     createSubCommandDecrypt,

@@ -43,8 +43,11 @@
     "@guanghechen/chalk-logger": "^3.0.2",
     "@guanghechen/event-bus": "^3.0.2",
     "@guanghechen/helper-cipher": "^3.0.2",
+    "@guanghechen/helper-cipher-file": "^3.0.2",
     "@guanghechen/helper-commander": "^3.0.2",
+    "@guanghechen/helper-file": "^3.0.2",
     "@guanghechen/helper-fs": "^3.0.2",
+    "@guanghechen/helper-git-cipher": "^3.0.2",
     "@guanghechen/helper-is": "^3.0.2",
     "@guanghechen/helper-option": "^3.0.2",
     "@guanghechen/helper-path": "^3.0.2",
@@ -52,13 +55,14 @@
     "@guanghechen/helper-stream": "^3.0.2",
     "@guanghechen/helper-string": "^3.0.2",
     "@guanghechen/invariant": "^3.0.2",
-    "command-exists": "^1.2.9",
     "execa": "^6.1.0",
     "inquirer": "^9.1.4",
+    "micromatch": "^4.0.5",
     "node-plop": "~0.31.0"
   },
   "devDependencies": {
     "@guanghechen/rollup-config-cli": "^3.0.2",
+    "@types/micromatch": "^4.0.2",
     "cross-env": "^7.0.3",
     "rimraf": "^4.1.2",
     "rollup": "^3.11.0"

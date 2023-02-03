@@ -1,17 +1,18 @@
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { destroyBuffer } from '@guanghechen/helper-stream'
-import { EventTypes, eventBus } from '../events'
+import { EventTypes, eventBus } from './events'
 
-/**
- * @param question
- * @param isValidCharacter
- * @param showAsterisk
- */
-export function inputOneLine(
-  question?: string,
-  isValidCharacter?: (c: number) => boolean,
+export interface IInputSingleLineParams {
+  question?: string
+  showAsterisk?: boolean
+  isValidCharacter?(c: number): boolean
+}
+
+export function inputSingleLine({
+  question,
+  isValidCharacter,
   showAsterisk = true,
-): Promise<Buffer> {
+}: IInputSingleLineParams): Promise<Buffer> {
   return new Promise<Buffer>((resolve, reject) => {
     const stdin = process.stdin
     const stdout = process.stdout
@@ -97,22 +98,22 @@ export function inputOneLine(
   })
 }
 
-/**
- * Get data from stdin
- * @param question
- * @param isValidAnswer
- * @param hintOnInvalidAnswer
- * @param maxRetryTimes
- * @param showAsterisk
- */
-export async function input(
-  question: string,
-  isValidAnswer?: (answer: Buffer | null) => boolean,
-  isValidCharacter?: (c: number) => boolean,
-  hintOnInvalidAnswer?: (answer: Buffer | null) => string,
+export interface IInputAnswerParams {
+  question: string
+  maxRetryTimes?: number
+  showAsterisk?: boolean
+  isValidAnswer?(answer: Buffer | null): boolean
+  isValidCharacter?(c: number): boolean
+  hintOnInvalidAnswer?(answer: Buffer | null): string
+}
+export async function inputAnswer({
+  question,
   maxRetryTimes = 3,
   showAsterisk = true,
-): Promise<Buffer | null> {
+  isValidAnswer,
+  isValidCharacter,
+  hintOnInvalidAnswer,
+}: IInputAnswerParams): Promise<Buffer | null> {
   let answer: Buffer | null = null
   for (let i = 0, end = Math.max(0, maxRetryTimes) + 1; i < end; ++i) {
     let questionWithHint: string = question
@@ -125,9 +126,12 @@ export async function input(
 
     // destroy previous answer before read new answer
     destroyBuffer(answer)
-    answer = null
 
-    answer = await inputOneLine(questionWithHint, isValidCharacter, showAsterisk)
+    answer = await inputSingleLine({
+      question: questionWithHint,
+      isValidCharacter,
+      showAsterisk,
+    })
     if (!isValidAnswer || isValidAnswer(answer)) break
   }
   return answer

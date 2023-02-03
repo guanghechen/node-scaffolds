@@ -1,13 +1,15 @@
-import type { ICipher } from '@guanghechen/helper-cipher'
-import { AesCipherFactory, CipherCatalog, FileCipher } from '@guanghechen/helper-cipher'
-import { createInitialCommit, installDependencies } from '@guanghechen/helper-commander'
+import { AesCipherFactory } from '@guanghechen/helper-cipher'
+import {
+  createInitialCommit,
+  hasGitInstalled,
+  installDependencies,
+} from '@guanghechen/helper-commander'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
 import { runPlop } from '@guanghechen/helper-plop'
 import { toLowerCase } from '@guanghechen/helper-string'
 import invariant from '@guanghechen/invariant'
-import commandExists from 'command-exists'
 import { execa } from 'execa'
 import inquirer from 'inquirer'
 import nodePlop from 'node-plop'
@@ -25,7 +27,7 @@ export class GitCipherInitProcessor {
     this.context = context
     this.secretMaster = new SecretMaster({
       cipherFactory: new AesCipherFactory(),
-      secretFileEncoding: context.encoding,
+      pbkdf2Options: context.pbkdf2Options,
       secretContentEncoding: 'hex',
       showAsterisk: context.showAsterisk,
       minPasswordLength: context.minPasswordLength,
@@ -34,70 +36,50 @@ export class GitCipherInitProcessor {
   }
 
   public async init(): Promise<void> {
+    invariant(!hasGitInstalled(), 'Cannot find git, have you installed it?')
+
     const { context } = this
-    const hasGitInstalled: boolean = commandExists.sync('git')
-    if (!hasGitInstalled) {
-      throw new Error('Cannot find git, have you installed it?')
-    }
+    logger.debug('context:', context)
 
-    // render templates
-    await this.renderTemplates()
+    // Render templates.
+    await this._renderTemplates()
 
-    // create secret  file
-    await this.createSecretFile()
+    // Create secret file.
+    await this._createSecretFile()
 
-    // create index file
-    await this.createIndexFile()
+    // Install dependencies.
+    await installDependencies({ stdio: 'inherit', cwd: context.workspace }, [], logger)
 
-    // install dependencies
-    await installDependencies(
-      {
-        stdio: 'inherit',
-        cwd: context.workspace,
-      },
-      [],
-      logger,
-    )
-
-    // create initial commit
-    await createInitialCommit(
-      {
-        stdio: 'inherit',
-        cwd: context.workspace,
-      },
-      [],
-      logger,
-    )
+    // Create initial commit
+    await createInitialCommit({ stdio: 'inherit', cwd: context.workspace }, [], logger)
   }
 
-  /**
-   * Render templates
-   */
-  protected async renderTemplates(): Promise<void> {
+  // Render templates
+  protected async _renderTemplates(): Promise<void> {
     const { context } = this
 
     // request repository url
-    let { plaintextRepositoryUrl } = await inquirer.prompt([
+    let { plainRepoUrl } = await inquirer.prompt([
       {
         type: 'input',
-        name: 'plaintextRepositoryUrl',
+        name: 'plainRepoUrl',
         message: 'Resource git repository url?',
         filter: x => toLowerCase(x).trim(),
         transformer: (x: string) => toLowerCase(x).trim(),
       },
     ])
 
-    // resolve plaintextRepositoryUrl
-    if (isNonBlankString(plaintextRepositoryUrl)) {
-      if (/^[.]/.test(plaintextRepositoryUrl)) {
-        plaintextRepositoryUrl = absoluteOfWorkspace(context.workspace, plaintextRepositoryUrl)
+    // resolve plainRepoUrl
+    if (isNonBlankString(plainRepoUrl)) {
+      if (/^[.]/.test(plainRepoUrl)) {
+        plainRepoUrl = absoluteOfWorkspace(context.workspace, plainRepoUrl)
       }
     }
-    logger.debug('plaintextRepositoryUrl:', plaintextRepositoryUrl)
+    logger.debug('plainRepoUrl:', plainRepoUrl)
 
     // clone plaintext repository
-    if (isNonBlankString(plaintextRepositoryUrl)) {
-      await this.cloneFromRemote(plaintextRepositoryUrl)
+    if (isNonBlankString(plainRepoUrl)) {
+      await this.cloneFromRemote(plainRepoUrl)
     }
 
     const templateConfig = resolveTemplateFilepath('plop.mjs')
@@ -111,11 +93,10 @@ export class GitCipherInitProcessor {
       templateVersion: COMMAND_VERSION,
       encoding: context.encoding,
       secretFilepath: relativeOfWorkspace(context.workspace, context.secretFilepath),
-      indexFilepath: relativeOfWorkspace(context.workspace, context.indexFilepath),
-      cipheredIndexEncoding: context.cipheredIndexEncoding,
-      ciphertextRootDir: relativeOfWorkspace(context.workspace, context.ciphertextRootDir),
-      plaintextRootDir: relativeOfWorkspace(context.workspace, context.plaintextRootDir),
-      plaintextRepositoryUrl,
+      catalogFilepath: relativeOfWorkspace(context.workspace, context.catalogFilepath),
+      cryptRootDir: relativeOfWorkspace(context.workspace, context.cryptRootDir),
+      plainRootDir: relativeOfWorkspace(context.workspace, context.plainRootDir),
+      plainRepoUrl,
       showAsterisk: context.showAsterisk,
       minPasswordLength: context.minPasswordLength,
       maxPasswordLength: context.maxPasswordLength,
@@ -127,7 +108,7 @@ export class GitCipherInitProcessor {
   /**
    * Create secret file
    */
-  protected async createSecretFile(): Promise<void> {
+  protected async _createSecretFile(): Promise<void> {
     const { context } = this
     const oldSecretMaster = this.secretMaster
     this.secretMaster = await oldSecretMaster.recreate()
@@ -136,36 +117,15 @@ export class GitCipherInitProcessor {
   }
 
   /**
-   * Create index file
-   */
-  protected async createIndexFile(): Promise<void> {
-    const { context, secretMaster } = this
-    mkdirsIfNotExists(context.plaintextRootDir, true)
-
-    const cipher: ICipher | null = secretMaster.cipher
-    invariant(cipher != null, '[processor.encrypt] Secret cipher is not available!')
-
-    const fileCipher = new FileCipher({ cipher, logger })
-    const catalog = new CipherCatalog({
-      fileCipher,
-      sourceRootDir: context.plaintextRootDir,
-      targetRootDir: context.ciphertextRootDir,
-      maxTargetFileSize: context.maxTargetFileSize,
-    })
-    await catalog.save(context.indexFilepath)
-  }
-
-  /**
    * Clone from remote plaintext repository
-   * @param plaintextRepositoryUrl  url of remote source repository
+   * @param plainRepoUrl  url of remote source repository
    */
-  protected async cloneFromRemote(plaintextRepositoryUrl: string): Promise<void> {
+  protected async cloneFromRemote(plainRepoUrl: string): Promise<void> {
     const { context } = this
-
-    mkdirsIfNotExists(context.plaintextRootDir, true, logger)
-    await execa('git', ['clone', plaintextRepositoryUrl, context.plaintextRootDir], {
+    mkdirsIfNotExists(context.plainRootDir, true, logger)
+    await execa('git', ['clone', plainRepoUrl, context.plainRootDir], {
       stdio: 'inherit',
-      cwd: context.plaintextRootDir,
+      cwd: context.plainRootDir,
     })
   }
 }

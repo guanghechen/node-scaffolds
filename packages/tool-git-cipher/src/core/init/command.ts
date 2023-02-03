@@ -5,14 +5,12 @@ import { resolveGlobalCommandOptions } from '../option'
 import type { ISubCommandInitOptions } from './option'
 import { getDefaultCommandOptions } from './option'
 
-/**
- * create Sub-command: init (i)
- */
-export const createSubCommandInit = function (
+// Create Sub-command: init (i)
+export const createSubCommandInit = (
   handle?: (options: ISubCommandInitOptions) => void | Promise<void>,
   commandName = 'init',
   aliases: string[] = ['i'],
-): Command {
+): Command => {
   const command = new Command()
 
   command
@@ -30,13 +28,8 @@ export const createSubCommandInit = function (
         options,
       )
 
-      const resolvedOptions: ISubCommandInitOptions = {
-        ...defaultOptions,
-      }
-
-      if (handle != null) {
-        await handle(resolvedOptions)
-      }
+      const resolvedOptions: ISubCommandInitOptions = { ...defaultOptions }
+      await handle?.(resolvedOptions)
     })
 
   return command
