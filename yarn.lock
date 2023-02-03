@@ -605,16 +605,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-blob@workspace:packages/helper-blob":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/helper-blob@workspace:packages/helper-blob"
-  dependencies:
-    cross-env: ^7.0.3
-    rimraf: ^4.1.2
-    rollup: ^3.11.0
-  languageName: unknown
-  linkType: soft
-
 "@guanghechen/helper-cipher-file@^3.0.2, @guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file"

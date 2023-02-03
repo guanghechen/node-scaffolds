@@ -1,9 +1,0 @@
-{
-  "extends": "../../tsconfig.settings",
-  "compilerOptions": {
-    "declarationDir": "lib/types",
-    "lib": ["esnext", "dom", "dom.iterable"],
-    "rootDir": "src"
-  },
-  "include": ["src"]
-}
