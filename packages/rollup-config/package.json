@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x",
     "directory": "packages/rollup-config"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/rollup-config#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/rollup-config#readme",
   "keywords": [
     "rollup",
     "typescript"

@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-cipher-file#readme">@guanghechen/helper-cipher-file</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-cipher-file#readme">@guanghechen/helper-cipher-file</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-cipher-file">
@@ -150,4 +150,4 @@ calcFingerprintFromFile   | Calc fingerprint from file.
 
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-cipher-file#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-cipher-file#readme

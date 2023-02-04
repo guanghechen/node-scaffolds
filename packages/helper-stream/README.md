@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-stream#readme">@guanghechen/helper-stream</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-stream#readme">@guanghechen/helper-stream</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-stream">
@@ -112,4 +112,4 @@ Name              | Description
   ```
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-stream#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-stream#readme

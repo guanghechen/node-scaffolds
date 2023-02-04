@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x",
     "directory": "packages/helper-cipher-file"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-cipher-file#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-cipher-file#readme",
   "keywords": [
     "cipher",
     "cipher helper"

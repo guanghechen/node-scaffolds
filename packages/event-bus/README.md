@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/event-bus#readme">@guanghechen/event-bus</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/event-bus#readme">@guanghechen/event-bus</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/event-bus">
@@ -102,4 +102,4 @@ A simple event bus.
   ```
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/event-bus#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/event-bus#readme

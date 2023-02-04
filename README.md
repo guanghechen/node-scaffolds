@@ -86,10 +86,10 @@ Package                               | Description
 
 ## License
 
-node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/LICENSE).
+node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/LICENSE).
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x
 [@guanghechen/chalk-logger]: ./packages/chalk-logger
 [@guanghechen/eslint-config]: ./packages/eslint-config
 [@guanghechen/eslint-config-jsx]: ./packages/eslint-config-jsx

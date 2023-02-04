@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x",
     "directory": "packages/eslint-config-ts"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/eslint-config-ts#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/eslint-config-ts#readme",
   "keywords": [
     "eslint",
     "eslint config",

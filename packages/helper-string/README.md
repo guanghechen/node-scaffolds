@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-string#readme">@guanghechen/helper-string</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-string#readme">@guanghechen/helper-string</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-string">
@@ -97,4 +97,4 @@ Utilities for processing strings or stringify other type data.
     ```
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-3.x.x/packages/helper-string#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-string#readme
