@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/tool-mini-copy",
-  "version": "4.0.0-alpha.3",
+  "version": "4.0.0-alpha.4",
   "description": "A cli tool to copy / paste with system clipboard or customized fake clipboard (file).",
   "author": {
     "name": "guanghechen",
@@ -40,18 +40,18 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@guanghechen/chalk-logger": "^4.0.0-alpha.3",
-    "@guanghechen/helper-commander": "^4.0.0-alpha.3",
-    "@guanghechen/helper-fs": "^4.0.0-alpha.3",
-    "@guanghechen/helper-is": "^4.0.0-alpha.3",
-    "@guanghechen/helper-option": "^4.0.0-alpha.3",
-    "@guanghechen/helper-path": "^4.0.0-alpha.3",
-    "@guanghechen/invariant": "^4.0.0-alpha.3",
-    "@guanghechen/mini-copy": "^4.0.0-alpha.3",
+    "@guanghechen/chalk-logger": "^4.0.0-alpha.4",
+    "@guanghechen/helper-commander": "^4.0.0-alpha.4",
+    "@guanghechen/helper-fs": "^4.0.0-alpha.4",
+    "@guanghechen/helper-is": "^4.0.0-alpha.4",
+    "@guanghechen/helper-option": "^4.0.0-alpha.4",
+    "@guanghechen/helper-path": "^4.0.0-alpha.4",
+    "@guanghechen/invariant": "^4.0.0-alpha.4",
+    "@guanghechen/mini-copy": "^4.0.0-alpha.4",
     "inquirer": "^9.1.4"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config-cli": "^4.0.0-alpha.3",
+    "@guanghechen/rollup-config-cli": "^4.0.0-alpha.4",
     "cross-env": "^7.0.3",
     "rimraf": "^4.1.2",
     "rollup": "^3.13.0"

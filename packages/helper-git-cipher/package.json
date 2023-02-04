@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-git-cipher",
-  "version": "4.0.0-alpha.3",
+  "version": "4.0.0-alpha.4",
   "description": "Utility functions for encrypt / decrypt git repo.",
   "author": {
     "name": "guanghechen",
@@ -40,17 +40,17 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-cipher-file": "^4.0.0-alpha.3",
-    "@guanghechen/helper-git": "^4.0.0-alpha.3",
-    "@guanghechen/invariant": "^4.0.0-alpha.3",
-    "@guanghechen/utility-types": "^4.0.0-alpha.3",
+    "@guanghechen/helper-cipher-file": "^4.0.0-alpha.4",
+    "@guanghechen/helper-git": "^4.0.0-alpha.4",
+    "@guanghechen/invariant": "^4.0.0-alpha.4",
+    "@guanghechen/utility-types": "^4.0.0-alpha.4",
     "dayjs": "^1.11.7",
     "execa": "^6.1.0"
   },
   "devDependencies": {
-    "@guanghechen/chalk-logger": "^4.0.0-alpha.3",
-    "@guanghechen/helper-fs": "^4.0.0-alpha.3",
-    "@guanghechen/helper-jest": "^4.0.0-alpha.3",
+    "@guanghechen/chalk-logger": "^4.0.0-alpha.4",
+    "@guanghechen/helper-fs": "^4.0.0-alpha.4",
+    "@guanghechen/helper-jest": "^4.0.0-alpha.4",
     "cross-env": "^7.0.3",
     "jest": "^29.4.1",
     "rimraf": "^4.1.2",
