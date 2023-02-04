@@ -1,6 +1,7 @@
 import { AesCipherFactory } from '@guanghechen/helper-cipher'
 import { hasGitInstalled, installDependencies } from '@guanghechen/helper-commander'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
+import { initGitRepo, stageAll } from '@guanghechen/helper-git'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
 import { runPlop } from '@guanghechen/helper-plop'
@@ -45,6 +46,16 @@ export class GitCipherInitProcessor {
 
     // Install dependencies.
     await installDependencies({ stdio: 'inherit', cwd: context.workspace }, [], logger)
+
+    // Init git repo.
+    await initGitRepo({
+      cwd: context.workspace,
+      logger,
+      gpgSign: false,
+      eol: 'lf',
+      encoding: 'utf-8',
+    })
+    await stageAll({ cwd: context.workspace, logger })
   }
 
   // Render templates

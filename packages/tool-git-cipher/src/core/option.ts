@@ -34,11 +34,6 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
    */
   readonly catalogFilepath: string
   /**
-   * The directory where the plain repo located.
-   * @default 'ghc-plain'
-   */
-  readonly plainRootDir: string
-  /**
    * The directory where the crypt repo located.
    * @default 'ghc-crypt'
    */
@@ -98,7 +93,6 @@ export const getDefaultGlobalCommandOptions = (): IGlobalCommandOptions => ({
   },
   secretFilepath: '.ghc-secret',
   catalogFilepath: '.ghc-catalog',
-  plainRootDir: 'ghc-plain',
   cryptRootDir: 'ghc-crypt',
   encryptedFilesDir: 'encrypted',
   encryptedFilePathSalt: 'encrypted_path_salt',
@@ -183,13 +177,6 @@ export function resolveGlobalCommandOptions<C extends object>(
   )
   logger.debug('catalogFilepath:', catalogFilepath)
 
-  // Resolve plainRootDir
-  const plainRootDir: string = absoluteOfWorkspace(
-    workspaceDir,
-    cover<string>(resolvedDefaultOptions.plainRootDir, options.plainRootDir, isNonBlankString),
-  )
-  logger.debug('plainRootDir:', plainRootDir)
-
   // Resolve cryptRootDir
   const cryptRootDir: string = absoluteOfWorkspace(
     workspaceDir,
@@ -255,7 +242,6 @@ export function resolveGlobalCommandOptions<C extends object>(
     pbkdf2Options,
     secretFilepath,
     catalogFilepath,
-    plainRootDir,
     cryptRootDir,
     encryptedFilesDir,
     encryptedFilePathSalt,

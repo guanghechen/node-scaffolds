@@ -80,7 +80,7 @@ export async function createGitCipherEncryptContextFromOptions(
     pbkdf2Options: options.pbkdf2Options,
     secretFilepath: options.secretFilepath,
     catalogFilepath: options.catalogFilepath,
-    plainRootDir: options.plainRootDir,
+    plainRootDir: options.workspace,
     cryptRootDir: options.cryptRootDir,
     encryptedFilesDir: options.encryptedFilesDir,
     encryptedFilePathSalt: options.encryptedFilePathSalt,
