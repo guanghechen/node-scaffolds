@@ -30,17 +30,17 @@ const maxTargetFileSize = 1024
 const partCodePrefix = '.ghc-part'
 
 const cryptCommitIdTable = {
-  A: '67b26f8e00df18a608e465a5680efd30ced8d02d',
-  B: 'b5895a740051257b04f92b1b750b3ba6c709c716',
-  C: '07fc2d2b3d1037cc743812c89039f26f99df925c',
-  D: '4af9bd6a4700ab759d57d458fe02d335f1c86f29',
-  E: '21944054759529758ffe4d6a5106509809807cb1',
-  F: '8badc060f441834fa2258a5732647301ceb6d583',
-  G: '0d0cab88c672480c3095a04ec24598684bb573b1',
-  H: '7ceac78048361b622b67ca249c568d5b3f6386bb',
-  I: '7ce10051a0885c345b511d1b479597b620fcdc95',
-  J: '7324e4d828e78f4b04386a37c14fd810a57815b5',
-  K: '5b43023ea85cbb6d8605a2bb1f0ac27248c9c1ec',
+  A: '8a2ef34c6fb656ba8797b98bd5425c44b919a636',
+  B: '651e984ded8d2c9eab99a54a3ba1b52da7eb2827',
+  C: '8deda0dde6b8457740084e5dbf8d3873dec00b91',
+  D: '2ccc3343814522c0107297ed59b7a7804a972b7a',
+  E: 'ee0dc3b2ef88ee57a9434d28861e88412fc9d43a',
+  F: '37bb74f1bde205c4089be1f2a776507c948eb07e',
+  G: 'ce04973c1da0b2101c99db4366dbc5cb2dc8be61',
+  H: 'f89ff7e68f6caea10f00052201fb40eba5ec3fa7',
+  I: '0fcd0445bd47801931b45e94eb035b9a814b1b6f',
+  J: '71fde290f9343e90be9d4fe50ea9d2dbc437d4f7',
+  K: '61200e851bdbeae43b9e2105b8e05f6377f2dfb2',
 }
 
 describe('GitCipher', () => {
@@ -182,7 +182,13 @@ describe('GitCipher', () => {
         { id: commitIdTable.A, message: commitTable.A.message },
       ])
 
-      expect(logMock.getIndiscriminateAll()).toMatchSnapshot('error log')
+      expect(logMock.getIndiscriminateAll()).toEqual([
+        [
+          '[safeExeca] failed to run:',
+          'git',
+          `merge ${commitIdTable.G} ${commitIdTable.E} -m '${commitTable.H.message}'`,
+        ],
+      ])
     },
     20 * 1000,
   )
@@ -366,7 +372,13 @@ describe('GitCipher', () => {
         ])
       }
 
-      expect(logMock.getIndiscriminateAll()).toMatchSnapshot('error log')
+      expect(logMock.getIndiscriminateAll()).toEqual([
+        [
+          '[safeExeca] failed to run:',
+          'git',
+          `merge ${commitIdTable.G} ${commitIdTable.E} -m '${commitTable.H.message}'`,
+        ],
+      ])
     },
     20 * 1000,
   )

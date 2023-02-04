@@ -1,7 +1,6 @@
-import dayjs from 'dayjs'
 import type { Options as IExecaOptions } from 'execa'
 import type { IGitCommandBaseParams, IGitCommitInfo } from '../types'
-import { safeExeca } from '../util'
+import { formatGitDate, safeExeca } from '../util'
 
 export interface IMergeCommitsParams
   extends IGitCommandBaseParams,
@@ -23,7 +22,7 @@ export const mergeCommits = async (params: IMergeCommitsParams): Promise<void> =
   ].flat()
 
   if (params.authorDate) {
-    const date = dayjs(params.authorDate).format('ddd MMM DD HH:mm:ss YYYY ZZ')
+    const date = formatGitDate(params.authorDate)
     env.GIT_AUTHOR_DATE = date
     env.GIT_COMMITTER_DATE = date
   }
@@ -36,7 +35,7 @@ export const mergeCommits = async (params: IMergeCommitsParams): Promise<void> =
     env.GIT_COMMITTER_EMAIL = params.authorEmail
   }
   if (params.committerDate) {
-    env.GIT_COMMITTER_DATE = dayjs(params.committerDate).format('ddd MMM DD HH:mm:ss YYYY ZZ')
+    env.GIT_COMMITTER_DATE = formatGitDate(params.committerDate)
   }
   if (params.committerName) env.GIT_COMMITTER_NAME = params.committerName
   if (params.committerEmail) env.GIT_COMMITTER_EMAIL = params.committerEmail

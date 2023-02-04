@@ -1,7 +1,7 @@
 import { mkdirsIfNotExists, rm, writeFile } from '@guanghechen/helper-fs'
 import type { ILogger } from '@guanghechen/utility-types'
 import type { Options as IExecaOptions } from 'execa'
-import { assertPromiseThrow, isCI } from 'jest.helper'
+import { assertPromiseThrow } from 'jest.helper'
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import type { IGitCommandBaseParams, IGitCommitInfo } from '../src'
@@ -51,6 +51,9 @@ export interface IBuildRepo1Result {
   contentC3: string
   contentD: string
 }
+
+// const isVolatileCommitId = !!isCI
+const isVolatileCommitId = false
 
 export const getCommitArgTable = (): Record<ISymbol, Omit<IGitCommitInfo, 'commitId'>> => ({
   A: {
@@ -211,17 +214,17 @@ export async function buildRepo1({
 
   const commitArgTable = getCommitArgTable()
   const commitIdTable = {
-    A: '104269042e92f735f1a006a11ca60f91435e1530',
-    B: '31e45924180c2280f47e95a6891fc4f1545b1af9',
-    C: '2a386aa42b60cd4fffa15341bb1418f9acabb79f',
-    D: 'cbeca71f8d00551f6565a450de582f4005ee4725',
-    E: '28fc4e74bf3bc436c21774dfc9947d60116d9716',
-    F: '8710b6a7a5174b6024a63f66a47f76f0a01bf465',
-    G: '06d25f06c6cd40756bf61624f1ee37bf014ec6d0',
-    H: '9f32afa6b6b4f1a57aab90da497e2982348b385c',
-    I: '3a394ce736aad9c33532e07262e685e4a1a709b0',
-    J: 'c4edeedf7d521506621a8296d9bdd7463de9c417',
-    K: '993cd742131484376043502ff676bbb9c74b7237',
+    A: 'dc37093aa7ba41efa8e905850c16616f5d8a52a8',
+    B: 'b59fc65465578502e74635dceaa48258253e228f',
+    C: '40dc1db5ba0488f90b2727116cc909f19c62617d',
+    D: '3f4fc9e00633766d0d3ed742cc723b88f99b3ae9',
+    E: '9d45e2dc5468c6902c015925a7cecfb8b29504e7',
+    F: '2017844536ece2b0670ba93be48b069304a75823',
+    G: '270d4c09f0a531bb2a944c00e616cdb76f4cbc00',
+    H: '8f6e351cf5978ea7ced2013fe4d6cf87a2c7d518',
+    I: 'b331e6a0df7ca6fe53880a8e45649751ad71c1dd',
+    J: '593f658d7e2ab642689bde1fdebb42629a92c8ad',
+    K: '7ec3265ad8e1ea95a582c373076eac15ec6bfdda',
   }
   const commitTable: Record<ISymbol, ICommitItem> = {
     A: {
@@ -317,7 +320,7 @@ export async function buildRepo1({
   const localCommitIdTable = { ...commitIdTable }
   const finalCommitIdTableMap: Map<string, string> = new Map()
   const resetCommitId = async (symbol: ISymbol): Promise<void> => {
-    if (isCI) {
+    if (isVolatileCommitId) {
       const { commitId } = await showCommitInfo({ ...ctx, branchOrCommitId: 'HEAD' })
       finalCommitIdTableMap.set(localCommitIdTable[symbol], commitId)
       commitIdTable[symbol] = commitId

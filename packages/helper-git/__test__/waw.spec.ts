@@ -53,7 +53,7 @@ describe('waw', () => {
 
     const info = await showCommitInfo({ ...ctx, branchOrCommitId: 'HEAD' })
     expect(info).toEqual({
-      commitId: '6abc2dbd3b8769c72583141c8879294f190c56c1',
+      commitId: 'd8fed2368acbdd041397ce2b331465a6df14d344',
       authorDate: '2023-01-26T07:29:33.000Z',
       authorEmail: 'exmaple_a@gmail.com',
       authorName: 'guanghechen_a',

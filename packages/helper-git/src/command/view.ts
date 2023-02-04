@@ -65,7 +65,7 @@ export const showCommitInfo = async (
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
   const result = await safeExeca(
     'git',
-    ['log', '-1', '--format=fuller', params.branchOrCommitId],
+    ['log', '-1', '--format=fuller', '--date=iso', params.branchOrCommitId],
     execaOptions,
   )
   const text: string = result.stdout
