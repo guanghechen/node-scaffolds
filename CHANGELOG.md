@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="4.0.0-alpha.4"></a>
+## 4.0.0-alpha.4 (2023-02-04)
+
+### Fixed
+
+- 🐛 fix(tool-git-cipher): update boilerplates [[a931850](https://github.com/guanghechen/node-scaffolds/commit/a93185097e16c7d32811de82b90d13c050966d79)]
+
+
 <a name="4.0.0-alpha.3"></a>
 ## 4.0.0-alpha.3 (2023-02-04)
 
