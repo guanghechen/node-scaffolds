@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-stream",
-  "version": "3.0.2",
+  "version": "4.0.0-alpha.0",
   "description": "Utilities for handing node streams.",
   "author": {
     "name": "guanghechen",
