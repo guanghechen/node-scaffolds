@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import { existsSync, readdirSync } from 'node:fs'
 import path from 'node:path'
 
 /**
@@ -9,22 +9,25 @@ import path from 'node:path'
  * @returns
  */
 export function locateNearestFilepath(
-  currentDir: string,
+  currentDir0: string,
   filenames: string | string[],
 ): string | null {
   // eslint-disable-next-line no-param-reassign
   filenames = [filenames].flat()
+  return recursiveLocate(currentDir0.replace(/^file:\/\//, ''))
 
-  for (const filename of filenames) {
-    const filepath = path.join(currentDir, filename)
-    if (fs.existsSync(filepath)) return filepath
+  function recursiveLocate(currentDir: string): string | null {
+    for (const filename of filenames) {
+      const filepath = path.join(currentDir, filename)
+      if (existsSync(filepath)) return filepath
+    }
+
+    const parentDir = path.dirname(currentDir)
+    if (parentDir === currentDir || !path.isAbsolute(parentDir)) return null
+
+    // Recursively locate.
+    return locateNearestFilepath(parentDir, filenames)
   }
-
-  const parentDir = path.dirname(currentDir)
-  if (parentDir === currentDir || !path.isAbsolute(parentDir)) return null
-
-  // Recursively locate.
-  return locateNearestFilepath(parentDir, filenames)
 }
 
 /**
@@ -38,7 +41,7 @@ export function findNearestFilepath(
   currentDir: string,
   predicate: (filepath: string) => boolean,
 ): string | null {
-  const filenames = fs.readdirSync(currentDir)
+  const filenames = readdirSync(currentDir)
   for (const filename of filenames) {
     const filepath = path.join(currentDir, filename)
     if (predicate(filepath)) return filepath

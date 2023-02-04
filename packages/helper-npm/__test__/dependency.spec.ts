@@ -32,11 +32,7 @@ describe('collectAllDependencies', () => {
     const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
     const dependencies = await collectAllDependencies(path.join(__dirname, '../package.json'))
     expect(dependencies).toEqual(['@guanghechen/helper-path', 'import-meta-resolve'])
-
-    expect(desensitize(logMock.getIndiscriminateAll())).toEqual([
-      ["cannot find package.json for '@guanghechen/helper-path'"],
-      ["cannot find package.json for 'import-meta-resolve'"],
-    ])
+    expect(desensitize(logMock.getIndiscriminateAll())).toEqual([])
   })
 
   test('nonexistent repo', async () => {
@@ -47,12 +43,10 @@ describe('collectAllDependencies', () => {
       () => true,
     )
     expect(dependencies).toEqual(['rollup'])
-
     expect(desensitize(logMock.getIndiscriminateAll())).toEqual([
       [
         'no such file or directory: <$WORKSPACE$>/packages/helper-npm/__test__/fixtures/nonexistent/package.json',
       ],
-      ["cannot find package.json for 'rollup'"],
     ])
   })
 
@@ -61,10 +55,8 @@ describe('collectAllDependencies', () => {
       'peerDependencies',
     ])
     expect(dependencies).toEqual(['@guanghechen/not-existed-repo', 'rollup'])
-
     expect(desensitize(logMock.getIndiscriminateAll())).toEqual([
       ["cannot find package.json for '@guanghechen/not-existed-repo'"],
-      ["cannot find package.json for 'rollup'"],
     ])
   })
 })
