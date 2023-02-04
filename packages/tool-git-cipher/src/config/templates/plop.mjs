@@ -1,6 +1,8 @@
-import path from 'path'
+import path from 'node:path'
+import url from 'node:url'
 
 export default function (plop) {
+  const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
   plop.setGenerator('cipher-repository', {
     description: 'create ciphertext files repository',
     prompts: [],
