@@ -6,6 +6,7 @@ export interface IInitGitRepoParams extends IGitCommandBaseParams {
   defaultBranch?: string
   authorName?: string
   authorEmail?: string
+  gpgSign?: boolean
 }
 
 export const initGitRepo = async (params: IInitGitRepoParams): Promise<void> => {
@@ -13,9 +14,8 @@ export const initGitRepo = async (params: IInitGitRepoParams): Promise<void> => 
 
   // create init commit
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
-  await execa('git', ['init'], execaOptions)
-  await execa('git', ['branch', '-m', params.defaultBranch ?? 'main'], execaOptions)
-  await execa('git', ['config', 'commit.gpgSign', 'false'], execaOptions)
+  await execa('git', ['init', '--initial-branch', params.defaultBranch ?? 'main'], execaOptions)
+  await execa('git', ['config', 'commit.gpgSign', params.gpgSign ? 'true' : 'false'], execaOptions)
 
   if (params.authorName) {
     await execa('git', ['config', 'user.name', params.authorName], execaOptions)
