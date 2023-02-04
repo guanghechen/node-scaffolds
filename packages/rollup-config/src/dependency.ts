@@ -1,5 +1,5 @@
 import { resolve } from 'import-meta-resolve'
-import fs from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
 export type IDependencyField = 'dependencies' | 'optionalDependencies' | 'peerDependencies'
@@ -73,12 +73,12 @@ export async function collectAllDependencies(
    * @returns {void}
    */
   const collectDependencies = async (dependencyPackageJsonPath: string): Promise<void> => {
-    if (!fs.existsSync(dependencyPackageJsonPath)) {
+    if (!existsSync(dependencyPackageJsonPath)) {
       console.warn(`no such file or directory: ${dependencyPackageJsonPath}`)
       return
     }
 
-    const content = fs.readFileSync(dependencyPackageJsonPath, 'utf8')
+    const content = readFileSync(dependencyPackageJsonPath, 'utf8')
     const manifest = JSON.parse(content)
     for (const fieldName of dependenciesFields) {
       const field = manifest[fieldName]
@@ -105,18 +105,21 @@ export async function collectAllDependencies(
   return Array.from(dependencySet).sort()
 }
 
-function locateNearestFilepath(currentDir: string, filenames: string | string[]): string | null {
+function locateNearestFilepath(currentDir0: string, filenames: string | string[]): string | null {
   // eslint-disable-next-line no-param-reassign
   filenames = [filenames].flat()
+  return recursiveLocate(currentDir0.replace(/^file:\/\//, ''))
 
-  for (const filename of filenames) {
-    const filepath = path.join(currentDir, filename)
-    if (fs.existsSync(filepath)) return filepath
+  function recursiveLocate(currentDir: string): string | null {
+    for (const filename of filenames) {
+      const filepath = path.join(currentDir, filename)
+      if (existsSync(filepath)) return filepath
+    }
+
+    const parentDir = path.dirname(currentDir)
+    if (parentDir === currentDir || !path.isAbsolute(parentDir)) return null
+
+    // Recursively locate.
+    return locateNearestFilepath(parentDir, filenames)
   }
-
-  const parentDir = path.dirname(currentDir)
-  if (parentDir === currentDir || !path.isAbsolute(parentDir)) return null
-
-  // Recursively locate.
-  return locateNearestFilepath(parentDir, filenames)
 }

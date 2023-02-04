@@ -28,24 +28,24 @@ describe('collectAllDependencies', () => {
     const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
     const dependencies = await collectAllDependencies(path.join(__dirname, '../package.json'))
     expect(dependencies).toEqual([
+      '@babel/code-frame',
+      '@babel/helper-validator-identifier',
+      '@babel/highlight',
+      '@jridgewell/sourcemap-codec',
       '@rollup/plugin-commonjs',
       '@rollup/plugin-json',
       '@rollup/plugin-node-resolve',
       '@rollup/plugin-typescript',
+      'chalk',
       'import-meta-resolve',
+      'js-tokens',
+      'magic-string',
       'rollup',
       'rollup-plugin-dts',
+      'typescript',
     ])
 
-    expect(desensitize(logMock.getIndiscriminateAll())).toEqual([
-      ["cannot find package.json for '@rollup/plugin-commonjs'"],
-      ["cannot find package.json for '@rollup/plugin-json'"],
-      ["cannot find package.json for '@rollup/plugin-node-resolve'"],
-      ["cannot find package.json for '@rollup/plugin-typescript'"],
-      ["cannot find package.json for 'import-meta-resolve'"],
-      ["cannot find package.json for 'rollup-plugin-dts'"],
-      ["cannot find package.json for 'rollup'"],
-    ])
+    expect(desensitize(logMock.getIndiscriminateAll())).toEqual([])
   })
 
   test('nonexistent repo', async () => {
@@ -61,7 +61,6 @@ describe('collectAllDependencies', () => {
       [
         'no such file or directory: <$WORKSPACE$>/packages/rollup-config/__test__/fixtures/nonexistent/package.json',
       ],
-      ["cannot find package.json for 'rollup'"],
     ])
   })
 
@@ -73,7 +72,6 @@ describe('collectAllDependencies', () => {
 
     expect(desensitize(logMock.getIndiscriminateAll())).toEqual([
       ["cannot find package.json for '@guanghechen/not-existed-repo'"],
-      ["cannot find package.json for 'rollup'"],
     ])
   })
 })

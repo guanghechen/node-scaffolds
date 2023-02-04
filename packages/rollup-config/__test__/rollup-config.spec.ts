@@ -1,3 +1,4 @@
+import type { IConsoleMock } from '@guanghechen/helper-jest'
 import { createConsoleMock } from '@guanghechen/helper-jest'
 import { desensitize } from 'jest.helper'
 import fs from 'node:fs/promises'
@@ -52,8 +53,15 @@ afterEach(async () => {
 })
 
 describe('build', () => {
+  let logMock: IConsoleMock
+  beforeEach(() => {
+    logMock = createConsoleMock(['warn'])
+  })
+  afterEach(async () => {
+    logMock.restore()
+  })
+
   test('simple', async () => {
-    const logMock = createConsoleMock(['warn'])
     const caseDir = resolveCaseDir('simple')
     process.chdir(caseDir)
     const results = await build(['@guanghechen/rollup-config'])
@@ -63,11 +71,7 @@ describe('build', () => {
       expect(data).toMatchSnapshot(`rollup ${format}`)
     }
 
-    expect(desensitize(logMock.getIndiscriminateAll())).toEqual([
-      ["cannot find package.json for '@guanghechen/rollup-config'"],
-    ])
-    logMock.restore()
-
+    expect(desensitize(logMock.getIndiscriminateAll())).toEqual([])
     // expect(existsSync(path.join(caseDir, 'lib/types/index.d.ts'))).toBeTruthy()
   }, 60000)
 })
