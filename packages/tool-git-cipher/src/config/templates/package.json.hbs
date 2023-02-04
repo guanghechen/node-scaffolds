@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "encrypt": "ghc-git-cipher encrypt .",
-    "decrypt": "ghc-git-cipher decrypt ."
+    "encrypt": "node ./node_modules/.bin/ghc-git-cipher encrypt .",
+    "decrypt": "node ./node_modules/.bin/ghc-git-cipher decrypt ."
   },
   "devDependencies": {
-    "@guanghechen/tool-git-cipher": "^{{{lowerCase templateVersion}}}"
+    "@guanghechen/tool-git-cipher": "{{{lowerCase templateVersion}}}"
   },
   "@guanghechen/tool-git-cipher": {
     "__globalOptions__": {
@@ -17,6 +17,10 @@
       "encryptedFilesDir": "{{{encryptedFilesDir}}}",
       "encryptedFilePathSalt": "{{{encryptedFilePathSalt}}}",
       "keepPlainPatterns": [
+        ".gitignore"
+        ".npmrc"
+        ".nvmrc"
+        ".yarnrc"
         "package.json",
         "yarn.lock",
         "{{{secretFilepath}}}"

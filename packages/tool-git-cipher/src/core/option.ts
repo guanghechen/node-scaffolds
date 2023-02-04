@@ -159,24 +159,6 @@ export function resolveGlobalCommandOptions<C extends object>(
   }
   logger.debug('pbkdf2Options:', pbkdf2Options)
 
-  // Resolve secretFilepath
-  const secretFilepath: string = absoluteOfWorkspace(
-    workspaceDir,
-    cover<string>(resolvedDefaultOptions.secretFilepath, options.secretFilepath, isNonBlankString),
-  )
-  logger.debug('secretFilepath:', secretFilepath)
-
-  // Resolve catalogFilepath
-  const catalogFilepath: string = absoluteOfWorkspace(
-    workspaceDir,
-    cover<string>(
-      resolvedDefaultOptions.catalogFilepath,
-      options.catalogFilepath,
-      isNonBlankString,
-    ),
-  )
-  logger.debug('catalogFilepath:', catalogFilepath)
-
   // Resolve cryptRootDir
   const cryptRootDir: string = absoluteOfWorkspace(
     workspaceDir,
@@ -191,6 +173,24 @@ export function resolveGlobalCommandOptions<C extends object>(
     isNonBlankString,
   )
   logger.debug('encryptedFilesDir:', encryptedFilesDir)
+
+  // Resolve secretFilepath
+  const secretFilepath: string = absoluteOfWorkspace(
+    workspaceDir,
+    cover<string>(resolvedDefaultOptions.secretFilepath, options.secretFilepath, isNonBlankString),
+  )
+  logger.debug('secretFilepath:', secretFilepath)
+
+  // Resolve catalogFilepath
+  const catalogFilepath: string = absoluteOfWorkspace(
+    cryptRootDir,
+    cover<string>(
+      resolvedDefaultOptions.catalogFilepath,
+      options.catalogFilepath,
+      isNonBlankString,
+    ),
+  )
+  logger.debug('catalogFilepath:', catalogFilepath)
 
   // Resolve encryptedFilePathSalt
   const encryptedFilePathSalt: string = cover<string>(
