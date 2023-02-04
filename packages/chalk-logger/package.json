@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/chalk-logger",
-  "version": "4.0.0-alpha.0",
+  "version": "4.0.0-alpha.1",
   "description": "A simple colorful logger",
   "author": {
     "name": "guanghechen",
@@ -41,9 +41,9 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-is": "^4.0.0-alpha.0",
-    "@guanghechen/invariant": "^4.0.0-alpha.0",
-    "@guanghechen/utility-types": "^4.0.0-alpha.0",
+    "@guanghechen/helper-is": "^4.0.0-alpha.1",
+    "@guanghechen/invariant": "^4.0.0-alpha.1",
+    "@guanghechen/utility-types": "^4.0.0-alpha.1",
     "chalk": "^5.2.0",
     "dayjs": "^1.11.7",
     "json5": "^2.2.3"
