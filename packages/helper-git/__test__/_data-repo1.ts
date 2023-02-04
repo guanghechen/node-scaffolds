@@ -1,7 +1,7 @@
 import { mkdirsIfNotExists, rm, writeFile } from '@guanghechen/helper-fs'
 import type { ILogger } from '@guanghechen/utility-types'
 import type { Options as IExecaOptions } from 'execa'
-import { assertPromiseThrow } from 'jest.helper'
+import { assertPromiseThrow, isCI } from 'jest.helper'
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import type { IGitCommandBaseParams, IGitCommitInfo } from '../src'
@@ -154,8 +154,6 @@ export const getCommitArgTable = (): Record<ISymbol, Omit<IGitCommitInfo, 'commi
     committerEmail: 'exmaple_i@gmail.com',
   },
 })
-
-const isCI = !!process.env.GHC_IS_CI
 
 /**
 

@@ -49,6 +49,7 @@
     "@types/jest": "29.4.0",
     "@types/node": "^16.18.11",
     "@types/react": "^17.0.53",
+    "ci-info": "^3.7.1",
     "clsx": "^1.2.1",
     "commander": "^10.0.0",
     "cross-env": "^7.0.3",
