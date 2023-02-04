@@ -20,13 +20,19 @@ import type {
   IFileCipherCatalogItemDiffCombine,
 } from './types/IFileCipherCatalogItem'
 import { isSameFileCipherItem, normalizePlainFilepath } from './util/catalog'
-import { calcFingerprintFromFile, calcFingerprintFromString } from './util/mac'
+import {
+  calcFingerprintFromFile,
+  calcFingerprintFromMac,
+  calcFingerprintFromString,
+  calcMac,
+} from './util/mac'
 
 export interface IFileCipherCatalogProps {
   pathResolver: FileCipherPathResolver
   maxTargetFileSize: number
   partCodePrefix: string
   encryptedFilesDir: string
+  encryptedFilePathSalt: string
   logger?: Logger
   isKeepPlain(relativePlainFilepath: string): boolean
 }
@@ -36,6 +42,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   public readonly maxTargetFileSize: number
   public readonly partCodePrefix: string
   public readonly encryptedFilesDir: string
+  public readonly encryptedFilePathSalt: string
   protected readonly logger?: Logger
   protected readonly isKeepPlain: (relativePlainFilepath: string) => boolean
   protected readonly _itemMap: Map<string, IFileCipherCatalogItem>
@@ -45,6 +52,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     this.maxTargetFileSize = props.maxTargetFileSize
     this.partCodePrefix = props.partCodePrefix
     this.encryptedFilesDir = props.encryptedFilesDir
+    this.encryptedFilePathSalt = props.encryptedFilePathSalt
     this.isKeepPlain = props.isKeepPlain
     this._itemMap = new Map()
     this.logger = props.logger
@@ -95,7 +103,13 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     plainFilepath,
     isKeepPlain = this.isKeepPlain,
   }: ICalcCatalogItemParams): Promise<IFileCipherCatalogItem | never> {
-    const { encryptedFilesDir, maxTargetFileSize, partCodePrefix, pathResolver } = this
+    const {
+      encryptedFilesDir,
+      encryptedFilePathSalt,
+      maxTargetFileSize,
+      partCodePrefix,
+      pathResolver,
+    } = this
     const absolutePlainFilepath = pathResolver.calcAbsolutePlainFilepath(plainFilepath)
     const relativePlainFilepath = pathResolver.calcRelativePlainFilepath(absolutePlainFilepath)
     const plainFilepathKey = normalizePlainFilepath(relativePlainFilepath, pathResolver)
@@ -105,7 +119,10 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     const keepPlain: boolean = isKeepPlain(relativePlainFilepath)
     const cryptFilepath: string = keepPlain
       ? relativePlainFilepath
-      : path.join(encryptedFilesDir, calcFingerprintFromString(plainFilepathKey, 'utf8'))
+      : path.join(
+          encryptedFilesDir,
+          calcFingerprintFromString(encryptedFilePathSalt + plainFilepathKey, 'utf8'),
+        )
     const cryptFileParts = calcFilePartNames(
       calcFilePartItemsBySize(fileSize, maxTargetFileSize),
       partCodePrefix,

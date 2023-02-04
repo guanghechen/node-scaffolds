@@ -30,17 +30,17 @@ const maxTargetFileSize = 1024
 const partCodePrefix = '.ghc-part'
 
 const cryptCommitIdTable = {
-  A: '8a2ef34c6fb656ba8797b98bd5425c44b919a636',
-  B: '651e984ded8d2c9eab99a54a3ba1b52da7eb2827',
-  C: '8deda0dde6b8457740084e5dbf8d3873dec00b91',
-  D: '2ccc3343814522c0107297ed59b7a7804a972b7a',
-  E: 'ee0dc3b2ef88ee57a9434d28861e88412fc9d43a',
-  F: '37bb74f1bde205c4089be1f2a776507c948eb07e',
-  G: 'ce04973c1da0b2101c99db4366dbc5cb2dc8be61',
-  H: 'f89ff7e68f6caea10f00052201fb40eba5ec3fa7',
-  I: '0fcd0445bd47801931b45e94eb035b9a814b1b6f',
-  J: '71fde290f9343e90be9d4fe50ea9d2dbc437d4f7',
-  K: '61200e851bdbeae43b9e2105b8e05f6377f2dfb2',
+  A: 'e844e4a7eb3a587431edb3b8ece289fdd5d9d0d9',
+  B: '185a867d8ec5de97f40bb7ade23a662c9c39c462',
+  C: 'e4d3e3fd0a7d0d6560033f9cab0c4d86795b13e3',
+  D: '56ab354e071a38c252035bc7934ca7e592505b2c',
+  E: '0cb6ec49921f5058c1b1d3c8fdd5ab2b639b1c48',
+  F: 'de15163950c29da2eff7d38a6a9a25d190382083',
+  G: '2702b51079cb16010d131a32ba27d139ee054ab3',
+  H: '688efb3b9c4acf6b7d5ebe30d36d164ce9be0aac',
+  I: '670cb5f7205a51cf9eaff86a90e63c94619930ec',
+  J: '849fd5a562e1c5af5966fada8048b651b48eae05',
+  K: '25245875a2a59bc9d21f8bfbb21bdf211a32a4fe',
 }
 
 describe('GitCipher', () => {
@@ -85,6 +85,7 @@ describe('GitCipher', () => {
   const catalog = new FileCipherCatalog({
     pathResolver,
     encryptedFilesDir,
+    encryptedFilePathSalt: 'guanghechen_git_cipher',
     maxTargetFileSize,
     partCodePrefix,
     logger,

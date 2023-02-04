@@ -36,6 +36,7 @@ describe('FileCipherCatalog', () => {
   const catalog = new FileCipherCatalog({
     pathResolver,
     encryptedFilesDir,
+    encryptedFilePathSalt: 'guanghechen',
     maxTargetFileSize,
     partCodePrefix,
     logger,
