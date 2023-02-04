@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="4.0.0-alpha.3"></a>
+## 4.0.0-alpha.3 (2023-02-04)
+
+### Fixed
+
+- 🐛 fix(tool-git-cipher): update biolerplates [[6278ff3](https://github.com/guanghechen/node-scaffolds/commit/6278ff36d5577170893e466a9126edf5873fb207)]
+
+
 <a name="4.0.0-alpha.2"></a>
 ## 4.0.0-alpha.2 (2023-02-04)
 
