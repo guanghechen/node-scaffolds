@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="4.0.0-alpha.2"></a>
+## 4.0.0-alpha.2 (2023-02-04)
+
+### Fixed
+
+- 🐛 fix(tool-git-cipher): plainRootDir is not support &amp; perform &#x27;git init&#x27; after boilerplate files writen [[bec6b67](https://github.com/guanghechen/node-scaffolds/commit/bec6b67c0dcf535c3c75be4aeebbc0ffb8a62953)]
+
+
 <a name="4.0.0-alpha.1"></a>
 ## 4.0.0-alpha.1 (2023-02-04)
 
