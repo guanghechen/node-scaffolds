@@ -196,25 +196,41 @@ Options:
       "decrypt": "ghc-git-cipher decrypt ."
     },
     "devDependencies": {
-      "@guanghechen/tool-git-cipher": "^0.0.23"
+      "@guanghechen/tool-git-cipher": "^4.0.0-alpha.3"
     },
     "@guanghechen/tool-git-cipher": {
       "__globalOptions__": {
-        "logLevel": "info",
+        "catalogFilepath": "ghc-crypt/.ghc-catalog",
+        "cryptRootDir": "ghc-crypt",
         "encoding": "utf8",
+        "encryptedFilesDir": "encrypted",
+        "encryptedFilePathSalt": "",
+        "keepPlainPatterns": [
+          ".gitignore",
+          ".npmrc",
+          ".nvmrc",
+          ".yarnrc",
+          "package.json",
+          "yarn.lock",
+          ".ghc-secret"
+        ],
+        "logLevel": "info",
+        "minPasswordLength": 6,
+        "partCodePrefix": ".ghc-part",
+        "pbkdf2Options": {
+          "salt": "guanghechen",
+          "digest": "sha256",
+          "iterations": 100000,
+          "keylen": 32
+        },
         "secretFilepath": ".ghc-secret",
-        "indexFilepath": ".ghc-index",
-        "cipheredIndexEncoding": "base64",
-        "ciphertextRootDir": "ghc-ciphertext",
-        "plaintextRootDir": "ghc-plaintext",
-        "showAsterisk": true,
-        "maxTargetFileSize": 104857600  // 100 MB
+        "showAsterisk": true
       },
       "encrypt": {
         "updateBeforeEncrypt": true
       },
       "decrypt": {
-        "outDir": "ghc-plaintext-bak"
+        "outDir": ".-bak"
       }
     }
   }
