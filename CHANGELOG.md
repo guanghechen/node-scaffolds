@@ -1,5 +1,25 @@
 # Changelog
 
+<a name="4.0.0-alpha.1"></a>
+## 4.0.0-alpha.1 (2023-02-04)
+
+### Added
+
+- ✨ feat: add salt for generating encrypted filepath [[21be6b8](https://github.com/guanghechen/node-scaffolds/commit/21be6b8316689085e8ac19e6100a489f9f2f1a45)]
+
+### Changed
+
+- ⬆️ chore: upgrade devDependencies [[75c3da9](https://github.com/guanghechen/node-scaffolds/commit/75c3da99c657543aaa9a8c1517766f0044898b22)]
+- 🎨 improve: update eslint configs [[e84481e](https://github.com/guanghechen/node-scaffolds/commit/e84481e24efaea95bfbca643f81aa7e66e1a2d74)]
+
+### Fixed
+
+- 🐛 fix(tool-git-cipher): add missing options [[cde258f](https://github.com/guanghechen/node-scaffolds/commit/cde258f37b3769b12913a5d3ee00710e278691ac)]
+- 🐛 fix incorrect path in locateNearestFilepath [[b260264](https://github.com/guanghechen/node-scaffolds/commit/b26026463f3b628d689d13c4e968c7f274bfdf49)]
+- 🐛 fix incorrect path in locateNearestFilepath [[4e4e9e7](https://github.com/guanghechen/node-scaffolds/commit/4e4e9e7db2d5b00c96551ad5eeee758cc31f8bdc)]
+- 🐛 fix(tool-git-cipher): fix cli [[1687c43](https://github.com/guanghechen/node-scaffolds/commit/1687c435538be68d64fe029adc19fd3c6add139f)]
+
+
 <a name="4.0.0-alpha.0"></a>
 ## 4.0.0-alpha.0 (2023-02-04)
 
