@@ -314,14 +314,6 @@ export async function buildRepo1({
     },
   }
 
-  const defaultBranch = 'main'
-  await initGitRepo({
-    ...ctx,
-    defaultBranch,
-    authorName: 'guanghechen',
-    authorEmail: 'example@gmail.com',
-  })
-
   const localCommitIdTable = { ...commitIdTable }
   const finalCommitIdTableMap: Map<string, string> = new Map()
   const resetCommitId = async (symbol: ISymbol): Promise<void> => {
@@ -335,6 +327,17 @@ export async function buildRepo1({
       )
     }
   }
+
+  const defaultBranch = 'main'
+  await initGitRepo({
+    ...ctx,
+    defaultBranch,
+    authorName: 'guanghechen',
+    authorEmail: 'example@gmail.com',
+    gpgSign: false,
+    eol: 'lf',
+    encoding: 'utf-8',
+  })
 
   // A: +a1,+b1 (a1,b1)
   const stepA = async (): Promise<void> => {
