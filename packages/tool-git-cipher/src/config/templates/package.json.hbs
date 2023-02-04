@@ -11,12 +11,27 @@
   },
   "@guanghechen/tool-git-cipher": {
     "__globalOptions__": {
-      "logLevel": "info",
-      "encoding": "{{{encoding}}}",
-      "secretFilepath": "{{{secretFilepath}}}",
       "catalogFilepath": "{{{catalogFilepath}}}",
       "cryptRootDir": "{{{cryptRootDir}}}",
+      "encoding": "{{{encoding}}}",
+      "encryptedFilesDir": "{{{encryptedFilesDir}}}",
+      "encryptedFilePathSalt": "{{{encryptedFilePathSalt}}}",
+      "keepPlainPatterns": [
+        "package.json",
+        "yarn.lock",
+        "${{{secretFilepath}}}"
+      ],
+      "logLevel": "{{{logLevel}}}",
+      "minPasswordLength": {{{minPasswordLength}}},
+      "partCodePrefix": "{{{partCodePrefix}}}",
+      "pbkdf2Options": {
+        "salt": "{{{secretSalt}}}",
+        "digest": "sha256",
+        "iterations": 100000,
+        "keylen": 32
+      },
       "plainRootDir": "{{{plainRootDir}}}",
+      "secretFilepath": "{{{secretFilepath}}}",
       "showAsterisk": {{{showAsterisk}}}
     },
     "encrypt": {

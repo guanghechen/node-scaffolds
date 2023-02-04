@@ -1,9 +1,5 @@
 import { AesCipherFactory } from '@guanghechen/helper-cipher'
-import {
-  createInitialCommit,
-  hasGitInstalled,
-  installDependencies,
-} from '@guanghechen/helper-commander'
+import { hasGitInstalled, installDependencies } from '@guanghechen/helper-commander'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
@@ -36,7 +32,7 @@ export class GitCipherInitProcessor {
   }
 
   public async init(): Promise<void> {
-    invariant(!hasGitInstalled(), 'Cannot find git, have you installed it?')
+    invariant(hasGitInstalled(), `Cannot find 'git', please install it before continuing.`)
 
     const { context } = this
     logger.debug('context:', context)
@@ -49,9 +45,6 @@ export class GitCipherInitProcessor {
 
     // Install dependencies.
     await installDependencies({ stdio: 'inherit', cwd: context.workspace }, [], logger)
-
-    // Create initial commit
-    await createInitialCommit({ stdio: 'inherit', cwd: context.workspace }, [], logger)
   }
 
   // Render templates
@@ -78,9 +71,7 @@ export class GitCipherInitProcessor {
     logger.debug('plainRepoUrl:', plainRepoUrl)
 
     // clone plaintext repository
-    if (isNonBlankString(plainRepoUrl)) {
-      await this.cloneFromRemote(plainRepoUrl)
-    }
+    if (isNonBlankString(plainRepoUrl)) await this._cloneFromRemote(plainRepoUrl)
 
     const templateConfig = resolveTemplateFilepath('plop.mjs')
     const plop = await nodePlop(templateConfig, {
@@ -92,22 +83,23 @@ export class GitCipherInitProcessor {
       workspace: context.workspace,
       templateVersion: COMMAND_VERSION,
       encoding: context.encoding,
+      logLevel: logger.level,
+      plainRepoUrl,
+      secretSalt: context.pbkdf2Options.salt,
       secretFilepath: relativeOfWorkspace(context.workspace, context.secretFilepath),
       catalogFilepath: relativeOfWorkspace(context.workspace, context.catalogFilepath),
-      cryptRootDir: relativeOfWorkspace(context.workspace, context.cryptRootDir),
       plainRootDir: relativeOfWorkspace(context.workspace, context.plainRootDir),
-      plainRepoUrl,
+      cryptRootDir: relativeOfWorkspace(context.workspace, context.cryptRootDir),
+      encryptedFilesDir: context.encryptedFilesDir,
+      encryptedFilePathSalt: null,
       showAsterisk: context.showAsterisk,
       minPasswordLength: context.minPasswordLength,
-      maxPasswordLength: context.maxPasswordLength,
+      partCodePrefix: context.partCodePrefix,
     })
-
-    if (error != null) logger.error(error)
+    if (error) logger.error(error)
   }
 
-  /**
-   * Create secret file
-   */
+  // Create secret file
   protected async _createSecretFile(): Promise<void> {
     const { context } = this
     const oldSecretMaster = this.secretMaster
@@ -120,7 +112,7 @@ export class GitCipherInitProcessor {
    * Clone from remote plaintext repository
    * @param plainRepoUrl  url of remote source repository
    */
-  protected async cloneFromRemote(plainRepoUrl: string): Promise<void> {
+  protected async _cloneFromRemote(plainRepoUrl: string): Promise<void> {
     const { context } = this
     mkdirsIfNotExists(context.plainRootDir, true, logger)
     await execa('git', ['clone', plainRepoUrl, context.plainRootDir], {

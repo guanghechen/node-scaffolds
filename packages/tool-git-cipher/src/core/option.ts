@@ -49,6 +49,11 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
    */
   readonly encryptedFilesDir: string
   /**
+   * Salt for generate encrypted file path.
+   * @default 'encrypted_path_salt'
+   */
+  readonly encryptedFilePathSalt: string
+  /**
    * Whether to print password asterisks
    * @default true
    */
@@ -66,9 +71,8 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
   /**
    * Max size (byte) of target file, once the file size exceeds this value,
    * the target file is split into multiple files.
-   * @default Number.POSITIVE_INFINITY
    */
-  readonly maxTargetFileSize: number
+  readonly maxTargetFileSize?: number
   /**
    * Prefix of parts code.
    * @default '.ghc-part'
@@ -97,6 +101,7 @@ export const getDefaultGlobalCommandOptions = (): IGlobalCommandOptions => ({
   plainRootDir: 'ghc-plain',
   cryptRootDir: 'ghc-crypt',
   encryptedFilesDir: 'encrypted',
+  encryptedFilePathSalt: 'encrypted_path_salt',
   showAsterisk: true,
   minPasswordLength: 6,
   maxPasswordLength: 100,
@@ -129,7 +134,7 @@ export function resolveGlobalCommandOptions<C extends object>(
     options,
   )
 
-  // resolve encoding
+  // Resolve encoding
   const encoding: string = cover<string>(
     resolvedDefaultOptions.encoding,
     options.encoding,
@@ -137,7 +142,7 @@ export function resolveGlobalCommandOptions<C extends object>(
   )
   logger.debug('encoding:', encoding)
 
-  // resolve pbkdf2Options
+  // Resolve pbkdf2Options
   const pbkdf2Options: IPBKDF2Options = {
     salt: cover<BinaryLike>(
       resolvedDefaultOptions.pbkdf2Options.salt,
@@ -160,14 +165,14 @@ export function resolveGlobalCommandOptions<C extends object>(
   }
   logger.debug('pbkdf2Options:', pbkdf2Options)
 
-  // resolve secretFilepath
+  // Resolve secretFilepath
   const secretFilepath: string = absoluteOfWorkspace(
     workspaceDir,
     cover<string>(resolvedDefaultOptions.secretFilepath, options.secretFilepath, isNonBlankString),
   )
   logger.debug('secretFilepath:', secretFilepath)
 
-  // resolve catalogFilepath
+  // Resolve catalogFilepath
   const catalogFilepath: string = absoluteOfWorkspace(
     workspaceDir,
     cover<string>(
@@ -178,21 +183,21 @@ export function resolveGlobalCommandOptions<C extends object>(
   )
   logger.debug('catalogFilepath:', catalogFilepath)
 
-  // resolve plainRootDir
+  // Resolve plainRootDir
   const plainRootDir: string = absoluteOfWorkspace(
     workspaceDir,
     cover<string>(resolvedDefaultOptions.plainRootDir, options.plainRootDir, isNonBlankString),
   )
   logger.debug('plainRootDir:', plainRootDir)
 
-  // resolve cryptRootDir
+  // Resolve cryptRootDir
   const cryptRootDir: string = absoluteOfWorkspace(
     workspaceDir,
     cover<string>(resolvedDefaultOptions.cryptRootDir, options.cryptRootDir, isNonBlankString),
   )
   logger.debug('cryptRootDir:', cryptRootDir)
 
-  // resolve encryptedFilesDir
+  // Resolve encryptedFilesDir
   const encryptedFilesDir: string = cover<string>(
     resolvedDefaultOptions.encryptedFilesDir,
     options.encryptedFilesDir,
@@ -200,35 +205,43 @@ export function resolveGlobalCommandOptions<C extends object>(
   )
   logger.debug('encryptedFilesDir:', encryptedFilesDir)
 
-  // resolve showAsterisk
+  // Resolve encryptedFilePathSalt
+  const encryptedFilePathSalt: string = cover<string>(
+    resolvedDefaultOptions.encryptedFilePathSalt,
+    options.encryptedFilePathSalt,
+    isNonBlankString,
+  )
+  logger.debug('encryptedFilePathSalt:', encryptedFilePathSalt)
+
+  // Resolve showAsterisk
   const showAsterisk: boolean = cover<boolean>(
     resolvedDefaultOptions.showAsterisk,
     convertToBoolean(options.showAsterisk),
   )
   logger.debug('showAsterisk:', showAsterisk)
 
-  // resolve minPasswordLength
+  // Resolve minPasswordLength
   const minPasswordLength: number = cover<number>(
     resolvedDefaultOptions.minPasswordLength,
     convertToNumber(options.minPasswordLength),
   )
   logger.debug('minPasswordLength:', minPasswordLength)
 
-  // resolve maxPasswordLength
+  // Resolve maxPasswordLength
   const maxPasswordLength: number = cover<number>(
     resolvedDefaultOptions.maxPasswordLength,
     convertToNumber(options.maxPasswordLength),
   )
   logger.debug('maxPasswordLength:', maxPasswordLength)
 
-  // resolve maxTargetFileSize
+  // Resolve maxTargetFileSize
   const maxTargetFileSize: number | undefined = cover<number | undefined>(
     resolvedDefaultOptions.maxTargetFileSize,
     convertToNumber(options.maxTargetFileSize),
   )
   logger.debug('maxTargetFileSize:', maxTargetFileSize)
 
-  // resolve partCodePrefix
+  // Resolve partCodePrefix
   const partCodePrefix: string = cover<string>(
     resolvedDefaultOptions.partCodePrefix,
     options.partCodePrefix,
@@ -242,13 +255,14 @@ export function resolveGlobalCommandOptions<C extends object>(
     pbkdf2Options,
     secretFilepath,
     catalogFilepath,
-    cryptRootDir,
     plainRootDir,
+    cryptRootDir,
+    encryptedFilesDir,
+    encryptedFilePathSalt,
     showAsterisk,
     minPasswordLength,
     maxPasswordLength,
     maxTargetFileSize,
     partCodePrefix,
-    encryptedFilesDir,
   }
 }

@@ -63,6 +63,7 @@ export class GitCipherEncryptProcessor {
       maxTargetFileSize: context.maxTargetFileSize,
       partCodePrefix: context.partCodePrefix,
       encryptedFilesDir: context.encryptedFilesDir,
+      encryptedFilePathSalt: context.encryptedFilePathSalt,
       logger,
       isKeepPlain:
         context.keepPlainPatterns.length > 0

@@ -51,10 +51,6 @@ export interface IGitCipherDecryptContext {
    */
   readonly maxPasswordLength: number
   /**
-   * Root dir of outputs (decrypted files).
-   */
-  readonly outDir: string | null
-  /**
    * Max size (byte) of target file, once the file size exceeds this value,
    * the target file is split into multiple files.
    */
@@ -68,6 +64,10 @@ export interface IGitCipherDecryptContext {
    * @default []
    */
   readonly keepPlainPatterns: string[]
+  /**
+   * Root dir of outputs (decrypted files).
+   */
+  readonly outDir: string | null
 }
 
 export async function createGitCipherDecryptContextFromOptions(
@@ -86,7 +86,7 @@ export async function createGitCipherDecryptContextFromOptions(
     showAsterisk: options.showAsterisk,
     minPasswordLength: options.minPasswordLength,
     maxPasswordLength: options.maxPasswordLength,
-    maxTargetFileSize: options.maxTargetFileSize,
+    maxTargetFileSize: options.maxTargetFileSize ?? Number.POSITIVE_INFINITY,
     partCodePrefix: options.partCodePrefix,
     keepPlainPatterns: options.keepPlainPatterns,
     outDir: options.outDir,

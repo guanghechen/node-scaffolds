@@ -82,7 +82,7 @@ export async function createGitCipherInitContextFromOptions(
     showAsterisk: options.showAsterisk,
     minPasswordLength: options.minPasswordLength,
     maxPasswordLength: options.maxPasswordLength,
-    maxTargetFileSize: options.maxTargetFileSize,
+    maxTargetFileSize: options.maxTargetFileSize ?? Number.POSITIVE_INFINITY,
     partCodePrefix: options.partCodePrefix,
     keepPlainPatterns: options.keepPlainPatterns,
   }

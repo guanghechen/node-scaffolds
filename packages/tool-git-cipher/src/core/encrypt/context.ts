@@ -39,6 +39,10 @@ export interface IGitCipherEncryptContext {
    */
   readonly encryptedFilesDir: string
   /**
+   * Salt for generate encrypted file path.
+   */
+  readonly encryptedFilePathSalt: string
+  /**
    * Whether to print password asterisks.
    */
   readonly showAsterisk: boolean
@@ -79,10 +83,11 @@ export async function createGitCipherEncryptContextFromOptions(
     plainRootDir: options.plainRootDir,
     cryptRootDir: options.cryptRootDir,
     encryptedFilesDir: options.encryptedFilesDir,
+    encryptedFilePathSalt: options.encryptedFilePathSalt,
     showAsterisk: options.showAsterisk,
     minPasswordLength: options.minPasswordLength,
     maxPasswordLength: options.maxPasswordLength,
-    maxTargetFileSize: options.maxTargetFileSize,
+    maxTargetFileSize: options.maxTargetFileSize ?? Number.POSITIVE_INFINITY,
     partCodePrefix: options.partCodePrefix,
     keepPlainPatterns: options.keepPlainPatterns,
   }
