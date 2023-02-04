@@ -1,5 +1,110 @@
 # Changelog
 
+<a name="4.0.0-alpha.0"></a>
+## 4.0.0-alpha.0 (2023-02-04)
+
+### Added
+
+- ✅ test(helper-git): update tests [[17e7513](https://github.com/guanghechen/node-scaffolds/commit/17e75134d1d36668df12e64442639cc109ca6a2e)]
+- ✅ test(helper-git*): first commit id may be different [[d2912f4](https://github.com/guanghechen/node-scaffolds/commit/d2912f4db63abb5bd6dd8aa1de80f2f8872d0a91)]
+- ✅ test: update tests [[4b2c8e9](https://github.com/guanghechen/node-scaffolds/commit/4b2c8e915e1b7139f3b7e4730706a5f0a774dcfe)]
+- ✅ test: fix tests [[a6c674f](https://github.com/guanghechen/node-scaffolds/commit/a6c674fe9a70add256bc106d0a24042c33a33de5)]
+- ✅ test: update tests [[c1866e1](https://github.com/guanghechen/node-scaffolds/commit/c1866e1ea03bb0923eadcd5eb8d4329a9721b613)]
+- ✨ feat: implement @guanghechen/helper-git-cipher [[1802a9b](https://github.com/guanghechen/node-scaffolds/commit/1802a9b2f9f521fda28e92e95ff1e10a107a4970)]
+- ✅ test(helper-file): refactor tests [[2d4a7e0](https://github.com/guanghechen/node-scaffolds/commit/2d4a7e0b71a8565f86bbe65ca4bb4cf5e3e4c08f)]
+- ✨ feat: provide new method &#x27;falsy&#x27; and &#x27;truthy&#x27; [[5dca99d](https://github.com/guanghechen/node-scaffolds/commit/5dca99da36d7b13dc599d53be204ae005b553f61)]
+- ✨ feat(helper-func): provide &#x27;filterIterable&#x27; and &#x27;mapIterable&#x27; [[f0f39f3](https://github.com/guanghechen/node-scaffolds/commit/f0f39f3faeb9d3ad94b92a44607108dfe11c95ea)]
+- ✨ feat(helper-cipher-file): support &#x27;strickCheck&#x27; options for encryptDiff/decryptDiff [[e391445](https://github.com/guanghechen/node-scaffolds/commit/e3914450a710e8ab8a714015e3aadceebf005175)]
+- ✨ feat(helper-cipher-file): provide new util method &#x27;collectAffectedEncFilepaths&#x27; and &#x27;collectAffectedSrcFilepaths&#x27; [[4562ebe](https://github.com/guanghechen/node-scaffolds/commit/4562ebee7c093f31e649f06f79cd448d6a81a5f1)]
+- ✨ feat(helper-git): implement getCommitWithMessageList [[f061484](https://github.com/guanghechen/node-scaffolds/commit/f061484ffef09c45c78bcda84dc41c708f6db252)]
+- ✨ feat(helper-cipher-file): implement JsonConfigKeeper [[70266d2](https://github.com/guanghechen/node-scaffolds/commit/70266d270589f4c2d54380766f1abc790975ca1e)]
+- ✨ feat(helper-cipher): suport encrypt / decrypt json data [[abffa4e](https://github.com/guanghechen/node-scaffolds/commit/abffa4e84c0c5c1cdb052789bc9f56d2201331fb)]
+- ✨ feat(helper-git): support to create/delete branch [[247c4a2](https://github.com/guanghechen/node-scaffolds/commit/247c4a229e26fdd09c440b3cb5f0edde55528103)]
+- ✨ feat(helper-git): extract commitId in &#x27;getCommitIdByMessage&#x27; [[6cdf16b](https://github.com/guanghechen/node-scaffolds/commit/6cdf16b6c81a3e79ed8098ff176e869abaa374b2)]
+- ✨ feat(helper-git): extract commitId in &#x27;showCommitInfo&#x27; [[cacb414](https://github.com/guanghechen/node-scaffolds/commit/cacb41435413893c8cab70bb691cc0a5b673400f)]
+- ✨ feat(helper-git): support amend commit [[5f407b1](https://github.com/guanghechen/node-scaffolds/commit/5f407b15853da4936f289b33d4d1c17f8f7e2458)]
+- ✨ feat(helper-git): impelment &#x27;cleanUntrackedFilepaths&#x27; [[d2a49de](https://github.com/guanghechen/node-scaffolds/commit/d2a49dec2bc6349fec4245dba1e95a2c82461592)]
+- ✨ feat(helper-cipher-file): implement FileCipherCatalog.calcDiffItems [[1899734](https://github.com/guanghechen/node-scaffolds/commit/18997342356461321fd4ff06b1c486468f78a7b6)]
+- ✅ chore: fix test coverage [[9a01b01](https://github.com/guanghechen/node-scaffolds/commit/9a01b01a3d21cb70e46eaa41fe7463849cf2d6dc)]
+- ✨ feat(@guanghechen/helper-is): support &#x27;isPlainObject&#x27; [[64ee83c](https://github.com/guanghechen/node-scaffolds/commit/64ee83c12fcac71a6e3ddc62ebba1e2ac137cca9)]
+- ✅ test: fix test coverage [[8488e8a](https://github.com/guanghechen/node-scaffolds/commit/8488e8a655735bc788a7a12dc6548a39c41fbadc)]
+- ✨ feat: implement @guanghechen/helper-git [[af7bb39](https://github.com/guanghechen/node-scaffolds/commit/af7bb395c4b5d56ebb6235b59c5eb3f02f26ddac)]
+- ✨ feat: implement @guanghechen/helper-cipher-file (abstract from helper-cipher) [[a661a46](https://github.com/guanghechen/node-scaffolds/commit/a661a46e94ab6942b3283fefce97404c52837861)]
+- ✅ test: update tests [[19d16ec](https://github.com/guanghechen/node-scaffolds/commit/19d16ec43c5eb1cee4b35aade002e66ab51ea6c2)]
+- ✅ test: update tests [[91b1516](https://github.com/guanghechen/node-scaffolds/commit/91b151624fd7f9694e9a3c67b2de47a9c5153eb4)]
+- ✅ test: update tests [[2e9fddf](https://github.com/guanghechen/node-scaffolds/commit/2e9fddfec84565d6241552e4dcea2c6e0084528b)]
+- ✅ test: update tests [[d06290d](https://github.com/guanghechen/node-scaffolds/commit/d06290dafb3a71341de17abfb92f0d0189a1cdf1)]
+- ✅ test: fix failed tests [[dceb21a](https://github.com/guanghechen/node-scaffolds/commit/dceb21a8e2d6b105f2586317d7907564063f04bd)]
+- ✅ test: update tests [[c7027bf](https://github.com/guanghechen/node-scaffolds/commit/c7027bf270f66feb492a2e03a6fbcd8a51d52edc)]
+- ✅ test: update test snapshots [[ed88cb7](https://github.com/guanghechen/node-scaffolds/commit/ed88cb7a9516cb98b654f0b258240d33b457cd6d)]
+- ✅ test: refactor tests [[9130ce5](https://github.com/guanghechen/node-scaffolds/commit/9130ce59f26cca22de825027eaf338c58b073646)]
+- ✅ test: update tests for FileCipherPathResolver [[c642c62](https://github.com/guanghechen/node-scaffolds/commit/c642c6244f39c08c484b6865dfa531033aa282be)]
+- ✨ [BREAKING] feat: implement @guanghechen/helper-fs &amp; move some methods from @guanghechen/helper-file and @guanghechen/helper-path to it [[51e1a57](https://github.com/guanghechen/node-scaffolds/commit/51e1a57838940bfba81d9c7b2b4c316b209c5d10)]
+- ✨ feat(helper-cipher): add FileCipherCatalog [[bc7faa0](https://github.com/guanghechen/node-scaffolds/commit/bc7faa005abce1205b0ea78bf5f4c20ce2c6e041)]
+- ✨ feat(helper-func): support new method &#x27;list2map&#x27; [[3c6b18c](https://github.com/guanghechen/node-scaffolds/commit/3c6b18c0afd581cc85d5511b8dbe540f12c4bd1c)]
+- ✅ test: fix test [[04a5213](https://github.com/guanghechen/node-scaffolds/commit/04a5213af5b09a84a808ef4adb20fbde617a3e9d)]
+
+### Changed
+
+- 🎨 improve(helper-git): set defaultBranch by params for &#x27;git init&#x27; instead of executing new command [[e671996](https://github.com/guanghechen/node-scaffolds/commit/e671996f715e4d46e29451f3abf5edd305a60ae7)]
+- 🔧 chore: update test configs [[7d9b49b](https://github.com/guanghechen/node-scaffolds/commit/7d9b49bb30821efd18bebeb431454a8bfd5ba9c1)]
+- 🔧 chore(helper-git*): disable test in ci [[358cb80](https://github.com/guanghechen/node-scaffolds/commit/358cb80a96b598ca58dcecc76eedffbce1a0e986)]
+- 🎨 improve: rename cryptDir to encryptedFilesDir [[985f1dd](https://github.com/guanghechen/node-scaffolds/commit/985f1dd24ed9d1b9defacbf63a57b6f661cf3a2a)]
+- 🎨 improve: remove the multipleMessagePrefix param [[5846855](https://github.com/guanghechen/node-scaffolds/commit/5846855c56abed30a78bb6dd190728619cdeb73b)]
+- 🎨 refactor(helper-git): reactor codes &amp; update tests [[2e392dd](https://github.com/guanghechen/node-scaffolds/commit/2e392dd6d248abc8e9af291fe3b2e5e6d7053070)]
+- 🎨 improve: fix lint [[acb29b9](https://github.com/guanghechen/node-scaffolds/commit/acb29b98fb77691fa57b900a63b432c4a3cf04f4)]
+- 🎨 improve(helper-cipher-file): pass pathResolver as params to &#x27;batchEncrypt&#x27; and &#x27;batchDecrypt&#x27; [[c19a393](https://github.com/guanghechen/node-scaffolds/commit/c19a393ce74d24443696be4c6fe6677ef4a90474)]
+- 🎨 refactor: perfer the terms &#x27;plain/crypt&#x27; instead of &#x27;source/encrypted&#x27; [[ff3867a](https://github.com/guanghechen/node-scaffolds/commit/ff3867a57349f1bb4d3941512dcb132e72fb1d8c)]
+- 🎨 refactor @guanghechen/helper-cipher-file [[002d3db](https://github.com/guanghechen/node-scaffolds/commit/002d3dbe2fa4526fbdb32d343e8b9f39205fc460)]
+- 🎨 improve(helper-func): prefer Iterable instead of ReadonlyArray [[4492c24](https://github.com/guanghechen/node-scaffolds/commit/4492c249cab76f26ad0a1565c37d7e50860c4e09)]
+- 🎨 improve(helper-cipher-file): export &#x27;filepath&#x27; from JsonConfigKeeper [[a129af3](https://github.com/guanghechen/node-scaffolds/commit/a129af3d03f36036425c943f0e8d558d2a2714ca)]
+- 🎨 improve(helper-git): reformat codes &amp; update tests [[12b64ce](https://github.com/guanghechen/node-scaffolds/commit/12b64ce552af02ad9caae1d61af4593c7b37372b)]
+- 🎨 improve: update eslint configs [[516c2b7](https://github.com/guanghechen/node-scaffolds/commit/516c2b74f48d5061972985abcac76ff2eb990dd7)]
+- 🎨 refactor @guanghechen/helper-git [[9b35b48](https://github.com/guanghechen/node-scaffolds/commit/9b35b48ad4e0165839d17fb4b3aeaeebbfd23ec3)]
+- 🎨 improve(@guanghechen/rollup-plugin-copy): use @guanghechen/helper-is instead of is-plain-object [[0316dce](https://github.com/guanghechen/node-scaffolds/commit/0316dceb8d06016ef1979a24a52f30efd7c456bb)]
+- ⬆️ chore: upgrade devDependencies [[325e12d](https://github.com/guanghechen/node-scaffolds/commit/325e12d78a76d205ad82a1c8a6758a34df404c34)]
+- 🎨 improve: rewrite @guanghechen/jest-config in typescript [[06e8e87](https://github.com/guanghechen/node-scaffolds/commit/06e8e873efc0b9db03cb694dd63e4f3e00b08048)]
+- 🔧 chore: fix test coverage [[a8d2b35](https://github.com/guanghechen/node-scaffolds/commit/a8d2b35630d8bd8a57fa6a0414ba2b6f7e4896f6)]
+- ⬆️ chore: upgrade dependencies [[f72ecb0](https://github.com/guanghechen/node-scaffolds/commit/f72ecb02a5c74f791c465aefacf11fe24e2fa1e2)]
+- 🎨 rename CipherPathResolver to FileCIpherPathResolver [[9664d2a](https://github.com/guanghechen/node-scaffolds/commit/9664d2ad3ac621386c87c0b70800015f7d530d48)]
+- 🎨 improve(chalk-logger): set header default delimiter colors to grey [[898643a](https://github.com/guanghechen/node-scaffolds/commit/898643a8c3d91394e7842a85911a2a0a0de7fdb8)]
+- 🔧 chore: fix devDependencies [[bf8118f](https://github.com/guanghechen/node-scaffolds/commit/bf8118f524bc9a7a953c83152c4a0fb0507af13d)]
+- ⬆️ chore: upgrade devDependencies [[5abb430](https://github.com/guanghechen/node-scaffolds/commit/5abb430a3b59da5ab02c2b55cc30cc46e6a627b5)]
+- 🎨 improve: prefer built-in module node:fs/promises instead of fs-extra [[4a525b4](https://github.com/guanghechen/node-scaffolds/commit/4a525b457c8ddc4420d9e68b4f48ac4c1a2957f7)]
+- 🎨 improve: prefer built-in module node:fs/promises instead of fs-extra [[591c45a](https://github.com/guanghechen/node-scaffolds/commit/591c45a6fec2a3707f80cb2716d542c5132176c6)]
+- 🎨 refactor(helper-cipher): rearrange files [[df33b9c](https://github.com/guanghechen/node-scaffolds/commit/df33b9cafc1018339fdafaa3fd867283485f61c7)]
+- 🎨 refactor Cipher &amp; fix build errors [[2e8cb0d](https://github.com/guanghechen/node-scaffolds/commit/2e8cb0df1838ba674ef5bd03390d8ac3e311aff7)]
+- 🎨 improve: refactor helper-cipher [[a1c4a86](https://github.com/guanghechen/node-scaffolds/commit/a1c4a86f02dad68bb7dd871c89928a258c1bf9d6)]
+- 🎨 improve: rename AESCipher to AesCipher [[fb5991e](https://github.com/guanghechen/node-scaffolds/commit/fb5991e3d102665d67cfccaf2522909d0b0dfabf)]
+- 🎨 improve(helper-cipher): add diffFileCipherItems [[29bed39](https://github.com/guanghechen/node-scaffolds/commit/29bed397dd20c23b37ae09a47e83c4e73cbc8556)]
+- 🎨 improve(helper-file): narrow types [[36dd01b](https://github.com/guanghechen/node-scaffolds/commit/36dd01bf91628d46c67b55c4cbd489ba0ac2aafb)]
+- 🎨 refactor(helper-file): extract calcFilePartNames from BigFileHelper [[f8758b3](https://github.com/guanghechen/node-scaffolds/commit/f8758b3de0042932cf82142ed4b2d17fda194a91)]
+- 🎨 improve: make code clean [[917a85d](https://github.com/guanghechen/node-scaffolds/commit/917a85d3067f5c14bb89b6a25b84441be9b5b939)]
+- 🎨 refactor: abstract path resolver to CipherPathResolver [[b7c2ead](https://github.com/guanghechen/node-scaffolds/commit/b7c2ead8bdfb8b6f8c08bde68dbeec5ec16be08a)]
+- 🎨 refactor @guanghechen/helper-cipher [[abfc81f](https://github.com/guanghechen/node-scaffolds/commit/abfc81f9d7e8980c948141490d01b060f55e06a9)]
+
+### Removed
+
+- 🔥 remove @guanghechen/helper-blob (migrated to @guanghechen/dom-blob) [[053fcc9](https://github.com/guanghechen/node-scaffolds/commit/053fcc93bf669d5c1094cc17dd5f0ee1ca09d0cb)]
+
+### Fixed
+
+- 🐛 fix(helper-git): use utc time to avoid diffent commit ID [[f0e1423](https://github.com/guanghechen/node-scaffolds/commit/f0e14236bbf3307da12892bace583db90958c982)]
+- 🐛 fix(tool-git-cipher): refactor &amp; fix build error [[266bdcf](https://github.com/guanghechen/node-scaffolds/commit/266bdcff79a5c20d84aa8843ceeac39260ce9a01)]
+- 🐛 fix(helper-cipher-file): raise error when detect unepxected cases in &#x27;diffFromPlainFiles&#x27; [[c372639](https://github.com/guanghechen/node-scaffolds/commit/c3726398c1a05f7b9296463ef5480e06a41b67f5)]
+- 🐛 fix(helper-file): should always use &#x60;undefined&#x60; encoding to get raw buffer instead of any pretreated data [[53ba810](https://github.com/guanghechen/node-scaffolds/commit/53ba81011213f0955444477d7e4683be6452b961)]
+- 🐛 fix: use relative path in catalog items [[ae1319b](https://github.com/guanghechen/node-scaffolds/commit/ae1319bf0ae7abeb8cad6ac93baf6e2dcbff5f7b)]
+
+### Miscellaneous
+
+- 📝 docs: update doc url [[c99c7f8](https://github.com/guanghechen/node-scaffolds/commit/c99c7f8849dc96e800d0fd166ac8fe748b1356f0)]
+- 📝 docs: update READMEs [[0b4c1af](https://github.com/guanghechen/node-scaffolds/commit/0b4c1af9b834bfb6acdef0510556ec9ce7b8992d)]
+-  [BREAKING] improve: use pbkdf2 to generate key from password &amp; update tests [[15d0199](https://github.com/guanghechen/node-scaffolds/commit/15d019950e2c734ff93fe4559e1186a45a5157b6)]
+-  [BREAKING] improve: prefer fileSize instead of a filepath in calcFilePartItemsBySize and calcFilePartItemsByCount [[9412c29](https://github.com/guanghechen/node-scaffolds/commit/9412c2951f475cb7f26913d6570e04d504879034)]
+-  improve: fix dependencies [[b965f32](https://github.com/guanghechen/node-scaffolds/commit/b965f32ee622eaa98a81a3dd22adb8a856966540)]
+- 📝 docs: update README [[1456c16](https://github.com/guanghechen/node-scaffolds/commit/1456c16526ac2349b21bec963dcd213428df6967)]
+
+
 <a name="3.0.2"></a>
 ## 3.0.2 (2023-01-14)
 
