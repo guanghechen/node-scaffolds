@@ -1,8 +1,7 @@
 import invariant from '@guanghechen/invariant'
-import dayjs from 'dayjs'
 import type { Options as IExecaOptions } from 'execa'
 import type { IGitCommandBaseParams, IGitCommitInfo } from '../types'
-import { safeExeca } from '../util'
+import { formatGitDate, safeExeca } from '../util'
 
 export interface IListAllFilesParams extends IGitCommandBaseParams {
   branchOrCommitId: string
@@ -90,10 +89,10 @@ export const showCommitInfo = async (
     .join('\n')
   return {
     commitId,
-    authorDate: dayjs(authorDate).toISOString(),
+    authorDate: formatGitDate(authorDate),
     authorName: authorName.trim(),
     authorEmail: authorEmail.trim(),
-    committerDate: dayjs(committerDate).toISOString(),
+    committerDate: formatGitDate(committerDate),
     committerName: committerName.trim(),
     committerEmail: committerEmail.trim(),
     message: message,

@@ -41,10 +41,10 @@ describe('waw', () => {
     await writeFile(filepathA, contentA, encoding)
     await commitAll({
       ...ctx,
-      authorDate: '2023-01-26T07:29:33.000Z',
+      authorDate: '2023-01-26 15:29:33 +0800',
       authorName: 'guanghechen_a',
       authorEmail: 'exmaple_a@gmail.com',
-      committerDate: '2023-01-26T07:29:33.000Z',
+      committerDate: '2023-01-26 15:29:33 +0800',
       committerName: 'guanghechen_a',
       committerEmail: 'exmaple_a@gmail.com',
       message: 'initialize',
@@ -53,11 +53,11 @@ describe('waw', () => {
 
     const info = await showCommitInfo({ ...ctx, branchOrCommitId: 'HEAD' })
     expect(info).toEqual({
-      commitId: 'd8fed2368acbdd041397ce2b331465a6df14d344',
-      authorDate: '2023-01-26T07:29:33.000Z',
+      commitId: '6abc2dbd3b8769c72583141c8879294f190c56c1',
+      authorDate: '2023-01-26 15:29:33 +0800',
       authorEmail: 'exmaple_a@gmail.com',
       authorName: 'guanghechen_a',
-      committerDate: '2023-01-26T07:29:33.000Z',
+      committerDate: '2023-01-26 15:29:33 +0800',
       committerEmail: 'exmaple_a@gmail.com',
       committerName: 'guanghechen_a',
       message: 'initialize',

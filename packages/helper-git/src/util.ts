@@ -1,4 +1,3 @@
-import dayjs from 'dayjs'
 import type { Options as IExecaOptions, ExecaReturnValue as IExecaReturnValue } from 'execa'
 import { execa } from 'execa'
 import { existsSync, statSync } from 'node:fs'
@@ -27,5 +26,5 @@ export const isGitRepo = (repoDir: string): boolean => {
 }
 
 export const formatGitDate = (dateString: string): string => {
-  return dayjs(dateString).toISOString()
+  return dateString
 }

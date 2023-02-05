@@ -30,17 +30,17 @@ const maxTargetFileSize = 1024
 const partCodePrefix = '.ghc-part'
 
 const cryptCommitIdTable = {
-  A: 'e844e4a7eb3a587431edb3b8ece289fdd5d9d0d9',
-  B: '185a867d8ec5de97f40bb7ade23a662c9c39c462',
-  C: 'e4d3e3fd0a7d0d6560033f9cab0c4d86795b13e3',
-  D: '56ab354e071a38c252035bc7934ca7e592505b2c',
-  E: '0cb6ec49921f5058c1b1d3c8fdd5ab2b639b1c48',
-  F: 'de15163950c29da2eff7d38a6a9a25d190382083',
-  G: '2702b51079cb16010d131a32ba27d139ee054ab3',
-  H: '688efb3b9c4acf6b7d5ebe30d36d164ce9be0aac',
-  I: '670cb5f7205a51cf9eaff86a90e63c94619930ec',
-  J: '849fd5a562e1c5af5966fada8048b651b48eae05',
-  K: '25245875a2a59bc9d21f8bfbb21bdf211a32a4fe',
+  A: '0620e6478ab3102a7bc09ae8d40505ecc2488cdf',
+  B: '84bbbd8ca6c9fe141b9da7a927b5330dbfd32fec',
+  C: 'a4093b0d79d64813cb15ca50d5df3407624762bc',
+  D: '363c5abf3a3c495dfe8e052295cc6edf258d0471',
+  E: '3b9f3ce4ba74a9833ece21cf48c58830ece35e85',
+  F: '0dc72a598000b7388a1e27da54efb735dd8af463',
+  G: '960b5095e2bb2c1b29c245a0aa13d54da3fa15b0',
+  H: 'e3300f43b27b95cc700185c2881547f2b538c8a3',
+  I: '350c23e567211ec16a39765d88bb66a946c7c93a',
+  J: '47bbfaf352e790ba64732218f4588c73faebce7a',
+  K: 'd07016b149eeb92632866ce75dee655a9b6cdbe8',
 }
 
 describe('GitCipher', () => {

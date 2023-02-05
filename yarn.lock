@@ -707,8 +707,6 @@ __metadata:
     "@guanghechen/invariant": ^4.0.0-alpha.4
     "@guanghechen/utility-types": ^4.0.0-alpha.4
     cross-env: ^7.0.3
-    dayjs: ^1.11.7
-    execa: ^6.1.0
     jest: ^29.4.1
     rimraf: ^4.1.2
     rollup: ^3.13.0
@@ -725,7 +723,6 @@ __metadata:
     "@guanghechen/invariant": ^4.0.0-alpha.4
     "@guanghechen/utility-types": ^4.0.0-alpha.4
     cross-env: ^7.0.3
-    dayjs: ^1.11.7
     execa: ^6.1.0
     jest: ^29.4.1
     rimraf: ^4.1.2

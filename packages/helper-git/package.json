@@ -42,7 +42,6 @@
   "dependencies": {
     "@guanghechen/invariant": "^4.0.0-alpha.4",
     "@guanghechen/utility-types": "^4.0.0-alpha.4",
-    "dayjs": "^1.11.7",
     "execa": "^6.1.0"
   },
   "devDependencies": {

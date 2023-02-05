@@ -13,7 +13,6 @@ import {
   initGitRepo,
   listAllFiles,
   mergeCommits,
-  showCommitInfo,
 } from '../src'
 
 type ISymbol = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K'
@@ -58,101 +57,101 @@ const isVolatileCommitId = false
 export const getCommitArgTable = (): Record<ISymbol, Omit<IGitCommitInfo, 'commitId'>> => ({
   A: {
     message: 'A -- +a1,+b1 (a1,b1)',
-    authorDate: '2023-01-26T07:29:33.000Z',
+    authorDate: '2023-01-26 15:29:33 +0800',
     authorName: 'guanghechen_a',
     authorEmail: 'exmaple_a@gmail.com',
-    committerDate: '2023-01-26T07:29:33.000Z',
+    committerDate: '2023-01-26 15:29:33 +0800',
     committerName: 'guanghechen_a',
     committerEmail: 'exmaple_a@gmail.com',
   },
   B: {
     message: 'B -- a1->a2,+c1 (a2,b1,c1)',
-    authorDate: '2023-01-27T03:50:35.000Z',
+    authorDate: '2023-01-27 11:50:35 +0800',
     authorName: 'guanghechen_b',
     authorEmail: 'exmaple_b@gmail.com',
-    committerDate: '2023-01-27T03:50:35.000Z',
+    committerDate: '2023-01-27 11:50:35 +0800',
     committerName: 'guanghechen_b',
     committerEmail: 'exmaple_b@gmail.com',
   },
   C: {
     message: 'C -- -a2 (b1,c1)',
-    authorDate: '2023-01-27T03:51:32.000Z',
+    authorDate: '2023-01-27 11:51:32 +0800',
     authorName: 'guanghechen_c',
     authorEmail: 'exmaple_c@gmail.com',
-    committerDate: '2023-01-27T03:51:32.000Z',
+    committerDate: '2023-01-27 11:51:32 +0800',
     committerName: 'guanghechen_c',
     committerEmail: 'exmaple_c@gmail.com',
   },
   D: {
     message: 'D -- +a1,c1->c2 (a1,b1,c2)',
-    authorDate: '2023-01-27T03:53:37.000Z',
+    authorDate: '2023-01-27 11:53:37 +0800',
     authorName: 'guanghechen_d',
     authorEmail: 'exmaple_d@gmail.com',
-    committerDate: '2023-01-27T03:53:37.000Z',
+    committerDate: '2023-01-27 11:53:37 +0800',
     committerName: 'guanghechen_d',
     committerEmail: 'exmaple_d@gmail.com',
   },
   E: {
     message: 'E -- -b1,c1->c2, (c2)',
-    authorDate: '2023-01-27T06:58:43.000Z',
+    authorDate: '2023-01-27 14:58:43 +0800',
     authorName: 'guanghechen_e',
     authorEmail: 'exmaple_e@gmail.com',
-    committerDate: '2023-01-27T06:58:43.000Z',
+    committerDate: '2023-01-27 14:58:43 +0800',
     committerName: 'guanghechen_e',
     committerEmail: 'exmaple_e@gmail.com',
   },
   F: {
     message: 'F -- merge D and E <no conflict> (a1,c2)',
-    authorDate: '2023-01-27T06:59:16.000Z',
+    authorDate: '2023-01-27 14:59:16 +0800',
     authorName: 'guanghechen_f',
     authorEmail: 'exmaple_f@gmail.com',
-    committerDate: '2023-01-27T06:59:16.000Z',
+    committerDate: '2023-01-27 14:59:16 +0800',
     committerName: 'guanghechen_f',
     committerEmail: 'exmaple_f@gmail.com',
   },
   G: {
     message: 'G -- c1->c3,b1->b2 (a2,b2,c3)',
-    authorDate: '2023-01-27T06:59:42.000Z',
+    authorDate: '2023-01-27 14:59:42 +0800',
     authorName: 'guanghechen_g',
     authorEmail: 'exmaple_g@gmail.com',
-    committerDate: '2023-01-27T06:59:42.000Z',
+    committerDate: '2023-01-27 14:59:42 +0800',
     committerName: 'guanghechen_g',
     committerEmail: 'exmaple_g@gmail.com',
   },
   H: {
     message: 'H -- Merge E and G <conflict> (b2,c3)',
-    authorDate: '2023-01-27T07:00:08.000Z',
+    authorDate: '2023-01-27 15:00:08 +0800',
     authorName: 'guanghechen_h',
     authorEmail: 'exmaple_h@gmail.com',
-    committerDate: '2023-01-27T07:00:08.000Z',
+    committerDate: '2023-01-27 15:00:08 +0800',
     committerName: 'guanghechen_h',
     committerEmail: 'exmaple_h@gmail.com',
   },
   I: {
     message: 'I -- b2->b1,+d (a2,b1,c3,d)',
-    authorDate: '2023-01-27T07:00:30.000Z',
+    authorDate: '2023-01-27 15:00:30 +0800',
     authorName: 'guanghechen_i',
     authorEmail: 'exmaple_i@gmail.com',
-    committerDate: '2023-01-27T07:00:30.000Z',
+    committerDate: '2023-01-27 15:00:30 +0800',
     committerName: 'guanghechen_i',
     committerEmail: 'exmaple_i@gmail.com',
   },
   J: {
     message: 'J -- merge F,H,I <conflict> (a2,b2,c3,d)',
-    authorDate: '2023-01-27T07:00:45.000Z',
+    authorDate: '2023-01-27 15:00:45 +0800',
     authorName: 'guanghechen_j',
     authorEmail: 'exmaple_j@gmail.com',
-    committerDate: '2023-01-27T07:00:45.000Z',
+    committerDate: '2023-01-27 15:00:45 +0800',
     committerName: 'guanghechen_i',
     committerEmail: 'exmaple_i@gmail.com',
   },
   K: {
     message:
       'K -- d->e (a2,b2,c3,e)\n\nupdate d,e\ntest multilines message with quotes\'"\n\n  Will it be respected?',
-    authorDate: '2023-01-27T07:01:01.000Z',
+    authorDate: '2023-01-27 15:01:01 +0800',
     authorName: 'guanghechen_k',
     authorEmail: 'exmaple_k@gmail.com',
-    committerDate: '2023-01-27T07:01:01.000Z',
+    committerDate: '2023-01-27 15:01:01 +0800',
     committerName: 'guanghechen_i',
     committerEmail: 'exmaple_i@gmail.com',
   },
@@ -214,17 +213,17 @@ export async function buildRepo1({
 
   const commitArgTable = getCommitArgTable()
   const commitIdTable = {
-    A: 'dc37093aa7ba41efa8e905850c16616f5d8a52a8',
-    B: 'b59fc65465578502e74635dceaa48258253e228f',
-    C: '40dc1db5ba0488f90b2727116cc909f19c62617d',
-    D: '3f4fc9e00633766d0d3ed742cc723b88f99b3ae9',
-    E: '9d45e2dc5468c6902c015925a7cecfb8b29504e7',
-    F: '2017844536ece2b0670ba93be48b069304a75823',
-    G: '270d4c09f0a531bb2a944c00e616cdb76f4cbc00',
-    H: '8f6e351cf5978ea7ced2013fe4d6cf87a2c7d518',
-    I: 'b331e6a0df7ca6fe53880a8e45649751ad71c1dd',
-    J: '593f658d7e2ab642689bde1fdebb42629a92c8ad',
-    K: '7ec3265ad8e1ea95a582c373076eac15ec6bfdda',
+    A: '104269042e92f735f1a006a11ca60f91435e1530',
+    B: '31e45924180c2280f47e95a6891fc4f1545b1af9',
+    C: '2a386aa42b60cd4fffa15341bb1418f9acabb79f',
+    D: 'cbeca71f8d00551f6565a450de582f4005ee4725',
+    E: '28fc4e74bf3bc436c21774dfc9947d60116d9716',
+    F: '8710b6a7a5174b6024a63f66a47f76f0a01bf465',
+    G: '06d25f06c6cd40756bf61624f1ee37bf014ec6d0',
+    H: '9f32afa6b6b4f1a57aab90da497e2982348b385c',
+    I: '3a394ce736aad9c33532e07262e685e4a1a709b0',
+    J: 'c4edeedf7d521506621a8296d9bdd7463de9c417',
+    K: '993cd742131484376043502ff676bbb9c74b7237',
   }
   const commitTable: Record<ISymbol, ICommitItem> = {
     A: {
@@ -315,20 +314,6 @@ export async function buildRepo1({
       ...commitArgTable.K,
       amend: false,
     },
-  }
-
-  const localCommitIdTable = { ...commitIdTable }
-  const finalCommitIdTableMap: Map<string, string> = new Map()
-  const resetCommitId = async (symbol: ISymbol): Promise<void> => {
-    if (isVolatileCommitId) {
-      const { commitId } = await showCommitInfo({ ...ctx, branchOrCommitId: 'HEAD' })
-      finalCommitIdTableMap.set(localCommitIdTable[symbol], commitId)
-      commitIdTable[symbol] = commitId
-      commitTable[symbol].commitId = commitId
-      commitTable[symbol].parentIds = commitTable[symbol].parentIds.map(
-        id => finalCommitIdTableMap.get(id)!,
-      )
-    }
   }
 
   const defaultBranch = 'main'
@@ -517,27 +502,16 @@ export async function buildRepo1({
   }
 
   await stepA()
-  await resetCommitId('A')
   await stepB()
-  await resetCommitId('B')
   await stepC()
-  await resetCommitId('C')
   await stepD()
-  await resetCommitId('D')
   await stepE()
-  await resetCommitId('E')
   await stepF()
-  await resetCommitId('F')
   await stepG()
-  await resetCommitId('G')
   await stepH()
-  await resetCommitId('H')
   await stepI()
-  await resetCommitId('I')
   await stepJ()
-  await resetCommitId('J')
   await stepK()
-  await resetCommitId('K')
 
   await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.K })
   await deleteBranch({ ...ctx, branchName: defaultBranch, force: true })
