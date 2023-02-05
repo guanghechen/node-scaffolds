@@ -32,6 +32,11 @@ export interface IEncryptGitRepoParams {
 export async function encryptGitRepo(params: IEncryptGitRepoParams): Promise<void> {
   const { catalog, cipherBatcher, configKeeper, pathResolver, logger } = params
   invariant(
+    isGitRepo(pathResolver.plainRootDir),
+    `[decryptGitRepo] plain repo is not a git repo. (${pathResolver.plainRootDir})`,
+  )
+
+  invariant(
     !(await hasUncommittedContent({ cwd: pathResolver.plainRootDir, logger })),
     '[encryptGitRepo] plain repo has uncommitted contents.',
   )
