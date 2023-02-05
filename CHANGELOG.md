@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="4.0.0-alpha.5"></a>
+## 4.0.0-alpha.5 (2023-02-05)
+
+### Fixed
+
+- 🐛 fix(helper-git*): fix inconsistent git date [[7c785c5](https://github.com/guanghechen/node-scaffolds/commit/7c785c5250d0da51ffa79e722dbc6fc48b5d13cb)]
+- 🐛 fix(helper-git-cipher): ensure source repo is a git repo before encrypt/decrypt [[a2f20b0](https://github.com/guanghechen/node-scaffolds/commit/a2f20b02dcb75ea263d5411dbe7c44b707d94811)]
+
+### Miscellaneous
+
+-  improve(tool-git-cipher): update boilerplates [[1886b2a](https://github.com/guanghechen/node-scaffolds/commit/1886b2ac4b3a92b161c751588c6be38b0ed92ac1)]
+
+
 <a name="4.0.0-alpha.4"></a>
 ## 4.0.0-alpha.4 (2023-02-04)
 
