@@ -100,6 +100,7 @@ export class GitCipherInitProcessor {
       secretFilepath: relativeOfWorkspace(context.workspace, context.secretFilepath),
       catalogFilepath: relativeOfWorkspace(context.workspace, context.catalogFilepath),
       plainRootDir: relativeOfWorkspace(context.workspace, context.plainRootDir),
+      bakPlainRootDir: 'ghc-plain-bak',
       cryptRootDir: relativeOfWorkspace(context.workspace, context.cryptRootDir),
       encryptedFilesDir: context.encryptedFilesDir,
       encryptedFilePathSalt: null,
