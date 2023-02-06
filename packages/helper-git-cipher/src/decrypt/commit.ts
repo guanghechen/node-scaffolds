@@ -1,7 +1,4 @@
-import {
-  collectAffectedPlainFilepaths,
-  normalizePlainFilepath,
-} from '@guanghechen/helper-cipher-file'
+import { collectAffectedPlainFilepaths } from '@guanghechen/helper-cipher-file'
 import type {
   FileCipherPathResolver,
   IFileCipherBatcher,
@@ -62,14 +59,6 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
     })
   }
 
-  // [pain] Clean untracked filepaths to avoid unexpected errors.
-  const affectedPlainFiles: string[] = collectAffectedPlainFilepaths(plainCommit.catalog.diffItems)
-  await cleanUntrackedFilepaths({
-    filepaths: affectedPlainFiles,
-    cwd: pathResolver.plainRootDir,
-    logger,
-  })
-
   let shouldAmend = false
   if (plainCommit.parents.length > 1) {
     await mergeCommits({
@@ -80,18 +69,15 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
       logger,
     })
     shouldAmend = true
-
-    // [plain] Remove files.
-    const existFiles: Set<string> = new Set<string>(
-      plainCommit.catalog.items.map(item =>
-        normalizePlainFilepath(item.plainFilepath, pathResolver),
-      ),
-    )
-    for (const plainFilepath of affectedPlainFiles) {
-      const key = normalizePlainFilepath(plainFilepath, pathResolver)
-      if (!existFiles.has(key)) await rm(pathResolver.calcAbsolutePlainFilepath(plainFilepath))
-    }
   }
+
+  // [pain] Clean untracked filepaths to avoid unexpected errors.
+  const affectedPlainFiles: string[] = collectAffectedPlainFilepaths(plainCommit.catalog.diffItems)
+  await cleanUntrackedFilepaths({
+    filepaths: affectedPlainFiles,
+    cwd: pathResolver.plainRootDir,
+    logger,
+  })
 
   // Decrypt files.
   await cipherBatcher.batchDecrypt({
