@@ -30,6 +30,7 @@ export class GitCipherInitProcessor {
       minPasswordLength: context.minPasswordLength,
       maxPasswordLength: context.maxPasswordLength,
     })
+    logger.debug('context:', context)
   }
 
   public async init(): Promise<void> {

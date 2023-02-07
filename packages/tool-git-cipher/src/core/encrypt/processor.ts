@@ -29,6 +29,8 @@ export class GitCipherEncryptProcessor {
       minPasswordLength: context.minPasswordLength,
       maxPasswordLength: context.maxPasswordLength,
     })
+
+    logger.debug('context:', context)
   }
 
   public async encrypt(): Promise<void> {

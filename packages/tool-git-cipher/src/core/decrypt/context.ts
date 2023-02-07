@@ -65,9 +65,14 @@ export interface IGitCipherDecryptContext {
    */
   readonly keepPlainPatterns: string[]
   /**
-   * Root dir of outputs (decrypted files).
+   * Root dir of decrypted outputs.
    */
   readonly outDir: string | null
+  /**
+   * If specified, then all of the files under the given commitId will be decrypted.
+   * Otherwise, the entire repo will be generated.
+   */
+  readonly filesAt: string | null
 }
 
 export async function createGitCipherDecryptContextFromOptions(
@@ -90,6 +95,7 @@ export async function createGitCipherDecryptContextFromOptions(
     partCodePrefix: options.partCodePrefix,
     keepPlainPatterns: options.keepPlainPatterns,
     outDir: options.outDir,
+    filesAt: options.filesAt,
   }
   return context
 }

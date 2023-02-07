@@ -8,7 +8,7 @@ import {
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { BigFileHelper } from '@guanghechen/helper-file'
 import { emptyDir } from '@guanghechen/helper-fs'
-import { GitCipher, GitCipherConfig } from '@guanghechen/helper-git-cipher'
+import { GitCipher, GitCipherConfig, decryptFilesOnly } from '@guanghechen/helper-git-cipher'
 import { coverString } from '@guanghechen/helper-option'
 import invariant from '@guanghechen/invariant'
 import inquirer from 'inquirer'
@@ -31,6 +31,8 @@ export class GitCipherDecryptProcessor {
       minPasswordLength: context.minPasswordLength,
       maxPasswordLength: context.maxPasswordLength,
     })
+
+    logger.debug('context:', context)
   }
 
   public async decrypt(): Promise<void> {
@@ -75,6 +77,18 @@ export class GitCipherDecryptProcessor {
       }
     }
 
-    await gitCipher.decrypt({ pathResolver: outPathResolver })
+    if (context.filesAt) {
+      logger.debug('Trying decryptFilesOnly...')
+      await decryptFilesOnly({
+        cryptCommitId: context.filesAt,
+        cipherBatcher,
+        pathResolver: outPathResolver,
+        configKeeper,
+        logger,
+      })
+    } else {
+      logger.debug('Trying decrypt entire repo...')
+      await gitCipher.decrypt({ pathResolver: outPathResolver })
+    }
   }
 }
