@@ -3,11 +3,11 @@
 exports[`empty logger 1`] = `
 [
   [
-    "[90m[[39mverb [90m][39m empty: <$WORKSPACE$>/packages/helper-fs/__test__/fixtures/fictitiousDir_c4266163b919b
+    "[verb ] empty: <$WORKSPACE$>/packages/helper-fs/__test__/fixtures/fictitiousDir_c4266163b919b
 ",
   ],
   [
-    "[90m[[39mverb [90m][39m empty: <$WORKSPACE$>/packages/helper-fs/__test__/fixtures/fictitiousDir_c4266163b919b
+    "[verb ] empty: <$WORKSPACE$>/packages/helper-fs/__test__/fixtures/fictitiousDir_c4266163b919b
 ",
   ],
 ]
@@ -16,7 +16,7 @@ exports[`empty logger 1`] = `
 exports[`mkdirsIfNotExists mkdirs logger 1`] = `
 [
   [
-    "[90m[[39mverb [90m][39m mkdirs: <$WORKSPACE$>/packages/helper-fs/__test__/fixtures/basic--non-existed--2
+    "[verb ] mkdirs: <$WORKSPACE$>/packages/helper-fs/__test__/fixtures/basic--non-existed--2
 ",
   ],
 ]
