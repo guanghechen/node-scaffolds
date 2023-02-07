@@ -20,12 +20,7 @@ import type {
   IFileCipherCatalogItemDiffCombine,
 } from './types/IFileCipherCatalogItem'
 import { isSameFileCipherItem, normalizePlainFilepath } from './util/catalog'
-import {
-  calcFingerprintFromFile,
-  calcFingerprintFromMac,
-  calcFingerprintFromString,
-  calcMac,
-} from './util/mac'
+import { calcFingerprintFromFile, calcFingerprintFromString } from './util/mac'
 
 export interface IFileCipherCatalogProps {
   pathResolver: FileCipherPathResolver

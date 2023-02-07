@@ -18,6 +18,6 @@ export const hasUncommittedContent = async (
 
   params?.logger?.debug(`[hasUnCommitContent] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  const result = await safeExeca('git', args, execaOptions)
+  const result = await safeExeca('git', args, execaOptions, params.logger)
   return Boolean(result.stdout.trim())
 }

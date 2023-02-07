@@ -13,6 +13,7 @@ export const listAllFiles = async (params: IListAllFilesParams): Promise<string[
     'git',
     ['ls-tree', '--name-only', '-r', params.branchOrCommitId],
     execaOptions,
+    params.logger,
   )
   const files: string[] = result.stdout.trim().split(/\s*\n+\s*/g)
   return files
@@ -29,6 +30,7 @@ export const listDiffFiles = async (params: IListDiffFiles): Promise<string[]> =
     'git',
     ['diff', '--name-status', params.branchOrCommitId1, params.branchOrCommitId2],
     execaOptions,
+    params.logger,
   )
 
   const lines: string[] = result.stdout.trim().split(/\s*\n+\s*/g)
@@ -66,6 +68,7 @@ export const showCommitInfo = async (
     'git',
     ['log', '-1', '--format=fuller', '--date=iso', params.branchOrCommitId],
     execaOptions,
+    params.logger,
   )
   const text: string = result.stdout
   const match = text.match(regex)

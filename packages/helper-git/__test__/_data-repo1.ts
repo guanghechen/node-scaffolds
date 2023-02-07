@@ -38,9 +38,6 @@ export interface IBuildRepo1Result {
   filepathE: string
 }
 
-// const isVolatileCommitId = !!isCI
-const isVolatileCommitId = false
-
 export const encoding: BufferEncoding = 'utf8'
 
 export const fpA = 'a.txt'

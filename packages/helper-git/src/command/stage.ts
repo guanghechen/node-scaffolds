@@ -15,5 +15,5 @@ export const stageAll = async (params: IStageAllParams): Promise<void> => {
 
   params?.logger?.debug(`[stageAll] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  await safeExeca('git', args, execaOptions)
+  await safeExeca('git', args, execaOptions, params.logger)
 }

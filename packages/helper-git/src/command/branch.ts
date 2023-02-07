@@ -17,7 +17,7 @@ export const checkBranch = async (params: ICheckBranchParams): Promise<void> => 
 
   params?.logger?.debug(`[checkBranch] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  await safeExeca('git', args, execaOptions)
+  await safeExeca('git', args, execaOptions, params.logger)
 }
 
 export interface ICreateBranchParams extends IGitCommandBaseParams {
@@ -32,7 +32,7 @@ export const createBranch = async (params: ICreateBranchParams): Promise<void> =
 
   params?.logger?.debug(`[createBranch] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  await safeExeca('git', args, execaOptions)
+  await safeExeca('git', args, execaOptions, params.logger)
 }
 
 export interface IDeleteBranchParams extends IGitCommandBaseParams {
@@ -47,7 +47,7 @@ export const deleteBranch = async (params: IDeleteBranchParams): Promise<void> =
 
   params?.logger?.debug(`[deleteBranch] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  await safeExeca('git', args, execaOptions)
+  await safeExeca('git', args, execaOptions, params.logger)
 }
 
 export interface IGetAllLocalBranchParams extends IGitCommandBaseParams {}
@@ -70,7 +70,7 @@ export const getAllLocalBranches = async (
 
   params?.logger?.debug(`[getAllLocalBranches] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  const result = await safeExeca('git', args, execaOptions)
+  const result = await safeExeca('git', args, execaOptions, params.logger)
 
   let currentBranch: string | null = null
   const branches: string[] = []

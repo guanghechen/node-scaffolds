@@ -4,7 +4,6 @@ import type {
   IFileCipherBatcher,
   IJsonConfigKeeper,
 } from '@guanghechen/helper-cipher-file'
-import { rm } from '@guanghechen/helper-fs'
 import type { IGitCommitDagNode } from '@guanghechen/helper-git'
 import {
   checkBranch,

@@ -24,6 +24,6 @@ export interface IGitCommitInfo {
 
 export interface IGitCommandBaseParams {
   cwd: string
+  logger: ILogger | undefined
   execaOptions?: IExecaOptions
-  logger?: ILogger
 }

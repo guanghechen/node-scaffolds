@@ -1,7 +1,7 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import { emptyDir, rm } from '@guanghechen/helper-fs'
-import type { IConsoleMock } from '@guanghechen/helper-jest'
-import { createConsoleMock } from '@guanghechen/helper-jest'
+import type { ILoggerMock } from '@guanghechen/helper-jest'
+import { createLoggerMock } from '@guanghechen/helper-jest'
 import { locateFixtures } from 'jest.helper'
 import type { IGitCommandBaseParams, IGitCommitDagNode, IGitCommitWithMessage } from '../src'
 import { getCommitInTopology, getCommitWithMessageList } from '../src'
@@ -13,13 +13,13 @@ describe('log', () => {
   const logger = new ChalkLogger({
     name: 'log',
     level: Level.ERROR,
-    flags: { inline: true },
+    flags: { inline: true, colorful: false },
   })
   const ctx: IGitCommandBaseParams = { cwd: workspaceDir, logger, execaOptions: {} }
 
-  let logMock: IConsoleMock
+  let logMock: ILoggerMock
   beforeEach(async () => {
-    logMock = createConsoleMock(['error'])
+    logMock = createLoggerMock({ logger })
     await emptyDir(workspaceDir)
   })
   afterEach(async () => {

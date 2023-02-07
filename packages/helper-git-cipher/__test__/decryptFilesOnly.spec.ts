@@ -8,9 +8,8 @@ import {
 } from '@guanghechen/helper-cipher-file'
 import { BigFileHelper } from '@guanghechen/helper-file'
 import { collectAllFilesSync, emptyDir, rm } from '@guanghechen/helper-fs'
-import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
-import type { IConsoleMock } from '@guanghechen/helper-jest'
-import { createConsoleMock } from '@guanghechen/helper-jest'
+import type { ILoggerMock } from '@guanghechen/helper-jest'
+import { createLoggerMock } from '@guanghechen/helper-jest'
 import { locateFixtures } from 'jest.helper'
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -47,7 +46,7 @@ describe('decryptFilesOnly', () => {
   const logger = new ChalkLogger({
     name: 'decryptFilesOnly',
     level: Level.ERROR,
-    flags: { inline: true },
+    flags: { inline: true, colorful: false },
   })
 
   const fileHelper = new BigFileHelper({ partCodePrefix })
@@ -88,9 +87,9 @@ describe('decryptFilesOnly', () => {
   const bakFilepathD: string = bakPathResolver.calcAbsolutePlainFilepath(fpD)
   const bakFilepathE: string = bakPathResolver.calcAbsolutePlainFilepath(fpE)
 
-  let logMock: IConsoleMock
+  let logMock: ILoggerMock
   beforeAll(async () => {
-    logMock = createConsoleMock(['error'])
+    logMock = createLoggerMock({ logger })
     await emptyDir(workspaceDir)
     await buildRepo1({ repoDir: plainRootDir, logger, execaOptions: {} })
     await gitCipher.encrypt({ catalog, pathResolver })

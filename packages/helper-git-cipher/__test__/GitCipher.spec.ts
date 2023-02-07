@@ -17,9 +17,9 @@ import {
   getCommitInTopology,
   getCommitWithMessageList,
 } from '@guanghechen/helper-git'
-import type { IConsoleMock } from '@guanghechen/helper-jest'
-import { createConsoleMock } from '@guanghechen/helper-jest'
-import { locateFixtures } from 'jest.helper'
+import type { ILoggerMock } from '@guanghechen/helper-jest'
+import { createLoggerMock } from '@guanghechen/helper-jest'
+import { desensitize, locateFixtures } from 'jest.helper'
 import path from 'node:path'
 import { GitCipher, GitCipherConfig } from '../src'
 import {
@@ -41,7 +41,7 @@ describe('GitCipher', () => {
   const logger = new ChalkLogger({
     name: 'GitCipher',
     level: Level.ERROR,
-    flags: { inline: true },
+    flags: { inline: true, colorful: false },
   })
 
   const plainCtx: IGitCommandBaseParams = { cwd: plainRootDir, logger, execaOptions: {} }
@@ -80,9 +80,9 @@ describe('GitCipher', () => {
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
   })
 
-  let logMock: IConsoleMock
+  let logMock: ILoggerMock
   beforeEach(async () => {
-    logMock = createConsoleMock(['error'])
+    logMock = createLoggerMock({ logger, desensitize })
     await emptyDir(workspaceDir)
   })
   afterEach(async () => {
@@ -183,9 +183,7 @@ describe('GitCipher', () => {
 
       expect(logMock.getIndiscriminateAll()).toEqual([
         [
-          '[safeExeca] failed to run:',
-          'git',
-          `merge ${commitIdTable.G} ${commitIdTable.E} -m '${commitTable.H.message}'`,
+          "[error GitCipher] [safeExeca] failed to run git.  args: ['merge','06d25f06c6cd40756bf61624f1ee37bf014ec6d0','28fc4e74bf3bc436c21774dfc9947d60116d9716','-m','H -- Merge E and G <conflict> (b2,c3)']  options: {cwd:'<$WORKSPACE$>/packages/helper-git-cipher/__test__/fixtures/__fictitious__GitCipher/plain',env:{GIT_AUTHOR_DATE:'<$Date$> +0800',GIT_COMMITTER_DATE:'2023-01-27 15:00:08 +0800',GIT_AUTHOR_NAME:'guanghechen_h',GIT_COMMITTER_NAME:'guanghechen_h',GIT_AUTHOR_EMAIL:'exmaple_h@gmail.com',GIT_COMMITTER_EMAIL:'exmaple_h@gmail.com'},extendEnv:true,encoding:'utf8'}\n",
         ],
       ])
     },
@@ -383,9 +381,7 @@ describe('GitCipher', () => {
 
       expect(logMock.getIndiscriminateAll()).toEqual([
         [
-          '[safeExeca] failed to run:',
-          'git',
-          `merge ${commitIdTable.G} ${commitIdTable.E} -m '${commitTable.H.message}'`,
+          "[error GitCipher] [safeExeca] failed to run git.  args: ['merge','06d25f06c6cd40756bf61624f1ee37bf014ec6d0','28fc4e74bf3bc436c21774dfc9947d60116d9716','-m','H -- Merge E and G <conflict> (b2,c3)']  options: {cwd:'<$WORKSPACE$>/packages/helper-git-cipher/__test__/fixtures/__fictitious__GitCipher/plain',env:{GIT_AUTHOR_DATE:'<$Date$> +0800',GIT_COMMITTER_DATE:'2023-01-27 15:00:08 +0800',GIT_AUTHOR_NAME:'guanghechen_h',GIT_COMMITTER_NAME:'guanghechen_h',GIT_AUTHOR_EMAIL:'exmaple_h@gmail.com',GIT_COMMITTER_EMAIL:'exmaple_h@gmail.com'},extendEnv:true,encoding:'utf8'}\n",
         ],
       ])
     },
