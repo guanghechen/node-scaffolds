@@ -123,24 +123,25 @@ export class Logger implements ILogger {
     const levelStyle = this.levelStyleMap[level]
     let dateInfo = ''
     if (this.flags.date) {
-      const { dateChalk } = this
       dateInfo = dayjs(date).format('YYYY-MM-DD HH:mm:ss')
-      if (this.flags.colorful) dateInfo = dateChalk(dateInfo)
+      if (this.flags.colorful) dateInfo = this.dateChalk(dateInfo)
     }
 
     let title = ''
     if (this.flags.title) {
       let desc = levelStyle.title
-      const { name, nameChalk } = this
-      let chalkedName = name
+      let chalkedName = this.name
       if (this.flags.colorful) {
         desc = levelStyle.header.fg(desc)
         if (levelStyle.header.bg != null) desc = levelStyle.header.bg(desc)
-        chalkedName = nameChalk(name as any)
+        chalkedName = this.nameChalk(this.name as any)
       }
-      title = name.length > 0 ? `${desc} ${chalkedName}` : desc
-      const delimiterColor = levelStyle.headerDelimiter.fg
-      title = delimiterColor('[') + title + delimiterColor(']')
+
+      title = this.name.length > 0 ? `${desc} ${chalkedName}` : desc
+      if (this.flags.colorful) {
+        const delimiterColor = levelStyle.headerDelimiter.fg
+        title = delimiterColor('[') + title + delimiterColor(']')
+      } else title = '[' + title + ']'
     }
 
     if (dateInfo.length > 0) {
