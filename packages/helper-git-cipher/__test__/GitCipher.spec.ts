@@ -17,31 +17,19 @@ import {
   getCommitInTopology,
   getCommitWithMessageList,
 } from '@guanghechen/helper-git'
-import { buildRepo1 } from '@guanghechen/helper-git/__test__/_data-repo1'
 import type { IConsoleMock } from '@guanghechen/helper-jest'
 import { createConsoleMock } from '@guanghechen/helper-jest'
 import { locateFixtures } from 'jest.helper'
 import path from 'node:path'
 import { GitCipher, GitCipherConfig } from '../src'
-
-const encoding: BufferEncoding = 'utf8'
-const encryptedFilesDir = 'encrypted'
-const maxTargetFileSize = 1024
-const partCodePrefix = '.ghc-part'
-
-const cryptCommitIdTable = {
-  A: '0620e6478ab3102a7bc09ae8d40505ecc2488cdf',
-  B: '84bbbd8ca6c9fe141b9da7a927b5330dbfd32fec',
-  C: 'a4093b0d79d64813cb15ca50d5df3407624762bc',
-  D: '363c5abf3a3c495dfe8e052295cc6edf258d0471',
-  E: '3b9f3ce4ba74a9833ece21cf48c58830ece35e85',
-  F: '0dc72a598000b7388a1e27da54efb735dd8af463',
-  G: '960b5095e2bb2c1b29c245a0aa13d54da3fa15b0',
-  H: 'e3300f43b27b95cc700185c2881547f2b538c8a3',
-  I: '350c23e567211ec16a39765d88bb66a946c7c93a',
-  J: '47bbfaf352e790ba64732218f4588c73faebce7a',
-  K: 'd07016b149eeb92632866ce75dee655a9b6cdbe8',
-}
+import {
+  buildRepo1,
+  encoding,
+  encryptedFilesDir,
+  maxTargetFileSize,
+  partCodePrefix,
+  repo1CryptCommitIdTable,
+} from './_data-repo1'
 
 describe('GitCipher', () => {
   const workspaceDir: string = locateFixtures('__fictitious__GitCipher')
@@ -119,33 +107,43 @@ describe('GitCipher', () => {
         branches: ['main'],
       })
       expect(await getCommitInTopology({ ...cryptCtx, branchOrCommitId: 'main' })).toEqual([
-        { id: cryptCommitIdTable.A, parents: [] },
-        { id: cryptCommitIdTable.B, parents: [cryptCommitIdTable.A] },
-        { id: cryptCommitIdTable.C, parents: [cryptCommitIdTable.B] },
-        { id: cryptCommitIdTable.D, parents: [cryptCommitIdTable.C] },
-        { id: cryptCommitIdTable.E, parents: [cryptCommitIdTable.C] },
-        { id: cryptCommitIdTable.F, parents: [cryptCommitIdTable.E, cryptCommitIdTable.D] },
-        { id: cryptCommitIdTable.G, parents: [cryptCommitIdTable.B] },
-        { id: cryptCommitIdTable.H, parents: [cryptCommitIdTable.G, cryptCommitIdTable.E] },
-        { id: cryptCommitIdTable.I, parents: [cryptCommitIdTable.G] },
+        { id: repo1CryptCommitIdTable.A, parents: [] },
+        { id: repo1CryptCommitIdTable.B, parents: [repo1CryptCommitIdTable.A] },
+        { id: repo1CryptCommitIdTable.C, parents: [repo1CryptCommitIdTable.B] },
+        { id: repo1CryptCommitIdTable.D, parents: [repo1CryptCommitIdTable.C] },
+        { id: repo1CryptCommitIdTable.E, parents: [repo1CryptCommitIdTable.C] },
         {
-          id: cryptCommitIdTable.J,
-          parents: [cryptCommitIdTable.I, cryptCommitIdTable.H, cryptCommitIdTable.F],
+          id: repo1CryptCommitIdTable.F,
+          parents: [repo1CryptCommitIdTable.E, repo1CryptCommitIdTable.D],
         },
-        { id: cryptCommitIdTable.K, parents: [cryptCommitIdTable.J] },
+        { id: repo1CryptCommitIdTable.G, parents: [repo1CryptCommitIdTable.B] },
+        {
+          id: repo1CryptCommitIdTable.H,
+          parents: [repo1CryptCommitIdTable.G, repo1CryptCommitIdTable.E],
+        },
+        { id: repo1CryptCommitIdTable.I, parents: [repo1CryptCommitIdTable.G] },
+        {
+          id: repo1CryptCommitIdTable.J,
+          parents: [
+            repo1CryptCommitIdTable.I,
+            repo1CryptCommitIdTable.H,
+            repo1CryptCommitIdTable.F,
+          ],
+        },
+        { id: repo1CryptCommitIdTable.K, parents: [repo1CryptCommitIdTable.J] },
       ])
       expect(await getCommitWithMessageList({ ...cryptCtx, branchOrCommitIds: ['main'] })).toEqual([
-        { id: cryptCommitIdTable.K, message: `#${commitIdTable.K}` },
-        { id: cryptCommitIdTable.J, message: `#${commitIdTable.J}` },
-        { id: cryptCommitIdTable.I, message: `#${commitIdTable.I}` },
-        { id: cryptCommitIdTable.H, message: `#${commitIdTable.H}` },
-        { id: cryptCommitIdTable.G, message: `#${commitIdTable.G}` },
-        { id: cryptCommitIdTable.F, message: `#${commitIdTable.F}` },
-        { id: cryptCommitIdTable.E, message: `#${commitIdTable.E}` },
-        { id: cryptCommitIdTable.D, message: `#${commitIdTable.D}` },
-        { id: cryptCommitIdTable.C, message: `#${commitIdTable.C}` },
-        { id: cryptCommitIdTable.B, message: `#${commitIdTable.B}` },
-        { id: cryptCommitIdTable.A, message: `#${commitIdTable.A}` },
+        { id: repo1CryptCommitIdTable.K, message: `#${commitIdTable.K}` },
+        { id: repo1CryptCommitIdTable.J, message: `#${commitIdTable.J}` },
+        { id: repo1CryptCommitIdTable.I, message: `#${commitIdTable.I}` },
+        { id: repo1CryptCommitIdTable.H, message: `#${commitIdTable.H}` },
+        { id: repo1CryptCommitIdTable.G, message: `#${commitIdTable.G}` },
+        { id: repo1CryptCommitIdTable.F, message: `#${commitIdTable.F}` },
+        { id: repo1CryptCommitIdTable.E, message: `#${commitIdTable.E}` },
+        { id: repo1CryptCommitIdTable.D, message: `#${commitIdTable.D}` },
+        { id: repo1CryptCommitIdTable.C, message: `#${commitIdTable.C}` },
+        { id: repo1CryptCommitIdTable.B, message: `#${commitIdTable.B}` },
+        { id: repo1CryptCommitIdTable.A, message: `#${commitIdTable.A}` },
       ])
 
       // Test decrypt.
@@ -217,16 +215,16 @@ describe('GitCipher', () => {
           branches: ['E'],
         })
         expect(await getCommitInTopology({ ...cryptCtx, branchOrCommitId: 'E' })).toEqual([
-          { id: cryptCommitIdTable.A, parents: [] },
-          { id: cryptCommitIdTable.B, parents: [cryptCommitIdTable.A] },
-          { id: cryptCommitIdTable.C, parents: [cryptCommitIdTable.B] },
-          { id: cryptCommitIdTable.E, parents: [cryptCommitIdTable.C] },
+          { id: repo1CryptCommitIdTable.A, parents: [] },
+          { id: repo1CryptCommitIdTable.B, parents: [repo1CryptCommitIdTable.A] },
+          { id: repo1CryptCommitIdTable.C, parents: [repo1CryptCommitIdTable.B] },
+          { id: repo1CryptCommitIdTable.E, parents: [repo1CryptCommitIdTable.C] },
         ])
         expect(await getCommitWithMessageList({ ...cryptCtx, branchOrCommitIds: ['E'] })).toEqual([
-          { id: cryptCommitIdTable.E, message: `#${commitIdTable.E}` },
-          { id: cryptCommitIdTable.C, message: `#${commitIdTable.C}` },
-          { id: cryptCommitIdTable.B, message: `#${commitIdTable.B}` },
-          { id: cryptCommitIdTable.A, message: `#${commitIdTable.A}` },
+          { id: repo1CryptCommitIdTable.E, message: `#${commitIdTable.E}` },
+          { id: repo1CryptCommitIdTable.C, message: `#${commitIdTable.C}` },
+          { id: repo1CryptCommitIdTable.B, message: `#${commitIdTable.B}` },
+          { id: repo1CryptCommitIdTable.A, message: `#${commitIdTable.A}` },
         ])
 
         // Test Decrypt
@@ -262,16 +260,16 @@ describe('GitCipher', () => {
           branches: ['E', 'I'],
         })
         expect(await getCommitInTopology({ ...cryptCtx, branchOrCommitId: 'I' })).toEqual([
-          { id: cryptCommitIdTable.A, parents: [] },
-          { id: cryptCommitIdTable.B, parents: [cryptCommitIdTable.A] },
-          { id: cryptCommitIdTable.G, parents: [cryptCommitIdTable.B] },
-          { id: cryptCommitIdTable.I, parents: [cryptCommitIdTable.G] },
+          { id: repo1CryptCommitIdTable.A, parents: [] },
+          { id: repo1CryptCommitIdTable.B, parents: [repo1CryptCommitIdTable.A] },
+          { id: repo1CryptCommitIdTable.G, parents: [repo1CryptCommitIdTable.B] },
+          { id: repo1CryptCommitIdTable.I, parents: [repo1CryptCommitIdTable.G] },
         ])
         expect(await getCommitWithMessageList({ ...cryptCtx, branchOrCommitIds: ['I'] })).toEqual([
-          { id: cryptCommitIdTable.I, message: `#${commitIdTable.I}` },
-          { id: cryptCommitIdTable.G, message: `#${commitIdTable.G}` },
-          { id: cryptCommitIdTable.B, message: `#${commitIdTable.B}` },
-          { id: cryptCommitIdTable.A, message: `#${commitIdTable.A}` },
+          { id: repo1CryptCommitIdTable.I, message: `#${commitIdTable.I}` },
+          { id: repo1CryptCommitIdTable.G, message: `#${commitIdTable.G}` },
+          { id: repo1CryptCommitIdTable.B, message: `#${commitIdTable.B}` },
+          { id: repo1CryptCommitIdTable.A, message: `#${commitIdTable.A}` },
         ])
 
         // Test Decrypt
@@ -308,33 +306,43 @@ describe('GitCipher', () => {
           branches: ['E', 'I', 'K'],
         })
         expect(await getCommitInTopology({ ...cryptCtx, branchOrCommitId: 'K' })).toEqual([
-          { id: cryptCommitIdTable.A, parents: [] },
-          { id: cryptCommitIdTable.B, parents: [cryptCommitIdTable.A] },
-          { id: cryptCommitIdTable.C, parents: [cryptCommitIdTable.B] },
-          { id: cryptCommitIdTable.D, parents: [cryptCommitIdTable.C] },
-          { id: cryptCommitIdTable.E, parents: [cryptCommitIdTable.C] },
-          { id: cryptCommitIdTable.F, parents: [cryptCommitIdTable.E, cryptCommitIdTable.D] },
-          { id: cryptCommitIdTable.G, parents: [cryptCommitIdTable.B] },
-          { id: cryptCommitIdTable.H, parents: [cryptCommitIdTable.G, cryptCommitIdTable.E] },
-          { id: cryptCommitIdTable.I, parents: [cryptCommitIdTable.G] },
+          { id: repo1CryptCommitIdTable.A, parents: [] },
+          { id: repo1CryptCommitIdTable.B, parents: [repo1CryptCommitIdTable.A] },
+          { id: repo1CryptCommitIdTable.C, parents: [repo1CryptCommitIdTable.B] },
+          { id: repo1CryptCommitIdTable.D, parents: [repo1CryptCommitIdTable.C] },
+          { id: repo1CryptCommitIdTable.E, parents: [repo1CryptCommitIdTable.C] },
           {
-            id: cryptCommitIdTable.J,
-            parents: [cryptCommitIdTable.I, cryptCommitIdTable.H, cryptCommitIdTable.F],
+            id: repo1CryptCommitIdTable.F,
+            parents: [repo1CryptCommitIdTable.E, repo1CryptCommitIdTable.D],
           },
-          { id: cryptCommitIdTable.K, parents: [cryptCommitIdTable.J] },
+          { id: repo1CryptCommitIdTable.G, parents: [repo1CryptCommitIdTable.B] },
+          {
+            id: repo1CryptCommitIdTable.H,
+            parents: [repo1CryptCommitIdTable.G, repo1CryptCommitIdTable.E],
+          },
+          { id: repo1CryptCommitIdTable.I, parents: [repo1CryptCommitIdTable.G] },
+          {
+            id: repo1CryptCommitIdTable.J,
+            parents: [
+              repo1CryptCommitIdTable.I,
+              repo1CryptCommitIdTable.H,
+              repo1CryptCommitIdTable.F,
+            ],
+          },
+          { id: repo1CryptCommitIdTable.K, parents: [repo1CryptCommitIdTable.J] },
         ])
         expect(await getCommitWithMessageList({ ...cryptCtx, branchOrCommitIds: ['K'] })).toEqual([
-          { id: cryptCommitIdTable.K, message: `#${commitIdTable.K}` },
-          { id: cryptCommitIdTable.J, message: `#${commitIdTable.J}` },
-          { id: cryptCommitIdTable.I, message: `#${commitIdTable.I}` },
-          { id: cryptCommitIdTable.H, message: `#${commitIdTable.H}` },
-          { id: cryptCommitIdTable.G, message: `#${commitIdTable.G}` },
-          { id: cryptCommitIdTable.F, message: `#${commitIdTable.F}` },
-          { id: cryptCommitIdTable.E, message: `#${commitIdTable.E}` },
-          { id: cryptCommitIdTable.D, message: `#${commitIdTable.D}` },
-          { id: cryptCommitIdTable.C, message: `#${commitIdTable.C}` },
-          { id: cryptCommitIdTable.B, message: `#${commitIdTable.B}` },
-          { id: cryptCommitIdTable.A, message: `#${commitIdTable.A}` },
+          { id: repo1CryptCommitIdTable.K, message: `#${commitIdTable.K}` },
+          { id: repo1CryptCommitIdTable.J, message: `#${commitIdTable.J}` },
+          { id: repo1CryptCommitIdTable.I, message: `#${commitIdTable.I}` },
+          { id: repo1CryptCommitIdTable.H, message: `#${commitIdTable.H}` },
+          { id: repo1CryptCommitIdTable.G, message: `#${commitIdTable.G}` },
+          { id: repo1CryptCommitIdTable.F, message: `#${commitIdTable.F}` },
+          { id: repo1CryptCommitIdTable.E, message: `#${commitIdTable.E}` },
+          { id: repo1CryptCommitIdTable.D, message: `#${commitIdTable.D}` },
+          { id: repo1CryptCommitIdTable.C, message: `#${commitIdTable.C}` },
+          { id: repo1CryptCommitIdTable.B, message: `#${commitIdTable.B}` },
+          { id: repo1CryptCommitIdTable.A, message: `#${commitIdTable.A}` },
         ])
 
         // Test Decrypt

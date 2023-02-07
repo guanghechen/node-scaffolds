@@ -6,7 +6,7 @@ import { locateFixtures } from 'jest.helper'
 import type { IGitCommandBaseParams } from '../src'
 import { listAllFiles, listDiffFiles, showCommitInfo } from '../src'
 import type { ICommitItem } from './_data-repo1'
-import { buildRepo1 } from './_data-repo1'
+import { buildRepo1, fpA, fpB, fpC, fpD, fpE } from './_data-repo1'
 
 describe('view', () => {
   const workspaceDir: string = locateFixtures('__fictitious__view')
@@ -28,7 +28,7 @@ describe('view', () => {
   })
 
   test('listAllFiles', async () => {
-    const { commitTable, fpA, fpB, fpC, fpD, fpE } = await buildRepo1({
+    const { commitTable } = await buildRepo1({
       repoDir: workspaceDir,
       logger,
       execaOptions: {},
@@ -51,7 +51,7 @@ describe('view', () => {
   })
 
   test('listDiffFiles', async () => {
-    const { commitTable, fpA, fpB, fpC, fpD, fpE } = await buildRepo1({
+    const { commitTable } = await buildRepo1({
       repoDir: workspaceDir,
       logger,
       execaOptions: {},

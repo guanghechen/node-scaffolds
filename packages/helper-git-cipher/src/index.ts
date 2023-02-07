@@ -1,3 +1,4 @@
+export * from './decrypt/filesOnly'
 export * from './GitCipher'
 export * from './GitCipherConfig'
 export * from './types'

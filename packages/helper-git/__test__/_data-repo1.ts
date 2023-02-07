@@ -15,7 +15,7 @@ import {
   mergeCommits,
 } from '../src'
 
-type ISymbol = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K'
+type IRepo1Symbol = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K'
 export interface ICommitItem extends IGitCommandBaseParams, IGitCommitInfo {
   branchName: string
   parentIds: string[]
@@ -29,32 +29,36 @@ export interface IBuildRepo1Params {
 }
 
 export interface IBuildRepo1Result {
-  commitIdTable: Record<ISymbol, string>
-  commitTable: Record<ISymbol, ICommitItem>
-  fpA: string
-  fpB: string
-  fpC: string
-  fpD: string
-  fpE: string
+  commitIdTable: Record<IRepo1Symbol, string>
+  commitTable: Record<IRepo1Symbol, ICommitItem>
   filepathA: string
   filepathB: string
   filepathC: string
   filepathD: string
   filepathE: string
-  contentA: string
-  contentA2: string
-  contentB: string
-  contentB2: string
-  contentC: string
-  contentC2: string
-  contentC3: string
-  contentD: string
 }
 
 // const isVolatileCommitId = !!isCI
 const isVolatileCommitId = false
 
-export const getCommitArgTable = (): Record<ISymbol, Omit<IGitCommitInfo, 'commitId'>> => ({
+export const encoding: BufferEncoding = 'utf8'
+
+export const fpA = 'a.txt'
+export const fpB = 'b.txt'
+export const fpC = 'x/c.txt'
+export const fpD = 'x/d.txt'
+export const fpE = 'y/z/e.txt'
+
+export const contentA = 'Hello, A.'
+export const contentA2 = '你好, A2.'
+export const contentB = 'Hello, B.'
+export const contentB2 = '你好, B2.'.repeat(150)
+export const contentC = 'Hello, C.'.repeat(320)
+export const contentC2 = '你好, C2.'.repeat(350)
+export const contentC3 = '你好, C3.'.repeat(380)
+export const contentD = 'Hello, D.'.repeat(350)
+
+export const getCommitArgTable = (): Record<IRepo1Symbol, Omit<IGitCommitInfo, 'commitId'>> => ({
   A: {
     message: 'A -- +a1,+b1 (a1,b1)',
     authorDate: '2023-01-26 15:29:33 +0800',
@@ -137,7 +141,7 @@ export const getCommitArgTable = (): Record<ISymbol, Omit<IGitCommitInfo, 'commi
     committerEmail: 'exmaple_i@gmail.com',
   },
   J: {
-    message: 'J -- merge F,H,I <conflict> (a2,b2,c3,d)',
+    message: 'J -- merge F,H,I <conflict> (a1,b1,c3,d)',
     authorDate: '2023-01-27 15:00:45 +0800',
     authorName: 'guanghechen_j',
     authorEmail: 'exmaple_j@gmail.com',
@@ -147,7 +151,7 @@ export const getCommitArgTable = (): Record<ISymbol, Omit<IGitCommitInfo, 'commi
   },
   K: {
     message:
-      'K -- d->e (a2,b2,c3,e)\n\nupdate d,e\ntest multilines message with quotes\'"\n\n  Will it be respected?',
+      'K -- d->e (a1,b1,c3,e)\n\nupdate d,e\ntest multilines message with quotes\'"\n\n  Will it be respected?',
     authorDate: '2023-01-27 15:01:01 +0800',
     authorName: 'guanghechen_k',
     authorEmail: 'exmaple_k@gmail.com',
@@ -160,8 +164,8 @@ export const getCommitArgTable = (): Record<ISymbol, Omit<IGitCommitInfo, 'commi
 /**
 
 ```
-* 993cd74 —— guanghechen_k: K -- d->e (a2,b2,c3,e)  (6 days ago)  (HEAD)
-*-.   c4edeed —— guanghechen_j: J -- merge F,H,I <conflict> (a2,b2,c3,d)  (6 days ago)
+* 0e67eda —— guanghechen_k: K -- d->e (a1,b1,c3,e)  (6 days ago)  (HEAD)
+*-.   7e40106 —— guanghechen_j: J -- merge F,H,I <conflict> (a1,b1,c3,d)  (6 days ago)
 |\ \
 | | *   8710b6a —— guanghechen_f: F -- merge D and E <no conflict> (a1,c2)  (6 days ago)
 | | |\
@@ -187,28 +191,11 @@ export async function buildRepo1({
 }: IBuildRepo1Params): Promise<IBuildRepo1Result> {
   mkdirsIfNotExists(repoDir, true)
 
-  const fpA = 'a.txt'
-  const fpB = 'b.txt'
-  const fpC = 'x/c.txt'
-  const fpD = 'x/d.txt'
-  const fpE = 'y/z/e.txt'
-
   const filepathA: string = path.join(repoDir, fpA)
   const filepathB: string = path.join(repoDir, fpB)
   const filepathC: string = path.join(repoDir, fpC)
   const filepathD: string = path.join(repoDir, fpD)
   const filepathE: string = path.join(repoDir, fpE)
-
-  const encoding: BufferEncoding = 'utf8'
-  const contentA = 'Hello, A.'
-  const contentA2 = '你好, A2.'
-  const contentB = 'Hello, B.'
-  const contentB2 = '你好, B2.'.repeat(150)
-  const contentC = 'Hello, C.'.repeat(320)
-  const contentC2 = '你好, C2.'.repeat(350)
-  const contentC3 = '你好, C3.'.repeat(380)
-  const contentD = 'Hello, D.'.repeat(350)
-
   const ctx: IGitCommandBaseParams = { cwd: repoDir, logger, execaOptions }
 
   const commitArgTable = getCommitArgTable()
@@ -222,10 +209,10 @@ export async function buildRepo1({
     G: '06d25f06c6cd40756bf61624f1ee37bf014ec6d0',
     H: '9f32afa6b6b4f1a57aab90da497e2982348b385c',
     I: '3a394ce736aad9c33532e07262e685e4a1a709b0',
-    J: 'c4edeedf7d521506621a8296d9bdd7463de9c417',
-    K: '993cd742131484376043502ff676bbb9c74b7237',
+    J: '7e401060bb7bf51d21061f356e6123d271f31b03',
+    K: '0e67eda7e6a6f7d01dd1ad5705d8b79d25bb3916',
   }
-  const commitTable: Record<ISymbol, ICommitItem> = {
+  const commitTable: Record<IRepo1Symbol, ICommitItem> = {
     A: {
       ...ctx,
       branchName: 'A',
@@ -521,23 +508,10 @@ export async function buildRepo1({
   return {
     commitIdTable,
     commitTable,
-    fpA,
-    fpB,
-    fpC,
-    fpD,
-    fpE,
     filepathA,
     filepathB,
     filepathC,
     filepathD,
     filepathE,
-    contentA,
-    contentA2,
-    contentB,
-    contentB2,
-    contentC,
-    contentC2,
-    contentC3,
-    contentD,
   }
 }
