@@ -15,7 +15,7 @@ describe('Level', function () {
   })
 
   test('verbose', function () {
-    expect(resolveLevel('verbo')).toBe(Level.VERBOSE)
+    expect(resolveLevel('verb')).toBe(Level.VERBOSE)
     expect(resolveLevel('verbose')).toBe(Level.VERBOSE)
   })
 

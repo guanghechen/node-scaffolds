@@ -1,5 +1,4 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import chalk from 'chalk'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -13,8 +12,6 @@ const logger = new ChalkLogger(
       inline: true,
       colorful: false, // the default value is true.
     },
-    dateChalk: 'green',
-    nameChalk: chalk.cyan.bind(chalk),
     write: text => fs.appendFileSync(logFilepath, text, 'utf-8'),
   },
   process.argv,

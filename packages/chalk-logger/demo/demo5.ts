@@ -1,5 +1,4 @@
 import { ChalkLogger, Level, registerCommanderOptions } from '@guanghechen/chalk-logger'
-import chalk from 'chalk'
 import commander from 'commander'
 
 const logger = new ChalkLogger(
@@ -10,8 +9,6 @@ const logger = new ChalkLogger(
       date: false, // the default value is false.
       colorful: true, // the default value is true.
     },
-    dateChalk: 'green',
-    nameChalk: chalk.cyan.bind(chalk),
   },
   process.argv,
 )

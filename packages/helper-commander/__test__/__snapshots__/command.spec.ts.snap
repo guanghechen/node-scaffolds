@@ -9,47 +9,47 @@ exports[`command no sub-command with arguments: args 1`] = `
 exports[`command no sub-command with arguments: logs 1`] = `
 [
   [
-    "[debug ghc] cwd: <$WORKSPACE$>/packages/helper-commander
+    "debug [ghc] cwd: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
   [
-    "[debug ghc] workspace: <$WORKSPACE$>/packages/helper-commander
+    "debug [ghc] workspace: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
   [
-    "[debug ghc] configPath: []
+    "debug [ghc] configPath: []
 ",
   ],
   [
-    "[debug ghc] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/package.json
+    "debug [ghc] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/package.json
 ",
   ],
   [
-    "[debug ghc] parasticConfigEntry: @guanghechen/helper-commander--demo
+    "debug [ghc] parasticConfigEntry: @guanghechen/helper-commander--demo
 ",
   ],
   [
-    "[debug ghc] logLevel: debug
+    "debug [ghc] logLevel: debug
 ",
   ],
   [
-    "[debug ghc] encoding: utf8
+    "debug [ghc] encoding: utf8
 ",
   ],
   [
-    "[debug ghc] input: undefined
+    "debug [ghc] input: undefined
 ",
   ],
   [
-    "[debug ghc] output: undefined
+    "debug [ghc] output: undefined
 ",
   ],
   [
-    "[debug ghc] force: true
+    "debug [ghc] force: true
 ",
   ],
   [
-    "[debug ghc] silence: false
+    "debug [ghc] silence: false
 ",
   ],
 ]
@@ -93,47 +93,47 @@ exports[`command no sub-command without arguments: args 1`] = `
 exports[`command no sub-command without arguments: logs 1`] = `
 [
   [
-    "[debug ghc] cwd: <$WORKSPACE$>/packages/helper-commander
+    "debug [ghc] cwd: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
   [
-    "[debug ghc] workspace: <$WORKSPACE$>/packages/helper-commander
+    "debug [ghc] workspace: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
   [
-    "[debug ghc] configPath: []
+    "debug [ghc] configPath: []
 ",
   ],
   [
-    "[debug ghc] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/package.json
+    "debug [ghc] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/package.json
 ",
   ],
   [
-    "[debug ghc] parasticConfigEntry: @guanghechen/helper-commander--demo
+    "debug [ghc] parasticConfigEntry: @guanghechen/helper-commander--demo
 ",
   ],
   [
-    "[debug ghc] logLevel: debug
+    "debug [ghc] logLevel: debug
 ",
   ],
   [
-    "[debug ghc] encoding: utf8
+    "debug [ghc] encoding: utf8
 ",
   ],
   [
-    "[debug ghc] input: undefined
+    "debug [ghc] input: undefined
 ",
   ],
   [
-    "[debug ghc] output: undefined
+    "debug [ghc] output: undefined
 ",
   ],
   [
-    "[debug ghc] force: true
+    "debug [ghc] force: true
 ",
   ],
   [
-    "[debug ghc] silence: false
+    "debug [ghc] silence: false
 ",
   ],
 ]

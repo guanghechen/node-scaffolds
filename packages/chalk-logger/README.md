@@ -81,8 +81,6 @@ Name                | Type                    | Required  | Default           | 
 `level`             | Level                   | `false`   | `Level.INFO`      | verbosity level of the logging output
 `flags`             | See below               | `false`   | -                 | feature flags
 `write`             | (text: string) => void  | `false`   | `process.stdout`  | [see below](#option-details)
-`dateChalk`         | Chalk \| Color          | `false`   | `chalk.gray`      | color of date string
-`nameChalk`         | Chalk \| Color          | `false`   | `chalk.gray`      | color of logger name string
 
 ### Option Details
 
@@ -250,7 +248,6 @@ loggerMock.restore()
   ```typescript
   // demo/demo3.ts
   import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-  import chalk from 'chalk'
 
   const logger = new ChalkLogger(
     {
@@ -260,8 +257,6 @@ loggerMock.restore()
         date: false, // the default value is false.
         colorful: true, // the default value is true.
       },
-      dateChalk: 'green',
-      nameChalk: chalk.cyan.bind(chalk),
     },
     process.argv,
   )
@@ -281,7 +276,6 @@ loggerMock.restore()
   ```typescript
   // demo/demo4.ts
   import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-  import chalk from 'chalk'
   import fs from 'node:fs'
   import path from 'node:path'
 
@@ -295,8 +289,6 @@ loggerMock.restore()
         inline: true,
         colorful: false, // the default value is true.
       },
-      dateChalk: 'green',
-      nameChalk: chalk.cyan.bind(chalk),
       write: text => fs.appendFileSync(logFilepath, text, 'utf-8'),
     },
     process.argv,
@@ -317,8 +309,6 @@ loggerMock.restore()
   ```typescript
   // demo/demo5.ts
   import { ChalkLogger, Level, registerCommanderOptions } from '@guanghechen/chalk-logger'
-  import chalk from 'chalk'
-  import commander from 'commander'
 
   const logger = new ChalkLogger(
     {
@@ -328,8 +318,6 @@ loggerMock.restore()
         date: false, // the default value is false.
         colorful: true, // the default value is true.
       },
-      dateChalk: 'green',
-      nameChalk: chalk.cyan.bind(chalk),
     },
     process.argv,
   )

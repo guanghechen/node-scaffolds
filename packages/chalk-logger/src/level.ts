@@ -27,9 +27,8 @@ export const levelOrdinalMap: Record<Level, number> = {
 
 export interface ILevelStyle {
   title: string
-  header: ColorfulChalk
-  headerDelimiter: ColorfulChalk
-  content: ColorfulChalk
+  labelChalk: ColorfulChalk
+  contentChalk: ColorfulChalk
 }
 
 export type ILevelStyleMap = Record<Level, ILevelStyle>
@@ -37,39 +36,33 @@ export type ILevelStyleMap = Record<Level, ILevelStyle>
 export const defaultLevelStyleMap: ILevelStyleMap = Object.freeze({
   [Level.DEBUG]: {
     title: 'debug',
-    header: new ColorfulChalk('grey'),
-    headerDelimiter: new ColorfulChalk('grey'),
-    content: new ColorfulChalk('grey'),
+    labelChalk: new ColorfulChalk('grey'),
+    contentChalk: new ColorfulChalk('grey'),
   },
   [Level.VERBOSE]: {
-    title: 'verb ',
-    header: new ColorfulChalk('cyan'),
-    headerDelimiter: new ColorfulChalk('grey'),
-    content: new ColorfulChalk('cyan'),
+    title: 'verb',
+    labelChalk: new ColorfulChalk('cyan'),
+    contentChalk: new ColorfulChalk('cyan'),
   },
   [Level.INFO]: {
-    title: 'info ',
-    header: new ColorfulChalk('green'),
-    headerDelimiter: new ColorfulChalk('grey'),
-    content: new ColorfulChalk('green'),
+    title: 'info',
+    labelChalk: new ColorfulChalk('green'),
+    contentChalk: new ColorfulChalk('green'),
   },
   [Level.WARN]: {
-    title: 'warn ',
-    header: new ColorfulChalk('yellow'),
-    headerDelimiter: new ColorfulChalk('grey'),
-    content: new ColorfulChalk('yellow'),
+    title: 'warn',
+    labelChalk: new ColorfulChalk('yellow'),
+    contentChalk: new ColorfulChalk('yellow'),
   },
   [Level.ERROR]: {
     title: 'error',
-    header: new ColorfulChalk('red'),
-    headerDelimiter: new ColorfulChalk('grey'),
-    content: new ColorfulChalk('red'),
+    labelChalk: new ColorfulChalk('red'),
+    contentChalk: new ColorfulChalk('red'),
   },
   [Level.FATAL]: {
     title: 'fatal',
-    header: new ColorfulChalk('black', 'red'),
-    headerDelimiter: new ColorfulChalk('grey'),
-    content: new ColorfulChalk('redBright'),
+    labelChalk: new ColorfulChalk('black', 'red'),
+    contentChalk: new ColorfulChalk('redBright'),
   },
 })
 
@@ -77,7 +70,7 @@ export const resolveLevel = (level: string): Level | null => {
   switch (level.toLowerCase()) {
     case 'debug':
       return Level.DEBUG
-    case 'verbo':
+    case 'verb':
     case 'verbose':
       return Level.VERBOSE
     case 'info':

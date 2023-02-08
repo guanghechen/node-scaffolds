@@ -17,7 +17,7 @@ export const handleError = (error: Error | any): void => {
   const code = error.code || 0
   switch (code) {
     default:
-      logger.error('error:', error.stack || error.message || error)
+      logger.error(error)
       eventBus.dispatch({ type: EventTypes.EXITING })
       break
   }

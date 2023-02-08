@@ -2,7 +2,6 @@ import { createLoggerMock } from '@guanghechen/helper-jest'
 import { desensitize } from 'jest.helper'
 import type { ILoggerOptions } from '../src'
 import { Level, Logger, resolveLevel } from '../src'
-import { color2chalk } from '../src/color'
 
 describe('Logger', function () {
   const levels: string[] = ['debug', 'verbose', 'info', 'warn', 'error', 'fatal']
@@ -105,41 +104,7 @@ describe('Logger', function () {
     loggerMock.restore()
   })
 
-  test('custom +dateChalk +nameChalk', function () {
-    const dateChalk = color2chalk('black', false)
-    const nameChalk = color2chalk('white', true)
-    const logger = new Logger({
-      name: 'complex',
-      mode: 'normal',
-      level: Level.DEBUG,
-      flags: {
-        inline: false,
-        colorful: true,
-        date: true,
-      },
-      dateChalk,
-      nameChalk,
-    })
-    const loggerMock = createLoggerMock({ logger, desensitize })
-
-    const log = logger.debug.bind(logger)
-    log('{}, {}, {}, {}, {}, {}', 1, 'ooo', null, true, false, undefined)
-    log('This is a literal string')
-    log('Output object: {}', { x: 1, y: { z: 'o' } })
-    log('x', 'y', 'z', { c: { a: 'hello' }, b: { d: 'world' } })
-    log('user(<>)', {
-      username: 'lemon-clown',
-      avatar:
-        'https://avatars0.githubusercontent.com/u/42513619?s=400&u=d878f4532bb5749979e18f3696b8985b90e9f78b&v=4',
-    })
-
-    expect(loggerMock.getIndiscriminateAll()).toMatchSnapshot()
-    loggerMock.restore()
-  })
-
   test('init', function () {
-    const dateChalk = color2chalk([25, 104, 179], false)
-    const nameChalk = color2chalk([25, 104, 179], true)
     const logger = new Logger({
       name: 'complex',
       mode: 'normal',
@@ -149,8 +114,6 @@ describe('Logger', function () {
         colorful: true,
         date: true,
       },
-      dateChalk,
-      nameChalk,
     })
 
     expect(logger.name).toBe('complex')
@@ -159,8 +122,6 @@ describe('Logger', function () {
     expect(logger.flags.inline).toBe(false)
     expect(logger.flags.colorful).toBe(true)
     expect(logger.flags.date).toBe(true)
-    expect(logger.dateChalk).toBe(dateChalk)
-    expect(logger.nameChalk).toBe(nameChalk)
 
     logger.init({
       name: 'waw',
@@ -178,7 +139,5 @@ describe('Logger', function () {
     expect(logger.flags.inline).toBe(true)
     expect(logger.flags.colorful).toBe(false)
     expect(logger.flags.date).toBe(true)
-    expect(logger.dateChalk).toBe(dateChalk)
-    expect(logger.nameChalk).toBe(nameChalk)
   })
 })

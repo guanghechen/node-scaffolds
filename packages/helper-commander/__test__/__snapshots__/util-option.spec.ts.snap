@@ -23,29 +23,29 @@ exports[`resolveCommandConfigurationOptions basic 1`] = `
 exports[`resolveCommandConfigurationOptions basic 2`] = `
 [
   [
-    "[debug] cwd: <$WORKSPACE$>/packages/helper-commander
+    "debug [] cwd: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
   [
-    "[debug] workspace: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2
+    "debug [] workspace: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2
 ",
   ],
   [
-    "[debug] configPath: [
+    "debug [] configPath: [
   '<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/demo.config.yml',
 ]
 ",
   ],
   [
-    "[debug] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json
+    "debug [] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json
 ",
   ],
   [
-    "[debug] parasticConfigEntry: @guanghechen/tool-demo
+    "debug [] parasticConfigEntry: @guanghechen/tool-demo
 ",
   ],
   [
-    "[debug] logLevel: debug
+    "debug [] logLevel: debug
 ",
   ],
 ]
@@ -100,27 +100,27 @@ exports[`resolveCommandConfigurationOptions with config 1`] = `
 exports[`resolveCommandConfigurationOptions with config 2`] = `
 [
   [
-    "[debug] cwd: <$WORKSPACE$>/packages/helper-commander
+    "debug [] cwd: <$WORKSPACE$>/packages/helper-commander
 ",
   ],
   [
-    "[debug] workspace: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2
+    "debug [] workspace: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2
 ",
   ],
   [
-    "[debug] configPath: []
+    "debug [] configPath: []
 ",
   ],
   [
-    "[debug] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json
+    "debug [] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json
 ",
   ],
   [
-    "[debug] parasticConfigEntry: @guanghechen/tool-demo
+    "debug [] parasticConfigEntry: @guanghechen/tool-demo
 ",
   ],
   [
-    "[debug] logLevel: debug
+    "debug [] logLevel: debug
 ",
   ],
 ]
