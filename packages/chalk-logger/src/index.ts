@@ -4,7 +4,6 @@ import type { Level } from './level'
 import type { ILoggerOptions } from './logger'
 import { Logger } from './logger'
 
-export * from './color'
 export * from './commander'
 export * from './level'
 export * from './logger'

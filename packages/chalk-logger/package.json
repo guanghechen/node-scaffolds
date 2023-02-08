@@ -38,7 +38,8 @@
   "scripts": {
     "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
     "prepublishOnly": "yarn build",
-    "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
+    "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir .",
+    "ts:run": "cross-env NODE_ENV=production node --experimental-specifier-resolution=node --loader ts-node/esm -r tsconfig-paths/register"
   },
   "dependencies": {
     "@guanghechen/helper-is": "^4.0.0-alpha.5",

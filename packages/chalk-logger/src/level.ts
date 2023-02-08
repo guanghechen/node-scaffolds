@@ -1,4 +1,5 @@
-import { ColorfulChalk } from './color'
+import chalk from 'chalk'
+import type { ChalkInstance } from 'chalk'
 
 export enum Level {
   DEBUG = 'debug',
@@ -15,6 +16,11 @@ export const INFO = Level.INFO
 export const WARN = Level.WARN
 export const ERROR = Level.ERROR
 export const FATAL = Level.FATAL
+
+export interface ColorfulChalk {
+  readonly fg: ChalkInstance
+  readonly bg: ChalkInstance | null
+}
 
 export const levelOrdinalMap: Record<Level, number> = {
   [Level.DEBUG]: 1,
@@ -36,33 +42,33 @@ export type ILevelStyleMap = Record<Level, ILevelStyle>
 export const defaultLevelStyleMap: ILevelStyleMap = Object.freeze({
   [Level.DEBUG]: {
     title: 'debug',
-    labelChalk: new ColorfulChalk('grey'),
-    contentChalk: new ColorfulChalk('grey'),
+    labelChalk: { fg: chalk.grey, bg: null },
+    contentChalk: { fg: chalk.grey, bg: null },
   },
   [Level.VERBOSE]: {
     title: 'verb',
-    labelChalk: new ColorfulChalk('cyan'),
-    contentChalk: new ColorfulChalk('cyan'),
+    labelChalk: { fg: chalk.cyan, bg: null },
+    contentChalk: { fg: chalk.cyan, bg: null },
   },
   [Level.INFO]: {
     title: 'info',
-    labelChalk: new ColorfulChalk('green'),
-    contentChalk: new ColorfulChalk('green'),
+    labelChalk: { fg: chalk.green, bg: null },
+    contentChalk: { fg: chalk.green, bg: null },
   },
   [Level.WARN]: {
     title: 'warn',
-    labelChalk: new ColorfulChalk('yellow'),
-    contentChalk: new ColorfulChalk('yellow'),
+    labelChalk: { fg: chalk.yellow, bg: null },
+    contentChalk: { fg: chalk.yellow, bg: null },
   },
   [Level.ERROR]: {
     title: 'error',
-    labelChalk: new ColorfulChalk('red'),
-    contentChalk: new ColorfulChalk('red'),
+    labelChalk: { fg: chalk.red, bg: null },
+    contentChalk: { fg: chalk.red, bg: null },
   },
   [Level.FATAL]: {
     title: 'fatal',
-    labelChalk: new ColorfulChalk('black', 'red'),
-    contentChalk: new ColorfulChalk('redBright'),
+    labelChalk: { fg: chalk.black, bg: chalk.bgRed },
+    contentChalk: { fg: chalk.redBright, bg: null },
   },
 })
 
@@ -83,7 +89,9 @@ export const resolveLevel = (level: string): Level | null => {
       return Level.ERROR
     case 'fatal':
       return Level.FATAL
+    /* c8 ignore start */
     default:
       return null
+    /* c8 ignore end */
   }
 }

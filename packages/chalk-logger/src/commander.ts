@@ -1,4 +1,5 @@
 import type { Mutable } from '@guanghechen/utility-types'
+import { writeFileSync } from 'node:fs'
 import { resolveLevel } from './level'
 import type { ILoggerFlags, ILoggerOptions } from './logger'
 
@@ -107,6 +108,14 @@ export function parseOptionsFromCommander(commanderOptions: ICommanderOptions): 
           flags.colorful = !negative
           break
       }
+    }
+  }
+
+  // resolve log path
+  if (commanderOptions.logFilepath) {
+    const logFilepath = commanderOptions.logFilepath
+    options.write = (text: string): void => {
+      writeFileSync(logFilepath, text, commanderOptions.logEncoding ?? 'utf8')
     }
   }
   return options

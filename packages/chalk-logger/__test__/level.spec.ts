@@ -1,6 +1,6 @@
 import { DEBUG, ERROR, FATAL, INFO, Level, VERBOSE, WARN, resolveLevel } from '../src'
 
-describe('Level', function () {
+describe('Level', () => {
   test('legacy', () => {
     expect(DEBUG).toBe(Level.DEBUG)
     expect(VERBOSE).toBe(Level.VERBOSE)
@@ -10,30 +10,30 @@ describe('Level', function () {
     expect(FATAL).toBe(Level.FATAL)
   })
 
-  test('debug', function () {
+  test('debug', () => {
     expect(resolveLevel('debug')).toBe(Level.DEBUG)
   })
 
-  test('verbose', function () {
+  test('verbose', () => {
     expect(resolveLevel('verb')).toBe(Level.VERBOSE)
     expect(resolveLevel('verbose')).toBe(Level.VERBOSE)
   })
 
-  test('info', function () {
+  test('info', () => {
     expect(resolveLevel('info')).toBe(Level.INFO)
     expect(resolveLevel('information')).toBe(Level.INFO)
   })
 
-  test('warning', function () {
+  test('warning', () => {
     expect(resolveLevel('warn')).toBe(Level.WARN)
     expect(resolveLevel('warning')).toBe(Level.WARN)
   })
 
-  test('error', function () {
+  test('error', () => {
     expect(resolveLevel('error')).toBe(Level.ERROR)
   })
 
-  test('fatal', function () {
+  test('fatal', () => {
     expect(resolveLevel('fatal')).toBe(Level.FATAL)
   })
 })

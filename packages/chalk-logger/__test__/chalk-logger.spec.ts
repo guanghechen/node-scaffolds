@@ -1,7 +1,7 @@
 import { ChalkLogger, DEBUG, ERROR, FATAL, INFO, VERBOSE, WARN } from '../src'
 
-describe('ChalkLogger', function () {
-  describe('options', function () {
+describe('ChalkLogger', () => {
+  describe('options', () => {
     test('flags', () => {
       const logger = new ChalkLogger({ flags: { colorful: false } })
       expect(logger.flags).toEqual({
@@ -13,7 +13,7 @@ describe('ChalkLogger', function () {
     })
   })
 
-  test('setName and setBaseName', function () {
+  test('setName and setBaseName', () => {
     const logger = new ChalkLogger({ name: 'basename' })
     expect(logger.name).toBe('basename')
 
@@ -33,7 +33,7 @@ describe('ChalkLogger', function () {
     expect(logger.name).toBe('')
   })
 
-  test('setMode', function () {
+  test('setMode', () => {
     const logger = new ChalkLogger()
     expect(logger.mode).toBe('normal')
 
@@ -44,12 +44,18 @@ describe('ChalkLogger', function () {
     expect(logger.mode).toBe('loose')
   })
 
-  test('setLevel', function () {
+  test('setLevel', () => {
     const logger = new ChalkLogger()
     expect(logger.level).toBe(INFO)
 
     for (const level of [DEBUG, VERBOSE, INFO, WARN, ERROR, FATAL]) {
       logger.setLevel(level)
+      expect(logger.level).toBe(level)
+
+      logger.setLevel(null)
+      expect(logger.level).toBe(level)
+
+      logger.setLevel(undefined)
       expect(logger.level).toBe(level)
     }
   })
