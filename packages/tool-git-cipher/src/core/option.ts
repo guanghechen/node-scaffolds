@@ -6,8 +6,9 @@ import type {
 import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
-import { absoluteOfWorkspace } from '@guanghechen/helper-path'
-import type { BinaryLike } from 'crypto'
+import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
+import type { BinaryLike } from 'node:crypto'
+import path from 'node:path'
 import { logger } from '../env/logger'
 
 /**
@@ -182,7 +183,7 @@ export function resolveGlobalCommandOptions<C extends object>(
   logger.debug('secretFilepath:', secretFilepath)
 
   // Resolve catalogFilepath
-  const catalogFilepath: string = absoluteOfWorkspace(
+  const absoluteCatalogFilepath: string = absoluteOfWorkspace(
     cryptRootDir,
     cover<string>(
       resolvedDefaultOptions.catalogFilepath,
@@ -190,6 +191,16 @@ export function resolveGlobalCommandOptions<C extends object>(
       isNonBlankString,
     ),
   )
+  const relativeCryptRootDir = relativeOfWorkspace(workspaceDir, cryptRootDir)
+  const relativeCatalogFilepath = relativeOfWorkspace(cryptRootDir, absoluteCatalogFilepath)
+  const catalogFilepath: string = relativeCatalogFilepath.startsWith(
+    relativeCryptRootDir + path.sep,
+  )
+    ? absoluteOfWorkspace(
+        cryptRootDir,
+        relativeCatalogFilepath.slice(relativeCryptRootDir.length + 1),
+      )
+    : absoluteCatalogFilepath
   logger.debug('catalogFilepath:', catalogFilepath)
 
   // Resolve encryptedFilePathSalt
