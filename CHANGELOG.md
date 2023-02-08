@@ -1,5 +1,35 @@
 # Changelog
 
+<a name="4.0.0-alpha.6"></a>
+## 4.0.0-alpha.6 (2023-02-08)
+
+### Added
+
+- ✨ feat(tool-git-cipher): support to customize plainRootDir [[634fd72](https://github.com/guanghechen/node-scaffolds/commit/634fd72fd207666d0e200a94cd952465f855d8c5)]
+- ✨ feat: add new method &#x27;getHeadBranchOrCommitId&#x27; [[f7488a8](https://github.com/guanghechen/node-scaffolds/commit/f7488a881d5c57d345a0e0305269767ca328423e)]
+- ✨ feat(tool-git-cipher): support new option &#x27;--filesAt&#x27; on subCommand &#x27;decrypt&#x27; to decrypt files only [[b5d4005](https://github.com/guanghechen/node-scaffolds/commit/b5d4005f5028c2701168e3d8b28f1517984e9632)]
+- ✅ test: update test snapshots due to the bugFix in chalk-logger [[d6b6958](https://github.com/guanghechen/node-scaffolds/commit/d6b6958d0a8088b3b0f3ff17093ced4905d93baa)]
+- ✨ feat(helper-git-cipher): support decyptFilesOnly [[1327cc2](https://github.com/guanghechen/node-scaffolds/commit/1327cc2571d39d6f0c9a3b7d0183fb34cd174d6c)]
+
+### Changed
+
+- 🎨 improve: refactor ChalkLogger [[45368bd](https://github.com/guanghechen/node-scaffolds/commit/45368bdb80904a0adb166160c9e61942d030a003)]
+- 🎨 [BREAKING] refactor ChalkLogger log format and no longer support to customize colors of logName and logDate [[680e18c](https://github.com/guanghechen/node-scaffolds/commit/680e18cfb02cf5c2515ddaf47ba91e12a1aac3bb)]
+- 🎨 improve(tool-git-cipher): rename option &#x27;--filesAt&#x27; to &#x27;--filesOnly&#x27; [[d77aebc](https://github.com/guanghechen/node-scaffolds/commit/d77aebc7c35e4ab036610eaf644ffc1037b30c43)]
+- 🎨 improve: restore the original branch after encrypt/decrypt even some errors occurred [[ce4a9bc](https://github.com/guanghechen/node-scaffolds/commit/ce4a9bc798a56ad7e350321424d7a85ff0e1bcd8)]
+- 🎨 improve: fix lint &amp; prefer logger instead console.error [[c16bf5c](https://github.com/guanghechen/node-scaffolds/commit/c16bf5cb41a3d2eb4f7b0fcb41b06748d6f85172)]
+- 🎨 improve(helper-git-cipher): remove untracked files after merging [[ad1a69c](https://github.com/guanghechen/node-scaffolds/commit/ad1a69cd789f79bdb798f8fde0e0e1aa61de232b)]
+
+### Fixed
+
+- 🐛 fix(tool-git-cipher): fix logic on resolving catalogFilepath &amp; update boilerplates [[05f2a03](https://github.com/guanghechen/node-scaffolds/commit/05f2a03b7f94222b7f2ace0aa3a8949defbbb40e)]
+- 🐛 fix(chalk-logger): don&#x27;t print colors when flags.colorful set to false [[515b5d5](https://github.com/guanghechen/node-scaffolds/commit/515b5d54b274c584aefd3f44fb2c02d733469634)]
+
+### Miscellaneous
+
+- 📝 docs(chalk-logger): update demos [[6da72a7](https://github.com/guanghechen/node-scaffolds/commit/6da72a75b25286ce3ab50e58ea387166eeb8da36)]
+
+
 <a name="4.0.0-alpha.5"></a>
 ## 4.0.0-alpha.5 (2023-02-05)
 
