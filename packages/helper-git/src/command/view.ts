@@ -2,6 +2,7 @@ import invariant from '@guanghechen/invariant'
 import type { Options as IExecaOptions } from 'execa'
 import type { IGitCommandBaseParams, IGitCommitInfo } from '../types'
 import { formatGitDate, safeExeca } from '../util'
+import { getAllLocalBranches } from './branch'
 
 export interface IListAllFilesParams extends IGitCommandBaseParams {
   branchOrCommitId: string
@@ -100,4 +101,21 @@ export const showCommitInfo = async (
     committerEmail: committerEmail.trim(),
     message: message,
   }
+}
+
+export interface IGetHeadBranchOrCommitId extends IGitCommandBaseParams {}
+
+export const getHeadBranchOrCommitId = async (
+  params: IGetHeadBranchOrCommitId,
+): Promise<string | never> => {
+  const localBranches = await getAllLocalBranches(params)
+  if (localBranches.currentBranch) return localBranches.currentBranch
+
+  const headCommitInfo = await showCommitInfo({
+    cwd: params.cwd,
+    execaOptions: params.execaOptions,
+    logger: params.logger,
+    branchOrCommitId: 'HEAD',
+  })
+  return headCommitInfo.commitId
 }

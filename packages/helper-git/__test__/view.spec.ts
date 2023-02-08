@@ -4,7 +4,13 @@ import type { ILoggerMock } from '@guanghechen/helper-jest'
 import { createLoggerMock } from '@guanghechen/helper-jest'
 import { locateFixtures } from 'jest.helper'
 import type { IGitCommandBaseParams } from '../src'
-import { listAllFiles, listDiffFiles, showCommitInfo } from '../src'
+import {
+  checkBranch,
+  getHeadBranchOrCommitId,
+  listAllFiles,
+  listDiffFiles,
+  showCommitInfo,
+} from '../src'
 import type { ICommitItem } from './_data-repo1'
 import { buildRepo1, fpA, fpB, fpC, fpD, fpE } from './_data-repo1'
 
@@ -111,5 +117,53 @@ describe('view', () => {
     await assertShowCommitInfo(commitTable.I)
     await assertShowCommitInfo(commitTable.J)
     await assertShowCommitInfo(commitTable.K)
+  })
+
+  test('getCurrentBranchOrHeadCommitId', async () => {
+    const { commitIdTable } = await buildRepo1({
+      repoDir: workspaceDir,
+      logger,
+      execaOptions: {},
+    })
+
+    const eGetHeadId = (): Promise<string> => getHeadBranchOrCommitId(ctx)
+
+    expect(await eGetHeadId()).toEqual('main')
+
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.A })
+    expect(await eGetHeadId()).toEqual(commitIdTable.A)
+
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.B })
+    expect(await eGetHeadId()).toEqual(commitIdTable.B)
+
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.C })
+    expect(await eGetHeadId()).toEqual(commitIdTable.C)
+
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.D })
+    expect(await eGetHeadId()).toEqual(commitIdTable.D)
+
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.E })
+    expect(await eGetHeadId()).toEqual(commitIdTable.E)
+
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.F })
+    expect(await eGetHeadId()).toEqual(commitIdTable.F)
+
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.G })
+    expect(await eGetHeadId()).toEqual(commitIdTable.G)
+
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.H })
+    expect(await eGetHeadId()).toEqual(commitIdTable.H)
+
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.I })
+    expect(await eGetHeadId()).toEqual(commitIdTable.I)
+
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.J })
+    expect(await eGetHeadId()).toEqual(commitIdTable.J)
+
+    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.K })
+    expect(await eGetHeadId()).toEqual(commitIdTable.K)
+
+    await checkBranch({ ...ctx, branchOrCommitId: 'main' })
+    expect(await eGetHeadId()).toEqual('main')
   })
 })
