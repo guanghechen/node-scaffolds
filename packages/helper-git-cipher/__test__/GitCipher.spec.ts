@@ -145,10 +145,14 @@ describe('GitCipher', () => {
         { id: repo1CryptCommitIdTable.B, message: `#${commitIdTable.B}` },
         { id: repo1CryptCommitIdTable.A, message: `#${commitIdTable.A}` },
       ])
+      expect(await getAllLocalBranches(plainCtx)).toEqual({
+        currentBranch: 'main',
+        branches: ['main'],
+      })
 
       // Test decrypt.
       await gitCipher.decrypt({ pathResolver: bakPathResolver })
-      expect(await getAllLocalBranches({ ...bakPlainCtx })).toEqual({
+      expect(await getAllLocalBranches(bakPlainCtx)).toEqual({
         currentBranch: 'main',
         branches: ['main'],
       })
@@ -180,6 +184,10 @@ describe('GitCipher', () => {
         { id: commitIdTable.B, message: commitTable.B.message },
         { id: commitIdTable.A, message: commitTable.A.message },
       ])
+      expect(await getAllLocalBranches(cryptCtx)).toEqual({
+        currentBranch: 'main',
+        branches: ['main'],
+      })
 
       expect(logMock.getIndiscriminateAll()).toEqual([
         [

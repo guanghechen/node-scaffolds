@@ -7,7 +7,11 @@ import type {
   IJsonConfigKeeper,
 } from '@guanghechen/helper-cipher-file'
 import { collectAffectedCryptFilepaths } from '@guanghechen/helper-cipher-file'
-import type { IGitCommitDagNode, IGitCommitInfo } from '@guanghechen/helper-git'
+import type {
+  IGitCommandBaseParams,
+  IGitCommitDagNode,
+  IGitCommitInfo,
+} from '@guanghechen/helper-git'
 import {
   checkBranch,
   cleanUntrackedFilepaths,
@@ -50,13 +54,11 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     configKeeper,
     logger,
   } = params
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.plainRootDir, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
 
   // [plain] Move the HEAD pointer to the current encrypting commit.
-  await checkBranch({
-    branchOrCommitId: plainCommitNode.id,
-    cwd: pathResolver.plainRootDir,
-    logger,
-  })
+  await checkBranch({ ...plainCmdCtx, branchOrCommitId: plainCommitNode.id })
 
   // [crypt] Reset catalog to calc diffItems.
   if (plainCommitNode.parents.length > 0) {
@@ -67,11 +69,7 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
       `[encryptGitCommit] unpaired crypt parent commit. plain(${plainParentId}) crypt(${cryptParentId})`,
     )
 
-    await checkBranch({
-      branchOrCommitId: cryptParentId,
-      cwd: pathResolver.cryptRootDir,
-      logger,
-    })
+    await checkBranch({ ...cryptCmdCtx, branchOrCommitId: cryptParentId })
 
     // Load the diffItems between the <first parent>...<current>.
     const configData = await configKeeper.load()
@@ -86,23 +84,17 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
   }
 
   const signature: IGitCommitInfo = await showCommitInfo({
+    ...plainCmdCtx,
     branchOrCommitId: plainCommitNode.id,
-    cwd: pathResolver.plainRootDir,
-    logger,
   })
   const plainFiles: string[] =
     plainCommitNode.parents.length > 0
       ? await listDiffFiles({
+          ...plainCmdCtx,
           branchOrCommitId1: plainCommitNode.id,
           branchOrCommitId2: plainCommitNode.parents[0],
-          cwd: pathResolver.plainRootDir,
-          logger,
         })
-      : await listAllFiles({
-          branchOrCommitId: plainCommitNode.id,
-          cwd: pathResolver.plainRootDir,
-          logger,
-        })
+      : await listAllFiles({ ...plainCmdCtx, branchOrCommitId: plainCommitNode.id })
   const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
     plainFilepaths: plainFiles.sort(),
     strickCheck: false,
@@ -133,31 +125,25 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     }
 
     await mergeCommits({
+      ...cryptCmdCtx,
       ...commit.signature,
       parentIds: cryptParentCommitIds,
       strategy: 'ours',
-      cwd: pathResolver.cryptRootDir,
-      logger,
     })
     shouldAmend = true
   }
 
   // [crypt] Clean untracked filepaths to avoid unexpected errors.
   const cryptFiles: string[] = collectAffectedCryptFilepaths(diffItems)
-  await cleanUntrackedFilepaths({
-    filepaths: cryptFiles,
-    cwd: pathResolver.cryptRootDir,
-    logger,
-  })
+  await cleanUntrackedFilepaths({ ...cryptCmdCtx, filepaths: cryptFiles })
 
   // Encrypt files & update config.
   await cipherBatcher.batchEncrypt({ diffItems, pathResolver, strictCheck: false })
   await configKeeper.save({ commit })
   await commitAll({
+    ...cryptCmdCtx,
     ...commit.signature,
     message: `#${commit.id}`,
     amend: shouldAmend,
-    cwd: pathResolver.cryptRootDir,
-    logger,
   })
 }

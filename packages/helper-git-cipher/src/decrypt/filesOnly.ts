@@ -4,7 +4,13 @@ import type {
   IJsonConfigKeeper,
 } from '@guanghechen/helper-cipher-file'
 import { FileChangeType } from '@guanghechen/helper-cipher-file'
-import { checkBranch, hasUncommittedContent, isGitRepo } from '@guanghechen/helper-git'
+import {
+  checkBranch,
+  getHeadBranchOrCommitId,
+  hasUncommittedContent,
+  isGitRepo,
+} from '@guanghechen/helper-git'
+import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
 import type { IGitCipherConfigData } from '../types'
@@ -24,34 +30,42 @@ export interface IDecryptFilesOnlyParams {
  */
 export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise<void> {
   const { cryptCommitId, pathResolver, cipherBatcher, configKeeper, logger } = params
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
+
   invariant(
     isGitRepo(pathResolver.cryptRootDir),
     `[decryptFilesOnly] crypt repo is not a git repo. (${pathResolver.cryptRootDir})`,
   )
 
   invariant(
-    !(await hasUncommittedContent({ cwd: pathResolver.cryptRootDir, logger })),
+    !(await hasUncommittedContent(cryptCmdCtx)),
     '[decryptFilesOnly] crypt repo has uncommitted contents.',
   )
 
-  // [crypt] Move the HEAD pointer to the current decrypting commit.
-  await checkBranch({ branchOrCommitId: cryptCommitId, cwd: pathResolver.cryptRootDir, logger })
+  const initialHeadBranchOrCommitId: string = await getHeadBranchOrCommitId(cryptCmdCtx)
+  try {
+    // [crypt] Move the HEAD pointer to the current decrypting commit.
+    await checkBranch({ ...cryptCmdCtx, branchOrCommitId: cryptCommitId })
 
-  // Load the diffItems between the <first parent>...<current>.
-  const configData = await configKeeper.load()
-  invariant(
-    configData !== null,
-    `[decryptFilesOnly] cannot load config. filepath(${configKeeper.filepath}), encryptedCommitId(${cryptCommitId})`,
-  )
-  const { commit: plainCommit } = configData
+    // Load the diffItems between the <first parent>...<current>.
+    const configData = await configKeeper.load()
+    invariant(
+      configData !== null,
+      `[decryptFilesOnly] cannot load config. filepath(${configKeeper.filepath}), encryptedCommitId(${cryptCommitId})`,
+    )
+    const { commit: plainCommit } = configData
 
-  // Decrypt files.
-  await cipherBatcher.batchDecrypt({
-    diffItems: plainCommit.catalog.items.map(item => ({
-      changeType: FileChangeType.ADDED,
-      newItem: item,
-    })),
-    pathResolver,
-    strictCheck: false,
-  })
+    // Decrypt files.
+    await cipherBatcher.batchDecrypt({
+      diffItems: plainCommit.catalog.items.map(item => ({
+        changeType: FileChangeType.ADDED,
+        newItem: item,
+      })),
+      pathResolver,
+      strictCheck: false,
+    })
+  } finally {
+    // Restore crypt repo HEAD point.
+    await checkBranch({ ...cryptCmdCtx, branchOrCommitId: initialHeadBranchOrCommitId })
+  }
 }

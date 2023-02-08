@@ -4,7 +4,7 @@ import type {
   IFileCipherBatcher,
   IJsonConfigKeeper,
 } from '@guanghechen/helper-cipher-file'
-import type { IGitCommitDagNode } from '@guanghechen/helper-git'
+import type { IGitCommandBaseParams, IGitCommitDagNode } from '@guanghechen/helper-git'
 import {
   checkBranch,
   cleanUntrackedFilepaths,
@@ -33,13 +33,11 @@ export interface IDecryptGitCommitParams {
  */
 export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise<void> {
   const { cryptCommitNode, pathResolver, cipherBatcher, configKeeper, logger } = params
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.plainRootDir, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
 
   // [crypt] Move the HEAD pointer to the current decrypting commit.
-  await checkBranch({
-    branchOrCommitId: cryptCommitNode.id,
-    cwd: pathResolver.cryptRootDir,
-    logger,
-  })
+  await checkBranch({ ...cryptCmdCtx, branchOrCommitId: cryptCommitNode.id })
 
   // Load the diffItems between the <first parent>...<current>.
   const configData = await configKeeper.load()
@@ -51,32 +49,23 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
 
   // [plain] Move the HEAD pointer to the first parent commit for creating commit or merging.
   if (plainCommit.parents.length > 0) {
-    await checkBranch({
-      branchOrCommitId: plainCommit.parents[0],
-      cwd: pathResolver.plainRootDir,
-      logger,
-    })
+    await checkBranch({ ...plainCmdCtx, branchOrCommitId: plainCommit.parents[0] })
   }
 
   let shouldAmend = false
   if (plainCommit.parents.length > 1) {
     await mergeCommits({
+      ...plainCmdCtx,
       ...plainCommit.signature,
       parentIds: plainCommit.parents,
       strategy: 'ours',
-      cwd: pathResolver.plainRootDir,
-      logger,
     })
     shouldAmend = true
   }
 
   // [pain] Clean untracked filepaths to avoid unexpected errors.
   const affectedPlainFiles: string[] = collectAffectedPlainFilepaths(plainCommit.catalog.diffItems)
-  await cleanUntrackedFilepaths({
-    filepaths: affectedPlainFiles,
-    cwd: pathResolver.plainRootDir,
-    logger,
-  })
+  await cleanUntrackedFilepaths({ ...plainCmdCtx, filepaths: affectedPlainFiles })
 
   // Decrypt files.
   await cipherBatcher.batchDecrypt({
@@ -84,10 +73,5 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
     pathResolver,
     strictCheck: false,
   })
-  await commitAll({
-    ...plainCommit.signature,
-    amend: shouldAmend,
-    cwd: pathResolver.plainRootDir,
-    logger,
-  })
+  await commitAll({ ...plainCmdCtx, ...plainCommit.signature, amend: shouldAmend })
 }

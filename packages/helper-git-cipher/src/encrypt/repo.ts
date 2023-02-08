@@ -5,6 +5,7 @@ import type {
   IJsonConfigKeeper,
 } from '@guanghechen/helper-cipher-file'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
+import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import {
   checkBranch,
   createBranch,
@@ -31,17 +32,20 @@ export interface IEncryptGitRepoParams {
 
 export async function encryptGitRepo(params: IEncryptGitRepoParams): Promise<void> {
   const { catalog, cipherBatcher, configKeeper, pathResolver, logger } = params
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.plainRootDir, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
+
   invariant(
     isGitRepo(pathResolver.plainRootDir),
     `[decryptGitRepo] plain repo is not a git repo. (${pathResolver.plainRootDir})`,
   )
 
   invariant(
-    !(await hasUncommittedContent({ cwd: pathResolver.plainRootDir, logger })),
+    !(await hasUncommittedContent(plainCmdCtx)),
     '[encryptGitRepo] plain repo has uncommitted contents.',
   )
 
-  const plainLocalBranch = await getAllLocalBranches({ cwd: pathResolver.plainRootDir, logger })
+  const plainLocalBranch = await getAllLocalBranches(plainCmdCtx)
   invariant(
     plainLocalBranch.currentBranch !== null,
     '[encryptGitRepo] plain repo is not under any branch.',
@@ -49,10 +53,7 @@ export async function encryptGitRepo(params: IEncryptGitRepoParams): Promise<voi
 
   const isCryptRepoInitialized: boolean = isGitRepo(pathResolver.cryptRootDir)
   const oldCryptLocalBranch = isCryptRepoInitialized
-    ? await getAllLocalBranches({
-        cwd: pathResolver.cryptRootDir,
-        logger,
-      })
+    ? await getAllLocalBranches(cryptCmdCtx)
     : {
         currentBranch: plainLocalBranch.currentBranch,
         branches: [plainLocalBranch.currentBranch],
@@ -64,19 +65,15 @@ export async function encryptGitRepo(params: IEncryptGitRepoParams): Promise<voi
   if (!isCryptRepoInitialized) {
     mkdirsIfNotExists(pathResolver.cryptRootDir, true)
     logger?.verbose?.('[encryptGitRepo] initialize crypt repo.')
-    await initGitRepo({
-      defaultBranch: plainLocalBranch.currentBranch,
-      cwd: pathResolver.cryptRootDir,
-      logger,
-    })
+    await initGitRepo({ ...cryptCmdCtx, defaultBranch: plainLocalBranch.currentBranch })
     plain2cryptIdMap = new Map<string, string>()
   } else {
     invariant(
-      !(await hasUncommittedContent({ cwd: pathResolver.cryptRootDir, logger })),
+      !(await hasUncommittedContent(cryptCmdCtx)),
       '[encryptGitRepo] crypt repo has uncommitted contents.',
     )
 
-    const cryptLocalBranch = await getAllLocalBranches({ cwd: pathResolver.cryptRootDir, logger })
+    const cryptLocalBranch = await getAllLocalBranches(cryptCmdCtx)
     const commitIdMap = await extractPlain2CryptCommitIdMap({
       plainBranches: cryptLocalBranch.branches,
       pathResolver,
@@ -85,75 +82,61 @@ export async function encryptGitRepo(params: IEncryptGitRepoParams): Promise<voi
     plain2cryptIdMap = commitIdMap.plain2cryptIdMap
   }
 
-  // encrypt branches.
-  const newCryptBranches: Array<{ branchName: string; commitId: string }> = []
-  for (const branchName of plainLocalBranch.branches) {
-    await encryptGitBranch({
-      branchName,
-      plain2cryptIdMap,
-      catalog,
-      cipherBatcher,
-      pathResolver,
-      configKeeper,
-      logger,
-    })
+  try {
+    // encrypt branches.
+    const newCryptBranches: Array<{ branchName: string; commitId: string }> = []
+    for (const branchName of plainLocalBranch.branches) {
+      await encryptGitBranch({
+        branchName,
+        plain2cryptIdMap,
+        catalog,
+        cipherBatcher,
+        pathResolver,
+        configKeeper,
+        logger,
+      })
 
-    const { commitId: cryptHeadCommitId } = await showCommitInfo({
-      branchOrCommitId: 'HEAD',
-      cwd: pathResolver.cryptRootDir,
-      logger,
-    })
-    newCryptBranches.push({ branchName, commitId: cryptHeadCommitId })
-  }
-
-  // [crypt] set branches sames with the plain repo.
-  {
-    // Detach from current branch.
-    if (oldCryptLocalBranch.currentBranch) {
       const { commitId: cryptHeadCommitId } = await showCommitInfo({
+        ...cryptCmdCtx,
         branchOrCommitId: 'HEAD',
-        cwd: pathResolver.cryptRootDir,
-        logger,
       })
-      await checkBranch({
-        branchOrCommitId: cryptHeadCommitId,
-        cwd: pathResolver.cryptRootDir,
-        logger,
-      })
+      newCryptBranches.push({ branchName, commitId: cryptHeadCommitId })
     }
 
-    // Delete all existed branches.
-    for (const branch of oldCryptLocalBranch.branches) {
-      await deleteBranch({
-        branchName: branch,
-        force: true,
-        cwd: pathResolver.cryptRootDir,
-        logger,
-      })
-    }
+    // [crypt] set branches sames with the plain repo.
+    {
+      // Detach from current branch.
+      if (oldCryptLocalBranch.currentBranch) {
+        const { commitId: cryptHeadCommitId } = await showCommitInfo({
+          ...cryptCmdCtx,
+          branchOrCommitId: 'HEAD',
+        })
+        await checkBranch({ ...cryptCmdCtx, branchOrCommitId: cryptHeadCommitId })
+      }
 
-    // Create branches.
-    for (const { branchName, commitId } of newCryptBranches) {
-      await createBranch({
-        newBranchName: branchName,
-        branchOrCommitId: commitId,
-        cwd: pathResolver.cryptRootDir,
-        logger,
-      })
-    }
+      // Delete all existed branches.
+      for (const branch of oldCryptLocalBranch.branches) {
+        await deleteBranch({
+          ...cryptCmdCtx,
+          branchName: branch,
+          force: true,
+        })
+      }
 
-    // Check to the same branch with plain repo.
-    await checkBranch({
-      branchOrCommitId: plainLocalBranch.currentBranch,
-      cwd: pathResolver.cryptRootDir,
-      logger,
-    })
+      // Create branches.
+      for (const { branchName, commitId } of newCryptBranches) {
+        await createBranch({
+          ...cryptCmdCtx,
+          newBranchName: branchName,
+          branchOrCommitId: commitId,
+        })
+      }
+
+      // Check to the same branch with plain repo.
+      await checkBranch({ ...cryptCmdCtx, branchOrCommitId: plainLocalBranch.currentBranch })
+    }
+  } finally {
+    // [plain] recover the HEAD pointer.
+    await checkBranch({ ...plainCmdCtx, branchOrCommitId: plainLocalBranch.currentBranch })
   }
-
-  // [plain] recover the HEAD pointer.
-  await checkBranch({
-    branchOrCommitId: plainLocalBranch.currentBranch,
-    cwd: pathResolver.plainRootDir,
-    logger,
-  })
 }

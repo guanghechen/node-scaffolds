@@ -3,6 +3,7 @@ import type {
   IFileCipherBatcher,
   IJsonConfigKeeper,
 } from '@guanghechen/helper-cipher-file'
+import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { getCommitInTopology, showCommitInfo } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
@@ -39,11 +40,12 @@ export async function decryptGitBranch(params: IDecryptGitBranchParams): Promise
     pathResolver,
     logger,
   } = params
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.plainRootDir, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
 
   const cryptCommitNodes = await getCommitInTopology({
+    ...cryptCmdCtx,
     branchOrCommitId: branchName,
-    cwd: pathResolver.cryptRootDir,
-    logger,
   })
 
   for (const cryptCommitNode of cryptCommitNodes) {
@@ -58,9 +60,8 @@ export async function decryptGitBranch(params: IDecryptGitBranchParams): Promise
       })
 
       const { commitId: plainCommitId } = await showCommitInfo({
+        ...plainCmdCtx,
         branchOrCommitId: 'HEAD',
-        cwd: pathResolver.plainRootDir,
-        logger,
       })
       plainIdSet.add(plainCommitId)
 
