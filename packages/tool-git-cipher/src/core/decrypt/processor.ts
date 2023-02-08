@@ -77,10 +77,10 @@ export class GitCipherDecryptProcessor {
       }
     }
 
-    if (context.filesAt) {
+    if (context.filesOnly) {
       logger.debug('Trying decryptFilesOnly...')
       await decryptFilesOnly({
-        cryptCommitId: context.filesAt,
+        cryptCommitId: context.filesOnly,
         cipherBatcher,
         pathResolver: outPathResolver,
         configKeeper,

@@ -16,6 +16,7 @@ export const createSubCommandInit = (
   command
     .name(commandName)
     .aliases(aliases)
+    .description('Initialize a encrypt / decrypt able git repo.')
     .arguments('<workspace>')
     .action(async function ([_workspaceDir], options: ISubCommandInitOptions) {
       logger.setName(commandName)

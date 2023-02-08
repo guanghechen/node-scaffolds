@@ -20,11 +20,11 @@ export const createSubCommandDecrypt = (
     .name(commandName)
     .aliases(aliases)
     .arguments('<workspace>')
+    .description('Decrypt git repo or decrypt files on a branch/commit only.')
     .option('--outDir <outDir>', 'specify the root dir of decrypted files.')
     .option(
-      '--filesAt [filesAt]',
-      '(commit id | branch) decrypt files at the given commit id or branch.',
-      'HEAD',
+      '--filesOnly [commitId]',
+      '(commit id | branch) decrypt files only at the given commit id or branch.',
     )
     .action(async function ([_workspaceDir], options: ISubCommandDecryptOptions) {
       logger.setName(commandName)
@@ -46,10 +46,17 @@ export const createSubCommandDecrypt = (
       logger.debug('outDir:', outDir)
 
       // Resolve filesAt
-      const filesAt: string | null = cover<string | null>(defaultOptions.filesAt, options.filesAt)
-      logger.debug('filesAt:', filesAt)
+      const filesOnly: string | null = cover<string | null>(
+        defaultOptions.filesOnly,
+        (options.filesOnly as unknown) === true ? 'HEAD' : options.filesOnly,
+      )
+      logger.debug('filesOnly:', filesOnly)
 
-      const resolvedOptions: ISubCommandDecryptOptions = { ...defaultOptions, outDir, filesAt }
+      const resolvedOptions: ISubCommandDecryptOptions = {
+        ...defaultOptions,
+        outDir,
+        filesOnly,
+      }
       await handle?.(resolvedOptions)
     })
 

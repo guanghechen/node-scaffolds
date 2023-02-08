@@ -16,6 +16,7 @@ export const createSubCommandEncrypt = (
   command
     .name(commandName)
     .aliases(aliases)
+    .description('Encrypt git repo.')
     .arguments('<workspace>')
     .action(async function ([_workspaceDir], options: ISubCommandEncryptOptions) {
       logger.setName(commandName)

@@ -72,7 +72,7 @@ export interface IGitCipherDecryptContext {
    * If specified, then all of the files under the given commitId will be decrypted.
    * Otherwise, the entire repo will be generated.
    */
-  readonly filesAt: string | null
+  readonly filesOnly: string | null
 }
 
 export async function createGitCipherDecryptContextFromOptions(
@@ -95,7 +95,7 @@ export async function createGitCipherDecryptContextFromOptions(
     partCodePrefix: options.partCodePrefix,
     keepPlainPatterns: options.keepPlainPatterns,
     outDir: options.outDir,
-    filesAt: options.filesAt,
+    filesOnly: options.filesOnly,
   }
   return context
 }
