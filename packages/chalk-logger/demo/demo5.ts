@@ -1,5 +1,5 @@
 import { ChalkLogger, Level, registerCommanderOptions } from '@guanghechen/chalk-logger'
-import commander from 'commander'
+import { Command } from 'commander'
 
 const logger = new ChalkLogger(
   {
@@ -13,7 +13,7 @@ const logger = new ChalkLogger(
   process.argv,
 )
 
-const command = new commander.Command()
+const command = new Command()
 command.version('v1.0.0').arguments('[orz]')
 
 // register logger option to commander

@@ -1,5 +1,4 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import chalk from 'chalk'
 
 const logger = new ChalkLogger(
   {
@@ -13,21 +12,25 @@ const logger = new ChalkLogger(
   process.argv,
 )
 
-logger.formatHeader = function (level: Level, date: Date): string {
-  const levelStyle = this.levelStyleMap[level]
-  let desc = levelStyle.title
-  let { name } = this
-  if (this.flags.colorful) {
-    desc = levelStyle.header.fg(desc)
-    if (levelStyle.header.bg != null) desc = levelStyle.header.bg(desc)
-    name = chalk.gray(name)
-  }
-  const header = `${desc} ${name}`
-  if (!this.flags.date) return `[${header}]`
+logger.formatHeader = function formatHeader(level: Level, date: Date): string {
+  const dateText: string = this.flags.date
+    ? this.formatContent(level, date.toLocaleTimeString())
+    : ''
 
-  let dateString = date.toLocaleTimeString()
-  if (this.flags.colorful) dateString = chalk.gray(dateString)
-  return `<${dateString} ${header}>`
+  const levelStyle = this.levelStyleMap[level]
+  let levelText = levelStyle.title
+  if (this.flags.colorful) {
+    levelText = levelStyle.labelChalk.fg(levelText)
+    if (levelStyle.labelChalk.bg != null) levelText = levelStyle.labelChalk.bg(levelText)
+  }
+
+  const titleText: string = this.flags.title ? this.formatContent(level, '<' + this.name + '>') : ''
+
+  let result = ''
+  if (dateText) result += dateText + ' '
+  result += levelText
+  if (titleText) result += ' ' + titleText
+  return result
 }
 
 logger.debug('A', 'B', 'C')

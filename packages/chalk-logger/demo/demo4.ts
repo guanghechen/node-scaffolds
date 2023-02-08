@@ -1,6 +1,9 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import fs from 'node:fs'
 import path from 'node:path'
+import url from 'node:url'
+
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
 const logFilepath = path.resolve(__dirname, 'orz.log')
 const logger = new ChalkLogger(

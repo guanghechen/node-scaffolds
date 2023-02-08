@@ -201,7 +201,6 @@ loggerMock.restore()
   ```typescript
   // demo/demo2.ts
   import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-  import chalk from 'chalk'
 
   const logger = new ChalkLogger(
     {
@@ -215,22 +214,29 @@ loggerMock.restore()
     process.argv,
   )
 
-  logger.formatHeader = function (level: Level, date: Date): string {
-    const levelStyle = this.levelStyleMap[level]
-    let desc = levelStyle.title
-    let { name } = this
-    if (this.flags.colorful) {
-      desc = levelStyle.header.fg(desc)
-      if (levelStyle.header.bg != null) desc = levelStyle.header.bg(desc)
-      name = chalk.gray(name)
-    }
-    const header = `${desc} ${name}`
-    if (!this.flags.date) return `[${header}]`
+  logger.formatHeader = 
+  function formatHeader(level: Level, date: Date): string {
+      const dateText: string = this.flags.date
+        ? this.formatContent(level, date.toLocaleTimeString())
+        : ''
 
-    let dateString = date.toLocaleTimeString()
-    if (this.flags.colorful) dateString = chalk.gray(dateString)
-    return `<${dateString} ${header}>`
-  }
+      const levelStyle = this.levelStyleMap[level]
+      let levelText = levelStyle.title
+      if (this.flags.colorful) {
+        levelText = levelStyle.labelChalk.fg(levelText)
+        if (levelStyle.labelChalk.bg != null) levelText = levelStyle.labelChalk.bg(levelText)
+      }
+
+      const titleText: string = this.flags.title
+        ? this.formatContent(level, '<' + this.name + '>')
+        : ''
+
+      let result = ''
+      if (dateText) result += dateText + ' '
+      result += levelText
+      if (titleText) result += ' ' + titleText
+      return result
+    }
 
   logger.debug('A', 'B', 'C')
   logger.verbose('A', 'B', 'C')
@@ -278,6 +284,9 @@ loggerMock.restore()
   import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
   import fs from 'node:fs'
   import path from 'node:path'
+  import url from 'node:url'
+
+  const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
   const logFilepath = path.resolve(__dirname, 'orz.log')
   const logger = new ChalkLogger(
@@ -309,6 +318,7 @@ loggerMock.restore()
   ```typescript
   // demo/demo5.ts
   import { ChalkLogger, Level, registerCommanderOptions } from '@guanghechen/chalk-logger'
+  import { Command } from 'commander'
 
   const logger = new ChalkLogger(
     {
@@ -322,7 +332,7 @@ loggerMock.restore()
     process.argv,
   )
 
-  const command = new commander.Command()
+  const command = new Command()
   command.version('v1.0.0').arguments('[orz]')
 
   // register logger option to commander
