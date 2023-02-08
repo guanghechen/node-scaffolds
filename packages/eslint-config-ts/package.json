@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/eslint-config-ts",
-  "version": "4.0.0-alpha.5",
+  "version": "4.0.0-alpha.6",
   "description": "eslint config for ts project",
   "author": {
     "name": "guanghechen",
@@ -44,7 +44,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@guanghechen/eslint-config": "^4.0.0-alpha.5",
+    "@guanghechen/eslint-config": "^4.0.0-alpha.6",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.50.0"
   },

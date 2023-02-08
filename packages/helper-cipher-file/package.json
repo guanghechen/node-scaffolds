@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-cipher-file",
-  "version": "4.0.0-alpha.5",
+  "version": "4.0.0-alpha.6",
   "description": "Utility functions for encrypt / decrypt files.",
   "author": {
     "name": "guanghechen",
@@ -43,14 +43,14 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-cipher": "^4.0.0-alpha.5",
-    "@guanghechen/helper-file": "^4.0.0-alpha.5",
-    "@guanghechen/helper-fs": "^4.0.0-alpha.5",
-    "@guanghechen/helper-func": "^4.0.0-alpha.5",
-    "@guanghechen/helper-path": "^4.0.0-alpha.5",
-    "@guanghechen/helper-stream": "^4.0.0-alpha.5",
-    "@guanghechen/invariant": "^4.0.0-alpha.5",
-    "@guanghechen/utility-types": "^4.0.0-alpha.5"
+    "@guanghechen/helper-cipher": "^4.0.0-alpha.6",
+    "@guanghechen/helper-file": "^4.0.0-alpha.6",
+    "@guanghechen/helper-fs": "^4.0.0-alpha.6",
+    "@guanghechen/helper-func": "^4.0.0-alpha.6",
+    "@guanghechen/helper-path": "^4.0.0-alpha.6",
+    "@guanghechen/helper-stream": "^4.0.0-alpha.6",
+    "@guanghechen/invariant": "^4.0.0-alpha.6",
+    "@guanghechen/utility-types": "^4.0.0-alpha.6"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
