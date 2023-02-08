@@ -11,24 +11,26 @@
   },
   "@guanghechen/tool-git-cipher": {
     "__globalOptions__": {
-      "catalogFilepath": "{{{catalogFilepath}}}",
-      "cryptRootDir": "{{{cryptRootDir}}}",
+      "logLevel": "{{{logLevel}}}",
       "encoding": "{{{encoding}}}",
+      "plainRootDir": "{{{plainRootDir}}}",
+      "cryptRootDir": "{{{cryptRootDir}}}",
+      "secretFilepath": "{{{secretFilepath}}}",
+      "catalogFilepath": "{{{catalogFilepath}}}",
       "encryptedFilesDir": "{{{encryptedFilesDir}}}",
       "encryptedFilePathSalt": "{{{encryptedFilePathSalt}}}",
       "keepPlainPatterns": [
         ".vscode/settings.json",
         ".vscode/launch.json",
         ".editorconfig",
+        "{{{secretFilepath}}}",
         ".gitignore",
         ".npmrc",
         ".nvmrc",
         ".yarnrc",
         "package.json",
-        "yarn.lock",
-        "{{{secretFilepath}}}"
+        "yarn.lock"
       ],
-      "logLevel": "{{{logLevel}}}",
       "minPasswordLength": {{{minPasswordLength}}},
       "partCodePrefix": "{{{partCodePrefix}}}",
       "pbkdf2Options": {
@@ -37,7 +39,6 @@
         "iterations": 100000,
         "keylen": 32
       },
-      "secretFilepath": "{{{secretFilepath}}}",
       "showAsterisk": {{{showAsterisk}}}
     },
     "encrypt": {

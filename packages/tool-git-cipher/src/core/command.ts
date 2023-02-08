@@ -13,9 +13,9 @@ export function createProgram(): Command {
     .option('--encoding <encoding>', 'default encoding of files in the workspace')
     .option('--secret-filepath <secretFilepath>', 'path of secret file')
     .option('--catalog-filepath <catalogFilepath>', 'path of catalog file of ciphertext files')
-    .option('--crypt-root-dir <cryptRootDir>', 'the directory where the encrypted files are stored')
+    .option('--crypt-rootDir <cryptRootDir>', 'the directory where the encrypted files are stored')
     .option(
-      '--plain-root-dir <plainRootDir>',
+      '--plain-rootDir <plainRootDir>',
       'the directory where the source plaintext files are stored',
     )
     .option('--show-asterisk', 'whether to print password asterisks')

@@ -25,6 +25,16 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
    */
   readonly pbkdf2Options: IPBKDF2Options
   /**
+   * The directory where the plain repo located.
+   * @default '.'
+   */
+  readonly plainRootDir: string
+  /**
+   * The directory where the crypt repo located.
+   * @default 'ghc-crypt'
+   */
+  readonly cryptRootDir: string
+  /**
    * The path of secret file.
    * @default '.ghc-secret'
    */
@@ -34,11 +44,6 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
    * @default '.ghc-catalog'
    */
   readonly catalogFilepath: string
-  /**
-   * The directory where the crypt repo located.
-   * @default 'ghc-crypt'
-   */
-  readonly cryptRootDir: string
   /**
    * A relative path of cryptRootDir, where the encrypted files located.
    * @default 'encrypted'
@@ -92,9 +97,10 @@ export const getDefaultGlobalCommandOptions = (): IGlobalCommandOptions => ({
     keylen: 32,
     digest: 'sha256',
   },
+  plainRootDir: '.',
+  cryptRootDir: 'ghc-crypt',
   secretFilepath: '.ghc-secret',
   catalogFilepath: '.ghc-catalog',
-  cryptRootDir: 'ghc-crypt',
   encryptedFilesDir: 'encrypted',
   encryptedFilePathSalt: 'encrypted_path_salt',
   showAsterisk: true,
@@ -130,7 +136,7 @@ export function resolveGlobalCommandOptions<C extends object>(
   )
 
   // Resolve encoding
-  const encoding: string = cover<string>(
+  const encoding: BufferEncoding = cover<BufferEncoding>(
     resolvedDefaultOptions.encoding,
     options.encoding,
     isNonBlankString,
@@ -159,6 +165,13 @@ export function resolveGlobalCommandOptions<C extends object>(
     ) as IPBKDF2Options['digest'],
   }
   logger.debug('pbkdf2Options:', pbkdf2Options)
+
+  // Resolve plainRootDir
+  const plainRootDir: string = absoluteOfWorkspace(
+    workspaceDir,
+    cover<string>(resolvedDefaultOptions.plainRootDir, options.plainRootDir, isNonBlankString),
+  )
+  logger.debug('plainRootDir:', plainRootDir)
 
   // Resolve cryptRootDir
   const cryptRootDir: string = absoluteOfWorkspace(
@@ -247,8 +260,8 @@ export function resolveGlobalCommandOptions<C extends object>(
   )
   logger.debug('partCodePrefix:', partCodePrefix)
 
-  return {
-    ...resolvedDefaultOptions,
+  const resolvedOptions: IGlobalCommandOptions = {
+    plainRootDir,
     encoding,
     pbkdf2Options,
     secretFilepath,
@@ -261,5 +274,8 @@ export function resolveGlobalCommandOptions<C extends object>(
     maxPasswordLength,
     maxTargetFileSize,
     partCodePrefix,
+    keepPlainPatterns: resolvedDefaultOptions.keepPlainPatterns,
   }
+
+  return { ...resolvedDefaultOptions, ...resolvedOptions }
 }
