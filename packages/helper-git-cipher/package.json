@@ -50,8 +50,8 @@
     "@guanghechen/helper-fs": "^4.0.0-alpha.6",
     "@guanghechen/helper-jest": "^4.0.0-alpha.6",
     "cross-env": "^7.0.3",
-    "jest": "^29.4.1",
+    "jest": "^29.4.2",
     "rimraf": "^4.1.2",
-    "rollup": "^3.13.0"
+    "rollup": "^3.14.0"
   }
 }
