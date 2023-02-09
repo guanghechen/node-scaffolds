@@ -24,6 +24,7 @@ import {
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
 import type { IGitCipherConfigData, IGitCommitOverview } from '../types'
+import { generateCommitHash } from '../util'
 
 export interface IEncryptGitCommitParams {
   plainCommitNode: IGitCommitDagNode
@@ -140,10 +141,12 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
   // Encrypt files & update config.
   await cipherBatcher.batchEncrypt({ diffItems, pathResolver, strictCheck: false })
   await configKeeper.save({ commit })
+
+  const message: string = generateCommitHash(commit)
   await commitAll({
     ...cryptCmdCtx,
     ...commit.signature,
-    message: `#${commit.id}`,
+    message,
     amend: shouldAmend,
   })
 }

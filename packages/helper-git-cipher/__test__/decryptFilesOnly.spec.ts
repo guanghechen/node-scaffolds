@@ -92,7 +92,7 @@ describe('decryptFilesOnly', () => {
     logMock = createLoggerMock({ logger })
     await emptyDir(workspaceDir)
     await buildRepo1({ repoDir: plainRootDir, logger, execaOptions: {} })
-    await gitCipher.encrypt({ catalog, pathResolver })
+    await gitCipher.encrypt({ catalog, pathResolver, crypt2plainIdMap: new Map() })
   })
   afterAll(async () => {
     await configKeeper.remove()

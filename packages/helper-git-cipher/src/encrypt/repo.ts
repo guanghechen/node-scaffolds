@@ -19,19 +19,26 @@ import {
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
 import type { IGitCipherConfigData } from '../types'
-import { extractPlain2CryptCommitIdMap } from '../util'
+import { resolveIdMap } from '../util'
 import { encryptGitBranch } from './branch'
 
 export interface IEncryptGitRepoParams {
   catalog: IFileCipherCatalog
   cipherBatcher: IFileCipherBatcher
-  configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
   pathResolver: FileCipherPathResolver
+  configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
+  crypt2plainIdMap: ReadonlyMap<string, string>
   logger?: ILogger
 }
 
-export async function encryptGitRepo(params: IEncryptGitRepoParams): Promise<void> {
-  const { catalog, cipherBatcher, configKeeper, pathResolver, logger } = params
+export interface IEncryptGitRepoResult {
+  crypt2plainIdMap: Map<string, string>
+}
+
+export async function encryptGitRepo(
+  params: IEncryptGitRepoParams,
+): Promise<IEncryptGitRepoResult> {
+  const { catalog, cipherBatcher, pathResolver, configKeeper, logger } = params
   const plainCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.plainRootDir, logger }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
 
@@ -59,32 +66,39 @@ export async function encryptGitRepo(params: IEncryptGitRepoParams): Promise<voi
         branches: [plainLocalBranch.currentBranch],
       }
 
-  let plain2cryptIdMap: Map<string, string>
+  const { crypt2plainIdMap } = await resolveIdMap({
+    pathResolver,
+    crypt2plainIdMap: params.crypt2plainIdMap,
+    logger,
+  })
 
   // Initialize crypt repo.
   if (!isCryptRepoInitialized) {
     mkdirsIfNotExists(pathResolver.cryptRootDir, true)
     logger?.verbose?.('[encryptGitRepo] initialize crypt repo.')
-    await initGitRepo({ ...cryptCmdCtx, defaultBranch: plainLocalBranch.currentBranch })
-    plain2cryptIdMap = new Map<string, string>()
+    await initGitRepo({
+      ...cryptCmdCtx,
+      defaultBranch: plainLocalBranch.currentBranch,
+      gpgSign: false,
+    })
   } else {
     invariant(
       !(await hasUncommittedContent(cryptCmdCtx)),
       '[encryptGitRepo] crypt repo has uncommitted contents.',
     )
 
-    const cryptLocalBranch = await getAllLocalBranches(cryptCmdCtx)
-    const commitIdMap = await extractPlain2CryptCommitIdMap({
-      plainBranches: cryptLocalBranch.branches,
-      pathResolver,
-      logger,
-    })
-    plain2cryptIdMap = commitIdMap.plain2cryptIdMap
+    invariant(
+      crypt2plainIdMap.size > 0,
+      '[encryptGitRepo] bad crypt repo, no paired plain/crypt commit found.',
+    )
   }
 
   try {
     // encrypt branches.
     const newCryptBranches: Array<{ branchName: string; commitId: string }> = []
+    const plain2cryptIdMap: Map<string, string> = new Map()
+    for (const [key, value] of crypt2plainIdMap.entries()) plain2cryptIdMap.set(value, key)
+
     for (const branchName of plainLocalBranch.branches) {
       await encryptGitBranch({
         branchName,
@@ -139,4 +153,6 @@ export async function encryptGitRepo(params: IEncryptGitRepoParams): Promise<voi
     // [plain] recover the HEAD pointer.
     await checkBranch({ ...plainCmdCtx, branchOrCommitId: plainLocalBranch.currentBranch })
   }
+
+  return { crypt2plainIdMap }
 }

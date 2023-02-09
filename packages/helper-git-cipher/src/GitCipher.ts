@@ -18,10 +18,20 @@ export interface IGitCipherProps {
 export interface IGitCipherEncryptParams {
   catalog: IFileCipherCatalog
   pathResolver: FileCipherPathResolver
+  crypt2plainIdMap: ReadonlyMap<string, string>
+}
+
+export interface IGitCipherEncryptRepoResult {
+  crypt2plainIdMap: Map<string, string>
 }
 
 export interface IGitCipherDecryptParams {
   pathResolver: FileCipherPathResolver
+  crypt2plainIdMap: ReadonlyMap<string, string>
+}
+
+export interface IGitCipherDecryptRepoResult {
+  crypt2plainIdMap: Map<string, string>
 }
 
 export class GitCipher {
@@ -35,24 +45,28 @@ export class GitCipher {
     this.logger = props.logger
   }
 
-  public async encrypt(params: IGitCipherEncryptParams): Promise<void> {
+  public async encrypt(params: IGitCipherEncryptParams): Promise<IGitCipherEncryptRepoResult> {
     const { cipherBatcher, configKeeper, logger } = this
-    await encryptGitRepo({
+    const { crypt2plainIdMap } = await encryptGitRepo({
       pathResolver: params.pathResolver,
       catalog: params.catalog,
       cipherBatcher,
       configKeeper,
+      crypt2plainIdMap: params.crypt2plainIdMap,
       logger,
     })
+    return { crypt2plainIdMap }
   }
 
-  public async decrypt(params: IGitCipherDecryptParams): Promise<void> {
+  public async decrypt(params: IGitCipherDecryptParams): Promise<IGitCipherDecryptRepoResult> {
     const { cipherBatcher, configKeeper, logger } = this
-    await decryptGitRepo({
+    const { crypt2plainIdMap } = await decryptGitRepo({
       pathResolver: params.pathResolver,
       cipherBatcher,
       configKeeper,
+      crypt2plainIdMap: params.crypt2plainIdMap,
       logger,
     })
+    return { crypt2plainIdMap }
   }
 }

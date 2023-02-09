@@ -4,13 +4,12 @@ import type {
   IJsonConfigKeeper,
 } from '@guanghechen/helper-cipher-file'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
-import type { IGitCommandBaseParams, IGitCommitWithMessage } from '@guanghechen/helper-git'
+import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import {
   checkBranch,
   createBranch,
   deleteBranch,
   getAllLocalBranches,
-  getCommitWithMessageList,
   hasUncommittedContent,
   initGitRepo,
   isGitRepo,
@@ -19,14 +18,19 @@ import {
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
 import type { IGitCipherConfigData } from '../types'
-import { extractCrypt2PlainCommitIdMap } from '../util'
+import { resolveIdMap } from '../util'
 import { decryptGitBranch } from './branch'
 
 export interface IDecryptGitRepoParams {
   cipherBatcher: IFileCipherBatcher
   configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
   pathResolver: FileCipherPathResolver
+  crypt2plainIdMap: ReadonlyMap<string, string>
   logger?: ILogger
+}
+
+export interface IDecryptGitRepoResult {
+  crypt2plainIdMap: Map<string, string>
 }
 
 /**
@@ -38,7 +42,9 @@ export interface IDecryptGitRepoParams {
  *
  * @param params
  */
-export async function decryptGitRepo(params: IDecryptGitRepoParams): Promise<void> {
+export async function decryptGitRepo(
+  params: IDecryptGitRepoParams,
+): Promise<IDecryptGitRepoResult> {
   const { cipherBatcher, configKeeper, pathResolver, logger } = params
   const plainCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.plainRootDir, logger }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
@@ -67,41 +73,40 @@ export async function decryptGitRepo(params: IDecryptGitRepoParams): Promise<voi
         branches: [cryptLocalBranch.currentBranch],
       }
 
-  let plainIdSet: Set<string>
+  const { crypt2plainIdMap } = await resolveIdMap({
+    pathResolver,
+    crypt2plainIdMap: params.crypt2plainIdMap,
+    logger,
+  })
 
   // Initialize plain repo.
   if (!isPlainRepoInitialized) {
     mkdirsIfNotExists(pathResolver.plainRootDir, true)
     logger?.verbose?.('[decryptGitRepo] initialize plain repo.')
-    await initGitRepo({ ...plainCmdCtx, defaultBranch: cryptLocalBranch.currentBranch })
-    plainIdSet = new Set<string>()
+    await initGitRepo({
+      ...plainCmdCtx,
+      defaultBranch: cryptLocalBranch.currentBranch,
+    })
   } else {
     invariant(
       !(await hasUncommittedContent(plainCmdCtx)),
       '[decryptGitRepo] plain repo has uncommitted contents.',
     )
-    const commitWithMessageList: IGitCommitWithMessage[] = await getCommitWithMessageList({
-      ...plainCmdCtx,
-      branchOrCommitIds: oldPlainLocalBranch.branches,
-    })
-    plainIdSet = new Set<string>()
-    for (const item of commitWithMessageList) plainIdSet.add(item.id)
+
+    invariant(
+      crypt2plainIdMap.size > 0,
+      '[decryptGitRepo] bad plain repo, no paired plain/crypt commit found.',
+    )
   }
 
   try {
     // decrypt branches.
     const newPlainBranches: Array<{ branchName: string; commitId: string }> = []
     {
-      const { crypt2plainIdMap } = await extractCrypt2PlainCommitIdMap({
-        cryptBranches: cryptLocalBranch.branches,
-        pathResolver,
-        logger,
-      })
       for (const branchName of cryptLocalBranch.branches) {
         await decryptGitBranch({
           branchName,
           crypt2plainIdMap,
-          plainIdSet,
           pathResolver,
           cipherBatcher,
           configKeeper,
@@ -148,4 +153,6 @@ export async function decryptGitRepo(params: IDecryptGitRepoParams): Promise<voi
     // [crypt] recover the HEAD pointer.
     await checkBranch({ ...cryptCmdCtx, branchOrCommitId: cryptLocalBranch.currentBranch })
   }
+
+  return { crypt2plainIdMap }
 }

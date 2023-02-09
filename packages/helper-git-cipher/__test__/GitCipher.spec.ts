@@ -29,6 +29,7 @@ import {
   maxTargetFileSize,
   partCodePrefix,
   repo1CryptCommitIdTable,
+  repo1CryptCommitMessageTable,
 } from './_data-repo1'
 
 describe('GitCipher', () => {
@@ -101,7 +102,11 @@ describe('GitCipher', () => {
       })
 
       // Test encrypt.
-      await gitCipher.encrypt({ catalog, pathResolver })
+      const { crypt2plainIdMap } = await gitCipher.encrypt({
+        catalog,
+        pathResolver,
+        crypt2plainIdMap: new Map(),
+      })
       expect(await getAllLocalBranches({ ...cryptCtx })).toEqual({
         currentBranch: 'main',
         branches: ['main'],
@@ -133,17 +138,17 @@ describe('GitCipher', () => {
         { id: repo1CryptCommitIdTable.K, parents: [repo1CryptCommitIdTable.J] },
       ])
       expect(await getCommitWithMessageList({ ...cryptCtx, branchOrCommitIds: ['main'] })).toEqual([
-        { id: repo1CryptCommitIdTable.K, message: `#${commitIdTable.K}` },
-        { id: repo1CryptCommitIdTable.J, message: `#${commitIdTable.J}` },
-        { id: repo1CryptCommitIdTable.I, message: `#${commitIdTable.I}` },
-        { id: repo1CryptCommitIdTable.H, message: `#${commitIdTable.H}` },
-        { id: repo1CryptCommitIdTable.G, message: `#${commitIdTable.G}` },
-        { id: repo1CryptCommitIdTable.F, message: `#${commitIdTable.F}` },
-        { id: repo1CryptCommitIdTable.E, message: `#${commitIdTable.E}` },
-        { id: repo1CryptCommitIdTable.D, message: `#${commitIdTable.D}` },
-        { id: repo1CryptCommitIdTable.C, message: `#${commitIdTable.C}` },
-        { id: repo1CryptCommitIdTable.B, message: `#${commitIdTable.B}` },
-        { id: repo1CryptCommitIdTable.A, message: `#${commitIdTable.A}` },
+        { id: repo1CryptCommitIdTable.K, message: repo1CryptCommitMessageTable.K },
+        { id: repo1CryptCommitIdTable.J, message: repo1CryptCommitMessageTable.J },
+        { id: repo1CryptCommitIdTable.I, message: repo1CryptCommitMessageTable.I },
+        { id: repo1CryptCommitIdTable.H, message: repo1CryptCommitMessageTable.H },
+        { id: repo1CryptCommitIdTable.G, message: repo1CryptCommitMessageTable.G },
+        { id: repo1CryptCommitIdTable.F, message: repo1CryptCommitMessageTable.F },
+        { id: repo1CryptCommitIdTable.E, message: repo1CryptCommitMessageTable.E },
+        { id: repo1CryptCommitIdTable.D, message: repo1CryptCommitMessageTable.D },
+        { id: repo1CryptCommitIdTable.C, message: repo1CryptCommitMessageTable.C },
+        { id: repo1CryptCommitIdTable.B, message: repo1CryptCommitMessageTable.B },
+        { id: repo1CryptCommitIdTable.A, message: repo1CryptCommitMessageTable.A },
       ])
       expect(await getAllLocalBranches(plainCtx)).toEqual({
         currentBranch: 'main',
@@ -151,7 +156,7 @@ describe('GitCipher', () => {
       })
 
       // Test decrypt.
-      await gitCipher.decrypt({ pathResolver: bakPathResolver })
+      await gitCipher.decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap })
       expect(await getAllLocalBranches(bakPlainCtx)).toEqual({
         currentBranch: 'main',
         branches: ['main'],
@@ -207,6 +212,8 @@ describe('GitCipher', () => {
         execaOptions: {},
       })
 
+      let crypt2plainIdMap: Map<string, string> = new Map()
+
       // Commit E.
       {
         await checkBranch({ ...plainCtx, branchOrCommitId: commitIdTable.E })
@@ -215,7 +222,9 @@ describe('GitCipher', () => {
         await checkBranch({ ...plainCtx, branchOrCommitId: 'E' })
 
         // Test encrypt.
-        await gitCipher.encrypt({ catalog, pathResolver })
+        crypt2plainIdMap = await gitCipher
+          .encrypt({ catalog, pathResolver, crypt2plainIdMap })
+          .then(md => md.crypt2plainIdMap)
         expect(await getAllLocalBranches({ ...cryptCtx })).toEqual({
           currentBranch: 'E',
           branches: ['E'],
@@ -227,14 +236,16 @@ describe('GitCipher', () => {
           { id: repo1CryptCommitIdTable.E, parents: [repo1CryptCommitIdTable.C] },
         ])
         expect(await getCommitWithMessageList({ ...cryptCtx, branchOrCommitIds: ['E'] })).toEqual([
-          { id: repo1CryptCommitIdTable.E, message: `#${commitIdTable.E}` },
-          { id: repo1CryptCommitIdTable.C, message: `#${commitIdTable.C}` },
-          { id: repo1CryptCommitIdTable.B, message: `#${commitIdTable.B}` },
-          { id: repo1CryptCommitIdTable.A, message: `#${commitIdTable.A}` },
+          { id: repo1CryptCommitIdTable.E, message: repo1CryptCommitMessageTable.E },
+          { id: repo1CryptCommitIdTable.C, message: repo1CryptCommitMessageTable.C },
+          { id: repo1CryptCommitIdTable.B, message: repo1CryptCommitMessageTable.B },
+          { id: repo1CryptCommitIdTable.A, message: repo1CryptCommitMessageTable.A },
         ])
 
         // Test Decrypt
-        await gitCipher.decrypt({ pathResolver: bakPathResolver })
+        crypt2plainIdMap = await gitCipher
+          .decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap })
+          .then(md => md.crypt2plainIdMap)
         expect(await getAllLocalBranches({ ...bakPlainCtx })).toEqual({
           currentBranch: 'E',
           branches: ['E'],
@@ -260,7 +271,9 @@ describe('GitCipher', () => {
         await createBranch({ ...plainCtx, newBranchName: 'I', branchOrCommitId: commitIdTable.I })
 
         // Test encrypt.
-        await gitCipher.encrypt({ catalog, pathResolver })
+        crypt2plainIdMap = await gitCipher
+          .encrypt({ catalog, pathResolver, crypt2plainIdMap })
+          .then(md => md.crypt2plainIdMap)
         expect(await getAllLocalBranches({ ...cryptCtx })).toEqual({
           currentBranch: 'E',
           branches: ['E', 'I'],
@@ -272,14 +285,16 @@ describe('GitCipher', () => {
           { id: repo1CryptCommitIdTable.I, parents: [repo1CryptCommitIdTable.G] },
         ])
         expect(await getCommitWithMessageList({ ...cryptCtx, branchOrCommitIds: ['I'] })).toEqual([
-          { id: repo1CryptCommitIdTable.I, message: `#${commitIdTable.I}` },
-          { id: repo1CryptCommitIdTable.G, message: `#${commitIdTable.G}` },
-          { id: repo1CryptCommitIdTable.B, message: `#${commitIdTable.B}` },
-          { id: repo1CryptCommitIdTable.A, message: `#${commitIdTable.A}` },
+          { id: repo1CryptCommitIdTable.I, message: repo1CryptCommitMessageTable.I },
+          { id: repo1CryptCommitIdTable.G, message: repo1CryptCommitMessageTable.G },
+          { id: repo1CryptCommitIdTable.B, message: repo1CryptCommitMessageTable.B },
+          { id: repo1CryptCommitIdTable.A, message: repo1CryptCommitMessageTable.A },
         ])
 
         // Test Decrypt
-        await gitCipher.decrypt({ pathResolver: bakPathResolver })
+        crypt2plainIdMap = await gitCipher
+          .decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap })
+          .then(md => md.crypt2plainIdMap)
         expect(await getAllLocalBranches({ ...bakPlainCtx })).toEqual({
           currentBranch: 'E',
           branches: ['E', 'I'],
@@ -306,7 +321,9 @@ describe('GitCipher', () => {
         await checkBranch({ ...plainCtx, branchOrCommitId: 'K' })
 
         // Test encrypt.
-        await gitCipher.encrypt({ catalog, pathResolver })
+        crypt2plainIdMap = await gitCipher
+          .encrypt({ catalog, pathResolver, crypt2plainIdMap })
+          .then(md => md.crypt2plainIdMap)
         expect(await getAllLocalBranches({ ...cryptCtx })).toEqual({
           currentBranch: 'K',
           branches: ['E', 'I', 'K'],
@@ -338,21 +355,23 @@ describe('GitCipher', () => {
           { id: repo1CryptCommitIdTable.K, parents: [repo1CryptCommitIdTable.J] },
         ])
         expect(await getCommitWithMessageList({ ...cryptCtx, branchOrCommitIds: ['K'] })).toEqual([
-          { id: repo1CryptCommitIdTable.K, message: `#${commitIdTable.K}` },
-          { id: repo1CryptCommitIdTable.J, message: `#${commitIdTable.J}` },
-          { id: repo1CryptCommitIdTable.I, message: `#${commitIdTable.I}` },
-          { id: repo1CryptCommitIdTable.H, message: `#${commitIdTable.H}` },
-          { id: repo1CryptCommitIdTable.G, message: `#${commitIdTable.G}` },
-          { id: repo1CryptCommitIdTable.F, message: `#${commitIdTable.F}` },
-          { id: repo1CryptCommitIdTable.E, message: `#${commitIdTable.E}` },
-          { id: repo1CryptCommitIdTable.D, message: `#${commitIdTable.D}` },
-          { id: repo1CryptCommitIdTable.C, message: `#${commitIdTable.C}` },
-          { id: repo1CryptCommitIdTable.B, message: `#${commitIdTable.B}` },
-          { id: repo1CryptCommitIdTable.A, message: `#${commitIdTable.A}` },
+          { id: repo1CryptCommitIdTable.K, message: repo1CryptCommitMessageTable.K },
+          { id: repo1CryptCommitIdTable.J, message: repo1CryptCommitMessageTable.J },
+          { id: repo1CryptCommitIdTable.I, message: repo1CryptCommitMessageTable.I },
+          { id: repo1CryptCommitIdTable.H, message: repo1CryptCommitMessageTable.H },
+          { id: repo1CryptCommitIdTable.G, message: repo1CryptCommitMessageTable.G },
+          { id: repo1CryptCommitIdTable.F, message: repo1CryptCommitMessageTable.F },
+          { id: repo1CryptCommitIdTable.E, message: repo1CryptCommitMessageTable.E },
+          { id: repo1CryptCommitIdTable.D, message: repo1CryptCommitMessageTable.D },
+          { id: repo1CryptCommitIdTable.C, message: repo1CryptCommitMessageTable.C },
+          { id: repo1CryptCommitIdTable.B, message: repo1CryptCommitMessageTable.B },
+          { id: repo1CryptCommitIdTable.A, message: repo1CryptCommitMessageTable.A },
         ])
 
         // Test Decrypt
-        await gitCipher.decrypt({ pathResolver: bakPathResolver })
+        crypt2plainIdMap = await gitCipher
+          .decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap })
+          .then(md => md.crypt2plainIdMap)
         expect(await getAllLocalBranches({ ...bakPlainCtx })).toEqual({
           currentBranch: 'K',
           branches: ['E', 'I', 'K'],
