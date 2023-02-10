@@ -1,5 +1,5 @@
-export * from './cipher/aes/AesCipher'
-export * from './cipher/aes/AesCipherFactory'
+export * from './cipher/aes/AesGcmCipher'
+export * from './cipher/aes/AesGcmCipherFactory'
 export * from './cipher/BaseCipher'
 export * from './types/ICipher'
 export * from './types/ICipherFactory'

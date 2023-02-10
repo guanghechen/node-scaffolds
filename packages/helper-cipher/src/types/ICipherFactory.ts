@@ -1,28 +1,41 @@
-import type { BinaryLike } from 'node:crypto'
 import type { ICipher } from './ICipher'
 
 export interface IPBKDF2Options {
-  salt: BinaryLike
+  salt: Readonly<Buffer>
   iterations: number
-  keylen: number
   digest: 'sha256'
+}
+
+export interface ICipherOptions {
+  iv: Buffer | undefined
 }
 
 export interface ICipherFactory {
   /**
-   * Create a secret with key
+   * Create a ICipher.
+   * @param options
+   */
+  cipher(options?: ICipherOptions): ICipher
+
+  /**
+   * Create a random initial vector.
+   */
+  createRandomIv(): Buffer
+
+  /**
+   * Create a random secret.
    */
   createRandomSecret(): Buffer
 
   /**
-   * Load key of cipher from secret
+   * Load key/iv of cipher from secret.
    * @param secret
    */
-  initFromSecret(secret: Readonly<Buffer>): ICipher | never
+  initFromSecret(secret: Readonly<Buffer>): void
 
   /**
-   * Load key of cipher from password
+   * Load key/iv of cipher from password.
    * @param password
    */
-  initFromPassword(password: Readonly<Buffer>, options: IPBKDF2Options): ICipher | never
+  initFromPassword(password: Readonly<Buffer>, options: IPBKDF2Options): void
 }

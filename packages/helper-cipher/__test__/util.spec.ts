@@ -1,6 +1,26 @@
-import { destroyBuffer, destroyBuffers } from '../src'
+import { randomBytes } from 'node:crypto'
+import { calcMac, calcMacFromString, destroyBuffer, destroyBuffers } from '../src'
 
 describe('util', () => {
+  test('calcMac', () => {
+    const size = 32
+    const contents: Buffer[] = Array.from(Array(size)).map(() =>
+      randomBytes(Math.random() * 48 + 16),
+    )
+
+    const mac1 = calcMac(...contents)
+    for (let i = 0; i < 10; ++i) {
+      const mac2 = calcMac(...contents)
+      expect(mac1.toString()).toEqual(mac2.toString())
+    }
+  })
+
+  test('calcMacFromString', () => {
+    expect(calcMacFromString('hello, world!', 'utf8').toString('hex')).toEqual(
+      '68e656b251e67e8358bef8483ab0d51c6619f3e7a1a9f0e75838d41ff368f728',
+    )
+  })
+
   test('destroyBuffer', function () {
     expect(() => destroyBuffer(null)).not.toThrow()
 

@@ -1,3 +1,31 @@
+import { createHash } from 'node:crypto'
+
+/**
+ * Calc Message Authentication Code.
+ *
+ * @param pieces
+ */
+export function calcMac(...pieces: Array<Readonly<Buffer>>): Buffer {
+  const sha256 = createHash('sha256')
+  for (const piece of pieces) sha256.update(piece)
+  const mac: Buffer = sha256.digest()
+  return mac
+}
+
+/**
+ * Calc Message Authentication Code from literal string.
+ *
+ * @param text
+ * @param textEncoding
+ * @returns
+ */
+export function calcMacFromString(text: string, textEncoding: BufferEncoding): Buffer {
+  const sha256 = createHash('sha256')
+  sha256.update(text, textEncoding)
+  const mac: Buffer = sha256.digest()
+  return mac
+}
+
 /**
  * Fill buffer with a random number
  *

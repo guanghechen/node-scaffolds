@@ -71,30 +71,33 @@ Utility functions for cipher contents.
 * `AesCipher` / `AesCipherFactory`
 
   ```typescript
-  import { AesCipherFactory } from '@guanghechen/helper-cipher'
+  import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
 
-  const cipherFactory = new AesCipherFactory()
+  const cipherFactory = new AesGcmCipherFactory()
   const secret = cipherFactory.createRandomSecret()
-  const cipher: ICipher = cipherFactory.initFromSecret(secret)
+  cipherFactory.initFromSecret(secret)
+  const cipher = cipherFactory.cipher()
 
   // encrypt
   const originalContent = fs.readFileSync(sourceFilepath)
-  const cipherData = cipher.encrypt(originalContent)
+  const { cryptBytes, authTag } = cipher.encrypt(originalContent)
 
   // decrypt
-  cipher.decrypt(cipherData)
+  const plainBytes: Buffer = cipher.decrypt(cryptBytes, { authTag })
   ```
 
 
 
 ### Overview
 
-Name                | Description
-:------------------:|:----------------------------:
-`AesCipher`         | A ICipher implementation with AES algorithm.
-`AesCipherFactory`  |
-`destroyBuffer`     | Fill buffer with a random number.
-`destroyBuffers`    | Fill buffers with random numbers.
+Name                  | Description
+:--------------------:|:----------------------------:
+`AesGcmCipher`        | A ICipher implementation with AES-256-GCM algorithm.
+`AesGcmCipherFactory` |
+`calcMac`             | Calc mac (Message Authentication Code).
+`calcMacFromString`   | Calc mac (Message Authentication Code) from literal string.
+`destroyBuffer`       | Fill buffer with a random number.
+`destroyBuffers`      | Fill buffers with random numbers.
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-cipher#readme
