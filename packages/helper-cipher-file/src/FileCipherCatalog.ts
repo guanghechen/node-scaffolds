@@ -18,8 +18,14 @@ import type {
   IFileCipherCatalogItem,
   IFileCipherCatalogItemDiff,
   IFileCipherCatalogItemDiffCombine,
+  IFileCipherCatalogItemDiffDraft,
+  IFileCipherCatalogItemDraft,
 } from './types/IFileCipherCatalogItem'
-import { isSameFileCipherItem, normalizePlainFilepath } from './util/catalog'
+import {
+  isSameFileCipherItem,
+  isSameFileCipherItemDraft,
+  normalizePlainFilepath,
+} from './util/catalog'
 import { calcFingerprintFromFile, calcFingerprintFromString } from './util/mac'
 
 export interface IFileCipherCatalogProps {
@@ -88,6 +94,8 @@ export class FileCipherCatalog implements IFileCipherCatalog {
           fingerprint: newItem.fingerprint,
           size: newItem.size,
           keepPlain: newItem.keepPlain,
+          iv: newItem.iv,
+          authTag: newItem.authTag,
         })
       }
     }
@@ -97,7 +105,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   public async calcCatalogItem({
     plainFilepath,
     isKeepPlain = this.isKeepPlain,
-  }: ICalcCatalogItemParams): Promise<IFileCipherCatalogItem | never> {
+  }: ICalcCatalogItemParams): Promise<IFileCipherCatalogItemDraft | never> {
     const {
       encryptedFilesDir,
       encryptedFilePathSalt,
@@ -122,7 +130,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
       calcFilePartItemsBySize(fileSize, maxTargetFileSize),
       partCodePrefix,
     )
-    const item: IFileCipherCatalogItem = {
+    const item: IFileCipherCatalogItemDraft = {
       plainFilepath: relativePlainFilepath,
       cryptFilepath: cryptFilepath,
       cryptFileParts: cryptFileParts.length > 1 ? cryptFileParts : [],
@@ -232,11 +240,11 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     plainFilepaths,
     strickCheck,
     isKeepPlain,
-  }: IDiffFromPlainFiles): Promise<IFileCipherCatalogItemDiff[]> {
+  }: IDiffFromPlainFiles): Promise<IFileCipherCatalogItemDiffDraft[]> {
     const { pathResolver, _itemMap } = this
-    const addedItems: IFileCipherCatalogItemDiff[] = []
-    const modifiedItems: IFileCipherCatalogItemDiff[] = []
-    const removedItems: IFileCipherCatalogItemDiff[] = []
+    const addedItems: IFileCipherCatalogItemDiffDraft[] = []
+    const modifiedItems: IFileCipherCatalogItemDiffDraft[] = []
+    const removedItems: IFileCipherCatalogItemDiffDraft[] = []
     for (const plainFilepath of plainFilepaths) {
       const key = normalizePlainFilepath(plainFilepath, pathResolver)
       const oldItem = _itemMap.get(key)
@@ -244,13 +252,13 @@ export class FileCipherCatalog implements IFileCipherCatalog {
       const isSrcFileExists = isFileSync(absolutePlainFilepath)
 
       if (isSrcFileExists) {
-        const newItem: IFileCipherCatalogItem = await this.calcCatalogItem({
+        const newItem: IFileCipherCatalogItemDraft = await this.calcCatalogItem({
           plainFilepath: plainFilepath,
           isKeepPlain,
         })
 
         if (oldItem) {
-          if (!isSameFileCipherItem(oldItem, newItem)) {
+          if (!isSameFileCipherItemDraft(oldItem, newItem)) {
             modifiedItems.push({ changeType: FileChangeType.MODIFIED, oldItem, newItem })
           }
         } else {

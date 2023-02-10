@@ -1,9 +1,13 @@
-import type { IFileCipherCatalogItem, IFileCipherCatalogItemDiff } from '../src'
+import type {
+  IFileCipherCatalogItem,
+  IFileCipherCatalogItemDiff,
+  IFileCipherCatalogItemDraft,
+} from '../src'
 import { FileChangeType } from '../src'
 
 type ISymbol = 'A' | 'A2' | 'B' | 'C' | 'D'
 
-export const itemTable: Record<ISymbol, IFileCipherCatalogItem> = {
+export const itemDraftTable: Record<ISymbol, IFileCipherCatalogItemDraft> = {
   A: {
     plainFilepath: 'a.txt',
     cryptFilepath: 'a.txt',
@@ -43,6 +47,34 @@ export const itemTable: Record<ISymbol, IFileCipherCatalogItem> = {
     fingerprint: '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13',
     size: 3150,
     keepPlain: true,
+  },
+}
+
+export const itemTable: Record<ISymbol, IFileCipherCatalogItem> = {
+  A: {
+    ...itemDraftTable.A,
+    iv: '',
+    authTag: undefined,
+  },
+  A2: {
+    ...itemDraftTable.A2,
+    iv: 'fb2b66c9a126b9c0b1cf24fe',
+    authTag: '847dd96fac8018017d1a1d8bc86a4e4d',
+  },
+  B: {
+    ...itemDraftTable.B,
+    iv: '9f8a20cc7677722161d59714',
+    authTag: '5519968a852057854b7fea723e301fd6',
+  },
+  C: {
+    ...itemDraftTable.C,
+    iv: '3933c49f3c2cbc8bd6dd3295',
+    authTag: 'dd468a718f2aba0797b8c941159b292e',
+  },
+  D: {
+    ...itemDraftTable.D,
+    iv: '',
+    authTag: undefined,
   },
 }
 

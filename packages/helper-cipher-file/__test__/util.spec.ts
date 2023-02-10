@@ -1,21 +1,25 @@
+import { calcMac } from '@guanghechen/helper-cipher'
 import { locateFixtures } from 'jest.helper'
-import crypto from 'node:crypto'
 import path from 'node:path'
-import type { IFileCipherCatalogItem, IFileCipherCatalogItemDiff } from '../src'
+import type {
+  IFileCipherCatalogItem,
+  IFileCipherCatalogItemDiffDraft,
+  IFileCipherCatalogItemDraft,
+} from '../src'
 import {
   FileChangeType,
   FileCipherPathResolver,
   calcFingerprintFromFile,
   calcFingerprintFromMac,
   calcFingerprintFromString,
-  calcMac,
   calcMacFromFile,
-  calcMacFromString,
   collectAffectedCryptFilepaths,
   collectAffectedPlainFilepaths,
   isSameFileCipherItem,
+  isSameFileCipherItemDraft,
   normalizePlainFilepath,
 } from '../src'
+import { itemTable } from './_data'
 
 describe('catalog', () => {
   const sourceRootDir = locateFixtures('basic')
@@ -45,6 +49,36 @@ describe('catalog', () => {
     ).toEqual('a.txt')
   })
 
+  test('isSameFileCipherItemDraft', () => {
+    const basicItem: IFileCipherCatalogItemDraft = {
+      plainFilepath: 'waw.txt',
+      cryptFilepath: calcMac(Buffer.from('waw.txt')).toString('hex'),
+      cryptFileParts: [],
+      fingerprint: '',
+      size: 20,
+      keepPlain: false,
+    }
+
+    expect(isSameFileCipherItemDraft(basicItem, basicItem)).toEqual(true)
+    expect(isSameFileCipherItemDraft(basicItem, { ...basicItem })).toEqual(true)
+    expect(
+      isSameFileCipherItemDraft(basicItem, { ...basicItem, plainFilepath: 'waw2.txt' }),
+    ).toEqual(false)
+    expect(
+      isSameFileCipherItemDraft(basicItem, { ...basicItem, cryptFilepath: 'waw2.txt' }),
+    ).toEqual(false)
+    expect(
+      isSameFileCipherItemDraft(basicItem, { ...basicItem, cryptFileParts: ['waw2.txt'] }),
+    ).toEqual(true)
+    expect(
+      isSameFileCipherItemDraft(basicItem, {
+        ...basicItem,
+        cryptFileParts: ['waw2.txt', 'waw3.txt'],
+      }),
+    ).toEqual(true)
+    expect(isSameFileCipherItemDraft(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
+  })
+
   test('isSameFileCipherItem', () => {
     const basicItem: IFileCipherCatalogItem = {
       plainFilepath: 'waw.txt',
@@ -53,6 +87,8 @@ describe('catalog', () => {
       fingerprint: '',
       size: 20,
       keepPlain: false,
+      iv: 'dddef89d89c3fe3ca704d5fd',
+      authTag: undefined,
     }
 
     expect(isSameFileCipherItem(basicItem, basicItem)).toEqual(true)
@@ -73,45 +109,24 @@ describe('catalog', () => {
       }),
     ).toEqual(true)
     expect(isSameFileCipherItem(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
-    expect(isSameFileCipherItem(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
+    expect(
+      isSameFileCipherItem(basicItem, { ...basicItem, iv: '00ca7b42b7a371351da9a287' }),
+    ).toEqual(false)
   })
 
   test('collectAffectedPlainFilepaths / collectAffectedCryptFilepaths', () => {
-    const diffItems: IFileCipherCatalogItemDiff[] = [
+    const diffItems: IFileCipherCatalogItemDiffDraft[] = [
       {
         changeType: FileChangeType.ADDED,
-        newItem: {
-          plainFilepath: 'a.txt',
-          cryptFilepath: 'a.txt',
-          cryptFileParts: [],
-          fingerprint: '4e26698e6bebd87fc210bec49fea4da6210b5769dbff50b3479effa16799120f',
-          size: 9,
-          keepPlain: true,
-        },
+        newItem: itemTable.A,
       },
       {
         changeType: FileChangeType.REMOVED,
-        oldItem: {
-          plainFilepath: 'b.txt',
-          cryptFilepath:
-            'encrypted/ffa0da5d885fba09d903c782713b6b098c8cf21f56a3a35d9aa920613220d2e1',
-          cryptFileParts: [],
-          fingerprint: '6fee185efd0ffc7c51f986dcd2eb513e0ce0b63249d9a3bb51efe0c1ed2cb615',
-          size: 135,
-          keepPlain: false,
-        },
+        oldItem: itemTable.B,
       },
       {
         changeType: FileChangeType.MODIFIED,
-        oldItem: {
-          plainFilepath: 'c.txt',
-          cryptFilepath:
-            'encrypted/4fe006196474bf40b078b5e230ccf558f791129837884cbc74daf74ef1164420',
-          cryptFileParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
-          fingerprint: 'b835f16cc543838431fa5bbeceb8906c667c16af9f98779f54541aeae0ccdce2',
-          size: 3150,
-          keepPlain: false,
-        },
+        oldItem: itemTable.C,
         newItem: {
           plainFilepath: 'c.txt',
           cryptFilepath: 'd.txt',
@@ -126,11 +141,11 @@ describe('catalog', () => {
     expect(collectAffectedPlainFilepaths(diffItems)).toEqual(['a.txt', 'b.txt', 'c.txt'])
     expect(collectAffectedCryptFilepaths(diffItems)).toEqual([
       'a.txt',
-      'encrypted/ffa0da5d885fba09d903c782713b6b098c8cf21f56a3a35d9aa920613220d2e1',
-      'encrypted/4fe006196474bf40b078b5e230ccf558f791129837884cbc74daf74ef1164420.ghc-part1',
-      'encrypted/4fe006196474bf40b078b5e230ccf558f791129837884cbc74daf74ef1164420.ghc-part2',
-      'encrypted/4fe006196474bf40b078b5e230ccf558f791129837884cbc74daf74ef1164420.ghc-part3',
-      'encrypted/4fe006196474bf40b078b5e230ccf558f791129837884cbc74daf74ef1164420.ghc-part4',
+      'encrypted/d52a60a064cc6ae727b065a078231e41756e9b7fd0cedb301789b0406dc48269',
+      'encrypted/f608f5814560f4375dda3e7dc8005ca6df2176155828349fd73919e8177bf9a7.ghc-part1',
+      'encrypted/f608f5814560f4375dda3e7dc8005ca6df2176155828349fd73919e8177bf9a7.ghc-part2',
+      'encrypted/f608f5814560f4375dda3e7dc8005ca6df2176155828349fd73919e8177bf9a7.ghc-part3',
+      'encrypted/f608f5814560f4375dda3e7dc8005ca6df2176155828349fd73919e8177bf9a7.ghc-part4',
       'd.txt.ghc-part1',
       'd.txt.ghc-part2',
       'd.txt.ghc-part3',
@@ -140,25 +155,6 @@ describe('catalog', () => {
 })
 
 describe('mac', () => {
-  test('calcMac', () => {
-    const size = 32
-    const contents: Buffer[] = Array.from(Array(size)).map(() =>
-      crypto.randomBytes(Math.random() * 48 + 16),
-    )
-
-    const mac1 = calcMac(...contents)
-    for (let i = 0; i < 10; ++i) {
-      const mac2 = calcMac(...contents)
-      expect(mac1.toString()).toEqual(mac2.toString())
-    }
-  })
-
-  test('calcMacFromString', () => {
-    expect(calcMacFromString('hello, world!', 'utf8').toString('hex')).toEqual(
-      '68e656b251e67e8358bef8483ab0d51c6619f3e7a1a9f0e75838d41ff368f728',
-    )
-  })
-
   test('calcMacFromFile', async () => {
     const filepaths = ['1.md', '2.md'].map(p => locateFixtures('basic', p))
     const macs = await Promise.all(filepaths.map(p => calcMacFromFile(p)))

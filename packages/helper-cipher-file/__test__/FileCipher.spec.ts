@@ -1,33 +1,34 @@
 import ChalkLogger from '@guanghechen/chalk-logger'
-import { AesCipherFactory } from '@guanghechen/helper-cipher'
+import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
 import {
   BigFileHelper,
   calcFilePartItemsByCount,
   calcFilePartItemsBySize,
 } from '@guanghechen/helper-file'
 import { emptyDir, rm, writeFile } from '@guanghechen/helper-fs'
-import { locateFixtures, unlinkSync } from 'jest.helper'
+import { assertPromiseThrow, locateFixtures, unlinkSync } from 'jest.helper'
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import type { IFileCipher } from '../src'
-import { FileCipher } from '../src'
+import { FileCipherFactory } from '../src'
 
 describe('FileCipher', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.FileCipher')
   const logger = new ChalkLogger({ flags: { colorful: false, date: false } })
-  const cipherFactory = new AesCipherFactory()
+  const cipherFactory = new AesGcmCipherFactory()
+  const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
   let fileCipher: IFileCipher
 
   const fileHelper = new BigFileHelper()
   const sourceFilepath = locateFixtures('basic/big-file.md')
-  const originalContent = readFileSync(sourceFilepath)
+  const originalBytes = readFileSync(sourceFilepath)
   let partFilepaths: string[] = []
 
   beforeAll(async () => {
     const secret = cipherFactory.createRandomSecret()
-    const cipher = cipherFactory.initFromSecret(secret)
-    fileCipher = new FileCipher({ cipher, logger })
+    cipherFactory.initFromSecret(secret)
+    fileCipher = fileCipherFactory.fileCipher()
 
     partFilepaths = await fileHelper.split(
       sourceFilepath,
@@ -49,9 +50,9 @@ describe('FileCipher', () => {
 
   test('encrypt from files', async () => {
     for (let i = 0; i < 3; ++i) {
-      const cipherData: Buffer = await fileCipher.encryptFromFiles(partFilepaths)
-      const plainData: Buffer = fileCipher.cipher.decrypt(cipherData)
-      expect(plainData).toEqual(originalContent)
+      const { cryptBytes, authTag } = await fileCipher.encryptFromFiles(partFilepaths)
+      const plainBytes: Buffer = fileCipher.cipher.decrypt(cryptBytes, { authTag })
+      expect(plainBytes).toEqual(originalBytes)
     }
   })
 
@@ -62,7 +63,7 @@ describe('FileCipher', () => {
 
       try {
         expect(existsSync(cipherFilepath)).toBe(false)
-        await fileCipher.encryptFile(sourceFilepath, cipherFilepath)
+        const { authTag } = await fileCipher.encryptFile(sourceFilepath, cipherFilepath)
         expect(existsSync(cipherFilepath)).toBe(true)
 
         cipherPartFilepaths = await fileHelper.split(
@@ -71,8 +72,10 @@ describe('FileCipher', () => {
         )
         expect(cipherPartFilepaths.length).toEqual(5)
 
-        const plainData: Buffer = await fileCipher.decryptFromFiles(cipherPartFilepaths)
-        expect(plainData).toEqual(originalContent)
+        const plainData: Buffer = await fileCipher.decryptFromFiles(cipherPartFilepaths, {
+          authTag,
+        })
+        expect(plainData).toEqual(originalBytes)
       } finally {
         unlinkSync(cipherFilepath, cipherPartFilepaths)
       }
@@ -92,8 +95,8 @@ describe('FileCipher', () => {
         expect(existsSync(plainFilepath)).toBe(false)
         expect(existsSync(cipherFilepath)).toBe(false)
 
-        await fileCipher.encryptFile(filepath, cipherFilepath)
-        await fileCipher.decryptFile(cipherFilepath, plainFilepath)
+        const { authTag } = await fileCipher.encryptFile(filepath, cipherFilepath)
+        await fileCipher.decryptFile(cipherFilepath, plainFilepath, { authTag })
 
         expect(existsSync(plainFilepath)).toBe(true)
         expect(existsSync(cipherFilepath)).toBe(true)
@@ -105,7 +108,11 @@ describe('FileCipher', () => {
   })
 
   test('encrypt files', async () => {
-    await expect(fileCipher.encryptFiles([], 'a.txt')).resolves.not.toThrow()
+    await assertPromiseThrow(
+      () => fileCipher.encryptFiles([], 'a.txt'),
+      '[FileCipher.encryptFiles] plainFilepaths is empty.',
+    )
+
     for (let i = 0; i < 3; ++i) {
       const plainFilepath = sourceFilepath + '.plain.' + Math.random()
       const cipherFilepath = sourceFilepath + '.cipher.' + Math.random()
@@ -115,12 +122,12 @@ describe('FileCipher', () => {
         expect(existsSync(plainFilepath)).toBe(false)
         expect(existsSync(cipherFilepath)).toBe(false)
 
-        await fileCipher.encryptFiles([sourceFilepath], cipherFilepath)
-        await fileCipher.decryptFile(cipherFilepath, plainFilepath)
+        const { authTag } = await fileCipher.encryptFiles([sourceFilepath], cipherFilepath)
+        await fileCipher.decryptFile(cipherFilepath, plainFilepath, { authTag })
 
         expect(existsSync(plainFilepath)).toBe(true)
         expect(existsSync(cipherFilepath)).toBe(true)
-        expect(readFileSync(plainFilepath)).toEqual(originalContent)
+        expect(readFileSync(plainFilepath)).toEqual(originalBytes)
       } finally {
         unlinkSync(plainFilepath, cipherFilepath)
       }
@@ -135,12 +142,12 @@ describe('FileCipher', () => {
         expect(existsSync(plainFilepath)).toBe(false)
         expect(existsSync(cipherFilepath)).toBe(false)
 
-        await fileCipher.encryptFiles(partFilepaths, cipherFilepath)
-        await fileCipher.decryptFile(cipherFilepath, plainFilepath)
+        const { authTag } = await fileCipher.encryptFiles(partFilepaths, cipherFilepath)
+        await fileCipher.decryptFile(cipherFilepath, plainFilepath, { authTag })
 
         expect(existsSync(plainFilepath)).toBe(true)
         expect(existsSync(cipherFilepath)).toBe(true)
-        expect(readFileSync(plainFilepath)).toEqual(originalContent)
+        expect(readFileSync(plainFilepath)).toEqual(originalBytes)
       } finally {
         unlinkSync(plainFilepath, cipherFilepath)
       }
@@ -148,7 +155,11 @@ describe('FileCipher', () => {
   })
 
   test('decrypt files', async () => {
-    await expect(fileCipher.decryptFiles([], 'a.txt')).resolves.not.toThrow()
+    await assertPromiseThrow(
+      () => fileCipher.decryptFiles([], 'a.txt'),
+      '[FileCipher.decryptFiles] cryptFilepaths is empty.',
+    )
+
     for (let i = 0; i < 3; ++i) {
       const plainFilepath = sourceFilepath + '.plain.' + Math.random()
       const cipherFilepath = sourceFilepath + '.cipher.' + Math.random()
@@ -158,12 +169,12 @@ describe('FileCipher', () => {
         expect(existsSync(plainFilepath)).toBe(false)
         expect(existsSync(cipherFilepath)).toBe(false)
 
-        await fileCipher.encryptFile(sourceFilepath, cipherFilepath)
-        await fileCipher.decryptFiles([cipherFilepath], plainFilepath)
+        const { authTag } = await fileCipher.encryptFile(sourceFilepath, cipherFilepath)
+        await fileCipher.decryptFiles([cipherFilepath], plainFilepath, { authTag })
 
         expect(existsSync(plainFilepath)).toBe(true)
         expect(existsSync(cipherFilepath)).toBe(true)
-        expect(readFileSync(plainFilepath)).toEqual(originalContent)
+        expect(readFileSync(plainFilepath)).toEqual(originalBytes)
       } finally {
         unlinkSync(plainFilepath, cipherFilepath)
       }
@@ -185,12 +196,12 @@ describe('FileCipher', () => {
         expect(existsSync(cipherFilepath)).toBe(false)
         expect(existsSync(cipherFilepath2)).toBe(false)
 
-        await fileCipher.encryptFile(sourceFilepath, cipherFilepath)
+        const { authTag } = await fileCipher.encryptFile(sourceFilepath, cipherFilepath)
         expect(existsSync(cipherFilepath)).toBe(true)
 
-        await fileCipher.decryptFile(cipherFilepath, plainFilepath)
+        await fileCipher.decryptFile(cipherFilepath, plainFilepath, { authTag })
         expect(existsSync(plainFilepath)).toBe(true)
-        expect(readFileSync(plainFilepath)).toEqual(originalContent)
+        expect(readFileSync(plainFilepath)).toEqual(originalBytes)
 
         cipherPartFilepaths = await fileHelper.split(
           cipherFilepath,
@@ -201,13 +212,13 @@ describe('FileCipher', () => {
         await fileHelper.merge(cipherPartFilepaths, cipherFilepath2)
         expect(existsSync(cipherFilepath2)).toBe(true)
 
-        await fileCipher.decryptFile(cipherFilepath2, plainFilepath2)
+        await fileCipher.decryptFile(cipherFilepath2, plainFilepath2, { authTag })
         expect(existsSync(plainFilepath2)).toBe(true)
-        expect(readFileSync(plainFilepath2)).toEqual(originalContent)
+        expect(readFileSync(plainFilepath2)).toEqual(originalBytes)
 
-        await fileCipher.decryptFiles(cipherPartFilepaths, plainFilepath3)
+        await fileCipher.decryptFiles(cipherPartFilepaths, plainFilepath3, { authTag })
         expect(existsSync(plainFilepath3)).toBe(true)
-        expect(readFileSync(plainFilepath3)).toEqual(originalContent)
+        expect(readFileSync(plainFilepath3)).toEqual(originalBytes)
       } finally {
         unlinkSync(
           plainFilepath,
@@ -232,10 +243,10 @@ describe('FileCipher', () => {
     const encoding: BufferEncoding = 'utf8'
 
     await writeFile(plainFilepath, plainContent, encoding)
-    await fileCipher.encryptFile(plainFilepath, cryptFilepath)
+    const { authTag } = await fileCipher.encryptFile(plainFilepath, cryptFilepath)
     const cryptContent: Buffer = await fs.readFile(cryptFilepath)
 
-    await fileCipher.decryptFile(cryptFilepath, plain2Filepath)
+    await fileCipher.decryptFile(cryptFilepath, plain2Filepath, { authTag })
     const plain2Content = await fs.readFile(plain2Filepath, encoding)
     expect(plain2Content).toEqual(plainContent)
 
@@ -246,7 +257,7 @@ describe('FileCipher', () => {
     const crypt2Content: Buffer = await fs.readFile(crypt2Filepath)
     expect(crypt2Content).toEqual(cryptContent)
 
-    await fileCipher.decryptFiles(cryptPartsFilepaths, plain3Filepath)
+    await fileCipher.decryptFiles(cryptPartsFilepaths, plain3Filepath, { authTag })
     const plain3Content = await fs.readFile(plain3Filepath, encoding)
     expect(plain3Content).toEqual(plainContent)
   })

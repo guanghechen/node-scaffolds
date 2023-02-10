@@ -1,15 +1,28 @@
 import ChalkLogger from '@guanghechen/chalk-logger'
+import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
+import { BigFileHelper } from '@guanghechen/helper-file'
 import { emptyDir, rm, writeFile } from '@guanghechen/helper-fs'
 import { falsy, truthy } from '@guanghechen/helper-func'
 import { assertPromiseNotThrow, assertPromiseThrow, locateFixtures } from 'jest.helper'
 import path from 'node:path'
-import { FileCipherCatalog, FileCipherPathResolver } from '../src'
-import type { IFileCipherCatalogItemDiff } from '../src'
+import {
+  FileCipherBatcher,
+  FileCipherCatalog,
+  FileCipherFactory,
+  FileCipherPathResolver,
+  isSameFileCipherItemDraft,
+} from '../src'
+import type {
+  IFileCipherCatalogItemDiff,
+  IFileCipherCatalogItemDiffDraft,
+  IFileCipherCatalogItemDraft,
+} from '../src'
 import {
   contentTable,
   diffItemsTable,
   encoding,
   encryptedFilesDir,
+  itemDraftTable,
   itemTable,
   maxTargetFileSize,
   partCodePrefix,
@@ -103,11 +116,11 @@ describe('FileCipherCatalog', () => {
       isKeepPlain: truthy,
     })
 
-    expect(itemA).toEqual(itemTable.A)
-    expect(itemA2).toEqual(itemTable.A2)
-    expect(itemB).toEqual(itemTable.B)
-    expect(itemC).toEqual(itemTable.C)
-    expect(itemD).toEqual(itemTable.D)
+    expect(itemA).toEqual(itemDraftTable.A)
+    expect(itemA2).toEqual(itemDraftTable.A2)
+    expect(itemB).toEqual(itemDraftTable.B)
+    expect(itemC).toEqual(itemDraftTable.C)
+    expect(itemD).toEqual(itemDraftTable.D)
     expect(Array.from(catalog.items)).toEqual([])
   })
 
@@ -297,15 +310,42 @@ describe('FileCipherCatalog', () => {
   })
 
   test('diffFromPlainFiles', async () => {
+    const fileHelper = new BigFileHelper({ partCodePrefix })
+    const cipherFactory = new AesGcmCipherFactory()
+    cipherFactory.initFromPassword(Buffer.from('guanghechen', encoding), {
+      salt: Buffer.from('salt', 'utf8'),
+      iterations: 100000,
+      digest: 'sha256',
+    })
+    const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
+    const cipherBatcher = new FileCipherBatcher({
+      fileHelper,
+      fileCipherFactory,
+      maxTargetFileSize,
+      logger,
+    })
+    const getNonce = async (item: IFileCipherCatalogItemDraft): Promise<Buffer | undefined> => {
+      const draftNonce: string | undefined = Object.values(itemTable).find(t =>
+        isSameFileCipherItemDraft(t, item),
+      )?.iv
+      return draftNonce ? Buffer.from(draftNonce, 'hex') : undefined
+    }
+
     expect(Array.from(catalog.items)).toEqual([])
 
     // diffITems1
     {
       await writeFile(filepathA, contentA, encoding)
       await writeFile(filepathB, contentB, encoding)
-      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
+      const draftDiffItems: IFileCipherCatalogItemDiffDraft[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathA, filepathB],
         strickCheck: true,
+      })
+      const diffItems: IFileCipherCatalogItemDiff[] = await cipherBatcher.batchEncrypt({
+        strictCheck: false,
+        pathResolver,
+        diffItems: draftDiffItems,
+        getIv: getNonce,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step1)
@@ -337,9 +377,15 @@ describe('FileCipherCatalog', () => {
     {
       await rm(filepathA)
       await writeFile(filepathC, contentC, encoding)
-      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
+      const draftDiffItems: IFileCipherCatalogItemDiffDraft[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathA, filepathB, filepathC],
         strickCheck: true,
+      })
+      const diffItems: IFileCipherCatalogItemDiff[] = await cipherBatcher.batchEncrypt({
+        strictCheck: false,
+        pathResolver,
+        diffItems: draftDiffItems,
+        getIv: getNonce,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step2)
@@ -352,9 +398,15 @@ describe('FileCipherCatalog', () => {
     {
       await rm(filepathB)
       await writeFile(filepathA, contentA, encoding)
-      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
+      const draftDiffItems: IFileCipherCatalogItemDiffDraft[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathA, filepathB, filepathC],
         strickCheck: true,
+      })
+      const diffItems: IFileCipherCatalogItemDiff[] = await cipherBatcher.batchEncrypt({
+        strictCheck: false,
+        pathResolver,
+        diffItems: draftDiffItems,
+        getIv: getNonce,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step3)
@@ -368,10 +420,16 @@ describe('FileCipherCatalog', () => {
       await rm(filepathC)
       await writeFile(filepathD, contentD, encoding)
       await writeFile(filepathA, contentA2, encoding)
-      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
+      const draftDiffItems: IFileCipherCatalogItemDiffDraft[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathA, filepathC, filepathD],
         strickCheck: true,
         isKeepPlain: sourceFilepath => sourceFilepath === 'd.txt',
+      })
+      const diffItems: IFileCipherCatalogItemDiff[] = await cipherBatcher.batchEncrypt({
+        strictCheck: false,
+        pathResolver,
+        diffItems: draftDiffItems,
+        getIv: getNonce,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step4)
@@ -384,9 +442,15 @@ describe('FileCipherCatalog', () => {
     {
       await rm(filepathA)
       await rm(filepathD)
-      const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
+      const draftDiffItems: IFileCipherCatalogItemDiffDraft[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathD, filepathA],
         strickCheck: true,
+      })
+      const diffItems: IFileCipherCatalogItemDiff[] = await cipherBatcher.batchEncrypt({
+        strictCheck: false,
+        pathResolver,
+        diffItems: draftDiffItems,
+        getIv: getNonce,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step5)

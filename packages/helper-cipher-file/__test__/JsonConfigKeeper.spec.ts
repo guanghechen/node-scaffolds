@@ -1,5 +1,5 @@
 import type { ICipher } from '@guanghechen/helper-cipher'
-import { AesCipherFactory } from '@guanghechen/helper-cipher'
+import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
 import { emptyDir, rm } from '@guanghechen/helper-fs'
 import { locateFixtures } from 'jest.helper'
 import { existsSync } from 'node:fs'
@@ -8,7 +8,7 @@ import { JsonConfigKeeper } from '../src'
 
 describe('JsonConfigKeeper', function () {
   const workspaceDir: string = locateFixtures('__fictitious__.JsonConfigKeeper')
-  const cipherFactory = new AesCipherFactory()
+  const cipherFactory = new AesGcmCipherFactory()
   let cipher: ICipher
 
   interface IUser {
@@ -30,7 +30,8 @@ describe('JsonConfigKeeper', function () {
 
   beforeAll(async () => {
     const secret = cipherFactory.createRandomSecret()
-    cipher = cipherFactory.initFromSecret(secret)
+    cipherFactory.initFromSecret(secret)
+    cipher = cipherFactory.cipher()
   })
 
   beforeEach(async () => {
@@ -67,7 +68,7 @@ describe('JsonConfigKeeper', function () {
       __version__: '2023-01-30',
       cipher,
       filepath: path.join(workspaceDir, 'user.txt'),
-      getDefaultData: () => ({ ...alice }),
+      getDefaultInstance: () => ({ ...alice }),
     })
 
     expect(existsSync(userConfigKeeper.filepath)).toEqual(false)

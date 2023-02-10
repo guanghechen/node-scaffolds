@@ -1,4 +1,4 @@
-import type { ICipher } from '@guanghechen/helper-cipher'
+import type { ICipher, IDecipherOptions, IEncryptResult } from '@guanghechen/helper-cipher'
 
 export interface IFileCipher {
   readonly cipher: ICipher
@@ -6,30 +6,44 @@ export interface IFileCipher {
   /**
    * Encrypt plain data from plain files.
    */
-  encryptFromFiles(plainFilepaths: string[]): Promise<Buffer>
+  encryptFromFiles(plainFilepaths: string[]): Promise<IEncryptResult>
 
   /**
    * Decrypt cipher data from ciphered files.
    */
-  decryptFromFiles(cryptFilepaths: string[]): Promise<Buffer>
+  decryptFromFiles(cryptFilepaths: string[], options?: IDecipherOptions): Promise<Buffer>
 
   /**
    * Encrypt contents from plainFilepath, and save into cryptFilepath.
    */
-  encryptFile(plainFilepath: string, cryptFilepath: string): Promise<void>
+  encryptFile(
+    plainFilepath: string,
+    cryptFilepath: string,
+  ): Promise<Omit<IEncryptResult, 'cryptBytes'>>
 
   /**
    * Decrypt contents from cryptFilepath, and save into plainFilepath.
    */
-  decryptFile(cryptFilepath: string, plainFilepath: string): Promise<void>
+  decryptFile(
+    cryptFilepath: string,
+    plainFilepath: string,
+    options?: IDecipherOptions,
+  ): Promise<void>
 
   /**
    * Encrypt multiple plain files into a single ciphered file.
    */
-  encryptFiles(plainFilepaths: string[], cryptFilepath: string): Promise<void>
+  encryptFiles(
+    plainFilepaths: string[],
+    cryptFilepath: string,
+  ): Promise<Omit<IEncryptResult, 'cryptBytes'>>
 
   /**
    * Decrypt multiple ciphered files into a single plain file.
    */
-  decryptFiles(cryptFilepaths: string[], plainFilepath: string): Promise<void>
+  decryptFiles(
+    cryptFilepaths: string[],
+    plainFilepath: string,
+    options?: IDecipherOptions,
+  ): Promise<void>
 }

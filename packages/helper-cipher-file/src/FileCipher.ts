@@ -1,8 +1,8 @@
-import type { ICipher } from '@guanghechen/helper-cipher'
+import type { ICipher, IDecipherOptions, IEncryptResult } from '@guanghechen/helper-cipher'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import { consumeStream, consumeStreams, destroyBuffers } from '@guanghechen/helper-stream'
+import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
-import type { Cipher } from 'node:crypto'
 import fs from 'node:fs'
 import type { IFileCipher } from './types/IFileCipher'
 
@@ -24,90 +24,131 @@ export class FileCipher implements IFileCipher {
   }
 
   // override
-  public async encryptFromFiles(plainFilepaths: string[]): Promise<Buffer | never> {
-    const encipher: Cipher = this.cipher.encipher()
+  public async encryptFromFiles(plainFilepaths: string[]): Promise<IEncryptResult> {
+    for (const fp of plainFilepaths) mkdirsIfNotExists(fp, false, this.logger)
+    const readers: NodeJS.ReadableStream[] = plainFilepaths.map(fp => fs.createReadStream(fp))
+    const encipher = this.cipher.encipher()
     const pieces: Buffer[] = []
-    try {
-      for (const plainFilepath of plainFilepaths) {
-        mkdirsIfNotExists(plainFilepath, false, this.logger)
-      }
 
-      const readers: NodeJS.ReadableStream[] = plainFilepaths.map(fp => fs.createReadStream(fp))
+    let cryptBytes: Buffer
+    let authTag: Buffer | undefined
+    try {
       await consumeStreams(readers, encipher)
       for await (const chunk of encipher) pieces.push(chunk)
-      return Buffer.concat(pieces)
+      cryptBytes = Buffer.concat(pieces)
+      authTag = encipher.getAuthTag?.()
     } finally {
       destroyBuffers(pieces)
       encipher.destroy()
     }
+    return { cryptBytes, authTag }
   }
 
   // override
-  public async decryptFromFiles(cryptFilepaths: string[]): Promise<Buffer> {
-    const decipher: Cipher = this.cipher.decipher()
-    const pieces: Buffer[] = []
-    try {
-      for (const cryptFilepath of cryptFilepaths) {
-        mkdirsIfNotExists(cryptFilepath, false, this.logger)
-      }
+  public async decryptFromFiles(
+    cryptFilepaths: string[],
+    options: IDecipherOptions,
+  ): Promise<Buffer> {
+    for (const fp of cryptFilepaths) mkdirsIfNotExists(fp, false, this.logger)
+    const readers: NodeJS.ReadableStream[] = cryptFilepaths.map(fp => fs.createReadStream(fp))
+    const decipher = this.cipher.decipher(options)
+    const plainBytesList: Buffer[] = []
 
-      const readers: NodeJS.ReadableStream[] = cryptFilepaths.map(fp => fs.createReadStream(fp))
+    let plainBytes: Buffer
+    try {
       await consumeStreams(readers, decipher)
-      for await (const chunk of decipher) pieces.push(chunk)
-      return Buffer.concat(pieces)
+      for await (const chunk of decipher) plainBytesList.push(chunk)
+      plainBytes = Buffer.concat(plainBytesList)
     } finally {
-      destroyBuffers(pieces)
+      destroyBuffers(plainBytesList)
+      decipher.destroy()
+    }
+    return plainBytes
+  }
+
+  // @override
+  public async encryptFile(
+    plainFilepath: string,
+    cryptFilepath: string,
+  ): Promise<Omit<IEncryptResult, 'cryptBytes'>> {
+    mkdirsIfNotExists(cryptFilepath, false, this.logger)
+    const reader: NodeJS.ReadableStream = fs.createReadStream(plainFilepath)
+    const writer: NodeJS.WritableStream = fs.createWriteStream(cryptFilepath)
+    const encipher = this.cipher.encipher()
+
+    let authTag: Buffer | undefined
+    try {
+      await consumeStream(reader, writer, encipher)
+      authTag = encipher.getAuthTag?.()
+    } finally {
+      encipher.destroy()
+    }
+    return { authTag }
+  }
+
+  // @override
+  public async decryptFile(
+    cryptFilepath: string,
+    plainFilepath: string,
+    options: IDecipherOptions,
+  ): Promise<void> {
+    mkdirsIfNotExists(plainFilepath, false, this.logger)
+    const reader: NodeJS.ReadableStream = fs.createReadStream(cryptFilepath)
+    const writer: NodeJS.WritableStream = fs.createWriteStream(plainFilepath)
+    const decipher = this.cipher.decipher(options)
+
+    try {
+      await consumeStream(reader, writer, decipher)
+    } finally {
       decipher.destroy()
     }
   }
 
-  // @override
-  public encryptFile(plainFilepath: string, cryptFilepath: string): Promise<void> {
-    mkdirsIfNotExists(cryptFilepath, false, this.logger)
-    const reader: NodeJS.ReadableStream = fs.createReadStream(plainFilepath)
-    const writer: NodeJS.WritableStream = fs.createWriteStream(cryptFilepath)
-    const encipher: Cipher = this.cipher.encipher()
-    return consumeStream(reader, writer, encipher)
-  }
-
-  // @override
-  public decryptFile(cryptFilepath: string, plainFilepath: string): Promise<void> {
-    mkdirsIfNotExists(plainFilepath, false, this.logger)
-    const reader: NodeJS.ReadableStream = fs.createReadStream(cryptFilepath)
-    const writer: NodeJS.WritableStream = fs.createWriteStream(plainFilepath)
-    const decipher: Cipher = this.cipher.decipher()
-    return consumeStream(reader, writer, decipher)
-  }
-
   // override
-  public async encryptFiles(plainFilepaths: string[], cryptFilepath: string): Promise<void> {
-    if (plainFilepaths.length <= 0) return
-    if (plainFilepaths.length === 1) {
-      await this.encryptFile(plainFilepaths[0], cryptFilepath)
-      return
-    }
+  public async encryptFiles(
+    plainFilepaths: string[],
+    cryptFilepath: string,
+  ): Promise<Omit<IEncryptResult, 'cryptBytes'>> {
+    invariant(plainFilepaths.length > 0, '[FileCipher.encryptFiles] plainFilepaths is empty.')
+
+    if (plainFilepaths.length === 1) return this.encryptFile(plainFilepaths[0], cryptFilepath)
 
     mkdirsIfNotExists(cryptFilepath, false, this.logger)
     const readers: NodeJS.ReadableStream[] = plainFilepaths.map(fp => fs.createReadStream(fp))
     const writer: NodeJS.WritableStream = fs.createWriteStream(cryptFilepath)
-    const encipher: Cipher = this.cipher.encipher()
-    await consumeStreams(readers, writer, encipher)
-    encipher.destroy()
+    const encipher = this.cipher.encipher()
+
+    let authTag: Buffer | undefined
+    try {
+      await consumeStreams(readers, writer, encipher)
+      authTag = encipher.getAuthTag?.()
+    } finally {
+      encipher.destroy()
+    }
+    return { authTag }
   }
 
   // override
-  public async decryptFiles(cryptFIlepaths: string[], plainFilepath: string): Promise<void> {
-    if (cryptFIlepaths.length <= 0) return
+  public async decryptFiles(
+    cryptFIlepaths: string[],
+    plainFilepath: string,
+    options: IDecipherOptions,
+  ): Promise<void> {
+    invariant(cryptFIlepaths.length > 0, '[FileCipher.decryptFiles] cryptFilepaths is empty.')
+
     if (cryptFIlepaths.length === 1) {
-      await this.decryptFile(cryptFIlepaths[0], plainFilepath)
-      return
+      return void (await this.decryptFile(cryptFIlepaths[0], plainFilepath, options))
     }
 
     mkdirsIfNotExists(plainFilepath, false, this.logger)
     const readers: NodeJS.ReadableStream[] = cryptFIlepaths.map(fp => fs.createReadStream(fp))
     const writer: NodeJS.WritableStream = fs.createWriteStream(plainFilepath)
-    const decipher: Cipher = this.cipher.decipher()
-    await consumeStreams(readers, writer, decipher)
-    decipher.destroy()
+    const decipher = this.cipher.decipher(options)
+
+    try {
+      await consumeStreams(readers, writer, decipher)
+    } finally {
+      decipher.destroy()
+    }
   }
 }

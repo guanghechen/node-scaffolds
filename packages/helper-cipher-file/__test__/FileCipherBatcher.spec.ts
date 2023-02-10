@@ -1,5 +1,5 @@
 import ChalkLogger from '@guanghechen/chalk-logger'
-import { AesCipherFactory } from '@guanghechen/helper-cipher'
+import { AesGcmCipherFactory, calcMac } from '@guanghechen/helper-cipher'
 import { BigFileHelper } from '@guanghechen/helper-file'
 import { emptyDir, mkdirsIfNotExists, rm, writeFile } from '@guanghechen/helper-fs'
 import { mergeStreams, stream2buffer } from '@guanghechen/helper-stream'
@@ -8,13 +8,13 @@ import type { ReadStream } from 'node:fs'
 import { createReadStream, existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import type { IFileCipherCatalogItemDiff } from '../src'
+import type { IFileCipherCatalogItemDiff, IFileCipherCatalogItemDraft } from '../src'
 import {
-  FileCipher,
   FileCipherBatcher,
+  FileCipherFactory,
   FileCipherPathResolver,
   calcFingerprintFromMac,
-  calcMac,
+  isSameFileCipherItemDraft,
 } from '../src'
 import {
   contentTable,
@@ -75,26 +75,31 @@ describe('FileCipherBatcher', () => {
   const contentD: string = contentTable.D
 
   const encryptedContentA = '4e26698e6bebd87fc210bec49fea4da6210b5769dbff50b3479effa16799120f'
-  const encryptedContentA2 = '6db6b129442504d166272af62c8f5a25f72a9453ad7c81b8c65c6a8756d6c748'
-  const encryptedContentB = '03bfec097ce7735e27c4fc25c798f89b30af7e4a15bab67beebb9f6b13e37c7f'
-  const encryptedContentC = '8830d19592102790c1d37f4fd355f712b9baaf48385e2ba97d413261ab829aac'
+  const encryptedContentA2 = '567d61041150b3ab51e448f37ad60d26bff2ffd8572fa4cd4cb15df75ccb4eab'
+  const encryptedContentB = '7155dd86eeabef61d44b738ffb1cde7cbf955f4c75c82395193cd117722d91ea'
+  const encryptedContentC = '1dfcd91be6d7a9b32cf42d8ef78544886302e3946810da8da4077d1c70374d66'
   const encryptedContentD = '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13'
 
-  const fileHelper = new BigFileHelper({ partCodePrefix: partCodePrefix })
-  const cipherFactory = new AesCipherFactory()
-  const cipher = cipherFactory.initFromPassword(Buffer.from('guanghechen', encoding), {
-    salt: 'salt',
+  const fileHelper = new BigFileHelper({ partCodePrefix })
+  const cipherFactory = new AesGcmCipherFactory()
+  cipherFactory.initFromPassword(Buffer.from('guanghechen', encoding), {
+    salt: Buffer.from('salt', 'utf8'),
     iterations: 100000,
-    keylen: 32,
     digest: 'sha256',
   })
-  const fileCipher = new FileCipher({ cipher })
+  const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
   const cipherBatcher = new FileCipherBatcher({
-    fileCipher,
     fileHelper,
+    fileCipherFactory,
     maxTargetFileSize,
     logger,
   })
+  const getNonce = async (item: IFileCipherCatalogItemDraft): Promise<Buffer | undefined> => {
+    const draftNonce: string | undefined = Object.values(itemTable).find(t =>
+      isSameFileCipherItemDraft(t, item),
+    )?.iv
+    return draftNonce ? Buffer.from(draftNonce, 'hex') : undefined
+  }
 
   beforeEach(async () => {
     await emptyDir(workspaceDir)
@@ -122,7 +127,13 @@ describe('FileCipherBatcher', () => {
       mkdirsIfNotExists(encryptedFilepathA, true)
 
       await assertPromiseThrow(
-        () => cipherBatcher.batchEncrypt({ strictCheck: true, pathResolver, diffItems }),
+        () =>
+          cipherBatcher.batchEncrypt({
+            strictCheck: true,
+            pathResolver,
+            diffItems,
+            getIv: getNonce,
+          }),
         'Bad diff item (added), crypt file already exists.',
       )
       expect(existsSync(encryptedFilepathA)).toEqual(true)
@@ -130,7 +141,12 @@ describe('FileCipherBatcher', () => {
       expect(encryptedFilepathsC.some(fp => existsSync(fp))).toEqual(false)
       expect(encryptedFilepathsD.some(fp => existsSync(fp))).toEqual(false)
 
-      await cipherBatcher.batchEncrypt({ strictCheck: false, pathResolver, diffItems })
+      await cipherBatcher.batchEncrypt({
+        strictCheck: false,
+        pathResolver,
+        diffItems,
+        getIv: getNonce,
+      })
 
       expect(existsSync(encryptedFilepathA)).toEqual(true)
       expect(existsSync(encryptedFilepathB)).toEqual(true)
@@ -144,7 +160,13 @@ describe('FileCipherBatcher', () => {
 
       await writeFile(filepathC, contentC, encoding)
       await assertPromiseThrow(
-        () => cipherBatcher.batchEncrypt({ strictCheck: true, pathResolver, diffItems }),
+        () =>
+          cipherBatcher.batchEncrypt({
+            strictCheck: true,
+            pathResolver,
+            diffItems,
+            getIv: getNonce,
+          }),
         '[encryptDiff] Bad diff item (removed), plain file should not exist.',
       )
 
@@ -152,7 +174,12 @@ describe('FileCipherBatcher', () => {
       expect(encryptedFilepathsC.some(fp => existsSync(fp))).toEqual(false)
 
       await rm(filepathA)
-      await cipherBatcher.batchEncrypt({ strictCheck: false, pathResolver, diffItems })
+      await cipherBatcher.batchEncrypt({
+        strictCheck: false,
+        pathResolver,
+        diffItems,
+        getIv: getNonce,
+      })
 
       expect(existsSync(encryptedFilepathA)).toEqual(false)
       expect(existsSync(encryptedFilepathB)).toEqual(true)
@@ -167,7 +194,12 @@ describe('FileCipherBatcher', () => {
 
       await rm(filepathB)
       await writeFile(filepathA, contentA, encoding)
-      await cipherBatcher.batchEncrypt({ strictCheck: true, pathResolver, diffItems })
+      await cipherBatcher.batchEncrypt({
+        strictCheck: true,
+        pathResolver,
+        diffItems,
+        getIv: getNonce,
+      })
 
       expect(existsSync(encryptedFilepathA)).toEqual(true)
       expect(existsSync(encryptedFilepathB)).toEqual(false)
@@ -183,7 +215,12 @@ describe('FileCipherBatcher', () => {
       await rm(filepathC)
       await writeFile(filepathD, contentD, encoding)
       await writeFile(filepathA, contentA2, encoding)
-      await cipherBatcher.batchEncrypt({ strictCheck: true, pathResolver, diffItems })
+      await cipherBatcher.batchEncrypt({
+        strictCheck: true,
+        pathResolver,
+        diffItems,
+        getIv: getNonce,
+      })
 
       expect(existsSync(encryptedFilepathA)).toEqual(false)
       expect(existsSync(encryptedFilepathA2)).toEqual(true)
@@ -199,7 +236,12 @@ describe('FileCipherBatcher', () => {
 
       await rm(filepathA)
       await rm(filepathD)
-      await cipherBatcher.batchEncrypt({ strictCheck: true, pathResolver, diffItems })
+      await cipherBatcher.batchEncrypt({
+        strictCheck: true,
+        pathResolver,
+        diffItems,
+        getIv: getNonce,
+      })
 
       expect(existsSync(encryptedFilepathA)).toEqual(false)
       expect(existsSync(encryptedFilepathA2)).toEqual(false)
@@ -215,7 +257,12 @@ describe('FileCipherBatcher', () => {
 
       await writeFile(filepathA, contentA, encoding)
       await writeFile(filepathB, contentB, encoding)
-      await cipherBatcher.batchEncrypt({ strictCheck: false, pathResolver, diffItems })
+      await cipherBatcher.batchEncrypt({
+        strictCheck: false,
+        pathResolver,
+        diffItems,
+        getIv: getNonce,
+      })
 
       mkdirsIfNotExists(filepath2A, true)
       await assertPromiseThrow(
@@ -257,7 +304,12 @@ describe('FileCipherBatcher', () => {
 
       await rm(filepathA)
       await writeFile(filepathC, contentC, encoding)
-      await cipherBatcher.batchEncrypt({ strictCheck: false, pathResolver, diffItems })
+      await cipherBatcher.batchEncrypt({
+        strictCheck: false,
+        pathResolver,
+        diffItems,
+        getIv: getNonce,
+      })
 
       await cipherBatcher.batchDecrypt({
         strictCheck: true,
@@ -294,7 +346,12 @@ describe('FileCipherBatcher', () => {
 
       await rm(filepathB)
       await writeFile(filepathA, contentA, encoding)
-      await cipherBatcher.batchEncrypt({ strictCheck: true, pathResolver, diffItems })
+      await cipherBatcher.batchEncrypt({
+        strictCheck: true,
+        pathResolver,
+        diffItems,
+        getIv: getNonce,
+      })
 
       await cipherBatcher.batchDecrypt({
         strictCheck: true,
@@ -315,7 +372,12 @@ describe('FileCipherBatcher', () => {
       await rm(filepathC)
       await writeFile(filepathD, contentD, encoding)
       await writeFile(filepathA, contentA2, encoding)
-      await cipherBatcher.batchEncrypt({ strictCheck: true, pathResolver, diffItems })
+      await cipherBatcher.batchEncrypt({
+        strictCheck: true,
+        pathResolver,
+        diffItems,
+        getIv: getNonce,
+      })
 
       await cipherBatcher.batchDecrypt({
         strictCheck: true,
@@ -336,7 +398,12 @@ describe('FileCipherBatcher', () => {
 
       await rm(filepathA)
       await rm(filepathD)
-      await cipherBatcher.batchEncrypt({ strictCheck: true, pathResolver, diffItems })
+      await cipherBatcher.batchEncrypt({
+        strictCheck: true,
+        pathResolver,
+        diffItems,
+        getIv: getNonce,
+      })
 
       await cipherBatcher.batchDecrypt({
         strictCheck: true,

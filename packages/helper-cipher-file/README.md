@@ -104,11 +104,12 @@ Utility functions for encrypt / decrypt files.
   ```typescript
   import ChalkLogger from '@guanghechen/chalk-logger'
   import { AesCipherFactory } from '@guanghechen/helper-cipher'
-  import { FileCipher } from '@guanghechen/helper-cipher-file'
+  import { FileCipherFactory } from '@guanghechen/helper-cipher-file'
 
   const logger = new ChalkLogger({ flags: { colorful: false, date: false } })
   const cipherFactory = new AesCipherFactory()
-  const fileCipher = new FileCipher({ cipher, logger })
+  const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
+  const fileCipher = fileCipherFactory.fileCipher()
 
   // Encrypt multiple files and concatenate the encrypted contents.
   const encryptedContent: Buffer = await fileCipher.encryptFromFiles([sourceFilepath, sourceFilepath2, ...])
@@ -141,8 +142,6 @@ calcFileCipherCatalogItem |
 diffFileCipherItems       |
 isSameFileCipherItem      |
 normalizeSourceFilepath   |
-calcMac                   | Calc mac (Message Authentication Code).
-calcMacFromString         | Calc mac (Message Authentication Code) from literal string.
 calcMacFromFile           | Calc mac (Message Authentication Code) from fle.
 calcFingerprintFromMac    | Calc fingerprint from mac.
 calcFingerprintFromString | Calc fingerprint from literal string.

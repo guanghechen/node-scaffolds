@@ -31,7 +31,17 @@ export interface IFileCipherCatalogItem {
    * Whether if keep plain.
    */
   keepPlain: boolean
+  /**
+   * Cipher iv (hex string).
+   */
+  iv: string
+  /**
+   * Authenticate tag (hex string).
+   */
+  authTag: string | undefined
 }
+
+export type IFileCipherCatalogItemDraft = Omit<IFileCipherCatalogItem, 'iv' | 'authTag'>
 
 export type IFileCipherCatalogItemDiff =
   | {
@@ -42,6 +52,21 @@ export type IFileCipherCatalogItemDiff =
       changeType: FileChangeType.MODIFIED
       oldItem: Readonly<IFileCipherCatalogItem>
       newItem: Readonly<IFileCipherCatalogItem>
+    }
+  | {
+      changeType: FileChangeType.REMOVED
+      oldItem: Readonly<IFileCipherCatalogItem>
+    }
+
+export type IFileCipherCatalogItemDiffDraft =
+  | {
+      changeType: FileChangeType.ADDED
+      newItem: Readonly<IFileCipherCatalogItemDraft>
+    }
+  | {
+      changeType: FileChangeType.MODIFIED
+      oldItem: Readonly<IFileCipherCatalogItem>
+      newItem: Readonly<IFileCipherCatalogItemDraft>
     }
   | {
       changeType: FileChangeType.REMOVED

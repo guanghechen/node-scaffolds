@@ -1,32 +1,7 @@
+import { calcMacFromString } from '@guanghechen/helper-cipher'
 import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-fs'
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
-
-/**
- * Calc Message Authentication Code.
- *
- * @param pieces
- */
-export function calcMac(...pieces: Array<Readonly<Buffer | string>>): Buffer {
-  const sha256 = createHash('sha256')
-  for (const piece of pieces) sha256.update(piece)
-  const mac: Buffer = sha256.digest()
-  return mac
-}
-
-/**
- * Calc Message Authentication Code from literal string.
- *
- * @param text
- * @param textEncoding
- * @returns
- */
-export function calcMacFromString(text: string, textEncoding: BufferEncoding): Buffer {
-  const sha256 = createHash('sha256')
-  sha256.update(text, textEncoding)
-  const mac: Buffer = sha256.digest()
-  return mac
-}
 
 /**
  * Calc Message Authentication Code from fle.

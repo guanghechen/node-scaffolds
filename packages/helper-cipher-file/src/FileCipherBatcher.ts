@@ -13,23 +13,28 @@ import type {
   IBatchEncryptParams,
   IFileCipherBatcher,
 } from './types/IFileCipherBatcher'
-import type { IFileCipherCatalogItem } from './types/IFileCipherCatalogItem'
+import type {
+  IFileCipherCatalogItem,
+  IFileCipherCatalogItemDiff,
+  IFileCipherCatalogItemDraft,
+} from './types/IFileCipherCatalogItem'
+import type { IFileCipherFactory } from './types/IFileCipherFactory'
 
 export interface IFileCipherBatcherProps {
-  fileCipher: IFileCipher
   fileHelper: BigFileHelper
+  fileCipherFactory: IFileCipherFactory
   maxTargetFileSize: number
   logger?: Logger
 }
 
 export class FileCipherBatcher implements IFileCipherBatcher {
-  public readonly fileCipher: IFileCipher
   public readonly fileHelper: BigFileHelper
+  public readonly fileCipherFactory: IFileCipherFactory
   public readonly maxTargetFileSize: number
   protected readonly _logger?: Logger
 
   constructor(props: IFileCipherBatcherProps) {
-    this.fileCipher = props.fileCipher
+    this.fileCipherFactory = props.fileCipherFactory
     this.fileHelper = props.fileHelper
     this.maxTargetFileSize = props.maxTargetFileSize
     this._logger = props.logger
@@ -39,10 +44,14 @@ export class FileCipherBatcher implements IFileCipherBatcher {
     strictCheck,
     pathResolver,
     diffItems,
-  }: IBatchEncryptParams): Promise<void> {
-    const { _logger, fileCipher, fileHelper, maxTargetFileSize } = this
+    getIv,
+  }: IBatchEncryptParams): Promise<IFileCipherCatalogItemDiff[]> {
+    const { _logger, fileCipherFactory, fileHelper, maxTargetFileSize } = this
 
-    const add = async (item: IFileCipherCatalogItem, changeType: FileChangeType): Promise<void> => {
+    const add = async (
+      item: IFileCipherCatalogItemDraft,
+      changeType: FileChangeType,
+    ): Promise<IFileCipherCatalogItem> => {
       const { plainFilepath, cryptFilepath } = item
       const absolutePlainFilepath = pathResolver.calcAbsolutePlainFilepath(plainFilepath)
       invariant(
@@ -53,10 +62,18 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       const absoluteCryptFilepath = pathResolver.calcAbsoluteCryptFilepath(cryptFilepath)
       mkdirsIfNotExists(absoluteCryptFilepath, false, _logger)
 
+      const nextItem: IFileCipherCatalogItem = { ...item, iv: '', authTag: undefined }
       if (item.keepPlain) {
         await fs.copyFile(absolutePlainFilepath, absoluteCryptFilepath)
       } else {
-        await fileCipher.encryptFile(absolutePlainFilepath, absoluteCryptFilepath)
+        const fileCipher: IFileCipher = fileCipherFactory.fileCipher({ iv: await getIv(item) })
+        const { authTag } = await fileCipher.encryptFile(
+          absolutePlainFilepath,
+          absoluteCryptFilepath,
+        )
+
+        nextItem.iv = fileCipher.cipher.iv
+        nextItem.authTag = authTag?.toString('hex')
       }
 
       // Split encrypted file.
@@ -69,8 +86,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
           const partFilepaths: string[] = await fileHelper.split(absoluteCryptFilepath, parts)
           const relativeCryptFilepath = pathResolver.calcRelativeCryptFilepath(cryptFilepath)
 
-          // eslint-disable-next-line no-param-reassign
-          item.cryptFileParts = partFilepaths.map(p =>
+          nextItem.cryptFileParts = partFilepaths.map(p =>
             pathResolver.calcRelativeCryptFilepath(p).slice(relativeCryptFilepath.length),
           )
 
@@ -78,6 +94,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
           await fs.unlink(absoluteCryptFilepath)
         }
       }
+      return nextItem
     }
 
     const remove = async (
@@ -101,6 +118,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       }
     }
 
+    const results: IFileCipherCatalogItemDiff[] = []
     for (const diffItem of diffItems) {
       const { changeType } = diffItem
       switch (changeType) {
@@ -112,12 +130,21 @@ export class FileCipherBatcher implements IFileCipherBatcher {
             cryptFilepath =>
               `[encryptDiff] Bad diff item (${changeType}), crypt file already exists. (${cryptFilepath})`,
           )
-          await add(diffItem.newItem, changeType)
+          const nextNewItem = await add(diffItem.newItem, changeType)
+          results.push({
+            changeType: FileChangeType.ADDED,
+            newItem: nextNewItem,
+          })
           break
         }
         case FileChangeType.MODIFIED: {
           await remove(diffItem.oldItem, changeType)
-          await add(diffItem.newItem, changeType)
+          const nextNewItem = await add(diffItem.newItem, changeType)
+          results.push({
+            changeType: FileChangeType.MODIFIED,
+            oldItem: diffItem.oldItem,
+            newItem: nextNewItem,
+          })
           break
         }
         case FileChangeType.REMOVED: {
@@ -129,10 +156,15 @@ export class FileCipherBatcher implements IFileCipherBatcher {
               `[encryptDiff] Bad diff item (${changeType}), plain file should not exist. (${plainFilepath})`,
           )
           await remove(diffItem.oldItem, changeType)
+          results.push({
+            changeType: FileChangeType.REMOVED,
+            oldItem: diffItem.oldItem,
+          })
           break
         }
       }
     }
+    return results
   }
 
   public async batchDecrypt({
@@ -140,7 +172,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
     diffItems,
     pathResolver,
   }: IBatchDecryptParams): Promise<void> {
-    const { _logger, fileCipher, fileHelper } = this
+    const { _logger, fileCipherFactory, fileHelper } = this
 
     const add = async (item: IFileCipherCatalogItem, changeType: FileChangeType): Promise<void> => {
       const cryptFilepaths = this._collectCryptFilepaths(item)
@@ -163,7 +195,10 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       if (item.keepPlain) {
         await fileHelper.merge(absoluteCryptFilepaths, absolutePlainFilepath)
       } else {
-        await fileCipher.decryptFiles(absoluteCryptFilepaths, absolutePlainFilepath)
+        const fileCipher = fileCipherFactory.fileCipher({ iv: Buffer.from(item.iv, 'hex') })
+        await fileCipher.decryptFiles(absoluteCryptFilepaths, absolutePlainFilepath, {
+          authTag: item.authTag ? Buffer.from(item.authTag, 'hex') : undefined,
+        })
       }
     }
 
@@ -239,7 +274,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
 
   // @overridable
   protected async _ensureCryptPathNotExist(
-    item: Readonly<IFileCipherCatalogItem>,
+    item: Readonly<IFileCipherCatalogItemDraft>,
     strictCheck: boolean,
     pathResolver: FileCipherPathResolver,
     getErrorMsg: (cryptFilepath: string) => string,
@@ -255,7 +290,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
     }
   }
 
-  protected _collectCryptFilepaths(item: Readonly<IFileCipherCatalogItem>): string[] {
+  protected _collectCryptFilepaths(item: Readonly<IFileCipherCatalogItemDraft>): string[] {
     return item.cryptFileParts.length > 1
       ? item.cryptFileParts.map(part => item.cryptFilepath + part)
       : [item.cryptFilepath]
