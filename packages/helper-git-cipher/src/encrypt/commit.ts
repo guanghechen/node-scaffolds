@@ -1,9 +1,11 @@
+import { calcMac } from '@guanghechen/helper-cipher'
 import type {
   FileCipherPathResolver,
   IFileCipherBatcher,
   IFileCipherCatalog,
   IFileCipherCatalogItem,
   IFileCipherCatalogItemDiff,
+  IFileCipherCatalogItemDiffDraft,
   IJsonConfigKeeper,
 } from '@guanghechen/helper-cipher-file'
 import { collectAffectedCryptFilepaths } from '@guanghechen/helper-cipher-file'
@@ -96,9 +98,49 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
           branchOrCommitId2: plainCommitNode.parents[0],
         })
       : await listAllFiles({ ...plainCmdCtx, branchOrCommitId: plainCommitNode.id })
-  const diffItems: IFileCipherCatalogItemDiff[] = await catalog.diffFromPlainFiles({
+  const draftDiffItems: IFileCipherCatalogItemDiffDraft[] = await catalog.diffFromPlainFiles({
     plainFilepaths: plainFiles.sort(),
     strickCheck: false,
+  })
+
+  let shouldAmend = false
+  const cryptParentCommitIds: string[] = []
+  if (plainCommitNode.parents.length > 1) {
+    for (const plainParentId of plainCommitNode.parents) {
+      const cryptParentId: string | undefined = plain2cryptIdMap.get(plainParentId)
+      invariant(
+        cryptParentId !== undefined,
+        `[encryptGitCommit] unpaired crypt parent id: source(${plainParentId}), crypt(${cryptParentId})`,
+      )
+      cryptParentCommitIds.push(cryptParentId)
+    }
+
+    await mergeCommits({
+      ...cryptCmdCtx,
+      ...signature,
+      parentIds: cryptParentCommitIds,
+      strategy: 'ours',
+    })
+    shouldAmend = true
+  }
+
+  // [crypt] Clean untracked filepaths to avoid unexpected errors.
+  const cryptFiles: string[] = collectAffectedCryptFilepaths(draftDiffItems)
+  await cleanUntrackedFilepaths({ ...cryptCmdCtx, filepaths: cryptFiles })
+
+  // Encrypt files & update config.
+  const diffItems: IFileCipherCatalogItemDiff[] = await cipherBatcher.batchEncrypt({
+    diffItems: draftDiffItems,
+    pathResolver,
+    strictCheck: false,
+    getIv: item => {
+      const mac: Buffer = calcMac(
+        ...cryptParentCommitIds.map(id => Buffer.from(id, 'hex')),
+        Buffer.from(item.plainFilepath, 'hex'),
+        Buffer.from(item.fingerprint, 'hex'),
+      )
+      return mac.slice(0, 12)
+    },
   })
   catalog.applyDiff(diffItems)
   const commit: IGitCommitOverview = {
@@ -112,34 +154,6 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
       ),
     },
   }
-
-  let shouldAmend = false
-  if (commit.parents.length > 1) {
-    const cryptParentCommitIds: string[] = []
-    for (const plainParentId of commit.parents) {
-      const cryptParentId: string | undefined = plain2cryptIdMap.get(plainParentId)
-      invariant(
-        cryptParentId !== undefined,
-        `[encryptGitCommit] unpaired crypt parent id: source(${plainParentId}), crypt(${cryptParentId})`,
-      )
-      cryptParentCommitIds.push(cryptParentId)
-    }
-
-    await mergeCommits({
-      ...cryptCmdCtx,
-      ...commit.signature,
-      parentIds: cryptParentCommitIds,
-      strategy: 'ours',
-    })
-    shouldAmend = true
-  }
-
-  // [crypt] Clean untracked filepaths to avoid unexpected errors.
-  const cryptFiles: string[] = collectAffectedCryptFilepaths(diffItems)
-  await cleanUntrackedFilepaths({ ...cryptCmdCtx, filepaths: cryptFiles })
-
-  // Encrypt files & update config.
-  await cipherBatcher.batchEncrypt({ diffItems, pathResolver, strictCheck: false })
   await configKeeper.save({ commit })
 
   const message: string = generateCommitHash(commit)

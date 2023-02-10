@@ -700,6 +700,7 @@ __metadata:
   resolution: "@guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher"
   dependencies:
     "@guanghechen/chalk-logger": ^4.0.0-alpha.6
+    "@guanghechen/helper-cipher": ^4.0.0-alpha.6
     "@guanghechen/helper-cipher-file": ^4.0.0-alpha.6
     "@guanghechen/helper-fs": ^4.0.0-alpha.6
     "@guanghechen/helper-git": ^4.0.0-alpha.6

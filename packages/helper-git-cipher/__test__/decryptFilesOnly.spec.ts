@@ -1,9 +1,9 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import { AesCipherFactory } from '@guanghechen/helper-cipher'
+import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
 import {
-  FileCipher,
   FileCipherBatcher,
   FileCipherCatalog,
+  FileCipherFactory,
   FileCipherPathResolver,
 } from '@guanghechen/helper-cipher-file'
 import { BigFileHelper } from '@guanghechen/helper-file'
@@ -50,23 +50,22 @@ describe('decryptFilesOnly', () => {
   })
 
   const fileHelper = new BigFileHelper({ partCodePrefix })
-  const cipherFactory = new AesCipherFactory()
-  const cipher = cipherFactory.initFromPassword(Buffer.from('guanghechen', encoding), {
-    salt: 'salt',
+  const cipherFactory = new AesGcmCipherFactory()
+  cipherFactory.initFromPassword(Buffer.from('guanghechen', encoding), {
+    salt: Buffer.from('salt', 'utf8'),
     iterations: 100000,
-    keylen: 32,
     digest: 'sha256',
   })
-  const fileCipher = new FileCipher({ cipher })
+  const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
   const cipherBatcher = new FileCipherBatcher({
-    fileCipher,
     fileHelper,
+    fileCipherFactory,
     maxTargetFileSize,
     logger,
   })
 
   const configKeeper = new GitCipherConfig({
-    cipher,
+    cipher: cipherFactory.cipher(),
     filepath: path.join(cryptRootDir, 'catalog.ghc.txt'),
   })
   const gitCipher = new GitCipher({ cipherBatcher, configKeeper, logger })

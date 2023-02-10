@@ -26,19 +26,15 @@ export class GitCipherConfig implements IJsonConfigKeeper<IGitCipherConfigData> 
 
     invariant(statSync(filepath).isFile(), `[GitCipherConfig.load] not a file. (${filepath})`)
 
-    const cryptData: Buffer = await fs.readFile(filepath)
-    const plainData: Buffer = cipher.decrypt(cryptData)
-    const jsonContent: string = plainData.toString('utf8')
-    const data = JSON.parse(jsonContent)
+    const cryptBytes: Buffer = await fs.readFile(filepath)
+    const data = cipher.decryptJson(cryptBytes)
     return data as IGitCipherConfigData
   }
 
   public async save(data: IGitCipherConfigData): Promise<void> {
     const { cipher, filepath } = this
-    const jsonContent: string = JSON.stringify(data)
-    const plainData: Buffer = Buffer.from(jsonContent, 'utf8')
-    const cryptData: Buffer = cipher.encrypt(plainData)
-    await writeFile(filepath, cryptData)
+    const { cryptBytes } = cipher.encryptJson(data)
+    await writeFile(filepath, cryptBytes)
   }
 
   public async remove(): Promise<void> {
