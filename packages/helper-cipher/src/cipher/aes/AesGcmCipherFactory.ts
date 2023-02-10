@@ -84,7 +84,7 @@ export class AesGcmCipherFactory implements ICipherFactory {
     const { salt, iterations, digest } = options
     const key: Buffer = pbkdf2Sync(password, salt, iterations, _keySize, digest)
 
-    const ivPassword = calcMac(password, salt, key)
+    const ivPassword = calcMac(password, Buffer.from(salt, 'utf8'), key)
     const iv: Buffer = pbkdf2Sync(ivPassword, salt, iterations + 137, _ivSize, digest)
     return { key, iv }
   }

@@ -83,7 +83,7 @@ describe('FileCipherBatcher', () => {
   const fileHelper = new BigFileHelper({ partCodePrefix })
   const cipherFactory = new AesGcmCipherFactory()
   cipherFactory.initFromPassword(Buffer.from('guanghechen', encoding), {
-    salt: Buffer.from('salt', 'utf8'),
+    salt: 'salt',
     iterations: 100000,
     digest: 'sha256',
   })

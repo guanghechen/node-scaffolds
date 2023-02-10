@@ -18,7 +18,7 @@ describe('AesGcmCipher', function () {
     sha256.update('@guanghechen/helper-cipher')
     const password = sha256.digest()
     cipherFactory.initFromPassword(password, {
-      salt: Buffer.from('salt', 'utf8'),
+      salt: 'salt',
       iterations: 100000,
       digest: 'sha256',
     })

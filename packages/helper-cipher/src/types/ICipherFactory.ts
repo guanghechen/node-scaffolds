@@ -1,7 +1,7 @@
 import type { ICipher } from './ICipher'
 
 export interface IPBKDF2Options {
-  salt: Readonly<Buffer>
+  salt: string
   iterations: number
   digest: 'sha256'
 }
