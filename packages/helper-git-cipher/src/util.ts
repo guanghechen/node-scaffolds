@@ -6,7 +6,6 @@ import type { IGitCommandBaseParams, IGitCommitWithMessage } from '@guanghechen/
 import { getAllLocalBranches, getCommitWithMessageList, isGitRepo } from '@guanghechen/helper-git'
 import type { ILogger } from '@guanghechen/utility-types'
 import { createHash } from 'node:crypto'
-import type { IGitCommitOverview } from './types'
 
 export const resolveIdMap = async (params: {
   pathResolver: FileCipherPathResolver

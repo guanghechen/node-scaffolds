@@ -1,5 +1,5 @@
 import type { ICipher } from '@guanghechen/helper-cipher'
-import type { IConfig, IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/helper-config'
+import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/helper-config'
 import { JsonConfigKeeper } from '@guanghechen/helper-config'
 import type { PromiseOr } from '@guanghechen/utility-types'
 

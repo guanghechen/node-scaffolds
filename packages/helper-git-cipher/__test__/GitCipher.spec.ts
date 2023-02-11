@@ -391,7 +391,7 @@ describe('GitCipher', () => {
           )
 
           // Test Decrypt
-          // eslint-ignore-next-line @typescript-eslint/no-unused-vars
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           crypt2plainIdMap = await gitCipher
             .decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap })
             .then(md => md.crypt2plainIdMap)
