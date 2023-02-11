@@ -1,13 +1,12 @@
+import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
 import { Command } from '@guanghechen/helper-commander'
-import { PACKAGE_NAME } from '../../env/constant'
 import { logger } from '../../env/logger'
-import { resolveGlobalCommandOptions } from '../option'
 import type { ISubCommandEncryptOptions } from './option'
-import { getDefaultCommandEncryptOptions } from './option'
+import { resolveSubCommandEncryptOptions } from './option'
 
 // Create Sub-command: encrypt (e)
 export const createSubCommandEncrypt = (
-  handle?: (options: ISubCommandEncryptOptions) => void | Promise<void>,
+  handle?: ISubCommandProcessor<ISubCommandEncryptOptions>,
   commandName = 'encrypt',
   aliases: string[] = ['e'],
 ): Command => {
@@ -21,15 +20,11 @@ export const createSubCommandEncrypt = (
     .action(async function ([_workspaceDir], options: ISubCommandEncryptOptions) {
       logger.setName(commandName)
 
-      const defaultOptions: ISubCommandEncryptOptions = resolveGlobalCommandOptions(
-        PACKAGE_NAME,
+      const resolvedOptions: ISubCommandEncryptOptions = resolveSubCommandEncryptOptions(
         commandName,
-        getDefaultCommandEncryptOptions(),
         _workspaceDir,
         options,
       )
-
-      const resolvedOptions: ISubCommandEncryptOptions = { ...defaultOptions }
       await handle?.(resolvedOptions)
     })
 

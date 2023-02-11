@@ -1,4 +1,4 @@
-import { calcMac } from '@guanghechen/helper-cipher-file'
+import { calcMac } from '@guanghechen/helper-cipher'
 import { destroyBuffer } from '@guanghechen/helper-stream'
 import type { ICustomError } from './events'
 import { ErrorCode } from './events'

@@ -10,16 +10,21 @@ export function createProgram(): Command {
 
   // global options
   program
-    .option('--encoding <encoding>', 'default encoding of files in the workspace')
-    .option('--secret-filepath <secretFilepath>', 'path of secret file')
-    .option('--catalog-filepath <catalogFilepath>', 'path of catalog file of ciphertext files')
-    .option('--crypt-rootDir <cryptRootDir>', 'the directory where the encrypted files are stored')
     .option(
-      '--plain-rootDir <plainRootDir>',
-      'the directory where the source plaintext files are stored',
+      '--catalog-cache-filepath <catalogCacheFilepath>',
+      'The path of catalog cache file of crypt repo. (relative of workspace)',
     )
-    .option('--show-asterisk', 'whether to print password asterisks')
-    .option('--minimum-password-length', 'the minimum size required of password')
+    .option('--crypt-root-dir <cryptRootDir>', 'The directory where the crypt repo located.')
+    .option('--encoding <encoding>', 'Default encoding of files in the workspace.')
+    .option('--max-password-length <maxPasswordLength>', 'The maximum size required of password')
+    .option('--max-retry-times <maxRetryTimes>', 'Max wrong password retry times')
+    .option('--min-password-length <minPasswordLength>', 'the minimum size required of password')
+    .option('--plain-root-dir <plainRootDir>', 'The directory where the plain repo located.')
+    .option(
+      '--secret-filepath <secretFilepath>',
+      'The path of secret file.  (relative of workspace)',
+    )
+    .option('--show-asterisk', 'Whether to print password asterisks.')
 
   return program
 }

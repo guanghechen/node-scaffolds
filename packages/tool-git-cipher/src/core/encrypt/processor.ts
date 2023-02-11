@@ -1,9 +1,9 @@
-import type { ICipher } from '@guanghechen/helper-cipher'
-import { AesCipherFactory } from '@guanghechen/helper-cipher'
+import type { ICipherFactory } from '@guanghechen/helper-cipher'
+import type { IFileCipherFactory } from '@guanghechen/helper-cipher-file'
 import {
-  FileCipher,
   FileCipherBatcher,
   FileCipherCatalog,
+  FileCipherFactory,
   FileCipherPathResolver,
 } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
@@ -12,7 +12,10 @@ import { GitCipher, GitCipherConfig } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import micromatch from 'micromatch'
 import { logger } from '../../env/logger'
-import { SecretMaster } from '../../util/secret'
+import type { ICatalogCacheData } from '../../util/CatalogCache'
+import { CatalogCacheKeeper } from '../../util/CatalogCache'
+import { SecretConfigKeeper } from '../../util/SecretConfig'
+import { SecretMaster } from '../../util/SecretMaster'
 import type { IGitCipherEncryptContext } from './context'
 
 export class GitCipherEncryptProcessor {
@@ -20,37 +23,52 @@ export class GitCipherEncryptProcessor {
   protected readonly secretMaster: SecretMaster
 
   constructor(context: IGitCipherEncryptContext) {
+    logger.debug('context:', context)
+
     this.context = context
     this.secretMaster = new SecretMaster({
-      cipherFactory: new AesCipherFactory(),
-      pbkdf2Options: context.pbkdf2Options,
-      secretContentEncoding: 'hex',
       showAsterisk: context.showAsterisk,
+      maxRetryTimes: context.maxRetryTimes,
       minPasswordLength: context.minPasswordLength,
       maxPasswordLength: context.maxPasswordLength,
     })
-
-    logger.debug('context:', context)
   }
 
   public async encrypt(): Promise<void> {
     invariant(hasGitInstalled(), '[processor.encrypt] Cannot find git, have you installed it?')
 
     const { context, secretMaster } = this
-    logger.debug('context:', context)
+    const secretKeeper = new SecretConfigKeeper({
+      filepath: context.secretFilepath,
+      cryptRootDir: context.cryptRootDir,
+    })
+    await secretMaster.load(secretKeeper)
 
-    await secretMaster.load(context.secretFilepath)
+    const cipherFactory: ICipherFactory | null = secretMaster.cipherFactory
+    invariant(
+      !!secretKeeper.data && !!cipherFactory,
+      '[processor.encrypt] Secret cipherFactory is not available!',
+    )
 
-    const cipher: ICipher | null = secretMaster.cipher
-    invariant(cipher != null, '[processor.encrypt] Secret cipher is not available!')
+    const {
+      catalogFilepath,
+      cryptFilepathSalt,
+      cryptFilesDir,
+      keepPlainPatterns,
+      maxTargetFileSize = Number.POSITIVE_INFINITY,
+      partCodePrefix,
+    } = secretKeeper.data
 
-    const fileCipher = new FileCipher({ cipher, logger })
-    const fileHelper = new BigFileHelper({ partCodePrefix: context.partCodePrefix })
-    const configKeeper = new GitCipherConfig({ cipher, filepath: context.catalogFilepath })
+    const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
+    const fileHelper = new BigFileHelper({ partCodePrefix })
+    const configKeeper = new GitCipherConfig({
+      cipher: cipherFactory.cipher(),
+      filepath: catalogFilepath,
+    })
     const cipherBatcher = new FileCipherBatcher({
-      fileCipher,
+      fileCipherFactory,
       fileHelper,
-      maxTargetFileSize: context.maxTargetFileSize,
+      maxTargetFileSize,
       logger,
     })
     const gitCipher = new GitCipher({ cipherBatcher, configKeeper, logger })
@@ -61,17 +79,26 @@ export class GitCipherEncryptProcessor {
       cryptRootDir: context.cryptRootDir,
     })
     const catalog = new FileCipherCatalog({
+      cryptFilepathSalt,
+      cryptFilesDir,
+      maxTargetFileSize,
+      partCodePrefix,
       pathResolver,
-      maxTargetFileSize: context.maxTargetFileSize,
-      partCodePrefix: context.partCodePrefix,
-      encryptedFilesDir: context.encryptedFilesDir,
-      encryptedFilePathSalt: context.encryptedFilePathSalt,
       logger,
       isKeepPlain:
-        context.keepPlainPatterns.length > 0
-          ? sourceFile => micromatch.isMatch(sourceFile, context.keepPlainPatterns, { dot: true })
+        keepPlainPatterns.length > 0
+          ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
           : () => false,
     })
-    await gitCipher.encrypt({ pathResolver, catalog })
+
+    const cacheKeeper = new CatalogCacheKeeper({ filepath: context.catalogCacheFilepath })
+    const data: ICatalogCacheData = cacheKeeper.data ?? { crypt2plainIdMap: [] }
+    const { crypt2plainIdMap } = await gitCipher.encrypt({
+      pathResolver,
+      catalog,
+      crypt2plainIdMap: new Map(data.crypt2plainIdMap),
+    })
+    await cacheKeeper.update({ crypt2plainIdMap: Array.from(crypt2plainIdMap.entries()) })
+    await cacheKeeper.save()
   }
 }

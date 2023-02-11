@@ -1,95 +1,67 @@
-import type { IPBKDF2Options } from '@guanghechen/helper-cipher'
 import type { ISubCommandEncryptOptions } from './option'
 
 export interface IGitCipherEncryptContext {
   /**
-   * Path of currently executing command.
+   * The path of catalog cache file of crypt repo. (relative of workspace)
    */
-  readonly cwd: string
-  /**
-   * Working directory.
-   */
-  readonly workspace: string
-  /**
-   * Default encoding of files in the workspace.
-   */
-  readonly encoding: string
-  /**
-   * Options for PBKDF2 algorithm.
-   */
-  readonly pbkdf2Options: IPBKDF2Options
-  /**
-   * The path of secret file.
-   */
-  readonly secretFilepath: string
-  /**
-   * The path of catalog file of crypt repo.
-   */
-  readonly catalogFilepath: string
-  /**
-   * The directory where the plain repo located.
-   */
-  readonly plainRootDir: string
+  readonly catalogCacheFilepath: string
   /**
    * The directory where the crypt repo located.
    */
   readonly cryptRootDir: string
   /**
-   * A relative path of cryptRootDir, where the encrypted files located.
+   * Path of currently executing command.
    */
-  readonly encryptedFilesDir: string
+  readonly cwd: string
   /**
-   * Salt for generate encrypted file path.
+   * Default encoding of files in the workspace.
    */
-  readonly encryptedFilePathSalt: string
-  /**
-   * Whether to print password asterisks.
-   */
-  readonly showAsterisk: boolean
-  /**
-   * The minimum size required of password.
-   */
-  readonly minPasswordLength: number
+  readonly encoding: string
   /**
    * The maximum size required of password.
    */
   readonly maxPasswordLength: number
   /**
-   * Max size (byte) of target file, once the file size exceeds this value,
-   * the target file is split into multiple files.
+   * max wrong password retry times
    */
-  readonly maxTargetFileSize: number
+  readonly maxRetryTimes: number
   /**
-   * Prefix of parts code.
+   * The minimum size required of password.
    */
-  readonly partCodePrefix: string
+  readonly minPasswordLength: number
   /**
-   * Glob patterns indicated which files should be keepPlain.
-   * @default []
+   * The directory where the plain repo located.
    */
-  readonly keepPlainPatterns: string[]
+  readonly plainRootDir: string
+  /**
+   * The path of secret file.
+   */
+  readonly secretFilepath: string
+  /**
+   * Whether to print password asterisks.
+   */
+  readonly showAsterisk: boolean
+  /**
+   * Working directory.
+   */
+  readonly workspace: string
 }
 
 export async function createGitCipherEncryptContextFromOptions(
   options: ISubCommandEncryptOptions,
 ): Promise<IGitCipherEncryptContext> {
   const context: IGitCipherEncryptContext = {
-    cwd: options.cwd,
-    workspace: options.workspace,
-    encoding: options.encoding,
-    pbkdf2Options: options.pbkdf2Options,
-    plainRootDir: options.plainRootDir,
+    catalogCacheFilepath: options.catalogCacheFilepath,
     cryptRootDir: options.cryptRootDir,
-    secretFilepath: options.secretFilepath,
-    catalogFilepath: options.catalogFilepath,
-    encryptedFilesDir: options.encryptedFilesDir,
-    encryptedFilePathSalt: options.encryptedFilePathSalt,
-    showAsterisk: options.showAsterisk,
-    minPasswordLength: options.minPasswordLength,
+    cwd: options.cwd,
+    encoding: options.encoding,
     maxPasswordLength: options.maxPasswordLength,
-    maxTargetFileSize: options.maxTargetFileSize ?? Number.POSITIVE_INFINITY,
-    partCodePrefix: options.partCodePrefix,
-    keepPlainPatterns: options.keepPlainPatterns,
+    maxRetryTimes: options.maxRetryTimes,
+    minPasswordLength: options.minPasswordLength,
+    plainRootDir: options.plainRootDir,
+    secretFilepath: options.secretFilepath,
+    showAsterisk: options.showAsterisk,
+    workspace: options.workspace,
   }
   return context
 }

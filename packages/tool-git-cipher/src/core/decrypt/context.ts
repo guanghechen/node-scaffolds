@@ -1,101 +1,78 @@
-import type { IPBKDF2Options } from '@guanghechen/helper-cipher'
 import type { ISubCommandDecryptOptions } from './option'
 
 export interface IGitCipherDecryptContext {
   /**
-   * Path of currently executing command.
+   * The path of catalog cache file of crypt repo. (relative of workspace)
    */
-  readonly cwd: string
-  /**
-   * Working directory.
-   */
-  readonly workspace: string
-  /**
-   * Default encoding of files in the workspace.
-   */
-  readonly encoding: string
-  /**
-   * Options for PBKDF2 algorithm.
-   */
-  readonly pbkdf2Options: IPBKDF2Options
-  /**
-   * The path of secret file.
-   */
-  readonly secretFilepath: string
-  /**
-   * The path of catalog file of crypt repo.
-   */
-  readonly catalogFilepath: string
-  /**
-   * The directory where the plain repo located.
-   */
-  readonly plainRootDir: string
+  readonly catalogCacheFilepath: string
   /**
    * The directory where the crypt repo located.
    */
   readonly cryptRootDir: string
   /**
-   * A relative path of cryptRootDir, where the encrypted files located.
+   * Path of currently executing command.
    */
-  readonly encryptedFilesDir: string
+  readonly cwd: string
   /**
-   * Whether to print password asterisks.
+   * Default encoding of files in the workspace.
    */
-  readonly showAsterisk: boolean
-  /**
-   * The minimum size required of password.
-   */
-  readonly minPasswordLength: number
-  /**
-   * The maximum size required of password.
-   */
-  readonly maxPasswordLength: number
-  /**
-   * Max size (byte) of target file, once the file size exceeds this value,
-   * the target file is split into multiple files.
-   */
-  readonly maxTargetFileSize: number
-  /**
-   * Prefix of parts code.
-   */
-  readonly partCodePrefix: string
-  /**
-   * Glob patterns indicated which files should be keepPlain.
-   * @default []
-   */
-  readonly keepPlainPatterns: string[]
-  /**
-   * Root dir of decrypted outputs.
-   */
-  readonly outDir: string | null
+  readonly encoding: string
   /**
    * If specified, then all of the files under the given commitId will be decrypted.
    * Otherwise, the entire repo will be generated.
    */
   readonly filesOnly: string | null
+  /**
+   * The maximum size required of password.
+   */
+  readonly maxPasswordLength: number
+  /**
+   * max wrong password retry times
+   */
+  readonly maxRetryTimes: number
+  /**
+   * The minimum size required of password.
+   */
+  readonly minPasswordLength: number
+  /**
+   * Root dir of decrypted outputs.
+   */
+  readonly outDir: string | null
+  /**
+   * The directory where the plain repo located.
+   */
+  readonly plainRootDir: string
+  /**
+   * The path of secret file.
+   */
+  readonly secretFilepath: string
+  /**
+   * Whether to print password asterisks.
+   */
+  readonly showAsterisk: boolean
+  /**
+   * Working directory.
+   */
+  readonly workspace: string
 }
 
 export async function createGitCipherDecryptContextFromOptions(
   options: ISubCommandDecryptOptions,
 ): Promise<IGitCipherDecryptContext> {
   const context: IGitCipherDecryptContext = {
-    cwd: options.cwd,
-    workspace: options.workspace,
-    encoding: options.encoding,
-    pbkdf2Options: options.pbkdf2Options,
-    plainRootDir: options.plainRootDir,
+    catalogCacheFilepath: options.catalogCacheFilepath,
     cryptRootDir: options.cryptRootDir,
-    secretFilepath: options.secretFilepath,
-    catalogFilepath: options.catalogFilepath,
-    encryptedFilesDir: options.encryptedFilesDir,
-    showAsterisk: options.showAsterisk,
-    minPasswordLength: options.minPasswordLength,
-    maxPasswordLength: options.maxPasswordLength,
-    maxTargetFileSize: options.maxTargetFileSize ?? Number.POSITIVE_INFINITY,
-    partCodePrefix: options.partCodePrefix,
-    keepPlainPatterns: options.keepPlainPatterns,
-    outDir: options.outDir,
+    cwd: options.cwd,
+    encoding: options.encoding,
     filesOnly: options.filesOnly,
+    maxPasswordLength: options.maxPasswordLength,
+    maxRetryTimes: options.maxRetryTimes,
+    minPasswordLength: options.minPasswordLength,
+    outDir: options.outDir,
+    plainRootDir: options.plainRootDir,
+    secretFilepath: options.secretFilepath,
+    showAsterisk: options.showAsterisk,
+    workspace: options.workspace,
   }
   return context
 }

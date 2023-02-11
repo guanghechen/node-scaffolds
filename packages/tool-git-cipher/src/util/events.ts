@@ -11,12 +11,6 @@ export enum ErrorCode {
   ENTERED_PASSWORD_DIFFER = 'ENTERED_PASSWORD_DIFFER',
   // Incorrect password entered.
   WRONG_PASSWORD = 'WRONG_PASSWORD',
-  // Multiple plain files associated  with a cipher file path at the same time.
-  DUPLICATED_CIPHER_FILEPATH = 'DUPLICATED_CIPHER_FILEPATH',
-  // Null pointer exception.
-  NULL_POINTER_ERROR = 'NULL_POINTER_ERROR',
-  // The specified filepath cannot be found.
-  FILEPATH_NOT_FOUND = 'FILEPATH_NOT_FOUND',
 }
 
 export interface ICustomError {

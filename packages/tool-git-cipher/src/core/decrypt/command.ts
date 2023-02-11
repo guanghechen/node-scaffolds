@@ -1,12 +1,8 @@
 import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
 import { Command } from '@guanghechen/helper-commander'
-import { cover } from '@guanghechen/helper-option'
-import { absoluteOfWorkspace } from '@guanghechen/helper-path'
-import { PACKAGE_NAME } from '../../env/constant'
 import { logger } from '../../env/logger'
-import { resolveGlobalCommandOptions } from '../option'
 import type { ISubCommandDecryptOptions } from './option'
-import { getDefaultCommandDecryptOptions } from './option'
+import { resolveSubCommandDecryptOptions } from './option'
 
 // Create Sub-command: decrypt (e)
 export const createSubCommandDecrypt = (
@@ -21,42 +17,19 @@ export const createSubCommandDecrypt = (
     .aliases(aliases)
     .arguments('<workspace>')
     .description('Decrypt git repo or decrypt files on a branch/commit only.')
-    .option('--outDir <outDir>', 'specify the root dir of decrypted files.')
+    .option('--out-dir <outDir>', 'Root dir of decrypted outputs. (Relative of workspace)')
     .option(
-      '--filesOnly [commitId]',
+      '--files-only [commitId]',
       '(commit id | branch) decrypt files only at the given commit id or branch.',
     )
     .action(async function ([_workspaceDir], options: ISubCommandDecryptOptions) {
       logger.setName(commandName)
 
-      const defaultOptions: ISubCommandDecryptOptions = resolveGlobalCommandOptions(
-        PACKAGE_NAME,
+      const resolvedOptions: ISubCommandDecryptOptions = resolveSubCommandDecryptOptions(
         commandName,
-        getDefaultCommandDecryptOptions(),
         _workspaceDir,
         options,
       )
-
-      // Resolve outDir
-      const outDir: string | null = (() => {
-        const _rawOutDir = cover<string | null>(defaultOptions.outDir, options.outDir)
-        if (_rawOutDir == null) return null
-        return absoluteOfWorkspace(defaultOptions.workspace, _rawOutDir)
-      })()
-      logger.debug('outDir:', outDir)
-
-      // Resolve filesAt
-      const filesOnly: string | null = cover<string | null>(
-        defaultOptions.filesOnly,
-        (options.filesOnly as unknown) === true ? 'HEAD' : options.filesOnly,
-      )
-      logger.debug('filesOnly:', filesOnly)
-
-      const resolvedOptions: ISubCommandDecryptOptions = {
-        ...defaultOptions,
-        outDir,
-        filesOnly,
-      }
       await handle?.(resolvedOptions)
     })
 

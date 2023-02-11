@@ -1040,6 +1040,7 @@ __metadata:
     "@guanghechen/helper-cipher": ^4.0.0-alpha.6
     "@guanghechen/helper-cipher-file": ^4.0.0-alpha.6
     "@guanghechen/helper-commander": ^4.0.0-alpha.6
+    "@guanghechen/helper-config": ^4.0.0-alpha.6
     "@guanghechen/helper-file": ^4.0.0-alpha.6
     "@guanghechen/helper-fs": ^4.0.0-alpha.6
     "@guanghechen/helper-git": ^4.0.0-alpha.6

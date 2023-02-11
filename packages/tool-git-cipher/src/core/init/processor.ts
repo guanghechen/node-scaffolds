@@ -1,4 +1,3 @@
-import { AesCipherFactory } from '@guanghechen/helper-cipher'
 import { hasGitInstalled, installDependencies } from '@guanghechen/helper-commander'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import { initGitRepo, stageAll } from '@guanghechen/helper-git'
@@ -13,7 +12,8 @@ import nodePlop from 'node-plop'
 import { COMMAND_VERSION } from '../../env/constant'
 import { logger } from '../../env/logger'
 import { resolveTemplateFilepath } from '../../env/util'
-import { SecretMaster } from '../../util/secret'
+import type { ISecretConfigData, SecretConfigKeeper } from '../../util/SecretConfig'
+import { SecretMaster } from '../../util/SecretMaster'
 import type { IGitCipherInitContext } from './context'
 
 export class GitCipherInitProcessor {
@@ -21,16 +21,15 @@ export class GitCipherInitProcessor {
   protected secretMaster: SecretMaster
 
   constructor(context: IGitCipherInitContext) {
+    logger.debug('context:', context)
+
     this.context = context
     this.secretMaster = new SecretMaster({
-      cipherFactory: new AesCipherFactory(),
-      pbkdf2Options: context.pbkdf2Options,
-      secretContentEncoding: 'hex',
       showAsterisk: context.showAsterisk,
+      maxRetryTimes: context.maxRetryTimes,
       minPasswordLength: context.minPasswordLength,
       maxPasswordLength: context.maxPasswordLength,
     })
-    logger.debug('context:', context)
   }
 
   public async init(): Promise<void> {
@@ -39,11 +38,12 @@ export class GitCipherInitProcessor {
     const { context } = this
     logger.debug('context:', context)
 
-    // Render templates.
-    await this._renderTemplates()
-
     // Create secret file.
-    await this._createSecretFile()
+    const configKeeper = await this._createSecret()
+    await this.secretMaster.load(configKeeper)
+
+    // Render templates.
+    await this._renderTemplates(configKeeper.data!)
 
     // Install dependencies.
     await installDependencies({ stdio: 'inherit', cwd: context.workspace }, [], logger)
@@ -60,7 +60,7 @@ export class GitCipherInitProcessor {
   }
 
   // Render templates
-  protected async _renderTemplates(): Promise<void> {
+  protected async _renderTemplates(secretConfigData: ISecretConfigData): Promise<void> {
     const { context } = this
 
     // request repository url
@@ -92,33 +92,57 @@ export class GitCipherInitProcessor {
     })
 
     const error = await runPlop(plop, undefined, {
-      workspace: context.workspace,
-      templateVersion: COMMAND_VERSION,
+      bakPlainRootDir: 'ghc-plain-bak',
+      catalogFilepath: relativeOfWorkspace(context.workspace, context.catalogFilepath),
+      cryptFilepathSalt: context.cryptFilepathSalt,
+      cryptFilesDir: relativeOfWorkspace(context.cryptRootDir, context.cryptFilesDir),
+      cryptRootDir: relativeOfWorkspace(context.workspace, context.cryptRootDir),
       encoding: context.encoding,
       logLevel: logger.level,
-      plainRepoUrl,
-      secretSalt: context.pbkdf2Options.salt,
-      secretFilepath: relativeOfWorkspace(context.workspace, context.secretFilepath),
-      catalogFilepath: relativeOfWorkspace(context.workspace, context.catalogFilepath),
-      plainRootDir: relativeOfWorkspace(context.workspace, context.plainRootDir),
-      bakPlainRootDir: 'ghc-plain-bak',
-      cryptRootDir: relativeOfWorkspace(context.workspace, context.cryptRootDir),
-      encryptedFilesDir: context.encryptedFilesDir,
-      encryptedFilePathSalt: null,
-      showAsterisk: context.showAsterisk,
+      mainIvSize: context.mainIvSize,
+      mainKeySize: context.mainKeySize,
+      maxPasswordLength: context.maxPasswordLength,
       minPasswordLength: context.minPasswordLength,
       partCodePrefix: context.partCodePrefix,
+      pbkdf2Options: context.pbkdf2Options,
+      plainRootDir: relativeOfWorkspace(context.workspace, context.plainRootDir),
+      secret: secretConfigData.secret,
+      secretAuthTag: secretConfigData.secretAuthTag,
+      secretFilepath: relativeOfWorkspace(context.workspace, context.secretFilepath),
+      secretIvSize: context.secretIvSize,
+      secretKeySize: context.secretKeySize,
+      showAsterisk: context.showAsterisk,
+      workspace: context.workspace,
+      templateVersion: COMMAND_VERSION,
+      plainRepoUrl,
     })
     if (error) logger.error(error)
   }
 
   // Create secret file
-  protected async _createSecretFile(): Promise<void> {
-    const { context } = this
-    const oldSecretMaster = this.secretMaster
-    this.secretMaster = await oldSecretMaster.recreate()
-    oldSecretMaster.cleanup()
-    await this.secretMaster.save(context.secretFilepath)
+  protected async _createSecret(): Promise<SecretConfigKeeper> {
+    const { context, secretMaster } = this
+    const configKeeper = await secretMaster.createSecret(
+      context.secretFilepath,
+      context.cryptRootDir,
+      {
+        catalogFilepath: context.catalogFilepath,
+        cryptFilepathSalt: context.cryptFilepathSalt,
+        cryptFilesDir: context.cryptFilesDir,
+        keepPlainPatterns: context.keepPlainPatterns,
+        mainIvSize: context.mainIvSize,
+        mainKeySize: context.mainKeySize,
+        maxTargetFileSize:
+          context.maxTargetFileSize > Number.MAX_SAFE_INTEGER
+            ? undefined
+            : context.maxTargetFileSize,
+        partCodePrefix: context.partCodePrefix,
+        pbkdf2Options: context.pbkdf2Options,
+        secretIvSize: context.secretIvSize,
+        secretKeySize: context.secretKeySize,
+      },
+    )
+    return configKeeper
   }
 
   /**

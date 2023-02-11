@@ -1,8 +1,8 @@
-import type { ICipher } from '@guanghechen/helper-cipher'
-import { AesCipherFactory } from '@guanghechen/helper-cipher'
+import type { ICipherFactory } from '@guanghechen/helper-cipher'
+import type { IFileCipherFactory } from '@guanghechen/helper-cipher-file'
 import {
-  FileCipher,
   FileCipherBatcher,
+  FileCipherFactory,
   FileCipherPathResolver,
 } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
@@ -14,7 +14,10 @@ import invariant from '@guanghechen/invariant'
 import inquirer from 'inquirer'
 import { existsSync } from 'node:fs'
 import { logger } from '../../env/logger'
-import { SecretMaster } from '../../util/secret'
+import type { ICatalogCacheData } from '../../util/CatalogCache'
+import { CatalogCacheKeeper } from '../../util/CatalogCache'
+import { SecretConfigKeeper } from '../../util/SecretConfig'
+import { SecretMaster } from '../../util/SecretMaster'
 import type { IGitCipherDecryptContext } from './context'
 
 export class GitCipherDecryptProcessor {
@@ -22,35 +25,49 @@ export class GitCipherDecryptProcessor {
   protected readonly secretMaster: SecretMaster
 
   constructor(context: IGitCipherDecryptContext) {
+    logger.debug('context:', context)
+
     this.context = context
     this.secretMaster = new SecretMaster({
-      cipherFactory: new AesCipherFactory(),
-      pbkdf2Options: context.pbkdf2Options,
-      secretContentEncoding: 'hex',
       showAsterisk: context.showAsterisk,
+      maxRetryTimes: context.maxRetryTimes,
       minPasswordLength: context.minPasswordLength,
       maxPasswordLength: context.maxPasswordLength,
     })
-
-    logger.debug('context:', context)
   }
 
   public async decrypt(): Promise<void> {
     invariant(hasGitInstalled(), '[processor.decrypt] Cannot find git, have you installed it?')
 
     const { context, secretMaster } = this
-    await secretMaster.load(context.secretFilepath)
+    const secretKeeper = new SecretConfigKeeper({
+      filepath: context.secretFilepath,
+      cryptRootDir: context.cryptRootDir,
+    })
+    await secretMaster.load(secretKeeper)
 
-    const cipher: ICipher | null = secretMaster.cipher
-    invariant(cipher != null, '[processor.decrypt] Secret cipher is not available!')
+    const cipherFactory: ICipherFactory | null = secretMaster.cipherFactory
+    invariant(
+      !!secretKeeper.data && !!cipherFactory,
+      '[processor.decrypt] Secret cipherFactory is not available!',
+    )
 
-    const fileCipher = new FileCipher({ cipher, logger })
-    const fileHelper = new BigFileHelper({ partCodePrefix: context.partCodePrefix })
-    const configKeeper = new GitCipherConfig({ cipher, filepath: context.catalogFilepath })
+    const {
+      catalogFilepath,
+      maxTargetFileSize = Number.POSITIVE_INFINITY,
+      partCodePrefix,
+    } = secretKeeper.data
+
+    const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
+    const fileHelper = new BigFileHelper({ partCodePrefix: partCodePrefix })
+    const configKeeper = new GitCipherConfig({
+      cipher: cipherFactory.cipher(),
+      filepath: catalogFilepath,
+    })
     const cipherBatcher = new FileCipherBatcher({
-      fileCipher,
+      fileCipherFactory,
       fileHelper,
-      maxTargetFileSize: context.maxTargetFileSize,
+      maxTargetFileSize,
       logger,
     })
     const gitCipher = new GitCipher({ cipherBatcher, configKeeper, logger })
@@ -88,7 +105,15 @@ export class GitCipherDecryptProcessor {
       })
     } else {
       logger.debug('Trying decrypt entire repo...')
-      await gitCipher.decrypt({ pathResolver: outPathResolver })
+
+      const cacheKeeper = new CatalogCacheKeeper({ filepath: context.catalogCacheFilepath })
+      const data: ICatalogCacheData = cacheKeeper.data ?? { crypt2plainIdMap: [] }
+      const { crypt2plainIdMap } = await gitCipher.decrypt({
+        pathResolver: outPathResolver,
+        crypt2plainIdMap: new Map(data.crypt2plainIdMap),
+      })
+      await cacheKeeper.update({ crypt2plainIdMap: Array.from(crypt2plainIdMap.entries()) })
+      await cacheKeeper.save()
     }
   }
 }

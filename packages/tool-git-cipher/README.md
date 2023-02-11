@@ -203,8 +203,8 @@ Options:
         "catalogFilepath": "ghc-crypt/.ghc-catalog",
         "cryptRootDir": "ghc-crypt",
         "encoding": "utf8",
-        "encryptedFilesDir": "encrypted",
-        "encryptedFilePathSalt": "",
+        "cryptFilesDir": "encrypted",
+        "cryptFilepathSalt": "",
         "keepPlainPatterns": [
           ".gitignore",
           ".npmrc",

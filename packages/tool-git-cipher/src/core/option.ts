@@ -1,4 +1,3 @@
-import type { IPBKDF2Options } from '@guanghechen/helper-cipher'
 import type {
   ICommandConfigurationFlatOpts,
   ICommandConfigurationOptions,
@@ -6,9 +5,7 @@ import type {
 import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
-import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
-import type { BinaryLike } from 'node:crypto'
-import path from 'node:path'
+import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import { logger } from '../env/logger'
 
 /**
@@ -16,99 +13,64 @@ import { logger } from '../env/logger'
  */
 export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
   /**
-   * Default encoding of files in the workspace
-   * @default 'utf8'
+   * The path of catalog cache file of crypt repo. (relative of workspace)
+   * @default '.ghc-catalog-cache'
    */
-  readonly encoding: BufferEncoding
-  /**
-   * Options for PBKDF2 algorithm.
-   */
-  readonly pbkdf2Options: IPBKDF2Options
-  /**
-   * The directory where the plain repo located.
-   * @default '.'
-   */
-  readonly plainRootDir: string
+  readonly catalogCacheFilepath: string
   /**
    * The directory where the crypt repo located.
    * @default 'ghc-crypt'
    */
   readonly cryptRootDir: string
   /**
-   * The path of secret file.
-   * @default '.ghc-secret'
+   * Default encoding of files in the workspace.
+   * @default 'utf8'
    */
-  readonly secretFilepath: string
+  readonly encoding: BufferEncoding
   /**
-   * The path of catalog file of crypt repo.
-   * @default '.ghc-catalog'
-   */
-  readonly catalogFilepath: string
-  /**
-   * A relative path of cryptRootDir, where the encrypted files located.
-   * @default 'encrypted'
-   */
-  readonly encryptedFilesDir: string
-  /**
-   * Salt for generate encrypted file path.
-   * @default 'encrypted_path_salt'
-   */
-  readonly encryptedFilePathSalt: string
-  /**
-   * Whether to print password asterisks
-   * @default true
-   */
-  readonly showAsterisk: boolean
-  /**
-   * The minimum size required of password
-   * @default 6
-   */
-  readonly minPasswordLength: number
-  /**
-   * The maximum size required of password
+   * The maximum size required of password.
    * @default 100
    */
   readonly maxPasswordLength: number
   /**
-   * Max size (byte) of target file, once the file size exceeds this value,
-   * the target file is split into multiple files.
+   * max wrong password retry times.
    */
-  readonly maxTargetFileSize?: number
+  readonly maxRetryTimes: number
   /**
-   * Prefix of parts code.
-   * @default '.ghc-part'
+   * The minimum size required of password.
+   * @default 6
    */
-  readonly partCodePrefix: string
+  readonly minPasswordLength: number
   /**
-   * Glob patterns indicated which files should be keepPlain.
-   * @default []
+   * The directory where the plain repo located.
+   * @default '.'
    */
-  readonly keepPlainPatterns: string[]
+  readonly plainRootDir: string
+  /**
+   * The path of secret file.  (relative of workspace)
+   * @default '.ghc-secret'
+   */
+  readonly secretFilepath: string
+  /**
+   * Whether to print password asterisks.
+   * @default true
+   */
+  readonly showAsterisk: boolean
 }
 
 /**
  * Default value of global options
  */
 export const getDefaultGlobalCommandOptions = (): IGlobalCommandOptions => ({
-  encoding: 'utf8',
-  pbkdf2Options: {
-    salt: 'guanghechen',
-    iterations: 100000,
-    keylen: 32,
-    digest: 'sha256',
-  },
-  plainRootDir: '.',
+  catalogCacheFilepath: '.ghc-catalog-cache',
   cryptRootDir: 'ghc-crypt',
-  secretFilepath: '.ghc-secret',
-  catalogFilepath: '.ghc-catalog',
-  encryptedFilesDir: 'encrypted',
-  encryptedFilePathSalt: 'encrypted_path_salt',
-  showAsterisk: true,
-  minPasswordLength: 6,
+  encoding: 'utf8',
   maxPasswordLength: 100,
-  maxTargetFileSize: Number.POSITIVE_INFINITY,
-  partCodePrefix: '.ghc-part',
-  keepPlainPatterns: [],
+  maxRetryTimes: 3,
+  minPasswordLength: 6,
+  plainRootDir: '.',
+  secretFilepath: '.ghc-secret',
+  showAsterisk: true,
 })
 
 /**
@@ -135,43 +97,16 @@ export function resolveGlobalCommandOptions<C extends object>(
     options,
   )
 
-  // Resolve encoding
-  const encoding: BufferEncoding = cover<BufferEncoding>(
-    resolvedDefaultOptions.encoding,
-    options.encoding,
-    isNonBlankString,
-  )
-  logger.debug('encoding:', encoding)
-
-  // Resolve pbkdf2Options
-  const pbkdf2Options: IPBKDF2Options = {
-    salt: cover<BinaryLike>(
-      resolvedDefaultOptions.pbkdf2Options.salt,
-      options.pbkdf2Options?.salt,
-      isNonBlankString,
-    ),
-    iterations: cover<number>(
-      resolvedDefaultOptions.pbkdf2Options.iterations,
-      convertToNumber(options.pbkdf2Options?.iterations),
-    ),
-    keylen: cover<number>(
-      resolvedDefaultOptions.pbkdf2Options.keylen,
-      convertToNumber(options.pbkdf2Options?.keylen),
-    ),
-    digest: cover<string>(
-      resolvedDefaultOptions.pbkdf2Options.digest,
-      options.pbkdf2Options?.digest,
-      isNonBlankString,
-    ) as IPBKDF2Options['digest'],
-  }
-  logger.debug('pbkdf2Options:', pbkdf2Options)
-
-  // Resolve plainRootDir
-  const plainRootDir: string = absoluteOfWorkspace(
+  // Resolve catalogCacheFilepath
+  const catalogCacheFilepath: string = absoluteOfWorkspace(
     workspaceDir,
-    cover<string>(resolvedDefaultOptions.plainRootDir, options.plainRootDir, isNonBlankString),
+    cover<string>(
+      resolvedDefaultOptions.catalogCacheFilepath,
+      options.catalogCacheFilepath,
+      isNonBlankString,
+    ),
   )
-  logger.debug('plainRootDir:', plainRootDir)
+  logger.debug('catalogCacheFilepath:', catalogCacheFilepath)
 
   // Resolve cryptRootDir
   const cryptRootDir: string = absoluteOfWorkspace(
@@ -180,63 +115,13 @@ export function resolveGlobalCommandOptions<C extends object>(
   )
   logger.debug('cryptRootDir:', cryptRootDir)
 
-  // Resolve encryptedFilesDir
-  const encryptedFilesDir: string = cover<string>(
-    resolvedDefaultOptions.encryptedFilesDir,
-    options.encryptedFilesDir,
+  // Resolve encoding
+  const encoding: BufferEncoding = cover<BufferEncoding>(
+    resolvedDefaultOptions.encoding,
+    options.encoding,
     isNonBlankString,
   )
-  logger.debug('encryptedFilesDir:', encryptedFilesDir)
-
-  // Resolve secretFilepath
-  const secretFilepath: string = absoluteOfWorkspace(
-    workspaceDir,
-    cover<string>(resolvedDefaultOptions.secretFilepath, options.secretFilepath, isNonBlankString),
-  )
-  logger.debug('secretFilepath:', secretFilepath)
-
-  // Resolve catalogFilepath
-  const absoluteCatalogFilepath: string = absoluteOfWorkspace(
-    cryptRootDir,
-    cover<string>(
-      resolvedDefaultOptions.catalogFilepath,
-      options.catalogFilepath,
-      isNonBlankString,
-    ),
-  )
-  const relativeCryptRootDir = relativeOfWorkspace(workspaceDir, cryptRootDir)
-  const relativeCatalogFilepath = relativeOfWorkspace(cryptRootDir, absoluteCatalogFilepath)
-  const catalogFilepath: string = relativeCatalogFilepath.startsWith(
-    relativeCryptRootDir + path.sep,
-  )
-    ? absoluteOfWorkspace(
-        cryptRootDir,
-        relativeCatalogFilepath.slice(relativeCryptRootDir.length + 1),
-      )
-    : absoluteCatalogFilepath
-  logger.debug('catalogFilepath:', catalogFilepath)
-
-  // Resolve encryptedFilePathSalt
-  const encryptedFilePathSalt: string = cover<string>(
-    resolvedDefaultOptions.encryptedFilePathSalt,
-    options.encryptedFilePathSalt,
-    isNonBlankString,
-  )
-  logger.debug('encryptedFilePathSalt:', encryptedFilePathSalt)
-
-  // Resolve showAsterisk
-  const showAsterisk: boolean = cover<boolean>(
-    resolvedDefaultOptions.showAsterisk,
-    convertToBoolean(options.showAsterisk),
-  )
-  logger.debug('showAsterisk:', showAsterisk)
-
-  // Resolve minPasswordLength
-  const minPasswordLength: number = cover<number>(
-    resolvedDefaultOptions.minPasswordLength,
-    convertToNumber(options.minPasswordLength),
-  )
-  logger.debug('minPasswordLength:', minPasswordLength)
+  logger.debug('encoding:', encoding)
 
   // Resolve maxPasswordLength
   const maxPasswordLength: number = cover<number>(
@@ -245,36 +130,51 @@ export function resolveGlobalCommandOptions<C extends object>(
   )
   logger.debug('maxPasswordLength:', maxPasswordLength)
 
-  // Resolve maxTargetFileSize
-  const maxTargetFileSize: number | undefined = cover<number | undefined>(
-    resolvedDefaultOptions.maxTargetFileSize,
-    convertToNumber(options.maxTargetFileSize),
+  // Resolve maxRetryTimes
+  const maxRetryTimes: number = cover<number>(
+    resolvedDefaultOptions.maxRetryTimes,
+    convertToNumber(options.maxRetryTimes),
   )
-  logger.debug('maxTargetFileSize:', maxTargetFileSize)
+  logger.debug('maxRetryTimes:', maxRetryTimes)
 
-  // Resolve partCodePrefix
-  const partCodePrefix: string = cover<string>(
-    resolvedDefaultOptions.partCodePrefix,
-    options.partCodePrefix,
-    isNonBlankString,
+  // Resolve minPasswordLength
+  const minPasswordLength: number = cover<number>(
+    resolvedDefaultOptions.minPasswordLength,
+    convertToNumber(options.minPasswordLength),
   )
-  logger.debug('partCodePrefix:', partCodePrefix)
+  logger.debug('minPasswordLength:', minPasswordLength)
+
+  // Resolve plainRootDir
+  const plainRootDir: string = absoluteOfWorkspace(
+    workspaceDir,
+    cover<string>(resolvedDefaultOptions.plainRootDir, options.plainRootDir, isNonBlankString),
+  )
+  logger.debug('plainRootDir:', plainRootDir)
+
+  // Resolve secretFilepath
+  const secretFilepath: string = absoluteOfWorkspace(
+    workspaceDir,
+    cover<string>(resolvedDefaultOptions.secretFilepath, options.secretFilepath, isNonBlankString),
+  )
+  logger.debug('secretFilepath:', secretFilepath)
+
+  // Resolve showAsterisk
+  const showAsterisk: boolean = cover<boolean>(
+    resolvedDefaultOptions.showAsterisk,
+    convertToBoolean(options.showAsterisk),
+  )
+  logger.debug('showAsterisk:', showAsterisk)
 
   const resolvedOptions: IGlobalCommandOptions = {
-    plainRootDir,
-    encoding,
-    pbkdf2Options,
-    secretFilepath,
-    catalogFilepath,
+    catalogCacheFilepath,
     cryptRootDir,
-    encryptedFilesDir,
-    encryptedFilePathSalt,
-    showAsterisk,
-    minPasswordLength,
+    encoding,
     maxPasswordLength,
-    maxTargetFileSize,
-    partCodePrefix,
-    keepPlainPatterns: resolvedDefaultOptions.keepPlainPatterns,
+    maxRetryTimes,
+    minPasswordLength,
+    plainRootDir,
+    secretFilepath,
+    showAsterisk,
   }
 
   return { ...resolvedDefaultOptions, ...resolvedOptions }
