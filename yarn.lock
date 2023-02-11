@@ -609,6 +609,7 @@ __metadata:
   resolution: "@guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file"
   dependencies:
     "@guanghechen/helper-cipher": ^4.0.0-alpha.6
+    "@guanghechen/helper-config": ^4.0.0-alpha.6
     "@guanghechen/helper-file": ^4.0.0-alpha.6
     "@guanghechen/helper-fs": ^4.0.0-alpha.6
     "@guanghechen/helper-func": ^4.0.0-alpha.6
@@ -658,7 +659,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-config@workspace:packages/helper-config":
+"@guanghechen/helper-config@^4.0.0-alpha.6, @guanghechen/helper-config@workspace:packages/helper-config":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-config@workspace:packages/helper-config"
   dependencies:
@@ -717,6 +718,7 @@ __metadata:
     "@guanghechen/chalk-logger": ^4.0.0-alpha.6
     "@guanghechen/helper-cipher": ^4.0.0-alpha.6
     "@guanghechen/helper-cipher-file": ^4.0.0-alpha.6
+    "@guanghechen/helper-config": ^4.0.0-alpha.6
     "@guanghechen/helper-fs": ^4.0.0-alpha.6
     "@guanghechen/helper-git": ^4.0.0-alpha.6
     "@guanghechen/helper-jest": ^4.0.0-alpha.6

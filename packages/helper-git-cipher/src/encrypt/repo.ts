@@ -2,8 +2,8 @@ import type {
   FileCipherPathResolver,
   IFileCipherBatcher,
   IFileCipherCatalog,
-  IJsonConfigKeeper,
 } from '@guanghechen/helper-cipher-file'
+import type { IConfigKeeper } from '@guanghechen/helper-config'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import {
@@ -26,7 +26,7 @@ export interface IEncryptGitRepoParams {
   catalog: IFileCipherCatalog
   cipherBatcher: IFileCipherBatcher
   pathResolver: FileCipherPathResolver
-  configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfigData>
   crypt2plainIdMap: ReadonlyMap<string, string>
   logger?: ILogger
 }

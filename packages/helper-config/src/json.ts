@@ -3,18 +3,12 @@ import type { IBaseConfigKeeperProps } from './base'
 import { BaseConfigKeeper } from './base'
 import type { IConfig, IConfigKeeper } from './types'
 
-export interface IJsonConfigKeeperProps extends IBaseConfigKeeperProps {
-  filepath: string
-}
+export interface IJsonConfigKeeperProps extends IBaseConfigKeeperProps {}
 
 export abstract class JsonConfigKeeper<Instance, Data>
   extends BaseConfigKeeper<Instance, Data>
   implements IConfigKeeper<Instance>
 {
-  constructor(props: IJsonConfigKeeperProps) {
-    super(props)
-  }
-
   protected override encode(config: IConfig<Data>): PromiseOr<Buffer> {
     const jsonContent: string = JSON.stringify(config)
     return Buffer.from(jsonContent, 'utf8')

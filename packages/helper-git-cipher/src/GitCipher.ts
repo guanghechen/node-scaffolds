@@ -2,16 +2,17 @@ import type {
   FileCipherPathResolver,
   IFileCipherBatcher,
   IFileCipherCatalog,
-  IJsonConfigKeeper,
 } from '@guanghechen/helper-cipher-file'
+import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type { ILogger } from '@guanghechen/utility-types'
+import { decryptFilesOnly } from './decrypt/filesOnly'
 import { decryptGitRepo } from './decrypt/repo'
 import { encryptGitRepo } from './encrypt/repo'
 import type { IGitCipherConfigData } from './types'
 
 export interface IGitCipherProps {
   cipherBatcher: IFileCipherBatcher
-  configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfigData>
   logger?: ILogger
 }
 
@@ -19,6 +20,11 @@ export interface IGitCipherEncryptParams {
   catalog: IFileCipherCatalog
   pathResolver: FileCipherPathResolver
   crypt2plainIdMap: ReadonlyMap<string, string>
+}
+
+export interface IGitCipherDecryptFilesOnlyParams {
+  pathResolver: FileCipherPathResolver
+  cryptCommitId: string
 }
 
 export interface IGitCipherEncryptRepoResult {
@@ -36,7 +42,7 @@ export interface IGitCipherDecryptRepoResult {
 
 export class GitCipher {
   public readonly cipherBatcher: IFileCipherBatcher
-  public readonly configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
+  public readonly configKeeper: IConfigKeeper<IGitCipherConfigData>
   public readonly logger?: ILogger
 
   constructor(props: IGitCipherProps) {
@@ -68,5 +74,16 @@ export class GitCipher {
       logger,
     })
     return { crypt2plainIdMap }
+  }
+
+  public async decryptFilesOnly(params: IGitCipherDecryptFilesOnlyParams): Promise<void> {
+    const { cipherBatcher, configKeeper, logger } = this
+    await decryptFilesOnly({
+      cryptCommitId: params.cryptCommitId,
+      pathResolver: params.pathResolver,
+      cipherBatcher,
+      configKeeper,
+      logger,
+    })
   }
 }

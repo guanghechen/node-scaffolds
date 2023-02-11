@@ -1,9 +1,6 @@
 import { collectAffectedPlainFilepaths } from '@guanghechen/helper-cipher-file'
-import type {
-  FileCipherPathResolver,
-  IFileCipherBatcher,
-  IJsonConfigKeeper,
-} from '@guanghechen/helper-cipher-file'
+import type { FileCipherPathResolver, IFileCipherBatcher } from '@guanghechen/helper-cipher-file'
+import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type { IGitCommandBaseParams, IGitCommitDagNode } from '@guanghechen/helper-git'
 import {
   checkBranch,
@@ -19,7 +16,7 @@ export interface IDecryptGitCommitParams {
   cryptCommitNode: IGitCommitDagNode
   cipherBatcher: IFileCipherBatcher
   pathResolver: FileCipherPathResolver
-  configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfigData>
   logger?: ILogger
 }
 
@@ -40,9 +37,10 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
   await checkBranch({ ...cryptCmdCtx, branchOrCommitId: cryptCommitNode.id })
 
   // Load the diffItems between the <first parent>...<current>.
-  const configData = await configKeeper.load()
+  await configKeeper.load()
+  const configData = configKeeper.data
   invariant(
-    configData !== null,
+    !!configData,
     `[decryptGitCommit] cannot load config. filepath(${configKeeper.filepath}), cryptCommitId(${cryptCommitNode.id})`,
   )
   const { commit: plainCommit } = configData

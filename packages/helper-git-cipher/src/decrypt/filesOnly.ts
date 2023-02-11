@@ -1,9 +1,6 @@
-import type {
-  FileCipherPathResolver,
-  IFileCipherBatcher,
-  IJsonConfigKeeper,
-} from '@guanghechen/helper-cipher-file'
+import type { FileCipherPathResolver, IFileCipherBatcher } from '@guanghechen/helper-cipher-file'
 import { FileChangeType } from '@guanghechen/helper-cipher-file'
+import type { IConfigKeeper } from '@guanghechen/helper-config'
 import {
   checkBranch,
   getHeadBranchOrCommitId,
@@ -19,7 +16,7 @@ export interface IDecryptFilesOnlyParams {
   cryptCommitId: string
   cipherBatcher: IFileCipherBatcher
   pathResolver: FileCipherPathResolver
-  configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfigData>
   logger?: ILogger
 }
 
@@ -48,9 +45,10 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
     await checkBranch({ ...cryptCmdCtx, branchOrCommitId: cryptCommitId })
 
     // Load the diffItems between the <first parent>...<current>.
-    const configData = await configKeeper.load()
+    await configKeeper.load()
+    const configData = configKeeper.data
     invariant(
-      configData !== null,
+      !!configData,
       `[decryptFilesOnly] cannot load config. filepath(${configKeeper.filepath}), encryptedCommitId(${cryptCommitId})`,
     )
     const { commit: plainCommit } = configData

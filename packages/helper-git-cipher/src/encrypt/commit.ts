@@ -6,9 +6,9 @@ import type {
   IFileCipherCatalogItem,
   IFileCipherCatalogItemDiff,
   IFileCipherCatalogItemDiffDraft,
-  IJsonConfigKeeper,
 } from '@guanghechen/helper-cipher-file'
 import { collectAffectedCryptFilepaths } from '@guanghechen/helper-cipher-file'
+import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type {
   IGitCommandBaseParams,
   IGitCommitDagNode,
@@ -26,7 +26,7 @@ import {
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
 import type { IGitCipherConfigData, IGitCommitOverview } from '../types'
-import { generateCommitHash } from '../util'
+import { generateCommitHash as generateCommitMessage } from '../util'
 
 export interface IEncryptGitCommitParams {
   plainCommitNode: IGitCommitDagNode
@@ -34,7 +34,7 @@ export interface IEncryptGitCommitParams {
   catalog: IFileCipherCatalog
   cipherBatcher: IFileCipherBatcher
   pathResolver: FileCipherPathResolver
-  configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfigData>
   logger?: ILogger
 }
 
@@ -75,9 +75,10 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     await checkBranch({ ...cryptCmdCtx, branchOrCommitId: cryptParentId })
 
     // Load the diffItems between the <first parent>...<current>.
-    const configData = await configKeeper.load()
+    await configKeeper.load()
+    const configData = configKeeper.data
     invariant(
-      configData !== null,
+      !!configData,
       `[encryptGitCommit] cannot load config. filepath(${configKeeper.filepath}), crypt(${cryptParentId})`,
     )
     const items: IFileCipherCatalogItem[] = configData.commit.catalog.items
@@ -154,9 +155,10 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
       ),
     },
   }
-  await configKeeper.save({ commit })
+  await configKeeper.update({ commit })
+  await configKeeper.save()
 
-  const message: string = generateCommitHash(commit)
+  const message: string = generateCommitMessage(commit.catalog.items)
   await commitAll({
     ...cryptCmdCtx,
     ...commit.signature,

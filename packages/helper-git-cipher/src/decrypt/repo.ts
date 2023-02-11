@@ -1,8 +1,5 @@
-import type {
-  FileCipherPathResolver,
-  IFileCipherBatcher,
-  IJsonConfigKeeper,
-} from '@guanghechen/helper-cipher-file'
+import type { FileCipherPathResolver, IFileCipherBatcher } from '@guanghechen/helper-cipher-file'
+import type { IConfigKeeper } from '@guanghechen/helper-config'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import {
@@ -23,7 +20,7 @@ import { decryptGitBranch } from './branch'
 
 export interface IDecryptGitRepoParams {
   cipherBatcher: IFileCipherBatcher
-  configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfigData>
   pathResolver: FileCipherPathResolver
   crypt2plainIdMap: ReadonlyMap<string, string>
   logger?: ILogger

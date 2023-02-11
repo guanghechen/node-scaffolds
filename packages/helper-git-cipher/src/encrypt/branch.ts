@@ -2,8 +2,8 @@ import type {
   FileCipherPathResolver,
   IFileCipherBatcher,
   IFileCipherCatalog,
-  IJsonConfigKeeper,
 } from '@guanghechen/helper-cipher-file'
+import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { getCommitInTopology, showCommitInfo } from '@guanghechen/helper-git'
 import type { ILogger } from '@guanghechen/utility-types'
@@ -16,7 +16,7 @@ export interface IEncryptGitBranchParams {
   catalog: IFileCipherCatalog
   cipherBatcher: IFileCipherBatcher
   pathResolver: FileCipherPathResolver
-  configKeeper: IJsonConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfigData>
   logger?: ILogger
 }
 

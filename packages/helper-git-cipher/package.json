@@ -42,6 +42,7 @@
   "dependencies": {
     "@guanghechen/helper-cipher": "^4.0.0-alpha.6",
     "@guanghechen/helper-cipher-file": "^4.0.0-alpha.6",
+    "@guanghechen/helper-config": "^4.0.0-alpha.6",
     "@guanghechen/helper-git": "^4.0.0-alpha.6",
     "@guanghechen/invariant": "^4.0.0-alpha.6",
     "@guanghechen/utility-types": "^4.0.0-alpha.6"
