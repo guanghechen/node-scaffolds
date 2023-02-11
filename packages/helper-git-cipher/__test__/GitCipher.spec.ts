@@ -33,8 +33,8 @@ import {
   contentC2,
   contentC3,
   contentD,
+  cryptFilesDir,
   encoding,
-  encryptedFilesDir,
   fpA,
   fpB,
   fpC,
@@ -86,8 +86,8 @@ describe('GitCipher', () => {
 
   const catalog = new FileCipherCatalog({
     pathResolver,
-    encryptedFilesDir,
-    encryptedFilePathSalt: 'guanghechen_git_cipher',
+    cryptFilesDir,
+    cryptFilepathSalt: 'guanghechen_git_cipher',
     maxTargetFileSize,
     partCodePrefix,
     logger,

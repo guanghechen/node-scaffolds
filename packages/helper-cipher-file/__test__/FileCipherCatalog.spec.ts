@@ -19,9 +19,9 @@ import type {
 } from '../src'
 import {
   contentTable,
+  cryptFilesDir,
   diffItemsTable,
   encoding,
-  encryptedFilesDir,
   itemDraftTable,
   itemTable,
   maxTargetFileSize,
@@ -48,8 +48,8 @@ describe('FileCipherCatalog', () => {
 
   const catalog = new FileCipherCatalog({
     pathResolver,
-    encryptedFilesDir,
-    encryptedFilePathSalt: 'guanghechen',
+    cryptFilesDir,
+    cryptFilepathSalt: 'guanghechen',
     maxTargetFileSize,
     partCodePrefix,
     logger,

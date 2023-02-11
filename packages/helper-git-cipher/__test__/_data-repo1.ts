@@ -28,6 +28,6 @@ export const repo1CryptCommitMessageTable = {
   K: '79861cb279ecfa722603ccd0d601d07d90cc1899abf8e51b0e83907b0decc0d4',
 }
 
-export const encryptedFilesDir = 'encrypted'
+export const cryptFilesDir = 'encrypted'
 export const maxTargetFileSize = 1024
 export const partCodePrefix = '.ghc-part'
