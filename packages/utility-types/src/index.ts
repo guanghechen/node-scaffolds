@@ -15,6 +15,11 @@ export type Mutable<T extends object> = { -readonly [P in keyof T]: T[P] }
 export type PickPartial<T extends object, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 
 /**
+ * The type is either a promise of type `T` or the value `T` itself.
+ */
+export type PromiseOr<T> = Promise<T> | T
+
+/**
  * Simple logger interface.
  */
 export interface ILogger {
