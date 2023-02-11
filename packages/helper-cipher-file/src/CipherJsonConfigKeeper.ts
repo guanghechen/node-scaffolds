@@ -33,8 +33,8 @@ export class PlainCipherJsonConfigKeeper<Data>
   extends CipherJsonConfigKeeper<Data, Data>
   implements IConfigKeeper<Data>
 {
-  public override readonly __version__ = '1.0.0'
-  public override readonly __compatible_version__ = '^1.0.0'
+  public override readonly __version__: string = '1.0.0'
+  public override readonly __compatible_version__: string = '^1.0.0'
 
   protected serialize(instance: Data): PromiseOr<Data> {
     return instance
