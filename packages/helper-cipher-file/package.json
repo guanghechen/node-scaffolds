@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@guanghechen/helper-cipher": "^4.0.0-alpha.6",
+    "@guanghechen/helper-config": "^4.0.0-alpha.6",
     "@guanghechen/helper-file": "^4.0.0-alpha.6",
     "@guanghechen/helper-fs": "^4.0.0-alpha.6",
     "@guanghechen/helper-func": "^4.0.0-alpha.6",
