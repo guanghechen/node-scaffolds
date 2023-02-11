@@ -38,4 +38,9 @@ export interface ICipherFactory {
    * @param password
    */
   initFromPassword(password: Readonly<Buffer>, options: IPBKDF2Options): void
+
+  /**
+   * Destroy secret and sensitive data.
+   */
+  cleanup(): void
 }

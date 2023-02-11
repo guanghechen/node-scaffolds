@@ -55,16 +55,24 @@ export class AesGcmCipherFactory implements ICipherFactory {
 
   public initFromSecret(secret: Readonly<Buffer>): void {
     const { key, iv } = this._parseSecret(secret)
-    this._cleanup()
+    this.cleanup()
     this.#key = key
     this.#iv = iv
   }
 
   public initFromPassword(password: Readonly<Buffer>, options: IPBKDF2Options): void {
     const { key, iv } = this._parsePassword(password, options)
-    this._cleanup()
+    this.cleanup()
     this.#key = key
     this.#iv = iv
+  }
+
+  public cleanup(): void {
+    destroyBuffer(this.#key)
+    destroyBuffer(this.#iv)
+    this.#iv = null
+    this.#key = null
+    this.#cipher = null
   }
 
   protected _parseSecret(secret: Readonly<Buffer>): { key: Buffer; iv: Buffer } {
@@ -87,13 +95,5 @@ export class AesGcmCipherFactory implements ICipherFactory {
     const ivPassword = calcMac(password, Buffer.from(salt, 'utf8'), key)
     const iv: Buffer = pbkdf2Sync(ivPassword, salt, iterations + 137, _ivSize, digest)
     return { key, iv }
-  }
-
-  protected _cleanup(): void {
-    destroyBuffer(this.#key)
-    destroyBuffer(this.#iv)
-    this.#iv = null
-    this.#key = null
-    this.#cipher = null
   }
 }
