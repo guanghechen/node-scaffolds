@@ -324,11 +324,11 @@ describe('FileCipherCatalog', () => {
       maxTargetFileSize,
       logger,
     })
-    const getNonce = async (item: IFileCipherCatalogItemDraft): Promise<Buffer | undefined> => {
-      const draftNonce: string | undefined = Object.values(itemTable).find(t =>
+    const getIv = async (item: IFileCipherCatalogItemDraft): Promise<Buffer | undefined> => {
+      const draftIv: string | undefined = Object.values(itemTable).find(t =>
         isSameFileCipherItemDraft(t, item),
       )?.iv
-      return draftNonce ? Buffer.from(draftNonce, 'hex') : undefined
+      return draftIv ? Buffer.from(draftIv, 'hex') : undefined
     }
 
     expect(Array.from(catalog.items)).toEqual([])
@@ -345,7 +345,7 @@ describe('FileCipherCatalog', () => {
         strictCheck: false,
         pathResolver,
         diffItems: draftDiffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step1)
@@ -385,7 +385,7 @@ describe('FileCipherCatalog', () => {
         strictCheck: false,
         pathResolver,
         diffItems: draftDiffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step2)
@@ -406,7 +406,7 @@ describe('FileCipherCatalog', () => {
         strictCheck: false,
         pathResolver,
         diffItems: draftDiffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step3)
@@ -429,7 +429,7 @@ describe('FileCipherCatalog', () => {
         strictCheck: false,
         pathResolver,
         diffItems: draftDiffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step4)
@@ -450,7 +450,7 @@ describe('FileCipherCatalog', () => {
         strictCheck: false,
         pathResolver,
         diffItems: draftDiffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step5)

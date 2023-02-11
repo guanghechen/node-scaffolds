@@ -20,11 +20,11 @@ export abstract class CipherJsonConfigKeeper<Instance, Data>
 
   protected override async stringify(data: Data): Promise<string> {
     const { cryptBytes } = this.cipher.encryptJson(data)
-    return cryptBytes.toString('hex')
+    return cryptBytes.toString('base64')
   }
 
   protected override async parse(content: string): Promise<Data> {
-    const cryptBytes: Buffer = Buffer.from(content, 'hex')
+    const cryptBytes: Buffer = Buffer.from(content, 'base64')
     return this.cipher.decryptJson(cryptBytes) as Data
   }
 }

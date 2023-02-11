@@ -74,11 +74,11 @@ describe('FileCipherBatcher', () => {
   const contentC: string = contentTable.C
   const contentD: string = contentTable.D
 
-  const encryptedContentA = '4e26698e6bebd87fc210bec49fea4da6210b5769dbff50b3479effa16799120f'
-  const encryptedContentA2 = '567d61041150b3ab51e448f37ad60d26bff2ffd8572fa4cd4cb15df75ccb4eab'
-  const encryptedContentB = '7155dd86eeabef61d44b738ffb1cde7cbf955f4c75c82395193cd117722d91ea'
-  const encryptedContentC = '1dfcd91be6d7a9b32cf42d8ef78544886302e3946810da8da4077d1c70374d66'
-  const encryptedContentD = '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13'
+  const cryptContentFingerA = '4e26698e6bebd87fc210bec49fea4da6210b5769dbff50b3479effa16799120f'
+  const cryptContentFingerA2 = '567d61041150b3ab51e448f37ad60d26bff2ffd8572fa4cd4cb15df75ccb4eab'
+  const cryptContentFingerB = '7155dd86eeabef61d44b738ffb1cde7cbf955f4c75c82395193cd117722d91ea'
+  const cryptContentFingerC = '1dfcd91be6d7a9b32cf42d8ef78544886302e3946810da8da4077d1c70374d66'
+  const cryptContentFingerD = '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13'
 
   const fileHelper = new BigFileHelper({ partCodePrefix })
   const cipherFactory = new AesGcmCipherFactory()
@@ -94,11 +94,11 @@ describe('FileCipherBatcher', () => {
     maxTargetFileSize,
     logger,
   })
-  const getNonce = async (item: IFileCipherCatalogItemDraft): Promise<Buffer | undefined> => {
-    const draftNonce: string | undefined = Object.values(itemTable).find(t =>
+  const getIv = async (item: IFileCipherCatalogItemDraft): Promise<Buffer | undefined> => {
+    const draftIv: string | undefined = Object.values(itemTable).find(t =>
       isSameFileCipherItemDraft(t, item),
     )?.iv
-    return draftNonce ? Buffer.from(draftNonce, 'hex') : undefined
+    return draftIv ? Buffer.from(draftIv, 'hex') : undefined
   }
 
   beforeEach(async () => {
@@ -132,7 +132,7 @@ describe('FileCipherBatcher', () => {
             strictCheck: true,
             pathResolver,
             diffItems,
-            getIv: getNonce,
+            getIv,
           }),
         'Bad diff item (added), crypt file already exists.',
       )
@@ -145,13 +145,13 @@ describe('FileCipherBatcher', () => {
         strictCheck: false,
         pathResolver,
         diffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       expect(existsSync(encryptedFilepathA)).toEqual(true)
       expect(existsSync(encryptedFilepathB)).toEqual(true)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathA)).toEqual(encryptedContentA)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathB)).toEqual(encryptedContentB)
+      expect(await getFingerprintOfEncryptedFile(encryptedFilepathA)).toEqual(cryptContentFingerA)
+      expect(await getFingerprintOfEncryptedFile(encryptedFilepathB)).toEqual(cryptContentFingerB)
     }
 
     // diffItems2
@@ -165,7 +165,7 @@ describe('FileCipherBatcher', () => {
             strictCheck: true,
             pathResolver,
             diffItems,
-            getIv: getNonce,
+            getIv,
           }),
         '[encryptDiff] Bad diff item (removed), plain file should not exist.',
       )
@@ -178,14 +178,14 @@ describe('FileCipherBatcher', () => {
         strictCheck: false,
         pathResolver,
         diffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       expect(existsSync(encryptedFilepathA)).toEqual(false)
       expect(existsSync(encryptedFilepathB)).toEqual(true)
       expect(encryptedFilepathsC.every(fp => existsSync(fp))).toEqual(true)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathB)).toEqual(encryptedContentB)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathsC)).toEqual(encryptedContentC)
+      expect(await getFingerprintOfEncryptedFile(encryptedFilepathB)).toEqual(cryptContentFingerB)
+      expect(await getFingerprintOfEncryptedFile(encryptedFilepathsC)).toEqual(cryptContentFingerC)
     }
 
     // diffItems3
@@ -198,14 +198,14 @@ describe('FileCipherBatcher', () => {
         strictCheck: true,
         pathResolver,
         diffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       expect(existsSync(encryptedFilepathA)).toEqual(true)
       expect(existsSync(encryptedFilepathB)).toEqual(false)
       expect(encryptedFilepathsC.every(fp => existsSync(fp))).toEqual(true)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathA)).toEqual(encryptedContentA)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathsC)).toEqual(encryptedContentC)
+      expect(await getFingerprintOfEncryptedFile(encryptedFilepathA)).toEqual(cryptContentFingerA)
+      expect(await getFingerprintOfEncryptedFile(encryptedFilepathsC)).toEqual(cryptContentFingerC)
     }
 
     // diffItems4
@@ -219,15 +219,15 @@ describe('FileCipherBatcher', () => {
         strictCheck: true,
         pathResolver,
         diffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       expect(existsSync(encryptedFilepathA)).toEqual(false)
       expect(existsSync(encryptedFilepathA2)).toEqual(true)
       expect(encryptedFilepathsC.some(fp => existsSync(fp))).toEqual(false)
       expect(encryptedFilepathsD.every(fp => existsSync(fp))).toEqual(true)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathA2)).toEqual(encryptedContentA2)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathsD)).toEqual(encryptedContentD)
+      expect(await getFingerprintOfEncryptedFile(encryptedFilepathA2)).toEqual(cryptContentFingerA2)
+      expect(await getFingerprintOfEncryptedFile(encryptedFilepathsD)).toEqual(cryptContentFingerD)
     }
 
     // diffItems5
@@ -240,7 +240,7 @@ describe('FileCipherBatcher', () => {
         strictCheck: true,
         pathResolver,
         diffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       expect(existsSync(encryptedFilepathA)).toEqual(false)
@@ -261,7 +261,7 @@ describe('FileCipherBatcher', () => {
         strictCheck: false,
         pathResolver,
         diffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       mkdirsIfNotExists(filepath2A, true)
@@ -308,7 +308,7 @@ describe('FileCipherBatcher', () => {
         strictCheck: false,
         pathResolver,
         diffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       await cipherBatcher.batchDecrypt({
@@ -350,7 +350,7 @@ describe('FileCipherBatcher', () => {
         strictCheck: true,
         pathResolver,
         diffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       await cipherBatcher.batchDecrypt({
@@ -376,7 +376,7 @@ describe('FileCipherBatcher', () => {
         strictCheck: true,
         pathResolver,
         diffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       await cipherBatcher.batchDecrypt({
@@ -402,7 +402,7 @@ describe('FileCipherBatcher', () => {
         strictCheck: true,
         pathResolver,
         diffItems,
-        getIv: getNonce,
+        getIv,
       })
 
       await cipherBatcher.batchDecrypt({

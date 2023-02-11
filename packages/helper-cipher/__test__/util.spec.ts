@@ -16,8 +16,8 @@ describe('util', () => {
   })
 
   test('calcMacFromString', () => {
-    expect(calcMacFromString('hello, world!', 'utf8').toString('hex')).toEqual(
-      '68e656b251e67e8358bef8483ab0d51c6619f3e7a1a9f0e75838d41ff368f728',
+    expect(calcMacFromString('hello, world!', 'utf8').toString('base64')).toEqual(
+      'aOZWslHmfoNYvvhIOrDVHGYZ8+ehqfDnWDjUH/No9yg=',
     )
   })
 

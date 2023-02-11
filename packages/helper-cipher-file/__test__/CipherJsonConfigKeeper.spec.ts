@@ -100,8 +100,8 @@ describe('CipherJsonConfigKeeper', () => {
     expect(isFileSync(configFilepath)).toEqual(true)
     expect(JSON.parse(await fs.readFile(configFilepath, 'utf8'))).toEqual({
       __version__: keeper.__version__,
-      __mac__: '0dd436d0a501788e6aad4a78747f35c3346c957d337cabb2cd5c235347dcccf8',
-      data: 'e39cc52b853ea335b4eed5f65423f762c199297d64f75fd0e54e5757cd4503e8e4d0cc45ed98ba7ab43bf0fef817a1be9a6f45144e91c7062995eba52ee3f993',
+      __mac__: 'ad43c78227f5771c10b6ac10027eded3f409d867c8929a57879223503add722d',
+      data: '45zFK4U+ozW07tX2VCP3YsGZKX1k91/Q5U5XV81FA+jk0MxF7Zi6erQ78P74F6G+mm9FFE6RxwYpleulLuP5kw==',
     })
 
     await keeper.update(bob)
@@ -114,8 +114,8 @@ describe('CipherJsonConfigKeeper', () => {
     await keeper.save()
     expect(JSON.parse(await fs.readFile(configFilepath, 'utf8'))).toEqual({
       __version__: keeper.__version__,
-      __mac__: '57dd53f575f67b77cc6f588062b21374ca6ee962c8c6c5e02777e035ce047728',
-      data: 'e39cc52b853ea335b4edd6fd156af72891963e7a65ea19999c56781ac2083ce6ea82d959f3cd8824f269abafbd52f8aac87f5d4b',
+      __mac__: 'c5d89f50ccfd3c5eafe67d9eb291fd18c7800cccf739c78ea0251748899a5b20',
+      data: '45zFK4U+ozW07db9FWr3KJGWPnpl6hmZnFZ4GsIIPObqgtlZ882IJPJpq6+9UviqyH9dSw==',
     })
 
     const iv2: Buffer = Buffer.from('ghc'.repeat(20), 'utf8').slice(0, 12)
@@ -129,8 +129,8 @@ describe('CipherJsonConfigKeeper', () => {
     expect(isFileSync(configFilepath)).toEqual(true)
     expect(JSON.parse(await fs.readFile(configFilepath, 'utf8'))).toEqual({
       __version__: keeper.__version__,
-      __mac__: '48a2d6c268c3a83cf2058a7bd54b1322d5d5118ad3cc424716dc9c2089334336',
-      data: 'a3378c512f22e9e3fb2cd2201a86f1bf47e4e841acbf2d71d34843f34e6160942ecb441a22c70f9fd87c3d66242d3ddc746e4ba424b15ef2f27f0d6a0e4a8a3a',
+      __mac__: 'ed83dba7fe6d1e3a036ed04b09d21e4a36416b6c230b6bd143cba4f347ceb363',
+      data: 'ozeMUS8i6eP7LNIgGobxv0fk6EGsvy1x00hD805hYJQuy0QaIscPn9h8PWYkLT3cdG5LpCSxXvLyfw1qDkqKOg==',
     })
   })
 
@@ -146,8 +146,8 @@ describe('CipherJsonConfigKeeper', () => {
     expect(isFileSync(configFilepath)).toEqual(true)
     expect(JSON.parse(await fs.readFile(configFilepath, 'utf8'))).toEqual({
       __version__: keeper.__version__,
-      __mac__: '0dd436d0a501788e6aad4a78747f35c3346c957d337cabb2cd5c235347dcccf8',
-      data: 'e39cc52b853ea335b4eed5f65423f762c199297d64f75fd0e54e5757cd4503e8e4d0cc45ed98ba7ab43bf0fef817a1be9a6f45144e91c7062995eba52ee3f993',
+      __mac__: 'ad43c78227f5771c10b6ac10027eded3f409d867c8929a57879223503add722d',
+      data: '45zFK4U+ozW07tX2VCP3YsGZKX1k91/Q5U5XV81FA+jk0MxF7Zi6erQ78P74F6G+mm9FFE6RxwYpleulLuP5kw==',
     })
 
     await keeper.update(bobData)
@@ -160,8 +160,8 @@ describe('CipherJsonConfigKeeper', () => {
     await keeper.save()
     expect(JSON.parse(await fs.readFile(configFilepath, 'utf8'))).toEqual({
       __version__: keeper.__version__,
-      __mac__: '57dd53f575f67b77cc6f588062b21374ca6ee962c8c6c5e02777e035ce047728',
-      data: 'e39cc52b853ea335b4edd6fd156af72891963e7a65ea19999c56781ac2083ce6ea82d959f3cd8824f269abafbd52f8aac87f5d4b',
+      __mac__: 'c5d89f50ccfd3c5eafe67d9eb291fd18c7800cccf739c78ea0251748899a5b20',
+      data: '45zFK4U+ozW07db9FWr3KJGWPnpl6hmZnFZ4GsIIPObqgtlZ882IJPJpq6+9UviqyH9dSw==',
     })
 
     const cipher2: ICipher = cipherFactory.cipher({ iv: cipherFactory.createRandomIv() })
