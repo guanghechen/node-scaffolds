@@ -18,22 +18,14 @@ export abstract class CipherJsonConfigKeeper<Instance, Data>
     this.cipher = props.cipher
   }
 
-  protected override async encode(config: IConfig<Data>): Promise<Buffer> {
-    const { cryptBytes } = this.cipher.encryptJson(config.data)
-    const savingData: IConfig<string> = {
-      __version__: config.__version__,
-      data: cryptBytes.toString('hex'),
-    }
-    const jsonContent: string = JSON.stringify(savingData)
-    return Buffer.from(jsonContent, 'utf8')
+  protected override async stringify(data: Data): Promise<string> {
+    const { cryptBytes } = this.cipher.encryptJson(data)
+    return cryptBytes.toString('hex')
   }
 
-  protected override async decode(buffer: Buffer): Promise<IConfig<Data>> {
-    const jsonContent: string = buffer.toString('utf8')
-    const jsonData: IConfig<string> = JSON.parse(jsonContent)
-    const cryptBytes: Buffer = Buffer.from(jsonData.data, 'hex')
-    const plainData = this.cipher.decryptJson(cryptBytes) as Data
-    return { __version__: jsonData.__version__, data: plainData }
+  protected override async parse(content: string): Promise<Data> {
+    const cryptBytes: Buffer = Buffer.from(content, 'hex')
+    return this.cipher.decryptJson(cryptBytes) as Data
   }
 }
 

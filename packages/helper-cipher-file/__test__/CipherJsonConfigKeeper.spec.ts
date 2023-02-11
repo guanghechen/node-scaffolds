@@ -100,6 +100,7 @@ describe('CipherJsonConfigKeeper', () => {
     expect(isFileSync(configFilepath)).toEqual(true)
     expect(JSON.parse(await fs.readFile(configFilepath, 'utf8'))).toEqual({
       __version__: keeper.__version__,
+      __mac__: '0dd436d0a501788e6aad4a78747f35c3346c957d337cabb2cd5c235347dcccf8',
       data: 'e39cc52b853ea335b4eed5f65423f762c199297d64f75fd0e54e5757cd4503e8e4d0cc45ed98ba7ab43bf0fef817a1be9a6f45144e91c7062995eba52ee3f993',
     })
 
@@ -113,12 +114,24 @@ describe('CipherJsonConfigKeeper', () => {
     await keeper.save()
     expect(JSON.parse(await fs.readFile(configFilepath, 'utf8'))).toEqual({
       __version__: keeper.__version__,
+      __mac__: '57dd53f575f67b77cc6f588062b21374ca6ee962c8c6c5e02777e035ce047728',
       data: 'e39cc52b853ea335b4edd6fd156af72891963e7a65ea19999c56781ac2083ce6ea82d959f3cd8824f269abafbd52f8aac87f5d4b',
     })
 
-    const cipher2: ICipher = cipherFactory.cipher({ iv: cipherFactory.createRandomIv() })
+    const iv2: Buffer = Buffer.from('ghc'.repeat(20), 'utf8').slice(0, 12)
+    const cipher2: ICipher = cipherFactory.cipher({ iv: iv2 })
     const keeper2 = new MyCipherJsonConfigKeeper({ filepath: configFilepath, cipher: cipher2 })
     await assertPromiseThrow(() => keeper2.load(), 'Unexpected token')
+
+    await keeper2.update(alice)
+    expect(keeper2.data).toEqual(alice)
+    await keeper2.save()
+    expect(isFileSync(configFilepath)).toEqual(true)
+    expect(JSON.parse(await fs.readFile(configFilepath, 'utf8'))).toEqual({
+      __version__: keeper.__version__,
+      __mac__: '48a2d6c268c3a83cf2058a7bd54b1322d5d5118ad3cc424716dc9c2089334336',
+      data: 'a3378c512f22e9e3fb2cd2201a86f1bf47e4e841acbf2d71d34843f34e6160942ecb441a22c70f9fd87c3d66242d3ddc746e4ba424b15ef2f27f0d6a0e4a8a3a',
+    })
   })
 
   test('plain', async () => {
@@ -133,6 +146,7 @@ describe('CipherJsonConfigKeeper', () => {
     expect(isFileSync(configFilepath)).toEqual(true)
     expect(JSON.parse(await fs.readFile(configFilepath, 'utf8'))).toEqual({
       __version__: keeper.__version__,
+      __mac__: '0dd436d0a501788e6aad4a78747f35c3346c957d337cabb2cd5c235347dcccf8',
       data: 'e39cc52b853ea335b4eed5f65423f762c199297d64f75fd0e54e5757cd4503e8e4d0cc45ed98ba7ab43bf0fef817a1be9a6f45144e91c7062995eba52ee3f993',
     })
 
@@ -146,6 +160,7 @@ describe('CipherJsonConfigKeeper', () => {
     await keeper.save()
     expect(JSON.parse(await fs.readFile(configFilepath, 'utf8'))).toEqual({
       __version__: keeper.__version__,
+      __mac__: '57dd53f575f67b77cc6f588062b21374ca6ee962c8c6c5e02777e035ce047728',
       data: 'e39cc52b853ea335b4edd6fd156af72891963e7a65ea19999c56781ac2083ce6ea82d959f3cd8824f269abafbd52f8aac87f5d4b',
     })
 
