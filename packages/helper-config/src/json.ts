@@ -9,14 +9,22 @@ export abstract class JsonConfigKeeper<Instance, Data>
   extends BaseConfigKeeper<Instance, Data>
   implements IConfigKeeper<Instance>
 {
-  protected override encode(config: IConfig<Data>): PromiseOr<Buffer> {
+  protected override stringify(data: Data): PromiseOr<string> {
+    return JSON.stringify(data)
+  }
+
+  protected override parse(content: string): PromiseOr<Data> {
+    return JSON.parse(content)
+  }
+
+  protected override encode(config: IConfig): PromiseOr<Buffer> {
     const jsonContent: string = JSON.stringify(config)
     return Buffer.from(jsonContent, 'utf8')
   }
 
-  protected override decode(buffer: Buffer): PromiseOr<IConfig<Data>> {
+  protected override decode(buffer: Buffer): PromiseOr<IConfig> {
     const jsonContent: string = buffer.toString('utf8')
-    const jsonData = JSON.parse(jsonContent) as IConfig<Data>
+    const jsonData = JSON.parse(jsonContent) as IConfig
     return jsonData
   }
 }

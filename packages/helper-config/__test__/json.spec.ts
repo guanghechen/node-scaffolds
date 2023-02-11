@@ -5,6 +5,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import type { IConfigKeeper } from '../src'
 import { JsonConfigKeeper, PlainJsonConfigKeeper } from '../src'
+import { calcMac } from '../src/util'
 
 describe('JsonConfigKeeper', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.JsonConfigKeeper')
@@ -152,6 +153,16 @@ function testJsonConfigKeeper<Instance, Data>(params: {
     await keeper.remove()
   })
 
+  const writeData = async (version: string, data: Data): Promise<void> => {
+    const content: string = JSON.stringify(data)
+    const mac: string = calcMac(content)
+    await writeFile(
+      configFilepath,
+      JSON.stringify({ __version__: version, __mac__: mac, data: content }),
+      'utf8',
+    )
+  }
+
   test('load', async () => {
     await assertPromiseThrow(() => keeper.load(), `[${className}.load] Cannot find file`)
     mkdirsIfNotExists(configFilepath, true)
@@ -159,22 +170,30 @@ function testJsonConfigKeeper<Instance, Data>(params: {
     expect(keeper.data).toEqual(undefined)
 
     await rm(configFilepath)
-    await writeFile(configFilepath, JSON.stringify({ data: data.alice }))
-    await assertPromiseThrow(() => keeper.load(), `[${className}.load] Bad config`)
+    await writeFile(configFilepath, JSON.stringify({ data: data.alice }), 'utf8')
+    await assertPromiseThrow(() => keeper.load(), `[${className}.load] Bad config, invalid fields`)
     expect(keeper.data).toEqual(undefined)
 
-    await writeFile(configFilepath, JSON.stringify({ __version__: '3.2.3', data: data.alice }))
+    await writeFile(configFilepath, JSON.stringify({ version: '1.0.0', data: data.alice }), 'utf8')
+    await assertPromiseThrow(() => keeper.load(), `[${className}.load] Bad config, invalid fields`)
+    expect(keeper.data).toEqual(undefined)
+
+    await writeFile(configFilepath, 'null', 'utf8')
+    await assertPromiseThrow(() => keeper.load(), `[${className}.load] Bad config, invalid fields`)
+    expect(keeper.data).toEqual(undefined)
+
+    await writeData('3.2.3', data.alice)
     await assertPromiseThrow(
       () => keeper.load(),
       `[${className}.load] Version not compatible. expect(${keeper.__compatible_version__}), received(3.2.3)`,
     )
     expect(keeper.data).toEqual(undefined)
 
-    await writeFile(configFilepath, JSON.stringify({ __version__: '1.0.0', data: data.alice }))
+    await writeData('1.0.0', data.alice)
     await keeper.load()
     expect(keeper.data).toEqual(instance.alice)
 
-    await writeFile(configFilepath, JSON.stringify({ __version__: '1.2.3', data: data.bob }))
+    await writeData('1.2.3', data.bob)
     expect(keeper.data).toEqual(instance.alice)
     await keeper.load()
     expect(keeper.data).toEqual(instance.bob)
@@ -192,16 +211,22 @@ function testJsonConfigKeeper<Instance, Data>(params: {
     await rm(path.dirname(configFilepath))
     await keeper.save()
     expect(isFileSync(configFilepath)).toEqual(true)
-    expect(JSON.parse(await fs.readFile(configFilepath, 'utf8')).data).toEqual(data.alice)
+    expect(JSON.parse(await fs.readFile(configFilepath, 'utf8')).data).toEqual(
+      JSON.stringify(data.alice),
+    )
 
     await keeper.update(instance.bob)
     expect(keeper.data).toEqual(instance.bob)
     expect(isFileSync(configFilepath)).toEqual(true)
-    expect(JSON.parse(await fs.readFile(configFilepath, 'utf8')).data).toEqual(data.alice)
+    expect(JSON.parse(await fs.readFile(configFilepath, 'utf8')).data).toEqual(
+      JSON.stringify(data.alice),
+    )
 
     await keeper.save()
     expect(isFileSync(configFilepath)).toEqual(true)
-    expect(JSON.parse(await fs.readFile(configFilepath, 'utf8')).data).toEqual(data.bob)
+    expect(JSON.parse(await fs.readFile(configFilepath, 'utf8')).data).toEqual(
+      JSON.stringify(data.bob),
+    )
 
     await keeper.remove()
     expect(isFileSync(configFilepath)).toEqual(false)

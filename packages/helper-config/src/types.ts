@@ -1,12 +1,16 @@
-export interface IConfig<D> {
+export interface IConfig {
   /**
    * Config version.
    */
   __version__: string
   /**
+   * Mac of data.
+   */
+  __mac__: string
+  /**
    * Payload data.
    */
-  data: D
+  data: string
 }
 
 export interface IConfigKeeper<D> {

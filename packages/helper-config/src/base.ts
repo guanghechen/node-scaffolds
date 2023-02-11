@@ -5,6 +5,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import semver from 'semver'
 import type { IConfig, IConfigKeeper } from './types'
+import { calcMac } from './util'
 
 export interface IBaseConfigKeeperProps {
   /**
@@ -23,13 +24,23 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
     this._instance = undefined
   }
 
+  // Instance -> Data
   protected abstract serialize(instance: Instance): PromiseOr<Data>
 
+  // Data -> Instance
   protected abstract deserialize(data: Data): PromiseOr<Instance>
 
-  protected abstract encode(config: IConfig<Data>): PromiseOr<Buffer>
+  // Data -> string
+  protected abstract stringify(data: Data): PromiseOr<string>
 
-  protected abstract decode(buffer: Buffer): PromiseOr<IConfig<Data>>
+  // string -> Data
+  protected abstract parse(content: string): PromiseOr<Data>
+
+  // IConfig -> Buffer
+  protected abstract encode(config: IConfig): PromiseOr<Buffer>
+
+  // Buffer -> IConfig
+  protected abstract decode(buffer: Buffer): PromiseOr<IConfig>
 
   protected _instance: Instance | undefined
   public get data(): Readonly<Instance> | undefined {
@@ -55,20 +66,28 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
     invariant(statSync(this.filepath).isFile(), `[${title}.load] Not a file. ${this.filepath}`)
 
     const buffer: Buffer = await fs.readFile(this.filepath)
-    const config: IConfig<Data> = await this.decode(buffer)
+    const config: IConfig = await this.decode(buffer)
 
-    // Assert config compatible
-    const __version__ = (config as IConfig<unknown>).__version__
+    // Assert config is compatible.
+    const { __version__, __mac__, data: rawData } = config ?? {}
     invariant(
-      typeof __version__ === 'string',
-      () => `[${title}.load] Bad config. (${JSON.stringify(config)})`,
+      typeof __version__ === 'string' && typeof __mac__ === 'string' && typeof rawData === 'string',
+      () => `[${title}.load] Bad config, invalid fields. (${JSON.stringify(config)})`,
     )
     invariant(
       this.isCompatible(__version__),
       `[${title}.load] Version not compatible. expect(${this.__compatible_version__}), received(${__version__})`,
     )
 
-    this._instance = await this.deserialize(config.data)
+    // Assert config mac is matched.
+    invariant(
+      calcMac(config.data) === config.__mac__,
+      () => `[${title}.load] Bad config, mac is not matched.`,
+    )
+
+    const data: Data = await this.parse(config.data)
+    const instance: Instance = await this.deserialize(data)
+    this._instance = instance
   }
 
   public async save(): Promise<void> {
@@ -80,7 +99,9 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
     invariant(statSync(dir).isDirectory(), `[${title}.save] Parent path is not a dir. ${dir}`)
 
     const data: Data = await this.serialize(this._instance)
-    const config: IConfig<Data> = { __version__: this.__version__, data }
+    const content: string = await this.stringify(data)
+    const mac: string = calcMac(content)
+    const config: IConfig = { __version__: this.__version__, __mac__: mac, data: content }
     const buffer: Buffer = await this.encode(config)
     await fs.writeFile(this.filepath, buffer)
   }
