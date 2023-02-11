@@ -42,7 +42,7 @@ export class GitCipherEncryptProcessor {
       filepath: context.secretFilepath,
       cryptRootDir: context.cryptRootDir,
     })
-    await secretMaster.load(secretKeeper)
+    await secretMaster.load(secretKeeper, true)
 
     const cipherFactory: ICipherFactory | null = secretMaster.cipherFactory
     invariant(

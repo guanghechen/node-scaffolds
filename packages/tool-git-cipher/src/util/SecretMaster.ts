@@ -2,6 +2,7 @@ import type { ICipher, ICipherFactory } from '@guanghechen/helper-cipher'
 import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
 import { destroyBuffer } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
+import { logger } from '../env/logger'
 import { ErrorCode, EventTypes, eventBus } from './events'
 import { confirmPassword, inputPassword } from './password'
 import type { ISecretConfigData } from './SecretConfig'
@@ -55,6 +56,7 @@ export class SecretMaster {
     let configKeeper: SecretConfigKeeper
     try {
       const { showAsterisk, minPasswordLength, maxPasswordLength } = this
+      logger.debug('Asking input new password.')
       password = await inputPassword({
         question: 'Password: ',
         showAsterisk,
@@ -74,6 +76,8 @@ export class SecretMaster {
           message: 'Entered passwords differ!',
         }
       }
+
+      logger.debug('Creating new secret.')
 
       // Use password to encrypt new secret.
       {
@@ -112,6 +116,7 @@ export class SecretMaster {
           configKeeper = new SecretConfigKeeper({ filepath, cryptRootDir })
           await configKeeper.update(config)
           await configKeeper.save()
+          logger.debug('Create new secret succeed.')
         } finally {
           mainCipherFactory.cleanup()
           secretCipherFactory.cleanup()
@@ -128,8 +133,8 @@ export class SecretMaster {
   }
 
   // Load secret key & initialize secret cipher factory.
-  public async load(configKeeper: SecretConfigKeeper): Promise<void> {
-    const config: ISecretConfigData = await this._loadConfig(configKeeper, true)
+  public async load(configKeeper: SecretConfigKeeper, forceReload: boolean): Promise<void> {
+    const config: ISecretConfigData = await this._loadConfig(configKeeper, forceReload)
 
     this.#secretCipherFactory?.cleanup()
     this.#secretCipherFactory = null
@@ -160,6 +165,7 @@ export class SecretMaster {
         mainCipherFactory.initFromPassword(password, config.pbkdf2Options)
         passwordCipher = mainCipherFactory.cipher()
 
+        logger.debug('Trying decrypt secret.')
         const cryptSecretBytes: Buffer = Buffer.from(config.secret, 'hex')
         const authTag: Buffer | undefined = config.secretAuthTag
           ? Buffer.from(config.secretAuthTag, 'hex')
@@ -210,7 +216,7 @@ export class SecretMaster {
   // Test whether the password is correct.
   protected async _verifyPassword(
     configKeeper: SecretConfigKeeper,
-    password: Buffer,
+    password: Readonly<Buffer>,
   ): Promise<boolean> {
     const config: ISecretConfigData = await this._loadConfig(configKeeper, false)
     const mainCipherFactory = new AesGcmCipherFactory({
@@ -235,7 +241,6 @@ export class SecretMaster {
       mainCipherFactory.cleanup()
       passwordCipher?.cleanup()
       destroyBuffer(secret)
-      destroyBuffer(password)
       secret = null
     }
     return verified
@@ -243,9 +248,9 @@ export class SecretMaster {
 
   protected async _loadConfig(
     configKeeper: SecretConfigKeeper,
-    reload: boolean,
+    forceReload: boolean,
   ): Promise<ISecretConfigData | never> {
-    if (reload || configKeeper.data === undefined) await configKeeper.load()
+    if (forceReload || configKeeper.data === undefined) await configKeeper.load()
 
     const title: string = this.constructor.name
     const config: ISecretConfigData | undefined = configKeeper.data

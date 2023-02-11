@@ -40,7 +40,7 @@ export class GitCipherInitProcessor {
 
     // Create secret file.
     const configKeeper = await this._createSecret()
-    await this.secretMaster.load(configKeeper)
+    await this.secretMaster.load(configKeeper, false)
 
     // Render templates.
     await this._renderTemplates(configKeeper.data!)
