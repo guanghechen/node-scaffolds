@@ -12,4 +12,4 @@ const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 export const configRootDir = path.resolve(__dirname, '../config')
 
 // Template files root dir
-export const templateRootDir = path.join(configRootDir, 'templates')
+export const boilerplateRootDir = path.join(configRootDir, 'boilerplates')

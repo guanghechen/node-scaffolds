@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { configRootDir, templateRootDir } from './constant'
+import { boilerplateRootDir, configRootDir } from './constant'
 
 /**
  * Calc absolute path of configs
@@ -14,5 +14,5 @@ export function resolveConfigFilepath(...filepath: string[]): string {
  * @param filepath
  */
 export function resolveTemplateFilepath(...filepath: string[]): string {
-  return path.resolve(templateRootDir, ...filepath)
+  return path.resolve(boilerplateRootDir, ...filepath)
 }

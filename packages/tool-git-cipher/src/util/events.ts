@@ -36,7 +36,6 @@ export const eventBus = new SimpleEventBus<EventTypes>()
 
 eventBus.on(EventTypes.CANCELED, function () {
   logger.info('canceled')
-  logger.debug('canceled.')
   eventBus.dispatch({ type: EventTypes.EXITING })
 })
 

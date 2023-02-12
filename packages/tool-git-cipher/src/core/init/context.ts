@@ -3,7 +3,7 @@ import type { ISubCommandInitOptions } from './option'
 
 export interface IGitCipherInitContext {
   /**
-   * The path of catalog file of crypt repo. (relative of cryptRootDir)
+   * The path of catalog file of crypt repo. (absolute path)
    */
   readonly catalogFilepath: string
   /**
@@ -15,11 +15,11 @@ export interface IGitCipherInitContext {
    */
   readonly cryptFilesDir: string
   /**
-   * The directory where the crypt repo located.
+   * The directory where the crypt repo located. (absolute path)
    */
   readonly cryptRootDir: string
   /**
-   * Path of currently executing command.
+   * Path of currently executing command. (absolute path)
    */
   readonly cwd: string
   /**
@@ -65,11 +65,11 @@ export interface IGitCipherInitContext {
    */
   readonly pbkdf2Options: IPBKDF2Options
   /**
-   * The directory where the plain repo located.
+   * The directory where the plain repo located. (absolute path)
    */
   readonly plainRootDir: string
   /**
-   * The path of secret file. (relative of workspace)
+   * The path of secret file. (absolute path)
    */
   readonly secretFilepath: string
   /**
@@ -85,7 +85,7 @@ export interface IGitCipherInitContext {
    */
   readonly showAsterisk: boolean
   /**
-   * Working directory.
+   * Working directory. (absolute path)
    */
   readonly workspace: string
 }

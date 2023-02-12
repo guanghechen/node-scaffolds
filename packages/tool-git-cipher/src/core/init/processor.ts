@@ -36,14 +36,13 @@ export class GitCipherInitProcessor {
     invariant(hasGitInstalled(), `Cannot find 'git', please install it before continuing.`)
 
     const { context } = this
-    logger.debug('context:', context)
 
     // Create secret file.
     const configKeeper = await this._createSecret()
     await this.secretMaster.load(configKeeper, false)
 
-    // Render templates.
-    await this._renderTemplates(configKeeper.data!)
+    // Render boilerplates.
+    await this._renderBoilerplates(configKeeper.data!)
 
     // Install dependencies.
     await installDependencies({ stdio: 'inherit', cwd: context.workspace }, [], logger)
@@ -59,8 +58,8 @@ export class GitCipherInitProcessor {
     await stageAll({ cwd: context.workspace, logger })
   }
 
-  // Render templates
-  protected async _renderTemplates(secretConfigData: ISecretConfigData): Promise<void> {
+  // Render boilerplates.
+  protected async _renderBoilerplates(secretConfigData: ISecretConfigData): Promise<void> {
     const { context } = this
 
     // request repository url

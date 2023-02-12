@@ -2,15 +2,15 @@ import type { ISubCommandDecryptOptions } from './option'
 
 export interface IGitCipherDecryptContext {
   /**
-   * The path of catalog cache file of crypt repo. (relative of workspace)
+   * The path of catalog cache file of crypt repo. (absolute path)
    */
   readonly catalogCacheFilepath: string
   /**
-   * The directory where the crypt repo located.
+   * The directory where the crypt repo located. (absolute path)
    */
   readonly cryptRootDir: string
   /**
-   * Path of currently executing command.
+   * Path of currently executing command. (absolute path)
    */
   readonly cwd: string
   /**
@@ -35,15 +35,15 @@ export interface IGitCipherDecryptContext {
    */
   readonly minPasswordLength: number
   /**
-   * Root dir of decrypted outputs.
+   * Root dir of decrypted outputs. (absolute path)
    */
   readonly outDir: string | null
   /**
-   * The directory where the plain repo located.
+   * The directory where the plain repo located. (absolute path)
    */
   readonly plainRootDir: string
   /**
-   * The path of secret file.
+   * The path of secret file. (absolute path)
    */
   readonly secretFilepath: string
   /**
@@ -51,7 +51,7 @@ export interface IGitCipherDecryptContext {
    */
   readonly showAsterisk: boolean
   /**
-   * Working directory.
+   * Working directory. (absolute path)
    */
   readonly workspace: string
 }

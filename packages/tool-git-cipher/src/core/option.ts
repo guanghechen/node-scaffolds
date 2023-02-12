@@ -18,7 +18,7 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
    */
   readonly catalogCacheFilepath: string
   /**
-   * The directory where the crypt repo located.
+   * The directory where the crypt repo located. (relative of workspace or absolute path)
    * @default 'ghc-crypt'
    */
   readonly cryptRootDir: string
@@ -42,12 +42,12 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
    */
   readonly minPasswordLength: number
   /**
-   * The directory where the plain repo located.
+   * The directory where the plain repo located. (relative of workspace or absolute path)
    * @default '.'
    */
   readonly plainRootDir: string
   /**
-   * The path of secret file.  (relative of workspace)
+   * The path of secret file. (relative of workspace)
    * @default '.ghc-secret'
    */
   readonly secretFilepath: string
@@ -62,14 +62,14 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
  * Default value of global options
  */
 export const getDefaultGlobalCommandOptions = (): IGlobalCommandOptions => ({
-  catalogCacheFilepath: '.ghc-catalog-cache',
+  catalogCacheFilepath: '.ghc-catalog-cache.json',
   cryptRootDir: 'ghc-crypt',
   encoding: 'utf8',
   maxPasswordLength: 100,
   maxRetryTimes: 3,
   minPasswordLength: 6,
   plainRootDir: '.',
-  secretFilepath: '.ghc-secret',
+  secretFilepath: '.ghc-secret.json',
   showAsterisk: true,
 })
 

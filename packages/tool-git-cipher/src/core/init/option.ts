@@ -105,23 +105,10 @@ export function resolveSubCommandInitOptions(
   )
 
   // Resolve catalogFilepath
-  const absoluteCatalogFilepath: string = absoluteOfWorkspace(
+  const catalogFilepath: string = absoluteOfWorkspace(
     globalOptions.cryptRootDir,
     cover<string>(defaultOptions.catalogFilepath, options.catalogFilepath, isNonBlankString),
   )
-  const relativeCryptRootDir = relativeOfWorkspace(workspaceDir, globalOptions.cryptRootDir)
-  const relativeCatalogFilepath = relativeOfWorkspace(
-    globalOptions.cryptRootDir,
-    absoluteCatalogFilepath,
-  )
-  const catalogFilepath: string = relativeCatalogFilepath.startsWith(
-    relativeCryptRootDir + path.sep,
-  )
-    ? absoluteOfWorkspace(
-        globalOptions.cryptRootDir,
-        relativeCatalogFilepath.slice(relativeCryptRootDir.length + 1),
-      )
-    : absoluteCatalogFilepath
   logger.debug('catalogFilepath:', catalogFilepath)
 
   // Resolve cryptFilepathSalt
