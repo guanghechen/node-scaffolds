@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/mini-copy",
-  "version": "4.0.0-alpha.6",
+  "version": "4.0.0-alpha.7",
   "description": "Access system clipboard (also support to share clipboard in wsl with windows).",
   "author": {
     "name": "guanghechen",
@@ -40,9 +40,9 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@guanghechen/helper-fs": "^4.0.0-alpha.6",
-    "@guanghechen/invariant": "^4.0.0-alpha.6",
-    "@guanghechen/utility-types": "^4.0.0-alpha.6",
+    "@guanghechen/helper-fs": "^4.0.0-alpha.7",
+    "@guanghechen/invariant": "^4.0.0-alpha.7",
+    "@guanghechen/utility-types": "^4.0.0-alpha.7",
     "clipboardy": "^3.0.0",
     "execa": "^6.1.0"
   },
