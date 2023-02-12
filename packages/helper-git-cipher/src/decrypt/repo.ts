@@ -23,6 +23,7 @@ export interface IDecryptGitRepoParams {
   configKeeper: IConfigKeeper<IGitCipherConfigData>
   pathResolver: FileCipherPathResolver
   crypt2plainIdMap: ReadonlyMap<string, string>
+  gpgSign?: boolean
   logger?: ILogger
 }
 
@@ -83,6 +84,7 @@ export async function decryptGitRepo(
     await initGitRepo({
       ...plainCmdCtx,
       defaultBranch: cryptLocalBranch.currentBranch,
+      gpgSign: params.gpgSign,
     })
   } else {
     invariant(

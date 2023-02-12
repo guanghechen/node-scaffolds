@@ -172,7 +172,7 @@ describe('GitCipher', () => {
         })
 
         // Test decrypt.
-        await gitCipher.decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap })
+        await gitCipher.decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap, gpgSign: false })
         expect(await getAllLocalBranches(bakPlainCtx)).toEqual({
           currentBranch: 'main',
           branches: ['main'],
@@ -262,7 +262,7 @@ describe('GitCipher', () => {
 
           // Test Decrypt
           crypt2plainIdMap = await gitCipher
-            .decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap })
+            .decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap, gpgSign: false })
             .then(md => md.crypt2plainIdMap)
           expect(await getAllLocalBranches({ ...bakPlainCtx })).toEqual({
             currentBranch: 'E',
@@ -313,7 +313,7 @@ describe('GitCipher', () => {
 
           // Test Decrypt
           crypt2plainIdMap = await gitCipher
-            .decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap })
+            .decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap, gpgSign: false })
             .then(md => md.crypt2plainIdMap)
           expect(await getAllLocalBranches({ ...bakPlainCtx })).toEqual({
             currentBranch: 'E',
@@ -393,7 +393,7 @@ describe('GitCipher', () => {
           // Test Decrypt
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           crypt2plainIdMap = await gitCipher
-            .decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap })
+            .decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap, gpgSign: false })
             .then(md => md.crypt2plainIdMap)
           expect(await getAllLocalBranches({ ...bakPlainCtx })).toEqual({
             currentBranch: 'K',

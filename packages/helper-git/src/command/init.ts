@@ -15,7 +15,7 @@ export interface IInitGitRepoParams extends IGitCommandBaseParams {
 export const initGitRepo = async (params: IInitGitRepoParams): Promise<void> => {
   params?.logger?.debug(`[initGitRepo] cwd: {}`, params.cwd)
   const {
-    gpgSign = false,
+    gpgSign,
     logDate = 'iso',
     defaultBranch = 'main',
     eol = 'lf',
@@ -25,7 +25,9 @@ export const initGitRepo = async (params: IInitGitRepoParams): Promise<void> => 
   // create init commit
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
   await execa('git', ['init', '--initial-branch', defaultBranch], execaOptions)
-  await execa('git', ['config', 'commit.gpgSign', gpgSign ? 'true' : 'false'], execaOptions)
+  if (gpgSign !== undefined) {
+    await execa('git', ['config', 'commit.gpgSign', gpgSign ? 'true' : 'false'], execaOptions)
+  }
   await execa('git', ['config', 'log.date', logDate], execaOptions)
   await execa('git', ['config', 'core.eol', eol], execaOptions)
   await execa('git', ['config', 'i18n.commitEncoding', encoding], execaOptions)

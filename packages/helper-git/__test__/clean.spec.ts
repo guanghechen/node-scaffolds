@@ -33,6 +33,7 @@ describe('clean', () => {
       defaultBranch: 'main',
       authorName: 'guanghechen',
       authorEmail: 'example@gmail.com',
+      gpgSign: false,
       logger,
     })
 

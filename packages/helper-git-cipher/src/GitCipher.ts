@@ -34,6 +34,7 @@ export interface IGitCipherEncryptRepoResult {
 export interface IGitCipherDecryptParams {
   pathResolver: FileCipherPathResolver
   crypt2plainIdMap: ReadonlyMap<string, string>
+  gpgSign?: boolean
 }
 
 export interface IGitCipherDecryptRepoResult {
@@ -71,6 +72,7 @@ export class GitCipher {
       cipherBatcher,
       configKeeper,
       crypt2plainIdMap: params.crypt2plainIdMap,
+      gpgSign: params.gpgSign,
       logger,
     })
     return { crypt2plainIdMap }

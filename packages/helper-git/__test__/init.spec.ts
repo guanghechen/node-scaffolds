@@ -30,6 +30,7 @@ describe('init', () => {
         cwd: workspaceDir,
         authorName: 'guanghechen',
         authorEmail: 'example@gmail.com',
+        gpgSign: false,
         logger,
       })
       expect(isGitRepo(workspaceDir)).toEqual(true)
@@ -42,6 +43,7 @@ describe('init', () => {
         defaultBranch: 'main',
         authorName: 'guanghechen',
         authorEmail: 'example@gmail.com',
+        gpgSign: false,
         logger,
       })
       expect(isGitRepo(workspaceDir)).toEqual(true)
