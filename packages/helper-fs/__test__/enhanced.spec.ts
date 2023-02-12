@@ -65,7 +65,7 @@ describe('empty', () => {
   test('logger', async () => {
     const logger = new ChalkLogger({
       level: Level.VERBOSE,
-      flags: {
+      flights: {
         colorful: false,
       },
     })
@@ -133,7 +133,7 @@ describe('mkdirsIfNotExists', () => {
   test('mkdirs logger', async () => {
     const logger = new ChalkLogger({
       level: Level.VERBOSE,
-      flags: {
+      flights: {
         colorful: false,
       },
     })

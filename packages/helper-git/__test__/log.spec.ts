@@ -13,7 +13,7 @@ describe('log', () => {
   const logger = new ChalkLogger({
     name: 'log',
     level: Level.ERROR,
-    flags: { inline: true, colorful: false },
+    flights: { inline: true, colorful: false },
   })
   const ctx: IGitCommandBaseParams = { cwd: workspaceDir, logger, execaOptions: {} }
 

@@ -10,7 +10,7 @@ const logger = new ChalkLogger(
   {
     name: 'demo4',
     level: Level.DEBUG, // the default value is DEBUG
-    flags: {
+    flights: {
       date: true, // the default value is false.
       inline: true,
       colorful: false, // the default value is true.

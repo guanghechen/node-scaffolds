@@ -4,7 +4,7 @@ const logger = new ChalkLogger(
   {
     name: 'demo2',
     level: Level.ERROR, // the default value is INFO
-    flags: {
+    flights: {
       date: false, // the default value is false.
       colorful: true, // the default value is true.
     },
@@ -13,18 +13,20 @@ const logger = new ChalkLogger(
 )
 
 logger.formatHeader = function formatHeader(level: Level, date: Date): string {
-  const dateText: string = this.flags.date
+  const dateText: string = this.flights.date
     ? this.formatContent(level, date.toLocaleTimeString())
     : ''
 
   const levelStyle = this.levelStyleMap[level]
   let levelText = levelStyle.title
-  if (this.flags.colorful) {
+  if (this.flights.colorful) {
     levelText = levelStyle.labelChalk.fg(levelText)
     if (levelStyle.labelChalk.bg != null) levelText = levelStyle.labelChalk.bg(levelText)
   }
 
-  const titleText: string = this.flags.title ? this.formatContent(level, '<' + this.name + '>') : ''
+  const titleText: string = this.flights.title
+    ? this.formatContent(level, '<' + this.name + '>')
+    : ''
 
   let result = ''
   if (dateText) result += dateText + ' '

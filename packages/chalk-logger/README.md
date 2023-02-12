@@ -79,7 +79,7 @@ Name                | Type                    | Required  | Default           | 
 `placeholderRegex`  | RegExp                  | `false`   | `/(?<!\\)\{\}/g`  | string formatter placeholder regex
 `name`              | string                  | `false`   | -                 | name of logger
 `level`             | Level                   | `false`   | `Level.INFO`      | verbosity level of the logging output
-`flags`             | See below               | `false`   | -                 | feature flags
+`flights`           | See below               | `false`   | -                 | feature flights
 `write`             | (text: string) => void  | `false`   | `process.stdout`  | [see below](#option-details)
 
 ### Option Details
@@ -92,10 +92,10 @@ Name                | Type                    | Required  | Default           | 
   - `normal`: Print log only
   - `loose`: Print a newline before and after the log
 
-* `flags`
+* `flights`
 
   ```typescript
-  interface ILoggerFlags {
+  interface ILoggerFlights {
     date?: boolean
     title?: boolean
     inline?: boolean
@@ -103,7 +103,7 @@ Name                | Type                    | Required  | Default           | 
   }
   ```
 
-  Flag        | Type    | Required  | Default |  Desc
+  Flight      | Type    | Required  | Default |  Desc
   :----------:|:-------:|:---------:|:-------:|:---------------------------------------------:
   `date`      | boolean | `false`   | `false` | whether to print the date
   `title`     | boolean | `false`   | `true`  | whether to print the title
@@ -123,7 +123,7 @@ Name                | Type                    | Required  | Default           | 
 
 * `--log-mode <'normal' | 'loose'>`: specify global logger mode.
 
-* `--log-flag <[no-](date|title|inline|colorful)>`: the prefix `no-` represent negation.
+* `--log-flight <[no-](date|title|inline|colorful)>`: the prefix `no-` represent negation.
 
   - `date`: whether to print date. default value is false
   - `title`: whether to print title. default value is true
@@ -152,7 +152,7 @@ const desensitize = createJsonDesensitizer({
   ),
 })
 
-const logger = new ChalkLogger({ name: 'demo', level: Level.DEBUG, flags: { date: true } })
+const logger = new ChalkLogger({ name: 'demo', level: Level.DEBUG, flights: { date: true } })
 const loggerMock = createLoggerMock({ logger, desensitize })
 
 // collect data
@@ -178,7 +178,7 @@ loggerMock.restore()
     {
       name: 'demo1',
       level: Level.ERROR, // the default value is INFO
-      flags: {
+      flights: {
         date: false, // the default value is false.
         colorful: true, // the default value is true.
       },
@@ -206,7 +206,7 @@ loggerMock.restore()
     {
       name: 'demo2',
       level: Level.ERROR, // the default value is INFO
-      flags: {
+      flights: {
         date: false, // the default value is false.
         colorful: true, // the default value is true.
       },
@@ -216,18 +216,18 @@ loggerMock.restore()
 
   logger.formatHeader = 
   function formatHeader(level: Level, date: Date): string {
-      const dateText: string = this.flags.date
+      const dateText: string = this.flights.date
         ? this.formatContent(level, date.toLocaleTimeString())
         : ''
 
       const levelStyle = this.levelStyleMap[level]
       let levelText = levelStyle.title
-      if (this.flags.colorful) {
+      if (this.flights.colorful) {
         levelText = levelStyle.labelChalk.fg(levelText)
         if (levelStyle.labelChalk.bg != null) levelText = levelStyle.labelChalk.bg(levelText)
       }
 
-      const titleText: string = this.flags.title
+      const titleText: string = this.flights.title
         ? this.formatContent(level, '<' + this.name + '>')
         : ''
 
@@ -259,7 +259,7 @@ loggerMock.restore()
     {
       name: 'demo3',
       level: Level.ERROR, // the default value is INFO
-      flags: {
+      flights: {
         date: false, // the default value is false.
         colorful: true, // the default value is true.
       },
@@ -293,7 +293,7 @@ loggerMock.restore()
     {
       name: 'demo4',
       level: Level.DEBUG, // the default value is DEBUG
-      flags: {
+      flights: {
         date: true, // the default value is false.
         inline: true,
         colorful: false, // the default value is true.
@@ -324,7 +324,7 @@ loggerMock.restore()
     {
       name: 'demo5',
       level: Level.ERROR, // the default value is INFO
-      flags: {
+      flights: {
         date: false, // the default value is false.
         colorful: true, // the default value is true.
       },
@@ -360,7 +360,7 @@ loggerMock.restore()
     {
       name: 'demo6',
       level: Level.DEBUG,
-      flags: {
+      flights: {
         date: true,
         colorful: true,
         inline: true,
@@ -380,7 +380,7 @@ loggerMock.restore()
     {
       name: 'demo6',
       level: Level.DEBUG,
-      flags: {
+      flights: {
         date: true,
         colorful: true,
         inline: true,
@@ -409,7 +409,7 @@ loggerMock.restore()
     {
       name: 'demo7',
       level: Level.DEBUG,
-      flags: {
+      flights: {
         date: true,
         title: false,
         colorful: true,
@@ -430,7 +430,7 @@ loggerMock.restore()
     {
       name: 'demo7',
       level: Level.DEBUG,
-      flags: {
+      flights: {
         date: false,
         title: false,
         colorful: true,

@@ -2,9 +2,9 @@ import { ChalkLogger, DEBUG, ERROR, FATAL, INFO, VERBOSE, WARN } from '../src'
 
 describe('ChalkLogger', () => {
   describe('options', () => {
-    test('flags', () => {
-      const logger = new ChalkLogger({ flags: { colorful: false } })
-      expect(logger.flags).toEqual({
+    test('flights', () => {
+      const logger = new ChalkLogger({ flights: { colorful: false } })
+      expect(logger.flights).toEqual({
         date: false,
         title: true,
         inline: false,

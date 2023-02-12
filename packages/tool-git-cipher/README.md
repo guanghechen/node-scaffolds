@@ -114,7 +114,7 @@ Options:
   --log-level <level>                                 specify logger's level.
   --log-name <name>                                   specify logger's name.
   --log-mode <'normal' | 'loose'>                     specify logger's name.
-  --log-flag <option>                                 specify logger' option. [[no-]<date|colorful|inline>] (default: [])
+  --log-flight <option>                               specify logger' option. [[no-]<date|colorful|inline>] (default: [])
   --log-output <filepath>                             specify logger' output path.
   --log-encoding <encoding>                           specify output file encoding.
   -c, --config-path <config filepath>                  (default: [])

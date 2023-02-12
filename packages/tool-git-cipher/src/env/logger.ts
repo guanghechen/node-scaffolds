@@ -4,7 +4,7 @@ import { COMMAND_NAME } from './constant'
 export const logger = new ChalkLogger(
   {
     name: COMMAND_NAME,
-    flags: { date: true },
+    flights: { date: true },
   },
   process.argv,
 )

@@ -82,7 +82,7 @@ Notice: Only text data worked, don't try to copy / paste binary data with this c
     --log-level <level>                               specify logger's level.
     --log-name <name>                                 specify logger's name.
     --log-mode <'normal' | 'loose'>                   specify logger's name.
-    --log-flag <option>                               specify logger' option. [[no-]<date|title|colorful|inline>] (default: [])
+    --log-flight <option>                             specify logger' option. [[no-]<date|title|colorful|inline>] (default: [])
     --log-filepath <filepath>                         specify logger' output path.
     --log-encoding <encoding>                         specify output file encoding.
     -c, --config-path <configFilepath>                config filepaths (default: [])

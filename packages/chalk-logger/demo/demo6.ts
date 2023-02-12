@@ -4,7 +4,7 @@ const logger = new ChalkLogger(
   {
     name: 'demo6',
     level: Level.DEBUG,
-    flags: {
+    flights: {
       date: true,
       colorful: true,
       inline: true,
@@ -24,7 +24,7 @@ const logger2 = new ChalkLogger(
   {
     name: 'demo6',
     level: Level.DEBUG,
-    flags: {
+    flights: {
       date: true,
       colorful: true,
       inline: true,

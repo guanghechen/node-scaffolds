@@ -40,7 +40,7 @@ describe('FileCipherBatcher', () => {
   const bakRootDir: string = path.join(workspaceDir, 'src_backup')
   const pathResolver = new FileCipherPathResolver({ plainRootDir, cryptRootDir })
   const bakPathResolver = new FileCipherPathResolver({ plainRootDir: bakRootDir, cryptRootDir })
-  const logger = new ChalkLogger({ flags: { colorful: false, date: false } })
+  const logger = new ChalkLogger({ flights: { colorful: false, date: false } })
 
   const filepathA: string = pathResolver.calcAbsolutePlainFilepath(itemTable.A.plainFilepath)
   const filepathB: string = pathResolver.calcAbsolutePlainFilepath(itemTable.B.plainFilepath)

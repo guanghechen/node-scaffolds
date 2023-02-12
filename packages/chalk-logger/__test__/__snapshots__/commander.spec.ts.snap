@@ -23,7 +23,7 @@ exports[`command funcs registerCommanderOptions: registered options 1`] = `
     "Log format mode.",
   ],
   [
-    "--log-flag <[[no-]<date|title|colorful|inline>]>",
+    "--log-flight <[[no-]<date|title|colorful|inline>]>",
     "Enable / disable logger flights.",
     [Function],
     [],

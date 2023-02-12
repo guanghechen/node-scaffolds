@@ -5,7 +5,7 @@ import { normalizeString } from './format'
 import type { ILevelStyleMap } from './level'
 import { Level, defaultLevelStyleMap, levelOrdinalMap } from './level'
 
-export interface ILoggerFlags {
+export interface ILoggerFlights {
   readonly date: boolean
   readonly title: boolean
   readonly inline: boolean
@@ -17,7 +17,7 @@ export interface ILoggerOptions {
   mode?: 'normal' | 'loose'
   level?: Level | null
   levelStyleMap?: ILevelStyleMap
-  flags?: Partial<ILoggerFlags>
+  flights?: Partial<ILoggerFlights>
   placeholderRegex?: RegExp
   write?(text: string): void
 }
@@ -27,7 +27,7 @@ export class Logger implements ILogger {
   public readonly mode: 'normal' | 'loose' = 'normal'
   public readonly level: Level
   public readonly levelStyleMap: ILevelStyleMap
-  public readonly flags: ILoggerFlags
+  public readonly flights: ILoggerFlights
   public readonly placeholderRegex: RegExp = /(?<!\\)\{\}/g
   public readonly write: (text: string) => void
 
@@ -38,7 +38,7 @@ export class Logger implements ILogger {
     this.write = text => {
       process.stdout.write(text)
     }
-    this.flags = {
+    this.flights = {
       date: false,
       title: true,
       inline: false,
@@ -62,13 +62,13 @@ export class Logger implements ILogger {
     self.level = options.level ?? self.level
     self.levelStyleMap = options.levelStyleMap ?? self.levelStyleMap
 
-    // Set logger flags.
-    if (options.flags) {
-      const selfFlags = self.flags as Mutable<ILoggerFlags>
-      selfFlags.date = options.flags.date ?? selfFlags.date
-      selfFlags.title = options.flags.title ?? selfFlags.title
-      selfFlags.inline = options.flags.inline ?? selfFlags.inline
-      selfFlags.colorful = options.flags.colorful ?? selfFlags.colorful
+    // Set logger flights.
+    if (options.flights) {
+      const selfFlights = self.flights as Mutable<ILoggerFlights>
+      selfFlights.date = options.flights.date ?? selfFlights.date
+      selfFlights.title = options.flights.title ?? selfFlights.title
+      selfFlights.inline = options.flights.inline ?? selfFlights.inline
+      selfFlights.colorful = options.flights.colorful ?? selfFlights.colorful
     }
 
     // set placeholderRegex
@@ -90,18 +90,18 @@ export class Logger implements ILogger {
 
   // format a log record's header.
   public formatHeader(level: Level, date: Date): string {
-    const dateText: string = this.flags.date
+    const dateText: string = this.flights.date
       ? this.formatContent(level, dayjs(date).format('YYYY-MM-DD HH:mm:ss'))
       : ''
 
     const levelStyle = this.levelStyleMap[level]
     let levelText = levelStyle.title
-    if (this.flags.colorful) {
+    if (this.flights.colorful) {
       levelText = levelStyle.labelChalk.fg(levelText)
       if (levelStyle.labelChalk.bg != null) levelText = levelStyle.labelChalk.bg(levelText)
     }
 
-    const titleText: string = this.flags.title
+    const titleText: string = this.flights.title
       ? this.formatContent(level, '[' + this.name + ']')
       : ''
 
@@ -114,7 +114,7 @@ export class Logger implements ILogger {
 
   public formatContent(level: Level, message: string): string {
     let text: string = message
-    if (this.flags.colorful) {
+    if (this.flights.colorful) {
       const levelStyle = this.levelStyleMap[level]
       text = levelStyle.contentChalk.fg(text)
       if (levelStyle.contentChalk.bg != null) {
@@ -126,7 +126,7 @@ export class Logger implements ILogger {
 
   // format a log record part message according its type.
   public formatSingleMessage(message: unknown): string {
-    return normalizeString(message ? message : String(message), this.flags.inline)
+    return normalizeString(message ? message : String(message), this.flights.inline)
   }
 
   public debug(messageFormat: string | unknown, ...messages: unknown[]): void {

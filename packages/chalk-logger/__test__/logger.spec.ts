@@ -19,7 +19,7 @@ describe('Logger', () => {
               const options: ILoggerOptions = {
                 mode: mode as 'normal' | 'loose',
                 level: resolveLevel(level),
-                flags: {
+                flights: {
                   inline: shouldInline,
                   colorful: shouldColorful,
                   date: shouldDate,
@@ -85,7 +85,7 @@ describe('customize', () => {
       name: 'complex',
       mode: 'normal',
       level: Level.DEBUG,
-      flags: {
+      flights: {
         inline: false,
         colorful: false,
         date: true,
@@ -117,7 +117,7 @@ describe('customize', () => {
       name: 'complex',
       mode: 'normal',
       level: Level.DEBUG,
-      flags: {
+      flights: {
         inline: false,
         colorful: true,
         date: true,
@@ -127,15 +127,15 @@ describe('customize', () => {
     expect(logger.name).toBe('complex')
     expect(logger.mode).toBe('normal')
     expect(logger.level).toBe(Level.DEBUG)
-    expect(logger.flags.inline).toBe(false)
-    expect(logger.flags.colorful).toBe(true)
-    expect(logger.flags.date).toBe(true)
+    expect(logger.flights.inline).toBe(false)
+    expect(logger.flights.colorful).toBe(true)
+    expect(logger.flights.date).toBe(true)
 
     logger.init({
       name: 'waw',
       mode: 'loose',
       level: Level.VERBOSE,
-      flags: {
+      flights: {
         inline: true,
         colorful: false,
       },
@@ -144,16 +144,16 @@ describe('customize', () => {
     expect(logger.name).toBe('waw')
     expect(logger.mode).toBe('loose')
     expect(logger.level).toBe(Level.VERBOSE)
-    expect(logger.flags.inline).toBe(true)
-    expect(logger.flags.colorful).toBe(false)
-    expect(logger.flags.date).toBe(true)
+    expect(logger.flights.inline).toBe(true)
+    expect(logger.flights.colorful).toBe(false)
+    expect(logger.flights.date).toBe(true)
   })
 
   test('log error', () => {
     const logger = new Logger({
       name: 'waw',
       level: Level.DEBUG,
-      flags: {
+      flights: {
         inline: false,
         colorful: true,
         date: true,
@@ -177,7 +177,7 @@ describe('customize', () => {
       name: 'file',
       level: Level.DEBUG,
       write,
-      flags: {
+      flights: {
         inline: false,
         colorful: false,
         date: false,

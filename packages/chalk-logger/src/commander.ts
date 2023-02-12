@@ -1,7 +1,7 @@
 import type { Mutable } from '@guanghechen/utility-types'
 import { writeFileSync } from 'node:fs'
 import { resolveLevel } from './level'
-import type { ILoggerFlags, ILoggerOptions } from './logger'
+import type { ILoggerFlights, ILoggerOptions } from './logger'
 
 /**
  * Commander options
@@ -20,9 +20,9 @@ interface ICommanderOptions {
    */
   logMode?: string
   /**
-   * logger flags
+   * logger flights
    */
-  logFlag?: string[]
+  logFlight?: string[]
   /**
    * filepath of log output
    */
@@ -34,10 +34,9 @@ interface ICommanderOptions {
 }
 
 interface ICommander {
-  option(flags: string, description?: string, defaultValue?: string | boolean): this
-  option(flags: string, description: string, regexp: RegExp, defaultValue?: string | boolean): this
+  option(option: string, description?: string, defaultValue?: string | boolean): this
   option<T>(
-    flags: string,
+    option: string,
     description: string,
     fn: (value: string, previous: T) => T,
     defaultValue?: T,
@@ -56,7 +55,7 @@ export function registerCommanderOptions(program: ICommander): void {
     .option('--log-name <name>', 'Logger name.')
     .option('--log-mode <normal|loose>', 'Log format mode.')
     .option(
-      '--log-flag <[[no-]<date|title|colorful|inline>]>',
+      '--log-flight <[[no-]<date|title|colorful|inline>]>',
       'Enable / disable logger flights.',
       (val: string, acc: string[]) => acc.concat(val),
       [],
@@ -64,8 +63,8 @@ export function registerCommanderOptions(program: ICommander): void {
 }
 
 export function parseOptionsFromCommander(commanderOptions: ICommanderOptions): ILoggerOptions {
-  const flags: Partial<Mutable<ILoggerFlags>> = {}
-  const options: ILoggerOptions = { flags }
+  const flights: Partial<Mutable<ILoggerFlights>> = {}
+  const options: ILoggerOptions = { flights }
 
   // Resolve log path
   if (typeof commanderOptions.logFilepath === 'string') {
@@ -99,34 +98,34 @@ export function parseOptionsFromCommander(commanderOptions: ICommanderOptions): 
     }
   }
 
-  // Resolve log flags
-  if (commanderOptions.logFlag) {
-    const logFlags: string[] = [commanderOptions.logFlag]
+  // Resolve log flights
+  if (commanderOptions.logFlight) {
+    const logFlights: string[] = [commanderOptions.logFlight]
       .flat()
       .filter(Boolean)
-      .map(flag => flag.split(/\s*,\s*/g))
+      .map(flight => flight.split(/\s*,\s*/g))
       .flat()
-      .map(flag => flag.trim().toLowerCase())
+      .map(flight => flight.trim().toLowerCase())
       .filter(Boolean)
-    for (let flag of logFlags) {
+    for (let flight of logFlights) {
       let negative = false
-      if (/^no-/.test(flag)) {
+      if (/^no-/.test(flight)) {
         negative = true
-        flag = flag.slice(3)
+        flight = flight.slice(3)
       }
-      flag = flag.toLowerCase()
-      switch (flag) {
+      flight = flight.toLowerCase()
+      switch (flight) {
         case 'inline':
-          flags.inline = !negative
+          flights.inline = !negative
           break
         case 'date':
-          flags.date = !negative
+          flights.date = !negative
           break
         case 'title':
-          flags.title = !negative
+          flights.title = !negative
           break
         case 'colorful':
-          flags.colorful = !negative
+          flights.colorful = !negative
           break
       }
     }
@@ -135,7 +134,7 @@ export function parseOptionsFromCommander(commanderOptions: ICommanderOptions): 
 }
 
 export function parseOptionsFromArgs(args: string[]): ILoggerOptions {
-  const options: ICommanderOptions = { logFlag: [] }
+  const options: ICommanderOptions = { logFlight: [] }
   const regex = /^--log-([\w]+)(?:=([\s\S]+))?/
   for (let i = 0; i < args.length; ++i) {
     const arg = args[i]
@@ -160,8 +159,8 @@ export function parseOptionsFromArgs(args: string[]): ILoggerOptions {
       case 'filepath':
         options.logFilepath = val
         break
-      case 'flag':
-        options.logFlag!.push(val)
+      case 'flight':
+        options.logFlight!.push(val)
         break
       case 'level':
         options.logLevel = val

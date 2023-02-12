@@ -59,9 +59,9 @@ exports[`command no sub-command with arguments: options 1`] = `
 {
   "configPath": [],
   "force": true,
-  "logFlag": [
+  "logFlight": [
     "no-date",
-    "no-color",
+    "no-colorful",
   ],
   "logLevel": "debug",
   "silence": false,
@@ -143,9 +143,9 @@ exports[`command no sub-command without arguments: options 1`] = `
 {
   "configPath": [],
   "force": true,
-  "logFlag": [
+  "logFlight": [
     "no-date",
-    "no-color",
+    "no-colorful",
   ],
   "logLevel": "debug",
   "silence": false,

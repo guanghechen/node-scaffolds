@@ -23,7 +23,7 @@ export class ChalkLogger extends Logger {
     const resolvedOptions = {
       ...options,
       ...optionsFromArgs,
-      flags: { ...options?.flags, ...optionsFromArgs.flags },
+      flights: { ...options?.flights, ...optionsFromArgs.flights },
     }
 
     super(resolvedOptions)

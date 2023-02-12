@@ -15,7 +15,7 @@ import { FileCipherFactory } from '../src'
 
 describe('FileCipher', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.FileCipher')
-  const logger = new ChalkLogger({ flags: { colorful: false, date: false } })
+  const logger = new ChalkLogger({ flights: { colorful: false, date: false } })
   const cipherFactory = new AesGcmCipherFactory()
   const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
   let fileCipher: IFileCipher

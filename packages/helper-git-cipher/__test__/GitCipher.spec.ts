@@ -56,7 +56,7 @@ describe('GitCipher', () => {
   const logger = new ChalkLogger({
     name: 'GitCipher',
     level: Level.ERROR,
-    flags: { inline: true, colorful: false },
+    flights: { inline: true, colorful: false },
   })
 
   const plainCtx: IGitCommandBaseParams = { cwd: plainRootDir, logger, execaOptions: {} }

@@ -6,7 +6,7 @@ import { desensitize, locateFixtures } from 'jest.helper'
 describe('resolveCommandConfigurationOptions', function () {
   const logger = new ChalkLogger({
     level: Level.DEBUG,
-    flags: {
+    flights: {
       colorful: false,
     },
   })

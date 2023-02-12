@@ -5,7 +5,7 @@ import path from 'node:path'
 const logger = new ChalkLogger({
   name: 'mini-copy',
   level: Level.DEBUG,
-  flags: {
+  flights: {
     colorful: true,
     date: true,
     inline: false,

@@ -17,13 +17,16 @@ describe('command', () => {
         'source content waw waw waw',
         'this arg should be ignored',
         '--log-level=debug',
-        '--log-flag=no-date',
-        '--log-flag=no-color',
+        '--log-flight=no-date',
+        '--log-flight=no-colorful',
         '-f',
         '--no-silence',
       ]
 
-      const logger = new ChalkLogger({ name: 'ghc', flags: { colorful: false, date: false } }, argv)
+      const logger = new ChalkLogger(
+        { name: 'ghc', flights: { colorful: false, date: false } },
+        argv,
+      )
       const mock = createLoggerMock({ logger, desensitize })
       const result0 = await getCommand(argv, logger)
       expect(desensitize(result0.args)).toMatchSnapshot('args')
@@ -38,13 +41,16 @@ describe('command', () => {
         'node',
         'guanghechen',
         '--log-level=debug',
-        '--log-flag=no-date',
-        '--log-flag=no-color',
+        '--log-flight=no-date',
+        '--log-flight=no-colorful',
         '-f',
         '--no-silence',
       ]
 
-      const logger = new ChalkLogger({ name: 'ghc', flags: { colorful: false, date: false } }, argv)
+      const logger = new ChalkLogger(
+        { name: 'ghc', flights: { colorful: false, date: false } },
+        argv,
+      )
       const mock = createLoggerMock({ logger, desensitize })
       const result0 = await getCommand(argv, logger)
       expect(desensitize(result0.args)).toMatchSnapshot('args')

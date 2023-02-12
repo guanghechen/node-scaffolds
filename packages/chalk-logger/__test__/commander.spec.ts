@@ -3,7 +3,7 @@ import { Level, parseOptionsFromArgs, registerCommanderOptions } from '../src'
 describe('command funcs', () => {
   describe('options', () => {
     test('default', () => {
-      expect(parseOptionsFromArgs([])).toEqual({ flags: {} })
+      expect(parseOptionsFromArgs([])).toEqual({ flights: {} })
     })
 
     test('#1', () => {
@@ -12,17 +12,17 @@ describe('command funcs', () => {
           '--log-level=debug',
           '--log-name=waw',
           '--log-mode=loose',
-          '--log-flag=date',
-          '--log-flag=no-inline',
-          '--log-flag=no-title',
-          '--log-flag',
+          '--log-flight=date',
+          '--log-flight=no-inline',
+          '--log-flight=no-title',
+          '--log-flight',
           'no-colorful',
         ]),
       ).toEqual({
         name: 'waw',
         mode: 'loose',
         level: Level.DEBUG,
-        flags: {
+        flights: {
           date: true,
           title: false,
           inline: false,
@@ -37,14 +37,14 @@ describe('command funcs', () => {
           '--log-level=debug',
           '--log-name=waw',
           '--log-mode=loose',
-          '--log-flag=date,inline,no-colorful',
+          '--log-flight=date,inline,no-colorful',
           'no-colorful',
         ]),
       ).toEqual({
         name: 'waw',
         mode: 'loose',
         level: Level.DEBUG,
-        flags: {
+        flights: {
           date: true,
           inline: true,
           colorful: false,
@@ -58,7 +58,7 @@ describe('command funcs', () => {
         '--log-encoding',
         'gbk',
       ])
-      expect(remainOptions).toEqual({ flags: {} })
+      expect(remainOptions).toEqual({ flights: {} })
       expect(write).toBeInstanceOf(Function)
     })
   })

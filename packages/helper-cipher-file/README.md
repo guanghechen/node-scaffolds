@@ -106,7 +106,7 @@ Utility functions for encrypt / decrypt files.
   import { AesCipherFactory } from '@guanghechen/helper-cipher'
   import { FileCipherFactory } from '@guanghechen/helper-cipher-file'
 
-  const logger = new ChalkLogger({ flags: { colorful: false, date: false } })
+  const logger = new ChalkLogger({ flights: { colorful: false, date: false } })
   const cipherFactory = new AesCipherFactory()
   const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
   const fileCipher = fileCipherFactory.fileCipher()
