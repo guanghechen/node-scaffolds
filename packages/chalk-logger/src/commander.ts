@@ -50,12 +50,14 @@ interface ICommander {
  */
 export function registerCommanderOptions(program: ICommander): void {
   program
-    .option('--log-level <level>', "specify logger's level.")
-    .option('--log-name <name>', "specify logger's name.")
-    .option("--log-mode <'normal' | 'loose'>", "specify logger's name.")
+    .option('--log-encoding <encoding>', 'Encoding of log file.')
+    .option('--log-filepath <filepath>', 'Path which the log file is located.')
+    .option('--log-level <level>', 'Log level.')
+    .option('--log-name <name>', 'Logger name.')
+    .option('--log-mode <normal|loose>', 'Log format mode.')
     .option(
-      '--log-flag <option>',
-      "specify logger' option. [[no-]<date|title|colorful|inline>]",
+      '--log-flag <[[no-]<date|title|colorful|inline>]>',
+      'Enable / disable logger flights.',
       (val: string, acc: string[]) => acc.concat(val),
       [],
     )
@@ -65,29 +67,48 @@ export function parseOptionsFromCommander(commanderOptions: ICommanderOptions): 
   const flags: Partial<Mutable<ILoggerFlags>> = {}
   const options: ILoggerOptions = { flags }
 
-  // resolve log level
-  if (commanderOptions.logLevel != null) {
-    const logLevel = commanderOptions.logLevel.toLowerCase()
+  // Resolve log path
+  if (typeof commanderOptions.logFilepath === 'string') {
+    const logFilepath = commanderOptions.logFilepath.trim()
+    const logEncoding: BufferEncoding =
+      (typeof commanderOptions.logEncoding === 'string'
+        ? (commanderOptions.logEncoding.trim().toLowerCase() as BufferEncoding)
+        : '') || 'utf8'
+    options.write = (text: string): void => {
+      writeFileSync(logFilepath, text, logEncoding)
+    }
+  }
+
+  // Resolve log level
+  if (typeof commanderOptions.logLevel === 'string') {
+    const logLevel = commanderOptions.logLevel.trim().toLowerCase()
     const level = resolveLevel(logLevel)
     if (level != null) options.level = level
   }
 
-  // resolve log name
-  if (commanderOptions.logName != null) {
-    options.name = commanderOptions.logName
+  // Resolve log name
+  if (typeof commanderOptions.logName === 'string') {
+    options.name = commanderOptions.logName.trim()
   }
 
-  // resolve log mode
-  if (commanderOptions.logMode != null) {
-    const mode = commanderOptions.logMode.toLowerCase()
+  // Resolve log mode
+  if (typeof commanderOptions.logMode === 'string') {
+    const mode = commanderOptions.logMode.trim().toLowerCase()
     if (['normal', 'loose'].includes(mode)) {
       options.mode = mode as 'normal' | 'loose'
     }
   }
 
-  // resolve log flags
-  if (commanderOptions.logFlag != null) {
-    for (let flag of commanderOptions.logFlag) {
+  // Resolve log flags
+  if (commanderOptions.logFlag) {
+    const logFlags: string[] = [commanderOptions.logFlag]
+      .flat()
+      .filter(Boolean)
+      .map(flag => flag.split(/\s*,\s*/g))
+      .flat()
+      .map(flag => flag.trim().toLowerCase())
+      .filter(Boolean)
+    for (let flag of logFlags) {
       let negative = false
       if (/^no-/.test(flag)) {
         negative = true
@@ -110,20 +131,12 @@ export function parseOptionsFromCommander(commanderOptions: ICommanderOptions): 
       }
     }
   }
-
-  // resolve log path
-  if (commanderOptions.logFilepath) {
-    const logFilepath = commanderOptions.logFilepath
-    options.write = (text: string): void => {
-      writeFileSync(logFilepath, text, commanderOptions.logEncoding ?? 'utf8')
-    }
-  }
   return options
 }
 
 export function parseOptionsFromArgs(args: string[]): ILoggerOptions {
   const options: ICommanderOptions = { logFlag: [] }
-  const regex = /^--log-([\w]+)(?:=([-\w]+))?/
+  const regex = /^--log-([\w]+)(?:=([\s\S]+))?/
   for (let i = 0; i < args.length; ++i) {
     const arg = args[i]
     const match = regex.exec(arg)
