@@ -1,38 +1,22 @@
-import type { ChalkLogger } from '@guanghechen/chalk-logger'
+import type { IInitGitRepoParams } from '@guanghechen/helper-git'
+import { commitAll, initGitRepo } from '@guanghechen/helper-git'
 import { toLowerCase } from '@guanghechen/helper-string'
 import commandExists from 'command-exists'
-import type { Options as IExecaOptions } from 'execa'
-import { execa } from 'execa'
 import inquirer from 'inquirer'
 
 // Check if the git installed.
 export const hasGitInstalled = (): boolean => commandExists.sync('git')
 
-/**
- * Create a git commit with all file changes
- *
- * @param execaOptions
- * @param message
- */
-export async function createCommitAll(execaOptions: IExecaOptions, message: string): Promise<void> {
-  await execa('git', ['add', '-A'], execaOptions)
-  await execa('git', ['commit', '-m', message], execaOptions)
+export interface ICreateInitGitRepoParams extends IInitGitRepoParams {
+  plopBypass: string[]
 }
 
-/**
- * Create initial commit
- * @param execaOptions
- * @param plopBypass
- * @param logger
- */
-export async function createInitialCommit(
-  execaOptions: IExecaOptions,
-  plopBypass: string[],
-  logger?: ChalkLogger,
-): Promise<void> {
+// Create initial commit
+export async function createInitialCommit(params: ICreateInitGitRepoParams): Promise<void> {
   // If git is not installed yet, this operation will be skipped
   if (!hasGitInstalled()) return
 
+  const { plopBypass, cwd, logger, ...initGitRepoParams } = params
   let doInitialCommit: boolean
   if (plopBypass.length > 0) {
     const booleanString = toLowerCase(plopBypass.shift()!)
@@ -56,6 +40,6 @@ export async function createInitialCommit(
   if (!doInitialCommit) return
 
   // create init commit
-  await execa('git', ['init'], execaOptions)
-  await createCommitAll(execaOptions, ':tada:  initialize.')
+  await initGitRepo({ cwd, logger, ...initGitRepoParams })
+  await commitAll({ cwd, logger, message: ':tada:  initialize.', amend: false })
 }

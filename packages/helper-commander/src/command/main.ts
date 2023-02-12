@@ -1,5 +1,5 @@
 import type { CommandOptions } from 'commander'
-import type { ICommandConfigurationOptions } from '../types/configuration'
+import type { ICommandConfigurationOptions } from '../types'
 import type { Command } from './command'
 
 // Process main command.

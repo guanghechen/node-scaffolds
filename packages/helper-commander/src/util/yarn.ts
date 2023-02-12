@@ -1,5 +1,5 @@
-import type { ChalkLogger } from '@guanghechen/chalk-logger'
 import { toLowerCase } from '@guanghechen/helper-string'
+import type { ILogger } from '@guanghechen/utility-types'
 import commandExists from 'command-exists'
 import type { Options as IExecaOptions } from 'execa'
 import { execa } from 'execa'
@@ -14,7 +14,7 @@ import inquirer from 'inquirer'
 export async function installDependencies(
   execaOptions: IExecaOptions,
   plopBypass: string[],
-  logger?: ChalkLogger,
+  logger?: ILogger,
 ): Promise<void> {
   const hasYarnInstalled: boolean = commandExists.sync('yarn')
 

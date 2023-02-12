@@ -13,7 +13,7 @@ import type {
   ICommandConfiguration,
   ICommandConfigurationFlatOpts,
   ICommandConfigurationOptions,
-} from '../types/configuration'
+} from '../types'
 import { loadConfig } from './config'
 import type { IMergeStrategyMap } from './merge'
 import { merge } from './merge'

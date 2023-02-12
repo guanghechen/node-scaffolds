@@ -42,6 +42,7 @@
   "dependencies": {
     "@guanghechen/chalk-logger": "^4.0.0-alpha.6",
     "@guanghechen/helper-fs": "^4.0.0-alpha.6",
+    "@guanghechen/helper-git": "^4.0.0-alpha.6",
     "@guanghechen/helper-is": "^4.0.0-alpha.6",
     "@guanghechen/helper-option": "^4.0.0-alpha.6",
     "@guanghechen/helper-path": "^4.0.0-alpha.6",
