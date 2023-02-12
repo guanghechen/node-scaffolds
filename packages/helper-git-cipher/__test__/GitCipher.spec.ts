@@ -116,11 +116,26 @@ describe('GitCipher', () => {
         })
 
         // Test encrypt.
-        const { crypt2plainIdMap } = await gitCipher.encrypt({
+        let { crypt2plainIdMap } = await gitCipher.encrypt({
           catalog,
           pathResolver,
           crypt2plainIdMap: new Map(),
         })
+        expect(crypt2plainIdMap).toEqual(
+          new Map([
+            [repo1CryptCommitIdTable.A, commitIdTable.A],
+            [repo1CryptCommitIdTable.B, commitIdTable.B],
+            [repo1CryptCommitIdTable.C, commitIdTable.C],
+            [repo1CryptCommitIdTable.D, commitIdTable.D],
+            [repo1CryptCommitIdTable.E, commitIdTable.E],
+            [repo1CryptCommitIdTable.F, commitIdTable.F],
+            [repo1CryptCommitIdTable.G, commitIdTable.G],
+            [repo1CryptCommitIdTable.H, commitIdTable.H],
+            [repo1CryptCommitIdTable.I, commitIdTable.I],
+            [repo1CryptCommitIdTable.J, commitIdTable.J],
+            [repo1CryptCommitIdTable.K, commitIdTable.K],
+          ]),
+        )
         expect(await getAllLocalBranches({ ...cryptCtx })).toEqual({
           currentBranch: 'main',
           branches: ['main'],
@@ -172,7 +187,28 @@ describe('GitCipher', () => {
         })
 
         // Test decrypt.
-        await gitCipher.decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap, gpgSign: false })
+        crypt2plainIdMap = (
+          await gitCipher.decrypt({
+            pathResolver: bakPathResolver,
+            crypt2plainIdMap,
+            gpgSign: false,
+          })
+        ).crypt2plainIdMap
+        expect(crypt2plainIdMap).toEqual(
+          new Map([
+            [repo1CryptCommitIdTable.A, commitIdTable.A],
+            [repo1CryptCommitIdTable.B, commitIdTable.B],
+            [repo1CryptCommitIdTable.C, commitIdTable.C],
+            [repo1CryptCommitIdTable.D, commitIdTable.D],
+            [repo1CryptCommitIdTable.E, commitIdTable.E],
+            [repo1CryptCommitIdTable.F, commitIdTable.F],
+            [repo1CryptCommitIdTable.G, commitIdTable.G],
+            [repo1CryptCommitIdTable.H, commitIdTable.H],
+            [repo1CryptCommitIdTable.I, commitIdTable.I],
+            [repo1CryptCommitIdTable.J, commitIdTable.J],
+            [repo1CryptCommitIdTable.K, commitIdTable.K],
+          ]),
+        )
         expect(await getAllLocalBranches(bakPlainCtx)).toEqual({
           currentBranch: 'main',
           branches: ['main'],
@@ -241,6 +277,14 @@ describe('GitCipher', () => {
           crypt2plainIdMap = await gitCipher
             .encrypt({ catalog, pathResolver, crypt2plainIdMap })
             .then(md => md.crypt2plainIdMap)
+          expect(crypt2plainIdMap).toEqual(
+            new Map([
+              [repo1CryptCommitIdTable.A, commitIdTable.A],
+              [repo1CryptCommitIdTable.B, commitIdTable.B],
+              [repo1CryptCommitIdTable.C, commitIdTable.C],
+              [repo1CryptCommitIdTable.E, commitIdTable.E],
+            ]),
+          )
           expect(await getAllLocalBranches({ ...cryptCtx })).toEqual({
             currentBranch: 'E',
             branches: ['E'],
@@ -264,6 +308,14 @@ describe('GitCipher', () => {
           crypt2plainIdMap = await gitCipher
             .decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap, gpgSign: false })
             .then(md => md.crypt2plainIdMap)
+          expect(crypt2plainIdMap).toEqual(
+            new Map([
+              [repo1CryptCommitIdTable.A, commitIdTable.A],
+              [repo1CryptCommitIdTable.B, commitIdTable.B],
+              [repo1CryptCommitIdTable.C, commitIdTable.C],
+              [repo1CryptCommitIdTable.E, commitIdTable.E],
+            ]),
+          )
           expect(await getAllLocalBranches({ ...bakPlainCtx })).toEqual({
             currentBranch: 'E',
             branches: ['E'],
@@ -292,6 +344,16 @@ describe('GitCipher', () => {
           crypt2plainIdMap = await gitCipher
             .encrypt({ catalog, pathResolver, crypt2plainIdMap })
             .then(md => md.crypt2plainIdMap)
+          expect(crypt2plainIdMap).toEqual(
+            new Map([
+              [repo1CryptCommitIdTable.A, commitIdTable.A],
+              [repo1CryptCommitIdTable.B, commitIdTable.B],
+              [repo1CryptCommitIdTable.C, commitIdTable.C],
+              [repo1CryptCommitIdTable.E, commitIdTable.E],
+              [repo1CryptCommitIdTable.G, commitIdTable.G],
+              [repo1CryptCommitIdTable.I, commitIdTable.I],
+            ]),
+          )
           expect(await getAllLocalBranches({ ...cryptCtx })).toEqual({
             currentBranch: 'E',
             branches: ['E', 'I'],
@@ -315,6 +377,16 @@ describe('GitCipher', () => {
           crypt2plainIdMap = await gitCipher
             .decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap, gpgSign: false })
             .then(md => md.crypt2plainIdMap)
+          expect(crypt2plainIdMap).toEqual(
+            new Map([
+              [repo1CryptCommitIdTable.A, commitIdTable.A],
+              [repo1CryptCommitIdTable.B, commitIdTable.B],
+              [repo1CryptCommitIdTable.C, commitIdTable.C],
+              [repo1CryptCommitIdTable.E, commitIdTable.E],
+              [repo1CryptCommitIdTable.G, commitIdTable.G],
+              [repo1CryptCommitIdTable.I, commitIdTable.I],
+            ]),
+          )
           expect(await getAllLocalBranches({ ...bakPlainCtx })).toEqual({
             currentBranch: 'E',
             branches: ['E', 'I'],
@@ -344,6 +416,21 @@ describe('GitCipher', () => {
           crypt2plainIdMap = await gitCipher
             .encrypt({ catalog, pathResolver, crypt2plainIdMap })
             .then(md => md.crypt2plainIdMap)
+          expect(crypt2plainIdMap).toEqual(
+            new Map([
+              [repo1CryptCommitIdTable.A, commitIdTable.A],
+              [repo1CryptCommitIdTable.B, commitIdTable.B],
+              [repo1CryptCommitIdTable.C, commitIdTable.C],
+              [repo1CryptCommitIdTable.D, commitIdTable.D],
+              [repo1CryptCommitIdTable.E, commitIdTable.E],
+              [repo1CryptCommitIdTable.F, commitIdTable.F],
+              [repo1CryptCommitIdTable.G, commitIdTable.G],
+              [repo1CryptCommitIdTable.H, commitIdTable.H],
+              [repo1CryptCommitIdTable.I, commitIdTable.I],
+              [repo1CryptCommitIdTable.J, commitIdTable.J],
+              [repo1CryptCommitIdTable.K, commitIdTable.K],
+            ]),
+          )
           expect(await getAllLocalBranches({ ...cryptCtx })).toEqual({
             currentBranch: 'K',
             branches: ['E', 'I', 'K'],
@@ -395,6 +482,21 @@ describe('GitCipher', () => {
           crypt2plainIdMap = await gitCipher
             .decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap, gpgSign: false })
             .then(md => md.crypt2plainIdMap)
+          expect(crypt2plainIdMap).toEqual(
+            new Map([
+              [repo1CryptCommitIdTable.A, commitIdTable.A],
+              [repo1CryptCommitIdTable.B, commitIdTable.B],
+              [repo1CryptCommitIdTable.C, commitIdTable.C],
+              [repo1CryptCommitIdTable.D, commitIdTable.D],
+              [repo1CryptCommitIdTable.E, commitIdTable.E],
+              [repo1CryptCommitIdTable.F, commitIdTable.F],
+              [repo1CryptCommitIdTable.G, commitIdTable.G],
+              [repo1CryptCommitIdTable.H, commitIdTable.H],
+              [repo1CryptCommitIdTable.I, commitIdTable.I],
+              [repo1CryptCommitIdTable.J, commitIdTable.J],
+              [repo1CryptCommitIdTable.K, commitIdTable.K],
+            ]),
+          )
           expect(await getAllLocalBranches({ ...bakPlainCtx })).toEqual({
             currentBranch: 'K',
             branches: ['E', 'I', 'K'],

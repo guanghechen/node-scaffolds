@@ -117,6 +117,9 @@ export async function encryptGitRepo(
       newCryptBranches.push({ branchName, commitId: cryptHeadCommitId })
     }
 
+    crypt2plainIdMap.clear()
+    for (const [key, value] of plain2cryptIdMap.entries()) crypt2plainIdMap.set(value, key)
+
     // [crypt] set branches sames with the plain repo.
     {
       // Detach from current branch.
