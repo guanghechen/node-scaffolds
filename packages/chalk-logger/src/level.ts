@@ -46,17 +46,17 @@ export const defaultLevelStyleMap: ILevelStyleMap = Object.freeze({
     contentChalk: { fg: chalk.grey, bg: null },
   },
   [Level.VERBOSE]: {
-    title: 'verb',
+    title: 'verb ',
     labelChalk: { fg: chalk.cyan, bg: null },
     contentChalk: { fg: chalk.cyan, bg: null },
   },
   [Level.INFO]: {
-    title: 'info',
+    title: 'info ',
     labelChalk: { fg: chalk.green, bg: null },
     contentChalk: { fg: chalk.green, bg: null },
   },
   [Level.WARN]: {
-    title: 'warn',
+    title: 'warn ',
     labelChalk: { fg: chalk.yellow, bg: null },
     contentChalk: { fg: chalk.yellow, bg: null },
   },

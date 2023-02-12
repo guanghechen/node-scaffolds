@@ -187,7 +187,7 @@ describe('customize', () => {
     logger.info('waw!')
     logger.verbose('Hello {}!', 'Tom')
     expect(readFileSync(logFilepath, encoding)).toEqual(
-      ['info [file] waw!', 'verb [file] Hello Tom!'].map(x => x + '\n').join(''),
+      ['info  [file] waw!', 'verb  [file] Hello Tom!'].map(x => x + '\n').join(''),
     )
   })
 })
