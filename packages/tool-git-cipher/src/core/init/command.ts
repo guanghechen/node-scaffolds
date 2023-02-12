@@ -29,6 +29,9 @@ export const createSubCommandInit = (
       '--crypt-files-dir <cryptFilesDir>',
       'The path of not-plain files located. (relative of cryptRootDir)',
     )
+    .option('--git-gpg-sign', `Config git commit.gpgSign to 'true'.`)
+    .option('--no-git-gpg-sign', `Config git commit.gpgSign to 'false'.`)
+    .option('--secret-key-size <secretKeySize>', 'Key size of the secret cipherFactory.')
     .option(
       '--keep-plain-pattens <keepPlainPatterns>',
       'Glob patterns indicated which files should be keepPlain.',

@@ -1,7 +1,7 @@
 import type { IPBKDF2Options } from '@guanghechen/helper-cipher'
 import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commander'
 import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
-import { convertToNumber, cover } from '@guanghechen/helper-option'
+import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import { logger } from '../../env/logger'
 import type { IGlobalCommandOptions } from '../option'
@@ -23,6 +23,10 @@ interface ISubCommandOptions {
    * @default 'encrypted'
    */
   readonly cryptFilesDir: string
+  /**
+   * Set the git config 'commit.gpgSign'.
+   */
+  readonly gitGpgSign: boolean | undefined
   /**
    * Glob patterns indicated which files should be keepPlain.
    * @default []
@@ -72,6 +76,7 @@ const getDefaultCommandInitOptions = (): ICommandOptions => ({
   catalogFilepath: '.ghc-catalog',
   cryptFilepathSalt: 'ac2bf19c04d532',
   cryptFilesDir: 'encrypted',
+  gitGpgSign: false,
   keepPlainPatterns: [],
   mainIvSize: 12,
   mainKeySize: 32,
@@ -122,6 +127,13 @@ export function resolveSubCommandInitOptions(
     isNonBlankString,
   )
   logger.debug('cryptFilesDir:', cryptFilesDir)
+
+  // Resolve gitGpgSign
+  const gitGpgSign: boolean | undefined = cover<boolean | undefined>(
+    baseOptions.gitGpgSign,
+    convertToBoolean(options.gitGpgSign),
+  )
+  logger.debug('gitGpgSign:', gitGpgSign)
 
   // Resolve keepPlainPatterns
   const keepPlainPatterns: string[] = cover<string[]>(
@@ -199,6 +211,7 @@ export function resolveSubCommandInitOptions(
     catalogFilepath,
     cryptFilepathSalt,
     cryptFilesDir,
+    gitGpgSign,
     keepPlainPatterns,
     mainIvSize,
     mainKeySize,

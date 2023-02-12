@@ -17,11 +17,13 @@ export const createSubCommandDecrypt = (
     .aliases(aliases)
     .arguments('<workspace>')
     .description('Decrypt git repo or decrypt files on a branch/commit only.')
-    .option('--out-dir <outDir>', 'Root dir of decrypted outputs. (Relative of workspace)')
+    .option('--git-gpg-sign', `Config git commit.gpgSign to 'true'.`)
+    .option('--no-git-gpg-sign', `Config git commit.gpgSign to 'false'.`)
     .option(
       '--files-only [commitId]',
       '(commit id | branch) decrypt files only at the given commit id or branch.',
     )
+    .option('--out-dir <outDir>', 'Root dir of decrypted outputs. (Relative of workspace)')
     .action(async function ([_workspaceDir], options: ISubCommandDecryptOptions) {
       const resolvedOptions: ISubCommandDecryptOptions = resolveSubCommandDecryptOptions(
         COMMAND_NAME,

@@ -17,7 +17,11 @@ export interface IGitCipherDecryptContext {
    * If specified, then all of the files under the given commitId will be decrypted.
    * Otherwise, the entire repo will be generated.
    */
-  readonly filesOnly: string | null
+  readonly filesOnly: string | undefined
+  /**
+   * Set the git config 'commit.gpgSign'.
+   */
+  readonly gitGpgSign: boolean | undefined
   /**
    * The maximum size required of password.
    */
@@ -33,7 +37,7 @@ export interface IGitCipherDecryptContext {
   /**
    * Root dir of decrypted outputs. (absolute path)
    */
-  readonly outDir: string | null
+  readonly outDir: string | undefined
   /**
    * The directory where the plain repo located. (absolute path)
    */
@@ -60,6 +64,7 @@ export async function createGitCipherDecryptContextFromOptions(
     cryptRootDir: options.cryptRootDir,
     encoding: options.encoding,
     filesOnly: options.filesOnly,
+    gitGpgSign: options.gitGpgSign,
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,

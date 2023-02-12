@@ -72,6 +72,7 @@ export class GitCipherInitProcessor {
       logger,
       eol: 'lf',
       encoding: 'utf-8',
+      gpgSign: context.gitGpgSign,
     })
     await stageAll({ cwd: context.workspace, logger })
   }

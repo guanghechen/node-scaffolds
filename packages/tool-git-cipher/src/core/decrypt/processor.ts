@@ -7,14 +7,11 @@ import {
 } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { BigFileHelper } from '@guanghechen/helper-file'
-import { emptyDir } from '@guanghechen/helper-fs'
 import { GitCipher, GitCipherConfig, decryptFilesOnly } from '@guanghechen/helper-git-cipher'
 import { coverString } from '@guanghechen/helper-option'
 import invariant from '@guanghechen/invariant'
-import inquirer from 'inquirer'
-import { existsSync } from 'node:fs'
 import { logger } from '../../env/logger'
-import type { ICatalogCacheData } from '../../util/CatalogCache'
+import type { ICatalogCache } from '../../util/CatalogCache'
 import { CatalogCacheKeeper } from '../../util/CatalogCache'
 import { SecretConfigKeeper } from '../../util/SecretConfig'
 import { SecretMaster } from '../../util/SecretMaster'
@@ -79,21 +76,6 @@ export class GitCipherDecryptProcessor {
       cryptRootDir: context.cryptRootDir,
     })
 
-    if (existsSync(outPathResolver.plainRootDir)) {
-      const { shouldEmptyOutDir } = await inquirer.prompt([
-        {
-          type: 'confirm',
-          name: 'shouldEmptyOutDir',
-          default: false,
-          message: `Empty ${outRootDir}`,
-        },
-      ])
-      if (shouldEmptyOutDir) {
-        logger.info('Emptying {}...', outRootDir)
-        await emptyDir(outRootDir)
-      }
-    }
-
     if (context.filesOnly) {
       logger.debug('Trying decryptFilesOnly...')
       await decryptFilesOnly({
@@ -107,12 +89,14 @@ export class GitCipherDecryptProcessor {
       logger.debug('Trying decrypt entire repo...')
 
       const cacheKeeper = new CatalogCacheKeeper({ filepath: context.catalogCacheFilepath })
-      const data: ICatalogCacheData = cacheKeeper.data ?? { crypt2plainIdMap: [] }
+      await cacheKeeper.load()
+      const data: ICatalogCache = cacheKeeper.data ?? { crypt2plainIdMap: new Map() }
       const { crypt2plainIdMap } = await gitCipher.decrypt({
         pathResolver: outPathResolver,
         crypt2plainIdMap: new Map(data.crypt2plainIdMap),
+        gpgSign: context.gitGpgSign,
       })
-      await cacheKeeper.update({ crypt2plainIdMap: Array.from(crypt2plainIdMap.entries()) })
+      await cacheKeeper.update({ crypt2plainIdMap })
       await cacheKeeper.save()
     }
   }

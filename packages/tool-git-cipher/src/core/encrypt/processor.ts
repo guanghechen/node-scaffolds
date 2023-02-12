@@ -12,7 +12,7 @@ import { GitCipher, GitCipherConfig } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import micromatch from 'micromatch'
 import { logger } from '../../env/logger'
-import type { ICatalogCacheData } from '../../util/CatalogCache'
+import type { ICatalogCache } from '../../util/CatalogCache'
 import { CatalogCacheKeeper } from '../../util/CatalogCache'
 import { SecretConfigKeeper } from '../../util/SecretConfig'
 import { SecretMaster } from '../../util/SecretMaster'
@@ -92,13 +92,14 @@ export class GitCipherEncryptProcessor {
     })
 
     const cacheKeeper = new CatalogCacheKeeper({ filepath: context.catalogCacheFilepath })
-    const data: ICatalogCacheData = cacheKeeper.data ?? { crypt2plainIdMap: [] }
+    await cacheKeeper.load()
+    const data: ICatalogCache = cacheKeeper.data ?? { crypt2plainIdMap: new Map() }
     const { crypt2plainIdMap } = await gitCipher.encrypt({
       pathResolver,
       catalog,
       crypt2plainIdMap: new Map(data.crypt2plainIdMap),
     })
-    await cacheKeeper.update({ crypt2plainIdMap: Array.from(crypt2plainIdMap.entries()) })
+    await cacheKeeper.update({ crypt2plainIdMap })
     await cacheKeeper.save()
   }
 }

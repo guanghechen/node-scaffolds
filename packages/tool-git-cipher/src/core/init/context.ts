@@ -31,6 +31,10 @@ export interface IGitCipherInitContext {
    */
   readonly encoding: string
   /**
+   * Set the git config 'commit.gpgSign'.
+   */
+  readonly gitGpgSign: boolean | undefined
+  /**
    * Glob patterns indicated which files should be keepPlain.
    * @default []
    */
@@ -105,6 +109,7 @@ export async function createGitCipherInitContextFromOptions(
     cryptFilesDir: options.cryptFilesDir,
     cryptRootDir: options.cryptRootDir,
     encoding: options.encoding,
+    gitGpgSign: options.gitGpgSign,
     keepPlainPatterns: options.keepPlainPatterns,
     mainIvSize: options.mainIvSize,
     mainKeySize: options.mainKeySize,
