@@ -18,7 +18,7 @@ export abstract class JsonConfigKeeper<Instance, Data>
   }
 
   protected override encode(config: IConfig): PromiseOr<Buffer> {
-    const jsonContent: string = JSON.stringify(config)
+    const jsonContent: string = JSON.stringify(config, null, 2)
     return Buffer.from(jsonContent, 'utf8')
   }
 
