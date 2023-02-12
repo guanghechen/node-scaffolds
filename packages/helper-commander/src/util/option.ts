@@ -28,7 +28,7 @@ export function flatOptionsFromConfiguration<O extends ICommandConfigurationOpti
   flatOpts: Readonly<ICommandConfigurationFlatOpts>,
   subCommandName: string | false,
   strategyMap?: Readonly<Partial<IMergeStrategyMap<O>>>,
-): O {
+): { resolvedConfig: ICommandConfiguration<O>; resolvedOptions: O } {
   let resolvedConfig = {} as unknown as ICommandConfiguration<O>
 
   // load configs
@@ -56,11 +56,11 @@ export function flatOptionsFromConfiguration<O extends ICommandConfigurationOpti
     }
   }
 
-  let result: O = defaultOptions
+  let resolvedOptions: O = defaultOptions
   if (subCommandName === false) {
-    result = merge(
+    resolvedOptions = merge(
       [
-        result,
+        resolvedOptions,
         isObject(resolvedConfig.__globalOptions__)
           ? resolvedConfig.__globalOptions__
           : (resolvedConfig as unknown as O),
@@ -70,16 +70,16 @@ export function flatOptionsFromConfiguration<O extends ICommandConfigurationOpti
   } else {
     // merge globalOptions
     if (isNotEmptyObject(resolvedConfig.__globalOptions__)) {
-      result = merge([result, resolvedConfig.__globalOptions__], strategyMap)
+      resolvedOptions = merge([resolvedOptions, resolvedConfig.__globalOptions__], strategyMap)
     }
 
     // merge specified sub-command option
     if (isNonBlankString(subCommandName) && isObject(resolvedConfig[subCommandName])) {
-      result = merge([result, resolvedConfig[subCommandName]], strategyMap)
+      resolvedOptions = merge([resolvedOptions, resolvedConfig[subCommandName]], strategyMap)
     }
   }
 
-  return result
+  return { resolvedConfig, resolvedOptions }
 }
 
 // Resolve CommandConfigurationOptions
@@ -122,7 +122,7 @@ export function resolveCommandConfigurationOptions<O extends ICommandConfigurati
     parasticConfigEntry,
   }
 
-  const resolvedOptions = flatOptionsFromConfiguration<O>(
+  const { resolvedConfig, resolvedOptions } = flatOptionsFromConfiguration<O>(
     logger,
     defaultOptions,
     flatOpts,
@@ -143,6 +143,8 @@ export function resolveCommandConfigurationOptions<O extends ICommandConfigurati
   logger.debug('parasticConfigPath:', flatOpts.parasticConfigPath)
   logger.debug('parasticConfigEntry:', flatOpts.parasticConfigEntry)
   logger.debug('logLevel:', logLevel)
+  logger.debug('resolvedConfig:', resolvedConfig)
+  logger.debug('resolvedOptions:', resolvedOptions)
 
   return {
     ...resolvedOptions,

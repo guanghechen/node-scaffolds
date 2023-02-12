@@ -1,24 +1,26 @@
 import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
 import { Command } from '@guanghechen/helper-commander'
+import { COMMAND_NAME } from '../../env/constant'
 import type { ISubCommandEncryptOptions } from './option'
 import { resolveSubCommandEncryptOptions } from './option'
 
 // Create Sub-command: encrypt (e)
 export const createSubCommandEncrypt = (
   handle?: ISubCommandProcessor<ISubCommandEncryptOptions>,
-  commandName = 'encrypt',
+  subCommandName = 'encrypt',
   aliases: string[] = ['e'],
 ): Command => {
   const command = new Command()
 
   command
-    .name(commandName)
+    .name(subCommandName)
     .aliases(aliases)
     .description('Encrypt git repo.')
     .arguments('<workspace>')
     .action(async function ([_workspaceDir], options: ISubCommandEncryptOptions) {
       const resolvedOptions: ISubCommandEncryptOptions = resolveSubCommandEncryptOptions(
-        commandName,
+        COMMAND_NAME,
+        subCommandName,
         _workspaceDir,
         options,
       )

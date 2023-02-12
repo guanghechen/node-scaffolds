@@ -33,6 +33,18 @@ exports[`command no sub-command with arguments: logs 1`] = `
 ",
   ],
   [
+    "debug [ghc] resolvedConfig: {}
+",
+  ],
+  [
+    "debug [ghc] resolvedOptions: {
+  encoding: 'utf8',
+  force: false,
+  silence: true,
+}
+",
+  ],
+  [
     "debug [ghc] encoding: utf8
 ",
   ],
@@ -114,6 +126,18 @@ exports[`command no sub-command without arguments: logs 1`] = `
   ],
   [
     "debug [ghc] logLevel: debug
+",
+  ],
+  [
+    "debug [ghc] resolvedConfig: {}
+",
+  ],
+  [
+    "debug [ghc] resolvedOptions: {
+  encoding: 'utf8',
+  force: false,
+  silence: true,
+}
 ",
   ],
   [

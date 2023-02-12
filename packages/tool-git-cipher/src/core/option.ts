@@ -82,7 +82,7 @@ export const getDefaultGlobalCommandOptions = (): IGlobalCommandOptions => ({
  * @param workspaceDir
  * @param options
  */
-export function resolveGlobalCommandOptions<C extends object>(
+export function resolveBaseCommandOptions<C extends object>(
   commandName: string,
   subCommandName: string | false,
   defaultOptions: C,

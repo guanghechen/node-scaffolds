@@ -1,10 +1,9 @@
 import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commander'
 import { cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
-import { PACKAGE_NAME } from '../../env/constant'
 import { logger } from '../../env/logger'
 import type { IGlobalCommandOptions } from '../option'
-import { getDefaultGlobalCommandOptions, resolveGlobalCommandOptions } from '../option'
+import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
 interface ISubCommandOptions {
   /**
@@ -23,7 +22,7 @@ interface ISubCommandOptions {
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
 export type ISubCommandDecryptOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
-export const getDefaultCommandDecryptOptions = (): ICommandOptions => ({
+const getDefaultCommandDecryptOptions = (): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(),
   outDir: null,
   filesOnly: null,
@@ -31,35 +30,33 @@ export const getDefaultCommandDecryptOptions = (): ICommandOptions => ({
 
 export function resolveSubCommandDecryptOptions(
   commandName: string,
+  subCommandName: string,
   workspaceDir: string,
   options: ISubCommandDecryptOptions,
 ): ISubCommandDecryptOptions {
-  const defaultOptions: ICommandOptions = getDefaultCommandDecryptOptions()
-
-  type R = IGlobalCommandOptions & ICommandConfigurationFlatOpts
-  const globalOptions: R = resolveGlobalCommandOptions(
-    PACKAGE_NAME,
+  const baseOptions: ISubCommandDecryptOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
-    defaultOptions,
+    subCommandName,
+    getDefaultCommandDecryptOptions(),
     workspaceDir,
     options,
   )
 
   // Resolve outDir
   const outDir: string | null = (() => {
-    const _rawOutDir = cover<string | null>(defaultOptions.outDir, options.outDir)
+    const _rawOutDir = cover<string | null>(baseOptions.outDir, options.outDir)
     if (_rawOutDir == null) return null
-    return absoluteOfWorkspace(globalOptions.workspace, _rawOutDir)
+    return absoluteOfWorkspace(baseOptions.workspace, _rawOutDir)
   })()
   logger.debug('outDir:', outDir)
 
   // Resolve filesAt
   const filesOnly: string | null = cover<string | null>(
-    defaultOptions.filesOnly,
+    baseOptions.filesOnly,
     (options.filesOnly as unknown) === true ? 'HEAD' : options.filesOnly,
   )
   logger.debug('filesOnly:', filesOnly)
 
   const resolvedOptions: ISubCommandOptions = { outDir, filesOnly }
-  return { ...globalOptions, ...resolvedOptions }
+  return { ...baseOptions, ...resolvedOptions }
 }

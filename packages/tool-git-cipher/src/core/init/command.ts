@@ -1,18 +1,19 @@
 import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
 import { Command } from '@guanghechen/helper-commander'
+import { COMMAND_NAME } from '../../env/constant'
 import type { ISubCommandInitOptions } from './option'
 import { resolveSubCommandInitOptions } from './option'
 
 // Create Sub-command: init (i)
 export const createSubCommandInit = (
   handle?: ISubCommandProcessor<ISubCommandInitOptions>,
-  commandName = 'init',
+  subCommandName = 'init',
   aliases: string[] = ['i'],
 ): Command => {
   const command = new Command()
 
   command
-    .name(commandName)
+    .name(subCommandName)
     .aliases(aliases)
     .description('Initialize a encrypt / decrypt able git repo.')
     .arguments('<workspace>')
@@ -41,7 +42,8 @@ export const createSubCommandInit = (
     .option('--secret-key-size <secretKeySize>', 'Key size of the secret cipherFactory.')
     .action(async function ([_workspaceDir], options: ISubCommandInitOptions) {
       const resolvedOptions: ISubCommandInitOptions = resolveSubCommandInitOptions(
-        commandName,
+        COMMAND_NAME,
+        subCommandName,
         _workspaceDir,
         options,
       )

@@ -3,10 +3,9 @@ import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commande
 import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import { convertToNumber, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
-import { PACKAGE_NAME } from '../../env/constant'
 import { logger } from '../../env/logger'
 import type { IGlobalCommandOptions } from '../option'
-import { getDefaultGlobalCommandOptions, resolveGlobalCommandOptions } from '../option'
+import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
 interface ISubCommandOptions {
   /**
@@ -68,7 +67,7 @@ interface ISubCommandOptions {
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
 export type ISubCommandInitOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
-export const getDefaultCommandInitOptions = (): ICommandOptions => ({
+const getDefaultCommandInitOptions = (): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(),
   catalogFilepath: '.ghc-catalog',
   cryptFilepathSalt: 'ac2bf19c04d532',
@@ -89,30 +88,28 @@ export const getDefaultCommandInitOptions = (): ICommandOptions => ({
 
 export function resolveSubCommandInitOptions(
   commandName: string,
+  subCommandName: string,
   workspaceDir: string,
   options: ISubCommandInitOptions,
 ): ISubCommandInitOptions {
-  const defaultOptions: ICommandOptions = getDefaultCommandInitOptions()
-
-  type R = IGlobalCommandOptions & ICommandConfigurationFlatOpts
-  const globalOptions: R = resolveGlobalCommandOptions(
-    PACKAGE_NAME,
+  const baseOptions: ISubCommandInitOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
-    defaultOptions,
+    subCommandName,
+    getDefaultCommandInitOptions(),
     workspaceDir,
     options,
   )
 
   // Resolve catalogFilepath
   const catalogFilepath: string = absoluteOfWorkspace(
-    globalOptions.cryptRootDir,
-    cover<string>(defaultOptions.catalogFilepath, options.catalogFilepath, isNonBlankString),
+    baseOptions.cryptRootDir,
+    cover<string>(baseOptions.catalogFilepath, options.catalogFilepath, isNonBlankString),
   )
   logger.debug('catalogFilepath:', catalogFilepath)
 
   // Resolve cryptFilepathSalt
   const cryptFilepathSalt: string = cover<string>(
-    defaultOptions.cryptFilepathSalt,
+    baseOptions.cryptFilepathSalt,
     options.cryptFilepathSalt,
     isNonBlankString,
   )
@@ -120,7 +117,7 @@ export function resolveSubCommandInitOptions(
 
   // Resolve cryptFilesDir
   const cryptFilesDir: string = cover<string>(
-    defaultOptions.cryptFilesDir,
+    baseOptions.cryptFilesDir,
     options.cryptFilesDir,
     isNonBlankString,
   )
@@ -128,7 +125,7 @@ export function resolveSubCommandInitOptions(
 
   // Resolve keepPlainPatterns
   const keepPlainPatterns: string[] = cover<string[]>(
-    defaultOptions.keepPlainPatterns ?? [],
+    baseOptions.keepPlainPatterns ?? [],
     options.keepPlainPatterns,
     isNotEmptyArray,
   )
@@ -138,28 +135,28 @@ export function resolveSubCommandInitOptions(
 
   // Resolve mainIvSize
   const mainIvSize: number = cover<number>(
-    defaultOptions.mainIvSize,
+    baseOptions.mainIvSize,
     convertToNumber(options.mainIvSize),
   )
   logger.debug('mainIvSize:', mainIvSize)
 
   // Resolve mainKeySize
   const mainKeySize: number = cover<number>(
-    defaultOptions.mainKeySize,
+    baseOptions.mainKeySize,
     convertToNumber(options.mainKeySize),
   )
   logger.debug('mainKeySize:', mainKeySize)
 
   // Resolve maxTargetFileSize
   const maxTargetFileSize: number | undefined = cover<number | undefined>(
-    defaultOptions.maxTargetFileSize,
+    baseOptions.maxTargetFileSize,
     convertToNumber(options.maxTargetFileSize),
   )
   logger.debug('maxTargetFileSize:', maxTargetFileSize)
 
   // Resolve partCodePrefix
   const partCodePrefix: string = cover<string>(
-    defaultOptions.partCodePrefix,
+    baseOptions.partCodePrefix,
     options.partCodePrefix,
     isNonBlankString,
   )
@@ -168,16 +165,16 @@ export function resolveSubCommandInitOptions(
   // Resolve pbkdf2Options
   const pbkdf2Options: IPBKDF2Options = {
     salt: cover<string>(
-      defaultOptions.pbkdf2Options.salt,
+      baseOptions.pbkdf2Options.salt,
       options.pbkdf2Options?.salt,
       isNonBlankString,
     ),
     iterations: cover<number>(
-      defaultOptions.pbkdf2Options.iterations,
+      baseOptions.pbkdf2Options.iterations,
       convertToNumber(options.pbkdf2Options?.iterations),
     ),
     digest: cover<string>(
-      defaultOptions.pbkdf2Options.digest,
+      baseOptions.pbkdf2Options.digest,
       options.pbkdf2Options?.digest,
       isNonBlankString,
     ) as IPBKDF2Options['digest'],
@@ -186,14 +183,14 @@ export function resolveSubCommandInitOptions(
 
   // Resolve secretIvSize
   const secretIvSize: number = cover<number>(
-    defaultOptions.secretIvSize,
+    baseOptions.secretIvSize,
     convertToNumber(options.secretIvSize),
   )
   logger.debug('secretIvSize:', secretIvSize)
 
   // Resolve secretKeySize
   const secretKeySize: number = cover<number>(
-    defaultOptions.secretKeySize,
+    baseOptions.secretKeySize,
     convertToNumber(options.secretKeySize),
   )
   logger.debug('secretKeySize:', secretKeySize)
@@ -211,5 +208,5 @@ export function resolveSubCommandInitOptions(
     secretIvSize,
     secretKeySize,
   }
-  return { ...globalOptions, ...resolvedOptions }
+  return { ...baseOptions, ...resolvedOptions }
 }
