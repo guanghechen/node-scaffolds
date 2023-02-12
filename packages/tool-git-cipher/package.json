@@ -55,7 +55,6 @@
     "@guanghechen/helper-path": "^4.0.0-alpha.7",
     "@guanghechen/helper-plop": "^4.0.0-alpha.7",
     "@guanghechen/helper-stream": "^4.0.0-alpha.7",
-    "@guanghechen/helper-string": "^4.0.0-alpha.7",
     "@guanghechen/invariant": "^4.0.0-alpha.7",
     "execa": "^6.1.0",
     "inquirer": "^9.1.4",

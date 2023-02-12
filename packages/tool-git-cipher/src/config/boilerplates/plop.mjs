@@ -22,11 +22,11 @@ export default function (plop) {
           path: resolveTargetPath(answers.configFilepath),
           templateFile: resolveSourcePath('.ghc-config.json.hbs'),
         },
-        {
-          type: 'add',
-          path: resolveTargetPath(answers.secretFilepath),
-          templateFile: resolveSourcePath('.ghc-secret.json.hbs'),
-        },
+        // {
+        //   type: 'add',
+        //   path: resolveTargetPath(answers.secretFilepath),
+        //   templateFile: resolveSourcePath('.ghc-secret.json.hbs'),
+        // },
         {
           type: 'add',
           path: resolveTargetPath('.gitignore'),

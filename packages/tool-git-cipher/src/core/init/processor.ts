@@ -1,14 +1,14 @@
 import { hasGitInstalled } from '@guanghechen/helper-commander'
-import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
+import { isNonExistentOrEmpty, mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import { initGitRepo, stageAll } from '@guanghechen/helper-git'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
 import { runPlop } from '@guanghechen/helper-plop'
-import { toLowerCase } from '@guanghechen/helper-string'
 import invariant from '@guanghechen/invariant'
 import { execa } from 'execa'
 import inquirer from 'inquirer'
 import nodePlop from 'node-plop'
+import { existsSync } from 'node:fs'
 import { COMMAND_VERSION } from '../../env/constant'
 import { logger } from '../../env/logger'
 import { resolveTemplateFilepath } from '../../env/util'
@@ -51,30 +51,122 @@ export class GitCipherInitProcessor {
       secretKeySize: context.secretKeySize,
     }
 
-    // Render boilerplates.
-    await this._renderBoilerplates({
-      ...presetSecretData,
-      configFilepath:
-        context.configFilepaths
-          .map(fp => relativeOfWorkspace(context.workspace, fp))
-          .find(fp => fp.endsWith('.json')) ?? '.ghc-config.json',
-      secret: '',
-      secretAuthTag: '',
-    })
+    const isWorkspaceEmpty = isNonExistentOrEmpty(context.workspace)
+    const isSecretExist = existsSync(context.secretFilepath)
+    mkdirsIfNotExists(context.workspace, true)
 
-    // Create secret file.
-    const configKeeper = await this._createSecret({ ...presetSecretData })
-    if (!this.secretMaster.cipherFactory) await this.secretMaster.load(configKeeper)
+    if (isWorkspaceEmpty) {
+      // Render boilerplates if the workspace is non-exist or empty.
+      const relativeConfigPaths: string[] = context.configFilepaths.map(fp =>
+        relativeOfWorkspace(context.workspace, fp),
+      )
+      await this._renderBoilerplates({
+        ...presetSecretData,
+        configFilepath: relativeConfigPaths.find(fp => fp.endsWith('.json')) ?? '.ghc-config.json',
+        secret: '',
+        secretAuthTag: '',
+      })
 
-    // Init git repo.
-    await initGitRepo({
-      cwd: context.workspace,
-      logger,
-      eol: 'lf',
-      encoding: 'utf-8',
-      gpgSign: context.gitGpgSign,
-    })
-    await stageAll({ cwd: context.workspace, logger })
+      // Init git repo.
+      await initGitRepo({
+        cwd: context.workspace,
+        logger,
+        eol: 'lf',
+        encoding: 'utf-8',
+        gpgSign: context.gitGpgSign,
+      })
+      await stageAll({ cwd: context.workspace, logger })
+    }
+
+    if (isSecretExist) {
+      // Regenerate secret.
+      const { shouldGenerateNewSecret } = await inquirer.prompt([
+        {
+          type: 'confirm',
+          name: 'shouldGenerateNewSecret',
+          default: false,
+          message:
+            'The repo seems initialized, do you want to generate new secret? (!!!WARNING this will invalid the existed crypt commits)',
+        },
+      ])
+
+      if (shouldGenerateNewSecret) {
+        const {
+          mainIvSize,
+          mainKeySize,
+          pbkdf2Options_digest,
+          pbkdf2Options_iterations,
+          pbkdf2Options_salt,
+          secretIvSize,
+          secretKeySize,
+        } = await inquirer.prompt([
+          {
+            type: 'number',
+            name: 'mainKeySize',
+            default: context.mainKeySize,
+            message: 'mainKeySize',
+          },
+          {
+            type: 'number',
+            name: 'mainIvSize',
+            default: context.mainIvSize,
+            message: 'mainIvSize',
+          },
+          {
+            type: 'number',
+            name: 'secretKeySize',
+            default: context.secretKeySize,
+            message: 'secretKeySize',
+          },
+          {
+            type: 'number',
+            name: 'secretIvSize',
+            default: context.secretIvSize,
+            message: 'secretIvSize',
+          },
+          {
+            type: 'string',
+            name: 'pbkdf2Options_salt',
+            default: context.pbkdf2Options.salt,
+            message: 'pbkdf2Options.salt',
+            filter: x => x.trim(),
+            transformer: (x: string) => x.trim(),
+          },
+          {
+            type: 'number',
+            name: 'pbkdf2Options_iterations',
+            default: context.pbkdf2Options.iterations,
+            message: 'pbkdf2Options.iterations',
+          },
+          {
+            type: 'list',
+            name: 'pbkdf2Options_digest',
+            default: context.pbkdf2Options.digest,
+            message: 'pbkdf2Options.digest',
+            choices: ['sha256'],
+            filter: x => x.trim(),
+            transformer: (x: string) => x.trim(),
+          },
+        ])
+
+        // Create secret file.
+        await this._createSecret({
+          ...presetSecretData,
+          mainIvSize,
+          mainKeySize,
+          pbkdf2Options: {
+            salt: pbkdf2Options_salt,
+            iterations: pbkdf2Options_iterations,
+            digest: pbkdf2Options_digest,
+          },
+          secretIvSize,
+          secretKeySize,
+        })
+        logger.info('New secret generated and stored.')
+      }
+    } else {
+      await this._createSecret({ ...presetSecretData })
+    }
   }
 
   // Render boilerplates.
@@ -89,8 +181,8 @@ export class GitCipherInitProcessor {
         type: 'input',
         name: 'plainRepoUrl',
         message: 'Resource git repository url?',
-        filter: x => toLowerCase(x).trim(),
-        transformer: (x: string) => toLowerCase(x).trim(),
+        filter: x => x.trim(),
+        transformer: (x: string) => x.trim(),
       },
     ])
 

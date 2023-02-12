@@ -1051,7 +1051,6 @@ __metadata:
     "@guanghechen/helper-path": ^4.0.0-alpha.7
     "@guanghechen/helper-plop": ^4.0.0-alpha.7
     "@guanghechen/helper-stream": ^4.0.0-alpha.7
-    "@guanghechen/helper-string": ^4.0.0-alpha.7
     "@guanghechen/invariant": ^4.0.0-alpha.7
     "@guanghechen/rollup-config-cli": ^4.0.0-alpha.7
     "@types/micromatch": ^4.0.2
