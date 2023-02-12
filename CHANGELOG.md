@@ -1,5 +1,54 @@
 # Changelog
 
+<a name="4.0.0-alpha.7"></a>
+## 4.0.0-alpha.7 (2023-02-12)
+
+### Added
+
+- ✨ feat(helper-cipher-file): add CipherJsonConfigKeeper [[137c3d9](https://github.com/guanghechen/node-scaffolds/commit/137c3d9a08e112af34ced763c27e7482699a5b62)]
+- ✨ feat: implement @guanghechen/helper-config to resolver config files [[15d8832](https://github.com/guanghechen/node-scaffolds/commit/15d883210f8f0fb5b3e7a18a77dac5876ca22c52)]
+- ✨ [BREAKING] feat: refactor helper-cipher-file interfaces [[d472941](https://github.com/guanghechen/node-scaffolds/commit/d4729418202eca3aa6082efe450bb272f158cf28)]
+- ✨ [BREAKING] feat: refactor helper-cipher interfaces [[cc4c2f8](https://github.com/guanghechen/node-scaffolds/commit/cc4c2f8dd396f141f6b1fc4a3c95f8ef14e9c056)]
+- ✨ [BREAKING] feat(helper-git-cipher): no longer dependent the plain commit ids [[f92200c](https://github.com/guanghechen/node-scaffolds/commit/f92200cfdfa55037ffd3424385ac8633d3e092ed)]
+
+### Changed
+
+- 🎨 improve(tool-git-cipher): avoid duplicated password request [[9613994](https://github.com/guanghechen/node-scaffolds/commit/96139946a1f3554699fa8d3ab792bafbb9d351b3)]
+- 🎨 improve(tool-git-cipher): rearrange options and boilerplates [[17041fe](https://github.com/guanghechen/node-scaffolds/commit/17041fee300dec5330488c83137b20e0ba050474)]
+- 🎨 improve(tool-git-cipher): remove useless variables [[a4e81c5](https://github.com/guanghechen/node-scaffolds/commit/a4e81c528a1b4b6c656190cec35761c3c30a98db)]
+- 🎨 improve(helper-commander): refactor with @guanghechen/helper-git [[1f6d18d](https://github.com/guanghechen/node-scaffolds/commit/1f6d18d33ccc21e43c456ac8b9a144fc70e5997a)]
+- 🎨 improve: don&#x27;t set defaultValue for gpgSign [[8d8179f](https://github.com/guanghechen/node-scaffolds/commit/8d8179f92d184c0c672d671fb16be4c120309f8d)]
+- 🎨 [BREAKING] refactor(chalk-logger): prefer the term &#x27;flight&#x27; to &#x27;flag&#x27; [[cd891d2](https://github.com/guanghechen/node-scaffolds/commit/cd891d21d559ab5876ccb8c95e274a76c8fc34f1)]
+- 🎨 improve(chalk-logger): support specify multiple logFlag in one option like &#x27;--log-flag&#x3D;date,inline,no-colorful&#x27; [[1795ea3](https://github.com/guanghechen/node-scaffolds/commit/1795ea3b1a4eb2d3329a2fa0debc79b9ef7af99d)]
+- 🎨 improve(chalk-logger): align label [[12be9ed](https://github.com/guanghechen/node-scaffolds/commit/12be9ede2cfe8768a7b409be606167f1da88cc49)]
+- 🎨 improve(tool-git-cipher): rearrange options and boilerplates [[77e147a](https://github.com/guanghechen/node-scaffolds/commit/77e147a7917ca4505a3b8552b9cc13f7bb058e07)]
+- 🎨 improve: make json config prettier [[22f8b83](https://github.com/guanghechen/node-scaffolds/commit/22f8b8370fc74826485fec2989d6df426b226585)]
+- 👽 fix &amp; refactor @guanghechen/tool-git-cipher due to the dependencies changed [[6c43630](https://github.com/guanghechen/node-scaffolds/commit/6c436309e68832fa86cfd1daa9bee535bf4009f0)]
+- 🎨 style: fix lint [[806065c](https://github.com/guanghechen/node-scaffolds/commit/806065c2666cef1b0f8464437113975fb8724e08)]
+- 🎨 improve: fix types [[0b36dd7](https://github.com/guanghechen/node-scaffolds/commit/0b36dd741336511c46667bbef9562fc08392a97b)]
+- 🎨 improve: rename encryptedFilesDir and encryptedFilePathSalt [[e1ac36d](https://github.com/guanghechen/node-scaffolds/commit/e1ac36d534345303cd7ce74fe9734befb96f5d02)]
+- 🎨 improve: prefer base64 over hex [[ee5ff64](https://github.com/guanghechen/node-scaffolds/commit/ee5ff64c8fe433ee1c704a9259f82d20fadc4c4e)]
+- 👽 fix build error due to the helper-config changes [[b563ce2](https://github.com/guanghechen/node-scaffolds/commit/b563ce28ff3941243750366ae37701f752e0d5dd)]
+- 🎨 refactor(helper-config) ConfigKeeper [[3e713be](https://github.com/guanghechen/node-scaffolds/commit/3e713be4f92ec20c715d1a0cacb9ac77bf17436a)]
+- 🎨 refactor(helper-git-cipher): refactor with ConfigKeeper [[494b9c1](https://github.com/guanghechen/node-scaffolds/commit/494b9c12c01a363ff21a3d48d635b2101b9ffc03)]
+- 🎨 improve(helper-cipher): expose &#x60;cleanup()&#x60; from CipherFactory instance [[58bdd7a](https://github.com/guanghechen/node-scaffolds/commit/58bdd7a95193b428ab91220c7169714386a9bcb1)]
+- 🎨 improve: prefer string type salt instead Buffer [[dc2bea5](https://github.com/guanghechen/node-scaffolds/commit/dc2bea5c8ebeabb9235781ae0b9d621993986ddb)]
+- 👽 fix build errors due to the changes of helper-cipher and helper-cipher-file [[108c916](https://github.com/guanghechen/node-scaffolds/commit/108c916521271dfc7370f6178e8d9846b5d7d85a)]
+- 🔧 chore: upgrade devDependencies [[320adbe](https://github.com/guanghechen/node-scaffolds/commit/320adbe4fdd15f859933c1eb913518e687942004)]
+
+### Fixed
+
+- 🐛 fix(tool-git-cipher): fix options and bad catalog cache [[3f654fb](https://github.com/guanghechen/node-scaffolds/commit/3f654fb6f748879eec135dfb2600447c239853c8)]
+- 🐛 fix(helper-git-cipher): update crypt2plainIdMap after encrypt [[2b1d24e](https://github.com/guanghechen/node-scaffolds/commit/2b1d24e247c265748402bcf6cd5d224487c413cc)]
+- 🐛 fix options resolver [[badd25d](https://github.com/guanghechen/node-scaffolds/commit/badd25d1226cc0b5149d4b11890b3b5833449726)]
+- 🐛 fix(tool-git-cipher): fix wrong password [[2ed6382](https://github.com/guanghechen/node-scaffolds/commit/2ed6382ace469f7c305315180aad9176d1caceb1)]
+
+### Miscellaneous
+
+- 📝 docs(chalk-logger): update doc and demo snapshots [[e8df75c](https://github.com/guanghechen/node-scaffolds/commit/e8df75c8ae31107a90bb675c4d1b44d0754caaf7)]
+- ⚰️ improve(helper-cipher-file): remove dead codes [[f758d72](https://github.com/guanghechen/node-scaffolds/commit/f758d72840f7f0d8cceb9931a975779a12be9e47)]
+
+
 <a name="4.0.0-alpha.6"></a>
 ## 4.0.0-alpha.6 (2023-02-08)
 
