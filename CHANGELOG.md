@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="4.0.0-alpha.8"></a>
+## 4.0.0-alpha.8 (2023-02-12)
+
+### Changed
+
+- 🎨 improve(tool-git-cipher): better ux &amp; support to regenerate secret [[227933b](https://github.com/guanghechen/node-scaffolds/commit/227933b63c4cb6a4d7c13b09ed2e44b7a8a9bae3)]
+
+
 <a name="4.0.0-alpha.7"></a>
 ## 4.0.0-alpha.7 (2023-02-12)
 
