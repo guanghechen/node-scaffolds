@@ -10,10 +10,6 @@ export interface IGitCipherEncryptContext {
    */
   readonly cryptRootDir: string
   /**
-   * Path of currently executing command. (absolute path)
-   */
-  readonly cwd: string
-  /**
    * Default encoding of files in the workspace.
    */
   readonly encoding: string
@@ -53,7 +49,6 @@ export async function createGitCipherEncryptContextFromOptions(
   const context: IGitCipherEncryptContext = {
     catalogCacheFilepath: options.catalogCacheFilepath,
     cryptRootDir: options.cryptRootDir,
-    cwd: options.cwd,
     encoding: options.encoding,
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,

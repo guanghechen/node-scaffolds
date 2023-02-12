@@ -19,10 +19,6 @@ export interface IGitCipherInitContext {
    */
   readonly cryptRootDir: string
   /**
-   * Path of currently executing command. (absolute path)
-   */
-  readonly cwd: string
-  /**
    * Default encoding of files in the workspace.
    */
   readonly encoding: string
@@ -98,7 +94,6 @@ export async function createGitCipherInitContextFromOptions(
     cryptFilepathSalt: options.cryptFilepathSalt,
     cryptFilesDir: options.cryptFilesDir,
     cryptRootDir: options.cryptRootDir,
-    cwd: options.cwd,
     encoding: options.encoding,
     keepPlainPatterns: options.keepPlainPatterns,
     mainIvSize: options.mainIvSize,
