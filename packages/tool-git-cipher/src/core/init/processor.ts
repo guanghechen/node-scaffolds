@@ -64,7 +64,7 @@ export class GitCipherInitProcessor {
 
     // Create secret file.
     const configKeeper = await this._createSecret({ ...presetSecretData })
-    await this.secretMaster.load(configKeeper, false)
+    if (!this.secretMaster.cipherFactory) await this.secretMaster.load(configKeeper)
 
     // Init git repo.
     await initGitRepo({

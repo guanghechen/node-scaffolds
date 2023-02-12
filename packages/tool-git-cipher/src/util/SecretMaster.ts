@@ -85,10 +85,6 @@ export class SecretMaster {
           keySize: presetConfigData.mainKeySize,
           ivSize: presetConfigData.mainIvSize,
         })
-        const secretCipherFactory = new AesGcmCipherFactory({
-          keySize: presetConfigData.secretKeySize,
-          ivSize: presetConfigData.secretIvSize,
-        })
 
         let secret: Buffer | null = null
         let passwordCipher: ICipher | null = null
@@ -96,7 +92,16 @@ export class SecretMaster {
           mainCipherFactory.initFromPassword(password, presetConfigData.pbkdf2Options)
           passwordCipher = mainCipherFactory.cipher()
 
-          const secret: Buffer = secretCipherFactory.createRandomSecret()
+          const secretCipherFactory = new AesGcmCipherFactory({
+            keySize: presetConfigData.secretKeySize,
+            ivSize: presetConfigData.secretIvSize,
+          })
+          secret = secretCipherFactory.createRandomSecret()
+
+          logger.debug('Testing the new created secret.')
+          secretCipherFactory.initFromSecret(secret)
+          logger.debug('New create secret is fine.')
+
           const { cryptBytes, authTag } = passwordCipher.encrypt(secret)
           const config: ISecretConfigData = {
             catalogFilepath: presetConfigData.catalogFilepath,
@@ -114,12 +119,16 @@ export class SecretMaster {
             secretIvSize: presetConfigData.secretIvSize,
           }
           configKeeper = new SecretConfigKeeper({ filepath, cryptRootDir })
+
+          logger.debug('Updating secret config.')
           await configKeeper.update(config)
           await configKeeper.save()
-          logger.debug('Create new secret succeed.')
+          logger.debug('New secret config is saved.')
+
+          this.#secretCipherFactory?.cleanup()
+          this.#secretCipherFactory = secretCipherFactory
         } finally {
           mainCipherFactory.cleanup()
-          secretCipherFactory.cleanup()
           passwordCipher?.cleanup()
           destroyBuffer(secret)
           secret = null
@@ -133,8 +142,8 @@ export class SecretMaster {
   }
 
   // Load secret key & initialize secret cipher factory.
-  public async load(configKeeper: SecretConfigKeeper, forceReload: boolean): Promise<void> {
-    const config: ISecretConfigData = await this._loadConfig(configKeeper, forceReload)
+  public async load(configKeeper: SecretConfigKeeper): Promise<void> {
+    const config: ISecretConfigData = await this._loadConfig(configKeeper)
 
     this.#secretCipherFactory?.cleanup()
     this.#secretCipherFactory = null
@@ -218,7 +227,7 @@ export class SecretMaster {
     configKeeper: SecretConfigKeeper,
     password: Readonly<Buffer>,
   ): Promise<boolean> {
-    const config: ISecretConfigData = await this._loadConfig(configKeeper, false)
+    const config: ISecretConfigData = await this._loadConfig(configKeeper)
     const mainCipherFactory = new AesGcmCipherFactory({
       keySize: config.mainKeySize,
       ivSize: config.mainIvSize,
@@ -248,9 +257,8 @@ export class SecretMaster {
 
   protected async _loadConfig(
     configKeeper: SecretConfigKeeper,
-    forceReload: boolean,
   ): Promise<ISecretConfigData | never> {
-    if (forceReload || configKeeper.data === undefined) await configKeeper.load()
+    if (configKeeper.data === undefined) await configKeeper.load()
 
     const title: string = this.constructor.name
     const config: ISecretConfigData | undefined = configKeeper.data
