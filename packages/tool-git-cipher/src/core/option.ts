@@ -62,6 +62,8 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
  * Default value of global options
  */
 export const getDefaultGlobalCommandOptions = (): IGlobalCommandOptions => ({
+  logLevel: 'info',
+  configPath: ['.ghc-config.json'],
   catalogCacheFilepath: '.ghc-catalog-cache.json',
   cryptRootDir: 'ghc-crypt',
   encoding: 'utf8',

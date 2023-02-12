@@ -1,6 +1,5 @@
 import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
 import { Command } from '@guanghechen/helper-commander'
-import { logger } from '../../env/logger'
 import type { ISubCommandInitOptions } from './option'
 import { resolveSubCommandInitOptions } from './option'
 
@@ -29,14 +28,18 @@ export const createSubCommandInit = (
       '--crypt-files-dir <cryptFilesDir>',
       'The path of not-plain files located. (relative of cryptRootDir)',
     )
+    .option(
+      '--keep-plain-pattens <keepPlainPatterns>',
+      'Glob patterns indicated which files should be keepPlain.',
+      (val, acc: string[]) => acc.concat(val),
+      [],
+    )
     .option('--main-iv-size <mainIvSize>', 'IV size of main cipherFactory.')
     .option('--main-key-size <mainKeySize>', 'Key size of main cipherFactory.')
     .option('--part-code-prefix <partCodePRefix>', 'Prefix of parts code.')
     .option('--secret-iv-size <secretIvSize>', 'IV size of the secret cipherFactory.')
     .option('--secret-key-size <secretKeySize>', 'Key size of the secret cipherFactory.')
     .action(async function ([_workspaceDir], options: ISubCommandInitOptions) {
-      logger.setName(commandName)
-
       const resolvedOptions: ISubCommandInitOptions = resolveSubCommandInitOptions(
         commandName,
         _workspaceDir,

@@ -50,7 +50,7 @@ export class SecretMaster {
   public async createSecret(
     filepath: string,
     cryptRootDir: string,
-    partialConfig: Omit<ISecretConfigData, 'secret' | 'secretAuthTag'>,
+    presetConfigData: Omit<ISecretConfigData, 'secret' | 'secretAuthTag'>,
   ): Promise<SecretConfigKeeper> {
     let password: Buffer | null = null
     let configKeeper: SecretConfigKeeper
@@ -82,36 +82,36 @@ export class SecretMaster {
       // Use password to encrypt new secret.
       {
         const mainCipherFactory = new AesGcmCipherFactory({
-          keySize: partialConfig.mainKeySize,
-          ivSize: partialConfig.mainIvSize,
+          keySize: presetConfigData.mainKeySize,
+          ivSize: presetConfigData.mainIvSize,
         })
         const secretCipherFactory = new AesGcmCipherFactory({
-          keySize: partialConfig.secretKeySize,
-          ivSize: partialConfig.secretIvSize,
+          keySize: presetConfigData.secretKeySize,
+          ivSize: presetConfigData.secretIvSize,
         })
 
         let secret: Buffer | null = null
         let passwordCipher: ICipher | null = null
         try {
-          mainCipherFactory.initFromPassword(password, partialConfig.pbkdf2Options)
+          mainCipherFactory.initFromPassword(password, presetConfigData.pbkdf2Options)
           passwordCipher = mainCipherFactory.cipher()
 
           const secret: Buffer = secretCipherFactory.createRandomSecret()
           const { cryptBytes, authTag } = passwordCipher.encrypt(secret)
           const config: ISecretConfigData = {
-            catalogFilepath: partialConfig.catalogFilepath,
-            cryptFilepathSalt: partialConfig.cryptFilepathSalt,
-            cryptFilesDir: partialConfig.cryptFilesDir,
-            keepPlainPatterns: partialConfig.keepPlainPatterns,
-            mainIvSize: partialConfig.mainIvSize,
-            mainKeySize: partialConfig.mainKeySize,
-            maxTargetFileSize: partialConfig.maxTargetFileSize,
-            partCodePrefix: partialConfig.partCodePrefix,
-            pbkdf2Options: partialConfig.pbkdf2Options,
+            catalogFilepath: presetConfigData.catalogFilepath,
+            cryptFilepathSalt: presetConfigData.cryptFilepathSalt,
+            cryptFilesDir: presetConfigData.cryptFilesDir,
+            keepPlainPatterns: presetConfigData.keepPlainPatterns,
+            mainIvSize: presetConfigData.mainIvSize,
+            mainKeySize: presetConfigData.mainKeySize,
+            maxTargetFileSize: presetConfigData.maxTargetFileSize,
+            partCodePrefix: presetConfigData.partCodePrefix,
+            pbkdf2Options: presetConfigData.pbkdf2Options,
             secret: cryptBytes.toString('hex'),
             secretAuthTag: authTag ? authTag.toString('hex') : undefined,
-            secretKeySize: partialConfig.secretKeySize,
-            secretIvSize: partialConfig.secretIvSize,
+            secretKeySize: presetConfigData.secretKeySize,
+            secretIvSize: presetConfigData.secretIvSize,
           }
           configKeeper = new SecretConfigKeeper({ filepath, cryptRootDir })
           await configKeeper.update(config)

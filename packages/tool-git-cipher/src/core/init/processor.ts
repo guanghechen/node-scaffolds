@@ -1,4 +1,4 @@
-import { hasGitInstalled, installDependencies } from '@guanghechen/helper-commander'
+import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import { initGitRepo, stageAll } from '@guanghechen/helper-git'
 import { isNonBlankString } from '@guanghechen/helper-is'
@@ -36,22 +36,40 @@ export class GitCipherInitProcessor {
     invariant(hasGitInstalled(), `Cannot find 'git', please install it before continuing.`)
 
     const { context } = this
-
-    // Create secret file.
-    const configKeeper = await this._createSecret()
-    await this.secretMaster.load(configKeeper, false)
+    const presetSecretData: Omit<ISecretConfigData, 'secret' | 'secretAuthTag'> = {
+      catalogFilepath: context.catalogFilepath,
+      cryptFilepathSalt: context.cryptFilepathSalt,
+      cryptFilesDir: context.cryptFilesDir,
+      keepPlainPatterns: context.keepPlainPatterns,
+      mainIvSize: context.mainIvSize,
+      mainKeySize: context.mainKeySize,
+      maxTargetFileSize:
+        context.maxTargetFileSize > Number.MAX_SAFE_INTEGER ? undefined : context.maxTargetFileSize,
+      partCodePrefix: context.partCodePrefix,
+      pbkdf2Options: context.pbkdf2Options,
+      secretIvSize: context.secretIvSize,
+      secretKeySize: context.secretKeySize,
+    }
 
     // Render boilerplates.
-    await this._renderBoilerplates(configKeeper.data!)
+    await this._renderBoilerplates({
+      ...presetSecretData,
+      configFilepath:
+        context.configFilepaths
+          .map(fp => relativeOfWorkspace(context.workspace, fp))
+          .find(fp => fp.endsWith('.json')) ?? '.ghc-config.json',
+      secret: '',
+      secretAuthTag: '',
+    })
 
-    // Install dependencies.
-    await installDependencies({ stdio: 'inherit', cwd: context.workspace }, [], logger)
+    // Create secret file.
+    const configKeeper = await this._createSecret({ ...presetSecretData })
+    await this.secretMaster.load(configKeeper, false)
 
     // Init git repo.
     await initGitRepo({
       cwd: context.workspace,
       logger,
-      gpgSign: false,
       eol: 'lf',
       encoding: 'utf-8',
     })
@@ -59,7 +77,9 @@ export class GitCipherInitProcessor {
   }
 
   // Render boilerplates.
-  protected async _renderBoilerplates(secretConfigData: ISecretConfigData): Promise<void> {
+  protected async _renderBoilerplates(
+    data: ISecretConfigData & { configFilepath: string },
+  ): Promise<void> {
     const { context } = this
 
     // request repository url
@@ -84,15 +104,18 @@ export class GitCipherInitProcessor {
     // clone plaintext repository
     if (isNonBlankString(plainRepoUrl)) await this._cloneFromRemote(plainRepoUrl)
 
-    const templateConfig = resolveTemplateFilepath('plop.mjs')
-    const plop = await nodePlop(templateConfig, {
+    const boilerplate = resolveTemplateFilepath('plop.mjs')
+    const plop = await nodePlop(boilerplate, {
       force: false,
       destBasePath: context.workspace,
     })
 
     const error = await runPlop(plop, undefined, {
       bakPlainRootDir: 'ghc-plain-bak',
-      catalogFilepath: relativeOfWorkspace(context.workspace, context.catalogFilepath),
+      catalogCacheFilepath: relativeOfWorkspace(context.workspace, context.catalogCacheFilepath),
+      catalogFilepath: relativeOfWorkspace(context.cryptRootDir, context.catalogFilepath),
+      commandVersion: COMMAND_VERSION,
+      configFilepath: data.configFilepath,
       cryptFilepathSalt: context.cryptFilepathSalt,
       cryptFilesDir: relativeOfWorkspace(context.cryptRootDir, context.cryptFilesDir),
       cryptRootDir: relativeOfWorkspace(context.workspace, context.cryptRootDir),
@@ -105,41 +128,27 @@ export class GitCipherInitProcessor {
       partCodePrefix: context.partCodePrefix,
       pbkdf2Options: context.pbkdf2Options,
       plainRootDir: relativeOfWorkspace(context.workspace, context.plainRootDir),
-      secret: secretConfigData.secret,
-      secretAuthTag: secretConfigData.secretAuthTag,
+      secret: data.secret,
+      secretAuthTag: data.secretAuthTag,
       secretFilepath: relativeOfWorkspace(context.workspace, context.secretFilepath),
       secretIvSize: context.secretIvSize,
       secretKeySize: context.secretKeySize,
       showAsterisk: context.showAsterisk,
       workspace: context.workspace,
-      templateVersion: COMMAND_VERSION,
       plainRepoUrl,
     })
     if (error) logger.error(error)
   }
 
   // Create secret file
-  protected async _createSecret(): Promise<SecretConfigKeeper> {
+  protected async _createSecret(
+    presetConfigData: Omit<ISecretConfigData, 'secret' | 'secretAuthTag'>,
+  ): Promise<SecretConfigKeeper> {
     const { context, secretMaster } = this
     const configKeeper = await secretMaster.createSecret(
       context.secretFilepath,
       context.cryptRootDir,
-      {
-        catalogFilepath: context.catalogFilepath,
-        cryptFilepathSalt: context.cryptFilepathSalt,
-        cryptFilesDir: context.cryptFilesDir,
-        keepPlainPatterns: context.keepPlainPatterns,
-        mainIvSize: context.mainIvSize,
-        mainKeySize: context.mainKeySize,
-        maxTargetFileSize:
-          context.maxTargetFileSize > Number.MAX_SAFE_INTEGER
-            ? undefined
-            : context.maxTargetFileSize,
-        partCodePrefix: context.partCodePrefix,
-        pbkdf2Options: context.pbkdf2Options,
-        secretIvSize: context.secretIvSize,
-        secretKeySize: context.secretKeySize,
-      },
+      presetConfigData,
     )
     return configKeeper
   }

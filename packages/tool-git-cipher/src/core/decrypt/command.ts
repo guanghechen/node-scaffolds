@@ -1,6 +1,5 @@
 import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
 import { Command } from '@guanghechen/helper-commander'
-import { logger } from '../../env/logger'
 import type { ISubCommandDecryptOptions } from './option'
 import { resolveSubCommandDecryptOptions } from './option'
 
@@ -23,8 +22,6 @@ export const createSubCommandDecrypt = (
       '(commit id | branch) decrypt files only at the given commit id or branch.',
     )
     .action(async function ([_workspaceDir], options: ISubCommandDecryptOptions) {
-      logger.setName(commandName)
-
       const resolvedOptions: ISubCommandDecryptOptions = resolveSubCommandDecryptOptions(
         commandName,
         _workspaceDir,

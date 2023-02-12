@@ -1,6 +1,5 @@
 import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
 import { Command } from '@guanghechen/helper-commander'
-import { logger } from '../../env/logger'
 import type { ISubCommandEncryptOptions } from './option'
 import { resolveSubCommandEncryptOptions } from './option'
 
@@ -18,8 +17,6 @@ export const createSubCommandEncrypt = (
     .description('Encrypt git repo.')
     .arguments('<workspace>')
     .action(async function ([_workspaceDir], options: ISubCommandEncryptOptions) {
-      logger.setName(commandName)
-
       const resolvedOptions: ISubCommandEncryptOptions = resolveSubCommandEncryptOptions(
         commandName,
         _workspaceDir,

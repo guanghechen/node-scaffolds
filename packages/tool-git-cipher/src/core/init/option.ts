@@ -1,6 +1,6 @@
 import type { IPBKDF2Options } from '@guanghechen/helper-cipher'
 import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commander'
-import { isNonBlankString } from '@guanghechen/helper-is'
+import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import { convertToNumber, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import { PACKAGE_NAME } from '../../env/constant'
@@ -126,6 +126,16 @@ export function resolveSubCommandInitOptions(
   )
   logger.debug('cryptFilesDir:', cryptFilesDir)
 
+  // Resolve keepPlainPatterns
+  const keepPlainPatterns: string[] = cover<string[]>(
+    defaultOptions.keepPlainPatterns ?? [],
+    options.keepPlainPatterns,
+    isNotEmptyArray,
+  )
+    .map(p => p.trim())
+    .filter(Boolean)
+  logger.debug('keepPlainPatterns:', keepPlainPatterns)
+
   // Resolve mainIvSize
   const mainIvSize: number = cover<number>(
     defaultOptions.mainIvSize,
@@ -192,7 +202,7 @@ export function resolveSubCommandInitOptions(
     catalogFilepath,
     cryptFilepathSalt,
     cryptFilesDir,
-    keepPlainPatterns: defaultOptions.keepPlainPatterns,
+    keepPlainPatterns,
     mainIvSize,
     mainKeySize,
     maxTargetFileSize,

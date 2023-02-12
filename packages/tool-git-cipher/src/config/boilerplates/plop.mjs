@@ -19,13 +19,18 @@ export default function (plop) {
         },
         {
           type: 'add',
-          path: resolveTargetPath('.gitignore'),
-          templateFile: resolveSourcePath('.gitignore.hbs'),
+          path: resolveTargetPath(answers.configFilepath),
+          templateFile: resolveSourcePath('.ghc-config.json.hbs'),
         },
         {
           type: 'add',
-          path: resolveTargetPath('package.json'),
-          templateFile: resolveSourcePath('package.json.hbs'),
+          path: resolveTargetPath(answers.secretFilepath),
+          templateFile: resolveSourcePath('.ghc-secret.json.hbs'),
+        },
+        {
+          type: 'add',
+          path: resolveTargetPath('.gitignore'),
+          templateFile: resolveSourcePath('.gitignore.hbs'),
         },
       ]
     },

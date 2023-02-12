@@ -8,6 +8,7 @@ import {
 } from '@guanghechen/helper-is'
 import { cover, coverString } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace, locateNearestFilepath } from '@guanghechen/helper-path'
+import { existsSync } from 'node:fs'
 import path from 'node:path'
 import type {
   ICommandConfiguration,
@@ -22,10 +23,11 @@ import { merge } from './merge'
  * Flat defaultOptions with configs from package.json
  */
 export function flatOptionsFromConfiguration<O extends ICommandConfigurationOptions>(
+  logger: ChalkLogger,
   defaultOptions: O,
-  flatOpts: ICommandConfigurationFlatOpts,
+  flatOpts: Readonly<ICommandConfigurationFlatOpts>,
   subCommandName: string | false,
-  strategyMap?: Partial<IMergeStrategyMap<O>>,
+  strategyMap?: Readonly<Partial<IMergeStrategyMap<O>>>,
 ): O {
   let resolvedConfig = {} as unknown as ICommandConfiguration<O>
 
@@ -33,8 +35,14 @@ export function flatOptionsFromConfiguration<O extends ICommandConfigurationOpti
   if (isNotEmptyArray(flatOpts.configPath)) {
     const configs: Array<ICommandConfiguration<O>> = []
     for (const filepath of flatOpts.configPath) {
-      const config = loadConfig(filepath) as ICommandConfiguration<O>
-      configs.push(config)
+      if (existsSync(filepath)) {
+        const config = loadConfig(filepath) as ICommandConfiguration<O>
+        configs.push(config)
+      } else {
+        logger.verbose(
+          `[flatOptionsFromConfiguration] Config file is not exist (ignored). ${filepath}`,
+        )
+      }
     }
     resolvedConfig = merge(configs, {})
   } else {
@@ -74,17 +82,7 @@ export function flatOptionsFromConfiguration<O extends ICommandConfigurationOpti
   return result
 }
 
-/**
- * Resolve CommandConfigurationOptions
- *
- * @param logger
- * @param commandName
- * @param subCommandName
- * @param workspaceDir
- * @param defaultOptions
- * @param options
- * @param strategyMap
- */
+// Resolve CommandConfigurationOptions
 export function resolveCommandConfigurationOptions<O extends ICommandConfigurationOptions>(
   logger: ChalkLogger,
   commandName: string,
@@ -96,14 +94,26 @@ export function resolveCommandConfigurationOptions<O extends ICommandConfigurati
 ): O & ICommandConfigurationFlatOpts {
   const cwd: string = path.resolve()
   const workspace: string = path.resolve(cwd, workspaceDir)
-  const configPath: string[] = (options.configPath ?? defaultOptions.configPath ?? []).map(
-    (p: string): string => absoluteOfWorkspace(workspace, p),
+
+  // Resolve configPath
+  const configPath: string[] = cover<string[]>(
+    defaultOptions.configPath ?? [],
+    options.configPath,
+    isNotEmptyArray,
   )
+    .map(p => p.trim())
+    .filter(Boolean)
+    .map(p => absoluteOfWorkspace(workspace, p))
+
+  // Resolve parasticConfigPath
   const parasticConfigPath: string | null | undefined = cover<string | null>(
     () => locateNearestFilepath(workspace, 'package.json'),
     options.parasticConfigPath,
   )
+
+  // Resolve parasticConfigEntry
   const parasticConfigEntry: string = coverString(commandName, options.parasticConfigEntry)
+
   const flatOpts: ICommandConfigurationFlatOpts = {
     cwd,
     workspace,
@@ -113,6 +123,7 @@ export function resolveCommandConfigurationOptions<O extends ICommandConfigurati
   }
 
   const resolvedOptions = flatOptionsFromConfiguration<O>(
+    logger,
     defaultOptions,
     flatOpts,
     subCommandName,
