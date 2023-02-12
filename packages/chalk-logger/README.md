@@ -214,29 +214,28 @@ loggerMock.restore()
     process.argv,
   )
 
-  logger.formatHeader = 
-  function formatHeader(level: Level, date: Date): string {
-      const dateText: string = this.flights.date
-        ? this.formatContent(level, date.toLocaleTimeString())
-        : ''
+  logger.formatHeader = function formatHeader(level: Level, date: Date): string {
+    const dateText: string = this.flights.date
+      ? this.formatContent(level, date.toLocaleTimeString())
+      : ''
 
-      const levelStyle = this.levelStyleMap[level]
-      let levelText = levelStyle.title
-      if (this.flights.colorful) {
-        levelText = levelStyle.labelChalk.fg(levelText)
-        if (levelStyle.labelChalk.bg != null) levelText = levelStyle.labelChalk.bg(levelText)
-      }
-
-      const titleText: string = this.flights.title
-        ? this.formatContent(level, '<' + this.name + '>')
-        : ''
-
-      let result = ''
-      if (dateText) result += dateText + ' '
-      result += levelText
-      if (titleText) result += ' ' + titleText
-      return result
+    const levelStyle = this.levelStyleMap[level]
+    let levelText = levelStyle.title
+    if (this.flights.colorful) {
+      levelText = levelStyle.labelChalk.fg(levelText)
+      if (levelStyle.labelChalk.bg != null) levelText = levelStyle.labelChalk.bg(levelText)
     }
+
+    const titleText: string = this.flights.title
+      ? this.formatContent(level, '<' + this.name + '>')
+      : ''
+
+    let result = ''
+    if (dateText) result += dateText + ' '
+    result += levelText
+    if (titleText) result += ' ' + titleText
+    return result
+  }
 
   logger.debug('A', 'B', 'C')
   logger.verbose('A', 'B', 'C')
@@ -403,6 +402,7 @@ loggerMock.restore()
 * No title:
 
   ```typescript
+  // demo/demo7.ts
   import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 
   const logger = new ChalkLogger(
