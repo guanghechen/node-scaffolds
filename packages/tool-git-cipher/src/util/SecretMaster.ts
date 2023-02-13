@@ -2,6 +2,7 @@ import type { ICipher, ICipherFactory } from '@guanghechen/helper-cipher'
 import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
 import { destroyBuffer } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
+import { createHash } from 'node:crypto'
 import { logger } from '../env/logger'
 import { ErrorCode, EventTypes, eventBus } from './events'
 import { confirmPassword, inputPassword } from './password'
@@ -36,6 +37,7 @@ export class SecretMaster {
   protected readonly minPasswordLength: number
   protected readonly maxPasswordLength: number
   #secretCipherFactory: ICipherFactory | null
+  #secretNonce: Buffer | null
 
   constructor(props: ISecretMasterProps) {
     this.showAsterisk = props.showAsterisk
@@ -43,14 +45,31 @@ export class SecretMaster {
     this.minPasswordLength = props.minPasswordLength
     this.maxPasswordLength = props.maxPasswordLength
     this.#secretCipherFactory = null
+    this.#secretNonce = null
     eventBus.on(EventTypes.EXITING, () => this.cleanup())
+  }
+
+  public get cipherFactory(): ICipherFactory | null {
+    return this.#secretCipherFactory
+  }
+
+  public getDynamicIv = (infos: ReadonlyArray<Buffer>): Readonly<Buffer> => {
+    invariant(
+      !!this.#secretNonce && !!this.#secretCipherFactory,
+      '[SecretMaster.getDynamicIv] secretCipherFactory is not available.',
+    )
+
+    const sha256 = createHash('sha256')
+    sha256.update(this.#secretNonce)
+    for (const info of infos) sha256.update(info)
+    return sha256.digest().slice(0, this.#secretCipherFactory?.ivSize)
   }
 
   // create a new secret key
   public async createSecret(
     filepath: string,
     cryptRootDir: string,
-    presetConfigData: Omit<ISecretConfigData, 'secret' | 'secretAuthTag'>,
+    presetConfigData: Omit<ISecretConfigData, 'secret' | 'secretAuthTag' | 'secretNonce'>,
   ): Promise<SecretConfigKeeper> {
     let password: Buffer | null = null
     let configKeeper: SecretConfigKeeper
@@ -102,6 +121,10 @@ export class SecretMaster {
           secretCipherFactory.initFromSecret(secret)
           logger.debug('New create secret is fine.')
 
+          const secretNonce: Buffer = secretCipherFactory.createRandomIv()
+          const secretCipher = secretCipherFactory.cipher()
+          const { cryptBytes: cryptSecretNonce } = secretCipher.encrypt(secretNonce)
+
           const { cryptBytes, authTag } = passwordCipher.encrypt(secret)
           const config: ISecretConfigData = {
             catalogFilepath: presetConfigData.catalogFilepath,
@@ -117,6 +140,7 @@ export class SecretMaster {
             secretAuthTag: authTag ? authTag.toString('hex') : undefined,
             secretKeySize: presetConfigData.secretKeySize,
             secretIvSize: presetConfigData.secretIvSize,
+            secretNonce: cryptSecretNonce.toString('hex'),
           }
           configKeeper = new SecretConfigKeeper({ filepath, cryptRootDir })
 
@@ -181,6 +205,11 @@ export class SecretMaster {
           : undefined
         secret = passwordCipher.decrypt(cryptSecretBytes, { authTag })
         this.#secretCipherFactory.initFromSecret(secret)
+
+        if (config.secretNonce) {
+          const cryptSecretNonce: Buffer = Buffer.from(config.secretNonce, 'hex')
+          this.#secretNonce = this.#secretCipherFactory.cipher().decrypt(cryptSecretNonce)
+        }
       } finally {
         mainCipherFactory.cleanup()
         passwordCipher?.cleanup()
@@ -190,10 +219,6 @@ export class SecretMaster {
         password = null
       }
     }
-  }
-
-  public get cipherFactory(): ICipherFactory | null {
-    return this.#secretCipherFactory
   }
 
   // Destroy secret and sensitive data

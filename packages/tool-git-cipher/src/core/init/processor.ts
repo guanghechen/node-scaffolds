@@ -36,7 +36,7 @@ export class GitCipherInitProcessor {
     invariant(hasGitInstalled(), `Cannot find 'git', please install it before continuing.`)
 
     const { context } = this
-    const presetSecretData: Omit<ISecretConfigData, 'secret' | 'secretAuthTag'> = {
+    const presetSecretData: Omit<ISecretConfigData, 'secret' | 'secretAuthTag' | 'secretNonce'> = {
       catalogFilepath: context.catalogFilepath,
       cryptFilepathSalt: context.cryptFilepathSalt,
       cryptFilesDir: context.cryptFilesDir,
@@ -65,6 +65,7 @@ export class GitCipherInitProcessor {
         configFilepath: relativeConfigPaths.find(fp => fp.endsWith('.json')) ?? '.ghc-config.json',
         secret: '',
         secretAuthTag: '',
+        secretNonce: '',
       })
 
       // Init git repo.
@@ -177,7 +178,7 @@ export class GitCipherInitProcessor {
         secretIvSize,
         secretKeySize,
       })
-      logger.info('New secret generated and stored.')
+      logger.info('Secret generated and stored.')
     }
   }
 
@@ -247,7 +248,7 @@ export class GitCipherInitProcessor {
 
   // Create secret file
   protected async _createSecret(
-    presetConfigData: Omit<ISecretConfigData, 'secret' | 'secretAuthTag'>,
+    presetConfigData: Omit<ISecretConfigData, 'secret' | 'secretAuthTag' | 'secretNonce'>,
   ): Promise<SecretConfigKeeper> {
     const { context, secretMaster } = this
     const configKeeper = await secretMaster.createSecret(

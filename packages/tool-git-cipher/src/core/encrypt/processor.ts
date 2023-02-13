@@ -98,6 +98,7 @@ export class GitCipherEncryptProcessor {
       pathResolver,
       catalog,
       crypt2plainIdMap: new Map(data.crypt2plainIdMap),
+      getDynamicIv: secretMaster.getDynamicIv,
     })
     await cacheKeeper.update({ crypt2plainIdMap })
     await cacheKeeper.save()

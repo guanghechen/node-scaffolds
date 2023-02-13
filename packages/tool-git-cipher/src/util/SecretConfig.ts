@@ -58,6 +58,10 @@ export interface ISecretConfigData {
    * Key size of the secret cipherFactory.
    */
   readonly secretKeySize: number
+  /**
+   * Initial nonce for generating ivs of each file in a commit.
+   */
+  readonly secretNonce: string | undefined
 }
 
 export interface ISecretConfigKeeperProps extends IJsonConfigKeeperProps {
@@ -95,6 +99,7 @@ export class SecretConfigKeeper
       secretAuthTag: data.secretAuthTag,
       secretIvSize: data.secretIvSize,
       secretKeySize: data.secretKeySize,
+      secretNonce: data.secretNonce,
     }
   }
 
@@ -116,6 +121,7 @@ export class SecretConfigKeeper
       secretAuthTag: data.secretAuthTag,
       secretIvSize: data.secretIvSize,
       secretKeySize: data.secretKeySize,
+      secretNonce: data.secretNonce,
     }
   }
 }
