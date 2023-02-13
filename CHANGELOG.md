@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="4.0.0"></a>
+## 4.0.0 (2023-02-13)
+
+### Changed
+
+- 🎨 improve(tool-git-cipher): init repo in plainRoot instead of workspace [[dd2e613](https://github.com/guanghechen/node-scaffolds/commit/dd2e6132d16b898675b3077c5bb77f6b05aaef0e)]
+- 🎨 improve(tool-git-cipher): generate secret nonce [[52c8430](https://github.com/guanghechen/node-scaffolds/commit/52c8430dc9b41b6091801f112ff7c51c6accbcaf)]
+- 🎨 improve(helper-git-cipher): support to pass a &#x27;getDynamicIv&#x27; to generate iv while batch encrypting [[5f689cb](https://github.com/guanghechen/node-scaffolds/commit/5f689cbaba8685f1213f10b5820aa09ffd2662b3)]
+- 🎨 improve(helper-cipher): expose keySize and ivSize from CipherFactory [[f1d7e3e](https://github.com/guanghechen/node-scaffolds/commit/f1d7e3efee44ee95e6337847bd1ccdf1c3e5bc4f)]
+- 🎨 improve(tool-git-cipher): update secret intializer prompts [[425c9b0](https://github.com/guanghechen/node-scaffolds/commit/425c9b09924cf4cc7da38dc50af8667a745a6306)]
+
+### Miscellaneous
+
+- 📝 docs(chalk-logger): fix snapshots src url [[5141fc1](https://github.com/guanghechen/node-scaffolds/commit/5141fc1ec7fe5d1207c0738165d071ec6846ec93)]
+
+
 <a name="4.0.0-alpha.8"></a>
 ## 4.0.0-alpha.8 (2023-02-12)
 
