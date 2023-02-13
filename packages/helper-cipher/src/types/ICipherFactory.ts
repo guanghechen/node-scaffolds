@@ -11,6 +11,9 @@ export interface ICipherOptions {
 }
 
 export interface ICipherFactory {
+  readonly keySize: number
+  readonly ivSize: number
+
   /**
    * Create a ICipher.
    * @param options

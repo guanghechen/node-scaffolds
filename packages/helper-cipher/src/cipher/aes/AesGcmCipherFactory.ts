@@ -17,15 +17,15 @@ export interface IAesGcmCipherFactoryProps {
 }
 
 export class AesGcmCipherFactory implements ICipherFactory {
-  protected readonly _keySize: number
-  protected readonly _ivSize: number
+  public readonly keySize: number
+  public readonly ivSize: number
   #key: Buffer | null
   #iv: Buffer | null
   #cipher: ICipher | null
 
   constructor(options: IAesGcmCipherFactoryProps = {}) {
-    this._keySize = options.keySize ?? 32
-    this._ivSize = options.ivSize ?? 12
+    this.keySize = options.keySize ?? 32
+    this.ivSize = options.ivSize ?? 12
     this.#key = null
     this.#iv = null
     this.#cipher = null
@@ -46,11 +46,11 @@ export class AesGcmCipherFactory implements ICipherFactory {
   }
 
   public createRandomIv(): Readonly<Buffer> {
-    return randomBytes(this._ivSize)
+    return randomBytes(this.ivSize)
   }
 
   public createRandomSecret(): Buffer {
-    return randomBytes(this._keySize + this._ivSize)
+    return randomBytes(this.keySize + this.ivSize)
   }
 
   public initFromSecret(secret: Readonly<Buffer>): void {
@@ -76,7 +76,7 @@ export class AesGcmCipherFactory implements ICipherFactory {
   }
 
   protected _parseSecret(secret: Readonly<Buffer>): { key: Buffer; iv: Buffer } {
-    const { _keySize, _ivSize } = this
+    const { keySize: _keySize, ivSize: _ivSize } = this
     const key: Buffer = Buffer.alloc(_keySize)
     const iv: Buffer = Buffer.alloc(_ivSize)
     secret.copy(key, 0, 0, _keySize)
@@ -88,7 +88,7 @@ export class AesGcmCipherFactory implements ICipherFactory {
     password: Readonly<Buffer>,
     options: IPBKDF2Options,
   ): { key: Buffer; iv: Buffer } {
-    const { _keySize, _ivSize } = this
+    const { keySize: _keySize, ivSize: _ivSize } = this
     const { salt, iterations, digest } = options
     const key: Buffer = pbkdf2Sync(password, salt, iterations, _keySize, digest)
 
