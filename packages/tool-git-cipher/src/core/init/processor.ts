@@ -78,94 +78,106 @@ export class GitCipherInitProcessor {
       await stageAll({ cwd: context.workspace, logger })
     }
 
+    let shouldGenerateSecret = true
     if (isSecretExist) {
       // Regenerate secret.
-      const { shouldGenerateNewSecret } = await inquirer.prompt([
+      shouldGenerateSecret = await inquirer
+        .prompt([
+          {
+            type: 'confirm',
+            name: 'shouldGenerateNewSecret',
+            default: false,
+            message:
+              'The repo seems initialized, do you want to generate new secret? (!!!WARNING this will invalid the existed crypt commits)',
+          },
+        ])
+        .then(md => md.shouldGenerateNewSecret)
+    }
+
+    logger.verbose('Creating secret.')
+    if (shouldGenerateSecret) {
+      const {
+        cryptFilepathSalt,
+        mainIvSize,
+        mainKeySize,
+        pbkdf2Options_digest,
+        pbkdf2Options_iterations,
+        pbkdf2Options_salt,
+        secretIvSize,
+        secretKeySize,
+      } = await inquirer.prompt([
         {
-          type: 'confirm',
-          name: 'shouldGenerateNewSecret',
-          default: false,
-          message:
-            'The repo seems initialized, do you want to generate new secret? (!!!WARNING this will invalid the existed crypt commits)',
+          type: 'number',
+          name: 'mainKeySize',
+          default: context.mainKeySize,
+          message: 'mainKeySize',
+        },
+        {
+          type: 'number',
+          name: 'mainIvSize',
+          default: context.mainIvSize,
+          message: 'mainIvSize',
+        },
+        {
+          type: 'number',
+          name: 'secretKeySize',
+          default: context.secretKeySize,
+          message: 'secretKeySize',
+        },
+        {
+          type: 'number',
+          name: 'secretIvSize',
+          default: context.secretIvSize,
+          message: 'secretIvSize',
+        },
+        {
+          type: 'string',
+          name: 'pbkdf2Options_salt',
+          default: context.pbkdf2Options.salt,
+          message: 'pbkdf2Options.salt',
+          filter: x => x.trim(),
+          transformer: (x: string) => x.trim(),
+        },
+        {
+          type: 'number',
+          name: 'pbkdf2Options_iterations',
+          default: context.pbkdf2Options.iterations,
+          message: 'pbkdf2Options.iterations',
+        },
+        {
+          type: 'list',
+          name: 'pbkdf2Options_digest',
+          default: context.pbkdf2Options.digest,
+          message: 'pbkdf2Options.digest',
+          choices: ['sha256'],
+          filter: x => x.trim(),
+          transformer: (x: string) => x.trim(),
+        },
+        {
+          type: 'string',
+          name: 'cryptFilepathSalt',
+          default: context.cryptFilepathSalt,
+          message: 'cryptFilepathSalt',
+          filter: x => x.trim(),
+          transformer: (x: string) => x.trim(),
         },
       ])
 
-      if (shouldGenerateNewSecret) {
-        const {
-          mainIvSize,
-          mainKeySize,
-          pbkdf2Options_digest,
-          pbkdf2Options_iterations,
-          pbkdf2Options_salt,
-          secretIvSize,
-          secretKeySize,
-        } = await inquirer.prompt([
-          {
-            type: 'number',
-            name: 'mainKeySize',
-            default: context.mainKeySize,
-            message: 'mainKeySize',
-          },
-          {
-            type: 'number',
-            name: 'mainIvSize',
-            default: context.mainIvSize,
-            message: 'mainIvSize',
-          },
-          {
-            type: 'number',
-            name: 'secretKeySize',
-            default: context.secretKeySize,
-            message: 'secretKeySize',
-          },
-          {
-            type: 'number',
-            name: 'secretIvSize',
-            default: context.secretIvSize,
-            message: 'secretIvSize',
-          },
-          {
-            type: 'string',
-            name: 'pbkdf2Options_salt',
-            default: context.pbkdf2Options.salt,
-            message: 'pbkdf2Options.salt',
-            filter: x => x.trim(),
-            transformer: (x: string) => x.trim(),
-          },
-          {
-            type: 'number',
-            name: 'pbkdf2Options_iterations',
-            default: context.pbkdf2Options.iterations,
-            message: 'pbkdf2Options.iterations',
-          },
-          {
-            type: 'list',
-            name: 'pbkdf2Options_digest',
-            default: context.pbkdf2Options.digest,
-            message: 'pbkdf2Options.digest',
-            choices: ['sha256'],
-            filter: x => x.trim(),
-            transformer: (x: string) => x.trim(),
-          },
-        ])
-
-        // Create secret file.
-        await this._createSecret({
-          ...presetSecretData,
-          mainIvSize,
-          mainKeySize,
-          pbkdf2Options: {
-            salt: pbkdf2Options_salt,
-            iterations: pbkdf2Options_iterations,
-            digest: pbkdf2Options_digest,
-          },
-          secretIvSize,
-          secretKeySize,
-        })
-        logger.info('New secret generated and stored.')
-      }
-    } else {
-      await this._createSecret({ ...presetSecretData })
+      // Create secret file.
+      await this._createSecret({
+        ...presetSecretData,
+        cryptFilepathSalt,
+        mainIvSize,
+        mainKeySize,
+        pbkdf2Options: {
+          salt: pbkdf2Options_salt,
+          iterations: pbkdf2Options_iterations,
+          digest: pbkdf2Options_digest,
+        },
+        secretIvSize,
+        secretKeySize,
+      })
+      logger.info('New secret generated and stored.')
     }
   }
 
