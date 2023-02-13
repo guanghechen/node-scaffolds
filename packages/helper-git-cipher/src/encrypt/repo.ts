@@ -29,6 +29,7 @@ export interface IEncryptGitRepoParams {
   configKeeper: IConfigKeeper<IGitCipherConfigData>
   crypt2plainIdMap: ReadonlyMap<string, string>
   logger?: ILogger
+  getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
 export interface IEncryptGitRepoResult {
@@ -38,7 +39,7 @@ export interface IEncryptGitRepoResult {
 export async function encryptGitRepo(
   params: IEncryptGitRepoParams,
 ): Promise<IEncryptGitRepoResult> {
-  const { catalog, cipherBatcher, pathResolver, configKeeper, logger } = params
+  const { catalog, cipherBatcher, pathResolver, configKeeper, logger, getDynamicIv } = params
   const plainCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.plainRootDir, logger }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
 
@@ -108,6 +109,7 @@ export async function encryptGitRepo(
         pathResolver,
         configKeeper,
         logger,
+        getDynamicIv,
       })
 
       const { commitId: cryptHeadCommitId } = await showCommitInfo({

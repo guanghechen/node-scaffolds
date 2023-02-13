@@ -18,6 +18,7 @@ export interface IEncryptGitBranchParams {
   pathResolver: FileCipherPathResolver
   configKeeper: IConfigKeeper<IGitCipherConfigData>
   logger?: ILogger
+  getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
 /**
@@ -39,6 +40,7 @@ export async function encryptGitBranch(params: IEncryptGitBranchParams): Promise
     pathResolver,
     configKeeper,
     logger,
+    getDynamicIv,
   } = params
   const plainCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.plainRootDir, logger }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
@@ -59,6 +61,7 @@ export async function encryptGitBranch(params: IEncryptGitBranchParams): Promise
         pathResolver,
         configKeeper,
         logger,
+        getDynamicIv,
       })
       const { commitId: cryptCommitId } = await showCommitInfo({
         ...cryptCmdCtx,

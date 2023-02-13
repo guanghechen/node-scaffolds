@@ -1,5 +1,5 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
+import { AesGcmCipherFactory, calcMac } from '@guanghechen/helper-cipher'
 import {
   FileCipherBatcher,
   FileCipherCatalog,
@@ -93,6 +93,8 @@ describe('GitCipher', () => {
     logger,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
   })
+  const getDynamicIv = (infos: ReadonlyArray<Buffer>): Readonly<Buffer> =>
+    calcMac(...infos).slice(0, cipherFactory.ivSize)
 
   describe('complex', () => {
     let logMock: ILoggerMock
@@ -120,6 +122,7 @@ describe('GitCipher', () => {
           catalog,
           pathResolver,
           crypt2plainIdMap: new Map(),
+          getDynamicIv,
         })
         expect(crypt2plainIdMap).toEqual(
           new Map([
@@ -275,7 +278,8 @@ describe('GitCipher', () => {
 
           // Test encrypt.
           crypt2plainIdMap = await gitCipher
-            .encrypt({ catalog, pathResolver, crypt2plainIdMap })
+            .encrypt({ catalog, pathResolver, crypt2plainIdMap, getDynamicIv })
+
             .then(md => md.crypt2plainIdMap)
           expect(crypt2plainIdMap).toEqual(
             new Map([
@@ -342,7 +346,7 @@ describe('GitCipher', () => {
 
           // Test encrypt.
           crypt2plainIdMap = await gitCipher
-            .encrypt({ catalog, pathResolver, crypt2plainIdMap })
+            .encrypt({ catalog, pathResolver, crypt2plainIdMap, getDynamicIv })
             .then(md => md.crypt2plainIdMap)
           expect(crypt2plainIdMap).toEqual(
             new Map([
@@ -414,7 +418,7 @@ describe('GitCipher', () => {
 
           // Test encrypt.
           crypt2plainIdMap = await gitCipher
-            .encrypt({ catalog, pathResolver, crypt2plainIdMap })
+            .encrypt({ catalog, pathResolver, crypt2plainIdMap, getDynamicIv })
             .then(md => md.crypt2plainIdMap)
           expect(crypt2plainIdMap).toEqual(
             new Map([
@@ -553,7 +557,7 @@ describe('GitCipher', () => {
       logMock = createLoggerMock({ logger })
       await emptyDir(workspaceDir)
       await buildRepo1({ repoDir: plainRootDir, logger, execaOptions: {} })
-      await gitCipher.encrypt({ catalog, pathResolver, crypt2plainIdMap: new Map() })
+      await gitCipher.encrypt({ catalog, pathResolver, crypt2plainIdMap: new Map(), getDynamicIv })
     })
     afterAll(async () => {
       await configKeeper.remove()

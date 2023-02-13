@@ -1,4 +1,3 @@
-import { calcMac } from '@guanghechen/helper-cipher'
 import type {
   FileCipherPathResolver,
   IFileCipherBatcher,
@@ -36,6 +35,7 @@ export interface IEncryptGitCommitParams {
   pathResolver: FileCipherPathResolver
   configKeeper: IConfigKeeper<IGitCipherConfigData>
   logger?: ILogger
+  getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
 /**
@@ -56,6 +56,7 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     pathResolver,
     configKeeper,
     logger,
+    getDynamicIv,
   } = params
   const plainCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.plainRootDir, logger }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
@@ -134,14 +135,12 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     diffItems: draftDiffItems,
     pathResolver,
     strictCheck: false,
-    getIv: item => {
-      const mac: Buffer = calcMac(
+    getIv: item =>
+      getDynamicIv([
         ...cryptParentCommitIds.map(id => Buffer.from(id, 'hex')),
         Buffer.from(item.plainFilepath, 'hex'),
         Buffer.from(item.fingerprint, 'hex'),
-      )
-      return mac.slice(0, 12)
-    },
+      ]),
   })
   catalog.applyDiff(diffItems)
   const commit: IGitCommitOverview = {

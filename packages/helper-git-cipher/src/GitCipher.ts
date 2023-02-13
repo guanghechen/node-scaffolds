@@ -20,6 +20,7 @@ export interface IGitCipherEncryptParams {
   catalog: IFileCipherCatalog
   pathResolver: FileCipherPathResolver
   crypt2plainIdMap: ReadonlyMap<string, string>
+  getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
 export interface IGitCipherDecryptFilesOnlyParams {
@@ -61,6 +62,7 @@ export class GitCipher {
       configKeeper,
       crypt2plainIdMap: params.crypt2plainIdMap,
       logger,
+      getDynamicIv: params.getDynamicIv,
     })
     return { crypt2plainIdMap }
   }
