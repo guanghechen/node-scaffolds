@@ -14,11 +14,6 @@ export default function (plop) {
       return [
         {
           type: 'add',
-          path: resolveTargetPath('.vscode/settings.json'),
-          templateFile: resolveSourcePath('.vscode/settings.json.hbs'),
-        },
-        {
-          type: 'add',
           path: resolveTargetPath(answers.configFilepath),
           templateFile: resolveSourcePath('.ghc-config.json.hbs'),
         },

@@ -54,6 +54,7 @@ export class GitCipherInitProcessor {
     const isWorkspaceEmpty = isNonExistentOrEmpty(context.workspace)
     const isSecretExist = existsSync(context.secretFilepath)
     mkdirsIfNotExists(context.workspace, true)
+    mkdirsIfNotExists(context.plainRootDir, true)
 
     if (isWorkspaceEmpty) {
       // Render boilerplates if the workspace is non-exist or empty.
@@ -70,13 +71,13 @@ export class GitCipherInitProcessor {
 
       // Init git repo.
       await initGitRepo({
-        cwd: context.workspace,
+        cwd: context.plainRootDir,
         logger,
         eol: 'lf',
         encoding: 'utf-8',
         gpgSign: context.gitGpgSign,
       })
-      await stageAll({ cwd: context.workspace, logger })
+      await stageAll({ cwd: context.plainRootDir, logger })
     }
 
     let shouldGenerateSecret = true
