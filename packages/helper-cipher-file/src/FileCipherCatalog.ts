@@ -57,7 +57,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     this.pathResolver = props.pathResolver
     this.maxTargetFileSize = props.maxTargetFileSize
     this.partCodePrefix = props.partCodePrefix
-    this.cryptFilesDir = props.cryptFilesDir
+    this.cryptFilesDir = this.pathResolver.calcRelativeCryptFilepath(props.cryptFilesDir)
     this.cryptFilepathSalt = props.cryptFilepathSalt
     this.contentHashAlgorithm = props.contentHashAlgorithm
     this.pathHashAlgorithm = props.pathHashAlgorithm
@@ -262,7 +262,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
 
       if (isSrcFileExists) {
         const newItem: IFileCipherCatalogItemDraft = await this.calcCatalogItem({
-          plainFilepath: plainFilepath,
+          plainFilepath,
           isKeepPlain,
         })
 
