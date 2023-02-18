@@ -35,12 +35,14 @@ import {
   contentD,
   contentHashAlgorithm,
   cryptFilesDir,
+  diffItemsTable,
   encoding,
   fpA,
   fpB,
   fpC,
   fpD,
   fpE,
+  itemTable,
   maxTargetFileSize,
   partCodePrefix,
   pathHashAlgorithm,
@@ -121,6 +123,33 @@ describe('GitCipher', () => {
           execaOptions: {},
         })
 
+        type ISymbol = keyof typeof commitTable
+        const testCatalog = async (
+          symbol: ISymbol,
+          diffItems: unknown[],
+          items: unknown[],
+        ): Promise<void> => {
+          await configKeeper.load()
+          const commit = commitTable[symbol]
+          expect(configKeeper.data).toEqual({
+            commit: {
+              id: commit.commitId,
+              parents: commit.parentIds,
+              signature: {
+                commitId: commit.commitId,
+                authorDate: commit.authorDate,
+                authorName: commit.authorName,
+                authorEmail: commit.authorEmail,
+                committerDate: commit.committerDate,
+                committerName: commit.committerName,
+                committerEmail: commit.committerEmail,
+                message: commit.message,
+              },
+              catalog: { diffItems, items },
+            },
+          })
+        }
+
         // Test encrypt.
         let { crypt2plainIdMap } = await gitCipher.encrypt({
           catalog,
@@ -192,6 +221,14 @@ describe('GitCipher', () => {
           currentBranch: 'main',
           branches: ['main'],
         })
+
+        // Check catalog.
+        await testCatalog('K', diffItemsTable.stepK, [
+          itemTable.A,
+          itemTable.B,
+          itemTable.C3,
+          itemTable.E,
+        ])
 
         // Test decrypt.
         crypt2plainIdMap = (
@@ -271,6 +308,33 @@ describe('GitCipher', () => {
           execaOptions: {},
         })
 
+        type ISymbol = keyof typeof commitTable
+        const testCatalog = async (
+          symbol: ISymbol,
+          diffItems: unknown[],
+          items: unknown[],
+        ): Promise<void> => {
+          await configKeeper.load()
+          const commit = commitTable[symbol]
+          expect(configKeeper.data).toEqual({
+            commit: {
+              id: commit.commitId,
+              parents: commit.parentIds,
+              signature: {
+                commitId: commit.commitId,
+                authorDate: commit.authorDate,
+                authorName: commit.authorName,
+                authorEmail: commit.authorEmail,
+                committerDate: commit.committerDate,
+                committerName: commit.committerName,
+                committerEmail: commit.committerEmail,
+                message: commit.message,
+              },
+              catalog: { diffItems, items },
+            },
+          })
+        }
+
         let crypt2plainIdMap: Map<string, string> = new Map()
 
         // Commit E.
@@ -311,6 +375,9 @@ describe('GitCipher', () => {
               { id: repo1CryptCommitIdTable.A, message: repo1CryptCommitMessageTable.A },
             ],
           )
+
+          // Check catalog.
+          await testCatalog('E', diffItemsTable.stepE, [itemTable.C2])
 
           // Test Decrypt
           crypt2plainIdMap = await gitCipher
@@ -380,6 +447,16 @@ describe('GitCipher', () => {
               { id: repo1CryptCommitIdTable.A, message: repo1CryptCommitMessageTable.A },
             ],
           )
+
+          // Check catalog.
+          await checkBranch({ ...cryptCtx, branchOrCommitId: 'I' })
+          await testCatalog('I', diffItemsTable.stepI, [
+            itemTable.A2,
+            itemTable.B,
+            itemTable.C3,
+            itemTable.D,
+          ])
+          await checkBranch({ ...cryptCtx, branchOrCommitId: 'E' })
 
           // Test Decrypt
           crypt2plainIdMap = await gitCipher
@@ -485,8 +562,15 @@ describe('GitCipher', () => {
             ],
           )
 
+          // Check catalog.
+          await testCatalog('K', diffItemsTable.stepK, [
+            itemTable.A,
+            itemTable.B,
+            itemTable.C3,
+            itemTable.E,
+          ])
+
           // Test Decrypt
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           crypt2plainIdMap = await gitCipher
             .decrypt({ pathResolver: bakPathResolver, crypt2plainIdMap, gpgSign: false })
             .then(md => md.crypt2plainIdMap)

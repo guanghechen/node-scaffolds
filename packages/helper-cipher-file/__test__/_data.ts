@@ -81,59 +81,25 @@ export const itemTable: Record<ISymbol, IFileCipherCatalogItem> = {
 
 export const diffItemsTable: Record<string, IFileCipherCatalogItemDiff[]> = {
   step1: [
-    {
-      changeType: FileChangeType.ADDED,
-      newItem: itemTable.A,
-    },
-    {
-      changeType: FileChangeType.ADDED,
-      newItem: itemTable.B,
-    },
+    { changeType: FileChangeType.ADDED, newItem: itemTable.A },
+    { changeType: FileChangeType.ADDED, newItem: itemTable.B },
   ],
   step2: [
-    {
-      changeType: FileChangeType.REMOVED,
-      oldItem: itemTable.A,
-    },
-    {
-      changeType: FileChangeType.ADDED,
-      newItem: itemTable.C,
-    },
+    { changeType: FileChangeType.REMOVED, oldItem: itemTable.A },
+    { changeType: FileChangeType.ADDED, newItem: itemTable.C },
   ],
   step3: [
-    {
-      changeType: FileChangeType.REMOVED,
-      oldItem: itemTable.B,
-    },
-    {
-      changeType: FileChangeType.ADDED,
-      newItem: itemTable.A,
-    },
+    { changeType: FileChangeType.REMOVED, oldItem: itemTable.B },
+    { changeType: FileChangeType.ADDED, newItem: itemTable.A },
   ],
   step4: [
-    {
-      changeType: FileChangeType.REMOVED,
-      oldItem: itemTable.C,
-    },
-    {
-      changeType: FileChangeType.ADDED,
-      newItem: itemTable.D,
-    },
-    {
-      changeType: FileChangeType.MODIFIED,
-      oldItem: itemTable.A,
-      newItem: itemTable.A2,
-    },
+    { changeType: FileChangeType.REMOVED, oldItem: itemTable.C },
+    { changeType: FileChangeType.ADDED, newItem: itemTable.D },
+    { changeType: FileChangeType.MODIFIED, oldItem: itemTable.A, newItem: itemTable.A2 },
   ],
   step5: [
-    {
-      changeType: FileChangeType.REMOVED,
-      oldItem: itemTable.D,
-    },
-    {
-      changeType: FileChangeType.REMOVED,
-      oldItem: itemTable.A2,
-    },
+    { changeType: FileChangeType.REMOVED, oldItem: itemTable.D },
+    { changeType: FileChangeType.REMOVED, oldItem: itemTable.A2 },
   ],
 }
 
