@@ -1,5 +1,15 @@
 # Changelog
 
+<a name="4.1.1"></a>
+## 4.1.1 (2023-02-18)
+
+### Changed
+
+- 🔧 chore: update yarn.lock [[6b5743c](https://github.com/guanghechen/node-scaffolds/commit/6b5743ce3f257b4bb4f77900619217d243fa633a)]
+- ⬆️ chore: upgrade devDependencies [[e46df0d](https://github.com/guanghechen/node-scaffolds/commit/e46df0def851adee643918b6626f1f867eb729e4)]
+- 🔧 chore: remove unnecessary devDependencies [[f717518](https://github.com/guanghechen/node-scaffolds/commit/f71751803558970cccde05f96bff63436db8e2aa)]
+
+
 <a name="4.1.0"></a>
 ## 4.1.0 (2023-02-18)
 
