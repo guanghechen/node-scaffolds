@@ -19,7 +19,7 @@ export const itemDraftTable: Record<ISymbol, IFileCipherCatalogItemDraft> = {
   },
   A2: {
     plainFilepath: 'a.txt',
-    cryptFilepath: 'encrypted/16f8e82b0acef7d4f1f70fb748bc30621aeb1c8de2504ff8abafc58e1f0d5d60',
+    cryptFilepath: 'kirito/16f8e82b0acef7d4f1f70fb748bc30621aeb1c8de2504ff8abafc58e1f0d5d60',
     cryptFileParts: [],
     fingerprint: '70b47f9cc28ad379043b328d7d058097c69e7bb38d766ecca2655cd3afb6b5fa',
     size: 30,
@@ -27,7 +27,7 @@ export const itemDraftTable: Record<ISymbol, IFileCipherCatalogItemDraft> = {
   },
   B: {
     plainFilepath: 'b.txt',
-    cryptFilepath: 'encrypted/d52a60a064cc6ae727b065a078231e41756e9b7fd0cedb301789b0406dc48269',
+    cryptFilepath: 'kirito/d52a60a064cc6ae727b065a078231e41756e9b7fd0cedb301789b0406dc48269',
     cryptFileParts: [],
     fingerprint: '6fee185efd0ffc7c51f986dcd2eb513e0ce0b63249d9a3bb51efe0c1ed2cb615',
     size: 135,
@@ -35,7 +35,7 @@ export const itemDraftTable: Record<ISymbol, IFileCipherCatalogItemDraft> = {
   },
   C: {
     plainFilepath: 'c.txt',
-    cryptFilepath: 'encrypted/f608f5814560f4375dda3e7dc8005ca6df2176155828349fd73919e8177bf9a7',
+    cryptFilepath: 'kirito/f608f5814560f4375dda3e7dc8005ca6df2176155828349fd73919e8177bf9a7',
     cryptFileParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
     fingerprint: 'b835f16cc543838431fa5bbeceb8906c667c16af9f98779f54541aeae0ccdce2',
     size: 3150,
@@ -112,7 +112,7 @@ export const contentTable: Record<ISymbol, string> = {
 }
 
 export const encoding: BufferEncoding = 'utf8'
-export const cryptFilesDir = 'encrypted'
+export const cryptFilesDir = 'kirito'
 export const maxTargetFileSize = 1024
 export const partCodePrefix = '.ghc-part'
 export const contentHashAlgorithm: IHashAlgorithm = 'sha256'

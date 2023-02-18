@@ -3,17 +3,17 @@ import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 export * from '@guanghechen/helper-git/__test__/_data-repo1'
 
 export const repo1CryptCommitIdTable = {
-  A: '4cc40acd7c49bbc757cb0d116dfa9707ea90411a',
-  B: 'ce3bf25ca7acdee54db72673c303890b241ec875',
-  C: 'b3f1e195d5783f99a462ae6720d4fb5c13303516',
-  D: 'c5e69c4ec51ed071890e506f82ab81734a64fd42',
-  E: '09c31c2699876373dcbfd6599b1b1bad25f75385',
-  F: '140d499ce9013fb728113b62220e261976a25847',
-  G: 'd99cc1641f69d42326fae0d9ab33eca1ea8d6d39',
-  H: '0e0a0a2270fe9e23a6c63725044b687ea02d6165',
-  I: 'c0a6748256fe496a35c4aa72ce630f151a2280e2',
-  J: '50daeaf9034626ad9a5f755175d55aed341f097d',
-  K: '365f5263ed4bd834f22b1d1724020ef6278880d3',
+  A: 'ccc072a3a8af04018d0099016b786a29058a369d',
+  B: '86c3a30d0876dcd0ec2eff05a9c7d142d0de20b8',
+  C: '75af8a186544a0196e3445c60131a9c67f789b49',
+  D: '10edb0f8208621675e4654f3440c49362c63e23a',
+  E: 'fb0233d622fc150e31196c97a2eff24748882ebc',
+  F: '99bc1ce6c20ee744da8f4eebe1c5a69adce0c24e',
+  G: '06b5133b3af36fb06ddca5a5f3d7f7248f5f5933',
+  H: '4d36a97e868af75b0449bfcc9600652f747f8203',
+  I: 'd52bb5bff4bc70dc491790635646af9832ccbea9',
+  J: '9f3af2aacefbb3211260bb1ddbd3480c7b2d2819',
+  K: '3c212f1b13347fad2da793b0c952cbe717d40407',
 }
 
 export const repo1CryptCommitMessageTable = {
@@ -30,7 +30,123 @@ export const repo1CryptCommitMessageTable = {
   K: '79861cb279ecfa722603ccd0d601d07d90cc1899abf8e51b0e83907b0decc0d4',
 }
 
-export const cryptFilesDir = 'encrypted'
+export const itemTable = {
+  A: {
+    plainFilepath: 'a.txt',
+    cryptFilepath: 'a.txt',
+    cryptFileParts: [],
+    fingerprint: '4e26698e6bebd87fc210bec49fea4da6210b5769dbff50b3479effa16799120f',
+    size: 9,
+    keepPlain: true,
+    iv: '',
+    authTag: undefined,
+  },
+  A2: {
+    plainFilepath: 'a.txt',
+    cryptFilepath: 'a.txt',
+    cryptFileParts: [],
+    fingerprint: '4ec33c94039179da5febb8936428e80e7b0d3f42689a4adb38fc8e479634eeb8',
+    size: 11,
+    keepPlain: true,
+    iv: '',
+    authTag: undefined,
+  },
+  B: {
+    plainFilepath: 'b.txt',
+    cryptFilepath: 'asuna/7162c5dc69f5c2855c2fa7e454c8e4ed7e03a47c91b55be24e8931b8b099ed93',
+    cryptFileParts: [],
+    fingerprint: '965bfea36969b0b94ab0665baedd328c37f200340b937c07fdb6885ea363993c',
+    keepPlain: false,
+    size: 9,
+    iv: '44ad63f5398f8d806658f35d',
+    authTag: '4ecc052246ff595a5549510b4a639105',
+  },
+  B2: {
+    plainFilepath: 'b.txt',
+    cryptFilepath: 'asuna/7162c5dc69f5c2855c2fa7e454c8e4ed7e03a47c91b55be24e8931b8b099ed93',
+    cryptFileParts: ['.ghc-part1', '.ghc-part2'],
+    fingerprint: '88d03f260a5158dd23220ae24160320df2ec63840dac45ad4c99cc6d0208e248',
+    keepPlain: false,
+    size: 1650,
+    iv: 'c2e17ce7a041aa6a34b6508a',
+    authTag: 'ddcc8070520f86d9ba48a43d17b4bfb5',
+  },
+  C: {
+    plainFilepath: 'x/c.txt',
+    cryptFilepath: 'asuna/0114c437562d21ed83066b8af1836df8783f5eaea3646ab14da6f7f4ef957083',
+    cryptFileParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3'],
+    fingerprint: 'fd7dc434ab208f15cd61dcc39e8e67de75a1cc6e1c6c9268d653a01b819da054',
+    keepPlain: false,
+    size: 2880,
+    iv: 'ea36cfca05bee4b045956a1f',
+    authTag: 'dff151f0961471d5782eed60e57ed5af',
+  },
+  C2: {
+    plainFilepath: 'x/c.txt',
+    cryptFilepath: 'asuna/0114c437562d21ed83066b8af1836df8783f5eaea3646ab14da6f7f4ef957083',
+    cryptFileParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
+    fingerprint: 'df91313a8fc51bce13227ad3b5e8eeea815fe149969c174b0f2da373dea473c1',
+    keepPlain: false,
+    size: 3850,
+    iv: '38eff44fe4585a632a75464a',
+    authTag: '90ec961ea6e2936020f6be60ec0b6239',
+  },
+  C3: {
+    plainFilepath: 'x/c.txt',
+    cryptFilepath: 'asuna/0114c437562d21ed83066b8af1836df8783f5eaea3646ab14da6f7f4ef957083',
+    cryptFileParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4', '.ghc-part5'],
+    fingerprint: 'ce9d19d55a13973f3e1f970e8915df800a1a61bd2f38212b55db73b8669ddcaf',
+    keepPlain: false,
+    size: 4180,
+    iv: '362b53ef8d8ac14d4689bca3',
+    authTag: '2674b106e4f472435f2b9e8ce2a6d83a',
+  },
+  D: {
+    plainFilepath: 'x/d.txt',
+    cryptFilepath: 'asuna/a468e223dd684ed8393c6eeb2d7e29929b890aa186f02d570a93a514ad72ebde',
+    cryptFileParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
+    fingerprint: '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13',
+    keepPlain: false,
+    size: 3150,
+    iv: '6a60b80f8e5c5d6772cda449',
+    authTag: '333e0019fff2b8f293cdb1f698ef114e',
+  },
+  E: {
+    plainFilepath: 'y/z/e.txt',
+    cryptFilepath: 'asuna/ad931c88ceba4f06455236a3a58c3d8c04b7690e687ad5d4dded1b53d4d82763',
+    cryptFileParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
+    fingerprint: '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13',
+    keepPlain: false,
+    size: 3150,
+    iv: '6a60b80f8e5c5d6772cda449',
+    authTag: '333e0019fff2b8f293cdb1f698ef114e',
+  },
+}
+
+export const diffItemsTable = {
+  stepA: [
+    { changeType: 'added', newItem: itemTable.A },
+    { changeType: 'added', newItem: itemTable.B },
+  ],
+  stepB: [
+    { changeType: 'added', newItem: itemTable.C },
+    { changeType: 'modified', oldItem: itemTable.A, newItem: itemTable.A2 },
+  ],
+  stepE: [
+    { changeType: 'removed', oldItem: itemTable.B },
+    { changeType: 'modified', oldItem: itemTable.C, newItem: itemTable.C2 },
+  ],
+  stepI: [
+    { changeType: 'added', newItem: itemTable.D },
+    { changeType: 'modified', oldItem: itemTable.B2, newItem: itemTable.B },
+  ],
+  stepK: [
+    { changeType: 'removed', oldItem: itemTable.D },
+    { changeType: 'added', newItem: itemTable.E },
+  ],
+}
+
+export const cryptFilesDir = 'asuna'
 export const maxTargetFileSize = 1024
 export const partCodePrefix = '.ghc-part'
 export const contentHashAlgorithm: IHashAlgorithm = 'sha256'

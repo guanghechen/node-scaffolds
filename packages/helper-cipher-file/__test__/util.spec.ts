@@ -140,11 +140,11 @@ describe('catalog', () => {
     expect(collectAffectedPlainFilepaths(diffItems)).toEqual(['a.txt', 'b.txt', 'c.txt'])
     expect(collectAffectedCryptFilepaths(diffItems)).toEqual([
       'a.txt',
-      'encrypted/d52a60a064cc6ae727b065a078231e41756e9b7fd0cedb301789b0406dc48269',
-      'encrypted/f608f5814560f4375dda3e7dc8005ca6df2176155828349fd73919e8177bf9a7.ghc-part1',
-      'encrypted/f608f5814560f4375dda3e7dc8005ca6df2176155828349fd73919e8177bf9a7.ghc-part2',
-      'encrypted/f608f5814560f4375dda3e7dc8005ca6df2176155828349fd73919e8177bf9a7.ghc-part3',
-      'encrypted/f608f5814560f4375dda3e7dc8005ca6df2176155828349fd73919e8177bf9a7.ghc-part4',
+      'kirito/d52a60a064cc6ae727b065a078231e41756e9b7fd0cedb301789b0406dc48269',
+      'kirito/f608f5814560f4375dda3e7dc8005ca6df2176155828349fd73919e8177bf9a7.ghc-part1',
+      'kirito/f608f5814560f4375dda3e7dc8005ca6df2176155828349fd73919e8177bf9a7.ghc-part2',
+      'kirito/f608f5814560f4375dda3e7dc8005ca6df2176155828349fd73919e8177bf9a7.ghc-part3',
+      'kirito/f608f5814560f4375dda3e7dc8005ca6df2176155828349fd73919e8177bf9a7.ghc-part4',
       'd.txt.ghc-part1',
       'd.txt.ghc-part2',
       'd.txt.ghc-part3',
