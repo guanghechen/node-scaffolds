@@ -57,6 +57,7 @@ Package                               | Description
 [@guanghechen/eslint-config-jsx][]    | Eslint config for `Jsx` project
 [@guanghechen/eslint-config-ts][]     | Eslint config for `Typescript` project
 [@guanghechen/event-bus]              | A simple event bus.
+[@guanghechen/helper-buffer][]        | Utility functions for handling buffer.
 [@guanghechen/helper-cipher][]        | Utility functions for cipher contents.
 [@guanghechen/helper-cipher-file][]   | Utility functions for cipher files.
 [@guanghechen/helper-commander][]     | Utility functions for creating command line programs.
@@ -65,7 +66,8 @@ Package                               | Description
 [@guanghechen/helper-fs]              | Provide some enhanced methods base on `node:fs`.
 [@guanghechen/helper-func]            | Helpful utility funcs.
 [@guanghechen/helper-is][]            | Utilities to detect data type.
-[@guanghechen/helper-jest][]          | A collection of utility functions for jest tests
+[@guanghechen/helper-jest][]          | A collection of utility functions for jest tests.
+[@guanghechen/helper-mac][]           | A collection of utility functions for generating MAC.
 [@guanghechen/helper-npm][]           | Utilities for handling npm repo and `package.json`.
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
 [@guanghechen/helper-path][]          | Utilities to handle url path and file path.
@@ -96,6 +98,7 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/eslint-config-jsx]: ./packages/eslint-config-jsx
 [@guanghechen/eslint-config-ts]: ./packages/eslint-config-ts
 [@guanghechen/event-bus]: ./packages/event-bus
+[@guanghechen/helper-buffer]: ./packages/helper-buffer
 [@guanghechen/helper-cipher]: ./packages/helper-cipher
 [@guanghechen/helper-cipher-file]: ./packages/helper-cipher-file
 [@guanghechen/helper-commander]: ./packages/helper-commander
@@ -105,6 +108,7 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/helper-func]: ./packages/helper-func
 [@guanghechen/helper-is]: ./packages/helper-is
 [@guanghechen/helper-jest]: ./packages/helper-jest
+[@guanghechen/helper-mac]: ./packages/helper-mac
 [@guanghechen/helper-npm]: ./packages/helper-npm
 [@guanghechen/helper-option]: ./packages/helper-option
 [@guanghechen/helper-path]: ./packages/helper-path
