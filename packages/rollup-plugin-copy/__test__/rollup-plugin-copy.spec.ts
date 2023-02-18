@@ -1,6 +1,6 @@
-import { rm, writeFile } from '@guanghechen/helper-fs'
 import { jest } from '@jest/globals'
 import chalk from 'chalk'
+import { rm, writeFile } from 'jest.helper'
 import { existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'

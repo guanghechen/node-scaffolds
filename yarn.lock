@@ -545,7 +545,6 @@ __metadata:
     chalk: ^5.2.0
     cross-env: ^7.0.3
     dayjs: ^1.11.7
-    is-ci: ^3.0.1
     jest: ^29.4.2
     json5: ^2.2.3
     rimraf: ^4.1.2
@@ -753,7 +752,6 @@ __metadata:
   resolution: "@guanghechen/helper-git@workspace:packages/helper-git"
   dependencies:
     "@guanghechen/chalk-logger": ^4.1.0
-    "@guanghechen/helper-fs": ^4.1.0
     "@guanghechen/helper-jest": ^4.1.0
     "@guanghechen/invariant": ^4.1.0
     "@guanghechen/utility-types": ^4.1.0
@@ -794,7 +792,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-mac@workspace:packages/helper-mac"
   dependencies:
-    "@guanghechen/helper-fs": ^4.1.0
     cross-env: ^7.0.3
     jest: ^29.4.2
     rimraf: ^4.1.2
@@ -967,7 +964,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/postcss-modules-dts@workspace:packages/postcss-modules-dts"
   dependencies:
-    "@guanghechen/helper-fs": ^4.1.0
     "@guanghechen/helper-option": ^4.1.0
     "@types/reserved-words": 0.1.0
     cross-env: ^7.0.3
@@ -996,7 +992,6 @@ __metadata:
   resolution: "@guanghechen/rollup-config-tsx@workspace:packages/rollup-config-tsx"
   dependencies:
     "@guanghechen/helper-is": ^4.1.0
-    "@guanghechen/helper-path": ^4.1.0
     "@guanghechen/postcss-modules-dts": ^4.1.0
     "@guanghechen/rollup-config": ^4.1.0
     "@rollup/plugin-multi-entry": ^6.0.0

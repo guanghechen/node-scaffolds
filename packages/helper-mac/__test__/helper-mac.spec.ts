@@ -1,5 +1,4 @@
-import { emptyDir, rm } from '@guanghechen/helper-fs'
-import { assertPromiseThrow, locateFixtures } from 'jest.helper'
+import { assertPromiseThrow, emptyDir, locateFixtures, rm } from 'jest.helper'
 import { randomBytes } from 'node:crypto'
 import fs from 'node:fs/promises'
 import path from 'node:path'

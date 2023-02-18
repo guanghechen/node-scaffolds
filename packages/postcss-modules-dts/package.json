@@ -42,7 +42,6 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@guanghechen/helper-fs": "^4.1.0",
     "@guanghechen/helper-option": "^4.1.0",
     "@types/reserved-words": "0.1.0",
     "reserved-words": "0.1.2"

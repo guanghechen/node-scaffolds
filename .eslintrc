@@ -10,7 +10,7 @@
   },
   "overrides": [
     {
-      "files": ["**/*.ts", "**/*tsx"],
+      "files": ["**/*.ts", "**/*tsx", "**/*.mts"],
       "extends": ["@guanghechen", "@guanghechen/jsx", "@guanghechen/ts", "prettier"]
     },
     {

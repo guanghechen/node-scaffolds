@@ -1,4 +1,4 @@
-import { writeFile } from '@guanghechen/helper-fs'
+import { writeFile } from 'jest.helper'
 import fs from 'node:fs/promises'
 
 export async function replaceInFile(options: {

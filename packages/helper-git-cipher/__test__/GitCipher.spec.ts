@@ -7,7 +7,6 @@ import {
   FileCipherPathResolver,
 } from '@guanghechen/helper-cipher-file'
 import { BigFileHelper } from '@guanghechen/helper-file'
-import { collectAllFilesSync, emptyDir, rm } from '@guanghechen/helper-fs'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import {
   checkBranch,
@@ -20,7 +19,7 @@ import {
 import type { ILoggerMock } from '@guanghechen/helper-jest'
 import { createLoggerMock } from '@guanghechen/helper-jest'
 import { calcMac } from '@guanghechen/helper-mac'
-import { desensitize, locateFixtures } from 'jest.helper'
+import { collectAllFilesSync, desensitize, emptyDir, locateFixtures, rm } from 'jest.helper'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { GitCipher, GitCipherConfig } from '../src'

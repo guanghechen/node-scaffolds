@@ -1,9 +1,15 @@
 import { ChalkLogger } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
 import { BigFileHelper } from '@guanghechen/helper-file'
-import { emptyDir, rm, writeFile } from '@guanghechen/helper-fs'
 import { falsy, truthy } from '@guanghechen/helper-func'
-import { assertPromiseNotThrow, assertPromiseThrow, locateFixtures } from 'jest.helper'
+import {
+  assertPromiseNotThrow,
+  assertPromiseThrow,
+  emptyDir,
+  locateFixtures,
+  rm,
+  writeFile,
+} from 'jest.helper'
 import path from 'node:path'
 import {
   FileCipherBatcher,

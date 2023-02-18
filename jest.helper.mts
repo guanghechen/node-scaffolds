@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import type { IDesensitizer } from '@guanghechen/helper-jest'
 import {
   composeStringDesensitizers,
@@ -7,6 +8,19 @@ import {
 import fs from 'node:fs'
 import path from 'node:path'
 import url from 'node:url'
+
+export {
+  collectAllFiles,
+  collectAllFilesSync,
+  emptyDir,
+  ensureCriticalFilepathExistsSync,
+  isDirectorySync,
+  isFileSync,
+  isNonExistentOrEmpty,
+  mkdirsIfNotExists,
+  rm,
+  writeFile,
+} from '@guanghechen/helper-fs'
 export { isCI } from 'ci-info'
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))

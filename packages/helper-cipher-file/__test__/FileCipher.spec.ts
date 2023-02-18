@@ -5,8 +5,14 @@ import {
   calcFilePartItemsByCount,
   calcFilePartItemsBySize,
 } from '@guanghechen/helper-file'
-import { emptyDir, rm, writeFile } from '@guanghechen/helper-fs'
-import { assertPromiseThrow, locateFixtures, unlinkSync } from 'jest.helper'
+import {
+  assertPromiseThrow,
+  emptyDir,
+  locateFixtures,
+  rm,
+  unlinkSync,
+  writeFile,
+} from 'jest.helper'
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'

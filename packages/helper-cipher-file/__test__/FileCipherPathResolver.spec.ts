@@ -1,5 +1,4 @@
-import { emptyDir, rm } from '@guanghechen/helper-fs'
-import { locateFixtures } from 'jest.helper'
+import { emptyDir, locateFixtures, rm } from 'jest.helper'
 import path from 'node:path'
 import { FileCipherPathResolver } from '../src'
 

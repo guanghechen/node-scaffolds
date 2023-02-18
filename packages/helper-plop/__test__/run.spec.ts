@@ -1,4 +1,3 @@
-import { rm } from '@guanghechen/helper-fs'
 import {
   composeStringDesensitizers,
   createConsoleMock,
@@ -10,6 +9,7 @@ import {
 import type { IDesensitizer } from '@guanghechen/helper-jest'
 import { jest } from '@jest/globals'
 import type { InputQuestion } from 'inquirer'
+import { rm } from 'jest.helper'
 import fs from 'node:fs'
 import path from 'node:path'
 import url from 'node:url'

@@ -1,6 +1,5 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import { emptyDir, rm, writeFile } from '@guanghechen/helper-fs'
-import { locateFixtures } from 'jest.helper'
+import { emptyDir, locateFixtures, rm, writeFile } from 'jest.helper'
 import path from 'node:path'
 import { commitAll } from '../src/command/commit'
 import { initGitRepo } from '../src/command/init'

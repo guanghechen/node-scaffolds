@@ -1,4 +1,4 @@
-import { rm } from '@guanghechen/helper-fs'
+import { rm } from 'jest.helper'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import url from 'node:url'

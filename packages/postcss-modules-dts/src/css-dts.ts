@@ -1,5 +1,7 @@
-import { writeFile } from '@guanghechen/helper-fs'
 import { coverBoolean, coverString } from '@guanghechen/helper-option'
+import { existsSync } from 'node:fs'
+import fs from 'node:fs/promises'
+import path from 'node:path'
 import reservedWords from 'reserved-words'
 import type { ICssDtsProcessorProps, IGetCSSTokenHook } from './types'
 
@@ -33,20 +35,20 @@ export class CSSDtsProcessor implements IGetCSSTokenHook {
     if (this.shouldIgnore(cssPath, json, outputFilePath)) return
 
     const classNames: string[] = Object.keys(json)
-    const dtsContent: string = this.calcDts(classNames)
+    const dtsContent: string = this._generateDts(classNames)
 
     // Generate *.d.ts
-    await writeFile(cssPath + '.d.ts', dtsContent)
+    await this._writeDts(cssPath + '.d.ts', dtsContent)
     if (this.dtsForCompiledCss) {
-      await writeFile(outputFilePath + '.d.ts', dtsContent, { encoding: this.encoding })
+      await this._writeDts(outputFilePath + '.d.ts', dtsContent)
     }
   }
 
   /**
-   * calc content of .d.ts
+   * Calc content of .d.ts
    * @param classNames
    */
-  protected calcDts(classNames: string[]): string {
+  protected _generateDts(classNames: string[]): string {
     const { indent, semicolon } = this
     const uniqueName = 'stylesheet'
     return classNames
@@ -60,5 +62,11 @@ export class CSSDtsProcessor implements IGetCSSTokenHook {
       .concat('\n}\n\n\n')
       .concat(`declare const ${uniqueName}: Stylesheet${semicolon}\n`)
       .concat(`export default ${uniqueName}${semicolon}\n`)
+  }
+
+  protected async _writeDts(filepath: string, content: string): Promise<void> {
+    const dir: string = path.dirname(filepath)
+    if (!existsSync(dir)) await fs.mkdir(dir, { recursive: true })
+    await fs.writeFile(filepath, content, { encoding: this.encoding })
   }
 }

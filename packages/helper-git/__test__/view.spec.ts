@@ -1,8 +1,7 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import { emptyDir, rm } from '@guanghechen/helper-fs'
 import type { ILoggerMock } from '@guanghechen/helper-jest'
 import { createLoggerMock } from '@guanghechen/helper-jest'
-import { locateFixtures } from 'jest.helper'
+import { emptyDir, locateFixtures, rm } from 'jest.helper'
 import type { IGitCommandBaseParams } from '../src'
 import {
   checkBranch,

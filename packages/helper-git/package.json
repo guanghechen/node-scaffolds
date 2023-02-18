@@ -46,7 +46,6 @@
   },
   "devDependencies": {
     "@guanghechen/chalk-logger": "^4.1.0",
-    "@guanghechen/helper-fs": "^4.1.0",
     "@guanghechen/helper-jest": "^4.1.0",
     "cross-env": "^7.0.3",
     "jest": "^29.4.2",

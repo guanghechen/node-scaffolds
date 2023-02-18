@@ -1,5 +1,4 @@
-import { emptyDir, rm, writeFile } from '@guanghechen/helper-fs'
-import { locateFixtures } from 'jest.helper'
+import { emptyDir, locateFixtures, rm, writeFile } from 'jest.helper'
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import type { IFilePartItem } from '../src'
