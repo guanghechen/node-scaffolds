@@ -1,5 +1,29 @@
 # Changelog
 
+<a name="4.1.0"></a>
+## 4.1.0 (2023-02-18)
+
+### Added
+
+- ✨ feat: add new sub-package &#x27;@guanghechen/helper-mac [[67cbb7c](https://github.com/guanghechen/node-scaffolds/commit/67cbb7c864d619c550d70098d1bbdc2e7726e0e9)]
+- ✨ feat: add new sub-package &#x27;@guanghechen/helper-buffer&#x27; [[502ad8c](https://github.com/guanghechen/node-scaffolds/commit/502ad8c4dfd93b7bda167900372707be53c151ca)]
+
+### Changed
+
+- 👽 fix errors due to previous changes [[6741498](https://github.com/guanghechen/node-scaffolds/commit/674149805f89fa0166c7665c2f9a6bb24b19fb32)]
+
+### Breaking changes
+
+- 💥 [BREAKING] improve(helper-cipher-file): ask to specify pathHashAlgorithm and contentHashAlgorithm for FileCipherCatalog [[c9f0ca7](https://github.com/guanghechen/node-scaffolds/commit/c9f0ca712845f9e8f445e2500de084bd074d0ccf)]
+- 💥 [BREAKING] improve(helper-cipher): no longer export &#x27;calcMac&#x27; / &#x27;destryoBuffers&#x27;, use @guanghechen/helper-mac instead [[957a455](https://github.com/guanghechen/node-scaffolds/commit/957a455ee1ed3a38263bf3392a15f444f6cbcf34)]
+- 💥 [BREAKING] improve(helper-config): no longer export &#x27;calcMac&#x27;, use @guanghechen/helper-mac instead [[c12e11b](https://github.com/guanghechen/node-scaffolds/commit/c12e11b12aadd13d21eaa25fd7e54f04237c371e)]
+- 💥 [BREAKING] improve(helper-stream): no longer export &#x27;destroyBuffers&#x27;, use @guanghechen/helper-buffer instead [[9ee9000](https://github.com/guanghechen/node-scaffolds/commit/9ee9000fd4f05d4799ea9d7227a27099a8caaa14)]
+
+### Miscellaneous
+
+- 📝 docs: update README [[bc1ada0](https://github.com/guanghechen/node-scaffolds/commit/bc1ada09c02ebf6eaf21164735ac2f2d9de6a80e)]
+
+
 <a name="4.0.0"></a>
 ## 4.0.0 (2023-02-13)
 
