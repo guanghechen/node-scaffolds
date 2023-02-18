@@ -1,8 +1,8 @@
+import { destroyBuffer } from '@guanghechen/helper-buffer'
 import invariant from '@guanghechen/invariant'
 import type { CipherGCM, CipherGCMTypes } from 'node:crypto'
 import { createCipheriv, createDecipheriv } from 'node:crypto'
 import type { ICipher, IDecipher, IDecipherOptions, IEncipher } from '../../types/ICipher'
-import { destroyBuffer } from '../../util'
 import { BaseCipher } from '../BaseCipher'
 
 export interface IAesGcmCipherProps {

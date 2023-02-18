@@ -639,6 +639,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-cipher@workspace:packages/helper-cipher"
   dependencies:
+    "@guanghechen/helper-buffer": ^4.0.0
+    "@guanghechen/helper-mac": ^4.0.0
     "@guanghechen/invariant": ^4.0.0
     cross-env: ^7.0.3
     jest: ^29.4.2

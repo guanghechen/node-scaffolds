@@ -1,3 +1,4 @@
+import { destroyBuffers } from '@guanghechen/helper-buffer'
 import type {
   ICipher,
   IDecipher,
@@ -5,7 +6,6 @@ import type {
   IEncipher,
   IEncryptResult,
 } from '../types/ICipher'
-import { destroyBuffers } from '../util'
 
 /**
  * ICipher base class.

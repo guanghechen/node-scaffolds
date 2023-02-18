@@ -94,10 +94,6 @@ Name                  | Description
 :--------------------:|:----------------------------:
 `AesGcmCipher`        | A ICipher implementation with AES-256-GCM algorithm.
 `AesGcmCipherFactory` |
-`calcMac`             | Calc mac (Message Authentication Code).
-`calcMacFromString`   | Calc mac (Message Authentication Code) from literal string.
-`destroyBuffer`       | Fill buffer with a random number.
-`destroyBuffers`      | Fill buffers with random numbers.
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-cipher#readme

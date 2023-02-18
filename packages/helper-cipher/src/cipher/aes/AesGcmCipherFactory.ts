@@ -1,8 +1,9 @@
+import { destroyBuffer } from '@guanghechen/helper-buffer'
+import { calcMac } from '@guanghechen/helper-mac'
 import invariant from '@guanghechen/invariant'
 import { pbkdf2Sync, randomBytes } from 'node:crypto'
 import type { ICipher } from '../../types/ICipher'
 import type { ICipherFactory, ICipherOptions, IPBKDF2Options } from '../../types/ICipherFactory'
-import { calcMac, destroyBuffer } from '../../util'
 import { AesGcmCipher } from './AesGcmCipher'
 
 export interface IAesGcmCipherFactoryProps {
@@ -92,7 +93,7 @@ export class AesGcmCipherFactory implements ICipherFactory {
     const { salt, iterations, digest } = options
     const key: Buffer = pbkdf2Sync(password, salt, iterations, _keySize, digest)
 
-    const ivPassword = calcMac(password, Buffer.from(salt, 'utf8'), key)
+    const ivPassword = calcMac([password, Buffer.from(salt, 'utf8'), key], digest)
     const iv: Buffer = pbkdf2Sync(ivPassword, salt, iterations + 137, _ivSize, digest)
     return { key, iv }
   }

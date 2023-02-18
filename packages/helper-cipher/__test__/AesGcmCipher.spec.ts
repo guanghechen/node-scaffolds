@@ -1,5 +1,4 @@
 import { locateFixtures } from 'jest.helper'
-import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import type { ICipher, ICipherFactory } from '../src'
 import { AesGcmCipherFactory } from '../src'
@@ -14,9 +13,7 @@ describe('AesGcmCipher', function () {
 
   describe('init from password', function () {
     const cipherFactory = new AesGcmCipherFactory()
-    const sha256 = createHash('sha256')
-    sha256.update('@guanghechen/helper-cipher')
-    const password = sha256.digest()
+    const password: Buffer = Buffer.from('guanghechen')
     cipherFactory.initFromPassword(password, {
       salt: 'salt',
       iterations: 100000,
