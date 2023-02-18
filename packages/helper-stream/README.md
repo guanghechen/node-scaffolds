@@ -73,8 +73,6 @@ Name              | Description
 `concatStreams`   | Concatenate readable streams to async iterator.
 `consumeStream`   | Consume readable stream. 
 `consumeStreams`  | Consume Consume multiple streams serially.
-`destroyBuffer`   | Fill buffer with a random number
-`destroyBuffers`  | Fill buffers with random numbers
 `mergeStreams`    | Merge multiple readable streams into one readable streams.
 `stream2buffer`   | Consume read stream and encode the contents into buffer.
 

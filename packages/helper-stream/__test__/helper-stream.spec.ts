@@ -16,7 +16,8 @@ describe('consumeStream', () => {
   const cipherOutFilepaths: string[] = filepaths.map(fp => fp + '.out.cipher')
 
   afterAll(async () => {
-    ;[outFilepaths, cipherOutFilepaths].flat().forEach(fp => unlinkSync(fp))
+    const tmpFiles: string[] = [outFilepaths, cipherOutFilepaths].flat()
+    for (const fp of tmpFiles) unlinkSync(fp)
   })
 
   test('basic', async () => {
