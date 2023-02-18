@@ -1,3 +1,5 @@
+import type { IHashAlgorithm } from '@guanghechen/helper-mac'
+
 export * from '@guanghechen/helper-git/__test__/_data-repo1'
 
 export const repo1CryptCommitIdTable = {
@@ -31,3 +33,5 @@ export const repo1CryptCommitMessageTable = {
 export const cryptFilesDir = 'encrypted'
 export const maxTargetFileSize = 1024
 export const partCodePrefix = '.ghc-part'
+export const contentHashAlgorithm: IHashAlgorithm = 'sha256'
+export const pathHashAlgorithm: IHashAlgorithm = 'sha256'

@@ -52,11 +52,13 @@ export class GitCipherEncryptProcessor {
 
     const {
       catalogFilepath,
+      contentHashAlgorithm,
       cryptFilepathSalt,
       cryptFilesDir,
       keepPlainPatterns,
       maxTargetFileSize = Number.POSITIVE_INFINITY,
       partCodePrefix,
+      pathHashAlgorithm,
     } = secretKeeper.data
 
     const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
@@ -79,10 +81,12 @@ export class GitCipherEncryptProcessor {
       cryptRootDir: context.cryptRootDir,
     })
     const catalog = new FileCipherCatalog({
+      contentHashAlgorithm,
       cryptFilepathSalt,
       cryptFilesDir,
       maxTargetFileSize,
       partCodePrefix,
+      pathHashAlgorithm,
       pathResolver,
       logger,
       isKeepPlain:

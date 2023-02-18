@@ -1,6 +1,7 @@
 import type { IPBKDF2Options } from '@guanghechen/helper-cipher'
 import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/helper-config'
 import { PlainJsonConfigKeeper } from '@guanghechen/helper-config'
+import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import { relativeOfWorkspace } from '@guanghechen/helper-path'
 import path from 'node:path'
 
@@ -9,6 +10,10 @@ export interface ISecretConfigData {
    * The path of catalog file of crypt repo. (relative of cryptRootDir)
    */
   readonly catalogFilepath: string
+  /**
+   * Hash algorithm for generate MAC for content.
+   */
+  readonly contentHashAlgorithm: IHashAlgorithm
   /**
    * Salt for generate encrypted file path. (utf8 string)
    */
@@ -38,6 +43,10 @@ export interface ISecretConfigData {
    * Prefix of splitted files parts code.
    */
   readonly partCodePrefix: string
+  /**
+   * Hash algorithm for generate MAC for filepath.
+   */
+  readonly pathHashAlgorithm: IHashAlgorithm
   /**
    * Options for PBKDF2 algorithm.
    */
@@ -72,7 +81,7 @@ export class SecretConfigKeeper
   extends PlainJsonConfigKeeper<ISecretConfigData>
   implements IConfigKeeper<ISecretConfigData>
 {
-  public override readonly __version__: string = '1.0.0'
+  public override readonly __version__: string = '1.0.1'
   public override readonly __compatible_version__: string = '^1.0.0'
   public readonly cryptRootDir: string
 
@@ -84,6 +93,7 @@ export class SecretConfigKeeper
   protected override serialize(data: ISecretConfigData): ISecretConfigData {
     return {
       catalogFilepath: relativeOfWorkspace(this.cryptRootDir, data.catalogFilepath),
+      contentHashAlgorithm: data.contentHashAlgorithm ?? 'sha256',
       cryptFilepathSalt: data.cryptFilepathSalt,
       cryptFilesDir: relativeOfWorkspace(this.cryptRootDir, data.cryptFilesDir),
       keepPlainPatterns: data.keepPlainPatterns,
@@ -94,6 +104,7 @@ export class SecretConfigKeeper
           ? undefined
           : data.maxTargetFileSize,
       partCodePrefix: data.partCodePrefix,
+      pathHashAlgorithm: data.pathHashAlgorithm ?? 'sha256',
       pbkdf2Options: data.pbkdf2Options,
       secret: data.secret,
       secretAuthTag: data.secretAuthTag,
@@ -106,6 +117,7 @@ export class SecretConfigKeeper
   protected override deserialize(data: ISecretConfigData): ISecretConfigData {
     return {
       catalogFilepath: path.resolve(this.cryptRootDir, data.catalogFilepath),
+      contentHashAlgorithm: data.contentHashAlgorithm,
       cryptFilepathSalt: data.cryptFilepathSalt,
       cryptFilesDir: path.resolve(this.cryptRootDir, data.cryptFilesDir),
       keepPlainPatterns: data.keepPlainPatterns,
@@ -116,6 +128,7 @@ export class SecretConfigKeeper
           ? Number.POSITIVE_INFINITY
           : data.maxTargetFileSize,
       partCodePrefix: data.partCodePrefix,
+      pathHashAlgorithm: data.pathHashAlgorithm,
       pbkdf2Options: data.pbkdf2Options,
       secret: data.secret,
       secretAuthTag: data.secretAuthTag,

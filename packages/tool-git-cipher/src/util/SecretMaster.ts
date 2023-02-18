@@ -1,6 +1,6 @@
+import { destroyBuffer } from '@guanghechen/helper-buffer'
 import type { ICipher, ICipherFactory } from '@guanghechen/helper-cipher'
 import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
-import { destroyBuffer } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
 import { createHash } from 'node:crypto'
 import { logger } from '../env/logger'
@@ -128,6 +128,7 @@ export class SecretMaster {
           const { cryptBytes, authTag } = passwordCipher.encrypt(secret)
           const config: ISecretConfigData = {
             catalogFilepath: presetConfigData.catalogFilepath,
+            contentHashAlgorithm: presetConfigData.contentHashAlgorithm,
             cryptFilepathSalt: presetConfigData.cryptFilepathSalt,
             cryptFilesDir: presetConfigData.cryptFilesDir,
             keepPlainPatterns: presetConfigData.keepPlainPatterns,
@@ -135,6 +136,7 @@ export class SecretMaster {
             mainKeySize: presetConfigData.mainKeySize,
             maxTargetFileSize: presetConfigData.maxTargetFileSize,
             partCodePrefix: presetConfigData.partCodePrefix,
+            pathHashAlgorithm: presetConfigData.pathHashAlgorithm,
             pbkdf2Options: presetConfigData.pbkdf2Options,
             secret: cryptBytes.toString('hex'),
             secretAuthTag: authTag ? authTag.toString('hex') : undefined,

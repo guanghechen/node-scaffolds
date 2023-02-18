@@ -1,4 +1,5 @@
 import type { IPBKDF2Options } from '@guanghechen/helper-cipher'
+import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import type { ISubCommandInitOptions } from './option'
 
 export interface IGitCipherInitContext {
@@ -14,6 +15,10 @@ export interface IGitCipherInitContext {
    * The path of config file. (absolute path)
    */
   readonly configFilepaths: string[]
+  /**
+   * Hash algorithm for generate MAC for content.
+   */
+  readonly contentHashAlgorithm: IHashAlgorithm
   /**
    * Salt for generate encrypted file path. (utf8 string)
    */
@@ -69,6 +74,10 @@ export interface IGitCipherInitContext {
    */
   readonly partCodePrefix: string
   /**
+   * Hash algorithm for generate MAC for filepath.
+   */
+  readonly pathHashAlgorithm: IHashAlgorithm
+  /**
    * Options for PBKDF2 algorithm.
    */
   readonly pbkdf2Options: IPBKDF2Options
@@ -105,6 +114,7 @@ export async function createGitCipherInitContextFromOptions(
     catalogCacheFilepath: options.catalogCacheFilepath,
     catalogFilepath: options.catalogFilepath,
     configFilepaths: options.configPath ?? [],
+    contentHashAlgorithm: options.contentHashAlgorithm,
     cryptFilepathSalt: options.cryptFilepathSalt,
     cryptFilesDir: options.cryptFilesDir,
     cryptRootDir: options.cryptRootDir,
@@ -118,6 +128,7 @@ export async function createGitCipherInitContextFromOptions(
     minPasswordLength: options.minPasswordLength,
     maxTargetFileSize: options.maxTargetFileSize ?? Number.POSITIVE_INFINITY,
     partCodePrefix: options.partCodePrefix,
+    pathHashAlgorithm: options.pathHashAlgorithm,
     pbkdf2Options: options.pbkdf2Options,
     plainRootDir: options.plainRootDir,
     secretFilepath: options.secretFilepath,

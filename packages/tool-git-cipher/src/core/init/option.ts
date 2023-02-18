@@ -1,6 +1,7 @@
 import type { IPBKDF2Options } from '@guanghechen/helper-cipher'
 import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commander'
 import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
+import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import { logger } from '../../env/logger'
@@ -13,6 +14,11 @@ interface ISubCommandOptions {
    * @default '.ghc-catalog'
    */
   readonly catalogFilepath: string
+  /**
+   * Hash algorithm for generate MAC for content.
+   * @default 'sha256
+   */
+  readonly contentHashAlgorithm: IHashAlgorithm
   /**
    * Salt for generate encrypted file path. (utf8 string)
    * @default 'ac2bf19c04d532'
@@ -53,6 +59,11 @@ interface ISubCommandOptions {
    */
   readonly partCodePrefix: string
   /**
+   * Hash algorithm for generate MAC for filepath.
+   * @default 'sha256'
+   */
+  readonly pathHashAlgorithm: IHashAlgorithm
+  /**
    * Options for PBKDF2 algorithm.
    */
   readonly pbkdf2Options: IPBKDF2Options
@@ -74,6 +85,7 @@ export type ISubCommandInitOptions = ICommandOptions & ICommandConfigurationFlat
 const getDefaultCommandInitOptions = (): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(),
   catalogFilepath: '.ghc-catalog',
+  contentHashAlgorithm: 'sha256',
   cryptFilepathSalt: 'ac2bf19c04d532',
   cryptFilesDir: 'encrypted',
   gitGpgSign: false,
@@ -88,6 +100,7 @@ const getDefaultCommandInitOptions = (): ICommandOptions => ({
   mainKeySize: 32,
   maxTargetFileSize: Number.POSITIVE_INFINITY,
   partCodePrefix: '.ghc-part',
+  pathHashAlgorithm: 'sha256',
   pbkdf2Options: {
     salt: 'f7f1d0eb071ea',
     iterations: 200000,
@@ -117,6 +130,14 @@ export function resolveSubCommandInitOptions(
     cover<string>(baseOptions.catalogFilepath, options.catalogFilepath, isNonBlankString),
   )
   logger.debug('catalogFilepath:', catalogFilepath)
+
+  // Resolve contentHashAlgorithm
+  const contentHashAlgorithm: IHashAlgorithm = cover<IHashAlgorithm>(
+    baseOptions.contentHashAlgorithm,
+    options.contentHashAlgorithm,
+    isNonBlankString,
+  )
+  logger.debug('contentHashAlgorithm:', contentHashAlgorithm)
 
   // Resolve cryptFilepathSalt
   const cryptFilepathSalt: string = cover<string>(
@@ -180,6 +201,14 @@ export function resolveSubCommandInitOptions(
   )
   logger.debug('partCodePrefix:', partCodePrefix)
 
+  // Resolve pathHashAlgorithm
+  const pathHashAlgorithm: IHashAlgorithm = cover<IHashAlgorithm>(
+    baseOptions.pathHashAlgorithm,
+    options.pathHashAlgorithm,
+    isNonBlankString,
+  )
+  logger.debug('pathHashAlgorithm:', pathHashAlgorithm)
+
   // Resolve pbkdf2Options
   const pbkdf2Options: IPBKDF2Options = {
     salt: cover<string>(
@@ -215,6 +244,7 @@ export function resolveSubCommandInitOptions(
 
   const resolvedOptions: ISubCommandOptions = {
     catalogFilepath,
+    contentHashAlgorithm,
     cryptFilepathSalt,
     cryptFilesDir,
     gitGpgSign,
@@ -223,6 +253,7 @@ export function resolveSubCommandInitOptions(
     mainKeySize,
     maxTargetFileSize,
     partCodePrefix,
+    pathHashAlgorithm,
     pbkdf2Options,
     secretIvSize,
     secretKeySize,

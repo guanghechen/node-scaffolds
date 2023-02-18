@@ -38,6 +38,7 @@ export class GitCipherInitProcessor {
     const { context } = this
     const presetSecretData: Omit<ISecretConfigData, 'secret' | 'secretAuthTag' | 'secretNonce'> = {
       catalogFilepath: context.catalogFilepath,
+      contentHashAlgorithm: context.contentHashAlgorithm,
       cryptFilepathSalt: context.cryptFilepathSalt,
       cryptFilesDir: context.cryptFilesDir,
       keepPlainPatterns: context.keepPlainPatterns,
@@ -46,6 +47,7 @@ export class GitCipherInitProcessor {
       maxTargetFileSize:
         context.maxTargetFileSize > Number.MAX_SAFE_INTEGER ? undefined : context.maxTargetFileSize,
       partCodePrefix: context.partCodePrefix,
+      pathHashAlgorithm: context.pathHashAlgorithm,
       pbkdf2Options: context.pbkdf2Options,
       secretIvSize: context.secretIvSize,
       secretKeySize: context.secretKeySize,

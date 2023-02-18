@@ -22,6 +22,10 @@ export const createSubCommandInit = (
       'The path of catalog file of crypt repo. (relative of cryptRootDir)',
     )
     .option(
+      '--content-hash-algorithm <contentHashAlgorithm>',
+      'Hash algorithm for generate MAC for content.',
+    )
+    .option(
       '--crypt-filepath-salt <cryptFilepathSalt>',
       'Salt for generate encrypted file path. (utf8 string)',
     )
@@ -41,6 +45,10 @@ export const createSubCommandInit = (
     .option('--main-iv-size <mainIvSize>', 'IV size of main cipherFactory.')
     .option('--main-key-size <mainKeySize>', 'Key size of main cipherFactory.')
     .option('--part-code-prefix <partCodePRefix>', 'Prefix of parts code.')
+    .option(
+      '--path-hash-algorithm <pathHashAlgorithm>',
+      'Hash algorithm for generate MAC for encrypted filepath.',
+    )
     .option('--secret-iv-size <secretIvSize>', 'IV size of the secret cipherFactory.')
     .option('--secret-key-size <secretKeySize>', 'Key size of the secret cipherFactory.')
     .action(async function ([_workspaceDir], options: ISubCommandInitOptions) {

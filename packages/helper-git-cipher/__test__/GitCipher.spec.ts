@@ -1,5 +1,5 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import { AesGcmCipherFactory, calcMac } from '@guanghechen/helper-cipher'
+import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
 import {
   FileCipherBatcher,
   FileCipherCatalog,
@@ -19,6 +19,7 @@ import {
 } from '@guanghechen/helper-git'
 import type { ILoggerMock } from '@guanghechen/helper-jest'
 import { createLoggerMock } from '@guanghechen/helper-jest'
+import { calcMac } from '@guanghechen/helper-mac'
 import { desensitize, locateFixtures } from 'jest.helper'
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -33,6 +34,7 @@ import {
   contentC2,
   contentC3,
   contentD,
+  contentHashAlgorithm,
   cryptFilesDir,
   encoding,
   fpA,
@@ -42,6 +44,7 @@ import {
   fpE,
   maxTargetFileSize,
   partCodePrefix,
+  pathHashAlgorithm,
   repo1CryptCommitIdTable,
   repo1CryptCommitMessageTable,
 } from './_data-repo1'
@@ -90,11 +93,13 @@ describe('GitCipher', () => {
     cryptFilepathSalt: 'guanghechen_git_cipher',
     maxTargetFileSize,
     partCodePrefix,
+    pathHashAlgorithm,
+    contentHashAlgorithm,
     logger,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
   })
   const getDynamicIv = (infos: ReadonlyArray<Buffer>): Readonly<Buffer> =>
-    calcMac(...infos).slice(0, cipherFactory.ivSize)
+    calcMac(infos, 'sha256').slice(0, cipherFactory.ivSize)
 
   describe('complex', () => {
     let logMock: ILoggerMock
