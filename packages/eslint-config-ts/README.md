@@ -72,7 +72,7 @@ Eslint config for ts project.
 
 ## Example
 
-See [.eslintrc](https://github.com/guanghechen/node-scaffolds/blob/main/.eslintrc)
+See [.eslintrc](https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/.eslintrc)
 
 
 ```json {28}
