@@ -1,5 +1,27 @@
 # Changelog
 
+<a name="4.1.3"></a>
+## 4.1.3 (2023-02-18)
+
+### Added
+
+- ✅ test: update tests [[ca2f2a9](https://github.com/guanghechen/node-scaffolds/commit/ca2f2a9b7f3abdbc0e39e9f1f9ef6595eb5422a1)]
+- ✅ test: update tests [[9581541](https://github.com/guanghechen/node-scaffolds/commit/95815413d1c41301d03d8717281aa2b2b49f0c6f)]
+
+### Changed
+
+- 🎨 improve(helper-git-cipher): prevent record absolute filepaths in catalog [[3738cf6](https://github.com/guanghechen/node-scaffolds/commit/3738cf6c4d93abf08c89556ef0ddce144100e7c0)]
+
+### Fixed
+
+- 🐛 fix(tool-git-cipher): [init] cancel plop processing if a remote repo specified [[739ab2b](https://github.com/guanghechen/node-scaffolds/commit/739ab2b584d4a821734f66a1cbc3be13fc496ad3)]
+- 🐛 fix(helper-cipher-file): ensure the cryptFilesDir is a relative path [[7cd341e](https://github.com/guanghechen/node-scaffolds/commit/7cd341e2dd74eece83cba0e3a53a434f9189d367)]
+
+### Miscellaneous
+
+- 📝 docs: update READMEs [[2f9d01c](https://github.com/guanghechen/node-scaffolds/commit/2f9d01cfcf5afdab96a482bb3c7a7ef87c8e4028)]
+
+
 <a name="4.1.2"></a>
 ## 4.1.2 (2023-02-18)
 
