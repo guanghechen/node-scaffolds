@@ -211,7 +211,10 @@ export class GitCipherInitProcessor {
     logger.debug('plainRepoUrl:', plainRepoUrl)
 
     // clone plaintext repository
-    if (isNonBlankString(plainRepoUrl)) await this._cloneFromRemote(plainRepoUrl)
+    if (isNonBlankString(plainRepoUrl)) {
+      await this._cloneFromRemote(plainRepoUrl)
+      return
+    }
 
     const boilerplate = resolveTemplateFilepath('plop.mjs')
     const plop = await nodePlop(boilerplate, {
