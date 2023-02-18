@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="4.1.2"></a>
+## 4.1.2 (2023-02-18)
+
+### Fixed
+
+- 🐛 fix(tool-git-cipher): wait to retry if password wrong [[500b458](https://github.com/guanghechen/node-scaffolds/commit/500b458b1220f848269a78265d6269d5d78edec5)]
+
+
 <a name="4.1.1"></a>
 ## 4.1.1 (2023-02-18)
 
