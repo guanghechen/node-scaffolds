@@ -1,3 +1,4 @@
+import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import type {
   IFileCipherCatalogItem,
   IFileCipherCatalogItemDiff,
@@ -148,3 +149,5 @@ export const encoding: BufferEncoding = 'utf8'
 export const cryptFilesDir = 'encrypted'
 export const maxTargetFileSize = 1024
 export const partCodePrefix = '.ghc-part'
+export const contentHashAlgorithm: IHashAlgorithm = 'sha256'
+export const pathHashAlgorithm: IHashAlgorithm = 'sha256'

@@ -1,6 +1,7 @@
+import { destroyBuffers } from '@guanghechen/helper-buffer'
 import type { ICipher, IDecipherOptions, IEncryptResult } from '@guanghechen/helper-cipher'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
-import { consumeStream, consumeStreams, destroyBuffers } from '@guanghechen/helper-stream'
+import { consumeStream, consumeStreams } from '@guanghechen/helper-stream'
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
 import fs from 'node:fs'

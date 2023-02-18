@@ -1,23 +1,5 @@
-import { calcMacFromString } from '@guanghechen/helper-cipher'
-import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-fs'
-import { createHash } from 'node:crypto'
-import fs from 'node:fs'
-
-/**
- * Calc Message Authentication Code from fle.
- *
- * @param filepath
- * @returns
- */
-export async function calcMacFromFile(filepath: string): Promise<Buffer | never> {
-  ensureCriticalFilepathExistsSync(filepath)
-
-  const sha256 = createHash('sha256')
-  const stream = fs.createReadStream(filepath)
-  for await (const chunk of stream) sha256.update(chunk)
-  const mac: Buffer = sha256.digest()
-  return mac
-}
+import type { IHashAlgorithm } from '@guanghechen/helper-mac'
+import { calcMac, calcMacFromFile } from '@guanghechen/helper-mac'
 
 export const calcFingerprintFromMac = (mac: Buffer): string => mac.toString('hex')
 
@@ -28,8 +10,13 @@ export const calcFingerprintFromMac = (mac: Buffer): string => mac.toString('hex
  * @param textEncoding
  * @returns
  */
-export function calcFingerprintFromString(text: string, textEncoding: BufferEncoding): string {
-  const mac: Buffer = calcMacFromString(text, textEncoding)
+export function calcFingerprintFromString(
+  text: string,
+  textEncoding: BufferEncoding,
+  algorithm: IHashAlgorithm,
+): string {
+  const buffer: Buffer = Buffer.from(text, textEncoding)
+  const mac: Buffer = calcMac([buffer], algorithm)
   return calcFingerprintFromMac(mac)
 }
 
@@ -39,7 +26,10 @@ export function calcFingerprintFromString(text: string, textEncoding: BufferEnco
  * @param mac
  * @returns
  */
-export async function calcFingerprintFromFile(filepath: string): Promise<string> {
-  const mac = await calcMacFromFile(filepath)
+export async function calcFingerprintFromFile(
+  filepath: string,
+  algorithm: IHashAlgorithm,
+): Promise<string> {
+  const mac = await calcMacFromFile(filepath, algorithm)
   return calcFingerprintFromMac(mac)
 }

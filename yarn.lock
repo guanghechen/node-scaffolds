@@ -619,11 +619,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file"
   dependencies:
+    "@guanghechen/helper-buffer": ^4.0.0
     "@guanghechen/helper-cipher": ^4.0.0
     "@guanghechen/helper-config": ^4.0.0
     "@guanghechen/helper-file": ^4.0.0
     "@guanghechen/helper-fs": ^4.0.0
     "@guanghechen/helper-func": ^4.0.0
+    "@guanghechen/helper-mac": ^4.0.0
     "@guanghechen/helper-path": ^4.0.0
     "@guanghechen/helper-stream": ^4.0.0
     "@guanghechen/invariant": ^4.0.0

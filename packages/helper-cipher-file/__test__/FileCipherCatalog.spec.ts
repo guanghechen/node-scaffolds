@@ -1,4 +1,4 @@
-import ChalkLogger from '@guanghechen/chalk-logger'
+import { ChalkLogger } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
 import { BigFileHelper } from '@guanghechen/helper-file'
 import { emptyDir, rm, writeFile } from '@guanghechen/helper-fs'
@@ -18,6 +18,7 @@ import type {
   IFileCipherCatalogItemDraft,
 } from '../src'
 import {
+  contentHashAlgorithm,
   contentTable,
   cryptFilesDir,
   diffItemsTable,
@@ -26,6 +27,7 @@ import {
   itemTable,
   maxTargetFileSize,
   partCodePrefix,
+  pathHashAlgorithm,
 } from './_data'
 
 describe('FileCipherCatalog', () => {
@@ -52,6 +54,8 @@ describe('FileCipherCatalog', () => {
     cryptFilepathSalt: 'guanghechen',
     maxTargetFileSize,
     partCodePrefix,
+    contentHashAlgorithm: contentHashAlgorithm,
+    pathHashAlgorithm: pathHashAlgorithm,
     logger,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
   })

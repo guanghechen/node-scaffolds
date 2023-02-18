@@ -1,7 +1,8 @@
 import ChalkLogger from '@guanghechen/chalk-logger'
-import { AesGcmCipherFactory, calcMac } from '@guanghechen/helper-cipher'
+import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
 import { BigFileHelper } from '@guanghechen/helper-file'
 import { emptyDir, mkdirsIfNotExists, rm, writeFile } from '@guanghechen/helper-fs'
+import { calcMac } from '@guanghechen/helper-mac'
 import { mergeStreams, stream2buffer } from '@guanghechen/helper-stream'
 import { assertPromiseNotThrow, assertPromiseThrow, locateFixtures } from 'jest.helper'
 import type { ReadStream } from 'node:fs'
@@ -17,6 +18,7 @@ import {
   isSameFileCipherItemDraft,
 } from '../src'
 import {
+  contentHashAlgorithm,
   contentTable,
   diffItemsTable,
   encoding,
@@ -29,7 +31,7 @@ const getFingerprintOfEncryptedFile = async (filePartPaths: string | string[]): 
   const streams: ReadStream[] = [filePartPaths].flat().map(fp => createReadStream(fp))
   const stream = mergeStreams(streams)
   const buffer: Buffer = await stream2buffer(stream, false)
-  const mac: Buffer = calcMac(buffer)
+  const mac: Buffer = calcMac([buffer], contentHashAlgorithm)
   return calcFingerprintFromMac(mac)
 }
 

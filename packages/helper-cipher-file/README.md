@@ -136,7 +136,7 @@ Utility functions for encrypt / decrypt files.
 Name                      | Description
 :------------------------:|:----------------------------:
 FileCipher                | Encrypt / Decrypt files.
-FileCipherCatalog         | Encrypt / Decrypt files with catalog.
+FileCipherCatalog         | Encrypt / Decrypt files with catalog./home/lemon/ws/guanghechen/node-scaffolds/packages/helper-mac/src
 FileCipherPathResolver    | Resolve the relative / absolute filepaths.
 calcFileCipherCatalogItem |
 diffFileCipherItems       |

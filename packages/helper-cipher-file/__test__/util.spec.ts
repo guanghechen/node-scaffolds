@@ -1,4 +1,4 @@
-import { calcMac } from '@guanghechen/helper-cipher'
+import { calcMac, calcMacFromFile } from '@guanghechen/helper-mac'
 import { locateFixtures } from 'jest.helper'
 import path from 'node:path'
 import type {
@@ -12,14 +12,13 @@ import {
   calcFingerprintFromFile,
   calcFingerprintFromMac,
   calcFingerprintFromString,
-  calcMacFromFile,
   collectAffectedCryptFilepaths,
   collectAffectedPlainFilepaths,
   isSameFileCipherItem,
   isSameFileCipherItemDraft,
   normalizePlainFilepath,
 } from '../src'
-import { itemTable } from './_data'
+import { contentHashAlgorithm, itemTable, pathHashAlgorithm } from './_data'
 
 describe('catalog', () => {
   const sourceRootDir = locateFixtures('basic')
@@ -52,7 +51,7 @@ describe('catalog', () => {
   test('isSameFileCipherItemDraft', () => {
     const basicItem: IFileCipherCatalogItemDraft = {
       plainFilepath: 'waw.txt',
-      cryptFilepath: calcMac(Buffer.from('waw.txt')).toString('hex'),
+      cryptFilepath: calcMac([Buffer.from('waw.txt')], pathHashAlgorithm).toString('hex'),
       cryptFileParts: [],
       fingerprint: '',
       size: 20,
@@ -82,7 +81,7 @@ describe('catalog', () => {
   test('isSameFileCipherItem', () => {
     const basicItem: IFileCipherCatalogItem = {
       plainFilepath: 'waw.txt',
-      cryptFilepath: calcMac(Buffer.from('waw.txt')).toString('hex'),
+      cryptFilepath: calcMac([Buffer.from('waw.txt')], pathHashAlgorithm).toString('hex'),
       cryptFileParts: [],
       fingerprint: '',
       size: 20,
@@ -155,29 +154,9 @@ describe('catalog', () => {
 })
 
 describe('mac', () => {
-  test('calcMacFromFile', async () => {
-    const filepaths = ['1.md', '2.md'].map(p => locateFixtures('basic', p))
-    const macs = await Promise.all(filepaths.map(p => calcMacFromFile(p)))
-
-    expect(macs.length).toEqual(filepaths.length)
-    for (let i = 0; i < macs.length; ++i) {
-      for (let j = i + 1; j < macs.length; ++j) {
-        expect(macs[i]).not.toEqual(macs[j])
-      }
-    }
-
-    for (let i = 0; i < 3; ++i) {
-      const macs2 = await Promise.all(filepaths.map(p => calcMacFromFile(p)))
-      expect(macs2.length).toEqual(macs.length)
-      for (let j = 0; j < macs.length; ++j) {
-        expect(macs2[j]).toEqual(macs[j])
-      }
-    }
-  })
-
   test('calcFingerprintFromMac', async () => {
     const filepaths = ['1.md', '2.md'].map(p => locateFixtures('basic', p))
-    const macs = await Promise.all(filepaths.map(p => calcMacFromFile(p)))
+    const macs = await Promise.all(filepaths.map(p => calcMacFromFile(p, contentHashAlgorithm)))
     const fingerprints = macs.map(mac => calcFingerprintFromMac(mac))
 
     expect(fingerprints.length).toEqual(filepaths.length)
@@ -188,7 +167,7 @@ describe('mac', () => {
     }
 
     for (let i = 0; i < 3; ++i) {
-      const macs2 = await Promise.all(filepaths.map(p => calcMacFromFile(p)))
+      const macs2 = await Promise.all(filepaths.map(p => calcMacFromFile(p, contentHashAlgorithm)))
       const fingerprints2 = macs2.map(mac => calcFingerprintFromMac(mac))
       expect(fingerprints2.length).toEqual(fingerprints.length)
       for (let j = 0; j < fingerprints2.length; ++j) {
@@ -198,14 +177,14 @@ describe('mac', () => {
   })
 
   test('calcFingerprintFromString', () => {
-    expect(calcFingerprintFromString('hello, world!', 'utf8')).toEqual(
+    expect(calcFingerprintFromString('hello, world!', 'utf8', 'sha256')).toEqual(
       '68e656b251e67e8358bef8483ab0d51c6619f3e7a1a9f0e75838d41ff368f728',
     )
   })
 
   test('calcFingerprintFromFile', async () => {
     const filepaths = ['1.md', '2.md'].map(p => locateFixtures('basic', p))
-    const fingerprints = await Promise.all(filepaths.map(p => calcFingerprintFromFile(p)))
+    const fingerprints = await Promise.all(filepaths.map(p => calcFingerprintFromFile(p, 'sha256')))
 
     expect(fingerprints.length).toEqual(filepaths.length)
     for (let i = 0; i < fingerprints.length; ++i) {
@@ -215,7 +194,7 @@ describe('mac', () => {
     }
 
     for (let i = 0; i < 3; ++i) {
-      const macs2 = await Promise.all(filepaths.map(p => calcMacFromFile(p)))
+      const macs2 = await Promise.all(filepaths.map(p => calcMacFromFile(p, 'sha256')))
       const fingerprints2 = macs2.map(mac => calcFingerprintFromMac(mac))
       expect(fingerprints2.length).toEqual(fingerprints.length)
       for (let j = 0; j < fingerprints2.length; ++j) {

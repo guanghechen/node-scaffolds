@@ -2,6 +2,7 @@ import type { Logger } from '@guanghechen/chalk-logger'
 import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/helper-file'
 import { isFileSync } from '@guanghechen/helper-fs'
 import { list2map, mapIterable } from '@guanghechen/helper-func'
+import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import invariant from '@guanghechen/invariant'
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -34,6 +35,8 @@ export interface IFileCipherCatalogProps {
   partCodePrefix: string
   cryptFilesDir: string
   cryptFilepathSalt: string
+  contentHashAlgorithm: IHashAlgorithm
+  pathHashAlgorithm: IHashAlgorithm
   logger?: Logger
   isKeepPlain(relativePlainFilepath: string): boolean
 }
@@ -44,6 +47,8 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   public readonly partCodePrefix: string
   public readonly cryptFilesDir: string
   public readonly cryptFilepathSalt: string
+  public readonly contentHashAlgorithm: IHashAlgorithm
+  public readonly pathHashAlgorithm: IHashAlgorithm
   protected readonly logger?: Logger
   protected readonly isKeepPlain: (relativePlainFilepath: string) => boolean
   protected readonly _itemMap: Map<string, IFileCipherCatalogItem>
@@ -54,6 +59,8 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     this.partCodePrefix = props.partCodePrefix
     this.cryptFilesDir = props.cryptFilesDir
     this.cryptFilepathSalt = props.cryptFilepathSalt
+    this.contentHashAlgorithm = props.contentHashAlgorithm
+    this.pathHashAlgorithm = props.pathHashAlgorithm
     this.isKeepPlain = props.isKeepPlain
     this._itemMap = new Map()
     this.logger = props.logger
@@ -113,13 +120,20 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     const plainFilepathKey = normalizePlainFilepath(relativePlainFilepath, pathResolver)
 
     const fileSize = await fs.stat(absolutePlainFilepath).then(md => md.size)
-    const fingerprint: string = await calcFingerprintFromFile(absolutePlainFilepath)
+    const fingerprint: string = await calcFingerprintFromFile(
+      absolutePlainFilepath,
+      this.contentHashAlgorithm,
+    )
     const keepPlain: boolean = isKeepPlain(relativePlainFilepath)
     const cryptFilepath: string = keepPlain
       ? relativePlainFilepath
       : path.join(
           cryptFilesDir,
-          calcFingerprintFromString(cryptFilepathSalt + plainFilepathKey, 'utf8'),
+          calcFingerprintFromString(
+            cryptFilepathSalt + plainFilepathKey,
+            'utf8',
+            this.pathHashAlgorithm,
+          ),
         )
     const cryptFileParts = calcFilePartNames(
       calcFilePartItemsBySize(fileSize, maxTargetFileSize),
