@@ -57,7 +57,7 @@
     "@guanghechen/helper-path": "^4.1.0",
     "@guanghechen/helper-plop": "^4.1.0",
     "@guanghechen/invariant": "^4.1.0",
-    "execa": "^6.1.0",
+    "execa": "^7.0.0",
     "inquirer": "^9.1.4",
     "micromatch": "^4.0.5",
     "node-plop": "~0.31.1"
@@ -67,6 +67,6 @@
     "@types/micromatch": "^4.0.2",
     "cross-env": "^7.0.3",
     "rimraf": "^4.1.2",
-    "rollup": "^3.14.0"
+    "rollup": "^3.17.0"
   }
 }
