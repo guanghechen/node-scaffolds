@@ -130,7 +130,7 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
   const cryptFiles: string[] = collectAffectedCryptFilepaths(draftDiffItems)
   await cleanUntrackedFilepaths({ ...cryptCmdCtx, filepaths: cryptFiles })
 
-  // Encrypt files & update config.
+  // Update catalog.
   const diffItems: IFileCipherCatalogItemDiff[] = await cipherBatcher.batchEncrypt({
     diffItems: draftDiffItems,
     pathResolver,
@@ -143,6 +143,8 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
       ]),
   })
   catalog.applyDiff(diffItems)
+
+  // Encrypt files & update config.
   const commit: IGitCommitOverview = {
     id: plainCommitNode.id,
     parents: plainCommitNode.parents,
