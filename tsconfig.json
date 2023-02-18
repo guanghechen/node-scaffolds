@@ -18,6 +18,7 @@
       "@guanghechen/helper-git-cipher": ["packages/helper-git-cipher/src"],
       "@guanghechen/helper-is": ["packages/helper-is/src"],
       "@guanghechen/helper-jest": ["packages/helper-jest/src"],
+      "@guanghechen/helper-mac": ["packages/helper-mac/src"],
       "@guanghechen/helper-npm": ["packages/helper-npm/src"],
       "@guanghechen/helper-option": ["packages/helper-option/src"],
       "@guanghechen/helper-path": ["packages/helper-path/src"],

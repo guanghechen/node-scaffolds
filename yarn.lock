@@ -785,6 +785,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@guanghechen/helper-mac@workspace:packages/helper-mac":
+  version: 0.0.0-use.local
+  resolution: "@guanghechen/helper-mac@workspace:packages/helper-mac"
+  dependencies:
+    "@guanghechen/helper-fs": ^4.0.0
+    cross-env: ^7.0.3
+    jest: ^29.4.2
+    rimraf: ^4.1.2
+    rollup: ^3.14.0
+  languageName: unknown
+  linkType: soft
+
 "@guanghechen/helper-npm@^4.0.0, @guanghechen/helper-npm@workspace:packages/helper-npm":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-npm@workspace:packages/helper-npm"
