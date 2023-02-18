@@ -1,3 +1,5 @@
+import type { IHashAlgorithm } from '@guanghechen/helper-mac'
+import { calcMac } from '@guanghechen/helper-mac'
 import invariant from '@guanghechen/invariant'
 import type { PromiseOr } from '@guanghechen/utility-types'
 import { existsSync, mkdirSync, statSync, unlinkSync } from 'node:fs'
@@ -5,22 +7,28 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import semver from 'semver'
 import type { IConfig, IConfigKeeper } from './types'
-import { calcMac } from './util'
 
 export interface IBaseConfigKeeperProps {
   /**
    * The path where configuration file is located.
    */
   filepath: string
+  /**
+   * The hash algorithm for generate mac of contents.
+   * @default 'sha256'
+   */
+  hashAlgorithm?: IHashAlgorithm
 }
 
 export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<Instance> {
   public readonly filepath: string
+  public readonly hashAlgorithm: IHashAlgorithm
   public abstract readonly __version__: string
   public abstract readonly __compatible_version__: string
 
   constructor(props: IBaseConfigKeeperProps) {
     this.filepath = props.filepath
+    this.hashAlgorithm = props.hashAlgorithm ?? 'sha256'
     this._instance = undefined
   }
 
@@ -80,10 +88,8 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
     )
 
     // Assert config mac is matched.
-    invariant(
-      calcMac(config.data) === config.__mac__,
-      () => `[${title}.load] Bad config, mac is not matched.`,
-    )
+    const mac = calcMac([Buffer.from(config.data, 'utf8')], this.hashAlgorithm).toString('hex')
+    invariant(mac === config.__mac__, () => `[${title}.load] Bad config, mac is not matched.`)
 
     const data: Data = await this.parse(config.data)
     const instance: Instance = await this.deserialize(data)
@@ -100,7 +106,7 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
 
     const data: Data = await this.serialize(this._instance)
     const content: string = await this.stringify(data)
-    const mac: string = calcMac(content)
+    const mac: string = calcMac([Buffer.from(content)], this.hashAlgorithm).toString('hex')
     const config: IConfig = { __version__: this.__version__, __mac__: mac, data: content }
     const buffer: Buffer = await this.encode(config)
     await fs.writeFile(this.filepath, buffer)

@@ -1,11 +1,11 @@
 import { emptyDir, isFileSync, mkdirsIfNotExists, rm, writeFile } from '@guanghechen/helper-fs'
+import { calcMac } from '@guanghechen/helper-mac'
 import type { PromiseOr } from '@guanghechen/utility-types'
 import { assertPromiseThrow, locateFixtures } from 'jest.helper'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import type { IConfigKeeper } from '../src'
 import { JsonConfigKeeper, PlainJsonConfigKeeper } from '../src'
-import { calcMac } from '../src/util'
 
 describe('JsonConfigKeeper', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.JsonConfigKeeper')
@@ -155,7 +155,7 @@ function testJsonConfigKeeper<Instance, Data>(params: {
 
   const writeData = async (version: string, data: Data): Promise<void> => {
     const content: string = JSON.stringify(data)
-    const mac: string = calcMac(content)
+    const mac: string = calcMac([Buffer.from(content)], 'sha256').toString('hex')
     await writeFile(
       configFilepath,
       JSON.stringify({ __version__: version, __mac__: mac, data: content }),

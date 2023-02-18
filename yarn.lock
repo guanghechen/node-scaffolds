@@ -675,6 +675,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-config@workspace:packages/helper-config"
   dependencies:
+    "@guanghechen/helper-mac": ^4.0.0
     "@guanghechen/invariant": ^4.0.0
     "@guanghechen/utility-types": ^4.0.0
     "@types/semver": ^7.3.13
@@ -785,7 +786,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-mac@workspace:packages/helper-mac":
+"@guanghechen/helper-mac@^4.0.0, @guanghechen/helper-mac@workspace:packages/helper-mac":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-mac@workspace:packages/helper-mac"
   dependencies:
