@@ -54,7 +54,6 @@ export class GitCipherInitProcessor {
     }
 
     const isWorkspaceEmpty = isNonExistentOrEmpty(context.workspace)
-    const isSecretExist = existsSync(context.secretFilepath)
     mkdirsIfNotExists(context.workspace, true)
     mkdirsIfNotExists(context.plainRootDir, true)
 
@@ -83,7 +82,7 @@ export class GitCipherInitProcessor {
     }
 
     let shouldGenerateSecret = true
-    if (isSecretExist) {
+    if (existsSync(context.secretFilepath)) {
       // Regenerate secret.
       shouldGenerateSecret = await inquirer
         .prompt([
