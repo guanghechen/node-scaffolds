@@ -9,7 +9,7 @@ import { createGitCipherInitContextFromOptions } from '../core/init/context'
 import type { IGitCipherInitContext } from '../core/init/context'
 import type { ISubCommandInitOptions } from '../core/init/option'
 import { GitCipherInitProcessor } from '../core/init/processor'
-import { handleError } from './_util'
+import { handleError } from '../util/events'
 
 // Process sub-command: 'init'
 export const processSubCommandInit: ISubCommandProcessor<ISubCommandInitOptions> = async (

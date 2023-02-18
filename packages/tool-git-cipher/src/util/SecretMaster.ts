@@ -79,7 +79,7 @@ export class SecretMaster {
       password = await inputPassword({
         question: 'Password: ',
         showAsterisk,
-        maxInputRetryTimes: 3,
+        maxInputRetryTimes: 2,
         minimumSize: minPasswordLength,
         maximumSize: maxPasswordLength,
       })
@@ -273,6 +273,12 @@ export class SecretMaster {
         : undefined
       secret = passwordCipher.decrypt(cryptSecretBytes, { authTag })
       verified = true
+    } catch (error: any) {
+      if (/Unsupported state or unable to authenticate data/.test(error?.message ?? '')) {
+        verified = false
+      } else {
+        throw error
+      }
     } finally {
       mainCipherFactory.cleanup()
       passwordCipher?.cleanup()

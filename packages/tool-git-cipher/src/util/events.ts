@@ -33,14 +33,29 @@ export enum EventTypes {
 }
 
 export const eventBus = new SimpleEventBus<EventTypes>()
+  .on(EventTypes.CANCELED, () => {
+    logger.info('canceled')
+    eventBus.dispatch({ type: EventTypes.EXITING })
+  })
+  .on(EventTypes.EXITING, () => {
+    setTimeout(() => {
+      process.exit(0)
+    }, 0)
+  })
 
-eventBus.on(EventTypes.CANCELED, function () {
-  logger.info('canceled')
-  eventBus.dispatch({ type: EventTypes.EXITING })
-})
-
-eventBus.on(EventTypes.EXITING, function () {
-  setTimeout(() => {
-    process.exit(0)
-  }, 0)
-})
+export const handleError = (error: Error | any): void => {
+  const code = error.code || 0
+  switch (code) {
+    case ErrorCode.BAD_PASSWORD:
+    case ErrorCode.ENTERED_PASSWORD_DIFFER:
+    case ErrorCode.WRONG_PASSWORD:
+      logger.debug(error)
+      logger.error(error.message ?? error.stack ?? error)
+      eventBus.dispatch({ type: EventTypes.EXITING })
+      break
+    default:
+      logger.error(error)
+      eventBus.dispatch({ type: EventTypes.EXITING })
+      break
+  }
+}

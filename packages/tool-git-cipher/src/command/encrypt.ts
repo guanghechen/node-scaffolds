@@ -9,7 +9,7 @@ import { createGitCipherEncryptContextFromOptions } from '../core/encrypt/contex
 import type { IGitCipherEncryptContext } from '../core/encrypt/context'
 import type { ISubCommandEncryptOptions } from '../core/encrypt/option'
 import { GitCipherEncryptProcessor } from '../core/encrypt/processor'
-import { handleError } from './_util'
+import { handleError } from '../util/events'
 
 // Process sub-command: 'encrypt'
 export const processSubCommandEncrypt: ISubCommandProcessor<ISubCommandEncryptOptions> = async (
