@@ -9,18 +9,18 @@ import type {
   IFileCipherCatalogItemDraft,
 } from '../types/IFileCipherCatalogItem'
 
-export const normalizePlainFilepath = (
+export function normalizePlainFilepath(
   plainFilepath: string,
   pathResolver: FileCipherPathResolver,
-): string => {
+): string {
   const fp = pathResolver.calcRelativePlainFilepath(plainFilepath).replace(/[/\\]+/, '/')
   return normalizeUrlPath(fp)
 }
 
-export const isSameFileCipherItemDraft = (
+export function isSameFileCipherItemDraft(
   oldItem: Readonly<IFileCipherCatalogItemDraft>,
   newItem: Readonly<IFileCipherCatalogItemDraft>,
-): boolean => {
+): boolean {
   if (oldItem === newItem) return true
 
   return (
@@ -32,10 +32,10 @@ export const isSameFileCipherItemDraft = (
   )
 }
 
-export const isSameFileCipherItem = (
+export function isSameFileCipherItem(
   oldItem: Readonly<IFileCipherCatalogItem>,
   newItem: Readonly<IFileCipherCatalogItem>,
-): boolean => {
+): boolean {
   if (oldItem === newItem) return true
 
   return (
@@ -45,9 +45,9 @@ export const isSameFileCipherItem = (
   )
 }
 
-export const collectAffectedPlainFilepaths = (
+export function collectAffectedPlainFilepaths(
   diffItems: ReadonlyArray<IFileCipherCatalogDiffItemDraft>,
-): string[] => {
+): string[] {
   const files: Set<string> = new Set()
   const collect = (item: IFileCipherCatalogItem): void => {
     files.add(item.plainFilepath)
@@ -61,9 +61,9 @@ export const collectAffectedPlainFilepaths = (
   return Array.from(files)
 }
 
-export const collectAffectedCryptFilepaths = (
+export function collectAffectedCryptFilepaths(
   diffItems: ReadonlyArray<IFileCipherCatalogDiffItemDraft>,
-): string[] => {
+): string[] {
   const files: Set<string> = new Set()
   const collect = (item: IFileCipherCatalogItem): void => {
     if (item.cryptFileParts.length > 1) {

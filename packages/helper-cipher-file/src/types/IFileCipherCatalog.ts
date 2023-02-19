@@ -2,7 +2,11 @@ import type {
   IFileCipherCatalogDiffItem,
   IFileCipherCatalogDiffItemDraft,
 } from './IFileCipherCatalogDiffItem'
-import type { IFileCipherCatalogItem, IFileCipherCatalogItemDraft } from './IFileCipherCatalogItem'
+import type {
+  IFileCipherCatalogItem,
+  IFileCipherCatalogItemBase,
+  IFileCipherCatalogItemDraft,
+} from './IFileCipherCatalogItem'
 
 export interface IFileCipherCatalog {
   /**
@@ -31,6 +35,12 @@ export interface IFileCipherCatalog {
    * Generate a catalog item.
    */
   calcCatalogItem(params: ICalcCatalogItemParams): Promise<IFileCipherCatalogItemDraft | never>
+
+  /**
+   * Flat base catalog item.
+   * @param param
+   */
+  flatCatalogItem(baseItem: IFileCipherCatalogItemBase): IFileCipherCatalogItemDraft
 
   /**
    * Calculate diff items with the new catalog items.

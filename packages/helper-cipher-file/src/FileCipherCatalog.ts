@@ -22,6 +22,7 @@ import type {
 import { FileChangeType } from './types/IFileCipherCatalogDiffItem'
 import type {
   IFileCipherCatalogItem,
+  IFileCipherCatalogItemBase,
   IFileCipherCatalogItemDraft,
 } from './types/IFileCipherCatalogItem'
 import {
@@ -115,20 +116,35 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     plainFilepath,
     isKeepPlain = this.isKeepPlain,
   }: ICalcCatalogItemParams): Promise<IFileCipherCatalogItemDraft | never> {
-    const { cryptFilesDir, cryptFilepathSalt, maxTargetFileSize, partCodePrefix, pathResolver } =
-      this
+    const { pathResolver, contentHashAlgorithm } = this
     const absolutePlainFilepath = pathResolver.calcAbsolutePlainFilepath(plainFilepath)
-    const relativePlainFilepath = pathResolver.calcRelativePlainFilepath(absolutePlainFilepath)
-    const plainFilepathKey = normalizePlainFilepath(relativePlainFilepath, pathResolver)
+    invariant(isFileSync(absolutePlainFilepath), `Not a file ${absolutePlainFilepath}.`)
 
+    const fingerprint = await calcFingerprintFromFile(absolutePlainFilepath, contentHashAlgorithm)
     const fileSize = await fs.stat(absolutePlainFilepath).then(md => md.size)
-    const fingerprint: string = await calcFingerprintFromFile(
-      absolutePlainFilepath,
-      this.contentHashAlgorithm,
-    )
+    const relativePlainFilepath = pathResolver.calcRelativePlainFilepath(absolutePlainFilepath)
     const keepPlain: boolean = isKeepPlain(relativePlainFilepath)
+
+    return this.flatCatalogItem({
+      fingerprint,
+      size: fileSize,
+      plainFilepath: relativePlainFilepath,
+      keepPlain,
+    })
+  }
+
+  // override
+  public flatCatalogItem({
+    plainFilepath,
+    fingerprint,
+    size,
+    keepPlain,
+  }: IFileCipherCatalogItemBase): IFileCipherCatalogItemDraft {
+    const { cryptFilesDir, cryptFilepathSalt, pathResolver } = this
+    const plainFilepathKey = normalizePlainFilepath(plainFilepath, pathResolver)
+
     const cryptFilepath: string = keepPlain
-      ? relativePlainFilepath
+      ? plainFilepath
       : path.join(
           cryptFilesDir,
           calcFingerprintFromString(
@@ -138,15 +154,15 @@ export class FileCipherCatalog implements IFileCipherCatalog {
           ),
         )
     const cryptFileParts = calcFilePartNames(
-      calcFilePartItemsBySize(fileSize, maxTargetFileSize),
-      partCodePrefix,
+      calcFilePartItemsBySize(size, this.maxTargetFileSize),
+      this.partCodePrefix,
     )
     const item: IFileCipherCatalogItemDraft = {
-      plainFilepath: relativePlainFilepath,
-      cryptFilepath: cryptFilepath,
+      plainFilepath,
+      cryptFilepath,
       cryptFileParts: cryptFileParts.length > 1 ? cryptFileParts : [],
       fingerprint,
-      size: fileSize,
+      size: size,
       keepPlain,
     }
     return item
