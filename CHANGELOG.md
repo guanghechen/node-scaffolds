@@ -1,5 +1,25 @@
 # Changelog
 
+<a name="4.2.0"></a>
+## 4.2.0 (2023-02-19)
+
+### Added
+
+- ✨ feat(helper-path): add FilepathResolver [[5292958](https://github.com/guanghechen/node-scaffolds/commit/52929584abe3382160b93b9df2259fe4726ba9ff)]
+
+### Changed
+
+- 👽 improve: fix build errors due to the previous changes [[5e36177](https://github.com/guanghechen/node-scaffolds/commit/5e361771b84dadef1279f704969f448f45b86233)]
+- 🎨 [BREAKING] refactor(helper-git-cipher): refactor GitCipher [[1a094f5](https://github.com/guanghechen/node-scaffolds/commit/1a094f542c6e79d20a545c66d7bbb996254afbfc)]
+- 🎨 [BREAKING] refactor(helper-cipher-file): remove FileCipherPathResolver, use FilepathResolver from &#x27;@guanghechen/helper-path&#x27; instead [[8d49c45](https://github.com/guanghechen/node-scaffolds/commit/8d49c4530b0342bee616b3a8eb179d08ea24ed4b)]
+- 🚚 rename(helper-git-cipher): rename GitCipherConfig to GitCipherConfigKeeper [[0952663](https://github.com/guanghechen/node-scaffolds/commit/0952663d8bb6742f6f90d48885b56242e25fba06)]
+- 👽 fix build error due to previous changes [[963d496](https://github.com/guanghechen/node-scaffolds/commit/963d4968a642f869ff4d8789132490f86bb8f09a)]
+- 🎨 improve: remove duplicate fields in GitCipherConfig [[60dd38e](https://github.com/guanghechen/node-scaffolds/commit/60dd38e5837e85ef8c803a05d0c74ea9a49806fe)]
+- 🎨 improve(helper-cipher-file): add &#x27;flatCatalogItem&#x27; to FileCipherCatalog [[34765fb](https://github.com/guanghechen/node-scaffolds/commit/34765fbe4895f97247445fb608435f543ddbe566)]
+- 🎨 [BREAKING] improve(helper-cipher-file): refactor types [[e11d1b1](https://github.com/guanghechen/node-scaffolds/commit/e11d1b1610ad46dc397792f18f0d9dbf2c0d6e4c)]
+- 🎨 improve(tool-git-cipher) init ux [[f7f4390](https://github.com/guanghechen/node-scaffolds/commit/f7f43900519a3f607e4b4433fa149c8c2ebb49c0)]
+
+
 <a name="4.1.3"></a>
 ## 4.1.3 (2023-02-18)
 
