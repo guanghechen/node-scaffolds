@@ -2,6 +2,7 @@ import { ChalkLogger } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
 import { BigFileHelper } from '@guanghechen/helper-file'
 import { falsy, truthy } from '@guanghechen/helper-func'
+import { FilepathResolver } from '@guanghechen/helper-path'
 import {
   assertPromiseNotThrow,
   assertPromiseThrow,
@@ -15,7 +16,6 @@ import {
   FileCipherBatcher,
   FileCipherCatalog,
   FileCipherFactory,
-  FileCipherPathResolver,
   isSameFileCipherItemDraft,
 } from '../src'
 import type {
@@ -40,13 +40,14 @@ describe('FileCipherCatalog', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.FileCipherCatalog')
   const plainRootDir: string = path.join(workspaceDir, 'src')
   const cryptRootDir: string = path.join(workspaceDir, 'src_encrypted')
-  const pathResolver = new FileCipherPathResolver({ plainRootDir, cryptRootDir })
+  const plainPathResolver = new FilepathResolver(plainRootDir)
+  const cryptPathResolver = new FilepathResolver(cryptRootDir)
   const logger = new ChalkLogger({ name: 'FileCipherCatalog' })
 
-  const filepathA: string = pathResolver.calcAbsolutePlainFilepath(itemTable.A.plainFilepath)
-  const filepathB: string = pathResolver.calcAbsolutePlainFilepath(itemTable.B.plainFilepath)
-  const filepathC: string = pathResolver.calcAbsolutePlainFilepath(itemTable.C.plainFilepath)
-  const filepathD: string = pathResolver.calcAbsolutePlainFilepath(itemTable.D.plainFilepath)
+  const filepathA: string = plainPathResolver.absolute(itemTable.A.plainFilepath)
+  const filepathB: string = plainPathResolver.absolute(itemTable.B.plainFilepath)
+  const filepathC: string = plainPathResolver.absolute(itemTable.C.plainFilepath)
+  const filepathD: string = plainPathResolver.absolute(itemTable.D.plainFilepath)
 
   const contentA: string = contentTable.A
   const contentA2: string = contentTable.A2
@@ -55,7 +56,7 @@ describe('FileCipherCatalog', () => {
   const contentD: string = contentTable.D
 
   const catalog = new FileCipherCatalog({
-    pathResolver,
+    plainPathResolver,
     cryptFilesDir,
     cryptFilepathSalt: 'guanghechen',
     maxTargetFileSize,
@@ -138,121 +139,133 @@ describe('FileCipherCatalog', () => {
     test('small files', async () => {
       expect(Array.from(catalog.items)).toEqual([])
       await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        Promise.all([
+          catalog.checkPlainIntegrity(),
+          catalog.checkCryptIntegrity({ cryptPathResolver }),
+        ]),
       )
 
       catalog.reset([itemTable.A, itemTable.B])
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        () =>
+          Promise.all([
+            catalog.checkPlainIntegrity(),
+            catalog.checkCryptIntegrity({ cryptPathResolver }),
+          ]),
         'Missing plain file.',
       )
-      await assertPromiseNotThrow(() => catalog.checkIntegrity({ flags: {} }))
 
       // Plain files exist but the crypt files not exist.
       await writeFile(filepathA, contentA, encoding)
       await writeFile(filepathB, contentB, encoding)
-      await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: false } }),
-      )
+      await assertPromiseNotThrow(() => catalog.checkPlainIntegrity())
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        () =>
+          Promise.all([
+            catalog.checkPlainIntegrity(),
+            catalog.checkCryptIntegrity({ cryptPathResolver }),
+          ]),
         'Missing crypt file.',
       )
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { cryptFiles: true } }),
+        () => catalog.checkCryptIntegrity({ cryptPathResolver }),
         'Missing crypt file.',
       )
 
       // Both plain files and crypt files are exist.
-      await writeFile(
-        pathResolver.calcAbsoluteCryptFilepath(itemTable.A.cryptFilepath),
-        contentA,
-        encoding,
-      )
-      await writeFile(
-        pathResolver.calcAbsoluteCryptFilepath(itemTable.B.cryptFilepath),
-        contentB,
-        encoding,
-      )
+      await writeFile(cryptPathResolver.absolute(itemTable.A.cryptFilepath), contentA, encoding)
+      await writeFile(cryptPathResolver.absolute(itemTable.B.cryptFilepath), contentB, encoding)
       await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        Promise.all([
+          catalog.checkPlainIntegrity(),
+          catalog.checkCryptIntegrity({ cryptPathResolver }),
+        ]),
       )
 
       // Crypt files exist but the plain files not exist.
       await rm(filepathA)
       await rm(filepathB)
-      await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { plainFiles: false, cryptFiles: true } }),
-      )
+      await assertPromiseNotThrow(() => catalog.checkCryptIntegrity({ cryptPathResolver }))
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        () =>
+          Promise.all([
+            catalog.checkPlainIntegrity(),
+            catalog.checkCryptIntegrity({ cryptPathResolver }),
+          ]),
         'Missing plain file.',
       )
-      await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { plainFiles: true } }),
-        'Missing plain file.',
-      )
+      await assertPromiseThrow(() => catalog.checkPlainIntegrity(), 'Missing plain file.')
     })
 
     test('big files', async () => {
       expect(Array.from(catalog.items)).toEqual([])
       await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        Promise.all([
+          catalog.checkPlainIntegrity(),
+          catalog.checkCryptIntegrity({ cryptPathResolver }),
+        ]),
       )
-      await assertPromiseNotThrow(() => catalog.checkIntegrity({ flags: {} }))
 
       catalog.reset([itemTable.C, itemTable.D])
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        () =>
+          Promise.all([
+            catalog.checkPlainIntegrity(),
+            catalog.checkCryptIntegrity({ cryptPathResolver }),
+          ]),
         'Missing plain file.',
       )
 
       // Plain files exist but the crypt files not exist.
       await writeFile(filepathC, contentC, encoding)
       await writeFile(filepathD, contentD, encoding)
-      await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: false } }),
-      )
+      await assertPromiseNotThrow(() => catalog.checkPlainIntegrity())
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        () =>
+          Promise.all([
+            catalog.checkPlainIntegrity(),
+            catalog.checkCryptIntegrity({ cryptPathResolver }),
+          ]),
         'Missing crypt file part.',
       )
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { cryptFiles: true } }),
+        () => catalog.checkCryptIntegrity({ cryptPathResolver }),
         'Missing crypt file part.',
       )
 
       // Both plain files and crypt files are exist.
       for (const part of itemTable.C.cryptFileParts) {
-        const absoluteEncryptedFilepath = pathResolver.calcAbsoluteCryptFilepath(
+        const absoluteEncryptedFilepath = cryptPathResolver.absolute(
           itemTable.C.cryptFilepath + part,
         )
         await writeFile(absoluteEncryptedFilepath, contentC, encoding)
       }
       for (const part of itemTable.D.cryptFileParts) {
-        const absoluteEncryptedFilepath = pathResolver.calcAbsoluteCryptFilepath(
+        const absoluteEncryptedFilepath = cryptPathResolver.absolute(
           itemTable.D.cryptFilepath + part,
         )
         await writeFile(absoluteEncryptedFilepath, contentD, encoding)
       }
       await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        Promise.all([
+          catalog.checkPlainIntegrity(),
+          catalog.checkCryptIntegrity({ cryptPathResolver }),
+        ]),
       )
 
       // Crypt files exist but the plain files not exist.
       await rm(filepathC)
       await rm(filepathD)
-      await assertPromiseNotThrow(() =>
-        catalog.checkIntegrity({ flags: { plainFiles: false, cryptFiles: true } }),
-      )
+      await assertPromiseNotThrow(() => catalog.checkCryptIntegrity({ cryptPathResolver }))
       await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { plainFiles: true, cryptFiles: true } }),
+        () =>
+          Promise.all([
+            catalog.checkPlainIntegrity(),
+            catalog.checkCryptIntegrity({ cryptPathResolver }),
+          ]),
         'Missing plain file.',
       )
-      await assertPromiseThrow(
-        () => catalog.checkIntegrity({ flags: { plainFiles: true } }),
-        'Missing plain file.',
-      )
+      await assertPromiseThrow(() => catalog.checkPlainIntegrity(), 'Missing plain file.')
     })
   })
 
@@ -353,7 +366,8 @@ describe('FileCipherCatalog', () => {
       })
       const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
         strictCheck: false,
-        pathResolver,
+        plainPathResolver,
+        cryptPathResolver,
         diffItems: draftDiffItems,
         getIv,
       })
@@ -393,7 +407,8 @@ describe('FileCipherCatalog', () => {
       })
       const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
         strictCheck: false,
-        pathResolver,
+        plainPathResolver,
+        cryptPathResolver,
         diffItems: draftDiffItems,
         getIv,
       })
@@ -414,7 +429,8 @@ describe('FileCipherCatalog', () => {
       })
       const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
         strictCheck: false,
-        pathResolver,
+        plainPathResolver,
+        cryptPathResolver,
         diffItems: draftDiffItems,
         getIv,
       })
@@ -437,7 +453,8 @@ describe('FileCipherCatalog', () => {
       })
       const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
         strictCheck: false,
-        pathResolver,
+        plainPathResolver,
+        cryptPathResolver,
         diffItems: draftDiffItems,
         getIv,
       })
@@ -458,7 +475,8 @@ describe('FileCipherCatalog', () => {
       })
       const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
         strictCheck: false,
-        pathResolver,
+        plainPathResolver,
+        cryptPathResolver,
         diffItems: draftDiffItems,
         getIv,
       })

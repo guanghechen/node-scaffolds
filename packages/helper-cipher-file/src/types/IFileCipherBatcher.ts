@@ -1,4 +1,4 @@
-import type { FileCipherPathResolver } from '../FileCipherPathResolver'
+import type { FilepathResolver } from '@guanghechen/helper-path'
 import type {
   IFileCipherCatalogDiffItem,
   IFileCipherCatalogDiffItemDraft,
@@ -19,13 +19,15 @@ export interface IFileCipherBatcher {
 
 export interface IBatchEncryptParams {
   strictCheck: boolean
-  pathResolver: FileCipherPathResolver
+  plainPathResolver: FilepathResolver
+  cryptPathResolver: FilepathResolver
   diffItems: Iterable<Readonly<IFileCipherCatalogDiffItemDraft>>
   getIv(item: IFileCipherCatalogItemDraft): Promise<Buffer | undefined> | Buffer | undefined
 }
 
 export interface IBatchDecryptParams {
   strictCheck: boolean
-  pathResolver: FileCipherPathResolver
+  plainPathResolver: FilepathResolver
+  cryptPathResolver: FilepathResolver
   diffItems: Iterable<Readonly<IFileCipherCatalogDiffItem>>
 }

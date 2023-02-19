@@ -1,5 +1,5 @@
+import type { FilepathResolver } from '@guanghechen/helper-path'
 import { normalizeUrlPath } from '@guanghechen/helper-path'
-import type { FileCipherPathResolver } from '../FileCipherPathResolver'
 import type {
   IFileCipherCatalogDiffItemCombine,
   IFileCipherCatalogDiffItemDraft,
@@ -11,9 +11,9 @@ import type {
 
 export function normalizePlainFilepath(
   plainFilepath: string,
-  pathResolver: FileCipherPathResolver,
+  plainPathResolver: FilepathResolver,
 ): string {
-  const fp = pathResolver.calcRelativePlainFilepath(plainFilepath).replace(/[/\\]+/, '/')
+  const fp = plainPathResolver.relative(plainFilepath)
   return normalizeUrlPath(fp)
 }
 

@@ -1,6 +1,6 @@
 import { calcMac, calcMacFromFile } from '@guanghechen/helper-mac'
+import { FilepathResolver } from '@guanghechen/helper-path'
 import { locateFixtures } from 'jest.helper'
-import path from 'node:path'
 import type {
   IFileCipherCatalogDiffItemDraft,
   IFileCipherCatalogItem,
@@ -8,7 +8,6 @@ import type {
 } from '../src'
 import {
   FileChangeType,
-  FileCipherPathResolver,
   calcFingerprintFromFile,
   calcFingerprintFromMac,
   calcFingerprintFromString,
@@ -21,31 +20,27 @@ import {
 import { contentHashAlgorithm, itemTable, pathHashAlgorithm } from './_data'
 
 describe('catalog', () => {
-  const sourceRootDir = locateFixtures('basic')
-  const encryptedRootDir = path.join(path.dirname(sourceRootDir), 'src_encrypted')
-  const pathResolver = new FileCipherPathResolver({
-    plainRootDir: sourceRootDir,
-    cryptRootDir: encryptedRootDir,
-  })
+  const plainRootDir = locateFixtures('basic')
+  const plainPathResolver = new FilepathResolver(plainRootDir)
 
   test('normalizePlainFilepath', () => {
-    expect(normalizePlainFilepath('a.txt', pathResolver)).toEqual('a.txt')
-    expect(normalizePlainFilepath('a.txt/', pathResolver)).toEqual('a.txt')
-    expect(normalizePlainFilepath('./a.txt', pathResolver)).toEqual('a.txt')
-    expect(normalizePlainFilepath('./a.txt/', pathResolver)).toEqual('a.txt')
-    expect(normalizePlainFilepath('a/b/c//d/e/a.txt', pathResolver)).toEqual('a/b/c/d/e/a.txt')
-    expect(() => normalizePlainFilepath('/a.txt', pathResolver)).toThrow(
-      /Invariant failed: Not under the plainRootDir:/,
+    expect(normalizePlainFilepath('a.txt', plainPathResolver)).toEqual('a.txt')
+    expect(normalizePlainFilepath('a.txt/', plainPathResolver)).toEqual('a.txt')
+    expect(normalizePlainFilepath('./a.txt', plainPathResolver)).toEqual('a.txt')
+    expect(normalizePlainFilepath('./a.txt/', plainPathResolver)).toEqual('a.txt')
+    expect(normalizePlainFilepath('a/b/c//d/e/a.txt', plainPathResolver)).toEqual('a/b/c/d/e/a.txt')
+    expect(() => normalizePlainFilepath('/a.txt', plainPathResolver)).toThrow(
+      '[FilepathResolver.relative] Not under the rootDir:',
     )
-    expect(() => normalizePlainFilepath('../a.txt', pathResolver)).toThrow(
-      /Invariant failed: Not under the plainRootDir:/,
+    expect(() => normalizePlainFilepath('../a.txt', plainPathResolver)).toThrow(
+      '[FilepathResolver.relative] Not under the rootDir:',
     )
-    expect(() => normalizePlainFilepath('..', pathResolver)).toThrow(
-      /Invariant failed: Not under the plainRootDir:/,
+    expect(() => normalizePlainFilepath('..', plainPathResolver)).toThrow(
+      '[FilepathResolver.relative] Not under the rootDir:',
     )
-    expect(
-      normalizePlainFilepath(pathResolver.calcAbsolutePlainFilepath('a.txt'), pathResolver),
-    ).toEqual('a.txt')
+    expect(normalizePlainFilepath(plainPathResolver.absolute('a.txt'), plainPathResolver)).toEqual(
+      'a.txt',
+    )
   })
 
   test('isSameFileCipherItemDraft', () => {

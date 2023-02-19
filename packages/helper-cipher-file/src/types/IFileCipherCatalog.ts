@@ -1,3 +1,4 @@
+import type { FilepathResolver } from '@guanghechen/helper-path'
 import type {
   IFileCipherCatalogDiffItem,
   IFileCipherCatalogDiffItemDraft,
@@ -21,9 +22,14 @@ export interface IFileCipherCatalog {
   reset(items?: Iterable<IFileCipherCatalogItem>): void
 
   /**
-   * Check the file for corruption.
+   * Check plain files for corruption.
    */
-  checkIntegrity(params: ICheckIntegrityParams): Promise<void | never>
+  checkPlainIntegrity(): Promise<void | never>
+
+  /**
+   * Check crypt files for corruption.
+   */
+  checkCryptIntegrity(params: ICheckCryptIntegrityParams): Promise<void | never>
 
   /**
    * Apply catalog diffs.
@@ -53,17 +59,8 @@ export interface IFileCipherCatalog {
   diffFromPlainFiles(params: IDiffFromPlainFiles): Promise<IFileCipherCatalogDiffItemDraft[]>
 }
 
-export interface ICheckIntegrityParams {
-  flags: {
-    /**
-     * Check integrity for plain files.
-     */
-    plainFiles?: boolean
-    /**
-     * Check integrity for encrypted files.
-     */
-    cryptFiles?: boolean
-  }
+export interface ICheckCryptIntegrityParams {
+  cryptPathResolver: FilepathResolver
 }
 
 export interface ICalcCatalogItemParams {

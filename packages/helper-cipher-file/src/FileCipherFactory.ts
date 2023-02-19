@@ -14,22 +14,22 @@ interface IFileCipherFactoryProps {
  */
 export class FileCipherFactory implements IFileCipherFactory {
   public readonly cipherFactory: ICipherFactory
-  protected readonly logger?: ILogger
-  #cipher: ICipher | null
-  #fileCipher: IFileCipher | null
+  protected readonly logger: ILogger | undefined
+  #cipher: ICipher | undefined
+  #fileCipher: IFileCipher | undefined
 
   constructor(props: IFileCipherFactoryProps) {
     this.cipherFactory = props.cipherFactory
     this.logger = props.logger
-    this.#cipher = null
-    this.#fileCipher = null
+    this.#cipher = undefined
+    this.#fileCipher = undefined
   }
 
   public fileCipher(options: ICreateFileCipherOptions = { iv: undefined }): IFileCipher {
     const cipher = this.cipherFactory.cipher({ iv: options.iv })
     if (!options.iv) this.#cipher = cipher
 
-    if (cipher === this.#cipher && this.#fileCipher !== null) return this.#fileCipher
+    if (cipher === this.#cipher && this.#fileCipher !== undefined) return this.#fileCipher
 
     const fileCipher: IFileCipher = new FileCipher({ cipher, logger: this.logger })
     if (cipher === this.#cipher) this.#fileCipher = fileCipher
