@@ -64,6 +64,7 @@ Utilities to handle url path and file path.
 
 Name                    | Description
 :----------------------:|:----------------------------------------------------------------
+`FilepathResolver`      | Resolve relative / absolute path under the given rootDir.
 `absoluteOfWorkspace`   | Calc absolute filepath of p under the workspace.
 `findNearestFilepath`   | Find a nearest file matched the predicate from the given directory.
 `locateNearestFilepath` | Locate a nearest target file path from the given directory.
