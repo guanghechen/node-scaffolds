@@ -1,23 +1,21 @@
-import type {
-  FileCipherPathResolver,
-  IFileCipherBatcher,
-  IFileCipherCatalog,
-} from '@guanghechen/helper-cipher-file'
+import type { IFileCipherBatcher, IFileCipherCatalog } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { getCommitInTopology, showCommitInfo } from '@guanghechen/helper-git'
+import type { FilepathResolver } from '@guanghechen/helper-path'
 import type { ILogger } from '@guanghechen/utility-types'
 import type { IGitCipherConfig } from '../types'
 import { encryptGitCommit } from './commit'
 
 export interface IEncryptGitBranchParams {
   branchName: string
-  plain2cryptIdMap: Map<string, string>
   catalog: IFileCipherCatalog
   cipherBatcher: IFileCipherBatcher
-  pathResolver: FileCipherPathResolver
   configKeeper: IConfigKeeper<IGitCipherConfig>
-  logger?: ILogger
+  cryptPathResolver: FilepathResolver
+  logger: ILogger | undefined
+  plainPathResolver: FilepathResolver
+  plain2cryptIdMap: Map<string, string>
   getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
@@ -34,16 +32,17 @@ export interface IEncryptGitBranchParams {
 export async function encryptGitBranch(params: IEncryptGitBranchParams): Promise<void> {
   const {
     branchName,
-    plain2cryptIdMap,
     catalog,
     cipherBatcher,
-    pathResolver,
     configKeeper,
+    cryptPathResolver,
     logger,
+    plainPathResolver,
+    plain2cryptIdMap,
     getDynamicIv,
   } = params
-  const plainCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.plainRootDir, logger }
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
 
   const plainCommitNodes = await getCommitInTopology({
     ...plainCmdCtx,
@@ -54,13 +53,14 @@ export async function encryptGitBranch(params: IEncryptGitBranchParams): Promise
     const plainCommitId: string = plainCommitNode.id
     if (!plain2cryptIdMap.has(plainCommitId)) {
       await encryptGitCommit({
-        plainCommitNode,
-        plain2cryptIdMap,
         catalog,
         cipherBatcher,
-        pathResolver,
         configKeeper,
+        cryptPathResolver,
         logger,
+        plainCommitNode,
+        plainPathResolver,
+        plain2cryptIdMap,
         getDynamicIv,
       })
       const { commitId: cryptCommitId } = await showCommitInfo({

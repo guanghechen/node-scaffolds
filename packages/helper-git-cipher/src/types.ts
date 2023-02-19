@@ -1,5 +1,5 @@
 import type {
-  IFileCipherCatalogDiffItem,
+  IFileCipherCatalogDiffItemBase,
   IFileCipherCatalogItemBase,
 } from '@guanghechen/helper-cipher-file'
 import type { IGitCommitInfo } from '@guanghechen/helper-git'
@@ -15,7 +15,7 @@ export interface IGitCipherConfig {
   }
   catalog: {
     // Diff from the first parent commit.
-    diffItems: IFileCipherCatalogDiffItem[]
+    diffItems: Array<IFileCipherCatalogDiffItemBase<IFileCipherCatalogItemData>>
     items: IFileCipherCatalogItemData[]
   }
 }

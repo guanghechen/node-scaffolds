@@ -1,5 +1,11 @@
-import { collectAffectedPlainFilepaths } from '@guanghechen/helper-cipher-file'
-import type { FileCipherPathResolver, IFileCipherBatcher } from '@guanghechen/helper-cipher-file'
+import { FileChangeType, collectAffectedPlainFilepaths } from '@guanghechen/helper-cipher-file'
+import type {
+  IFileCipherBatcher,
+  IFileCipherCatalog,
+  IFileCipherCatalogDiffItem,
+  IFileCipherCatalogItem,
+  IFileCipherCatalogItemBase,
+} from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type { IGitCommandBaseParams, IGitCommitDagNode } from '@guanghechen/helper-git'
 import {
@@ -8,16 +14,20 @@ import {
   commitAll,
   mergeCommits,
 } from '@guanghechen/helper-git'
+import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
-import type { IGitCipherConfig } from '../types'
+import type { IFileCipherCatalogItemData, IGitCipherConfig } from '../types'
 
 export interface IDecryptGitCommitParams {
-  cryptCommitNode: IGitCommitDagNode
+  catalog: IFileCipherCatalog
   cipherBatcher: IFileCipherBatcher
-  pathResolver: FileCipherPathResolver
   configKeeper: IConfigKeeper<IGitCipherConfig>
-  logger?: ILogger
+  cryptCommitNode: IGitCommitDagNode
+  cryptPathResolver: FilepathResolver
+  logger: ILogger | undefined
+  plainPathResolver: FilepathResolver
+  getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
 /**
@@ -29,12 +39,29 @@ export interface IDecryptGitCommitParams {
  * @param params
  */
 export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise<void> {
-  const { cryptCommitNode, pathResolver, cipherBatcher, configKeeper, logger } = params
-  const plainCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.plainRootDir, logger }
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
+  const {
+    catalog,
+    cipherBatcher,
+    configKeeper,
+    cryptCommitNode,
+    cryptPathResolver,
+    logger,
+    plainPathResolver,
+    getDynamicIv,
+  } = params
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
 
   // [crypt] Move the HEAD pointer to the current decrypting commit.
   await checkBranch({ ...cryptCmdCtx, branchOrCommitId: cryptCommitNode.id })
+
+  const getIv = (item: IFileCipherCatalogItemBase): Buffer =>
+    getDynamicIv([Buffer.from(item.plainFilepath, 'hex'), Buffer.from(item.fingerprint, 'hex')])
+  const flatItem = (item: IFileCipherCatalogItemData): IFileCipherCatalogItem => ({
+    ...catalog.flatCatalogItem(item),
+    iv: getIv(item).toString('hex'),
+    authTag: item.authTag,
+  })
 
   // Load the diffItems between the <first parent>...<current>.
   await configKeeper.load()
@@ -62,11 +89,39 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
   }
 
   // [pain] Clean untracked filepaths to avoid unexpected errors.
-  const diffItems = configData.catalog.diffItems
+  const diffItems = configData.catalog.diffItems.map((diffItem): IFileCipherCatalogDiffItem => {
+    switch (diffItem.changeType) {
+      case FileChangeType.ADDED:
+        return {
+          changeType: FileChangeType.ADDED,
+          newItem: flatItem(diffItem.newItem),
+        }
+      case FileChangeType.MODIFIED:
+        return {
+          changeType: FileChangeType.MODIFIED,
+          oldItem: flatItem(diffItem.oldItem),
+          newItem: flatItem(diffItem.newItem),
+        }
+      case FileChangeType.REMOVED:
+        return {
+          changeType: FileChangeType.REMOVED,
+          oldItem: flatItem(diffItem.oldItem),
+        }
+      /* c8 ignore start */
+      default:
+        throw new Error(`[decryptGitCommit] unexpected changeType. ${diffItem['changeType']}`)
+      /* c8 ignore end */
+    }
+  })
   const affectedPlainFiles: string[] = collectAffectedPlainFilepaths(diffItems)
   await cleanUntrackedFilepaths({ ...plainCmdCtx, filepaths: affectedPlainFiles })
 
   // Decrypt files.
-  await cipherBatcher.batchDecrypt({ diffItems, pathResolver, strictCheck: false })
+  await cipherBatcher.batchDecrypt({
+    strictCheck: false,
+    plainPathResolver,
+    cryptPathResolver,
+    diffItems,
+  })
   await commitAll({ ...plainCmdCtx, ...plainCommit.signature, amend: shouldAmend })
 }

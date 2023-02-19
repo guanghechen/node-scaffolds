@@ -1,21 +1,19 @@
-import type {
-  FileCipherPathResolver,
-  IFileCipherCatalogItemBase,
-} from '@guanghechen/helper-cipher-file'
+import type { IFileCipherCatalogItemBase } from '@guanghechen/helper-cipher-file'
 import type { IGitCommandBaseParams, IGitCommitWithMessage } from '@guanghechen/helper-git'
 import { getAllLocalBranches, getCommitWithMessageList, isGitRepo } from '@guanghechen/helper-git'
 import type { ILogger } from '@guanghechen/utility-types'
 import { createHash } from 'node:crypto'
 
 export const resolveIdMap = async (params: {
-  pathResolver: FileCipherPathResolver
+  cryptRootDir: string
+  plainRootDir: string
   crypt2plainIdMap: ReadonlyMap<string, string>
   logger?: ILogger
 }): Promise<{
   crypt2plainIdMap: Map<string, string>
 }> => {
-  const { pathResolver, logger } = params
-  if (!isGitRepo(pathResolver.plainRootDir) || !isGitRepo(pathResolver.cryptRootDir)) {
+  const { plainRootDir, cryptRootDir, logger } = params
+  if (!isGitRepo(plainRootDir) || !isGitRepo(cryptRootDir)) {
     return { crypt2plainIdMap: new Map() }
   }
 
@@ -23,7 +21,7 @@ export const resolveIdMap = async (params: {
 
   // Find & remove invalided records from plain repo.
   {
-    const plainCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.plainRootDir, logger }
+    const plainCmdCtx: IGitCommandBaseParams = { cwd: plainRootDir, logger }
     const plainLocalBranch = await getAllLocalBranches(plainCmdCtx)
     const plainCommitList: IGitCommitWithMessage[] = await getCommitWithMessageList({
       ...plainCmdCtx,
@@ -37,7 +35,7 @@ export const resolveIdMap = async (params: {
 
   // Find & remove invalided records from crypt repo.
   {
-    const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
+    const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptRootDir, logger }
     const cryptLocalBranch = await getAllLocalBranches(cryptCmdCtx)
     const cryptCommitList: IGitCommitWithMessage[] = await getCommitWithMessageList({
       ...cryptCmdCtx,

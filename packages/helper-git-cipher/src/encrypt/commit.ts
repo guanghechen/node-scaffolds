@@ -1,6 +1,5 @@
 import { collectAffectedCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import type {
-  FileCipherPathResolver,
   IFileCipherBatcher,
   IFileCipherCatalog,
   IFileCipherCatalogDiffItem,
@@ -23,19 +22,21 @@ import {
   mergeCommits,
   showCommitInfo,
 } from '@guanghechen/helper-git'
+import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
-import type { IGitCipherConfig } from '../types'
+import type { IFileCipherCatalogItemData, IGitCipherConfig } from '../types'
 import { generateCommitHash as generateCommitMessage } from '../util'
 
 export interface IEncryptGitCommitParams {
-  plainCommitNode: IGitCommitDagNode
-  plain2cryptIdMap: Map<string, string>
   catalog: IFileCipherCatalog
   cipherBatcher: IFileCipherBatcher
-  pathResolver: FileCipherPathResolver
   configKeeper: IConfigKeeper<IGitCipherConfig>
-  logger?: ILogger
+  cryptPathResolver: FilepathResolver
+  logger: ILogger | undefined
+  plainCommitNode: IGitCommitDagNode
+  plainPathResolver: FilepathResolver
+  plain2cryptIdMap: Map<string, string>
   getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
@@ -50,23 +51,29 @@ export interface IEncryptGitCommitParams {
  */
 export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise<void> {
   const {
-    plainCommitNode,
-    plain2cryptIdMap,
     catalog,
     cipherBatcher,
-    pathResolver,
     configKeeper,
+    cryptPathResolver,
     logger,
+    plainCommitNode,
+    plainPathResolver,
+    plain2cryptIdMap,
     getDynamicIv,
   } = params
-  const plainCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.plainRootDir, logger }
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
 
   // [plain] Move the HEAD pointer to the current encrypting commit.
   await checkBranch({ ...plainCmdCtx, branchOrCommitId: plainCommitNode.id })
 
   const getIv = (item: IFileCipherCatalogItemBase): Buffer =>
     getDynamicIv([Buffer.from(item.plainFilepath, 'hex'), Buffer.from(item.fingerprint, 'hex')])
+  const flatItem = (item: IFileCipherCatalogItemData): IFileCipherCatalogItem => ({
+    ...catalog.flatCatalogItem(item),
+    iv: getIv(item).toString('hex'),
+    authTag: item.authTag,
+  })
 
   // [crypt] Reset catalog to calc diffItems.
   if (plainCommitNode.parents.length > 0) {
@@ -87,11 +94,7 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
       `[encryptGitCommit] cannot load config. filepath(${configKeeper.filepath}), crypt(${cryptParentId})`,
     )
 
-    const items: IFileCipherCatalogItem[] = configData.catalog.items.map(item => ({
-      ...catalog.flatCatalogItem(item),
-      iv: getIv(item).toString('hex'),
-      authTag: item.authTag,
-    }))
+    const items: IFileCipherCatalogItem[] = configData.catalog.items.map(item => flatItem(item))
     catalog.reset(items)
   } else {
     catalog.reset()
@@ -142,7 +145,8 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
   // Update catalog.
   const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
     diffItems: draftDiffItems,
-    pathResolver,
+    plainPathResolver,
+    cryptPathResolver,
     strictCheck: false,
     getIv,
   })

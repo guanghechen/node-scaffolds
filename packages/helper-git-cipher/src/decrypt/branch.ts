@@ -1,18 +1,22 @@
-import type { FileCipherPathResolver, IFileCipherBatcher } from '@guanghechen/helper-cipher-file'
+import type { IFileCipherBatcher, IFileCipherCatalog } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { getCommitInTopology, showCommitInfo } from '@guanghechen/helper-git'
+import type { FilepathResolver } from '@guanghechen/helper-path'
 import type { ILogger } from '@guanghechen/utility-types'
 import type { IGitCipherConfig } from '../types'
 import { decryptGitCommit } from './commit'
 
 export interface IDecryptGitBranchParams {
   branchName: string
-  crypt2plainIdMap: Map<string, string>
+  catalog: IFileCipherCatalog
   cipherBatcher: IFileCipherBatcher
-  pathResolver: FileCipherPathResolver
   configKeeper: IConfigKeeper<IGitCipherConfig>
-  logger?: ILogger
+  cryptPathResolver: FilepathResolver
+  crypt2plainIdMap: Map<string, string>
+  logger: ILogger | undefined
+  plainPathResolver: FilepathResolver
+  getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
 /**
@@ -26,9 +30,19 @@ export interface IDecryptGitBranchParams {
  * @param params
  */
 export async function decryptGitBranch(params: IDecryptGitBranchParams): Promise<void> {
-  const { branchName, crypt2plainIdMap, cipherBatcher, configKeeper, pathResolver, logger } = params
-  const plainCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.plainRootDir, logger }
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
+  const {
+    branchName,
+    catalog,
+    cipherBatcher,
+    configKeeper,
+    cryptPathResolver,
+    crypt2plainIdMap,
+    logger,
+    plainPathResolver,
+    getDynamicIv,
+  } = params
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
 
   const cryptCommitNodes = await getCommitInTopology({
     ...cryptCmdCtx,
@@ -39,11 +53,14 @@ export async function decryptGitBranch(params: IDecryptGitBranchParams): Promise
     const cryptCommitId: string = cryptCommitNode.id
     if (!crypt2plainIdMap.has(cryptCommitId)) {
       await decryptGitCommit({
+        catalog,
         cryptCommitNode,
         cipherBatcher,
         configKeeper,
-        pathResolver,
+        cryptPathResolver,
         logger,
+        plainPathResolver,
+        getDynamicIv,
       })
 
       const { commitId: plainCommitId } = await showCommitInfo({
