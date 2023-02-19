@@ -22,7 +22,7 @@ import { calcMac } from '@guanghechen/helper-mac'
 import { collectAllFilesSync, desensitize, emptyDir, locateFixtures, rm } from 'jest.helper'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { GitCipher, GitCipherConfig } from '../src'
+import { GitCipher, GitCipherConfigKeeper } from '../src'
 import {
   buildRepo1,
   contentA,
@@ -82,7 +82,7 @@ describe('GitCipher', () => {
     logger,
   })
 
-  const configKeeper = new GitCipherConfig({
+  const configKeeper = new GitCipherConfigKeeper({
     cipher: cipherFactory.cipher(),
     filepath: path.join(cryptRootDir, 'catalog.ghc.txt'),
   })

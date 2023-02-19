@@ -1,5 +1,5 @@
 export * from './decrypt/filesOnly'
 export * from './GitCipher'
-export * from './GitCipherConfig'
+export * from './GitCipherConfigKeeper'
 export * from './types'
 export * from './util'

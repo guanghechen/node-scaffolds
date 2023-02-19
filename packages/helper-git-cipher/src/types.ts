@@ -20,18 +20,6 @@ export interface IGitCipherConfig {
   }
 }
 
-export interface IGitCipherConfigData {
-  commit: {
-    parents: string[]
-    signature: IGitCommitInfo
-  }
-  catalog: {
-    // Diff from the first parent commit.
-    diffItems: IFileCipherCatalogDiffItem[]
-    items: IFileCipherCatalogItemData[]
-  }
-}
-
 export interface IGitCipherCommitIdData {
   commitIdMap: Record<string, string>
 }

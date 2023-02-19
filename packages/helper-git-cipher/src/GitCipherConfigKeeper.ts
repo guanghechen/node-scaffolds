@@ -4,16 +4,19 @@ import type { IConfigKeeper } from '@guanghechen/helper-config'
 import invariant from '@guanghechen/invariant'
 import type { PromiseOr } from '@guanghechen/utility-types'
 import path from 'node:path'
-import type { IGitCipherConfig, IGitCipherConfigData } from './types'
+import type { IGitCipherConfig } from './types'
 
-export class GitCipherConfig
-  extends CipherJsonConfigKeeper<IGitCipherConfig, IGitCipherConfigData>
-  implements IConfigKeeper<IGitCipherConfig>
+type Instance = IGitCipherConfig
+type Data = IGitCipherConfig
+
+export class GitCipherConfigKeeper
+  extends CipherJsonConfigKeeper<Instance, Data>
+  implements IConfigKeeper<Instance>
 {
   public override readonly __version__ = '2.0.0'
   public override readonly __compatible_version__ = '^1.0.0 || ^2.0.0'
 
-  protected serialize(instance: IGitCipherConfig): PromiseOr<IGitCipherConfigData> {
+  protected serialize(instance: Instance): PromiseOr<Data> {
     return {
       commit: instance.commit,
       catalog: {
@@ -29,11 +32,11 @@ export class GitCipherConfig
     }
   }
 
-  protected deserialize(data: IGitCipherConfigData): PromiseOr<IGitCipherConfig> {
+  protected deserialize(data: Data): PromiseOr<Instance> {
     return {
       commit: data.commit,
       catalog: {
-        diffItems: data.catalog.diffItems,
+        diffItems: data.catalog.diffItems.slice(),
         items: data.catalog.items.map(item => ({
           fingerprint: item.fingerprint,
           plainFilepath: item.plainFilepath,
@@ -45,7 +48,7 @@ export class GitCipherConfig
     }
   }
 
-  protected override async stringify(data: IGitCipherConfigData): Promise<string> {
+  protected override async stringify(data: Data): Promise<string> {
     let badItem: IFileCipherCatalogItemBase | null = null
     const { items } = data.catalog
     for (const item of items) {
