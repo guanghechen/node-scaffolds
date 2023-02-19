@@ -4,11 +4,11 @@ import {
   FileCipherBatcher,
   FileCipherCatalog,
   FileCipherFactory,
-  FileCipherPathResolver,
 } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { BigFileHelper } from '@guanghechen/helper-file'
-import { GitCipher, GitCipherConfig } from '@guanghechen/helper-git-cipher'
+import { GitCipher, GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
+import { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import micromatch from 'micromatch'
 import { logger } from '../../env/logger'
@@ -63,7 +63,7 @@ export class GitCipherEncryptProcessor {
 
     const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
     const fileHelper = new BigFileHelper({ partCodePrefix })
-    const configKeeper = new GitCipherConfig({
+    const configKeeper = new GitCipherConfigKeeper({
       cipher: cipherFactory.cipher(),
       filepath: catalogFilepath,
     })
@@ -73,13 +73,9 @@ export class GitCipherEncryptProcessor {
       maxTargetFileSize,
       logger,
     })
-    const gitCipher = new GitCipher({ cipherBatcher, configKeeper, logger })
 
-    // encrypt files
-    const pathResolver = new FileCipherPathResolver({
-      plainRootDir: context.plainRootDir,
-      cryptRootDir: context.cryptRootDir,
-    })
+    const plainPathResolver = new FilepathResolver(context.plainRootDir)
+    const cryptPathResolver = new FilepathResolver(context.cryptRootDir)
     const catalog = new FileCipherCatalog({
       contentHashAlgorithm,
       cryptFilepathSalt,
@@ -87,7 +83,7 @@ export class GitCipherEncryptProcessor {
       maxTargetFileSize,
       partCodePrefix,
       pathHashAlgorithm,
-      pathResolver,
+      plainPathResolver,
       logger,
       isKeepPlain:
         keepPlainPatterns.length > 0
@@ -95,14 +91,22 @@ export class GitCipherEncryptProcessor {
           : () => false,
     })
 
+    const gitCipher = new GitCipher({
+      catalog,
+      cipherBatcher,
+      configKeeper,
+      logger,
+      getDynamicIv: secretMaster.getDynamicIv,
+    })
+
+    // encrypt files
     const cacheKeeper = new CatalogCacheKeeper({ filepath: context.catalogCacheFilepath })
     await cacheKeeper.load()
     const data: ICatalogCache = cacheKeeper.data ?? { crypt2plainIdMap: new Map() }
     const { crypt2plainIdMap } = await gitCipher.encrypt({
-      pathResolver,
-      catalog,
+      cryptPathResolver,
       crypt2plainIdMap: new Map(data.crypt2plainIdMap),
-      getDynamicIv: secretMaster.getDynamicIv,
+      plainPathResolver,
     })
     await cacheKeeper.update({ crypt2plainIdMap })
     await cacheKeeper.save()

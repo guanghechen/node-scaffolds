@@ -4,12 +4,12 @@ import {
   FileCipherBatcher,
   FileCipherCatalog,
   FileCipherFactory,
-  FileCipherPathResolver,
 } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { BigFileHelper } from '@guanghechen/helper-file'
-import { GitCipher, GitCipherConfig, decryptFilesOnly } from '@guanghechen/helper-git-cipher'
+import { GitCipher, GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
 import { coverString } from '@guanghechen/helper-option'
+import { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import micromatch from 'micromatch'
 import { logger } from '../../env/logger'
@@ -64,7 +64,7 @@ export class GitCipherDecryptProcessor {
 
     const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
     const fileHelper = new BigFileHelper({ partCodePrefix: partCodePrefix })
-    const configKeeper = new GitCipherConfig({
+    const configKeeper = new GitCipherConfigKeeper({
       cipher: cipherFactory.cipher(),
       filepath: catalogFilepath,
     })
@@ -74,40 +74,40 @@ export class GitCipherDecryptProcessor {
       maxTargetFileSize,
       logger,
     })
-    const gitCipher = new GitCipher({ cipherBatcher, configKeeper, logger })
 
-    // decrypt files
     const outRootDir = coverString(context.plainRootDir, context.outDir)
-    const outPathResolver = new FileCipherPathResolver({
-      plainRootDir: outRootDir,
-      cryptRootDir: context.cryptRootDir,
+    const plainPathResolver = new FilepathResolver(outRootDir)
+    const cryptPathResolver = new FilepathResolver(context.cryptRootDir)
+    const catalog = new FileCipherCatalog({
+      contentHashAlgorithm,
+      cryptFilepathSalt,
+      cryptFilesDir,
+      maxTargetFileSize,
+      partCodePrefix,
+      pathHashAlgorithm,
+      plainPathResolver,
+      logger,
+      isKeepPlain:
+        keepPlainPatterns.length > 0
+          ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
+          : () => false,
     })
 
-    if (context.filesOnly) {
-      const catalog = new FileCipherCatalog({
-        contentHashAlgorithm,
-        cryptFilepathSalt,
-        cryptFilesDir,
-        maxTargetFileSize,
-        partCodePrefix,
-        pathHashAlgorithm,
-        pathResolver: outPathResolver,
-        logger,
-        isKeepPlain:
-          keepPlainPatterns.length > 0
-            ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
-            : () => false,
-      })
+    const gitCipher = new GitCipher({
+      catalog,
+      cipherBatcher,
+      configKeeper,
+      logger,
+      getDynamicIv: secretMaster.getDynamicIv,
+    })
 
+    // decrypt files
+    if (context.filesOnly) {
       logger.debug('Trying decryptFilesOnly...')
-      await decryptFilesOnly({
-        catalog,
+      await gitCipher.decryptFilesOnly({
         cryptCommitId: context.filesOnly,
-        cipherBatcher,
-        pathResolver: outPathResolver,
-        configKeeper,
-        logger,
-        getDynamicIv: secretMaster.getDynamicIv,
+        cryptPathResolver,
+        plainPathResolver,
       })
     } else {
       logger.debug('Trying decrypt entire repo...')
@@ -116,9 +116,10 @@ export class GitCipherDecryptProcessor {
       await cacheKeeper.load()
       const data: ICatalogCache = cacheKeeper.data ?? { crypt2plainIdMap: new Map() }
       const { crypt2plainIdMap } = await gitCipher.decrypt({
-        pathResolver: outPathResolver,
+        cryptPathResolver,
         crypt2plainIdMap: new Map(data.crypt2plainIdMap),
         gpgSign: context.gitGpgSign,
+        plainPathResolver,
       })
       await cacheKeeper.update({ crypt2plainIdMap })
       await cacheKeeper.save()
