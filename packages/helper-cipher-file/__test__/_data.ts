@@ -1,7 +1,7 @@
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import type {
+  IFileCipherCatalogDiffItem,
   IFileCipherCatalogItem,
-  IFileCipherCatalogItemDiff,
   IFileCipherCatalogItemDraft,
 } from '../src'
 import { FileChangeType } from '../src'
@@ -79,7 +79,7 @@ export const itemTable: Record<ISymbol, IFileCipherCatalogItem> = {
   },
 }
 
-export const diffItemsTable: Record<string, IFileCipherCatalogItemDiff[]> = {
+export const diffItemsTable: Record<string, IFileCipherCatalogDiffItem[]> = {
   step1: [
     { changeType: FileChangeType.ADDED, newItem: itemTable.A },
     { changeType: FileChangeType.ADDED, newItem: itemTable.B },

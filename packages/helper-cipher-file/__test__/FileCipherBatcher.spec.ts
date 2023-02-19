@@ -16,7 +16,7 @@ import type { ReadStream } from 'node:fs'
 import { createReadStream, existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import type { IFileCipherCatalogItemDiff, IFileCipherCatalogItemDraft } from '../src'
+import type { IFileCipherCatalogDiffItem, IFileCipherCatalogItemDraft } from '../src'
 import {
   FileCipherBatcher,
   FileCipherFactory,
@@ -126,7 +126,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItem1
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = diffItemsTable.step1
+      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step1
 
       await writeFile(filepathA, contentA, encoding)
       await writeFile(filepathB, contentB, encoding)
@@ -165,7 +165,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems2
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = diffItemsTable.step2
+      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step2
 
       await writeFile(filepathC, contentC, encoding)
       await assertPromiseThrow(
@@ -199,7 +199,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems3
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = diffItemsTable.step3
+      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step3
 
       await rm(filepathB)
       await writeFile(filepathA, contentA, encoding)
@@ -219,7 +219,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems4
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = diffItemsTable.step4
+      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step4
 
       await rm(filepathC)
       await writeFile(filepathD, contentD, encoding)
@@ -241,7 +241,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems5
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = diffItemsTable.step5
+      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step5
 
       await rm(filepathA)
       await rm(filepathD)
@@ -262,7 +262,7 @@ describe('FileCipherBatcher', () => {
   test('batchDecrypt', async () => {
     // diffItems1
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = diffItemsTable.step1
+      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step1
 
       await writeFile(filepathA, contentA, encoding)
       await writeFile(filepathB, contentB, encoding)
@@ -299,7 +299,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems2
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = diffItemsTable.step2
+      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step2
 
       await assertPromiseThrow(
         () =>
@@ -351,7 +351,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems3
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = diffItemsTable.step3
+      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step3
 
       await rm(filepathB)
       await writeFile(filepathA, contentA, encoding)
@@ -376,7 +376,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems4
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = diffItemsTable.step4
+      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step4
 
       await rm(filepathC)
       await writeFile(filepathD, contentD, encoding)
@@ -403,7 +403,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems5
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = diffItemsTable.step5
+      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step5
 
       await rm(filepathA)
       await rm(filepathD)

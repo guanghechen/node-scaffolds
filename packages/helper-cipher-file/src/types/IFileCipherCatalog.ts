@@ -1,9 +1,8 @@
 import type {
-  IFileCipherCatalogItem,
-  IFileCipherCatalogItemDiff,
-  IFileCipherCatalogItemDiffDraft,
-  IFileCipherCatalogItemDraft,
-} from './IFileCipherCatalogItem'
+  IFileCipherCatalogDiffItem,
+  IFileCipherCatalogDiffItemDraft,
+} from './IFileCipherCatalogDiffItem'
+import type { IFileCipherCatalogItem, IFileCipherCatalogItemDraft } from './IFileCipherCatalogItem'
 
 export interface IFileCipherCatalog {
   /**
@@ -26,7 +25,7 @@ export interface IFileCipherCatalog {
    * Apply catalog diffs.
    * @param diffItems
    */
-  applyDiff(diffItems: Iterable<IFileCipherCatalogItemDiff>): void
+  applyDiff(diffItems: Iterable<IFileCipherCatalogDiffItem>): void
 
   /**
    * Generate a catalog item.
@@ -36,12 +35,12 @@ export interface IFileCipherCatalog {
   /**
    * Calculate diff items with the new catalog items.
    */
-  diffFromCatalogItems(params: IDiffFromCatalogItemsParams): IFileCipherCatalogItemDiff[]
+  diffFromCatalogItems(params: IDiffFromCatalogItemsParams): IFileCipherCatalogDiffItem[]
 
   /**
    * Calculate diff items.
    */
-  diffFromPlainFiles(params: IDiffFromPlainFiles): Promise<IFileCipherCatalogItemDiffDraft[]>
+  diffFromPlainFiles(params: IDiffFromPlainFiles): Promise<IFileCipherCatalogDiffItemDraft[]>
 }
 
 export interface ICheckIntegrityParams {

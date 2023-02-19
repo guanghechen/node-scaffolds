@@ -6,7 +6,6 @@ import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import invariant from '@guanghechen/invariant'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { FileChangeType } from './constant'
 import type { FileCipherPathResolver } from './FileCipherPathResolver'
 import type {
   ICalcCatalogItemParams,
@@ -16,10 +15,13 @@ import type {
   IFileCipherCatalog,
 } from './types/IFileCipherCatalog'
 import type {
+  IFileCipherCatalogDiffItem,
+  IFileCipherCatalogDiffItemCombine,
+  IFileCipherCatalogDiffItemDraft,
+} from './types/IFileCipherCatalogDiffItem'
+import { FileChangeType } from './types/IFileCipherCatalogDiffItem'
+import type {
   IFileCipherCatalogItem,
-  IFileCipherCatalogItemDiff,
-  IFileCipherCatalogItemDiffCombine,
-  IFileCipherCatalogItemDiffDraft,
   IFileCipherCatalogItemDraft,
 } from './types/IFileCipherCatalogItem'
 import {
@@ -84,10 +86,10 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   }
 
   // @override
-  public applyDiff(diffItems: Iterable<IFileCipherCatalogItemDiff>): void {
+  public applyDiff(diffItems: Iterable<IFileCipherCatalogDiffItem>): void {
     const { _itemMap, pathResolver } = this
     for (const diffItem of diffItems) {
-      const { oldItem, newItem } = diffItem as IFileCipherCatalogItemDiffCombine
+      const { oldItem, newItem } = diffItem as IFileCipherCatalogDiffItemCombine
       if (oldItem) {
         const key = normalizePlainFilepath(oldItem.plainFilepath, pathResolver)
         _itemMap.delete(key)
@@ -190,7 +192,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   // @override
   public diffFromCatalogItems({
     newItems,
-  }: IDiffFromCatalogItemsParams): IFileCipherCatalogItemDiff[] {
+  }: IDiffFromCatalogItemsParams): IFileCipherCatalogDiffItem[] {
     const oldItemMap = this._itemMap as ReadonlyMap<string, IFileCipherCatalogItem>
     if (oldItemMap.size < 1) {
       return mapIterable(newItems, newItem => ({ changeType: FileChangeType.ADDED, newItem }))
@@ -207,9 +209,9 @@ export class FileCipherCatalog implements IFileCipherCatalog {
       }))
     }
 
-    const addedItems: IFileCipherCatalogItemDiff[] = []
-    const modifiedItems: IFileCipherCatalogItemDiff[] = []
-    const removedItems: IFileCipherCatalogItemDiff[] = []
+    const addedItems: IFileCipherCatalogDiffItem[] = []
+    const modifiedItems: IFileCipherCatalogDiffItem[] = []
+    const removedItems: IFileCipherCatalogDiffItem[] = []
 
     // Collect removed and modified items.
     for (const oldItem of oldItemMap.values()) {
@@ -249,11 +251,11 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     plainFilepaths,
     strickCheck,
     isKeepPlain,
-  }: IDiffFromPlainFiles): Promise<IFileCipherCatalogItemDiffDraft[]> {
+  }: IDiffFromPlainFiles): Promise<IFileCipherCatalogDiffItemDraft[]> {
     const { pathResolver, _itemMap } = this
-    const addedItems: IFileCipherCatalogItemDiffDraft[] = []
-    const modifiedItems: IFileCipherCatalogItemDiffDraft[] = []
-    const removedItems: IFileCipherCatalogItemDiffDraft[] = []
+    const addedItems: IFileCipherCatalogDiffItemDraft[] = []
+    const modifiedItems: IFileCipherCatalogDiffItemDraft[] = []
+    const removedItems: IFileCipherCatalogDiffItemDraft[] = []
     for (const plainFilepath of plainFilepaths) {
       const key = normalizePlainFilepath(plainFilepath, pathResolver)
       const oldItem = _itemMap.get(key)

@@ -19,8 +19,8 @@ import {
   isSameFileCipherItemDraft,
 } from '../src'
 import type {
-  IFileCipherCatalogItemDiff,
-  IFileCipherCatalogItemDiffDraft,
+  IFileCipherCatalogDiffItem,
+  IFileCipherCatalogDiffItemDraft,
   IFileCipherCatalogItemDraft,
 } from '../src'
 import {
@@ -261,7 +261,7 @@ describe('FileCipherCatalog', () => {
 
     // diffItems1
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = catalog.diffFromCatalogItems({
+      const diffItems: IFileCipherCatalogDiffItem[] = catalog.diffFromCatalogItems({
         newItems: [itemTable.A, itemTable.B],
       })
       expect(diffItems).toEqual(diffItemsTable.step1)
@@ -272,7 +272,7 @@ describe('FileCipherCatalog', () => {
 
     // diffItems2
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = catalog.diffFromCatalogItems({
+      const diffItems: IFileCipherCatalogDiffItem[] = catalog.diffFromCatalogItems({
         newItems: [itemTable.B, itemTable.C],
       })
 
@@ -284,7 +284,7 @@ describe('FileCipherCatalog', () => {
 
     // diffItems3
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = catalog.diffFromCatalogItems({
+      const diffItems: IFileCipherCatalogDiffItem[] = catalog.diffFromCatalogItems({
         newItems: [itemTable.A, itemTable.C],
       })
 
@@ -296,7 +296,7 @@ describe('FileCipherCatalog', () => {
 
     // diffItems4
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = catalog.diffFromCatalogItems({
+      const diffItems: IFileCipherCatalogDiffItem[] = catalog.diffFromCatalogItems({
         newItems: [itemTable.A2, itemTable.D],
       })
 
@@ -308,7 +308,7 @@ describe('FileCipherCatalog', () => {
 
     // diffItems5
     {
-      const diffItems: IFileCipherCatalogItemDiff[] = catalog.diffFromCatalogItems({
+      const diffItems: IFileCipherCatalogDiffItem[] = catalog.diffFromCatalogItems({
         newItems: [],
       })
 
@@ -347,11 +347,11 @@ describe('FileCipherCatalog', () => {
     {
       await writeFile(filepathA, contentA, encoding)
       await writeFile(filepathB, contentB, encoding)
-      const draftDiffItems: IFileCipherCatalogItemDiffDraft[] = await catalog.diffFromPlainFiles({
+      const draftDiffItems: IFileCipherCatalogDiffItemDraft[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathA, filepathB],
         strickCheck: true,
       })
-      const diffItems: IFileCipherCatalogItemDiff[] = await cipherBatcher.batchEncrypt({
+      const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
         strictCheck: false,
         pathResolver,
         diffItems: draftDiffItems,
@@ -387,11 +387,11 @@ describe('FileCipherCatalog', () => {
     {
       await rm(filepathA)
       await writeFile(filepathC, contentC, encoding)
-      const draftDiffItems: IFileCipherCatalogItemDiffDraft[] = await catalog.diffFromPlainFiles({
+      const draftDiffItems: IFileCipherCatalogDiffItemDraft[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathA, filepathB, filepathC],
         strickCheck: true,
       })
-      const diffItems: IFileCipherCatalogItemDiff[] = await cipherBatcher.batchEncrypt({
+      const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
         strictCheck: false,
         pathResolver,
         diffItems: draftDiffItems,
@@ -408,11 +408,11 @@ describe('FileCipherCatalog', () => {
     {
       await rm(filepathB)
       await writeFile(filepathA, contentA, encoding)
-      const draftDiffItems: IFileCipherCatalogItemDiffDraft[] = await catalog.diffFromPlainFiles({
+      const draftDiffItems: IFileCipherCatalogDiffItemDraft[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathA, filepathB, filepathC],
         strickCheck: true,
       })
-      const diffItems: IFileCipherCatalogItemDiff[] = await cipherBatcher.batchEncrypt({
+      const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
         strictCheck: false,
         pathResolver,
         diffItems: draftDiffItems,
@@ -430,12 +430,12 @@ describe('FileCipherCatalog', () => {
       await rm(filepathC)
       await writeFile(filepathD, contentD, encoding)
       await writeFile(filepathA, contentA2, encoding)
-      const draftDiffItems: IFileCipherCatalogItemDiffDraft[] = await catalog.diffFromPlainFiles({
+      const draftDiffItems: IFileCipherCatalogDiffItemDraft[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathA, filepathC, filepathD],
         strickCheck: true,
         isKeepPlain: sourceFilepath => sourceFilepath === 'd.txt',
       })
-      const diffItems: IFileCipherCatalogItemDiff[] = await cipherBatcher.batchEncrypt({
+      const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
         strictCheck: false,
         pathResolver,
         diffItems: draftDiffItems,
@@ -452,11 +452,11 @@ describe('FileCipherCatalog', () => {
     {
       await rm(filepathA)
       await rm(filepathD)
-      const draftDiffItems: IFileCipherCatalogItemDiffDraft[] = await catalog.diffFromPlainFiles({
+      const draftDiffItems: IFileCipherCatalogDiffItemDraft[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathD, filepathA],
         strickCheck: true,
       })
-      const diffItems: IFileCipherCatalogItemDiff[] = await cipherBatcher.batchEncrypt({
+      const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
         strictCheck: false,
         pathResolver,
         diffItems: draftDiffItems,

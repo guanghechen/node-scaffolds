@@ -1,9 +1,11 @@
 import { normalizeUrlPath } from '@guanghechen/helper-path'
 import type { FileCipherPathResolver } from '../FileCipherPathResolver'
 import type {
+  IFileCipherCatalogDiffItemCombine,
+  IFileCipherCatalogDiffItemDraft,
+} from '../types/IFileCipherCatalogDiffItem'
+import type {
   IFileCipherCatalogItem,
-  IFileCipherCatalogItemDiffCombine,
-  IFileCipherCatalogItemDiffDraft,
   IFileCipherCatalogItemDraft,
 } from '../types/IFileCipherCatalogItem'
 
@@ -44,7 +46,7 @@ export const isSameFileCipherItem = (
 }
 
 export const collectAffectedPlainFilepaths = (
-  diffItems: ReadonlyArray<IFileCipherCatalogItemDiffDraft>,
+  diffItems: ReadonlyArray<IFileCipherCatalogDiffItemDraft>,
 ): string[] => {
   const files: Set<string> = new Set()
   const collect = (item: IFileCipherCatalogItem): void => {
@@ -52,7 +54,7 @@ export const collectAffectedPlainFilepaths = (
   }
 
   for (let i = 0; i < diffItems.length; ++i) {
-    const item = diffItems[i] as IFileCipherCatalogItemDiffCombine
+    const item = diffItems[i] as IFileCipherCatalogDiffItemCombine
     if (item.oldItem) collect(item.oldItem)
     if (item.newItem) collect(item.newItem)
   }
@@ -60,7 +62,7 @@ export const collectAffectedPlainFilepaths = (
 }
 
 export const collectAffectedCryptFilepaths = (
-  diffItems: ReadonlyArray<IFileCipherCatalogItemDiffDraft>,
+  diffItems: ReadonlyArray<IFileCipherCatalogDiffItemDraft>,
 ): string[] => {
   const files: Set<string> = new Set()
   const collect = (item: IFileCipherCatalogItem): void => {
@@ -74,7 +76,7 @@ export const collectAffectedCryptFilepaths = (
   }
 
   for (let i = 0; i < diffItems.length; ++i) {
-    const item = diffItems[i] as IFileCipherCatalogItemDiffCombine
+    const item = diffItems[i] as IFileCipherCatalogDiffItemCombine
     if (item.oldItem) collect(item.oldItem)
     if (item.newItem) collect(item.newItem)
   }

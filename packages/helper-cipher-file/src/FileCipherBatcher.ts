@@ -5,7 +5,6 @@ import { isFileSync, mkdirsIfNotExists, rm } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
-import { FileChangeType } from './constant'
 import type { FileCipherPathResolver } from './FileCipherPathResolver'
 import type { IFileCipher } from './types/IFileCipher'
 import type {
@@ -13,9 +12,10 @@ import type {
   IBatchEncryptParams,
   IFileCipherBatcher,
 } from './types/IFileCipherBatcher'
+import type { IFileCipherCatalogDiffItem } from './types/IFileCipherCatalogDiffItem'
+import { FileChangeType } from './types/IFileCipherCatalogDiffItem'
 import type {
   IFileCipherCatalogItem,
-  IFileCipherCatalogItemDiff,
   IFileCipherCatalogItemDraft,
 } from './types/IFileCipherCatalogItem'
 import type { IFileCipherFactory } from './types/IFileCipherFactory'
@@ -45,7 +45,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
     pathResolver,
     diffItems,
     getIv,
-  }: IBatchEncryptParams): Promise<IFileCipherCatalogItemDiff[]> {
+  }: IBatchEncryptParams): Promise<IFileCipherCatalogDiffItem[]> {
     const { _logger, fileCipherFactory, fileHelper, maxTargetFileSize } = this
 
     const add = async (
@@ -98,7 +98,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
     }
 
     const remove = async (
-      item: IFileCipherCatalogItem,
+      item: IFileCipherCatalogItemDraft,
       changeType: FileChangeType,
     ): Promise<void> => {
       const cryptFilepaths = this._collectCryptFilepaths(item)
@@ -118,7 +118,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       }
     }
 
-    const results: IFileCipherCatalogItemDiff[] = []
+    const results: IFileCipherCatalogDiffItem[] = []
     for (const diffItem of diffItems) {
       const { changeType } = diffItem
       switch (changeType) {

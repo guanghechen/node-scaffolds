@@ -2,8 +2,8 @@ import { calcMac, calcMacFromFile } from '@guanghechen/helper-mac'
 import { locateFixtures } from 'jest.helper'
 import path from 'node:path'
 import type {
+  IFileCipherCatalogDiffItemDraft,
   IFileCipherCatalogItem,
-  IFileCipherCatalogItemDiffDraft,
   IFileCipherCatalogItemDraft,
 } from '../src'
 import {
@@ -114,7 +114,7 @@ describe('catalog', () => {
   })
 
   test('collectAffectedPlainFilepaths / collectAffectedCryptFilepaths', () => {
-    const diffItems: IFileCipherCatalogItemDiffDraft[] = [
+    const diffItems: IFileCipherCatalogDiffItemDraft[] = [
       {
         changeType: FileChangeType.ADDED,
         newItem: itemTable.A,
