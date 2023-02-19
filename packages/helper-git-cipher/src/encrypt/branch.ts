@@ -7,7 +7,7 @@ import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { getCommitInTopology, showCommitInfo } from '@guanghechen/helper-git'
 import type { ILogger } from '@guanghechen/utility-types'
-import type { IGitCipherConfigData } from '../types'
+import type { IGitCipherConfig } from '../types'
 import { encryptGitCommit } from './commit'
 
 export interface IEncryptGitBranchParams {
@@ -16,7 +16,7 @@ export interface IEncryptGitBranchParams {
   catalog: IFileCipherCatalog
   cipherBatcher: IFileCipherBatcher
   pathResolver: FileCipherPathResolver
-  configKeeper: IConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfig>
   logger?: ILogger
   getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }

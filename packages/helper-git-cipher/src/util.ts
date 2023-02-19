@@ -1,6 +1,6 @@
 import type {
   FileCipherPathResolver,
-  IFileCipherCatalogItem,
+  IFileCipherCatalogItemBase,
 } from '@guanghechen/helper-cipher-file'
 import type { IGitCommandBaseParams, IGitCommitWithMessage } from '@guanghechen/helper-git'
 import { getAllLocalBranches, getCommitWithMessageList, isGitRepo } from '@guanghechen/helper-git'
@@ -52,7 +52,7 @@ export const resolveIdMap = async (params: {
   return { crypt2plainIdMap }
 }
 
-export const generateCommitHash = (items: IFileCipherCatalogItem[]): string => {
+export const generateCommitHash = (items: IFileCipherCatalogItemBase[]): string => {
   const sha256 = createHash('sha256')
   for (const item of items) {
     sha256.update(item.plainFilepath)

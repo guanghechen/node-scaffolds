@@ -1,22 +1,35 @@
 import type {
-  IFileCipherCatalogItem,
-  IFileCipherCatalogItemDiff,
+  IFileCipherCatalogDiffItem,
+  IFileCipherCatalogItemBase,
 } from '@guanghechen/helper-cipher-file'
 import type { IGitCommitInfo } from '@guanghechen/helper-git'
 
-export interface IGitCommitOverview {
-  id: string
-  parents: string[]
-  signature: IGitCommitInfo
+export interface IFileCipherCatalogItemData extends IFileCipherCatalogItemBase {
+  authTag: string | undefined
+}
+
+export interface IGitCipherConfig {
+  commit: {
+    parents: string[]
+    signature: IGitCommitInfo
+  }
   catalog: {
-    items: IFileCipherCatalogItem[]
     // Diff from the first parent commit.
-    diffItems: IFileCipherCatalogItemDiff[]
+    diffItems: IFileCipherCatalogDiffItem[]
+    items: IFileCipherCatalogItemData[]
   }
 }
 
 export interface IGitCipherConfigData {
-  commit: IGitCommitOverview
+  commit: {
+    parents: string[]
+    signature: IGitCommitInfo
+  }
+  catalog: {
+    // Diff from the first parent commit.
+    diffItems: IFileCipherCatalogDiffItem[]
+    items: IFileCipherCatalogItemData[]
+  }
 }
 
 export interface IGitCipherCommitIdData {

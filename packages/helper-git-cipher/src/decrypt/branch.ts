@@ -3,7 +3,7 @@ import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { getCommitInTopology, showCommitInfo } from '@guanghechen/helper-git'
 import type { ILogger } from '@guanghechen/utility-types'
-import type { IGitCipherConfigData } from '../types'
+import type { IGitCipherConfig } from '../types'
 import { decryptGitCommit } from './commit'
 
 export interface IDecryptGitBranchParams {
@@ -11,7 +11,7 @@ export interface IDecryptGitBranchParams {
   crypt2plainIdMap: Map<string, string>
   cipherBatcher: IFileCipherBatcher
   pathResolver: FileCipherPathResolver
-  configKeeper: IConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfig>
   logger?: ILogger
 }
 

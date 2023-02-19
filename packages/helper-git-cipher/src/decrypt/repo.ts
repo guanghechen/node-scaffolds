@@ -14,13 +14,13 @@ import {
 } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
-import type { IGitCipherConfigData } from '../types'
+import type { IGitCipherConfig } from '../types'
 import { resolveIdMap } from '../util'
 import { decryptGitBranch } from './branch'
 
 export interface IDecryptGitRepoParams {
   cipherBatcher: IFileCipherBatcher
-  configKeeper: IConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfig>
   pathResolver: FileCipherPathResolver
   crypt2plainIdMap: ReadonlyMap<string, string>
   gpgSign?: boolean

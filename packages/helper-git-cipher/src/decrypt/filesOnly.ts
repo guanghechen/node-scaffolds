@@ -1,4 +1,10 @@
-import type { FileCipherPathResolver, IFileCipherBatcher } from '@guanghechen/helper-cipher-file'
+import type {
+  FileCipherPathResolver,
+  IFileCipherBatcher,
+  IFileCipherCatalog,
+  IFileCipherCatalogDiffItem,
+  IFileCipherCatalogItemBase,
+} from '@guanghechen/helper-cipher-file'
 import { FileChangeType } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import {
@@ -10,14 +16,16 @@ import {
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
-import type { IGitCipherConfigData } from '../types'
+import type { IGitCipherConfig } from '../types'
 
 export interface IDecryptFilesOnlyParams {
+  catalog: IFileCipherCatalog
   cryptCommitId: string
   cipherBatcher: IFileCipherBatcher
   pathResolver: FileCipherPathResolver
-  configKeeper: IConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfig>
   logger?: ILogger
+  getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
 /**
@@ -26,8 +34,19 @@ export interface IDecryptFilesOnlyParams {
  * @param params
  */
 export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise<void> {
-  const { cryptCommitId, pathResolver, cipherBatcher, configKeeper, logger } = params
+  const {
+    catalog,
+    cryptCommitId,
+    pathResolver,
+    cipherBatcher,
+    configKeeper,
+    logger,
+    getDynamicIv,
+  } = params
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: pathResolver.cryptRootDir, logger }
+
+  const getIv = (item: IFileCipherCatalogItemBase): Buffer =>
+    getDynamicIv([Buffer.from(item.plainFilepath, 'hex'), Buffer.from(item.fingerprint, 'hex')])
 
   invariant(
     isGitRepo(pathResolver.cryptRootDir),
@@ -51,17 +70,17 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
       !!configData,
       `[decryptFilesOnly] cannot load config. filepath(${configKeeper.filepath}), encryptedCommitId(${cryptCommitId})`,
     )
-    const { commit: plainCommit } = configData
 
     // Decrypt files.
-    await cipherBatcher.batchDecrypt({
-      diffItems: plainCommit.catalog.items.map(item => ({
-        changeType: FileChangeType.ADDED,
-        newItem: item,
-      })),
-      pathResolver,
-      strictCheck: false,
-    })
+    const diffItems: IFileCipherCatalogDiffItem[] = configData.catalog.items.map(item => ({
+      changeType: FileChangeType.ADDED,
+      newItem: {
+        ...catalog.flatCatalogItem(item),
+        iv: getIv(item).toString('hex'),
+        authTag: item.authTag,
+      },
+    }))
+    await cipherBatcher.batchDecrypt({ diffItems, pathResolver, strictCheck: false })
   } finally {
     // Restore crypt repo HEAD point.
     await checkBranch({ ...cryptCmdCtx, branchOrCommitId: initialHeadBranchOrCommitId })

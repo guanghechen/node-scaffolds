@@ -1,12 +1,13 @@
+import { collectAffectedCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import type {
   FileCipherPathResolver,
   IFileCipherBatcher,
   IFileCipherCatalog,
+  IFileCipherCatalogDiffItem,
+  IFileCipherCatalogDiffItemDraft,
   IFileCipherCatalogItem,
-  IFileCipherCatalogItemDiff,
-  IFileCipherCatalogItemDiffDraft,
+  IFileCipherCatalogItemBase,
 } from '@guanghechen/helper-cipher-file'
-import { collectAffectedCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type {
   IGitCommandBaseParams,
@@ -24,7 +25,7 @@ import {
 } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
-import type { IGitCipherConfigData, IGitCommitOverview } from '../types'
+import type { IGitCipherConfig } from '../types'
 import { generateCommitHash as generateCommitMessage } from '../util'
 
 export interface IEncryptGitCommitParams {
@@ -33,7 +34,7 @@ export interface IEncryptGitCommitParams {
   catalog: IFileCipherCatalog
   cipherBatcher: IFileCipherBatcher
   pathResolver: FileCipherPathResolver
-  configKeeper: IConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfig>
   logger?: ILogger
   getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
@@ -64,6 +65,9 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
   // [plain] Move the HEAD pointer to the current encrypting commit.
   await checkBranch({ ...plainCmdCtx, branchOrCommitId: plainCommitNode.id })
 
+  const getIv = (item: IFileCipherCatalogItemBase): Buffer =>
+    getDynamicIv([Buffer.from(item.plainFilepath, 'hex'), Buffer.from(item.fingerprint, 'hex')])
+
   // [crypt] Reset catalog to calc diffItems.
   if (plainCommitNode.parents.length > 0) {
     const plainParentId = plainCommitNode.parents[0]
@@ -82,7 +86,12 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
       !!configData,
       `[encryptGitCommit] cannot load config. filepath(${configKeeper.filepath}), crypt(${cryptParentId})`,
     )
-    const items: IFileCipherCatalogItem[] = configData.commit.catalog.items
+
+    const items: IFileCipherCatalogItem[] = configData.catalog.items.map(item => ({
+      ...catalog.flatCatalogItem(item),
+      iv: getIv(item).toString('hex'),
+      authTag: item.authTag,
+    }))
     catalog.reset(items)
   } else {
     catalog.reset()
@@ -100,7 +109,7 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
           branchOrCommitId2: plainCommitNode.parents[0],
         })
       : await listAllFiles({ ...plainCmdCtx, branchOrCommitId: plainCommitNode.id })
-  const draftDiffItems: IFileCipherCatalogItemDiffDraft[] = await catalog.diffFromPlainFiles({
+  const draftDiffItems: IFileCipherCatalogDiffItemDraft[] = await catalog.diffFromPlainFiles({
     plainFilepaths: plainFiles.sort(),
     strickCheck: false,
   })
@@ -131,24 +140,20 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
   await cleanUntrackedFilepaths({ ...cryptCmdCtx, filepaths: cryptFiles })
 
   // Update catalog.
-  const diffItems: IFileCipherCatalogItemDiff[] = await cipherBatcher.batchEncrypt({
+  const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
     diffItems: draftDiffItems,
     pathResolver,
     strictCheck: false,
-    getIv: item =>
-      getDynamicIv([
-        ...cryptParentCommitIds.map(id => Buffer.from(id, 'hex')),
-        Buffer.from(item.plainFilepath, 'hex'),
-        Buffer.from(item.fingerprint, 'hex'),
-      ]),
+    getIv,
   })
   catalog.applyDiff(diffItems)
 
   // Encrypt files & update config.
-  const commit: IGitCommitOverview = {
-    id: plainCommitNode.id,
-    parents: plainCommitNode.parents,
-    signature,
+  const config: IGitCipherConfig = {
+    commit: {
+      parents: plainCommitNode.parents,
+      signature,
+    },
     catalog: {
       diffItems,
       items: Array.from(catalog.items).sort((x, y) =>
@@ -156,13 +161,13 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
       ),
     },
   }
-  await configKeeper.update({ commit })
+  await configKeeper.update(config)
   await configKeeper.save()
 
-  const message: string = generateCommitMessage(commit.catalog.items)
+  const message: string = generateCommitMessage(config.catalog.items)
   await commitAll({
     ...cryptCmdCtx,
-    ...commit.signature,
+    ...config.commit.signature,
     message,
     amend: shouldAmend,
   })

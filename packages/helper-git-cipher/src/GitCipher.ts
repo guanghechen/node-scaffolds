@@ -8,11 +8,11 @@ import type { ILogger } from '@guanghechen/utility-types'
 import { decryptFilesOnly } from './decrypt/filesOnly'
 import { decryptGitRepo } from './decrypt/repo'
 import { encryptGitRepo } from './encrypt/repo'
-import type { IGitCipherConfigData } from './types'
+import type { IGitCipherConfig } from './types'
 
 export interface IGitCipherProps {
   cipherBatcher: IFileCipherBatcher
-  configKeeper: IConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfig>
   logger?: ILogger
 }
 
@@ -24,8 +24,10 @@ export interface IGitCipherEncryptParams {
 }
 
 export interface IGitCipherDecryptFilesOnlyParams {
+  catalog: IFileCipherCatalog
   pathResolver: FileCipherPathResolver
   cryptCommitId: string
+  getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
 export interface IGitCipherEncryptRepoResult {
@@ -44,7 +46,7 @@ export interface IGitCipherDecryptRepoResult {
 
 export class GitCipher {
   public readonly cipherBatcher: IFileCipherBatcher
-  public readonly configKeeper: IConfigKeeper<IGitCipherConfigData>
+  public readonly configKeeper: IConfigKeeper<IGitCipherConfig>
   public readonly logger?: ILogger
 
   constructor(props: IGitCipherProps) {
@@ -83,11 +85,13 @@ export class GitCipher {
   public async decryptFilesOnly(params: IGitCipherDecryptFilesOnlyParams): Promise<void> {
     const { cipherBatcher, configKeeper, logger } = this
     await decryptFilesOnly({
+      catalog: params.catalog,
       cryptCommitId: params.cryptCommitId,
       pathResolver: params.pathResolver,
       cipherBatcher,
       configKeeper,
       logger,
+      getDynamicIv: params.getDynamicIv,
     })
   }
 }

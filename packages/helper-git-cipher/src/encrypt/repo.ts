@@ -18,7 +18,7 @@ import {
 } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
-import type { IGitCipherConfigData } from '../types'
+import type { IGitCipherConfig } from '../types'
 import { resolveIdMap } from '../util'
 import { encryptGitBranch } from './branch'
 
@@ -26,7 +26,7 @@ export interface IEncryptGitRepoParams {
   catalog: IFileCipherCatalog
   cipherBatcher: IFileCipherBatcher
   pathResolver: FileCipherPathResolver
-  configKeeper: IConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfig>
   crypt2plainIdMap: ReadonlyMap<string, string>
   logger?: ILogger
   getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>

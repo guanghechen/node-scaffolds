@@ -10,13 +10,13 @@ import {
 } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
-import type { IGitCipherConfigData } from '../types'
+import type { IGitCipherConfig } from '../types'
 
 export interface IDecryptGitCommitParams {
   cryptCommitNode: IGitCommitDagNode
   cipherBatcher: IFileCipherBatcher
   pathResolver: FileCipherPathResolver
-  configKeeper: IConfigKeeper<IGitCipherConfigData>
+  configKeeper: IConfigKeeper<IGitCipherConfig>
   logger?: ILogger
 }
 
@@ -43,9 +43,9 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
     !!configData,
     `[decryptGitCommit] cannot load config. filepath(${configKeeper.filepath}), cryptCommitId(${cryptCommitNode.id})`,
   )
-  const { commit: plainCommit } = configData
 
   // [plain] Move the HEAD pointer to the first parent commit for creating commit or merging.
+  const plainCommit = configData.commit
   if (plainCommit.parents.length > 0) {
     await checkBranch({ ...plainCmdCtx, branchOrCommitId: plainCommit.parents[0] })
   }
@@ -62,14 +62,11 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
   }
 
   // [pain] Clean untracked filepaths to avoid unexpected errors.
-  const affectedPlainFiles: string[] = collectAffectedPlainFilepaths(plainCommit.catalog.diffItems)
+  const diffItems = configData.catalog.diffItems
+  const affectedPlainFiles: string[] = collectAffectedPlainFilepaths(diffItems)
   await cleanUntrackedFilepaths({ ...plainCmdCtx, filepaths: affectedPlainFiles })
 
   // Decrypt files.
-  await cipherBatcher.batchDecrypt({
-    diffItems: plainCommit.catalog.diffItems,
-    pathResolver,
-    strictCheck: false,
-  })
+  await cipherBatcher.batchDecrypt({ diffItems, pathResolver, strictCheck: false })
   await commitAll({ ...plainCmdCtx, ...plainCommit.signature, amend: shouldAmend })
 }

@@ -7,7 +7,7 @@ import {
   FileCipherPathResolver,
 } from '@guanghechen/helper-cipher-file'
 import { BigFileHelper } from '@guanghechen/helper-file'
-import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
+import type { IGitCommandBaseParams, IGitCommitInfo } from '@guanghechen/helper-git'
 import {
   checkBranch,
   createBranch,
@@ -102,6 +102,38 @@ describe('GitCipher', () => {
   const getDynamicIv = (infos: ReadonlyArray<Buffer>): Readonly<Buffer> =>
     calcMac(infos, 'sha256').slice(0, cipherFactory.ivSize)
 
+  const testCatalog = async (
+    commit: IGitCommitInfo & { parentIds: string[] },
+    diffItems: unknown[],
+    items: unknown[],
+  ): Promise<void> => {
+    await configKeeper.load()
+    expect(configKeeper.data!.commit).toEqual({
+      parents: commit.parentIds,
+      signature: {
+        commitId: commit.commitId,
+        authorDate: commit.authorDate,
+        authorName: commit.authorName,
+        authorEmail: commit.authorEmail,
+        committerDate: commit.committerDate,
+        committerName: commit.committerName,
+        committerEmail: commit.committerEmail,
+        message: commit.message,
+      },
+    })
+    expect(configKeeper.data!.catalog.diffItems).toEqual(diffItems)
+    expect(
+      configKeeper.data!.catalog.items.map(item => ({
+        ...catalog.flatCatalogItem(item),
+        iv: getDynamicIv([
+          Buffer.from(item.plainFilepath, 'hex'),
+          Buffer.from(item.fingerprint, 'hex'),
+        ]).toString('hex'),
+        authTag: item.authTag,
+      })),
+    ).toEqual(items)
+  }
+
   describe('complex', () => {
     let logMock: ILoggerMock
     beforeEach(async () => {
@@ -122,33 +154,6 @@ describe('GitCipher', () => {
           logger,
           execaOptions: {},
         })
-
-        type ISymbol = keyof typeof commitTable
-        const testCatalog = async (
-          symbol: ISymbol,
-          diffItems: unknown[],
-          items: unknown[],
-        ): Promise<void> => {
-          await configKeeper.load()
-          const commit = commitTable[symbol]
-          expect(configKeeper.data).toEqual({
-            commit: {
-              id: commit.commitId,
-              parents: commit.parentIds,
-              signature: {
-                commitId: commit.commitId,
-                authorDate: commit.authorDate,
-                authorName: commit.authorName,
-                authorEmail: commit.authorEmail,
-                committerDate: commit.committerDate,
-                committerName: commit.committerName,
-                committerEmail: commit.committerEmail,
-                message: commit.message,
-              },
-              catalog: { diffItems, items },
-            },
-          })
-        }
 
         // Test encrypt.
         let { crypt2plainIdMap } = await gitCipher.encrypt({
@@ -223,7 +228,7 @@ describe('GitCipher', () => {
         })
 
         // Check catalog.
-        await testCatalog('K', diffItemsTable.stepK, [
+        await testCatalog(commitTable.K, diffItemsTable.stepK, [
           itemTable.A,
           itemTable.B,
           itemTable.C3,
@@ -308,33 +313,6 @@ describe('GitCipher', () => {
           execaOptions: {},
         })
 
-        type ISymbol = keyof typeof commitTable
-        const testCatalog = async (
-          symbol: ISymbol,
-          diffItems: unknown[],
-          items: unknown[],
-        ): Promise<void> => {
-          await configKeeper.load()
-          const commit = commitTable[symbol]
-          expect(configKeeper.data).toEqual({
-            commit: {
-              id: commit.commitId,
-              parents: commit.parentIds,
-              signature: {
-                commitId: commit.commitId,
-                authorDate: commit.authorDate,
-                authorName: commit.authorName,
-                authorEmail: commit.authorEmail,
-                committerDate: commit.committerDate,
-                committerName: commit.committerName,
-                committerEmail: commit.committerEmail,
-                message: commit.message,
-              },
-              catalog: { diffItems, items },
-            },
-          })
-        }
-
         let crypt2plainIdMap: Map<string, string> = new Map()
 
         // Commit E.
@@ -377,7 +355,7 @@ describe('GitCipher', () => {
           )
 
           // Check catalog.
-          await testCatalog('E', diffItemsTable.stepE, [itemTable.C2])
+          await testCatalog(commitTable.E, diffItemsTable.stepE, [itemTable.C2])
 
           // Test Decrypt
           crypt2plainIdMap = await gitCipher
@@ -450,7 +428,7 @@ describe('GitCipher', () => {
 
           // Check catalog.
           await checkBranch({ ...cryptCtx, branchOrCommitId: 'I' })
-          await testCatalog('I', diffItemsTable.stepI, [
+          await testCatalog(commitTable.I, diffItemsTable.stepI, [
             itemTable.A2,
             itemTable.B,
             itemTable.C3,
@@ -563,7 +541,7 @@ describe('GitCipher', () => {
           )
 
           // Check catalog.
-          await testCatalog('K', diffItemsTable.stepK, [
+          await testCatalog(commitTable.K, diffItemsTable.stepK, [
             itemTable.A,
             itemTable.B,
             itemTable.C3,
@@ -657,7 +635,12 @@ describe('GitCipher', () => {
     })
 
     const decryptAt = (cryptCommitId: string): Promise<void> =>
-      gitCipher.decryptFilesOnly({ cryptCommitId, pathResolver: bakPathResolver })
+      gitCipher.decryptFilesOnly({
+        catalog,
+        cryptCommitId,
+        pathResolver: bakPathResolver,
+        getDynamicIv,
+      })
 
     test('A', async () => {
       await decryptAt(repo1CryptCommitIdTable.A)
