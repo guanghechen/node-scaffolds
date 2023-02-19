@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/jest-config",
-  "version": "4.1.3",
+  "version": "4.2.0",
   "description": "basic jest configs for typescript monorepo",
   "author": {
     "name": "guanghechen",
