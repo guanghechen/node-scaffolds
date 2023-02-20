@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-option",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "description": "Utilities for resolving options or props.",
   "author": {
     "name": "guanghechen",
@@ -43,7 +43,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-is": "^4.2.1"
+    "@guanghechen/helper-is": "^4.2.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
