@@ -1,5 +1,15 @@
 # Changelog
 
+<a name="4.2.2"></a>
+## 4.2.2 (2023-02-20)
+
+### Changed
+
+- 🎨 improve(tool-git-cipher): ask input new password until the confirmation matched [[68b22a1](https://github.com/guanghechen/node-scaffolds/commit/68b22a1f89674548f2a56a47f9014ea1386fc45f)]
+- 🎨 improve(tool-git-cipher): ask to input maxTargetFileSize [[f8343c8](https://github.com/guanghechen/node-scaffolds/commit/f8343c866ed005c6d2ff5109ac571beabe10a440)]
+- 🎨 improve(tool-git-cipher): generate random salt [[d099aa3](https://github.com/guanghechen/node-scaffolds/commit/d099aa305b70f0c615bd757c35ab69e3700dc787)]
+
+
 <a name="4.2.1"></a>
 ## 4.2.1 (2023-02-20)
 
