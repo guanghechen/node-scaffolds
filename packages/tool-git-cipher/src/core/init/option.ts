@@ -4,6 +4,7 @@ import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
+import { randomBytes } from 'node:crypto'
 import { logger } from '../../env/logger'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
@@ -86,7 +87,7 @@ const getDefaultCommandInitOptions = (): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(),
   catalogFilepath: '.ghc-catalog',
   contentHashAlgorithm: 'sha256',
-  cryptFilepathSalt: 'ac2bf19c04d532',
+  cryptFilepathSalt: randomBytes(8).toString('hex'),
   cryptFilesDir: 'encrypted',
   gitGpgSign: false,
   keepPlainPatterns: [
@@ -102,7 +103,7 @@ const getDefaultCommandInitOptions = (): ICommandOptions => ({
   partCodePrefix: '.ghc-part',
   pathHashAlgorithm: 'sha256',
   pbkdf2Options: {
-    salt: 'f7f1d0eb071ea',
+    salt: randomBytes(12).toString('hex'),
     iterations: 200000,
     digest: 'sha256',
   },
