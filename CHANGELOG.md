@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="4.2.1"></a>
+## 4.2.1 (2023-02-20)
+
+### Fixed
+
+- 🐛 fix(tool-git-cipher): incorrect cryptFilesDir [[4a01c41](https://github.com/guanghechen/node-scaffolds/commit/4a01c41fbee432504a0d631deecbe60a93ff1ecb)]
+
+
 <a name="4.2.0"></a>
 ## 4.2.0 (2023-02-19)
 
