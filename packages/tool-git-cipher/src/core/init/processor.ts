@@ -103,6 +103,7 @@ export class GitCipherInitProcessor {
         cryptFilepathSalt,
         mainIvSize,
         mainKeySize,
+        maxTargetFileSize,
         pbkdf2Options_digest,
         pbkdf2Options_iterations,
         pbkdf2Options_salt,
@@ -164,6 +165,12 @@ export class GitCipherInitProcessor {
           filter: x => x.trim(),
           transformer: (x: string) => x.trim(),
         },
+        {
+          type: 'number',
+          name: 'maxTargetFileSize',
+          default: context.maxTargetFileSize,
+          message: 'maxTargetFileSize (bytes)',
+        },
       ])
 
       // Create secret file.
@@ -172,6 +179,7 @@ export class GitCipherInitProcessor {
         cryptFilepathSalt,
         mainIvSize,
         mainKeySize,
+        maxTargetFileSize,
         pbkdf2Options: {
           salt: pbkdf2Options_salt,
           iterations: pbkdf2Options_iterations,
