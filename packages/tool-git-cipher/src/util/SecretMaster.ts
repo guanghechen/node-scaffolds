@@ -76,24 +76,24 @@ export class SecretMaster {
     try {
       const { showAsterisk, minPasswordLength, maxPasswordLength } = this
       logger.debug('Asking input new password.')
-      password = await inputPassword({
-        question: 'Password: ',
-        showAsterisk,
-        maxInputRetryTimes: 2,
-        minimumSize: minPasswordLength,
-        maximumSize: maxPasswordLength,
-      })
-      const isSame = await confirmPassword({
-        password,
-        showAsterisk,
-        minimumSize: minPasswordLength,
-        maximumSize: maxPasswordLength,
-      })
-      if (!isSame) {
-        throw {
-          code: ErrorCode.ENTERED_PASSWORD_DIFFER,
-          message: 'Entered passwords differ!',
-        }
+
+      for (let i = 0; ; ++i) {
+        password = await inputPassword({
+          question: 'Password: ',
+          showAsterisk,
+          maxInputRetryTimes: 2,
+          minimumSize: minPasswordLength,
+          maximumSize: maxPasswordLength,
+        })
+        const isSame = await confirmPassword({
+          password,
+          showAsterisk,
+          minimumSize: minPasswordLength,
+          maximumSize: maxPasswordLength,
+        })
+        if (isSame) break
+
+        logger.error(`Entered passwords diff, try again.`)
       }
 
       logger.debug('Creating new secret.')
