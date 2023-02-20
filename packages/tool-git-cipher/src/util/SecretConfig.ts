@@ -2,8 +2,7 @@ import type { IPBKDF2Options } from '@guanghechen/helper-cipher'
 import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/helper-config'
 import { PlainJsonConfigKeeper } from '@guanghechen/helper-config'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
-import { relativeOfWorkspace } from '@guanghechen/helper-path'
-import path from 'node:path'
+import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
 
 export interface ISecretConfigData {
   /**
@@ -116,10 +115,10 @@ export class SecretConfigKeeper
 
   protected override deserialize(data: ISecretConfigData): ISecretConfigData {
     return {
-      catalogFilepath: path.resolve(this.cryptRootDir, data.catalogFilepath),
+      catalogFilepath: absoluteOfWorkspace(this.cryptRootDir, data.catalogFilepath),
       contentHashAlgorithm: data.contentHashAlgorithm,
       cryptFilepathSalt: data.cryptFilepathSalt,
-      cryptFilesDir: path.resolve(this.cryptRootDir, data.cryptFilesDir),
+      cryptFilesDir: relativeOfWorkspace(this.cryptRootDir, data.cryptFilesDir),
       keepPlainPatterns: data.keepPlainPatterns,
       mainIvSize: data.mainIvSize,
       mainKeySize: data.mainKeySize,
