@@ -1,5 +1,16 @@
 # Changelog
 
+<a name="4.3.0"></a>
+## 4.3.0 (2023-02-21)
+
+### Changed
+
+- 👽 fix(tool-git-cipher) build error [[2fc7207](https://github.com/guanghechen/node-scaffolds/commit/2fc7207f1bc7194003230f0837e151677b7f646d)]
+- 🎨 [BREAKING] refactor(helper-git-cipher): rewrite GitCipherConfigKeeper serialize/deserialize [[2eb7541](https://github.com/guanghechen/node-scaffolds/commit/2eb75412aeaadcc6baf4eb476a7591f26707e0f6)]
+- 🎨 refactor: fix build error due to the previous change [[670ca4c](https://github.com/guanghechen/node-scaffolds/commit/670ca4c27438d95c6c73a327e38e449bee5928ca)]
+- 🎨 refactor(helper-cipher): move some properties and methods from CipherFactory to CipherFactoryBuilder [[dd76db4](https://github.com/guanghechen/node-scaffolds/commit/dd76db4292e8fe9636325cbf407db3378a242e61)]
+
+
 <a name="4.2.2"></a>
 ## 4.2.2 (2023-02-20)
 
