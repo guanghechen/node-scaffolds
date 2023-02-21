@@ -17,7 +17,7 @@ import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
-import type { IFileCipherCatalogItemData, IGitCipherConfig } from '../types'
+import type { IFileCipherCatalogItemInstance, IGitCipherConfig } from '../types'
 
 export interface IDecryptFilesOnlyParams {
   catalog: IFileCipherCatalog
@@ -50,9 +50,9 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
 
   const getIv = (item: IFileCipherCatalogItemBase): Buffer =>
     getDynamicIv([Buffer.from(item.plainFilepath, 'hex'), Buffer.from(item.fingerprint, 'hex')])
-  const flatItem = (item: IFileCipherCatalogItemData): IFileCipherCatalogItem => ({
+  const flatItem = (item: IFileCipherCatalogItemInstance): IFileCipherCatalogItem => ({
     ...catalog.flatCatalogItem(item),
-    iv: getIv(item).toString('hex'),
+    iv: getIv(item),
     authTag: item.authTag,
   })
 

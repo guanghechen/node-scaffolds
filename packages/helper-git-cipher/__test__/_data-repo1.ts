@@ -3,17 +3,17 @@ import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 export * from '@guanghechen/helper-git/__test__/_data-repo1'
 
 export const repo1CryptCommitIdTable = {
-  A: 'e677cfc55c6f0771254ec567e724d390a77f9f9e',
-  B: '5ad1a6d91d2dbd2c7567731447d29294166933cc',
-  C: '992b68c8bb692dedeabc419c7df515505afdf040',
-  D: '59e244419e5041bfd6ced4d1caf7621487c60924',
-  E: '628a35270bc26d7315bf8bb383d6471b2c65a763',
-  F: 'e4c58c45aa8d88044d1f6f2afa1249668f1dcc98',
-  G: '0f6fa9fb1fb04c1be6475ac76d0b89f458e290e7',
-  H: 'd250ebf9f2dfa8445bddf6d0603c07311723fbfa',
-  I: '28f7e0d0b70c45ed64f76a3c23c9f8a6e08d256b',
-  J: '2a70493e795e38c0d63afeb87cc5ae2d41b7d0c1',
-  K: '61e35cfaed0432a3dbd7e3373f010b0d2b00cbf2',
+  A: '0b47cc168d023c1b229fc27f9299559bee6f746c',
+  B: 'edafbc4f4509eacfc8c509337ab5d75c67798ca4',
+  C: 'ad25c330110e076af462fdd80f8d7722ae3d5f77',
+  D: '0b00cbf9f65b8c4f83c38bcf9d79b51c5e70eb8f',
+  E: '308b4372d05cebe8925473a42f99e5e2b5989806',
+  F: '5d67a79634d0dba36a645d36b93316bbbc033103',
+  G: 'e95043093eea584966935334563c145f4268b31e',
+  H: 'b23fe95eb90749db91a11c8c2159f421408d2490',
+  I: 'e9714b741cf34c9251e7c38ce7a264d4ca0caa1f',
+  J: '1c62ad680085a951aefe19acc51146092de2c58a',
+  K: 'd49e31ec8198485579813a4ac285db3d1ec433f6',
 }
 
 export const repo1CryptCommitMessageTable = {
@@ -38,7 +38,7 @@ export const itemTable = {
     fingerprint: '4e26698e6bebd87fc210bec49fea4da6210b5769dbff50b3479effa16799120f',
     size: 9,
     keepPlain: true,
-    iv: 'c65b6cc1c81a805ba6a7187e',
+    iv: Buffer.from('c65b6cc1c81a805ba6a7187e', 'hex'),
     authTag: undefined,
   },
   A2: {
@@ -48,7 +48,7 @@ export const itemTable = {
     fingerprint: '4ec33c94039179da5febb8936428e80e7b0d3f42689a4adb38fc8e479634eeb8',
     size: 11,
     keepPlain: true,
-    iv: '2b6d63cbde1c274dfe8ba9bc',
+    iv: Buffer.from('2b6d63cbde1c274dfe8ba9bc', 'hex'),
     authTag: undefined,
   },
   B: {
@@ -58,8 +58,8 @@ export const itemTable = {
     fingerprint: '965bfea36969b0b94ab0665baedd328c37f200340b937c07fdb6885ea363993c',
     keepPlain: false,
     size: 9,
-    iv: '44ad63f5398f8d806658f35d',
-    authTag: '4ecc052246ff595a5549510b4a639105',
+    iv: Buffer.from('44ad63f5398f8d806658f35d', 'hex'),
+    authTag: Buffer.from('4ecc052246ff595a5549510b4a639105', 'hex'),
   },
   B2: {
     plainFilepath: 'b.txt',
@@ -68,8 +68,8 @@ export const itemTable = {
     fingerprint: '88d03f260a5158dd23220ae24160320df2ec63840dac45ad4c99cc6d0208e248',
     keepPlain: false,
     size: 1650,
-    iv: 'c2e17ce7a041aa6a34b6508a',
-    authTag: 'ddcc8070520f86d9ba48a43d17b4bfb5',
+    iv: Buffer.from('c2e17ce7a041aa6a34b6508a', 'hex'),
+    authTag: Buffer.from('ddcc8070520f86d9ba48a43d17b4bfb5', 'hex'),
   },
   C: {
     plainFilepath: 'x/c.txt',
@@ -78,8 +78,8 @@ export const itemTable = {
     fingerprint: 'fd7dc434ab208f15cd61dcc39e8e67de75a1cc6e1c6c9268d653a01b819da054',
     keepPlain: false,
     size: 2880,
-    iv: 'ea36cfca05bee4b045956a1f',
-    authTag: 'dff151f0961471d5782eed60e57ed5af',
+    iv: Buffer.from('ea36cfca05bee4b045956a1f', 'hex'),
+    authTag: Buffer.from('dff151f0961471d5782eed60e57ed5af', 'hex'),
   },
   C2: {
     plainFilepath: 'x/c.txt',
@@ -88,8 +88,8 @@ export const itemTable = {
     fingerprint: 'df91313a8fc51bce13227ad3b5e8eeea815fe149969c174b0f2da373dea473c1',
     keepPlain: false,
     size: 3850,
-    iv: '38eff44fe4585a632a75464a',
-    authTag: '90ec961ea6e2936020f6be60ec0b6239',
+    iv: Buffer.from('38eff44fe4585a632a75464a', 'hex'),
+    authTag: Buffer.from('90ec961ea6e2936020f6be60ec0b6239', 'hex'),
   },
   C3: {
     plainFilepath: 'x/c.txt',
@@ -98,8 +98,8 @@ export const itemTable = {
     fingerprint: 'ce9d19d55a13973f3e1f970e8915df800a1a61bd2f38212b55db73b8669ddcaf',
     keepPlain: false,
     size: 4180,
-    iv: '362b53ef8d8ac14d4689bca3',
-    authTag: '2674b106e4f472435f2b9e8ce2a6d83a',
+    iv: Buffer.from('362b53ef8d8ac14d4689bca3', 'hex'),
+    authTag: Buffer.from('2674b106e4f472435f2b9e8ce2a6d83a', 'hex'),
   },
   D: {
     plainFilepath: 'x/d.txt',
@@ -108,8 +108,8 @@ export const itemTable = {
     fingerprint: '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13',
     keepPlain: false,
     size: 3150,
-    iv: '6a60b80f8e5c5d6772cda449',
-    authTag: '333e0019fff2b8f293cdb1f698ef114e',
+    iv: Buffer.from('6a60b80f8e5c5d6772cda449', 'hex'),
+    authTag: Buffer.from('333e0019fff2b8f293cdb1f698ef114e', 'hex'),
   },
   E: {
     plainFilepath: 'y/z/e.txt',
@@ -118,8 +118,8 @@ export const itemTable = {
     fingerprint: '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13',
     keepPlain: false,
     size: 3150,
-    iv: '6a60b80f8e5c5d6772cda449',
-    authTag: '333e0019fff2b8f293cdb1f698ef114e',
+    iv: Buffer.from('6a60b80f8e5c5d6772cda449', 'hex'),
+    authTag: Buffer.from('333e0019fff2b8f293cdb1f698ef114e', 'hex'),
   },
 }
 

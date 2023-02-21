@@ -1,6 +1,7 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
+import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
 import {
+  FileChangeType,
   FileCipherBatcher,
   FileCipherCatalog,
   FileCipherFactory,
@@ -70,12 +71,15 @@ describe('GitCipher', () => {
   const bakPlainCtx: IGitCommandBaseParams = { cwd: bakPlainRootDir, logger, execaOptions: {} }
 
   const fileHelper = new BigFileHelper({ partCodePrefix })
-  const cipherFactory = new AesGcmCipherFactory()
-  cipherFactory.initFromPassword(Buffer.from('guanghechen', encoding), {
-    salt: 'salt',
-    iterations: 100000,
-    digest: 'sha256',
-  })
+  const ivSize = 12
+  const cipherFactory = new AesGcmCipherFactoryBuilder({ ivSize }).buildFromPassword(
+    Buffer.from('guanghechen', encoding),
+    {
+      salt: 'salt',
+      iterations: 100000,
+      digest: 'sha256',
+    },
+  )
   const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
   const cipherBatcher = new FileCipherBatcher({
     fileHelper,
@@ -102,8 +106,7 @@ describe('GitCipher', () => {
   })
 
   const getDynamicIv = (infos: ReadonlyArray<Buffer>): Readonly<Buffer> =>
-    calcMac(infos, 'sha256').slice(0, cipherFactory.ivSize)
-
+    calcMac(infos, 'sha256').slice(0, ivSize)
   const gitCipher = new GitCipher({ catalog, cipherBatcher, configKeeper, logger, getDynamicIv })
 
   const testCatalog = async (
@@ -125,14 +128,42 @@ describe('GitCipher', () => {
         message: commit.message,
       },
     })
-    expect(configKeeper.data!.catalog.diffItems).toEqual(diffItems)
+    expect(configKeeper.data!.catalog.diffItems).toEqual(
+      diffItems.map((diffItem: any) => {
+        const serializeItem = (item: any): any => ({
+          plainFilepath: item.plainFilepath,
+          fingerprint: item.fingerprint,
+          size: item.size,
+          keepPlain: item.keepPlain,
+          authTag: item.authTag,
+        })
+        switch (diffItem.changeType) {
+          case FileChangeType.ADDED:
+            return {
+              changeType: diffItem.changeType,
+              newItem: serializeItem(diffItem.newItem),
+            }
+          case FileChangeType.MODIFIED:
+            return {
+              changeType: diffItem.changeType,
+              oldItem: serializeItem(diffItem.oldItem),
+              newItem: serializeItem(diffItem.newItem),
+            }
+          case FileChangeType.REMOVED:
+            return {
+              changeType: diffItem.changeType,
+              oldItem: serializeItem(diffItem.oldItem),
+            }
+        }
+      }),
+    )
     expect(
       configKeeper.data!.catalog.items.map(item => ({
         ...catalog.flatCatalogItem(item),
         iv: getDynamicIv([
           Buffer.from(item.plainFilepath, 'hex'),
           Buffer.from(item.fingerprint, 'hex'),
-        ]).toString('hex'),
+        ]),
         authTag: item.authTag,
       })),
     ).toEqual(items)
