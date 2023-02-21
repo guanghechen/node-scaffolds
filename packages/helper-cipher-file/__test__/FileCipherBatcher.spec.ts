@@ -1,5 +1,5 @@
 import ChalkLogger from '@guanghechen/chalk-logger'
-import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
+import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
 import { BigFileHelper } from '@guanghechen/helper-file'
 import { calcMac } from '@guanghechen/helper-mac'
 import { FilepathResolver } from '@guanghechen/helper-path'
@@ -85,12 +85,14 @@ describe('FileCipherBatcher', () => {
   const cryptContentFingerD = '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13'
 
   const fileHelper = new BigFileHelper({ partCodePrefix })
-  const cipherFactory = new AesGcmCipherFactory()
-  cipherFactory.initFromPassword(Buffer.from('guanghechen', encoding), {
-    salt: 'salt',
-    iterations: 100000,
-    digest: 'sha256',
-  })
+  const cipherFactory = new AesGcmCipherFactoryBuilder().buildFromPassword(
+    Buffer.from('guanghechen', encoding),
+    {
+      salt: 'salt',
+      iterations: 100000,
+      digest: 'sha256',
+    },
+  )
   const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
   const cipherBatcher = new FileCipherBatcher({
     fileHelper,
@@ -98,12 +100,8 @@ describe('FileCipherBatcher', () => {
     maxTargetFileSize,
     logger,
   })
-  const getIv = async (item: IFileCipherCatalogItemDraft): Promise<Buffer | undefined> => {
-    const draftIv: string | undefined = Object.values(itemTable).find(t =>
-      isSameFileCipherItemDraft(t, item),
-    )?.iv
-    return draftIv ? Buffer.from(draftIv, 'hex') : undefined
-  }
+  const getIv = async (item: IFileCipherCatalogItemDraft): Promise<Buffer | undefined> =>
+    Object.values(itemTable).find(t => isSameFileCipherItemDraft(t, item))?.iv
 
   beforeEach(async () => {
     await emptyDir(workspaceDir)

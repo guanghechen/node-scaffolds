@@ -38,9 +38,9 @@ export interface IFileCipherCatalogItem extends IFileCipherCatalogItemDraft {
   /**
    * Cipher iv (hex string).
    */
-  iv: string
+  iv: Buffer | undefined
   /**
    * Authenticate tag (hex string).
    */
-  authTag: string | undefined
+  authTag: Buffer | undefined
 }

@@ -81,7 +81,7 @@ describe('catalog', () => {
       fingerprint: '',
       size: 20,
       keepPlain: false,
-      iv: 'dddef89d89c3fe3ca704d5fd',
+      iv: Buffer.from('dddef89d89c3fe3ca704d5fd', 'hex'),
       authTag: undefined,
     }
 
@@ -104,7 +104,10 @@ describe('catalog', () => {
     ).toEqual(true)
     expect(isSameFileCipherItem(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
     expect(
-      isSameFileCipherItem(basicItem, { ...basicItem, iv: '00ca7b42b7a371351da9a287' }),
+      isSameFileCipherItem(basicItem, {
+        ...basicItem,
+        iv: Buffer.from('00ca7b42b7a371351da9a287', 'hex'),
+      }),
     ).toEqual(false)
   })
 

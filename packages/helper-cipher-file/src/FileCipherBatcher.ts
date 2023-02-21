@@ -63,18 +63,19 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       const absoluteCryptFilepath = cryptPathResolver.absolute(cryptFilepath)
       mkdirsIfNotExists(absoluteCryptFilepath, false, _logger)
 
-      const nextItem: IFileCipherCatalogItem = { ...item, iv: '', authTag: undefined }
+      const nextItem: IFileCipherCatalogItem = { ...item, iv: undefined, authTag: undefined }
       if (item.keepPlain) {
         await fs.copyFile(absolutePlainFilepath, absoluteCryptFilepath)
       } else {
-        const fileCipher: IFileCipher = fileCipherFactory.fileCipher({ iv: await getIv(item) })
+        const iv = await getIv(item)
+        const fileCipher: IFileCipher = fileCipherFactory.fileCipher({ iv })
         const { authTag } = await fileCipher.encryptFile(
           absolutePlainFilepath,
           absoluteCryptFilepath,
         )
 
-        nextItem.iv = fileCipher.cipher.iv
-        nextItem.authTag = authTag?.toString('hex')
+        nextItem.iv = iv
+        nextItem.authTag = authTag
       }
 
       // Split encrypted file.
@@ -197,9 +198,9 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       if (item.keepPlain) {
         await fileHelper.merge(absoluteCryptFilepaths, absolutePlainFilepath)
       } else {
-        const fileCipher = fileCipherFactory.fileCipher({ iv: Buffer.from(item.iv, 'hex') })
+        const fileCipher = fileCipherFactory.fileCipher({ iv: item.iv })
         await fileCipher.decryptFiles(absoluteCryptFilepaths, absolutePlainFilepath, {
-          authTag: item.authTag ? Buffer.from(item.authTag, 'hex') : undefined,
+          authTag: item.authTag,
         })
       }
     }

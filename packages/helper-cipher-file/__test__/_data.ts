@@ -54,27 +54,27 @@ export const itemDraftTable: Record<ISymbol, IFileCipherCatalogItemDraft> = {
 export const itemTable: Record<ISymbol, IFileCipherCatalogItem> = {
   A: {
     ...itemDraftTable.A,
-    iv: '',
+    iv: undefined,
     authTag: undefined,
   },
   A2: {
     ...itemDraftTable.A2,
-    iv: 'fb2b66c9a126b9c0b1cf24fe',
-    authTag: '847dd96fac8018017d1a1d8bc86a4e4d',
+    iv: Buffer.from('fb2b66c9a126b9c0b1cf24fe', 'hex'),
+    authTag: Buffer.from('847dd96fac8018017d1a1d8bc86a4e4d', 'hex'),
   },
   B: {
     ...itemDraftTable.B,
-    iv: '9f8a20cc7677722161d59714',
-    authTag: '5519968a852057854b7fea723e301fd6',
+    iv: Buffer.from('9f8a20cc7677722161d59714', 'hex'),
+    authTag: Buffer.from('5519968a852057854b7fea723e301fd6', 'hex'),
   },
   C: {
     ...itemDraftTable.C,
-    iv: '3933c49f3c2cbc8bd6dd3295',
-    authTag: 'dd468a718f2aba0797b8c941159b292e',
+    iv: Buffer.from('3933c49f3c2cbc8bd6dd3295', 'hex'),
+    authTag: Buffer.from('dd468a718f2aba0797b8c941159b292e', 'hex'),
   },
   D: {
     ...itemDraftTable.D,
-    iv: '',
+    iv: undefined,
     authTag: undefined,
   },
 }

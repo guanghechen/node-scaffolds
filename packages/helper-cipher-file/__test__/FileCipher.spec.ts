@@ -1,5 +1,5 @@
 import ChalkLogger from '@guanghechen/chalk-logger'
-import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
+import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
 import {
   BigFileHelper,
   calcFilePartItemsByCount,
@@ -22,8 +22,6 @@ import { FileCipherFactory } from '../src'
 describe('FileCipher', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.FileCipher')
   const logger = new ChalkLogger({ flights: { colorful: false, date: false } })
-  const cipherFactory = new AesGcmCipherFactory()
-  const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
   let fileCipher: IFileCipher
 
   const fileHelper = new BigFileHelper()
@@ -32,10 +30,12 @@ describe('FileCipher', () => {
   let partFilepaths: string[] = []
 
   beforeAll(async () => {
-    const secret = cipherFactory.createRandomSecret()
-    cipherFactory.initFromSecret(secret)
-    fileCipher = fileCipherFactory.fileCipher()
+    const cipherFactoryBuilder = new AesGcmCipherFactoryBuilder()
+    const secret = cipherFactoryBuilder.createRandomSecret()
+    const cipherFactory = cipherFactoryBuilder.buildFromSecret(secret)
+    const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
 
+    fileCipher = fileCipherFactory.fileCipher()
     partFilepaths = await fileHelper.split(
       sourceFilepath,
       calcFilePartItemsByCount(statSync(sourceFilepath).size, 5),

@@ -1,5 +1,5 @@
-import type { ICipher } from '@guanghechen/helper-cipher'
-import { AesGcmCipherFactory } from '@guanghechen/helper-cipher'
+import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
+import type { ICipher, ICipherFactory } from '@guanghechen/helper-cipher'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import { assertPromiseThrow, emptyDir, isFileSync, locateFixtures, rm } from 'jest.helper'
 import { existsSync } from 'node:fs'
@@ -9,11 +9,11 @@ import { CipherJsonConfigKeeper, PlainCipherJsonConfigKeeper } from '../src'
 
 describe('CipherJsonConfigKeeper', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.CipherJsonConfigKeeper')
-  const cipherFactory = new AesGcmCipherFactory()
+  const cipherFactoryBuilder = new AesGcmCipherFactoryBuilder()
+  let cipherFactory: ICipherFactory
 
   beforeAll(async () => {
-    const password: Buffer = Buffer.from('guanghechen')
-    cipherFactory.initFromPassword(password, {
+    cipherFactory = cipherFactoryBuilder.buildFromPassword(Buffer.from('guanghechen'), {
       salt: 'ghc',
       iterations: 100000,
       digest: 'sha256',
@@ -163,7 +163,7 @@ describe('CipherJsonConfigKeeper', () => {
       data: '45zFK4U+ozW07db9FWr3KJGWPnpl6hmZnFZ4GsIIPObqgtlZ882IJPJpq6+9UviqyH9dSw==',
     })
 
-    const cipher2: ICipher = cipherFactory.cipher({ iv: cipherFactory.createRandomIv() })
+    const cipher2: ICipher = cipherFactory.cipher({ iv: cipherFactoryBuilder.createRandomIv() })
     const keeper2 = new PlainCipherJsonConfigKeeper({ filepath: configFilepath, cipher: cipher2 })
     await assertPromiseThrow(() => keeper2.load(), 'Unexpected token')
   })
