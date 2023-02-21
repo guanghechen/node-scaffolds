@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-file",
-  "version": "4.2.2",
+  "version": "4.3.0",
   "description": "File helper",
   "author": {
     "name": "guanghechen",
@@ -44,8 +44,8 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-stream": "^4.2.2",
-    "@guanghechen/invariant": "^4.2.2"
+    "@guanghechen/helper-stream": "^4.3.0",
+    "@guanghechen/invariant": "^4.3.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

@@ -535,13 +535,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/chalk-logger@^4.2.2, @guanghechen/chalk-logger@workspace:packages/chalk-logger":
+"@guanghechen/chalk-logger@^4.3.0, @guanghechen/chalk-logger@workspace:packages/chalk-logger":
   version: 0.0.0-use.local
   resolution: "@guanghechen/chalk-logger@workspace:packages/chalk-logger"
   dependencies:
-    "@guanghechen/helper-is": ^4.2.2
-    "@guanghechen/invariant": ^4.2.2
-    "@guanghechen/utility-types": ^4.2.2
+    "@guanghechen/helper-is": ^4.3.0
+    "@guanghechen/invariant": ^4.3.0
+    "@guanghechen/utility-types": ^4.3.0
     chalk: ^5.2.0
     cross-env: ^7.0.3
     dayjs: ^1.11.7
@@ -558,7 +558,7 @@ __metadata:
   dependencies:
     "@babel/eslint-parser": ^7.19.1
     "@babel/plugin-syntax-import-assertions": ^7.20.0
-    "@guanghechen/eslint-config": ^4.2.2
+    "@guanghechen/eslint-config": ^4.3.0
     eslint-plugin-import: ^2.27.5
     eslint-plugin-jsx-a11y: ^6.7.1
     eslint-plugin-react: ^7.32.2
@@ -573,7 +573,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/eslint-config-ts@workspace:packages/eslint-config-ts"
   dependencies:
-    "@guanghechen/eslint-config": ^4.2.2
+    "@guanghechen/eslint-config": ^4.3.0
     "@typescript-eslint/eslint-plugin": ^5.52.0
     "@typescript-eslint/parser": ^5.52.0
   peerDependencies:
@@ -581,7 +581,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/eslint-config@^4.2.2, @guanghechen/eslint-config@workspace:packages/eslint-config":
+"@guanghechen/eslint-config@^4.3.0, @guanghechen/eslint-config@workspace:packages/eslint-config":
   version: 0.0.0-use.local
   resolution: "@guanghechen/eslint-config@workspace:packages/eslint-config"
   dependencies:
@@ -591,11 +591,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/event-bus@^4.2.2, @guanghechen/event-bus@workspace:packages/event-bus":
+"@guanghechen/event-bus@^4.3.0, @guanghechen/event-bus@workspace:packages/event-bus":
   version: 0.0.0-use.local
   resolution: "@guanghechen/event-bus@workspace:packages/event-bus"
   dependencies:
-    "@guanghechen/helper-func": ^4.2.2
+    "@guanghechen/helper-func": ^4.3.0
     cross-env: ^7.0.3
     jest: ^29.4.3
     rimraf: ^4.1.2
@@ -603,7 +603,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-buffer@^4.2.2, @guanghechen/helper-buffer@workspace:packages/helper-buffer":
+"@guanghechen/helper-buffer@^4.3.0, @guanghechen/helper-buffer@workspace:packages/helper-buffer":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-buffer@workspace:packages/helper-buffer"
   dependencies:
@@ -614,21 +614,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-cipher-file@^4.2.2, @guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file":
+"@guanghechen/helper-cipher-file@^4.3.0, @guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file"
   dependencies:
-    "@guanghechen/helper-buffer": ^4.2.2
-    "@guanghechen/helper-cipher": ^4.2.2
-    "@guanghechen/helper-config": ^4.2.2
-    "@guanghechen/helper-file": ^4.2.2
-    "@guanghechen/helper-fs": ^4.2.2
-    "@guanghechen/helper-func": ^4.2.2
-    "@guanghechen/helper-mac": ^4.2.2
-    "@guanghechen/helper-path": ^4.2.2
-    "@guanghechen/helper-stream": ^4.2.2
-    "@guanghechen/invariant": ^4.2.2
-    "@guanghechen/utility-types": ^4.2.2
+    "@guanghechen/helper-buffer": ^4.3.0
+    "@guanghechen/helper-cipher": ^4.3.0
+    "@guanghechen/helper-config": ^4.3.0
+    "@guanghechen/helper-file": ^4.3.0
+    "@guanghechen/helper-fs": ^4.3.0
+    "@guanghechen/helper-func": ^4.3.0
+    "@guanghechen/helper-mac": ^4.3.0
+    "@guanghechen/helper-path": ^4.3.0
+    "@guanghechen/helper-stream": ^4.3.0
+    "@guanghechen/invariant": ^4.3.0
+    "@guanghechen/utility-types": ^4.3.0
     cross-env: ^7.0.3
     jest: ^29.4.3
     rimraf: ^4.1.2
@@ -636,13 +636,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-cipher@^4.2.2, @guanghechen/helper-cipher@workspace:packages/helper-cipher":
+"@guanghechen/helper-cipher@^4.3.0, @guanghechen/helper-cipher@workspace:packages/helper-cipher":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-cipher@workspace:packages/helper-cipher"
   dependencies:
-    "@guanghechen/helper-buffer": ^4.2.2
-    "@guanghechen/helper-mac": ^4.2.2
-    "@guanghechen/invariant": ^4.2.2
+    "@guanghechen/helper-buffer": ^4.3.0
+    "@guanghechen/helper-mac": ^4.3.0
+    "@guanghechen/invariant": ^4.3.0
     cross-env: ^7.0.3
     jest: ^29.4.3
     rimraf: ^4.1.2
@@ -650,17 +650,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-commander@^4.2.2, @guanghechen/helper-commander@workspace:packages/helper-commander":
+"@guanghechen/helper-commander@^4.3.0, @guanghechen/helper-commander@workspace:packages/helper-commander":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-commander@workspace:packages/helper-commander"
   dependencies:
-    "@guanghechen/chalk-logger": ^4.2.2
-    "@guanghechen/helper-fs": ^4.2.2
-    "@guanghechen/helper-git": ^4.2.2
-    "@guanghechen/helper-is": ^4.2.2
-    "@guanghechen/helper-option": ^4.2.2
-    "@guanghechen/helper-path": ^4.2.2
-    "@guanghechen/helper-string": ^4.2.2
+    "@guanghechen/chalk-logger": ^4.3.0
+    "@guanghechen/helper-fs": ^4.3.0
+    "@guanghechen/helper-git": ^4.3.0
+    "@guanghechen/helper-is": ^4.3.0
+    "@guanghechen/helper-option": ^4.3.0
+    "@guanghechen/helper-path": ^4.3.0
+    "@guanghechen/helper-string": ^4.3.0
     "@types/js-yaml": ^4.0.5
     command-exists: ^1.2.9
     commander: ^10.0.0
@@ -674,13 +674,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-config@^4.2.2, @guanghechen/helper-config@workspace:packages/helper-config":
+"@guanghechen/helper-config@^4.3.0, @guanghechen/helper-config@workspace:packages/helper-config":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-config@workspace:packages/helper-config"
   dependencies:
-    "@guanghechen/helper-mac": ^4.2.2
-    "@guanghechen/invariant": ^4.2.2
-    "@guanghechen/utility-types": ^4.2.2
+    "@guanghechen/helper-mac": ^4.3.0
+    "@guanghechen/invariant": ^4.3.0
+    "@guanghechen/utility-types": ^4.3.0
     "@types/semver": ^7.3.13
     cross-env: ^7.0.3
     jest: ^29.4.3
@@ -690,12 +690,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-file@^4.2.2, @guanghechen/helper-file@workspace:packages/helper-file":
+"@guanghechen/helper-file@^4.3.0, @guanghechen/helper-file@workspace:packages/helper-file":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-file@workspace:packages/helper-file"
   dependencies:
-    "@guanghechen/helper-stream": ^4.2.2
-    "@guanghechen/invariant": ^4.2.2
+    "@guanghechen/helper-stream": ^4.3.0
+    "@guanghechen/invariant": ^4.3.0
     cross-env: ^7.0.3
     jest: ^29.4.3
     rimraf: ^4.1.2
@@ -703,12 +703,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-fs@^4.2.2, @guanghechen/helper-fs@workspace:packages/helper-fs":
+"@guanghechen/helper-fs@^4.3.0, @guanghechen/helper-fs@workspace:packages/helper-fs":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-fs@workspace:packages/helper-fs"
   dependencies:
-    "@guanghechen/invariant": ^4.2.2
-    "@guanghechen/utility-types": ^4.2.2
+    "@guanghechen/invariant": ^4.3.0
+    "@guanghechen/utility-types": ^4.3.0
     cross-env: ^7.0.3
     jest: ^29.4.3
     rimraf: ^4.1.2
@@ -716,7 +716,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-func@^4.2.2, @guanghechen/helper-func@workspace:packages/helper-func":
+"@guanghechen/helper-func@^4.3.0, @guanghechen/helper-func@workspace:packages/helper-func":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-func@workspace:packages/helper-func"
   dependencies:
@@ -727,19 +727,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-git-cipher@^4.2.2, @guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher":
+"@guanghechen/helper-git-cipher@^4.3.0, @guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher"
   dependencies:
-    "@guanghechen/chalk-logger": ^4.2.2
-    "@guanghechen/helper-cipher": ^4.2.2
-    "@guanghechen/helper-cipher-file": ^4.2.2
-    "@guanghechen/helper-config": ^4.2.2
-    "@guanghechen/helper-fs": ^4.2.2
-    "@guanghechen/helper-git": ^4.2.2
-    "@guanghechen/helper-jest": ^4.2.2
-    "@guanghechen/invariant": ^4.2.2
-    "@guanghechen/utility-types": ^4.2.2
+    "@guanghechen/chalk-logger": ^4.3.0
+    "@guanghechen/helper-cipher": ^4.3.0
+    "@guanghechen/helper-cipher-file": ^4.3.0
+    "@guanghechen/helper-config": ^4.3.0
+    "@guanghechen/helper-fs": ^4.3.0
+    "@guanghechen/helper-git": ^4.3.0
+    "@guanghechen/helper-jest": ^4.3.0
+    "@guanghechen/invariant": ^4.3.0
+    "@guanghechen/utility-types": ^4.3.0
     cross-env: ^7.0.3
     jest: ^29.4.3
     rimraf: ^4.1.2
@@ -747,14 +747,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-git@^4.2.2, @guanghechen/helper-git@workspace:packages/helper-git":
+"@guanghechen/helper-git@^4.3.0, @guanghechen/helper-git@workspace:packages/helper-git":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-git@workspace:packages/helper-git"
   dependencies:
-    "@guanghechen/chalk-logger": ^4.2.2
-    "@guanghechen/helper-jest": ^4.2.2
-    "@guanghechen/invariant": ^4.2.2
-    "@guanghechen/utility-types": ^4.2.2
+    "@guanghechen/chalk-logger": ^4.3.0
+    "@guanghechen/helper-jest": ^4.3.0
+    "@guanghechen/invariant": ^4.3.0
+    "@guanghechen/utility-types": ^4.3.0
     cross-env: ^7.0.3
     execa: ^7.0.0
     jest: ^29.4.3
@@ -763,7 +763,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-is@^4.2.2, @guanghechen/helper-is@workspace:packages/helper-is":
+"@guanghechen/helper-is@^4.3.0, @guanghechen/helper-is@workspace:packages/helper-is":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-is@workspace:packages/helper-is"
   dependencies:
@@ -774,12 +774,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-jest@^4.2.2, @guanghechen/helper-jest@workspace:packages/helper-jest":
+"@guanghechen/helper-jest@^4.3.0, @guanghechen/helper-jest@workspace:packages/helper-jest":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-jest@workspace:packages/helper-jest"
   dependencies:
-    "@guanghechen/helper-func": ^4.2.2
-    "@guanghechen/helper-is": ^4.2.2
+    "@guanghechen/helper-func": ^4.3.0
+    "@guanghechen/helper-is": ^4.3.0
     "@jest/globals": ^29.4.3
     cross-env: ^7.0.3
     jest: ^29.4.3
@@ -788,7 +788,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-mac@^4.2.2, @guanghechen/helper-mac@workspace:packages/helper-mac":
+"@guanghechen/helper-mac@^4.3.0, @guanghechen/helper-mac@workspace:packages/helper-mac":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-mac@workspace:packages/helper-mac"
   dependencies:
@@ -799,11 +799,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-npm@^4.2.2, @guanghechen/helper-npm@workspace:packages/helper-npm":
+"@guanghechen/helper-npm@^4.3.0, @guanghechen/helper-npm@workspace:packages/helper-npm":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-npm@workspace:packages/helper-npm"
   dependencies:
-    "@guanghechen/helper-path": ^4.2.2
+    "@guanghechen/helper-path": ^4.3.0
     cross-env: ^7.0.3
     import-meta-resolve: ^2.2.1
     jest: ^29.4.3
@@ -812,11 +812,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-option@^4.2.2, @guanghechen/helper-option@workspace:packages/helper-option":
+"@guanghechen/helper-option@^4.3.0, @guanghechen/helper-option@workspace:packages/helper-option":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-option@workspace:packages/helper-option"
   dependencies:
-    "@guanghechen/helper-is": ^4.2.2
+    "@guanghechen/helper-is": ^4.3.0
     cross-env: ^7.0.3
     jest: ^29.4.3
     rimraf: ^4.1.2
@@ -824,7 +824,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-path@^4.2.2, @guanghechen/helper-path@workspace:packages/helper-path":
+"@guanghechen/helper-path@^4.3.0, @guanghechen/helper-path@workspace:packages/helper-path":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-path@workspace:packages/helper-path"
   dependencies:
@@ -835,15 +835,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-plop@^4.2.2, @guanghechen/helper-plop@workspace:packages/helper-plop":
+"@guanghechen/helper-plop@^4.3.0, @guanghechen/helper-plop@workspace:packages/helper-plop":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-plop@workspace:packages/helper-plop"
   dependencies:
-    "@guanghechen/helper-is": ^4.2.2
-    "@guanghechen/helper-npm": ^4.2.2
-    "@guanghechen/helper-option": ^4.2.2
-    "@guanghechen/helper-string": ^4.2.2
-    "@guanghechen/invariant": ^4.2.2
+    "@guanghechen/helper-is": ^4.3.0
+    "@guanghechen/helper-npm": ^4.3.0
+    "@guanghechen/helper-option": ^4.3.0
+    "@guanghechen/helper-string": ^4.3.0
+    "@guanghechen/invariant": ^4.3.0
     chalk: ^5.2.0
     cross-env: ^7.0.3
     jest: ^29.4.3
@@ -857,11 +857,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-stream@^4.2.2, @guanghechen/helper-stream@workspace:packages/helper-stream":
+"@guanghechen/helper-stream@^4.3.0, @guanghechen/helper-stream@workspace:packages/helper-stream":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-stream@workspace:packages/helper-stream"
   dependencies:
-    "@guanghechen/helper-buffer": ^4.2.2
+    "@guanghechen/helper-buffer": ^4.3.0
     cross-env: ^7.0.3
     jest: ^29.4.3
     rimraf: ^4.1.2
@@ -869,7 +869,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-string@^4.2.2, @guanghechen/helper-string@workspace:packages/helper-string":
+"@guanghechen/helper-string@^4.3.0, @guanghechen/helper-string@workspace:packages/helper-string":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-string@workspace:packages/helper-string"
   dependencies:
@@ -884,7 +884,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/invariant@^4.2.2, @guanghechen/invariant@workspace:packages/invariant":
+"@guanghechen/invariant@^4.3.0, @guanghechen/invariant@workspace:packages/invariant":
   version: 0.0.0-use.local
   resolution: "@guanghechen/invariant@workspace:packages/invariant"
   dependencies:
@@ -906,13 +906,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/mini-copy@^4.2.2, @guanghechen/mini-copy@workspace:packages/mini-copy":
+"@guanghechen/mini-copy@^4.3.0, @guanghechen/mini-copy@workspace:packages/mini-copy":
   version: 0.0.0-use.local
   resolution: "@guanghechen/mini-copy@workspace:packages/mini-copy"
   dependencies:
-    "@guanghechen/helper-fs": ^4.2.2
-    "@guanghechen/invariant": ^4.2.2
-    "@guanghechen/utility-types": ^4.2.2
+    "@guanghechen/helper-fs": ^4.3.0
+    "@guanghechen/invariant": ^4.3.0
+    "@guanghechen/utility-types": ^4.3.0
     clipboardy: ^3.0.0
     cross-env: ^7.0.3
     execa: ^7.0.0
@@ -960,11 +960,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/postcss-modules-dts@^4.2.2, @guanghechen/postcss-modules-dts@workspace:packages/postcss-modules-dts":
+"@guanghechen/postcss-modules-dts@^4.3.0, @guanghechen/postcss-modules-dts@workspace:packages/postcss-modules-dts":
   version: 0.0.0-use.local
   resolution: "@guanghechen/postcss-modules-dts@workspace:packages/postcss-modules-dts"
   dependencies:
-    "@guanghechen/helper-option": ^4.2.2
+    "@guanghechen/helper-option": ^4.3.0
     "@types/reserved-words": 0.1.0
     cross-env: ^7.0.3
     reserved-words: 0.1.2
@@ -973,12 +973,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/rollup-config-cli@^4.2.2, @guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
+"@guanghechen/rollup-config-cli@^4.3.0, @guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli"
   dependencies:
-    "@guanghechen/rollup-config": ^4.2.2
-    "@guanghechen/rollup-plugin-copy": ^4.2.2
+    "@guanghechen/rollup-config": ^4.3.0
+    "@guanghechen/rollup-plugin-copy": ^4.3.0
     cross-env: ^7.0.3
     rimraf: ^4.1.2
     rollup: ^3.17.0
@@ -991,9 +991,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config-tsx@workspace:packages/rollup-config-tsx"
   dependencies:
-    "@guanghechen/helper-is": ^4.2.2
-    "@guanghechen/postcss-modules-dts": ^4.2.2
-    "@guanghechen/rollup-config": ^4.2.2
+    "@guanghechen/helper-is": ^4.3.0
+    "@guanghechen/postcss-modules-dts": ^4.3.0
+    "@guanghechen/rollup-config": ^4.3.0
     "@rollup/plugin-multi-entry": ^6.0.0
     "@types/postcss-url": ^10.0.0
     autoprefixer: ^10.4.13
@@ -1014,7 +1014,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/rollup-config@^4.2.2, @guanghechen/rollup-config@workspace:packages/rollup-config":
+"@guanghechen/rollup-config@^4.3.0, @guanghechen/rollup-config@workspace:packages/rollup-config":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config@workspace:packages/rollup-config"
   dependencies:
@@ -1034,12 +1034,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/rollup-plugin-copy@^4.2.2, @guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy":
+"@guanghechen/rollup-plugin-copy@^4.3.0, @guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy"
   dependencies:
-    "@guanghechen/helper-fs": ^4.2.2
-    "@guanghechen/helper-is": ^4.2.2
+    "@guanghechen/helper-fs": ^4.3.0
+    "@guanghechen/helper-is": ^4.3.0
     "@types/dir-glob": ^2.0.1
     "@types/micromatch": ^4.0.2
     chalk: ^5.2.0
@@ -1060,24 +1060,24 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/tool-git-cipher@workspace:packages/tool-git-cipher"
   dependencies:
-    "@guanghechen/chalk-logger": ^4.2.2
-    "@guanghechen/event-bus": ^4.2.2
-    "@guanghechen/helper-buffer": ^4.2.2
-    "@guanghechen/helper-cipher": ^4.2.2
-    "@guanghechen/helper-cipher-file": ^4.2.2
-    "@guanghechen/helper-commander": ^4.2.2
-    "@guanghechen/helper-config": ^4.2.2
-    "@guanghechen/helper-file": ^4.2.2
-    "@guanghechen/helper-fs": ^4.2.2
-    "@guanghechen/helper-git": ^4.2.2
-    "@guanghechen/helper-git-cipher": ^4.2.2
-    "@guanghechen/helper-is": ^4.2.2
-    "@guanghechen/helper-mac": ^4.2.2
-    "@guanghechen/helper-option": ^4.2.2
-    "@guanghechen/helper-path": ^4.2.2
-    "@guanghechen/helper-plop": ^4.2.2
-    "@guanghechen/invariant": ^4.2.2
-    "@guanghechen/rollup-config-cli": ^4.2.2
+    "@guanghechen/chalk-logger": ^4.3.0
+    "@guanghechen/event-bus": ^4.3.0
+    "@guanghechen/helper-buffer": ^4.3.0
+    "@guanghechen/helper-cipher": ^4.3.0
+    "@guanghechen/helper-cipher-file": ^4.3.0
+    "@guanghechen/helper-commander": ^4.3.0
+    "@guanghechen/helper-config": ^4.3.0
+    "@guanghechen/helper-file": ^4.3.0
+    "@guanghechen/helper-fs": ^4.3.0
+    "@guanghechen/helper-git": ^4.3.0
+    "@guanghechen/helper-git-cipher": ^4.3.0
+    "@guanghechen/helper-is": ^4.3.0
+    "@guanghechen/helper-mac": ^4.3.0
+    "@guanghechen/helper-option": ^4.3.0
+    "@guanghechen/helper-path": ^4.3.0
+    "@guanghechen/helper-plop": ^4.3.0
+    "@guanghechen/invariant": ^4.3.0
+    "@guanghechen/rollup-config-cli": ^4.3.0
     "@types/micromatch": ^4.0.2
     cross-env: ^7.0.3
     execa: ^7.0.0
@@ -1095,15 +1095,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/tool-mini-copy@workspace:packages/tool-mini-copy"
   dependencies:
-    "@guanghechen/chalk-logger": ^4.2.2
-    "@guanghechen/helper-commander": ^4.2.2
-    "@guanghechen/helper-fs": ^4.2.2
-    "@guanghechen/helper-is": ^4.2.2
-    "@guanghechen/helper-option": ^4.2.2
-    "@guanghechen/helper-path": ^4.2.2
-    "@guanghechen/invariant": ^4.2.2
-    "@guanghechen/mini-copy": ^4.2.2
-    "@guanghechen/rollup-config-cli": ^4.2.2
+    "@guanghechen/chalk-logger": ^4.3.0
+    "@guanghechen/helper-commander": ^4.3.0
+    "@guanghechen/helper-fs": ^4.3.0
+    "@guanghechen/helper-is": ^4.3.0
+    "@guanghechen/helper-option": ^4.3.0
+    "@guanghechen/helper-path": ^4.3.0
+    "@guanghechen/invariant": ^4.3.0
+    "@guanghechen/mini-copy": ^4.3.0
+    "@guanghechen/rollup-config-cli": ^4.3.0
     cross-env: ^7.0.3
     inquirer: ^9.1.4
     rimraf: ^4.1.2
@@ -1113,7 +1113,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/utility-types@^4.2.2, @guanghechen/utility-types@workspace:packages/utility-types":
+"@guanghechen/utility-types@^4.3.0, @guanghechen/utility-types@workspace:packages/utility-types":
   version: 0.0.0-use.local
   resolution: "@guanghechen/utility-types@workspace:packages/utility-types"
   dependencies:
