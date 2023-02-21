@@ -70,7 +70,16 @@ export interface ISecretConfigData {
    * Initial nonce for generating ivs of each file in a commit.
    */
   readonly secretNonce: string | undefined
+  /**
+   * Initial nonce for generating iv for catalog config.
+   */
+  readonly secretCatalogNonce: string | undefined
 }
+
+export type IPresetSecretConfigData = Omit<
+  ISecretConfigData,
+  'secret' | 'secretAuthTag' | 'secretNonce' | 'secretCatalogNonce'
+>
 
 export interface ISecretConfigKeeperProps extends IJsonConfigKeeperProps {
   cryptRootDir: string
@@ -110,6 +119,7 @@ export class SecretConfigKeeper
       secretIvSize: data.secretIvSize,
       secretKeySize: data.secretKeySize,
       secretNonce: data.secretNonce,
+      secretCatalogNonce: data.secretCatalogNonce,
     }
   }
 
@@ -134,6 +144,7 @@ export class SecretConfigKeeper
       secretIvSize: data.secretIvSize,
       secretKeySize: data.secretKeySize,
       secretNonce: data.secretNonce,
+      secretCatalogNonce: data.secretCatalogNonce,
     }
   }
 }

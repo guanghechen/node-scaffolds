@@ -12,7 +12,11 @@ import { existsSync } from 'node:fs'
 import { resolveTemplateFilepath } from '../../env/config'
 import { COMMAND_VERSION } from '../../env/constant'
 import { logger } from '../../env/logger'
-import type { ISecretConfigData, SecretConfigKeeper } from '../../util/SecretConfig'
+import type {
+  IPresetSecretConfigData,
+  ISecretConfigData,
+  SecretConfigKeeper,
+} from '../../util/SecretConfig'
 import { SecretMaster } from '../../util/SecretMaster'
 import type { IGitCipherInitContext } from './context'
 
@@ -36,7 +40,7 @@ export class GitCipherInitProcessor {
     invariant(hasGitInstalled(), `Cannot find 'git', please install it before continuing.`)
 
     const { context } = this
-    const presetSecretData: Omit<ISecretConfigData, 'secret' | 'secretAuthTag' | 'secretNonce'> = {
+    const presetSecretData: IPresetSecretConfigData = {
       catalogFilepath: context.catalogFilepath,
       contentHashAlgorithm: context.contentHashAlgorithm,
       cryptFilepathSalt: context.cryptFilepathSalt,
@@ -68,6 +72,7 @@ export class GitCipherInitProcessor {
         secret: '',
         secretAuthTag: '',
         secretNonce: '',
+        secretCatalogNonce: '',
       })
 
       // Init git repo.
@@ -261,7 +266,7 @@ export class GitCipherInitProcessor {
 
   // Create secret file
   protected async _createSecret(
-    presetConfigData: Omit<ISecretConfigData, 'secret' | 'secretAuthTag' | 'secretNonce'>,
+    presetConfigData: IPresetSecretConfigData,
   ): Promise<SecretConfigKeeper> {
     const { context, secretMaster } = this
     const configKeeper = await secretMaster.createSecret(
