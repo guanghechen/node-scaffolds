@@ -37,11 +37,6 @@ export interface ICipher {
   readonly alive: boolean
 
   /**
-   * Initial vector in hex.
-   */
-  readonly iv: string
-
-  /**
    * Construct an encipher.
    */
   encipher(): IEncipher
@@ -74,5 +69,5 @@ export interface ICipher {
   /**
    * Destroy secret and sensitive data.
    */
-  cleanup(): void
+  destroy(): void
 }

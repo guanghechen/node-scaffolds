@@ -11,7 +11,6 @@ export interface IAesGcmCipherProps {
 }
 
 export class AesGcmCipher extends BaseCipher implements ICipher {
-  public override readonly iv: string
   readonly #algorithm: CipherGCMTypes = 'aes-256-gcm'
   readonly #key: Readonly<Buffer>
   readonly #iv: Readonly<Buffer>
@@ -20,7 +19,6 @@ export class AesGcmCipher extends BaseCipher implements ICipher {
     super()
     this.#key = Buffer.from(options.key) // Deep clone.
     this.#iv = Buffer.from(options.iv) // Deep clone.
-    this.iv = this.#iv.toString('hex')
   }
 
   public override encipher(): IEncipher {
@@ -49,10 +47,10 @@ export class AesGcmCipher extends BaseCipher implements ICipher {
     }
   }
 
-  public override cleanup(): void {
+  public override destroy(): void {
     if (this.alive) {
       destroyBuffer(this.#key)
-      super.cleanup()
+      super.destroy()
     }
   }
 }

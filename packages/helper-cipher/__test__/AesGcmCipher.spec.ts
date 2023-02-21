@@ -1,41 +1,49 @@
 import { locateFixtures } from 'jest.helper'
 import fs from 'node:fs'
 import type { ICipher, ICipherFactory } from '../src'
-import { AesGcmCipherFactory } from '../src'
+import { AesGcmCipherFactoryBuilder } from '../src'
 
 describe('AesGcmCipher', function () {
-  describe('init from secret', function () {
-    const cipherFactory = new AesGcmCipherFactory({ ivSize: 16 })
-    const secret = cipherFactory.createRandomSecret()
-    cipherFactory.initFromSecret(secret)
-    testCipher(cipherFactory)
+  describe('buildFromSecret', function () {
+    const cipherFactoryBuilder = new AesGcmCipherFactoryBuilder({ ivSize: 16 })
+    const secret = cipherFactoryBuilder.createRandomSecret()
+    const cipherFactory = cipherFactoryBuilder.buildFromSecret(secret)
+    testCipher(cipherFactory, () => cipherFactoryBuilder.createRandomIv())
   })
 
-  describe('init from password', function () {
-    const cipherFactory = new AesGcmCipherFactory()
+  describe('buildFromPassword', function () {
+    const cipherFactoryBuilder = new AesGcmCipherFactoryBuilder()
     const password: Buffer = Buffer.from('guanghechen')
-    cipherFactory.initFromPassword(password, {
+    const cipherFactory = cipherFactoryBuilder.buildFromPassword(password, {
       salt: 'salt',
       iterations: 100000,
       digest: 'sha256',
     })
-    testCipher(cipherFactory)
+    testCipher(cipherFactory, () => cipherFactoryBuilder.createRandomIv())
   })
 
-  test('uninitialized.', function () {
-    const cipherFactory = new AesGcmCipherFactory({ keySize: 16, ivSize: 12 })
-    expect(() => cipherFactory.cipher()).toThrow(
-      'cannot call `.cipher()` cause the iv and key have been destroyed',
+  test('destroy', function () {
+    const cipherFactoryBuilder = new AesGcmCipherFactoryBuilder({ keySize: 16, ivSize: 12 })
+    const cipherFactory = cipherFactoryBuilder.buildFromSecret(
+      cipherFactoryBuilder.createRandomSecret(),
     )
-    expect(() => cipherFactory.cipher({ iv: cipherFactory.createRandomIv() })).toThrow(
-      'cannot call `.cipher()` cause the iv and key have been destroyed',
+
+    expect(cipherFactory.alive).toEqual(true)
+    expect(() => cipherFactory.cipher()).not.toThrow()
+
+    cipherFactory.destroy()
+    expect(cipherFactory.alive).toEqual(false)
+
+    expect(() => cipherFactory.cipher()).toThrow('[AesGcmCipherFactory] Factory has been destroyed')
+    expect(() => cipherFactory.cipher({ iv: cipherFactoryBuilder.createRandomIv() })).toThrow(
+      '[AesGcmCipherFactory] Factory has been destroyed',
     )
   })
 
-  test('reinitialized.', function () {
-    const cipherFactory = new AesGcmCipherFactory({ ivSize: 16 })
-    const secret = cipherFactory.createRandomSecret()
-    cipherFactory.initFromSecret(secret)
+  test('complex', function () {
+    const cipherFactoryBuilder = new AesGcmCipherFactoryBuilder({ ivSize: 16 })
+    const secret = cipherFactoryBuilder.createRandomSecret()
+    const cipherFactory = cipherFactoryBuilder.buildFromSecret(secret)
 
     const originalPlainContent = 'Hello, world!'
     const originalPlainBytes = Buffer.from(originalPlainContent, 'utf8')
@@ -46,9 +54,9 @@ describe('AesGcmCipher', function () {
       originalPlainBytes,
     )
 
-    const secret2 = cipherFactory.createRandomSecret()
-    cipherFactory.initFromSecret(secret2)
-    const cipher2 = cipherFactory.cipher()
+    const secret2 = cipherFactoryBuilder.createRandomSecret()
+    const cipherFactory2 = cipherFactoryBuilder.buildFromSecret(secret2)
+    const cipher2 = cipherFactory2.cipher()
     const cryptResult2 = cipher2.encrypt(originalPlainBytes)
     expect(cipher2.decrypt(cryptResult2.cryptBytes, { authTag: cryptResult2.authTag })).toEqual(
       originalPlainBytes,
@@ -66,8 +74,8 @@ describe('AesGcmCipher', function () {
       originalPlainBytes,
     )
 
-    cipher1.cleanup()
-    cipher2.cleanup()
+    cipher1.destroy()
+    cipher2.destroy()
 
     expect(() => cipher1.encrypt(originalPlainBytes)).toThrow(
       'cannot call `.encipher()` cause the iv and key have been destroyed',
@@ -84,13 +92,13 @@ describe('AesGcmCipher', function () {
   })
 })
 
-function testCipher(cipherFactory: ICipherFactory): void {
+function testCipher(cipherFactory: ICipherFactory, getRandomIv: () => Buffer): void {
   test('lazy', () => {
     const cipher1 = cipherFactory.cipher()
     const cipher2 = cipherFactory.cipher()
     expect(cipher2).toBe(cipher1)
 
-    const randomIv = cipherFactory.createRandomIv()
+    const randomIv = getRandomIv()
     const cipher3 = cipherFactory.cipher({ iv: randomIv })
     expect(cipher3).not.toBe(cipher1)
     expect(cipher3).not.toBe(cipher2)
@@ -131,7 +139,7 @@ function testCipher(cipherFactory: ICipherFactory): void {
     })
 
     test('random iv', () => {
-      const iv: Buffer = cipherFactory.createRandomIv()
+      const iv: Buffer = getRandomIv()
       const cipher: ICipher = cipherFactory.cipher({ iv })
       const { cryptBytes, authTag } = cipher.encrypt(originalPlainBytes)
       expect(cryptBytes).not.toEqual(originalPlainBytes)
@@ -180,7 +188,7 @@ function testCipher(cipherFactory: ICipherFactory): void {
     })
 
     test('random iv', () => {
-      const iv: Buffer = cipherFactory.createRandomIv()
+      const iv: Buffer = getRandomIv()
       const cipher: ICipher = cipherFactory.cipher({ iv })
       const { cryptBytes, authTag } = cipher.encryptJson(originalPlainData)
       expect(cryptBytes).not.toEqual(originalPlainBytes)
@@ -205,7 +213,7 @@ function testCipher(cipherFactory: ICipherFactory): void {
       const cipher = cipherFactory.cipher()
       expect(() => cipher.encipher()).not.toThrow()
       expect(() => cipher.decipher({ authTag: undefined })).not.toThrow()
-      cipher.cleanup()
+      cipher.destroy()
       expect(() => cipher.encipher()).toThrow(
         'cannot call `.encipher()` cause the iv and key have been destroyed.',
       )
@@ -215,10 +223,10 @@ function testCipher(cipherFactory: ICipherFactory): void {
     }
 
     {
-      const cipher = cipherFactory.cipher({ iv: cipherFactory.createRandomIv() })
+      const cipher = cipherFactory.cipher({ iv: getRandomIv() })
       expect(() => cipher.encipher()).not.toThrow()
       expect(() => cipher.decipher({ authTag: undefined })).not.toThrow()
-      cipher.cleanup()
+      cipher.destroy()
       expect(() => cipher.encipher()).toThrow(
         'cannot call `.encipher()` cause the iv and key have been destroyed.',
       )

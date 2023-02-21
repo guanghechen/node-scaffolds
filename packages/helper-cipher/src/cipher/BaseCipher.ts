@@ -17,8 +17,6 @@ export abstract class BaseCipher implements ICipher {
     this._alive = true
   }
 
-  public abstract readonly iv: string
-
   public get alive(): boolean {
     return this._alive
   }
@@ -81,7 +79,7 @@ export abstract class BaseCipher implements ICipher {
     return JSON.parse(jsonContent)
   }
 
-  public cleanup(): void {
+  public destroy(): void {
     this._alive = false
   }
 }
