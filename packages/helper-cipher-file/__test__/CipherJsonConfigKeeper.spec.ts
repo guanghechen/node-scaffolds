@@ -1,6 +1,7 @@
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
 import type { ICipher, ICipherFactory } from '@guanghechen/helper-cipher'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
+import { FileStorage } from '@guanghechen/helper-storage'
 import { assertPromiseThrow, emptyDir, isFileSync, locateFixtures, rm } from 'jest.helper'
 import { existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
@@ -90,7 +91,8 @@ describe('CipherJsonConfigKeeper', () => {
 
     const cipher: ICipher = cipherFactory.cipher()
     const configFilepath: string = path.join(workspaceDir, 'customize/config.json')
-    const keeper = new MyCipherJsonConfigKeeper({ filepath: configFilepath, cipher })
+    const storage = new FileStorage({ strict: true, filepath: configFilepath, encoding: 'utf8' })
+    const keeper = new MyCipherJsonConfigKeeper({ storage, cipher })
 
     expect(existsSync(configFilepath)).toEqual(false)
     await keeper.update(alice)
@@ -119,7 +121,7 @@ describe('CipherJsonConfigKeeper', () => {
 
     const iv2: Buffer = Buffer.from('ghc'.repeat(20), 'utf8').slice(0, 12)
     const cipher2: ICipher = cipherFactory.cipher({ iv: iv2 })
-    const keeper2 = new MyCipherJsonConfigKeeper({ filepath: configFilepath, cipher: cipher2 })
+    const keeper2 = new MyCipherJsonConfigKeeper({ storage, cipher: cipher2 })
     await assertPromiseThrow(() => keeper2.load(), 'Unexpected token')
 
     await keeper2.update(alice)
@@ -136,7 +138,8 @@ describe('CipherJsonConfigKeeper', () => {
   test('plain', async () => {
     const cipher: ICipher = cipherFactory.cipher()
     const configFilepath: string = path.join(workspaceDir, 'a/config.json')
-    const keeper = new PlainCipherJsonConfigKeeper<IUserData>({ filepath: configFilepath, cipher })
+    const storage = new FileStorage({ strict: true, filepath: configFilepath, encoding: 'utf8' })
+    const keeper = new PlainCipherJsonConfigKeeper<IUserData>({ storage, cipher })
 
     expect(existsSync(configFilepath)).toEqual(false)
     await keeper.update(aliceData)
@@ -164,7 +167,7 @@ describe('CipherJsonConfigKeeper', () => {
     })
 
     const cipher2: ICipher = cipherFactory.cipher({ iv: cipherFactoryBuilder.createRandomIv() })
-    const keeper2 = new PlainCipherJsonConfigKeeper({ filepath: configFilepath, cipher: cipher2 })
+    const keeper2 = new PlainCipherJsonConfigKeeper({ storage, cipher: cipher2 })
     await assertPromiseThrow(() => keeper2.load(), 'Unexpected token')
   })
 })

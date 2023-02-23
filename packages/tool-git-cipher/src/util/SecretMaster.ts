@@ -1,6 +1,7 @@
 import { destroyBuffer } from '@guanghechen/helper-buffer'
 import type { ICipher, ICipherFactory } from '@guanghechen/helper-cipher'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
+import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
 import { createHash } from 'node:crypto'
 import { logger } from '../env/logger'
@@ -156,7 +157,10 @@ export class SecretMaster {
             secretNonce: cryptSecretNonce.toString('hex'),
             secretCatalogNonce: cryptSecretCatalogNnoce.toString('hex'),
           }
-          configKeeper = new SecretConfigKeeper({ filepath, cryptRootDir })
+          configKeeper = new SecretConfigKeeper({
+            cryptRootDir,
+            storage: new FileStorage({ strict: true, filepath, encoding: 'utf8' }),
+          })
 
           logger.debug('Updating secret config.')
           await configKeeper.update(config)

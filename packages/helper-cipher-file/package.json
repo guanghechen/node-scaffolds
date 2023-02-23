@@ -51,6 +51,7 @@
     "@guanghechen/helper-func": "^4.3.0",
     "@guanghechen/helper-mac": "^4.3.0",
     "@guanghechen/helper-path": "^4.3.0",
+    "@guanghechen/helper-storage": "^4.3.0",
     "@guanghechen/helper-stream": "^4.3.0",
     "@guanghechen/invariant": "^4.3.0",
     "@guanghechen/utility-types": "^4.3.0"

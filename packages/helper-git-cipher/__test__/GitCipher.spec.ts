@@ -20,6 +20,7 @@ import type { ILoggerMock } from '@guanghechen/helper-jest'
 import { createLoggerMock } from '@guanghechen/helper-jest'
 import { calcMac } from '@guanghechen/helper-mac'
 import { FilepathResolver } from '@guanghechen/helper-path'
+import { FileStorage } from '@guanghechen/helper-storage'
 import { collectAllFilesSync, desensitize, emptyDir, locateFixtures, rm } from 'jest.helper'
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -88,10 +89,12 @@ describe('GitCipher', () => {
     logger,
   })
 
-  const configKeeper = new GitCipherConfigKeeper({
-    cipher: cipherFactory.cipher(),
+  const storage = new FileStorage({
+    strict: true,
     filepath: path.join(cryptRootDir, 'catalog.ghc.txt'),
+    encoding: 'utf8',
   })
+  const configKeeper = new GitCipherConfigKeeper({ storage, cipher: cipherFactory.cipher() })
 
   const catalog = new FileCipherCatalog({
     plainPathResolver,
@@ -129,7 +132,7 @@ describe('GitCipher', () => {
       },
     })
     expect(configKeeper.data!.catalog.diffItems).toEqual(
-      diffItems.map((diffItem: any) => {
+      diffItems.map((diffItem: any): any => {
         const serializeItem = (item: any): any => ({
           plainFilepath: item.plainFilepath,
           fingerprint: item.fingerprint,

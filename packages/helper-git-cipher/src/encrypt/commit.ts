@@ -89,10 +89,7 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     // Load the diffItems between the <first parent>...<current>.
     await configKeeper.load()
     const configData = configKeeper.data
-    invariant(
-      !!configData,
-      `[encryptGitCommit] cannot load config. filepath(${configKeeper.filepath}), crypt(${cryptParentId})`,
-    )
+    invariant(!!configData, `[encryptGitCommit] cannot load config. crypt(${cryptParentId})`)
 
     const items: IFileCipherCatalogItem[] = configData.catalog.items.map(item => flatItem(item))
     catalog.reset(items)

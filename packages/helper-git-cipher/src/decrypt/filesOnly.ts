@@ -76,7 +76,7 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
     const configData = configKeeper.data
     invariant(
       !!configData,
-      `[decryptFilesOnly] cannot load config. filepath(${configKeeper.filepath}), encryptedCommitId(${cryptCommitId})`,
+      `[decryptFilesOnly] cannot load config. encryptedCommitId(${cryptCommitId})`,
     )
 
     // Decrypt files.

@@ -68,7 +68,7 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
   const configData = configKeeper.data
   invariant(
     !!configData,
-    `[decryptGitCommit] cannot load config. filepath(${configKeeper.filepath}), cryptCommitId(${cryptCommitNode.id})`,
+    `[decryptGitCommit] cannot load config. cryptCommitId(${cryptCommitNode.id})`,
   )
 
   // [plain] Move the HEAD pointer to the first parent commit for creating commit or merging.

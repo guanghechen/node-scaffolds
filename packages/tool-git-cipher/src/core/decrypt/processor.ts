@@ -10,6 +10,7 @@ import { BigFileHelper } from '@guanghechen/helper-file'
 import { GitCipher, GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
 import { coverString } from '@guanghechen/helper-option'
 import { FilepathResolver } from '@guanghechen/helper-path'
+import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
 import micromatch from 'micromatch'
 import { logger } from '../../env/logger'
@@ -40,8 +41,12 @@ export class GitCipherDecryptProcessor {
 
     const { context, secretMaster } = this
     const secretKeeper = new SecretConfigKeeper({
-      filepath: context.secretFilepath,
       cryptRootDir: context.cryptRootDir,
+      storage: new FileStorage({
+        strict: true,
+        filepath: context.secretFilepath,
+        encoding: 'utf8',
+      }),
     })
     await secretMaster.load(secretKeeper)
 
@@ -66,7 +71,11 @@ export class GitCipherDecryptProcessor {
     const fileHelper = new BigFileHelper({ partCodePrefix: partCodePrefix })
     const configKeeper = new GitCipherConfigKeeper({
       cipher: cipherFactory.cipher(),
-      filepath: catalogFilepath,
+      storage: new FileStorage({
+        strict: true,
+        filepath: catalogFilepath,
+        encoding: 'utf8',
+      }),
     })
     const cipherBatcher = new FileCipherBatcher({
       fileCipherFactory,
@@ -112,7 +121,13 @@ export class GitCipherDecryptProcessor {
     } else {
       logger.debug('Trying decrypt entire repo...')
 
-      const cacheKeeper = new CatalogCacheKeeper({ filepath: context.catalogCacheFilepath })
+      const cacheKeeper = new CatalogCacheKeeper({
+        storage: new FileStorage({
+          strict: true,
+          filepath: context.catalogCacheFilepath,
+          encoding: 'utf8',
+        }),
+      })
       await cacheKeeper.load()
       const data: ICatalogCache = cacheKeeper.data ?? { crypt2plainIdMap: new Map() }
       const { crypt2plainIdMap } = await gitCipher.decrypt({
