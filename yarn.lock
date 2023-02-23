@@ -857,6 +857,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@guanghechen/helper-storage@workspace:packages/helper-storage":
+  version: 0.0.0-use.local
+  resolution: "@guanghechen/helper-storage@workspace:packages/helper-storage"
+  dependencies:
+    cross-env: ^7.0.3
+    jest: ^29.4.3
+    rimraf: ^4.1.2
+    rollup: ^3.17.0
+  languageName: unknown
+  linkType: soft
+
 "@guanghechen/helper-stream@^4.3.0, @guanghechen/helper-stream@workspace:packages/helper-stream":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-stream@workspace:packages/helper-stream"

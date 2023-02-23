@@ -72,6 +72,7 @@ Package                               | Description
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
 [@guanghechen/helper-path][]          | Utilities to handle url path and file path.
 [@guanghechen/helper-plop][]          | A collection of utility functions for plop templates
+[@guanghechen/helper-storage][]       | Utilities for read / write content.
 [@guanghechen/helper-stream][]        | Utilities for handing node streams.
 [@guanghechen/helper-string][]        | Utilities for processing strings or stringify other type data.
 [@guanghechen/invariant]              | An invariant function.
@@ -113,6 +114,7 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/helper-option]: ./packages/helper-option
 [@guanghechen/helper-path]: ./packages/helper-path
 [@guanghechen/helper-plop]: ./packages/helper-plop
+[@guanghechen/helper-storage]: ./packages/helper-storage
 [@guanghechen/helper-stream]: ./packages/helper-stream
 [@guanghechen/helper-string]: ./packages/helper-string
 [@guanghechen/invariant]: ./packages/invariant
