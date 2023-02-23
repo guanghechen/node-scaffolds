@@ -1,3 +1,5 @@
+import type { IStorage } from '@guanghechen/helper-storage'
+
 export interface IConfig {
   /**
    * Config version.
@@ -18,11 +20,6 @@ export interface IConfigKeeper<D> {
   readonly __compatible_version__: string
 
   /**
-   * The path where the configuration file is located.
-   */
-  readonly filepath: string
-
-  /**
    * Current holding data.
    */
   readonly data: Readonly<D> | undefined
@@ -40,17 +37,17 @@ export interface IConfigKeeper<D> {
   update(data: D): Promise<void>
 
   /**
-   * Load data from config file.
+   * Load data from the given storage or default storage.
    */
-  load(): Promise<void>
+  load(storage?: IStorage): Promise<void>
 
   /**
-   * Save current holding data into the config file.
+   * Save current holding data into the given storage or default storage.
    */
-  save(): Promise<void>
+  save(storage?: IStorage): Promise<void>
 
   /**
-   * Remove the config file.
+   * Remove the config data.
    */
   remove(): Promise<void>
 }

@@ -17,15 +17,12 @@ export abstract class JsonConfigKeeper<Instance, Data>
     return JSON.parse(content)
   }
 
-  protected override encode(config: IConfig): PromiseOr<Buffer> {
-    const jsonContent: string = JSON.stringify(config, null, 2)
-    return Buffer.from(jsonContent, 'utf8')
+  protected override encode(config: IConfig): PromiseOr<string> {
+    return JSON.stringify(config, null, 2)
   }
 
-  protected override decode(buffer: Buffer): PromiseOr<IConfig> {
-    const jsonContent: string = buffer.toString('utf8')
-    const jsonData = JSON.parse(jsonContent) as IConfig
-    return jsonData
+  protected override decode(stringifiedConfig: string): PromiseOr<IConfig> {
+    return JSON.parse(stringifiedConfig) as IConfig
   }
 }
 

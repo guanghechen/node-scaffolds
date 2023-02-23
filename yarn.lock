@@ -679,6 +679,7 @@ __metadata:
   resolution: "@guanghechen/helper-config@workspace:packages/helper-config"
   dependencies:
     "@guanghechen/helper-mac": ^4.3.0
+    "@guanghechen/helper-storage": ^4.3.0
     "@guanghechen/invariant": ^4.3.0
     "@guanghechen/utility-types": ^4.3.0
     "@types/semver": ^7.3.13
@@ -857,7 +858,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-storage@workspace:packages/helper-storage":
+"@guanghechen/helper-storage@^4.3.0, @guanghechen/helper-storage@workspace:packages/helper-storage":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-storage@workspace:packages/helper-storage"
   dependencies:

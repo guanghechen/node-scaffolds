@@ -1,4 +1,5 @@
 import { calcMac } from '@guanghechen/helper-mac'
+import { FileStorage } from '@guanghechen/helper-storage'
 import type { PromiseOr } from '@guanghechen/utility-types'
 import {
   assertPromiseThrow,
@@ -86,7 +87,8 @@ describe('JsonConfigKeeper', () => {
     }
 
     const configFilepath: string = path.join(workspaceDir, 'MyJsonConfigKeeper/config.json')
-    const keeper = new MyJsonConfigKeeper({ filepath: configFilepath })
+    const storage = new FileStorage({ strict: true, filepath: configFilepath, encoding: 'utf8' })
+    const keeper = new MyJsonConfigKeeper({ storage })
 
     testJsonConfigKeeper<IUser, IUserData>({
       className: 'MyJsonConfigKeeper',
@@ -116,7 +118,9 @@ describe('JsonConfigKeeper', () => {
     }
 
     const configFilepath: string = path.join(workspaceDir, 'PlainJsonConfigKeeper/config.json')
-    const keeper: IConfigKeeper<IUser> = new PlainJsonConfigKeeper({ filepath: configFilepath })
+    const storage = new FileStorage({ strict: true, filepath: configFilepath, encoding: 'utf8' })
+    const keeper: IConfigKeeper<IUser> = new PlainJsonConfigKeeper({ storage })
+
     afterEach(async () => {
       await rm(configFilepath)
       await keeper.remove()
@@ -125,7 +129,6 @@ describe('JsonConfigKeeper', () => {
     test('basic', () => {
       expect(keeper.__version__).toEqual('1.0.0')
       expect(keeper.__compatible_version__).toEqual('^1.0.0')
-      expect(keeper.filepath).toEqual(configFilepath)
       expect(keeper.data).toEqual(undefined)
       expect(keeper.isCompatible('1.0.0')).toEqual(true)
       expect(keeper.isCompatible('1.0.3')).toEqual(true)
@@ -171,9 +174,9 @@ function testJsonConfigKeeper<Instance, Data>(params: {
   }
 
   test('load', async () => {
-    await assertPromiseThrow(() => keeper.load(), `[${className}.load] Cannot find file`)
+    await assertPromiseThrow(() => keeper.load(), `Cannot find file`)
     mkdirsIfNotExists(configFilepath, true)
-    await assertPromiseThrow(() => keeper.load(), `[${className}.load] Not a file`)
+    await assertPromiseThrow(() => keeper.load(), `Not a file`)
     expect(keeper.data).toEqual(undefined)
 
     await rm(configFilepath)
@@ -213,7 +216,7 @@ function testJsonConfigKeeper<Instance, Data>(params: {
 
     await rm(path.dirname(configFilepath))
     await writeFile(path.dirname(configFilepath), 'Hello, world!', 'utf8')
-    await assertPromiseThrow(() => keeper.save(), `[${className}.save] Parent path is not a dir`)
+    await assertPromiseThrow(() => keeper.save(), `Parent path is not a dir`)
 
     await rm(path.dirname(configFilepath))
     await keeper.save()
@@ -240,6 +243,6 @@ function testJsonConfigKeeper<Instance, Data>(params: {
     expect(keeper.data).toEqual(undefined)
 
     mkdirsIfNotExists(configFilepath, true)
-    await assertPromiseThrow(() => keeper.remove(), `[${className}.remove] Not a file`)
+    await assertPromiseThrow(() => keeper.remove(), `Not a file`)
   })
 }
