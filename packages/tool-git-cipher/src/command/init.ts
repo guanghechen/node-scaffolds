@@ -11,7 +11,7 @@ import type { ISubCommandInitOptions } from '../core/init/option'
 import { GitCipherInitProcessor } from '../core/init/processor'
 import { handleError } from '../util/events'
 
-// Process sub-command: 'init'
+// Process sub-command: init
 export const processSubCommandInit: ISubCommandProcessor<ISubCommandInitOptions> = async (
   options: ISubCommandInitOptions,
 ): Promise<void> => {
@@ -28,6 +28,6 @@ export const processSubCommandInit: ISubCommandProcessor<ISubCommandInitOptions>
 export const mountSubCommandInit: ISubCommandMounter =
   createSubCommandMounter<ISubCommandInitOptions>(createSubCommandInit, processSubCommandInit)
 
-// Execute sub-command: 'init'
+// Execute sub-command: init
 export const execSubCommandInit: ISubCommandExecutor =
   createSubCommandExecutor<ISubCommandInitOptions>(createSubCommandInit, processSubCommandInit)

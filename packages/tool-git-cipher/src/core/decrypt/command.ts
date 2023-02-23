@@ -4,7 +4,7 @@ import { COMMAND_NAME } from '../../env/constant'
 import type { ISubCommandDecryptOptions } from './option'
 import { resolveSubCommandDecryptOptions } from './option'
 
-// Create Sub-command: decrypt (e)
+// Create Sub-command: decrypt (d)
 export const createSubCommandDecrypt = (
   handle?: ISubCommandProcessor<ISubCommandDecryptOptions>,
   subCommandName = 'decrypt',

@@ -1,6 +1,7 @@
 import {
   createProgram,
   logger,
+  mountSubCommandCat,
   mountSubCommandDecrypt,
   mountSubCommandEncrypt,
   mountSubCommandInit,
@@ -8,15 +9,16 @@ import {
 
 const program = createProgram()
 
-// mount sub-command: init
-mountSubCommandInit(program)
-
-// mount sub-command: encrypt
-mountSubCommandEncrypt(program)
+// mount sub-command: cat
+mountSubCommandCat(program)
 
 // mount sub-command: decrypt
 mountSubCommandDecrypt(program)
 
-program.parseAsync(process.argv).catch(error => {
-  logger.error(error)
-})
+// mount sub-command: encrypt
+mountSubCommandEncrypt(program)
+
+// mount sub-command: init
+mountSubCommandInit(program)
+
+program.parseAsync(process.argv).catch(error => logger.error(error))

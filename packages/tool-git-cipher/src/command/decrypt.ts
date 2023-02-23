@@ -11,7 +11,7 @@ import type { ISubCommandDecryptOptions } from '../core/decrypt/option'
 import { GitCipherDecryptProcessor } from '../core/decrypt/processor'
 import { handleError } from '../util/events'
 
-// Process sub-command: 'decrypt'
+// Process sub-command: decrypt
 export const processSubCommandDecrypt: ISubCommandProcessor<ISubCommandDecryptOptions> = async (
   options: ISubCommandDecryptOptions,
 ): Promise<void> => {
@@ -33,7 +33,7 @@ export const mountSubCommandDecrypt: ISubCommandMounter =
     processSubCommandDecrypt,
   )
 
-// Execute sub-command: 'decrypt'
+// Execute sub-command: decrypt
 export const execSubCommandDecrypt: ISubCommandExecutor =
   createSubCommandExecutor<ISubCommandDecryptOptions>(
     createSubCommandDecrypt,
