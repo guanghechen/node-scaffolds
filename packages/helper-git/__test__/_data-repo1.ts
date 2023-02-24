@@ -318,7 +318,7 @@ export async function buildRepo1({
     await writeFile(filepathB, contentB, encoding)
     await commitAll(commit)
 
-    const files: string[] = await listAllFiles({ ...ctx, branchOrCommitId: 'HEAD' })
+    const files: string[] = await listAllFiles({ ...ctx, commitHash: 'HEAD' })
     expect(files.sort()).toEqual([fpA, fpB])
     expect(readFileSync(filepathA, encoding)).toEqual(contentA)
     expect(readFileSync(filepathB, encoding)).toEqual(contentB)
@@ -332,7 +332,7 @@ export async function buildRepo1({
     await writeFile(filepathC, contentC, encoding)
     await commitAll(commit)
 
-    const files: string[] = await listAllFiles({ ...ctx, branchOrCommitId: 'HEAD' })
+    const files: string[] = await listAllFiles({ ...ctx, commitHash: 'HEAD' })
     expect(files.sort()).toEqual([fpA, fpB, fpC])
     expect(readFileSync(filepathA, encoding)).toEqual(contentA2)
     expect(readFileSync(filepathB, encoding)).toEqual(contentB)
@@ -346,7 +346,7 @@ export async function buildRepo1({
     await rm(filepathA)
     await commitAll(commit)
 
-    const files: string[] = await listAllFiles({ ...ctx, branchOrCommitId: 'HEAD' })
+    const files: string[] = await listAllFiles({ ...ctx, commitHash: 'HEAD' })
     expect(files.sort()).toEqual([fpB, fpC])
     expect(readFileSync(filepathB, encoding)).toEqual(contentB)
     expect(readFileSync(filepathC, encoding)).toEqual(contentC)
@@ -360,7 +360,7 @@ export async function buildRepo1({
     await writeFile(filepathC, contentC2, encoding)
     await commitAll(commit)
 
-    const files: string[] = await listAllFiles({ ...ctx, branchOrCommitId: 'HEAD' })
+    const files: string[] = await listAllFiles({ ...ctx, commitHash: 'HEAD' })
     expect(files.sort()).toEqual([fpA, fpB, fpC])
     expect(readFileSync(filepathA, encoding)).toEqual(contentA)
     expect(readFileSync(filepathB, encoding)).toEqual(contentB)
@@ -370,13 +370,13 @@ export async function buildRepo1({
   // E: -b1,c1->c2 (c2)
   const stepE = async (): Promise<void> => {
     const commit = commitTable.E
-    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.C })
+    await checkBranch({ ...ctx, commitHash: commitIdTable.C })
 
     await rm(filepathB)
     await writeFile(filepathC, contentC2, encoding)
     await commitAll(commit)
 
-    const files: string[] = await listAllFiles({ ...ctx, branchOrCommitId: 'HEAD' })
+    const files: string[] = await listAllFiles({ ...ctx, commitHash: 'HEAD' })
     expect(files.sort()).toEqual([fpC])
     expect(readFileSync(filepathC, encoding)).toEqual(contentC2)
   }
@@ -390,7 +390,7 @@ export async function buildRepo1({
       parentIds: [commitIdTable.E, commitIdTable.D],
     })
 
-    const files: string[] = await listAllFiles({ ...ctx, branchOrCommitId: 'HEAD' })
+    const files: string[] = await listAllFiles({ ...ctx, commitHash: 'HEAD' })
     expect(files.sort()).toEqual([fpA, fpC])
     expect(readFileSync(filepathA, encoding)).toEqual(contentA)
     expect(readFileSync(filepathC, encoding)).toEqual(contentC2)
@@ -399,13 +399,13 @@ export async function buildRepo1({
   // G: c1->c3,b1->b2 (a2,b2,c3)
   const stepG = async (): Promise<void> => {
     const commit = commitTable.G
-    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.B })
+    await checkBranch({ ...ctx, commitHash: commitIdTable.B })
 
     await writeFile(filepathB, contentB2, encoding)
     await writeFile(filepathC, contentC3, encoding)
     await commitAll(commit)
 
-    const files: string[] = await listAllFiles({ ...ctx, branchOrCommitId: 'HEAD' })
+    const files: string[] = await listAllFiles({ ...ctx, commitHash: 'HEAD' })
     expect(files.sort()).toEqual([fpA, fpB, fpC])
     expect(readFileSync(filepathA, encoding)).toEqual(contentA2)
     expect(readFileSync(filepathB, encoding)).toEqual(contentB2)
@@ -428,7 +428,7 @@ export async function buildRepo1({
     await writeFile(filepathC, contentC3, encoding)
     await commitAll(commit)
 
-    const files: string[] = await listAllFiles({ ...ctx, branchOrCommitId: 'HEAD' })
+    const files: string[] = await listAllFiles({ ...ctx, commitHash: 'HEAD' })
     expect(files.sort()).toEqual([fpB, fpC])
     expect(readFileSync(filepathB, encoding)).toEqual(contentB2)
     expect(readFileSync(filepathC, encoding)).toEqual(contentC3)
@@ -437,13 +437,13 @@ export async function buildRepo1({
   // I: b2->b1,+d (a2,b1,c3,d)
   const stepI = async (): Promise<void> => {
     const commit = commitTable.I
-    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.G })
+    await checkBranch({ ...ctx, commitHash: commitIdTable.G })
 
     await writeFile(filepathB, contentB, encoding)
     await writeFile(filepathD, contentD, encoding)
     await commitAll(commit)
 
-    const files: string[] = await listAllFiles({ ...ctx, branchOrCommitId: 'HEAD' })
+    const files: string[] = await listAllFiles({ ...ctx, commitHash: 'HEAD' })
     expect(files.sort()).toEqual([fpA, fpB, fpC, fpD])
     expect(readFileSync(filepathA, encoding)).toEqual(contentA2)
     expect(readFileSync(filepathB, encoding)).toEqual(contentB)
@@ -460,7 +460,7 @@ export async function buildRepo1({
       parentIds: [commitIdTable.I, commitIdTable.H, commitIdTable.F],
     })
 
-    const files: string[] = await listAllFiles({ ...ctx, branchOrCommitId: 'HEAD' })
+    const files: string[] = await listAllFiles({ ...ctx, commitHash: 'HEAD' })
     expect(files.sort()).toEqual([fpA, fpB, fpC, fpD])
     expect(readFileSync(filepathA, encoding)).toEqual(contentA)
     expect(readFileSync(filepathB, encoding)).toEqual(contentB)
@@ -476,7 +476,7 @@ export async function buildRepo1({
     await writeFile(filepathE, contentD)
     await commitAll(commit)
 
-    const files: string[] = await listAllFiles({ ...ctx, branchOrCommitId: 'HEAD' })
+    const files: string[] = await listAllFiles({ ...ctx, commitHash: 'HEAD' })
     expect(files.sort()).toEqual([fpA, fpB, fpC, fpE])
     expect(readFileSync(filepathA, encoding)).toEqual(contentA)
     expect(readFileSync(filepathB, encoding)).toEqual(contentB)
@@ -496,10 +496,10 @@ export async function buildRepo1({
   await stepJ()
   await stepK()
 
-  await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.K })
+  await checkBranch({ ...ctx, commitHash: commitIdTable.K })
   await deleteBranch({ ...ctx, branchName: defaultBranch, force: true })
-  await createBranch({ ...ctx, newBranchName: defaultBranch, branchOrCommitId: 'HEAD' })
-  await checkBranch({ ...ctx, branchOrCommitId: defaultBranch })
+  await createBranch({ ...ctx, newBranchName: defaultBranch, commitHash: 'HEAD' })
+  await checkBranch({ ...ctx, commitHash: defaultBranch })
 
   return {
     commitIdTable,

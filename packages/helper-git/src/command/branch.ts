@@ -3,7 +3,7 @@ import type { IGitCommandBaseParams } from '../types'
 import { safeExeca } from '../util'
 
 export interface ICheckBranchParams extends IGitCommandBaseParams {
-  branchOrCommitId: string
+  commitHash: string
 }
 
 /**
@@ -13,7 +13,7 @@ export interface ICheckBranchParams extends IGitCommandBaseParams {
 export const checkBranch = async (params: ICheckBranchParams): Promise<void> => {
   const cwd: string = params.cwd
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
-  const args: string[] = ['checkout', params.branchOrCommitId]
+  const args: string[] = ['checkout', params.commitHash]
 
   params?.logger?.debug(`[checkBranch] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
@@ -22,13 +22,13 @@ export const checkBranch = async (params: ICheckBranchParams): Promise<void> => 
 
 export interface ICreateBranchParams extends IGitCommandBaseParams {
   newBranchName: string
-  branchOrCommitId: string
+  commitHash: string
 }
 
 export const createBranch = async (params: ICreateBranchParams): Promise<void> => {
   const cwd: string = params.cwd
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
-  const args: string[] = ['branch', params.newBranchName, params.branchOrCommitId]
+  const args: string[] = ['branch', params.newBranchName, params.commitHash]
 
   params?.logger?.debug(`[createBranch] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }

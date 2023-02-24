@@ -218,7 +218,7 @@ describe('GitCipher', () => {
           currentBranch: 'main',
           branches: ['main'],
         })
-        expect(await getCommitInTopology({ ...cryptCtx, branchOrCommitId: 'main' })).toEqual([
+        expect(await getCommitInTopology({ ...cryptCtx, commitHash: 'main' })).toEqual([
           { id: repo1CryptCommitIdTable.A, parents: [] },
           { id: repo1CryptCommitIdTable.B, parents: [repo1CryptCommitIdTable.A] },
           { id: repo1CryptCommitIdTable.C, parents: [repo1CryptCommitIdTable.B] },
@@ -300,7 +300,7 @@ describe('GitCipher', () => {
           currentBranch: 'main',
           branches: ['main'],
         })
-        expect(await getCommitInTopology({ ...bakPlainCtx, branchOrCommitId: 'main' })).toEqual([
+        expect(await getCommitInTopology({ ...bakPlainCtx, commitHash: 'main' })).toEqual([
           { id: commitIdTable.A, parents: [] },
           { id: commitIdTable.B, parents: [commitIdTable.A] },
           { id: commitIdTable.C, parents: [commitIdTable.B] },
@@ -355,10 +355,10 @@ describe('GitCipher', () => {
 
         // Commit E.
         {
-          await checkBranch({ ...plainCtx, branchOrCommitId: commitIdTable.E })
+          await checkBranch({ ...plainCtx, commitHash: commitIdTable.E })
           await deleteBranch({ ...plainCtx, branchName: 'main', force: true })
-          await createBranch({ ...plainCtx, newBranchName: 'E', branchOrCommitId: commitIdTable.E })
-          await checkBranch({ ...plainCtx, branchOrCommitId: 'E' })
+          await createBranch({ ...plainCtx, newBranchName: 'E', commitHash: commitIdTable.E })
+          await checkBranch({ ...plainCtx, commitHash: 'E' })
 
           // Test encrypt.
           crypt2plainIdMap = await gitCipher
@@ -376,7 +376,7 @@ describe('GitCipher', () => {
             currentBranch: 'E',
             branches: ['E'],
           })
-          expect(await getCommitInTopology({ ...cryptCtx, branchOrCommitId: 'E' })).toEqual([
+          expect(await getCommitInTopology({ ...cryptCtx, commitHash: 'E' })).toEqual([
             { id: repo1CryptCommitIdTable.A, parents: [] },
             { id: repo1CryptCommitIdTable.B, parents: [repo1CryptCommitIdTable.A] },
             { id: repo1CryptCommitIdTable.C, parents: [repo1CryptCommitIdTable.B] },
@@ -415,7 +415,7 @@ describe('GitCipher', () => {
             currentBranch: 'E',
             branches: ['E'],
           })
-          expect(await getCommitInTopology({ ...bakPlainCtx, branchOrCommitId: 'E' })).toEqual([
+          expect(await getCommitInTopology({ ...bakPlainCtx, commitHash: 'E' })).toEqual([
             { id: commitIdTable.A, parents: [] },
             { id: commitIdTable.B, parents: [commitIdTable.A] },
             { id: commitIdTable.C, parents: [commitIdTable.B] },
@@ -433,7 +433,7 @@ describe('GitCipher', () => {
 
         // Commit I
         {
-          await createBranch({ ...plainCtx, newBranchName: 'I', branchOrCommitId: commitIdTable.I })
+          await createBranch({ ...plainCtx, newBranchName: 'I', commitHash: commitIdTable.I })
 
           // Test encrypt.
           crypt2plainIdMap = await gitCipher
@@ -453,7 +453,7 @@ describe('GitCipher', () => {
             currentBranch: 'E',
             branches: ['E', 'I'],
           })
-          expect(await getCommitInTopology({ ...cryptCtx, branchOrCommitId: 'I' })).toEqual([
+          expect(await getCommitInTopology({ ...cryptCtx, commitHash: 'I' })).toEqual([
             { id: repo1CryptCommitIdTable.A, parents: [] },
             { id: repo1CryptCommitIdTable.B, parents: [repo1CryptCommitIdTable.A] },
             { id: repo1CryptCommitIdTable.G, parents: [repo1CryptCommitIdTable.B] },
@@ -469,14 +469,14 @@ describe('GitCipher', () => {
           )
 
           // Check catalog.
-          await checkBranch({ ...cryptCtx, branchOrCommitId: 'I' })
+          await checkBranch({ ...cryptCtx, commitHash: 'I' })
           await testCatalog(commitTable.I, diffItemsTable.stepI, [
             itemTable.A2,
             itemTable.B,
             itemTable.C3,
             itemTable.D,
           ])
-          await checkBranch({ ...cryptCtx, branchOrCommitId: 'E' })
+          await checkBranch({ ...cryptCtx, commitHash: 'E' })
 
           // Test Decrypt
           crypt2plainIdMap = await gitCipher
@@ -501,7 +501,7 @@ describe('GitCipher', () => {
             currentBranch: 'E',
             branches: ['E', 'I'],
           })
-          expect(await getCommitInTopology({ ...bakPlainCtx, branchOrCommitId: 'I' })).toEqual([
+          expect(await getCommitInTopology({ ...bakPlainCtx, commitHash: 'I' })).toEqual([
             { id: commitIdTable.A, parents: [] },
             { id: commitIdTable.B, parents: [commitIdTable.A] },
             { id: commitIdTable.G, parents: [commitIdTable.B] },
@@ -519,8 +519,8 @@ describe('GitCipher', () => {
 
         // Commit K
         {
-          await createBranch({ ...plainCtx, newBranchName: 'K', branchOrCommitId: commitIdTable.K })
-          await checkBranch({ ...plainCtx, branchOrCommitId: 'K' })
+          await createBranch({ ...plainCtx, newBranchName: 'K', commitHash: commitIdTable.K })
+          await checkBranch({ ...plainCtx, commitHash: 'K' })
 
           // Test encrypt.
           crypt2plainIdMap = await gitCipher
@@ -545,7 +545,7 @@ describe('GitCipher', () => {
             currentBranch: 'K',
             branches: ['E', 'I', 'K'],
           })
-          expect(await getCommitInTopology({ ...cryptCtx, branchOrCommitId: 'K' })).toEqual([
+          expect(await getCommitInTopology({ ...cryptCtx, commitHash: 'K' })).toEqual([
             { id: repo1CryptCommitIdTable.A, parents: [] },
             { id: repo1CryptCommitIdTable.B, parents: [repo1CryptCommitIdTable.A] },
             { id: repo1CryptCommitIdTable.C, parents: [repo1CryptCommitIdTable.B] },
@@ -623,7 +623,7 @@ describe('GitCipher', () => {
             currentBranch: 'K',
             branches: ['E', 'I', 'K'],
           })
-          expect(await getCommitInTopology({ ...bakPlainCtx, branchOrCommitId: 'K' })).toEqual([
+          expect(await getCommitInTopology({ ...bakPlainCtx, commitHash: 'K' })).toEqual([
             { id: commitIdTable.A, parents: [] },
             { id: commitIdTable.B, parents: [commitIdTable.A] },
             { id: commitIdTable.C, parents: [commitIdTable.B] },

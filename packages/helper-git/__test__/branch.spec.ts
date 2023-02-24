@@ -36,11 +36,11 @@ describe('branch', () => {
 
     const assertCreateBranch = async (commit: ICommitItem, branchName: string): Promise<void> => {
       await assertPromiseThrow(
-        () => checkBranch({ ...ctx, branchOrCommitId: branchName }),
+        () => checkBranch({ ...ctx, commitHash: branchName }),
         `'${branchName}' did not match any file(s) known to git`,
       )
-      await createBranch({ ...ctx, newBranchName: branchName, branchOrCommitId: commit.commitId })
-      await checkBranch({ ...ctx, branchOrCommitId: branchName })
+      await createBranch({ ...ctx, newBranchName: branchName, commitHash: commit.commitId })
+      await checkBranch({ ...ctx, commitHash: branchName })
       await assertAtCommit(ctx, commit)
     }
 
@@ -109,20 +109,20 @@ describe('branch', () => {
       branches: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'main'],
     })
 
-    await checkBranch({ ...ctx, branchOrCommitId: commitTable.A.commitId })
+    await checkBranch({ ...ctx, commitHash: commitTable.A.commitId })
     expect(await getAllLocalBranches(ctx)).toEqual({
       currentBranch: null,
       branches: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'main'],
     })
 
     // Delete branches.
-    await checkBranch({ ...ctx, branchOrCommitId: 'E' })
+    await checkBranch({ ...ctx, commitHash: 'E' })
     await assertPromiseThrow(
       () => deleteBranch({ ...ctx, branchName: 'D', force: false }),
       `The branch 'D' is not fully merged`,
     )
 
-    await checkBranch({ ...ctx, branchOrCommitId: 'main' })
+    await checkBranch({ ...ctx, commitHash: 'main' })
     expect(await getAllLocalBranches(ctx)).toEqual({
       currentBranch: 'main',
       branches: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'main'],

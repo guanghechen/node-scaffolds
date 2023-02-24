@@ -56,7 +56,7 @@ describe('view', () => {
     })
 
     const eListAllFiles = (commit: ICommitItem): Promise<string[]> =>
-      listAllFiles({ ...ctx, branchOrCommitId: commit.commitId })
+      listAllFiles({ ...ctx, commitHash: commit.commitId })
 
     expect(await eListAllFiles(commitTable.A)).toEqual([fpA, fpB])
     expect(await eListAllFiles(commitTable.B)).toEqual([fpA, fpB, fpC])
@@ -85,7 +85,7 @@ describe('view', () => {
             newerCommitHash: commit.commitId,
             olderCommitHash: commit.parentIds[0],
           }).then(md => md.sort())
-        : listAllFiles({ ...ctx, branchOrCommitId: commit.commitId }).then(md => md.sort())
+        : listAllFiles({ ...ctx, commitHash: commit.commitId }).then(md => md.sort())
 
     expect(await eListDiffFiles(commitTable.A)).toEqual([fpA, fpB])
     expect(await eListDiffFiles(commitTable.B)).toEqual([fpA, fpC])
@@ -108,7 +108,7 @@ describe('view', () => {
     })
 
     const assertShowCommitInfo = async (commit: ICommitItem): Promise<void> => {
-      const info = await showCommitInfo({ ...ctx, branchOrCommitId: commit.commitId })
+      const info = await showCommitInfo({ ...ctx, commitHash: commit.commitId })
       expect(info).toEqual({
         commitId: commit.commitId,
         authorDate: commit.authorDate,
@@ -145,40 +145,40 @@ describe('view', () => {
 
     expect(await eGetHeadId()).toEqual('main')
 
-    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.A })
+    await checkBranch({ ...ctx, commitHash: commitIdTable.A })
     expect(await eGetHeadId()).toEqual(commitIdTable.A)
 
-    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.B })
+    await checkBranch({ ...ctx, commitHash: commitIdTable.B })
     expect(await eGetHeadId()).toEqual(commitIdTable.B)
 
-    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.C })
+    await checkBranch({ ...ctx, commitHash: commitIdTable.C })
     expect(await eGetHeadId()).toEqual(commitIdTable.C)
 
-    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.D })
+    await checkBranch({ ...ctx, commitHash: commitIdTable.D })
     expect(await eGetHeadId()).toEqual(commitIdTable.D)
 
-    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.E })
+    await checkBranch({ ...ctx, commitHash: commitIdTable.E })
     expect(await eGetHeadId()).toEqual(commitIdTable.E)
 
-    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.F })
+    await checkBranch({ ...ctx, commitHash: commitIdTable.F })
     expect(await eGetHeadId()).toEqual(commitIdTable.F)
 
-    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.G })
+    await checkBranch({ ...ctx, commitHash: commitIdTable.G })
     expect(await eGetHeadId()).toEqual(commitIdTable.G)
 
-    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.H })
+    await checkBranch({ ...ctx, commitHash: commitIdTable.H })
     expect(await eGetHeadId()).toEqual(commitIdTable.H)
 
-    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.I })
+    await checkBranch({ ...ctx, commitHash: commitIdTable.I })
     expect(await eGetHeadId()).toEqual(commitIdTable.I)
 
-    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.J })
+    await checkBranch({ ...ctx, commitHash: commitIdTable.J })
     expect(await eGetHeadId()).toEqual(commitIdTable.J)
 
-    await checkBranch({ ...ctx, branchOrCommitId: commitIdTable.K })
+    await checkBranch({ ...ctx, commitHash: commitIdTable.K })
     expect(await eGetHeadId()).toEqual(commitIdTable.K)
 
-    await checkBranch({ ...ctx, branchOrCommitId: 'main' })
+    await checkBranch({ ...ctx, commitHash: 'main' })
     expect(await eGetHeadId()).toEqual('main')
   })
 
@@ -190,115 +190,115 @@ describe('view', () => {
     })
 
     // A
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.A, filepath: fpA }),
-    ).toEqual(contentA)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.A, filepath: fpB }),
-    ).toEqual(contentB)
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.A, filepath: fpA })).toEqual(
+      contentA,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.A, filepath: fpB })).toEqual(
+      contentB,
+    )
 
     // B
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.B, filepath: fpA }),
-    ).toEqual(contentA2)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.B, filepath: fpB }),
-    ).toEqual(contentB)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.B, filepath: fpC }),
-    ).toEqual(contentC)
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.B, filepath: fpA })).toEqual(
+      contentA2,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.B, filepath: fpB })).toEqual(
+      contentB,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.B, filepath: fpC })).toEqual(
+      contentC,
+    )
 
     // C
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.C, filepath: fpB }),
-    ).toEqual(contentB)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.C, filepath: fpC }),
-    ).toEqual(contentC)
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.C, filepath: fpB })).toEqual(
+      contentB,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.C, filepath: fpC })).toEqual(
+      contentC,
+    )
 
     // D
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.D, filepath: fpA }),
-    ).toEqual(contentA)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.D, filepath: fpB }),
-    ).toEqual(contentB)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.D, filepath: fpC }),
-    ).toEqual(contentC2)
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.D, filepath: fpA })).toEqual(
+      contentA,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.D, filepath: fpB })).toEqual(
+      contentB,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.D, filepath: fpC })).toEqual(
+      contentC2,
+    )
 
     // E
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.E, filepath: fpC }),
-    ).toEqual(contentC2)
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.E, filepath: fpC })).toEqual(
+      contentC2,
+    )
 
     // F
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.F, filepath: fpA }),
-    ).toEqual(contentA)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.F, filepath: fpC }),
-    ).toEqual(contentC2)
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.F, filepath: fpA })).toEqual(
+      contentA,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.F, filepath: fpC })).toEqual(
+      contentC2,
+    )
 
     // G
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.G, filepath: fpA }),
-    ).toEqual(contentA2)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.G, filepath: fpB }),
-    ).toEqual(contentB2)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.G, filepath: fpC }),
-    ).toEqual(contentC3)
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.G, filepath: fpA })).toEqual(
+      contentA2,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.G, filepath: fpB })).toEqual(
+      contentB2,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.G, filepath: fpC })).toEqual(
+      contentC3,
+    )
 
     // H
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.H, filepath: fpB }),
-    ).toEqual(contentB2)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.H, filepath: fpC }),
-    ).toEqual(contentC3)
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.H, filepath: fpB })).toEqual(
+      contentB2,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.H, filepath: fpC })).toEqual(
+      contentC3,
+    )
 
     // I
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.I, filepath: fpA }),
-    ).toEqual(contentA2)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.I, filepath: fpB }),
-    ).toEqual(contentB)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.I, filepath: fpC }),
-    ).toEqual(contentC3)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.I, filepath: fpD }),
-    ).toEqual(contentD)
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.I, filepath: fpA })).toEqual(
+      contentA2,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.I, filepath: fpB })).toEqual(
+      contentB,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.I, filepath: fpC })).toEqual(
+      contentC3,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.I, filepath: fpD })).toEqual(
+      contentD,
+    )
 
     // J
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.J, filepath: fpA }),
-    ).toEqual(contentA)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.J, filepath: fpB }),
-    ).toEqual(contentB)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.J, filepath: fpC }),
-    ).toEqual(contentC3)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.J, filepath: fpD }),
-    ).toEqual(contentD)
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.J, filepath: fpA })).toEqual(
+      contentA,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.J, filepath: fpB })).toEqual(
+      contentB,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.J, filepath: fpC })).toEqual(
+      contentC3,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.J, filepath: fpD })).toEqual(
+      contentD,
+    )
 
     // K
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.K, filepath: fpA }),
-    ).toEqual(contentA)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.K, filepath: fpB }),
-    ).toEqual(contentB)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.K, filepath: fpC }),
-    ).toEqual(contentC3)
-    expect(
-      await showFileContent({ ...ctx, branchOrCommitId: commitIdTable.K, filepath: fpE }),
-    ).toEqual(contentD)
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.K, filepath: fpA })).toEqual(
+      contentA,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.K, filepath: fpB })).toEqual(
+      contentB,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.K, filepath: fpC })).toEqual(
+      contentC3,
+    )
+    expect(await showFileContent({ ...ctx, commitHash: commitIdTable.K, filepath: fpE })).toEqual(
+      contentD,
+    )
   })
 })

@@ -122,7 +122,7 @@ export async function encryptGitRepo(
 
       const { commitId: cryptHeadCommitId } = await showCommitInfo({
         ...cryptCmdCtx,
-        branchOrCommitId: 'HEAD',
+        commitHash: 'HEAD',
       })
       newCryptBranches.push({ branchName, commitId: cryptHeadCommitId })
     }
@@ -136,9 +136,9 @@ export async function encryptGitRepo(
       if (oldCryptLocalBranch.currentBranch) {
         const { commitId: cryptHeadCommitId } = await showCommitInfo({
           ...cryptCmdCtx,
-          branchOrCommitId: 'HEAD',
+          commitHash: 'HEAD',
         })
-        await checkBranch({ ...cryptCmdCtx, branchOrCommitId: cryptHeadCommitId })
+        await checkBranch({ ...cryptCmdCtx, commitHash: cryptHeadCommitId })
       }
 
       // Delete all existed branches.
@@ -155,16 +155,16 @@ export async function encryptGitRepo(
         await createBranch({
           ...cryptCmdCtx,
           newBranchName: branchName,
-          branchOrCommitId: commitId,
+          commitHash: commitId,
         })
       }
 
       // Check to the same branch with plain repo.
-      await checkBranch({ ...cryptCmdCtx, branchOrCommitId: plainLocalBranch.currentBranch })
+      await checkBranch({ ...cryptCmdCtx, commitHash: plainLocalBranch.currentBranch })
     }
   } finally {
     // [plain] recover the HEAD pointer.
-    await checkBranch({ ...plainCmdCtx, branchOrCommitId: plainLocalBranch.currentBranch })
+    await checkBranch({ ...plainCmdCtx, commitHash: plainLocalBranch.currentBranch })
   }
 
   return { crypt2plainIdMap }

@@ -5,14 +5,14 @@ import { formatGitDate, safeExeca } from '../util'
 import { getAllLocalBranches } from './branch'
 
 export interface IListAllFilesParams extends IGitCommandBaseParams {
-  branchOrCommitId: string
+  commitHash: string
 }
 
 export const listAllFiles = async (params: IListAllFilesParams): Promise<string[]> => {
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
   const result = await safeExeca(
     'git',
-    ['ls-tree', '--name-only', '-r', params.branchOrCommitId],
+    ['ls-tree', '--name-only', '-r', params.commitHash],
     execaOptions,
     params.logger,
   )
@@ -93,7 +93,7 @@ const regex = new RegExp(
 )
 
 export interface IShowCommitInfoParams extends IGitCommandBaseParams {
-  branchOrCommitId: string
+  commitHash: string
 }
 
 export const showCommitInfo = async (
@@ -102,7 +102,7 @@ export const showCommitInfo = async (
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
   const result = await safeExeca(
     'git',
-    ['log', '-1', '--format=fuller', '--date=iso', params.branchOrCommitId],
+    ['log', '-1', '--format=fuller', '--date=iso', params.commitHash],
     execaOptions,
     params.logger,
   )
@@ -150,20 +150,20 @@ export const getHeadBranchOrCommitId = async (
     cwd: params.cwd,
     execaOptions: params.execaOptions,
     logger: params.logger,
-    branchOrCommitId: 'HEAD',
+    commitHash: 'HEAD',
   })
   return headCommitInfo.commitId
 }
 
 export interface IShowFileContentParams extends IGitCommandBaseParams {
-  branchOrCommitId: string
+  commitHash: string
   filepath: string
 }
 
 export const showFileContent = async (params: IShowFileContentParams): Promise<string> => {
   const cwd: string = params.cwd
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
-  const args: string[] = ['show', `${params.branchOrCommitId}:${params.filepath}`]
+  const args: string[] = ['show', `${params.commitHash}:${params.filepath}`]
 
   params?.logger?.debug(`[checkBranch] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }

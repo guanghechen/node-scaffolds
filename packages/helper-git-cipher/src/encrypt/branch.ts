@@ -46,7 +46,7 @@ export async function encryptGitBranch(params: IEncryptGitBranchParams): Promise
 
   const plainCommitNodes = await getCommitInTopology({
     ...plainCmdCtx,
-    branchOrCommitId: branchName,
+    commitHash: branchName,
   })
 
   for (const plainCommitNode of plainCommitNodes) {
@@ -65,7 +65,7 @@ export async function encryptGitBranch(params: IEncryptGitBranchParams): Promise
       })
       const { commitId: cryptCommitId } = await showCommitInfo({
         ...cryptCmdCtx,
-        branchOrCommitId: 'HEAD',
+        commitHash: 'HEAD',
       })
       plain2cryptIdMap.set(plainCommitId, cryptCommitId)
     }

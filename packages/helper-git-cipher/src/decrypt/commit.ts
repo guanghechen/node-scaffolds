@@ -53,7 +53,7 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
 
   // [crypt] Move the HEAD pointer to the current decrypting commit.
-  await checkBranch({ ...cryptCmdCtx, branchOrCommitId: cryptCommitNode.id })
+  await checkBranch({ ...cryptCmdCtx, commitHash: cryptCommitNode.id })
 
   const getIv = (item: IFileCipherCatalogItemBase): Buffer =>
     getDynamicIv([Buffer.from(item.plainFilepath, 'hex'), Buffer.from(item.fingerprint, 'hex')])
@@ -74,7 +74,7 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
   // [plain] Move the HEAD pointer to the first parent commit for creating commit or merging.
   const plainCommit = configData.commit
   if (plainCommit.parents.length > 0) {
-    await checkBranch({ ...plainCmdCtx, branchOrCommitId: plainCommit.parents[0] })
+    await checkBranch({ ...plainCmdCtx, commitHash: plainCommit.parents[0] })
   }
 
   let shouldAmend = false

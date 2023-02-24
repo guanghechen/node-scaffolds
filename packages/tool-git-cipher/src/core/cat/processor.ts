@@ -63,7 +63,7 @@ export class GitCipherCatProcessor {
     const { catalogFilepath } = secretKeeper.data
     const catalogContent: string = await showFileContent({
       filepath: cryptPathResolver.relative(catalogFilepath),
-      branchOrCommitId: context.commitId,
+      commitHash: context.commitId,
       cwd: cryptPathResolver.rootDir,
       logger,
     })

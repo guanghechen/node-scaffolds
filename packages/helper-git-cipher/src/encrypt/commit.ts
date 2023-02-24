@@ -65,7 +65,7 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
 
   // [plain] Move the HEAD pointer to the current encrypting commit.
-  await checkBranch({ ...plainCmdCtx, branchOrCommitId: plainCommitNode.id })
+  await checkBranch({ ...plainCmdCtx, commitHash: plainCommitNode.id })
 
   const getIv = (item: IFileCipherCatalogItemBase): Buffer =>
     getDynamicIv([Buffer.from(item.plainFilepath, 'hex'), Buffer.from(item.fingerprint, 'hex')])
@@ -84,7 +84,7 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
       `[encryptGitCommit] unpaired crypt parent commit. plain(${plainParentId}) crypt(${cryptParentId})`,
     )
 
-    await checkBranch({ ...cryptCmdCtx, branchOrCommitId: cryptParentId })
+    await checkBranch({ ...cryptCmdCtx, commitHash: cryptParentId })
 
     // Load the diffItems between the <first parent>...<current>.
     await configKeeper.load()
@@ -99,7 +99,7 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
 
   const signature: IGitCommitInfo = await showCommitInfo({
     ...plainCmdCtx,
-    branchOrCommitId: plainCommitNode.id,
+    commitHash: plainCommitNode.id,
   })
   const plainFiles: string[] =
     plainCommitNode.parents.length > 0
@@ -108,7 +108,7 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
           olderCommitHash: plainCommitNode.parents[0],
           newerCommitHash: plainCommitNode.id,
         })
-      : await listAllFiles({ ...plainCmdCtx, branchOrCommitId: plainCommitNode.id })
+      : await listAllFiles({ ...plainCmdCtx, commitHash: plainCommitNode.id })
   const draftDiffItems: IFileCipherCatalogDiffItemDraft[] = await catalog.diffFromPlainFiles({
     plainFilepaths: plainFiles.sort(),
     strickCheck: false,

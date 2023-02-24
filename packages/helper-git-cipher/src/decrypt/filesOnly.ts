@@ -69,7 +69,7 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
   const initialHeadBranchOrCommitId: string = await getHeadBranchOrCommitId(cryptCmdCtx)
   try {
     // [crypt] Move the HEAD pointer to the current decrypting commit.
-    await checkBranch({ ...cryptCmdCtx, branchOrCommitId: cryptCommitId })
+    await checkBranch({ ...cryptCmdCtx, commitHash: cryptCommitId })
 
     // Load the diffItems between the <first parent>...<current>.
     await configKeeper.load()
@@ -92,6 +92,6 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
     })
   } finally {
     // Restore crypt repo HEAD point.
-    await checkBranch({ ...cryptCmdCtx, branchOrCommitId: initialHeadBranchOrCommitId })
+    await checkBranch({ ...cryptCmdCtx, commitHash: initialHeadBranchOrCommitId })
   }
 }

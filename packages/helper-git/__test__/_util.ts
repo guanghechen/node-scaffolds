@@ -6,8 +6,8 @@ export const assertAtCommit = async (
   ctx: IGitCommandBaseParams,
   commit: ICommitItem,
 ): Promise<void> => {
-  const expectedInfo = await showCommitInfo({ ...ctx, branchOrCommitId: commit.commitId })
-  const headInfo = await showCommitInfo({ ...ctx, branchOrCommitId: 'HEAD' })
+  const expectedInfo = await showCommitInfo({ ...ctx, commitHash: commit.commitId })
+  const headInfo = await showCommitInfo({ ...ctx, commitHash: 'HEAD' })
   expect(expectedInfo).toEqual({
     commitId: commit.commitId,
     authorDate: commit.authorDate,

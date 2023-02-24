@@ -50,7 +50,7 @@ describe('waw', () => {
       amend: false,
     })
 
-    const info = await showCommitInfo({ ...ctx, branchOrCommitId: 'HEAD' })
+    const info = await showCommitInfo({ ...ctx, commitHash: 'HEAD' })
     expect(info).toEqual({
       commitId: '6abc2dbd3b8769c72583141c8879294f190c56c1',
       authorDate: '2023-01-26 15:29:33 +0800',

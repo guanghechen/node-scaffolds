@@ -34,7 +34,7 @@ describe('log', () => {
     })
 
     const eGetCommitInTopology = (commit: ICommitItem): Promise<IGitCommitDagNode[]> =>
-      getCommitInTopology({ ...ctx, branchOrCommitId: commit.commitId })
+      getCommitInTopology({ ...ctx, commitHash: commit.commitId })
 
     expect(await eGetCommitInTopology(commitTable.A)).toEqual([
       { id: commitTable.A.commitId, parents: commitTable.A.parentIds },

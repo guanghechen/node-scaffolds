@@ -3,7 +3,7 @@ import type { IGitCommandBaseParams, IGitCommitDagNode, IGitCommitWithMessage } 
 import { safeExeca } from '../util'
 
 export interface IGetCommitInTopologyParams extends IGitCommandBaseParams {
-  branchOrCommitId: string
+  commitHash: string
 }
 
 export const getCommitInTopology = async (
@@ -13,7 +13,7 @@ export const getCommitInTopology = async (
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
   const args: string[] = [
     'log',
-    params.branchOrCommitId,
+    params.commitHash,
     '--topo-order',
     '--date-order',
     '--reverse',
