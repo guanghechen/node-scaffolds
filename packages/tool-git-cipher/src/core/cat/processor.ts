@@ -62,7 +62,7 @@ export class GitCipherCatProcessor {
 
     const { catalogFilepath } = secretKeeper.data
     const catalogContent: string = await showFileContent({
-      filepath: catalogFilepath,
+      filepath: cryptPathResolver.relative(catalogFilepath),
       branchOrCommitId: context.commitId,
       cwd: cryptPathResolver.rootDir,
       logger,
@@ -78,6 +78,16 @@ export class GitCipherCatProcessor {
     })
     await configKeeper.load()
 
-    console.log(configKeeper.data)
+    console.log(
+      JSON.stringify(
+        configKeeper.data,
+        (key, value) => {
+          if (key === 'authTag' && value?.type === 'Buffer')
+            return Buffer.from(value).toString('hex')
+          return value
+        },
+        2,
+      ),
+    )
   }
 }
