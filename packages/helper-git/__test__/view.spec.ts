@@ -82,8 +82,8 @@ describe('view', () => {
       commit.parentIds.length > 0
         ? listDiffFiles({
             ...ctx,
-            branchOrCommitId2: commit.parentIds[0],
-            branchOrCommitId1: commit.commitId,
+            newerCommitHash: commit.commitId,
+            olderCommitHash: commit.parentIds[0],
           }).then(md => md.sort())
         : listAllFiles({ ...ctx, branchOrCommitId: commit.commitId }).then(md => md.sort())
 

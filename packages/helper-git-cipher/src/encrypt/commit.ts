@@ -105,8 +105,8 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     plainCommitNode.parents.length > 0
       ? await listDiffFiles({
           ...plainCmdCtx,
-          branchOrCommitId1: plainCommitNode.id,
-          branchOrCommitId2: plainCommitNode.parents[0],
+          olderCommitHash: plainCommitNode.parents[0],
+          newerCommitHash: plainCommitNode.id,
         })
       : await listAllFiles({ ...plainCmdCtx, branchOrCommitId: plainCommitNode.id })
   const draftDiffItems: IFileCipherCatalogDiffItemDraft[] = await catalog.diffFromPlainFiles({

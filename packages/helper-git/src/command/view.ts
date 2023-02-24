@@ -21,25 +21,60 @@ export const listAllFiles = async (params: IListAllFilesParams): Promise<string[
 }
 
 export interface IListDiffFiles extends IGitCommandBaseParams {
-  branchOrCommitId1: string
-  branchOrCommitId2: string
+  olderCommitHash: string
+  newerCommitHash: string
 }
 
 export const listDiffFiles = async (params: IListDiffFiles): Promise<string[]> => {
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
   const result = await safeExeca(
     'git',
-    ['diff', '--name-status', params.branchOrCommitId1, params.branchOrCommitId2],
+    ['diff', '--name-status', '-z', params.olderCommitHash, params.newerCommitHash],
     execaOptions,
     params.logger,
   )
 
-  const lines: string[] = result.stdout.trim().split(/\s*\n+\s*/g)
+  // Some thing lik: `A^@a.txt^@R^@a b.txt^@a c.txt`
+  const items: string[] = result.stdout
+    .split('\0')
+    .map(text => text.trim())
+    .filter(x => !!x)
   const files: string[] = []
-  for (const line of lines) {
-    const [symbol, file1, file2] = line.trim().split(/\s+/g)
-    if (symbol[0] === 'R') files.push(file1, file2)
-    else files.push(file1)
+  for (let i = 0; i < items.length; i += 1) {
+    const symbol: string = items[i]
+
+    i += 1
+    invariant(
+      i < items.length,
+      () => `[listDiffFiles] Bad items. stdout(${result.stdout}), items(${items})`,
+    )
+    switch (symbol[0]) {
+      case 'A': {
+        files.push(items[i])
+        break
+      }
+      case 'D': {
+        files.push(items[i])
+        break
+      }
+      case 'M': {
+        files.push(items[i])
+        break
+      }
+      case 'R': {
+        files.push(items[i])
+        i += 1
+        invariant(i < items.length, `[listDiffFiles] Bad items ${result.stdout}`)
+        files.push(items[i])
+        break
+      }
+      /* c8 ignore start */
+      default:
+        throw new Error(
+          `[listDiffFiles] Unknown git change symbol. symbol(${symbol}), stdout(${result.stdout})`,
+        )
+      /* c8 ignore end */
+    }
   }
   return files
 }
