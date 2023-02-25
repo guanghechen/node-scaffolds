@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="4.4.1"></a>
+## 4.4.1 (2023-02-25)
+
+### Changed
+
+- 🎨 improve(tool-git-cipher): ask to input &#x27;cryptFilesDir&#x27; in init ux [[ec2a86f](https://github.com/guanghechen/node-scaffolds/commit/ec2a86f7f8c29ce2f07e71205159a21f3ba2907f)]
+- 🍱 improve(tool-git-cipher): fix boilerplates [[0971c05](https://github.com/guanghechen/node-scaffolds/commit/0971c05ecd1cb456e290df79c2c5d69c8c7c068f)]
+
+### Fixed
+
+- 🐛 fix(tool-git-cipher): cryptCommitHash may be the &#x27;HEAD&#x27; pointer, which cannot find from the id map [[846955f](https://github.com/guanghechen/node-scaffolds/commit/846955f6dd8048fde5d8fbfcb421a7ffd242d494)]
+
+
 <a name="4.4.0"></a>
 ## 4.4.0 (2023-02-25)
 
