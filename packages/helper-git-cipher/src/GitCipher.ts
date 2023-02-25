@@ -6,6 +6,7 @@ import { decryptFilesOnly } from './decrypt/filesOnly'
 import { decryptGitRepo } from './decrypt/repo'
 import { encryptGitRepo } from './encrypt/repo'
 import type { IGitCipherConfig } from './types'
+import { verifyGitCommit } from './verify/commit'
 
 export interface IGitCipherProps {
   catalog: IFileCipherCatalog
@@ -34,6 +35,13 @@ export interface IGitCipherDecryptParams {
   plainPathResolver: FilepathResolver
 }
 
+export interface IGitCipherVerifyParams {
+  cryptCommitId: string
+  cryptPathResolver: FilepathResolver
+  plainCommitId: string
+  plainPathResolver: FilepathResolver
+}
+
 export interface IGitCipherEncryptRepoResult {
   crypt2plainIdMap: Map<string, string>
 }
@@ -58,47 +66,64 @@ export class GitCipher {
   }
 
   public async encrypt(params: IGitCipherEncryptParams): Promise<IGitCipherEncryptRepoResult> {
+    const { cryptPathResolver, crypt2plainIdMap, plainPathResolver } = params
     const { catalog, cipherBatcher, configKeeper, logger } = this
-    const { crypt2plainIdMap } = await encryptGitRepo({
+    const result = await encryptGitRepo({
       catalog,
       cipherBatcher,
       configKeeper,
-      cryptPathResolver: params.cryptPathResolver,
-      crypt2plainIdMap: params.crypt2plainIdMap,
+      cryptPathResolver,
+      crypt2plainIdMap,
       logger,
-      plainPathResolver: params.plainPathResolver,
+      plainPathResolver,
       getDynamicIv: this.#getDynamicIv,
     })
-    return { crypt2plainIdMap }
+    return { crypt2plainIdMap: result.crypt2plainIdMap }
   }
 
   public async decrypt(params: IGitCipherDecryptParams): Promise<IGitCipherDecryptRepoResult> {
+    const { cryptPathResolver, crypt2plainIdMap, gpgSign, plainPathResolver } = params
     const { catalog, cipherBatcher, configKeeper, logger } = this
-    const { crypt2plainIdMap } = await decryptGitRepo({
+    const result = await decryptGitRepo({
       catalog,
       cipherBatcher,
       configKeeper,
-      cryptPathResolver: params.cryptPathResolver,
-      crypt2plainIdMap: params.crypt2plainIdMap,
-      gpgSign: params.gpgSign,
+      cryptPathResolver: cryptPathResolver,
+      crypt2plainIdMap,
+      gpgSign,
       logger,
-      plainPathResolver: params.plainPathResolver,
+      plainPathResolver: plainPathResolver,
       getDynamicIv: this.#getDynamicIv,
     })
-    return { crypt2plainIdMap }
+    return { crypt2plainIdMap: result.crypt2plainIdMap }
   }
 
   public async decryptFilesOnly(params: IGitCipherDecryptFilesOnlyParams): Promise<void> {
+    const { cryptCommitId, cryptPathResolver, plainPathResolver } = params
     const { catalog, cipherBatcher, configKeeper, logger } = this
     await decryptFilesOnly({
       catalog,
       cipherBatcher,
-      cryptCommitId: params.cryptCommitId,
-      cryptPathResolver: params.cryptPathResolver,
+      cryptCommitId,
+      cryptPathResolver,
       configKeeper,
       logger,
-      plainPathResolver: params.plainPathResolver,
+      plainPathResolver,
       getDynamicIv: this.#getDynamicIv,
+    })
+  }
+
+  public async verifyCommit(params: IGitCipherVerifyParams): Promise<void | never> {
+    const { cryptCommitId, cryptPathResolver, plainCommitId, plainPathResolver } = params
+    const { catalog, configKeeper, logger } = this
+    await verifyGitCommit({
+      catalog,
+      configKeeper,
+      cryptCommitId,
+      cryptPathResolver,
+      logger,
+      plainCommitId,
+      plainPathResolver,
     })
   }
 }

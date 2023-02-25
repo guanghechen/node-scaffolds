@@ -44,6 +44,7 @@
     "@guanghechen/helper-cipher-file": "^4.3.0",
     "@guanghechen/helper-config": "^4.3.0",
     "@guanghechen/helper-fs": "^4.3.0",
+    "@guanghechen/helper-func": "^4.3.0",
     "@guanghechen/helper-git": "^4.3.0",
     "@guanghechen/helper-storage": "^4.3.0",
     "@guanghechen/invariant": "^4.3.0",

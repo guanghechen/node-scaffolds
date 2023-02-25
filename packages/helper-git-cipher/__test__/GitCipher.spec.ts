@@ -21,7 +21,14 @@ import { createLoggerMock } from '@guanghechen/helper-jest'
 import { calcMac } from '@guanghechen/helper-mac'
 import { FilepathResolver } from '@guanghechen/helper-path'
 import { FileStorage } from '@guanghechen/helper-storage'
-import { collectAllFilesSync, desensitize, emptyDir, locateFixtures, rm } from 'jest.helper'
+import {
+  assertPromiseNotThrow,
+  collectAllFilesSync,
+  desensitize,
+  emptyDir,
+  locateFixtures,
+  rm,
+} from 'jest.helper'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { GitCipher, GitCipherConfigKeeper } from '../src'
@@ -261,6 +268,18 @@ describe('GitCipher', () => {
           diffItemsTable.stepK,
           [itemTable.A, itemTable.B, itemTable.C3, itemTable.E],
         )
+
+        // Verify
+        for (const symbol of Object.keys(repo1CryptCommitIdTable)) {
+          await assertPromiseNotThrow(() =>
+            gitCipher.verifyCommit({
+              cryptCommitId: repo1CryptCommitIdTable[symbol],
+              cryptPathResolver,
+              plainCommitId: commitIdTable[symbol],
+              plainPathResolver,
+            }),
+          )
+        }
 
         // Test decrypt.
         crypt2plainIdMap = (
