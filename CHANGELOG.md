@@ -1,5 +1,32 @@
 # Changelog
 
+<a name="4.4.0"></a>
+## 4.4.0 (2023-02-25)
+
+### Added
+
+- ✨ feat(helper-git-cipher): add verify [[b6ab821](https://github.com/guanghechen/node-scaffolds/commit/b6ab821ef353ca74e24903ce026c5c6797e6982f)]
+- ✅ fix test [[0aae085](https://github.com/guanghechen/node-scaffolds/commit/0aae0857d9dc03a398281736c5b11bee606c094d)]
+- ✨ feat(tool-git-cipher): add new sub-command &#x27;verify&#x27; [[19ad4ef](https://github.com/guanghechen/node-scaffolds/commit/19ad4efe89dd1c5d4c0364d890eb128f255d5dba)]
+- ✨ feat(tool-git-cipher): add new sub command &#x27;cat&#x27; [[4cede2d](https://github.com/guanghechen/node-scaffolds/commit/4cede2dcc2223c951c6a3db9589dafb7c3e76d03)]
+- ✨ feat(helper-git): add new method &#x27;showFileContent&#x27; [[d8b64d8](https://github.com/guanghechen/node-scaffolds/commit/d8b64d81544f0d3874e9f7883f318e8f4ec980f9)]
+- ✨ feat: add @guanghechen/helper-storage [[8563caa](https://github.com/guanghechen/node-scaffolds/commit/8563caa19953eae27bfa4763e244e77a98840a28)]
+
+### Changed
+
+- ⬆️ chore: upgrade devDependencies [[3a4d2de](https://github.com/guanghechen/node-scaffolds/commit/3a4d2def1cc59fdabe58888da7970da348de538a)]
+- 🎨 improve(tool-git-cipher): use verify from @guanghechen/helper-git-cipher [[8f48894](https://github.com/guanghechen/node-scaffolds/commit/8f48894e34ca35d4b62fa9f796d2ec426bc53c46)]
+- 🎨 improve: rename &#x27;branchOrCommitId&#x27; to &#x27;commitHash&#x27; [[d3ed0c6](https://github.com/guanghechen/node-scaffolds/commit/d3ed0c6c63a69284bc8bd12aafe0bf52a8d67450)]
+- 👽 fix build error due to previous changes [[e37c6f1](https://github.com/guanghechen/node-scaffolds/commit/e37c6f1e10db5a6a26b02142fd52c792c55ed689)]
+- 🎨 improve(helper-config): refactor with FileStorage [[ddae50c](https://github.com/guanghechen/node-scaffolds/commit/ddae50c5ac62e43b8ca426c88557ed7d7dc6b655)]
+
+### Fixed
+
+- 🐛 fix(helper-git-cipher): persist plainParentIds instead of cryptParentIds since the crypt repo are stabler than plain repo [[366937a](https://github.com/guanghechen/node-scaffolds/commit/366937a59bff54762e260b6613ac9d4f8330fc93)]
+- 🐛 fix(helper-git) bad result when there are blank spaces in filepath [[0380c87](https://github.com/guanghechen/node-scaffolds/commit/0380c87f6f062ebf8fb7b5dd5b5a05d8cb2362a5)]
+- 🐛 fix(tool-git-cipher): need pass a relative path to &#x27;showFileContent&#x27; [[33fa4ef](https://github.com/guanghechen/node-scaffolds/commit/33fa4efd40e4c738928cb1cd2146a5f355c9c035)]
+
+
 <a name="4.3.0"></a>
 ## 4.3.0 (2023-02-21)
 
