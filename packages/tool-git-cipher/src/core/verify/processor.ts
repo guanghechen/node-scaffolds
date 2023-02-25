@@ -7,7 +7,7 @@ import {
 } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { BigFileHelper } from '@guanghechen/helper-file'
-import { isGitRepo } from '@guanghechen/helper-git'
+import { isGitRepo, showCommitInfo } from '@guanghechen/helper-git'
 import { GitCipher, GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
 import { FilepathResolver } from '@guanghechen/helper-path'
 import { FileStorage } from '@guanghechen/helper-storage'
@@ -64,7 +64,14 @@ export class GitCipherVerifyProcessor {
       `[${title}] plain dir is not a git repo. ${plainPathResolver.rootDir}`,
     )
 
-    const cryptCommitId = context.cryptCommitId
+    const cryptCommitId: string = (
+      await showCommitInfo({
+        commitHash: context.cryptCommitId,
+        cwd: cryptPathResolver.rootDir,
+        logger,
+      })
+    ).commitId
+
     let plainCommitId = context.plainCommitId
     if (!plainCommitId) {
       const cacheKeeper = new CatalogCacheKeeper({
@@ -80,6 +87,7 @@ export class GitCipherVerifyProcessor {
       plainCommitId = crypt2plainIdMap.get(cryptCommitId)
     }
 
+    logger.debug(`[${title}] cryptCommitId(${cryptCommitId}), plainCommitId(${plainCommitId}).`)
     invariant(!!plainCommitId, `[${title}] Missing plainCommitId.`)
 
     const secretKeeper = new SecretConfigKeeper({
