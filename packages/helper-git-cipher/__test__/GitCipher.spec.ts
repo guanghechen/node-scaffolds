@@ -7,7 +7,7 @@ import {
   FileCipherFactory,
 } from '@guanghechen/helper-cipher-file'
 import { BigFileHelper } from '@guanghechen/helper-file'
-import type { IGitCommandBaseParams, IGitCommitInfo } from '@guanghechen/helper-git'
+import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import {
   checkBranch,
   createBranch,
@@ -113,23 +113,14 @@ describe('GitCipher', () => {
   const gitCipher = new GitCipher({ catalog, cipherBatcher, configKeeper, logger, getDynamicIv })
 
   const testCatalog = async (
-    commit: IGitCommitInfo & { parentIds: string[] },
+    commit: { message: string; cryptParents: string[] },
     diffItems: unknown[],
     items: unknown[],
   ): Promise<void> => {
     await configKeeper.load()
     expect(configKeeper.data!.commit).toEqual({
-      parents: commit.parentIds,
-      signature: {
-        commitId: commit.commitId,
-        authorDate: commit.authorDate,
-        authorName: commit.authorName,
-        authorEmail: commit.authorEmail,
-        committerDate: commit.committerDate,
-        committerName: commit.committerName,
-        committerEmail: commit.committerEmail,
-        message: commit.message,
-      },
+      message: commit.message,
+      cryptParents: commit.cryptParents,
     })
     expect(configKeeper.data!.catalog.diffItems).toEqual(
       diffItems.map((diffItem: any): any => {
@@ -265,12 +256,11 @@ describe('GitCipher', () => {
         })
 
         // Check catalog.
-        await testCatalog(commitTable.K, diffItemsTable.stepK, [
-          itemTable.A,
-          itemTable.B,
-          itemTable.C3,
-          itemTable.E,
-        ])
+        await testCatalog(
+          { message: commitTable.K.message, cryptParents: [repo1CryptCommitIdTable.J] },
+          diffItemsTable.stepK,
+          [itemTable.A, itemTable.B, itemTable.C3, itemTable.E],
+        )
 
         // Test decrypt.
         crypt2plainIdMap = (
@@ -392,7 +382,11 @@ describe('GitCipher', () => {
           )
 
           // Check catalog.
-          await testCatalog(commitTable.E, diffItemsTable.stepE, [itemTable.C2])
+          await testCatalog(
+            { message: commitTable.E.message, cryptParents: [repo1CryptCommitIdTable.C] },
+            diffItemsTable.stepE,
+            [itemTable.C2],
+          )
 
           // Test Decrypt
           crypt2plainIdMap = await gitCipher
@@ -470,12 +464,11 @@ describe('GitCipher', () => {
 
           // Check catalog.
           await checkBranch({ ...cryptCtx, commitHash: 'I' })
-          await testCatalog(commitTable.I, diffItemsTable.stepI, [
-            itemTable.A2,
-            itemTable.B,
-            itemTable.C3,
-            itemTable.D,
-          ])
+          await testCatalog(
+            { message: commitTable.I.message, cryptParents: [repo1CryptCommitIdTable.G] },
+            diffItemsTable.stepI,
+            [itemTable.A2, itemTable.B, itemTable.C3, itemTable.D],
+          )
           await checkBranch({ ...cryptCtx, commitHash: 'E' })
 
           // Test Decrypt
@@ -588,12 +581,11 @@ describe('GitCipher', () => {
           )
 
           // Check catalog.
-          await testCatalog(commitTable.K, diffItemsTable.stepK, [
-            itemTable.A,
-            itemTable.B,
-            itemTable.C3,
-            itemTable.E,
-          ])
+          await testCatalog(
+            { message: commitTable.K.message, cryptParents: [repo1CryptCommitIdTable.J] },
+            diffItemsTable.stepK,
+            [itemTable.A, itemTable.B, itemTable.C3, itemTable.E],
+          )
 
           // Test Decrypt
           crypt2plainIdMap = await gitCipher

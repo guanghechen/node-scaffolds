@@ -1,6 +1,7 @@
 import type { IFileCipherCatalogItemBase } from '@guanghechen/helper-cipher-file'
 import type { IGitCommandBaseParams, IGitCommitWithMessage } from '@guanghechen/helper-git'
 import { getAllLocalBranches, getCommitWithMessageList, isGitRepo } from '@guanghechen/helper-git'
+import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
 import { createHash } from 'node:crypto'
 
@@ -57,4 +58,28 @@ export const generateCommitHash = (items: IFileCipherCatalogItemBase[]): string 
     sha256.update(item.fingerprint)
   }
   return sha256.digest().toString('hex')
+}
+
+export const getCryptCommitId = (
+  plainCommitId: string,
+  plain2cryptIdMap: Map<string, string>,
+): string => {
+  const cryptParentId: string | undefined = plain2cryptIdMap.get(plainCommitId)
+  invariant(
+    cryptParentId !== undefined,
+    `[getCryptCommitId] unpaired plain/crypt id: plain(${plainCommitId}), crypt(${cryptParentId})`,
+  )
+  return cryptParentId
+}
+
+export const getPlainCommitId = (
+  cryptCommitId: string,
+  crypt2plainIdMap: Map<string, string>,
+): string => {
+  const cryptParentId: string | undefined = crypt2plainIdMap.get(cryptCommitId)
+  invariant(
+    cryptParentId !== undefined,
+    `[getPlainCommitId] unpaired plain/crypt id: plain(${cryptCommitId}), crypt(${cryptParentId})`,
+  )
+  return cryptParentId
 }

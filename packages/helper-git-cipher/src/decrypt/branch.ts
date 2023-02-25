@@ -58,6 +58,7 @@ export async function decryptGitBranch(params: IDecryptGitBranchParams): Promise
         cipherBatcher,
         configKeeper,
         cryptPathResolver,
+        crypt2plainIdMap,
         logger,
         plainPathResolver,
         getDynamicIv,

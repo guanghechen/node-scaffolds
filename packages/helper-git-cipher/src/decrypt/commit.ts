@@ -7,17 +7,23 @@ import type {
   IFileCipherCatalogItemBase,
 } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
-import type { IGitCommandBaseParams, IGitCommitDagNode } from '@guanghechen/helper-git'
+import type {
+  IGitCommandBaseParams,
+  IGitCommitDagNode,
+  IGitCommitInfo,
+} from '@guanghechen/helper-git'
 import {
   checkBranch,
   cleanUntrackedFilepaths,
   commitAll,
   mergeCommits,
+  showCommitInfo,
 } from '@guanghechen/helper-git'
 import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
 import type { IFileCipherCatalogItemInstance, IGitCipherConfig } from '../types'
+import { getPlainCommitId } from '../util'
 
 export interface IDecryptGitCommitParams {
   catalog: IFileCipherCatalog
@@ -25,6 +31,7 @@ export interface IDecryptGitCommitParams {
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitNode: IGitCommitDagNode
   cryptPathResolver: FilepathResolver
+  crypt2plainIdMap: Map<string, string>
   logger: ILogger | undefined
   plainPathResolver: FilepathResolver
   getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
@@ -45,6 +52,7 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
     configKeeper,
     cryptCommitNode,
     cryptPathResolver,
+    crypt2plainIdMap,
     logger,
     plainPathResolver,
     getDynamicIv,
@@ -54,6 +62,10 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
 
   // [crypt] Move the HEAD pointer to the current decrypting commit.
   await checkBranch({ ...cryptCmdCtx, commitHash: cryptCommitNode.id })
+  const signature: IGitCommitInfo = await showCommitInfo({
+    ...cryptCmdCtx,
+    commitHash: cryptCommitNode.id,
+  })
 
   const getIv = (item: IFileCipherCatalogItemBase): Buffer =>
     getDynamicIv([Buffer.from(item.plainFilepath, 'hex'), Buffer.from(item.fingerprint, 'hex')])
@@ -72,17 +84,22 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
   )
 
   // [plain] Move the HEAD pointer to the first parent commit for creating commit or merging.
-  const plainCommit = configData.commit
-  if (plainCommit.parents.length > 0) {
-    await checkBranch({ ...plainCmdCtx, commitHash: plainCommit.parents[0] })
+  const { message, cryptParents } = configData.commit
+  const plainParents = cryptParents.map(cryptParentId =>
+    getPlainCommitId(cryptParentId, crypt2plainIdMap),
+  )
+
+  if (plainParents.length > 0) {
+    await checkBranch({ ...plainCmdCtx, commitHash: plainParents[0] })
   }
 
   let shouldAmend = false
-  if (plainCommit.parents.length > 1) {
+  if (plainParents.length > 1) {
     await mergeCommits({
       ...plainCmdCtx,
-      ...plainCommit.signature,
-      parentIds: plainCommit.parents,
+      ...signature,
+      message,
+      parentIds: plainParents,
       strategy: 'ours',
     })
     shouldAmend = true
@@ -123,5 +140,5 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
     cryptPathResolver,
     diffItems,
   })
-  await commitAll({ ...plainCmdCtx, ...plainCommit.signature, amend: shouldAmend })
+  await commitAll({ ...plainCmdCtx, ...signature, message, amend: shouldAmend })
 }

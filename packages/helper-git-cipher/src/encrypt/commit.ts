@@ -26,7 +26,7 @@ import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import type { ILogger } from '@guanghechen/utility-types'
 import type { IFileCipherCatalogItemInstance, IGitCipherConfig } from '../types'
-import { generateCommitHash as generateCommitMessage } from '../util'
+import { generateCommitHash as generateCommitMessage, getCryptCommitId } from '../util'
 
 export interface IEncryptGitCommitParams {
   catalog: IFileCipherCatalog
@@ -78,12 +78,7 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
   // [crypt] Reset catalog to calc diffItems.
   if (plainCommitNode.parents.length > 0) {
     const plainParentId = plainCommitNode.parents[0]
-    const cryptParentId = plain2cryptIdMap.get(plainParentId)
-    invariant(
-      !!cryptParentId,
-      `[encryptGitCommit] unpaired crypt parent commit. plain(${plainParentId}) crypt(${cryptParentId})`,
-    )
-
+    const cryptParentId = getCryptCommitId(plainParentId, plain2cryptIdMap)
     await checkBranch({ ...cryptCmdCtx, commitHash: cryptParentId })
 
     // Load the diffItems between the <first parent>...<current>.
@@ -114,18 +109,12 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     strickCheck: false,
   })
 
-  let shouldAmend = false
-  const cryptParentCommitIds: string[] = []
-  if (plainCommitNode.parents.length > 1) {
-    for (const plainParentId of plainCommitNode.parents) {
-      const cryptParentId: string | undefined = plain2cryptIdMap.get(plainParentId)
-      invariant(
-        cryptParentId !== undefined,
-        `[encryptGitCommit] unpaired crypt parent id: source(${plainParentId}), crypt(${cryptParentId})`,
-      )
-      cryptParentCommitIds.push(cryptParentId)
-    }
+  const cryptParentCommitIds: string[] = plainCommitNode.parents.map(plainParentId =>
+    getCryptCommitId(plainParentId, plain2cryptIdMap),
+  )
 
+  let shouldAmend = false
+  if (cryptParentCommitIds.length > 1) {
     await mergeCommits({
       ...cryptCmdCtx,
       ...signature,
@@ -152,8 +141,8 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
   // Encrypt files & update config.
   const config: IGitCipherConfig = {
     commit: {
-      parents: plainCommitNode.parents,
-      signature,
+      message: signature.message,
+      cryptParents: cryptParentCommitIds,
     },
     catalog: {
       diffItems,
@@ -166,10 +155,5 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
   await configKeeper.save()
 
   const message: string = generateCommitMessage(config.catalog.items)
-  await commitAll({
-    ...cryptCmdCtx,
-    ...config.commit.signature,
-    message,
-    amend: shouldAmend,
-  })
+  await commitAll({ ...cryptCmdCtx, ...signature, message, amend: shouldAmend })
 }

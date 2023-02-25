@@ -21,8 +21,8 @@ export class GitCipherConfigKeeper
   extends CipherJsonConfigKeeper<Instance, Data>
   implements IConfigKeeper<Instance>
 {
-  public override readonly __version__ = '2.0.0'
-  public override readonly __compatible_version__ = '^1.0.0 || ^2.0.0'
+  public override readonly __version__ = '3.0.0'
+  public override readonly __compatible_version__ = '^3.0.0'
 
   protected serialize(instance: Instance): PromiseOr<Data> {
     const serializeItem = (item: IFileCipherCatalogItemInstance): IFileCipherCatalogItemData => ({

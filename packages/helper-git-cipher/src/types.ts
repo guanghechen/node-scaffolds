@@ -2,7 +2,6 @@ import type {
   IFileCipherCatalogDiffItemBase,
   IFileCipherCatalogItemBase,
 } from '@guanghechen/helper-cipher-file'
-import type { IGitCommitInfo } from '@guanghechen/helper-git'
 
 export interface IFileCipherCatalogItemInstance extends IFileCipherCatalogItemBase {
   authTag: Buffer | undefined
@@ -14,8 +13,8 @@ export interface IFileCipherCatalogItemData extends IFileCipherCatalogItemBase {
 
 export interface IGitCipherConfig {
   commit: {
-    parents: string[]
-    signature: IGitCommitInfo
+    message: string
+    cryptParents: string[]
   }
   catalog: {
     // Diff from the first parent commit.
@@ -26,8 +25,8 @@ export interface IGitCipherConfig {
 
 export interface IGitCipherConfigData {
   commit: {
-    parents: string[]
-    signature: IGitCommitInfo
+    message: string
+    cryptParents: string[]
   }
   catalog: {
     // Diff from the first parent commit.
