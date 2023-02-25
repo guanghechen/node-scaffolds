@@ -155,6 +155,8 @@ describe('GitCipher', () => {
               changeType: diffItem.changeType,
               oldItem: serializeItem(diffItem.oldItem),
             }
+          default:
+            throw new Error(`Unknown changeType(${diffItem.changeType}).`)
         }
       }),
     )
