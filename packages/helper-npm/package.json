@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-npm",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "description": "Utilities for handling npm repo and `package.json`.",
   "author": {
     "name": "guanghechen",
@@ -38,7 +38,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-path": "^4.4.0",
+    "@guanghechen/helper-path": "^4.4.1",
     "import-meta-resolve": "^2.2.1"
   },
   "devDependencies": {
