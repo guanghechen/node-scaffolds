@@ -1083,6 +1083,7 @@ __metadata:
     "@guanghechen/helper-config": ^4.3.0
     "@guanghechen/helper-file": ^4.3.0
     "@guanghechen/helper-fs": ^4.3.0
+    "@guanghechen/helper-func": ^4.3.0
     "@guanghechen/helper-git": ^4.3.0
     "@guanghechen/helper-git-cipher": ^4.3.0
     "@guanghechen/helper-is": ^4.3.0

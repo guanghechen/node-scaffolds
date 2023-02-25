@@ -17,7 +17,7 @@ export const createSubCommandCat = (
     .aliases(aliases)
     .arguments('<workspace>')
     .description('Show plain content of a specified crypt file on a branch/commit.')
-    .option('--commit-id <commitId>', 'Git branch or commit id.')
+    .option('--commit-id <commitId>', 'Crypt repo branch or commit id.')
     .action(async function ([_workspaceDir], options: ISubCommandCatOptions) {
       const resolvedOptions: ISubCommandCatOptions = resolveSubCommandCatOptions(
         COMMAND_NAME,

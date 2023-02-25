@@ -5,6 +5,7 @@ import {
   mountSubCommandDecrypt,
   mountSubCommandEncrypt,
   mountSubCommandInit,
+  mountSubCommandVerify,
 } from '.'
 
 const program = createProgram()
@@ -20,5 +21,8 @@ mountSubCommandEncrypt(program)
 
 // mount sub-command: init
 mountSubCommandInit(program)
+
+// mount sub-command:verify
+mountSubCommandVerify(program)
 
 program.parseAsync(process.argv).catch(error => logger.error(error))

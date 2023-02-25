@@ -1,6 +1,10 @@
-import type { ISubCommandCatOptions } from './option'
+import type { ISubCommandVerifyOptions } from './option'
 
-export interface IGitCipherCatContext {
+export interface IGitCipherVerifyContext {
+  /**
+   * The path of catalog cache file of crypt repo. (absolute path)
+   */
+  readonly catalogCacheFilepath: string
   /**
    * Crypt repo branch or commit id.
    */
@@ -26,6 +30,14 @@ export interface IGitCipherCatContext {
    */
   readonly minPasswordLength: number
   /**
+   * Plain repo branch or commit id.
+   */
+  readonly plainCommitId: string | undefined
+  /**
+   * The directory where the plain repo located. (absolute path)
+   */
+  readonly plainRootDir: string
+  /**
    * The path of secret file. (absolute path)
    */
   readonly secretFilepath: string
@@ -39,16 +51,19 @@ export interface IGitCipherCatContext {
   readonly workspace: string
 }
 
-export async function createGitCipherCatContextFromOptions(
-  options: ISubCommandCatOptions,
-): Promise<IGitCipherCatContext> {
-  const context: IGitCipherCatContext = {
+export async function createGitCipherVerifyContextFromOptions(
+  options: ISubCommandVerifyOptions,
+): Promise<IGitCipherVerifyContext> {
+  const context: IGitCipherVerifyContext = {
+    catalogCacheFilepath: options.catalogCacheFilepath,
     cryptCommitId: options.cryptCommitId,
     cryptRootDir: options.cryptRootDir,
     encoding: options.encoding,
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
+    plainCommitId: options.plainCommitId,
+    plainRootDir: options.plainRootDir,
     secretFilepath: options.secretFilepath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,

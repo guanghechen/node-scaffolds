@@ -10,26 +10,31 @@ interface ISubCommandOptions {
    * Crypt repo branch or commit id.
    */
   readonly cryptCommitId: string
+  /**
+   * Plain repo branch or commit id.
+   */
+  readonly plainCommitId: string | undefined
 }
 
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
-export type ISubCommandCatOptions = ICommandOptions & ICommandConfigurationFlatOpts
+export type ISubCommandVerifyOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
-const getDefaultCommandCatOptions = (): ICommandOptions => ({
+const getDefaultCommandVerifyOptions = (): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(),
   cryptCommitId: 'HEAD',
+  plainCommitId: undefined,
 })
 
-export function resolveSubCommandCatOptions(
+export function resolveSubCommandVerifyOptions(
   commandName: string,
   subCommandName: string,
   workspaceDir: string,
-  options: ISubCommandCatOptions,
-): ISubCommandCatOptions {
-  const baseOptions: ISubCommandCatOptions = resolveBaseCommandOptions<ICommandOptions>(
+  options: ISubCommandVerifyOptions,
+): ISubCommandVerifyOptions {
+  const baseOptions: ISubCommandVerifyOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
-    getDefaultCommandCatOptions(),
+    getDefaultCommandVerifyOptions(),
     workspaceDir,
     options,
   )
@@ -42,6 +47,14 @@ export function resolveSubCommandCatOptions(
   )
   logger.debug('cryptCommitId:', cryptCommitId)
 
-  const resolvedOptions: ISubCommandOptions = { cryptCommitId }
+  // Resolve plainCommitId
+  const plainCommitId: string | undefined = cover<string | undefined>(
+    baseOptions.plainCommitId,
+    options.plainCommitId,
+    isNonBlankString,
+  )
+  logger.debug('plainCommitId:', plainCommitId)
+
+  const resolvedOptions: ISubCommandOptions = { cryptCommitId, plainCommitId }
   return { ...baseOptions, ...resolvedOptions }
 }
