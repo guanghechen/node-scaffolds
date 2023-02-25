@@ -106,6 +106,7 @@ export class GitCipherInitProcessor {
     if (shouldGenerateSecret) {
       const {
         cryptFilepathSalt,
+        cryptFilesDir,
         mainIvSize,
         mainKeySize,
         maxTargetFileSize,
@@ -171,6 +172,14 @@ export class GitCipherInitProcessor {
           transformer: (x: string) => x.trim(),
         },
         {
+          type: 'string',
+          name: 'cryptFilesDir',
+          default: context.cryptFilesDir,
+          message: 'cryptFilesDir',
+          filter: x => x.trim(),
+          transformer: (x: string) => x.trim(),
+        },
+        {
           type: 'number',
           name: 'maxTargetFileSize',
           default: context.maxTargetFileSize,
@@ -182,6 +191,7 @@ export class GitCipherInitProcessor {
       await this._createSecret({
         ...presetSecretData,
         cryptFilepathSalt,
+        cryptFilesDir,
         mainIvSize,
         mainKeySize,
         maxTargetFileSize,
