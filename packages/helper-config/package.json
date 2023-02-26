@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-config",
-  "version": "4.4.1",
+  "version": "4.4.2",
   "description": "Utilities for read / write config files.",
   "author": {
     "name": "guanghechen",
@@ -42,10 +42,10 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-mac": "^4.4.1",
-    "@guanghechen/helper-storage": "^4.4.1",
-    "@guanghechen/invariant": "^4.4.1",
-    "@guanghechen/utility-types": "^4.4.1",
+    "@guanghechen/helper-mac": "^4.4.2",
+    "@guanghechen/helper-storage": "^4.4.2",
+    "@guanghechen/invariant": "^4.4.2",
+    "@guanghechen/utility-types": "^4.4.2",
     "@types/semver": "^7.3.13",
     "semver": "^7.3.8"
   },
