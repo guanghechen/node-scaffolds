@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="4.4.2"></a>
+## 4.4.2 (2023-02-26)
+
+### Added
+
+- ✨ feat(helper-git): add new method &#x27;getParentCommitIdList&#x27; [[ce0e10e](https://github.com/guanghechen/node-scaffolds/commit/ce0e10e60515edd71be687a5d5427a6eb38eda7d)]
+
+### Changed
+
+- 🎨 improve(helper-git-cipher): refactor &#x27;GitCipherConfigKeeper&#x27; [[549a382](https://github.com/guanghechen/node-scaffolds/commit/549a3823be388084c0c66b80a6ef031f0a39a38f)]
+
+
 <a name="4.4.1"></a>
 ## 4.4.1 (2023-02-25)
 
