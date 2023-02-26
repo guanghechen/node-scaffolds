@@ -125,10 +125,7 @@ describe('GitCipher', () => {
     items: unknown[],
   ): Promise<void> => {
     await configKeeper.load()
-    expect(configKeeper.data!.commit).toEqual({
-      message: commit.message,
-      cryptParents: commit.cryptParents,
-    })
+    expect(configKeeper.data!.commit).toEqual({ message: commit.message })
     expect(configKeeper.data!.catalog.diffItems).toEqual(
       diffItems.map((diffItem: any): any => {
         const serializeItem = (item: any): any => ({
@@ -244,9 +241,7 @@ describe('GitCipher', () => {
           },
           { id: repo1CryptCommitIdTable.K, parents: [repo1CryptCommitIdTable.J] },
         ])
-        expect(
-          await getCommitWithMessageList({ ...cryptCtx, branchOrCommitIds: ['main'] }),
-        ).toEqual([
+        expect(await getCommitWithMessageList({ ...cryptCtx, commitHashes: ['main'] })).toEqual([
           { id: repo1CryptCommitIdTable.K, message: repo1CryptCommitMessageTable.K },
           { id: repo1CryptCommitIdTable.J, message: repo1CryptCommitMessageTable.J },
           { id: repo1CryptCommitIdTable.I, message: repo1CryptCommitMessageTable.I },
@@ -324,9 +319,7 @@ describe('GitCipher', () => {
           { id: commitIdTable.J, parents: [commitIdTable.I, commitIdTable.H, commitIdTable.F] },
           { id: commitIdTable.K, parents: [commitIdTable.J] },
         ])
-        expect(
-          await getCommitWithMessageList({ ...bakPlainCtx, branchOrCommitIds: ['main'] }),
-        ).toEqual([
+        expect(await getCommitWithMessageList({ ...bakPlainCtx, commitHashes: ['main'] })).toEqual([
           { id: commitIdTable.K, message: commitTable.K.message },
           { id: commitIdTable.J, message: commitTable.J.message },
           { id: commitIdTable.I, message: commitTable.I.message },
@@ -393,14 +386,12 @@ describe('GitCipher', () => {
             { id: repo1CryptCommitIdTable.C, parents: [repo1CryptCommitIdTable.B] },
             { id: repo1CryptCommitIdTable.E, parents: [repo1CryptCommitIdTable.C] },
           ])
-          expect(await getCommitWithMessageList({ ...cryptCtx, branchOrCommitIds: ['E'] })).toEqual(
-            [
-              { id: repo1CryptCommitIdTable.E, message: repo1CryptCommitMessageTable.E },
-              { id: repo1CryptCommitIdTable.C, message: repo1CryptCommitMessageTable.C },
-              { id: repo1CryptCommitIdTable.B, message: repo1CryptCommitMessageTable.B },
-              { id: repo1CryptCommitIdTable.A, message: repo1CryptCommitMessageTable.A },
-            ],
-          )
+          expect(await getCommitWithMessageList({ ...cryptCtx, commitHashes: ['E'] })).toEqual([
+            { id: repo1CryptCommitIdTable.E, message: repo1CryptCommitMessageTable.E },
+            { id: repo1CryptCommitIdTable.C, message: repo1CryptCommitMessageTable.C },
+            { id: repo1CryptCommitIdTable.B, message: repo1CryptCommitMessageTable.B },
+            { id: repo1CryptCommitIdTable.A, message: repo1CryptCommitMessageTable.A },
+          ])
 
           // Check catalog.
           await testCatalog(
@@ -436,9 +427,7 @@ describe('GitCipher', () => {
             { id: commitIdTable.C, parents: [commitIdTable.B] },
             { id: commitIdTable.E, parents: [commitIdTable.C] },
           ])
-          expect(
-            await getCommitWithMessageList({ ...bakPlainCtx, branchOrCommitIds: ['E'] }),
-          ).toEqual([
+          expect(await getCommitWithMessageList({ ...bakPlainCtx, commitHashes: ['E'] })).toEqual([
             { id: commitIdTable.E, message: commitTable.E.message },
             { id: commitIdTable.C, message: commitTable.C.message },
             { id: commitIdTable.B, message: commitTable.B.message },
@@ -474,14 +463,12 @@ describe('GitCipher', () => {
             { id: repo1CryptCommitIdTable.G, parents: [repo1CryptCommitIdTable.B] },
             { id: repo1CryptCommitIdTable.I, parents: [repo1CryptCommitIdTable.G] },
           ])
-          expect(await getCommitWithMessageList({ ...cryptCtx, branchOrCommitIds: ['I'] })).toEqual(
-            [
-              { id: repo1CryptCommitIdTable.I, message: repo1CryptCommitMessageTable.I },
-              { id: repo1CryptCommitIdTable.G, message: repo1CryptCommitMessageTable.G },
-              { id: repo1CryptCommitIdTable.B, message: repo1CryptCommitMessageTable.B },
-              { id: repo1CryptCommitIdTable.A, message: repo1CryptCommitMessageTable.A },
-            ],
-          )
+          expect(await getCommitWithMessageList({ ...cryptCtx, commitHashes: ['I'] })).toEqual([
+            { id: repo1CryptCommitIdTable.I, message: repo1CryptCommitMessageTable.I },
+            { id: repo1CryptCommitIdTable.G, message: repo1CryptCommitMessageTable.G },
+            { id: repo1CryptCommitIdTable.B, message: repo1CryptCommitMessageTable.B },
+            { id: repo1CryptCommitIdTable.A, message: repo1CryptCommitMessageTable.A },
+          ])
 
           // Check catalog.
           await checkBranch({ ...cryptCtx, commitHash: 'I' })
@@ -521,9 +508,7 @@ describe('GitCipher', () => {
             { id: commitIdTable.G, parents: [commitIdTable.B] },
             { id: commitIdTable.I, parents: [commitIdTable.G] },
           ])
-          expect(
-            await getCommitWithMessageList({ ...bakPlainCtx, branchOrCommitIds: ['I'] }),
-          ).toEqual([
+          expect(await getCommitWithMessageList({ ...bakPlainCtx, commitHashes: ['I'] })).toEqual([
             { id: commitIdTable.I, message: commitTable.I.message },
             { id: commitIdTable.G, message: commitTable.G.message },
             { id: commitIdTable.B, message: commitTable.B.message },
@@ -585,21 +570,19 @@ describe('GitCipher', () => {
             },
             { id: repo1CryptCommitIdTable.K, parents: [repo1CryptCommitIdTable.J] },
           ])
-          expect(await getCommitWithMessageList({ ...cryptCtx, branchOrCommitIds: ['K'] })).toEqual(
-            [
-              { id: repo1CryptCommitIdTable.K, message: repo1CryptCommitMessageTable.K },
-              { id: repo1CryptCommitIdTable.J, message: repo1CryptCommitMessageTable.J },
-              { id: repo1CryptCommitIdTable.I, message: repo1CryptCommitMessageTable.I },
-              { id: repo1CryptCommitIdTable.H, message: repo1CryptCommitMessageTable.H },
-              { id: repo1CryptCommitIdTable.G, message: repo1CryptCommitMessageTable.G },
-              { id: repo1CryptCommitIdTable.F, message: repo1CryptCommitMessageTable.F },
-              { id: repo1CryptCommitIdTable.E, message: repo1CryptCommitMessageTable.E },
-              { id: repo1CryptCommitIdTable.D, message: repo1CryptCommitMessageTable.D },
-              { id: repo1CryptCommitIdTable.C, message: repo1CryptCommitMessageTable.C },
-              { id: repo1CryptCommitIdTable.B, message: repo1CryptCommitMessageTable.B },
-              { id: repo1CryptCommitIdTable.A, message: repo1CryptCommitMessageTable.A },
-            ],
-          )
+          expect(await getCommitWithMessageList({ ...cryptCtx, commitHashes: ['K'] })).toEqual([
+            { id: repo1CryptCommitIdTable.K, message: repo1CryptCommitMessageTable.K },
+            { id: repo1CryptCommitIdTable.J, message: repo1CryptCommitMessageTable.J },
+            { id: repo1CryptCommitIdTable.I, message: repo1CryptCommitMessageTable.I },
+            { id: repo1CryptCommitIdTable.H, message: repo1CryptCommitMessageTable.H },
+            { id: repo1CryptCommitIdTable.G, message: repo1CryptCommitMessageTable.G },
+            { id: repo1CryptCommitIdTable.F, message: repo1CryptCommitMessageTable.F },
+            { id: repo1CryptCommitIdTable.E, message: repo1CryptCommitMessageTable.E },
+            { id: repo1CryptCommitIdTable.D, message: repo1CryptCommitMessageTable.D },
+            { id: repo1CryptCommitIdTable.C, message: repo1CryptCommitMessageTable.C },
+            { id: repo1CryptCommitIdTable.B, message: repo1CryptCommitMessageTable.B },
+            { id: repo1CryptCommitIdTable.A, message: repo1CryptCommitMessageTable.A },
+          ])
 
           // Check catalog.
           await testCatalog(
@@ -649,9 +632,7 @@ describe('GitCipher', () => {
             { id: commitIdTable.J, parents: [commitIdTable.I, commitIdTable.H, commitIdTable.F] },
             { id: commitIdTable.K, parents: [commitIdTable.J] },
           ])
-          expect(
-            await getCommitWithMessageList({ ...bakPlainCtx, branchOrCommitIds: ['K'] }),
-          ).toEqual([
+          expect(await getCommitWithMessageList({ ...bakPlainCtx, commitHashes: ['K'] })).toEqual([
             { id: commitIdTable.K, message: commitTable.K.message },
             { id: commitIdTable.J, message: commitTable.J.message },
             { id: commitIdTable.I, message: commitTable.I.message },

@@ -14,7 +14,6 @@ export interface IFileCipherCatalogItemData extends IFileCipherCatalogItemBase {
 export interface IGitCipherConfig {
   commit: {
     message: string
-    cryptParents: string[]
   }
   catalog: {
     // Diff from the first parent commit.
@@ -26,7 +25,6 @@ export interface IGitCipherConfig {
 export interface IGitCipherConfigData {
   commit: {
     message: string
-    cryptParents: string[]
   }
   catalog: {
     // Diff from the first parent commit.

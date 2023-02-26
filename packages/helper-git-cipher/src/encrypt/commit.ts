@@ -142,7 +142,6 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
   const config: IGitCipherConfig = {
     commit: {
       message: signature.message,
-      cryptParents: cryptParentCommitIds,
     },
     catalog: {
       diffItems,

@@ -16,6 +16,7 @@ import {
   checkBranch,
   cleanUntrackedFilepaths,
   commitAll,
+  getParentCommitIdList,
   mergeCommits,
   showCommitInfo,
 } from '@guanghechen/helper-git'
@@ -84,8 +85,12 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
   )
 
   // [plain] Move the HEAD pointer to the first parent commit for creating commit or merging.
-  const { message, cryptParents } = configData.commit
-  const plainParents = cryptParents.map(cryptParentId =>
+  const { message } = configData.commit
+  const cryptParentIds: string[] = await getParentCommitIdList({
+    ...cryptCmdCtx,
+    commitHash: cryptCommitNode.id,
+  })
+  const plainParents = cryptParentIds.map(cryptParentId =>
     getPlainCommitId(cryptParentId, crypt2plainIdMap),
   )
 

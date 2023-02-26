@@ -1,9 +1,8 @@
-import type {
-  IFileCipherCatalogDiffItemBase,
-  IFileCipherCatalogItemBase,
-} from '@guanghechen/helper-cipher-file'
-import { CipherJsonConfigKeeper, FileChangeType } from '@guanghechen/helper-cipher-file'
-import type { IConfigKeeper } from '@guanghechen/helper-config'
+import type { ICipher } from '@guanghechen/helper-cipher'
+import type { IFileCipherCatalogDiffItemBase } from '@guanghechen/helper-cipher-file'
+import { FileChangeType } from '@guanghechen/helper-cipher-file'
+import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/helper-config'
+import { JsonConfigKeeper } from '@guanghechen/helper-config'
 import invariant from '@guanghechen/invariant'
 import type { PromiseOr } from '@guanghechen/utility-types'
 import path from 'node:path'
@@ -17,25 +16,68 @@ import type {
 type Instance = IGitCipherConfig
 type Data = IGitCipherConfigData
 
+export interface IGitCipherConfigKeeperProps extends IJsonConfigKeeperProps {
+  readonly cipher: ICipher
+}
+
 export class GitCipherConfigKeeper
-  extends CipherJsonConfigKeeper<Instance, Data>
+  extends JsonConfigKeeper<Instance, Data>
   implements IConfigKeeper<Instance>
 {
-  public override readonly __version__ = '3.0.0'
-  public override readonly __compatible_version__ = '^3.0.0'
+  public override readonly __version__ = '4.0.0'
+  public override readonly __compatible_version__ = '^4.0.0'
+  public readonly cipher: ICipher
+
+  constructor(props: IGitCipherConfigKeeperProps) {
+    super(props)
+    this.cipher = props.cipher
+  }
 
   protected serialize(instance: Instance): PromiseOr<Data> {
-    const serializeItem = (item: IFileCipherCatalogItemInstance): IFileCipherCatalogItemData => ({
-      plainFilepath: item.plainFilepath,
-      fingerprint: item.fingerprint,
-      size: item.size,
-      keepPlain: item.keepPlain,
-      authTag: item.authTag?.toString('hex'),
-    })
     const title = this.constructor.name
+    const cipher = this.cipher
+
+    const serializeItem = (item: IFileCipherCatalogItemInstance): IFileCipherCatalogItemData => {
+      invariant(
+        !path.isAbsolute(item.plainFilepath),
+        `[${title}] bad catalog, contains absolute filepaths. plainFilepath:(${item.plainFilepath})`,
+      )
+
+      const encryptedAuthTag: Buffer | undefined = item.authTag
+        ? cipher.encrypt(Buffer.from(item.authTag)).cryptBytes
+        : undefined
+
+      if (item.keepPlain) {
+        return {
+          plainFilepath: item.plainFilepath,
+          fingerprint: item.fingerprint,
+          size: item.size,
+          keepPlain: true,
+          authTag: encryptedAuthTag?.toString('hex'),
+        }
+      }
+
+      const encryptedPlainFilepathWithExtraContent: Buffer = cipher.encrypt(
+        Buffer.from(item.plainFilepath + '#' + item.size),
+      ).cryptBytes
+      const encryptedFingerprint: Buffer = cipher.encrypt(Buffer.from(item.fingerprint)).cryptBytes
+      return {
+        plainFilepath: encryptedPlainFilepathWithExtraContent.toString('base64'),
+        fingerprint: encryptedFingerprint.toString('base64'),
+        size: 0,
+        keepPlain: false,
+        authTag: encryptedAuthTag?.toString('hex'),
+      }
+    }
+
+    const commitMessage: string = cipher
+      .encrypt(Buffer.from(instance.commit.message))
+      .cryptBytes.toString('base64')
 
     return {
-      commit: instance.commit,
+      commit: {
+        message: commitMessage,
+      },
       catalog: {
         diffItems: instance.catalog.diffItems.map(
           (diffItem): IFileCipherCatalogDiffItemBase<IFileCipherCatalogItemData> => {
@@ -69,17 +111,51 @@ export class GitCipherConfigKeeper
   }
 
   protected deserialize(data: Data): PromiseOr<Instance> {
-    const deserializeItem = (item: IFileCipherCatalogItemData): IFileCipherCatalogItemInstance => ({
-      plainFilepath: item.plainFilepath,
-      fingerprint: item.fingerprint,
-      size: item.size,
-      keepPlain: item.keepPlain,
-      authTag: item.authTag ? Buffer.from(item.authTag, 'hex') : undefined,
-    })
     const title = this.constructor.name
+    const cipher = this.cipher
+
+    const deserializeItem = (item: IFileCipherCatalogItemData): IFileCipherCatalogItemInstance => {
+      const authTag: Buffer | undefined = item.authTag
+        ? cipher.decrypt(Buffer.from(item.authTag, 'hex'))
+        : undefined
+
+      if (item.keepPlain) {
+        return {
+          plainFilepath: item.plainFilepath,
+          fingerprint: item.fingerprint,
+          size: item.size,
+          keepPlain: true,
+          authTag,
+        }
+      }
+
+      const plainFilepathWithExtraContent: string = cipher
+        .decrypt(Buffer.from(item.plainFilepath, 'base64'))
+        .toString()
+      const separateIndex: number = plainFilepathWithExtraContent.lastIndexOf('#')
+      const plainFilepath: string =
+        separateIndex >= 0
+          ? plainFilepathWithExtraContent.slice(0, separateIndex)
+          : plainFilepathWithExtraContent
+      const size = Number(plainFilepathWithExtraContent.slice(separateIndex + 1))
+      const fingerprint: string = cipher.decrypt(Buffer.from(item.fingerprint, 'base64')).toString()
+      return {
+        plainFilepath,
+        fingerprint,
+        size,
+        keepPlain: false,
+        authTag,
+      }
+    }
+
+    const commitMessage: string = cipher
+      .decrypt(Buffer.from(data.commit.message, 'base64'))
+      .toString()
 
     return {
-      commit: data.commit,
+      commit: {
+        message: commitMessage,
+      },
       catalog: {
         diffItems: data.catalog.diffItems.map(
           (diffItem): IFileCipherCatalogDiffItemBase<IFileCipherCatalogItemInstance> => {
@@ -110,24 +186,5 @@ export class GitCipherConfigKeeper
         items: data.catalog.items.map(deserializeItem),
       },
     }
-  }
-
-  protected override async stringify(data: Data): Promise<string> {
-    let badItem: IFileCipherCatalogItemBase | null = null
-    const { items } = data.catalog
-    for (const item of items) {
-      /* c8 ignore start */
-      if (path.isAbsolute(item.plainFilepath)) {
-        badItem = item
-        break
-      }
-      /* c8 ignore end */
-    }
-
-    invariant(
-      !badItem,
-      `[encryptGitCommit] bad catalog, contains absolute filepaths. plainFilepath:(${badItem?.plainFilepath})`,
-    )
-    return super.stringify(data)
   }
 }

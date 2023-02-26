@@ -26,7 +26,7 @@ export const resolveIdMap = async (params: {
     const plainLocalBranch = await getAllLocalBranches(plainCmdCtx)
     const plainCommitList: IGitCommitWithMessage[] = await getCommitWithMessageList({
       ...plainCmdCtx,
-      branchOrCommitIds: plainLocalBranch.branches,
+      commitHashes: plainLocalBranch.branches,
     })
     const plainCommitIdSet: Set<string> = new Set(plainCommitList.map(item => item.id))
     for (const [cryptId, plainId] of params.crypt2plainIdMap.entries()) {
@@ -40,7 +40,7 @@ export const resolveIdMap = async (params: {
     const cryptLocalBranch = await getAllLocalBranches(cryptCmdCtx)
     const cryptCommitList: IGitCommitWithMessage[] = await getCommitWithMessageList({
       ...cryptCmdCtx,
-      branchOrCommitIds: cryptLocalBranch.branches,
+      commitHashes: cryptLocalBranch.branches,
     })
     const cryptCommitIdSet: Set<string> = new Set(cryptCommitList.map(item => item.id))
     for (const cryptId of params.crypt2plainIdMap.keys()) {
