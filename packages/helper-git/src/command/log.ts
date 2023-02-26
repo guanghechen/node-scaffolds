@@ -20,7 +20,7 @@ export const getCommitInTopology = async (
     '--pretty=format:"%H %P"',
   ]
 
-  params?.logger?.debug(`[hasUnCommitContent] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  params?.logger?.debug(`[getCommitInTopology] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
   const result = await safeExeca('git', args, execaOptions, params.logger)
   const commits: IGitCommitDagNode[] = result.stdout
@@ -34,7 +34,7 @@ export const getCommitInTopology = async (
 }
 
 export interface IGetCommitWithMessageListParams extends IGitCommandBaseParams {
-  branchOrCommitIds: string[]
+  commitHashes: string[]
 }
 
 export const getCommitWithMessageList = async (
@@ -42,9 +42,9 @@ export const getCommitWithMessageList = async (
 ): Promise<IGitCommitWithMessage[]> => {
   const cwd: string = params.cwd
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
-  const args: string[] = ['log', ...params.branchOrCommitIds, `--pretty=format:"%H %B"`]
+  const args: string[] = ['log', ...params.commitHashes, `--pretty=format:"%H %B"`]
 
-  params?.logger?.debug(`[getCommitIdByMessage] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  params?.logger?.debug(`[getCommitWithMessageList] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
   const result = await safeExeca('git', args, execaOptions, params.logger)
 
@@ -62,4 +62,24 @@ export const getCommitWithMessageList = async (
     }
   }
   return results
+}
+
+export interface IGetParentCommitIdListParams extends IGitCommandBaseParams {
+  commitHash: string
+}
+
+export const getParentCommitIdList = async (
+  params: IGetParentCommitIdListParams,
+): Promise<string[]> => {
+  const cwd: string = params.cwd
+  const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
+  const args: string[] = ['log', params.commitHash, '-n 1', '--pretty=%P']
+
+  params?.logger?.debug(`[getParentCommitIdList] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
+  const result = await safeExeca('git', args, execaOptions, params.logger)
+  return result.stdout
+    .split(/\s+/g)
+    .map(x => x.trim())
+    .filter(x => !!x)
 }

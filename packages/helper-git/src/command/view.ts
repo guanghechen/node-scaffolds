@@ -165,7 +165,7 @@ export const showFileContent = async (params: IShowFileContentParams): Promise<s
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
   const args: string[] = ['show', `${params.commitHash}:${params.filepath}`]
 
-  params?.logger?.debug(`[checkBranch] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  params?.logger?.debug(`[showFileContent] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
   const { stdout } = await safeExeca('git', args, execaOptions, params.logger)
   return stdout

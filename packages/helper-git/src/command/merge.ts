@@ -40,7 +40,7 @@ export const mergeCommits = async (params: IMergeCommitsParams): Promise<void> =
   if (params.committerName) env.GIT_COMMITTER_NAME = params.committerName
   if (params.committerEmail) env.GIT_COMMITTER_EMAIL = params.committerEmail
 
-  params?.logger?.debug(`[checkBranch] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  params?.logger?.debug(`[mergeCommits] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
   await safeExeca('git', args, execaOptions, params.logger)
 }

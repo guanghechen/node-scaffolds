@@ -3,7 +3,7 @@ import type { ILoggerMock } from '@guanghechen/helper-jest'
 import { createLoggerMock } from '@guanghechen/helper-jest'
 import { emptyDir, locateFixtures, rm } from 'jest.helper'
 import type { IGitCommandBaseParams, IGitCommitDagNode, IGitCommitWithMessage } from '../src'
-import { getCommitInTopology, getCommitWithMessageList } from '../src'
+import { getCommitInTopology, getCommitWithMessageList, getParentCommitIdList } from '../src'
 import type { ICommitItem } from './_data-repo1'
 import { buildRepo1 } from './_data-repo1'
 
@@ -121,9 +121,8 @@ describe('log', () => {
       execaOptions: {},
     })
 
-    const eGetCommitWithMessageList = (
-      branchOrCommitIds: string[],
-    ): Promise<IGitCommitWithMessage[]> => getCommitWithMessageList({ ...ctx, branchOrCommitIds })
+    const eGetCommitWithMessageList = (commitHashes: string[]): Promise<IGitCommitWithMessage[]> =>
+      getCommitWithMessageList({ ...ctx, commitHashes })
 
     expect(await eGetCommitWithMessageList([commitTable.A.commitId])).toEqual([
       { id: commitTable.A.commitId, message: commitTable.A.message },
@@ -201,5 +200,38 @@ describe('log', () => {
       { id: commitTable.B.commitId, message: commitTable.B.message },
       { id: commitTable.A.commitId, message: commitTable.A.message },
     ])
+  })
+
+  test('getParentCommitIdList', async () => {
+    const { commitIdTable } = await buildRepo1({
+      repoDir: workspaceDir,
+      logger,
+      execaOptions: {},
+    })
+
+    const eGetParentCommitIdList = (commitHash: string): Promise<string[]> =>
+      getParentCommitIdList({ ...ctx, commitHash })
+
+    expect(await eGetParentCommitIdList(commitIdTable.A)).toEqual([])
+    expect(await eGetParentCommitIdList(commitIdTable.B)).toEqual([commitIdTable.A])
+    expect(await eGetParentCommitIdList(commitIdTable.C)).toEqual([commitIdTable.B])
+    expect(await eGetParentCommitIdList(commitIdTable.D)).toEqual([commitIdTable.C])
+    expect(await eGetParentCommitIdList(commitIdTable.E)).toEqual([commitIdTable.C])
+    expect(await eGetParentCommitIdList(commitIdTable.F)).toEqual([
+      commitIdTable.E,
+      commitIdTable.D,
+    ])
+    expect(await eGetParentCommitIdList(commitIdTable.G)).toEqual([commitIdTable.B])
+    expect(await eGetParentCommitIdList(commitIdTable.H)).toEqual([
+      commitIdTable.G,
+      commitIdTable.E,
+    ])
+    expect(await eGetParentCommitIdList(commitIdTable.I)).toEqual([commitIdTable.G])
+    expect(await eGetParentCommitIdList(commitIdTable.J)).toEqual([
+      commitIdTable.I,
+      commitIdTable.H,
+      commitIdTable.F,
+    ])
+    expect(await eGetParentCommitIdList(commitIdTable.K)).toEqual([commitIdTable.J])
   })
 })
