@@ -24,8 +24,8 @@ export class GitCipherConfigKeeper
   extends JsonConfigKeeper<Instance, Data>
   implements IConfigKeeper<Instance>
 {
-  public override readonly __version__ = '4.0.0'
-  public override readonly __compatible_version__ = '^4.0.0'
+  public override readonly __version__ = '5.0.0'
+  public override readonly __compatible_version__ = '~5.0.0'
   public readonly cipher: ICipher
 
   constructor(props: IGitCipherConfigKeeperProps) {
@@ -43,7 +43,7 @@ export class GitCipherConfigKeeper
         `[${title}] bad catalog, contains absolute filepaths. plainFilepath:(${item.plainFilepath})`,
       )
 
-      const encryptedAuthTag: Buffer | undefined = item.authTag
+      const eAuthTag: Buffer | undefined = item.authTag
         ? cipher.encrypt(Buffer.from(item.authTag)).cryptBytes
         : undefined
 
@@ -53,20 +53,18 @@ export class GitCipherConfigKeeper
           fingerprint: item.fingerprint,
           size: item.size,
           keepPlain: true,
-          authTag: encryptedAuthTag?.toString('hex'),
+          authTag: eAuthTag?.toString('hex'),
         }
       }
 
-      const encryptedPlainFilepathWithExtraContent: Buffer = cipher.encrypt(
-        Buffer.from(item.plainFilepath + '#' + item.size),
-      ).cryptBytes
-      const encryptedFingerprint: Buffer = cipher.encrypt(Buffer.from(item.fingerprint)).cryptBytes
+      const ePlainFilepath: Buffer = cipher.encrypt(Buffer.from(item.plainFilepath)).cryptBytes
+      const eFingerprint: Buffer = cipher.encrypt(Buffer.from(item.fingerprint)).cryptBytes
       return {
-        plainFilepath: encryptedPlainFilepathWithExtraContent.toString('base64'),
-        fingerprint: encryptedFingerprint.toString('base64'),
-        size: 0,
+        plainFilepath: ePlainFilepath.toString('base64'),
+        fingerprint: eFingerprint.toString('base64'),
+        size: item.size,
         keepPlain: false,
-        authTag: encryptedAuthTag?.toString('hex'),
+        authTag: eAuthTag?.toString('hex'),
       }
     }
 
@@ -129,20 +127,14 @@ export class GitCipherConfigKeeper
         }
       }
 
-      const plainFilepathWithExtraContent: string = cipher
+      const plainFilepath: string = cipher
         .decrypt(Buffer.from(item.plainFilepath, 'base64'))
         .toString()
-      const separateIndex: number = plainFilepathWithExtraContent.lastIndexOf('#')
-      const plainFilepath: string =
-        separateIndex >= 0
-          ? plainFilepathWithExtraContent.slice(0, separateIndex)
-          : plainFilepathWithExtraContent
-      const size = Number(plainFilepathWithExtraContent.slice(separateIndex + 1))
       const fingerprint: string = cipher.decrypt(Buffer.from(item.fingerprint, 'base64')).toString()
       return {
         plainFilepath,
         fingerprint,
-        size,
+        size: item.size,
         keepPlain: false,
         authTag,
       }
