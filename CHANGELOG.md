@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="4.4.3"></a>
+## 4.4.3 (2023-02-26)
+
+### Changed
+
+- 🎨 improve(helper-git-cipher): update &#x27;GitCipherConfigKeeper&#x27; [[2e398ba](https://github.com/guanghechen/node-scaffolds/commit/2e398baa1b50c1ec9f0b2fd64c30baf9df35ecb2)]
+
+
 <a name="4.4.2"></a>
 ## 4.4.2 (2023-02-26)
 
