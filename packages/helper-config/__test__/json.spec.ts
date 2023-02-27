@@ -67,8 +67,8 @@ describe('JsonConfigKeeper', () => {
       extends JsonConfigKeeper<IUser, IUserData>
       implements IConfigKeeper<IUser>
     {
-      public override readonly __version__ = '1.1.0'
-      public override readonly __compatible_version__ = '^1.0.0'
+      public override readonly __version__ = '2.1.0'
+      public override readonly __compatible_version__ = '^2.0.0'
 
       protected serialize(instance: IUser): PromiseOr<IUserData> {
         return {
@@ -127,15 +127,18 @@ describe('JsonConfigKeeper', () => {
     })
 
     test('basic', () => {
-      expect(keeper.__version__).toEqual('1.0.0')
-      expect(keeper.__compatible_version__).toEqual('^1.0.0')
+      expect(keeper.__version__).toEqual('2.0.0')
+      expect(keeper.__compatible_version__).toEqual('~2.0.0')
       expect(keeper.data).toEqual(undefined)
-      expect(keeper.isCompatible('1.0.0')).toEqual(true)
-      expect(keeper.isCompatible('1.0.3')).toEqual(true)
-      expect(keeper.isCompatible('1.1.7-alpha.0')).toEqual(true)
-      expect(keeper.isCompatible('0.0.1')).toEqual(false)
-      expect(keeper.isCompatible('2.0.1')).toEqual(false)
+      expect(keeper.isCompatible('2.0.0')).toEqual(true)
+      expect(keeper.isCompatible('2.0.3')).toEqual(true)
+      expect(keeper.isCompatible('2.0.3-alpha.0')).toEqual(true)
+      expect(keeper.isCompatible('2.1.3')).toEqual(false)
       expect(keeper.isCompatible('2.1.7-alpha.0')).toEqual(false)
+      expect(keeper.isCompatible('0.0.1')).toEqual(false)
+      expect(keeper.isCompatible('1.0.1')).toEqual(false)
+      expect(keeper.isCompatible('3.0.1')).toEqual(false)
+      expect(keeper.isCompatible('3.1.7-alpha.0')).toEqual(false)
     })
 
     testJsonConfigKeeper<IUser, IUser>({
@@ -168,7 +171,7 @@ function testJsonConfigKeeper<Instance, Data>(params: {
     const mac: string = calcMac([Buffer.from(content)], 'sha256').toString('hex')
     await writeFile(
       configFilepath,
-      JSON.stringify({ __version__: version, __mac__: mac, data: content }),
+      JSON.stringify({ __version__: version, __mac__: mac, data }),
       'utf8',
     )
   }
@@ -184,7 +187,7 @@ function testJsonConfigKeeper<Instance, Data>(params: {
     await assertPromiseThrow(() => keeper.load(), `[${className}.load] Bad config, invalid fields`)
     expect(keeper.data).toEqual(undefined)
 
-    await writeFile(configFilepath, JSON.stringify({ version: '1.0.0', data: data.alice }), 'utf8')
+    await writeFile(configFilepath, JSON.stringify({ version: '2.0.0', data: data.alice }), 'utf8')
     await assertPromiseThrow(() => keeper.load(), `[${className}.load] Bad config, invalid fields`)
     expect(keeper.data).toEqual(undefined)
 
@@ -199,11 +202,11 @@ function testJsonConfigKeeper<Instance, Data>(params: {
     )
     expect(keeper.data).toEqual(undefined)
 
-    await writeData('1.0.0', data.alice)
+    await writeData('2.0.0', data.alice)
     await keeper.load()
     expect(keeper.data).toEqual(instance.alice)
 
-    await writeData('1.2.3', data.bob)
+    await writeData('2.0.3', data.bob)
     expect(keeper.data).toEqual(instance.alice)
     await keeper.load()
     expect(keeper.data).toEqual(instance.bob)
@@ -221,22 +224,16 @@ function testJsonConfigKeeper<Instance, Data>(params: {
     await rm(path.dirname(configFilepath))
     await keeper.save()
     expect(isFileSync(configFilepath)).toEqual(true)
-    expect(JSON.parse(await fs.readFile(configFilepath, 'utf8')).data).toEqual(
-      JSON.stringify(data.alice),
-    )
+    expect(JSON.parse(await fs.readFile(configFilepath, 'utf8')).data).toEqual(data.alice)
 
     await keeper.update(instance.bob)
     expect(keeper.data).toEqual(instance.bob)
     expect(isFileSync(configFilepath)).toEqual(true)
-    expect(JSON.parse(await fs.readFile(configFilepath, 'utf8')).data).toEqual(
-      JSON.stringify(data.alice),
-    )
+    expect(JSON.parse(await fs.readFile(configFilepath, 'utf8')).data).toEqual(data.alice)
 
     await keeper.save()
     expect(isFileSync(configFilepath)).toEqual(true)
-    expect(JSON.parse(await fs.readFile(configFilepath, 'utf8')).data).toEqual(
-      JSON.stringify(data.bob),
-    )
+    expect(JSON.parse(await fs.readFile(configFilepath, 'utf8')).data).toEqual(data.bob)
 
     await keeper.remove()
     expect(isFileSync(configFilepath)).toEqual(false)

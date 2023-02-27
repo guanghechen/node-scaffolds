@@ -39,16 +39,13 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
   protected abstract deserialize(data: Data): PromiseOr<Instance>
 
   // Data -> string
-  protected abstract stringify(data: Data): PromiseOr<string>
-
-  // string -> Data
-  protected abstract parse(content: string): PromiseOr<Data>
+  protected abstract stringify(data: Data): string
 
   // IConfig -> string
-  protected abstract encode(config: IConfig): PromiseOr<string>
+  protected abstract encode(config: IConfig<Data>): PromiseOr<string>
 
   // string -> IConfig
-  protected abstract decode(stringifiedContent: string): PromiseOr<IConfig>
+  protected abstract decode(stringifiedContent: string): PromiseOr<IConfig<Data>>
 
   public get data(): Readonly<Instance> | undefined {
     return this._instance
@@ -67,15 +64,15 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
 
   public async load(storage: IStorage = this._storage): Promise<void> {
     const title: string = this.constructor.name + '.load'
-    const content: string | undefined = await storage.load()
-    invariant(content !== undefined, `Failed to load content.`)
+    const configContent: string | undefined = await storage.load()
+    invariant(configContent !== undefined, `[${title}] Failed to load config.`)
 
-    const config: IConfig = await this.decode(content)
+    const config: IConfig<Data> = await this.decode(configContent)
+    const { __version__, __mac__, data } = config ?? {}
 
-    // Assert config is compatible.
-    const { __version__, __mac__, data: rawData } = config ?? {}
+    // Check if config is compatible.
     invariant(
-      typeof __version__ === 'string' && typeof __mac__ === 'string' && typeof rawData === 'string',
+      typeof __version__ === 'string' && typeof __mac__ === 'string',
       () => `[${title}] Bad config, invalid fields. (${JSON.stringify(config)})`,
     )
     invariant(
@@ -83,11 +80,11 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
       `[${title}] Version not compatible. expect(${this.__compatible_version__}), received(${__version__})`,
     )
 
-    // Assert config mac is matched.
-    const mac = calcMac([Buffer.from(config.data, 'utf8')], this.hashAlgorithm).toString('hex')
+    // Check if the config mac is matched.
+    const content: string = this.stringify(data)
+    const mac = calcMac([Buffer.from(content, 'utf8')], this.hashAlgorithm).toString('hex')
     invariant(mac === config.__mac__, () => `[${title}] Bad config, mac is not matched.`)
 
-    const data: Data = await this.parse(config.data)
     const instance: Instance = await this.deserialize(data)
     this._instance = instance
   }
@@ -97,9 +94,9 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
     invariant(this._instance !== undefined, `[${title}] No valid data holding.`)
 
     const data: Data = await this.serialize(this._instance)
-    const content: string = await this.stringify(data)
+    const content: string = this.stringify(data)
     const mac: string = calcMac([Buffer.from(content)], this.hashAlgorithm).toString('hex')
-    const config: IConfig = { __version__: this.__version__, __mac__: mac, data: content }
+    const config: IConfig<Data> = { __version__: this.__version__, __mac__: mac, data }
     const stringifiedConfig: string = await this.encode(config)
     await storage.save(stringifiedConfig)
   }

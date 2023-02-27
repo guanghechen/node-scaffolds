@@ -1,6 +1,6 @@
 import type { IStorage } from '@guanghechen/helper-storage'
 
-export interface IConfig {
+export interface IConfig<Data> {
   /**
    * Config version.
    */
@@ -12,7 +12,7 @@ export interface IConfig {
   /**
    * Payload data.
    */
-  data: string
+  data: Data
 }
 
 export interface IConfigKeeper<D> {
