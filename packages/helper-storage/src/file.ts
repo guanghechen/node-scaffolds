@@ -20,6 +20,10 @@ export class FileStorage implements IStorage {
     this.encoding = props.encoding
   }
 
+  public async exists(): Promise<boolean> {
+    return existsSync(this.filepath)
+  }
+
   public async load(): Promise<string | undefined> {
     const title: string = this.constructor.name + '.load'
 

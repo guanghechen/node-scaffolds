@@ -3,6 +3,11 @@
  */
 export interface IStorage {
   /**
+   * Check if the content exist.
+   */
+  exists(): Promise<boolean>
+
+  /**
    * Load data from config file.
    */
   load(): Promise<string | undefined>

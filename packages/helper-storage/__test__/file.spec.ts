@@ -29,6 +29,16 @@ describe('FileStorage', () => {
     const encoding: BufferEncoding = 'utf8'
     const storage = new FileStorage({ strict: false, filepath: configFilepath, encoding })
 
+    test('exists', async () => {
+      expect(await storage.exists()).toEqual(false)
+
+      await storage.save('waw')
+      expect(await storage.exists()).toEqual(true)
+
+      await rm(configFilepath)
+      expect(await storage.exists()).toEqual(false)
+    })
+
     test('load-1', async () => {
       expect(existsSync(configFilepath)).toEqual(false)
       expect(await storage.load()).toEqual(undefined)
