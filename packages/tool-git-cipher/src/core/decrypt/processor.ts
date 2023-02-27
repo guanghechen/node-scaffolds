@@ -52,7 +52,7 @@ export class GitCipherDecryptProcessor {
 
     const cipherFactory: ICipherFactory | null = secretMaster.cipherFactory
     invariant(
-      !!secretKeeper.data && !!cipherFactory,
+      !!secretKeeper.data && !!cipherFactory && !!secretMaster.catalogCipher,
       '[processor.decrypt] Secret cipherFactory is not available!',
     )
 
@@ -70,7 +70,7 @@ export class GitCipherDecryptProcessor {
     const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
     const fileHelper = new BigFileHelper({ partCodePrefix: partCodePrefix })
     const configKeeper = new GitCipherConfigKeeper({
-      cipher: cipherFactory.cipher(),
+      cipher: secretMaster.catalogCipher,
       storage: new FileStorage({
         strict: true,
         filepath: catalogFilepath,

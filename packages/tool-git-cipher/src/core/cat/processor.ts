@@ -56,7 +56,7 @@ export class GitCipherCatProcessor {
 
     const cipherFactory: ICipherFactory | null = secretMaster.cipherFactory
     invariant(
-      !!secretKeeper.data && !!cipherFactory,
+      !!secretKeeper.data && !!cipherFactory && !!secretMaster.catalogCipher,
       `[${title}] Secret cipherFactory is not available!`,
     )
 
@@ -69,7 +69,7 @@ export class GitCipherCatProcessor {
     })
 
     const configKeeper = new GitCipherConfigKeeper({
-      cipher: cipherFactory.cipher(),
+      cipher: secretMaster.catalogCipher,
       storage: {
         load: async () => catalogContent,
         save: async () => {},
