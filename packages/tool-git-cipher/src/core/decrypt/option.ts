@@ -1,5 +1,5 @@
 import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commander'
-import { isString } from '@guanghechen/helper-is'
+import { isNonBlankString, isString } from '@guanghechen/helper-is'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import { logger } from '../../env/logger'
@@ -7,6 +7,11 @@ import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
 interface ISubCommandOptions {
+  /**
+   * The path of catalog cache file of crypt repo. (relative of workspace)
+   * @default '.ghc-cache-catalog.decrypt.json'
+   */
+  readonly catalogCacheFilepath: string
   /**
    * If specified, then all of the files under the given commitId will be decrypted.
    * Otherwise, the entire repo will be generated.
@@ -29,9 +34,10 @@ export type ISubCommandDecryptOptions = ICommandOptions & ICommandConfigurationF
 
 const getDefaultCommandDecryptOptions = (): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(),
-  outDir: '.ghc-plain-bak',
+  catalogCacheFilepath: '.ghc-cache-catalog.decrypt.json',
   filesOnly: undefined,
   gitGpgSign: false,
+  outDir: '.ghc-plain-bak',
 })
 
 export function resolveSubCommandDecryptOptions(
@@ -47,6 +53,13 @@ export function resolveSubCommandDecryptOptions(
     workspaceDir,
     options,
   )
+
+  // Resolve catalogCacheFilepath
+  const catalogCacheFilepath: string = absoluteOfWorkspace(
+    workspaceDir,
+    cover<string>(baseOptions.catalogCacheFilepath, options.catalogCacheFilepath, isNonBlankString),
+  )
+  logger.debug('catalogCacheFilepath:', catalogCacheFilepath)
 
   // Resolve filesAt
   const filesOnly: string | undefined = cover<string | undefined>(
@@ -69,6 +82,11 @@ export function resolveSubCommandDecryptOptions(
     : undefined
   logger.debug('outDir:', outDir)
 
-  const resolvedOptions: ISubCommandOptions = { filesOnly, gitGpgSign, outDir }
+  const resolvedOptions: ISubCommandOptions = {
+    catalogCacheFilepath,
+    filesOnly,
+    gitGpgSign,
+    outDir,
+  }
   return { ...baseOptions, ...resolvedOptions }
 }

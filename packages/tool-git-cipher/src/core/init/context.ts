@@ -4,10 +4,6 @@ import type { ISubCommandInitOptions } from './option'
 
 export interface IGitCipherInitContext {
   /**
-   * The path of catalog cache file of crypt repo. (absolute path)
-   */
-  readonly catalogCacheFilepath: string
-  /**
    * The path of catalog file of crypt repo. (absolute path)
    */
   readonly catalogFilepath: string
@@ -111,7 +107,6 @@ export async function createGitCipherInitContextFromOptions(
   options: ISubCommandInitOptions,
 ): Promise<IGitCipherInitContext> {
   const context: IGitCipherInitContext = {
-    catalogCacheFilepath: options.catalogCacheFilepath,
     catalogFilepath: options.catalogFilepath,
     configFilepaths: options.configPath ?? [],
     contentHashAlgorithm: options.contentHashAlgorithm,

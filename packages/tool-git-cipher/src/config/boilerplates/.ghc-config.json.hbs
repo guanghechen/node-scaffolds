@@ -12,11 +12,15 @@
   "init": {
     "gitGpgSign": false
   },
-  "encrypt": {},
+  "encrypt": {
+    "catalogCacheFilepath": ".ghc-cache-catalog.encrypt.json"
+  },
   "decrypt": {
-    "catalogCacheFilepath": ".ghc-catalog-cache.decrypt",
+    "catalogCacheFilepath": ".ghc-cache-catalog.decrypt.json",
     "gitGpgSign": false,
     "outDir": "{{{bakPlainRootDir}}}"
   },
-  "verify": {}
+  "verify": {
+    "catalogCacheFilepath": ".ghc-cache-catalog.encrypt.json"
+  }
 }

@@ -19,10 +19,12 @@ export class CatalogCacheKeeper
   public override readonly __compatible_version__: string = '^1.0.0'
 
   public override async load(): Promise<void> {
-    try {
-      await super.load()
-    } catch (error) {
-      logger.warn('Failed to load catalog cache (ignored).', error)
+    if (await this._storage.exists()) {
+      try {
+        await super.load()
+      } catch (error) {
+        logger.warn('Failed to load catalog cache (ignored).', error)
+      }
     }
   }
 

@@ -1,11 +1,17 @@
 import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
+import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import { logger } from '../../env/logger'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
 interface ISubCommandOptions {
+  /**
+   * The path of catalog cache file of crypt repo. (relative of workspace)
+   * @default '.ghc-cache-catalog.encrypt.json'
+   */
+  readonly catalogCacheFilepath: string
   /**
    * Crypt repo branch or commit id.
    */
@@ -21,6 +27,7 @@ export type ISubCommandVerifyOptions = ICommandOptions & ICommandConfigurationFl
 
 const getDefaultCommandVerifyOptions = (): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(),
+  catalogCacheFilepath: '.ghc-cache-catalog.encrypt.json',
   cryptCommitId: 'HEAD',
   plainCommitId: undefined,
 })
@@ -39,6 +46,13 @@ export function resolveSubCommandVerifyOptions(
     options,
   )
 
+  // Resolve catalogCacheFilepath
+  const catalogCacheFilepath: string = absoluteOfWorkspace(
+    workspaceDir,
+    cover<string>(baseOptions.catalogCacheFilepath, options.catalogCacheFilepath, isNonBlankString),
+  )
+  logger.debug('catalogCacheFilepath:', catalogCacheFilepath)
+
   // Resolve cryptCommitId
   const cryptCommitId: string = cover<string>(
     baseOptions.cryptCommitId,
@@ -55,6 +69,10 @@ export function resolveSubCommandVerifyOptions(
   )
   logger.debug('plainCommitId:', plainCommitId)
 
-  const resolvedOptions: ISubCommandOptions = { cryptCommitId, plainCommitId }
+  const resolvedOptions: ISubCommandOptions = {
+    catalogCacheFilepath,
+    cryptCommitId,
+    plainCommitId,
+  }
   return { ...baseOptions, ...resolvedOptions }
 }

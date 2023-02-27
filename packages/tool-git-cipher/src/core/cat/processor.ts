@@ -74,6 +74,7 @@ export class GitCipherCatProcessor {
         load: async () => catalogContent,
         save: async () => {},
         remove: async () => {},
+        exists: async () => true,
       },
     })
     await configKeeper.load()

@@ -13,11 +13,6 @@ import { logger } from '../env/logger'
  */
 export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
   /**
-   * The path of catalog cache file of crypt repo. (relative of workspace)
-   * @default '.ghc-catalog-cache'
-   */
-  readonly catalogCacheFilepath: string
-  /**
    * The directory where the crypt repo located. (relative of workspace or absolute path)
    * @default 'ghc-crypt'
    */
@@ -64,7 +59,6 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
 export const getDefaultGlobalCommandOptions = (): IGlobalCommandOptions => ({
   logLevel: 'info',
   configPath: ['.ghc-config.json'],
-  catalogCacheFilepath: '.ghc-catalog-cache.json',
   cryptRootDir: 'ghc-crypt',
   encoding: 'utf8',
   maxPasswordLength: 100,
@@ -98,17 +92,6 @@ export function resolveBaseCommandOptions<C extends object>(
     { ...getDefaultGlobalCommandOptions(), ...defaultOptions },
     options,
   )
-
-  // Resolve catalogCacheFilepath
-  const catalogCacheFilepath: string = absoluteOfWorkspace(
-    workspaceDir,
-    cover<string>(
-      resolvedDefaultOptions.catalogCacheFilepath,
-      options.catalogCacheFilepath,
-      isNonBlankString,
-    ),
-  )
-  logger.debug('catalogCacheFilepath:', catalogCacheFilepath)
 
   // Resolve cryptRootDir
   const cryptRootDir: string = absoluteOfWorkspace(
@@ -168,7 +151,6 @@ export function resolveBaseCommandOptions<C extends object>(
   logger.debug('showAsterisk:', showAsterisk)
 
   const resolvedOptions: IGlobalCommandOptions = {
-    catalogCacheFilepath,
     cryptRootDir,
     encoding,
     maxPasswordLength,

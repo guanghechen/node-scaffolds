@@ -17,6 +17,10 @@ export const createSubCommandVerify = (
     .aliases(aliases)
     .arguments('<workspace>')
     .description('Verify if there are any problems in the crypt repo.')
+    .option(
+      '--catalog-cache-filepath <catalogCacheFilepath>',
+      'The path where catalog cache file located. (relative of workspace)',
+    )
     .option('--crypt-commit-id <commitId>', 'Crypt repo branch or commit id.')
     .option('--plain-commit-id <commitId>', 'Plain repo branch or commit id.')
     .action(async function ([_workspaceDir], options: ISubCommandVerifyOptions) {

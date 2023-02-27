@@ -11,10 +11,6 @@ export function createProgram(): Command {
   // global options
   program
     .option(
-      '--catalog-cache-filepath <catalogCacheFilepath>',
-      'The path of catalog cache file of crypt repo. (relative of workspace)',
-    )
-    .option(
       '--crypt-root-dir <cryptRootDir>',
       'The directory where the crypt repo located. (relative of workspace or absolute path)',
     )

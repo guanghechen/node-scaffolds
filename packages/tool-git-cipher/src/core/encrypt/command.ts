@@ -17,6 +17,10 @@ export const createSubCommandEncrypt = (
     .aliases(aliases)
     .description('Encrypt git repo.')
     .arguments('<workspace>')
+    .option(
+      '--catalog-cache-filepath <catalogCacheFilepath>',
+      'The path where catalog cache file located. (relative of workspace)',
+    )
     .action(async function ([_workspaceDir], options: ISubCommandEncryptOptions) {
       const resolvedOptions: ISubCommandEncryptOptions = resolveSubCommandEncryptOptions(
         COMMAND_NAME,

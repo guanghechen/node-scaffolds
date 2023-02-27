@@ -101,7 +101,7 @@ export class SecretConfigKeeper
   protected override serialize(data: ISecretConfigData): ISecretConfigData {
     return {
       catalogFilepath: relativeOfWorkspace(this.cryptRootDir, data.catalogFilepath),
-      contentHashAlgorithm: data.contentHashAlgorithm ?? 'sha256',
+      contentHashAlgorithm: data.contentHashAlgorithm,
       cryptFilepathSalt: data.cryptFilepathSalt,
       cryptFilesDir: relativeOfWorkspace(this.cryptRootDir, data.cryptFilesDir),
       keepPlainPatterns: data.keepPlainPatterns,
@@ -112,7 +112,7 @@ export class SecretConfigKeeper
           ? undefined
           : data.maxTargetFileSize,
       partCodePrefix: data.partCodePrefix,
-      pathHashAlgorithm: data.pathHashAlgorithm ?? 'sha256',
+      pathHashAlgorithm: data.pathHashAlgorithm,
       pbkdf2Options: data.pbkdf2Options,
       secret: data.secret,
       secretAuthTag: data.secretAuthTag,
