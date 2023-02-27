@@ -1,5 +1,23 @@
 # Changelog
 
+<a name="4.5.0"></a>
+## 4.5.0 (2023-02-27)
+
+### Changed
+
+- 🎨 improve(tool-git-cipher): use catalog nonce [[ddfd0af](https://github.com/guanghechen/node-scaffolds/commit/ddfd0af78d2fe62331b8959d1614c9a27501d4df)]
+- 👽 fix tests due to the previous changes [[a50da01](https://github.com/guanghechen/node-scaffolds/commit/a50da01764ac77a953cdb72a4e875d932a919c9c)]
+- 🎨 improve(helper-config): retain plain data instead of string [[ee6e089](https://github.com/guanghechen/node-scaffolds/commit/ee6e0892ce2b9564041f902675ee472b9505b8c7)]
+- 🎨 improve(helper-storage): add new member method &#x27;exist&#x27; [[4560a1a](https://github.com/guanghechen/node-scaffolds/commit/4560a1a7f0df70725b7fe2313548de203a183f99)]
+- 🎨 improve(helper-git-cipher): update GitCipherConfigKeeper data format [[4bbff10](https://github.com/guanghechen/node-scaffolds/commit/4bbff10346d0ab2ae1e9c08fa53c027a56d7ae65)]
+- 🍱 improve(tool-git-cipher): update boilerplates [[09d0337](https://github.com/guanghechen/node-scaffolds/commit/09d0337172fdfaac8008b0f2961aa7f6a1fdbe35)]
+
+### Miscellaneous
+
+- ⚰️ improve(helper-cipher-file) remove CipherJsonConfigKeeper [[e49ee35](https://github.com/guanghechen/node-scaffolds/commit/e49ee35cea231884d7901b0105be3e10e5463abd)]
+-  🎨 improve(tool-git-cipher): update options [[17ef056](https://github.com/guanghechen/node-scaffolds/commit/17ef056e10cb378f450a895775390f98c6c254e8)]
+
+
 <a name="4.4.3"></a>
 ## 4.4.3 (2023-02-26)
 
