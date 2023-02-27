@@ -24,8 +24,8 @@ export class GitCipherConfigKeeper
   extends JsonConfigKeeper<Instance, Data>
   implements IConfigKeeper<Instance>
 {
-  public override readonly __version__ = '5.0.0'
-  public override readonly __compatible_version__ = '~5.0.0'
+  public override readonly __version__ = '5.1.0'
+  public override readonly __compatible_version__ = '~5.1.0'
   public readonly cipher: ICipher
 
   constructor(props: IGitCipherConfigKeeperProps) {
@@ -58,10 +58,10 @@ export class GitCipherConfigKeeper
       }
 
       const ePlainFilepath: Buffer = cipher.encrypt(Buffer.from(item.plainFilepath)).cryptBytes
-      const eFingerprint: Buffer = cipher.encrypt(Buffer.from(item.fingerprint)).cryptBytes
+      const eFingerprint: Buffer = cipher.encrypt(Buffer.from(item.fingerprint, 'hex')).cryptBytes
       return {
         plainFilepath: ePlainFilepath.toString('base64'),
-        fingerprint: eFingerprint.toString('base64'),
+        fingerprint: eFingerprint.toString('hex'),
         size: item.size,
         keepPlain: false,
         authTag: eAuthTag?.toString('hex'),
@@ -130,7 +130,9 @@ export class GitCipherConfigKeeper
       const plainFilepath: string = cipher
         .decrypt(Buffer.from(item.plainFilepath, 'base64'))
         .toString()
-      const fingerprint: string = cipher.decrypt(Buffer.from(item.fingerprint, 'base64')).toString()
+      const fingerprint: string = cipher
+        .decrypt(Buffer.from(item.fingerprint, 'hex'))
+        .toString('hex')
       return {
         plainFilepath,
         fingerprint,

@@ -3,17 +3,17 @@ import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 export * from '@guanghechen/helper-git/__test__/_data-repo1'
 
 export const repo1CryptCommitIdTable = {
-  A: '92c1692346bdaf6639968a7174cd865aa5487db1',
-  B: '10fa5c07dff71c1babff55602f4f728c222450ca',
-  C: '57897dc9d2344020655b66b23fa6f8dcd1ff7549',
-  D: 'bce6315c262f40c089a164726a52b67869f58629',
-  E: 'b6f906316220af64311d3d9a8aa1f17e9f08def0',
-  F: 'ff680953bfdce6dd8bacab363ad2a3e1b0662beb',
-  G: '67edd01f4860599c2978a6e24a4eae1a983a45bc',
-  H: '5e4695ca443475ed0a10627400fec21e0d4bf3f4',
-  I: 'c69bcff169c79a0dfde562a91f99de4257aaa333',
-  J: 'e324057324a18ebb3290ed2b2944ab8701bcd487',
-  K: 'dd40c52b73b99831ef16147492ad1e161b45275d',
+  A: '3d84119db749878ab6964f9539b829e59da3c689',
+  B: '3adf350973774a57be7bc8c1d7c1b785feaee159',
+  C: 'cfb36bc6933a2a52b894d74a75faaca5c766871a',
+  D: 'ec438e7b5c812f205c3e454b276eae51b1ae9f96',
+  E: 'af2e547e5edac76af1d1dc3b6eaafc9df83243b3',
+  F: '433713bf5dcc986f144d4638a9b43f95b5c3736c',
+  G: '2c65865b1ec041bf2518544c9436ad68f1ee2fd8',
+  H: '334911454c94bb7f259028e1dccb673c70f25f84',
+  I: '6ac24fb0c267c8d5f6acac414995e2531e6915a4',
+  J: '845b9cb5b0136c6c0c5b618192a9049bfdbe1e10',
+  K: '89f4eb8df6f647d154bb6e887682047a25f6b61b',
 }
 
 export const repo1CryptCommitMessageTable = {
