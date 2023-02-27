@@ -27,6 +27,11 @@ export default function (plop) {
           path: resolveTargetPath('.gitignore'),
           templateFile: resolveSourcePath('.gitignore.hbs'),
         },
+        {
+          type: 'add',
+          path: resolveTargetPath('package.json'),
+          templateFile: resolveSourcePath('package.json.hbs'),
+        },
       ]
     },
   })
