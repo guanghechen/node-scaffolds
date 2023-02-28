@@ -96,21 +96,6 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
         )
       }
       /* c8 ignore end */
-
-      /* c8 ignore start */
-      if (item.size !== expectedItem.size) {
-        logger?.error(`[${title}] Bad file content, file size are not matched.`, {
-          plainFilepath,
-          plainCommitId,
-          cryptCommitId,
-          expected: expectedItem.size,
-          received: item.size,
-        })
-        throw new Error(
-          `[${title}] Bad file content, file size are not matched. plainFilepath(${plainFilepath})`,
-        )
-      }
-      /* c8 ignore end */
     }
     logger?.info(`Everything looks good!`)
   } finally {

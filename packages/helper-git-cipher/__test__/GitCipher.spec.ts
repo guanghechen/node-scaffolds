@@ -131,7 +131,7 @@ describe('GitCipher', () => {
         const serializeItem = (item: any): any => ({
           plainFilepath: item.plainFilepath,
           fingerprint: item.fingerprint,
-          size: item.size,
+          cryptFilepathParts: item.cryptFilepathParts,
           keepPlain: item.keepPlain,
           authTag: item.authTag,
         })
@@ -159,7 +159,8 @@ describe('GitCipher', () => {
     )
     expect(
       configKeeper.data!.catalog.items.map(item => ({
-        ...catalog.flatCatalogItem(item),
+        ...item,
+        cryptFilepath: catalog.calcCryptFilepath(item),
         iv: getDynamicIv([
           Buffer.from(item.plainFilepath, 'hex'),
           Buffer.from(item.fingerprint, 'hex'),

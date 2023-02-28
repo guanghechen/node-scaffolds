@@ -51,7 +51,7 @@ export class GitCipherConfigKeeper
         return {
           plainFilepath: item.plainFilepath,
           fingerprint: item.fingerprint,
-          size: item.size,
+          cryptFilepathParts: item.cryptFilepathParts,
           keepPlain: true,
           authTag: eAuthTag?.toString('hex'),
         }
@@ -62,7 +62,7 @@ export class GitCipherConfigKeeper
       return {
         plainFilepath: ePlainFilepath.toString('base64'),
         fingerprint: eFingerprint.toString('hex'),
-        size: item.size,
+        cryptFilepathParts: item.cryptFilepathParts,
         keepPlain: false,
         authTag: eAuthTag?.toString('hex'),
       }
@@ -121,7 +121,7 @@ export class GitCipherConfigKeeper
         return {
           plainFilepath: item.plainFilepath,
           fingerprint: item.fingerprint,
-          size: item.size,
+          cryptFilepathParts: item.cryptFilepathParts,
           keepPlain: true,
           authTag,
         }
@@ -136,7 +136,7 @@ export class GitCipherConfigKeeper
       return {
         plainFilepath,
         fingerprint,
-        size: item.size,
+        cryptFilepathParts: item.cryptFilepathParts,
         keepPlain: false,
         authTag,
       }
