@@ -6,13 +6,16 @@ export interface IFileCipherCatalogItemBase {
    */
   plainFilepath: string
   /**
+   * Parts path of the encrypted file.
+   *
+   * If this is a non-empty array, it means that the target file is split into multiple parts,
+   * where each element of the array is a part of the crypt file (suffix of the cryptFilepath).
+   */
+  cryptFilepathParts: string[]
+  /**
    * Fingerprint of contents of the plain file.
    */
   fingerprint: string
-  /**
-   * The size of the plain file (in bytes).
-   */
-  size: number
   /**
    * Whether if keep plain.
    */
@@ -24,14 +27,6 @@ export interface IFileCipherCatalogItemDraft extends IFileCipherCatalogItemBase 
    * The path of the encrypted file (relative path of the encrypted root directory).
    */
   cryptFilepath: string
-  /**
-   * Parts path of the encrypted file.
-   *
-   * If this is a non-empty array, it means that the target file is split into multiple parts,
-   * where each element of the array corresponds to the file path (relative path of the target root
-   * directory) of each part.
-   */
-  cryptFileParts: string[]
 }
 
 export interface IFileCipherCatalogItem extends IFileCipherCatalogItemDraft {

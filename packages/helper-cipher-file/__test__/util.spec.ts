@@ -47,9 +47,8 @@ describe('catalog', () => {
     const basicItem: IFileCipherCatalogItemDraft = {
       plainFilepath: 'waw.txt',
       cryptFilepath: calcMac([Buffer.from('waw.txt')], pathHashAlgorithm).toString('hex'),
-      cryptFileParts: [],
+      cryptFilepathParts: [],
       fingerprint: '',
-      size: 20,
       keepPlain: false,
     }
 
@@ -62,14 +61,14 @@ describe('catalog', () => {
       isSameFileCipherItemDraft(basicItem, { ...basicItem, cryptFilepath: 'waw2.txt' }),
     ).toEqual(false)
     expect(
-      isSameFileCipherItemDraft(basicItem, { ...basicItem, cryptFileParts: ['waw2.txt'] }),
-    ).toEqual(true)
+      isSameFileCipherItemDraft(basicItem, { ...basicItem, cryptFilepathParts: ['waw2.txt'] }),
+    ).toEqual(false)
     expect(
       isSameFileCipherItemDraft(basicItem, {
         ...basicItem,
-        cryptFileParts: ['waw2.txt', 'waw3.txt'],
+        cryptFilepathParts: ['waw2.txt', 'waw3.txt'],
       }),
-    ).toEqual(true)
+    ).toEqual(false)
     expect(isSameFileCipherItemDraft(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
   })
 
@@ -77,9 +76,8 @@ describe('catalog', () => {
     const basicItem: IFileCipherCatalogItem = {
       plainFilepath: 'waw.txt',
       cryptFilepath: calcMac([Buffer.from('waw.txt')], pathHashAlgorithm).toString('hex'),
-      cryptFileParts: [],
+      cryptFilepathParts: [],
       fingerprint: '',
-      size: 20,
       keepPlain: false,
       iv: Buffer.from('dddef89d89c3fe3ca704d5fd', 'hex'),
       authTag: undefined,
@@ -93,15 +91,15 @@ describe('catalog', () => {
     expect(isSameFileCipherItem(basicItem, { ...basicItem, cryptFilepath: 'waw2.txt' })).toEqual(
       false,
     )
-    expect(isSameFileCipherItem(basicItem, { ...basicItem, cryptFileParts: ['waw2.txt'] })).toEqual(
-      true,
-    )
+    expect(
+      isSameFileCipherItem(basicItem, { ...basicItem, cryptFilepathParts: ['waw2.txt'] }),
+    ).toEqual(false)
     expect(
       isSameFileCipherItem(basicItem, {
         ...basicItem,
-        cryptFileParts: ['waw2.txt', 'waw3.txt'],
+        cryptFilepathParts: ['waw2.txt', 'waw3.txt'],
       }),
-    ).toEqual(true)
+    ).toEqual(false)
     expect(isSameFileCipherItem(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
     expect(
       isSameFileCipherItem(basicItem, {
@@ -127,9 +125,8 @@ describe('catalog', () => {
         newItem: {
           plainFilepath: 'c.txt',
           cryptFilepath: 'd.txt',
-          cryptFileParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
+          cryptFilepathParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
           fingerprint: '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13',
-          size: 3150,
           keepPlain: true,
         },
       },

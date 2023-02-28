@@ -5,10 +5,6 @@ export const calcFingerprintFromMac = (mac: Buffer): string => mac.toString('hex
 
 /**
  * Calc fingerprint from literal string.
- *
- * @param text
- * @param textEncoding
- * @returns
  */
 export function calcFingerprintFromString(
   text: string,
@@ -22,9 +18,6 @@ export function calcFingerprintFromString(
 
 /**
  * Calc fingerprint from file.
- *
- * @param mac
- * @returns
  */
 export async function calcFingerprintFromFile(
   filepath: string,

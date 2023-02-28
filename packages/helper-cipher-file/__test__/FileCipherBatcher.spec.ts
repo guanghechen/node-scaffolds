@@ -65,10 +65,10 @@ describe('FileCipherBatcher', () => {
   const encryptedFilepathA: string = cryptPathResolver.absolute(itemTable.A.cryptFilepath)
   const encryptedFilepathA2: string = cryptPathResolver.absolute(itemTable.A2.cryptFilepath)
   const encryptedFilepathB: string = cryptPathResolver.absolute(itemTable.B.cryptFilepath)
-  const encryptedFilepathsC: string[] = itemTable.C.cryptFileParts.map(part =>
+  const encryptedFilepathsC: string[] = itemTable.C.cryptFilepathParts.map(part =>
     cryptPathResolver.absolute(itemTable.C.cryptFilepath + part),
   )
-  const encryptedFilepathsD: string[] = itemTable.D.cryptFileParts.map(part =>
+  const encryptedFilepathsD: string[] = itemTable.D.cryptFilepathParts.map(part =>
     cryptPathResolver.absolute(itemTable.D.cryptFilepath + part),
   )
 

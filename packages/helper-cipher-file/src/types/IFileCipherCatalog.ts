@@ -43,10 +43,10 @@ export interface IFileCipherCatalog {
   calcCatalogItem(params: ICalcCatalogItemParams): Promise<IFileCipherCatalogItemDraft | never>
 
   /**
-   * Flat base catalog item.
-   * @param param
+   * Calc crypt filepath.
+   * @param params
    */
-  flatCatalogItem(baseItem: IFileCipherCatalogItemBase): IFileCipherCatalogItemDraft
+  calcCryptFilepath(params: ICalcCryptFilepathParams): string
 
   /**
    * Calculate diff items with the new catalog items.
@@ -71,6 +71,11 @@ export interface ICalcCatalogItemParams {
    */
   isKeepPlain?(relativePlainFilepath: string): boolean
 }
+
+export type ICalcCryptFilepathParams = Pick<
+  IFileCipherCatalogItemBase,
+  'plainFilepath' | 'keepPlain'
+>
 
 export interface IDiffFromCatalogItemsParams {
   newItems: Iterable<IFileCipherCatalogItem>

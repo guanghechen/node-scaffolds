@@ -86,11 +86,12 @@ export class FileCipherBatcher implements IFileCipherBatcher {
         )
         if (parts.length > 1) {
           const partFilepaths: string[] = await fileHelper.split(absoluteCryptFilepath, parts)
-          const relativeCryptFilepath = cryptPathResolver.relative(cryptFilepath)
-
-          nextItem.cryptFileParts = partFilepaths.map(p =>
+          const relativeCryptFilepath: string = cryptPathResolver.relative(cryptFilepath)
+          const cryptFilepathParts: string[] = partFilepaths.map(p =>
             cryptPathResolver.relative(p).slice(relativeCryptFilepath.length),
           )
+
+          nextItem.cryptFilepathParts = cryptFilepathParts
 
           // Remove the original big crypt file.
           await fs.unlink(absoluteCryptFilepath)
@@ -294,8 +295,8 @@ export class FileCipherBatcher implements IFileCipherBatcher {
   }
 
   protected _collectCryptFilepaths(item: Readonly<IFileCipherCatalogItemDraft>): string[] {
-    return item.cryptFileParts.length > 1
-      ? item.cryptFileParts.map(part => item.cryptFilepath + part)
+    return item.cryptFilepathParts.length > 1
+      ? item.cryptFilepathParts.map(part => item.cryptFilepath + part)
       : [item.cryptFilepath]
   }
 }

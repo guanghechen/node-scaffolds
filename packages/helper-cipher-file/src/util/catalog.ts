@@ -22,13 +22,13 @@ export function isSameFileCipherItemDraft(
   newItem: Readonly<IFileCipherCatalogItemDraft>,
 ): boolean {
   if (oldItem === newItem) return true
-
   return (
     oldItem.plainFilepath === newItem.plainFilepath &&
     oldItem.cryptFilepath === newItem.cryptFilepath &&
     oldItem.fingerprint === newItem.fingerprint &&
-    oldItem.size === newItem.size &&
-    oldItem.keepPlain === newItem.keepPlain
+    oldItem.keepPlain === newItem.keepPlain &&
+    oldItem.cryptFilepathParts.length === newItem.cryptFilepathParts.length &&
+    oldItem.cryptFilepathParts.every(part => newItem.cryptFilepathParts.includes(part))
   )
 }
 
@@ -37,7 +37,6 @@ export function isSameFileCipherItem(
   newItem: Readonly<IFileCipherCatalogItem>,
 ): boolean {
   if (oldItem === newItem) return true
-
   return (
     isSameFileCipherItemDraft(oldItem, newItem) &&
     oldItem.iv === newItem.iv &&
@@ -49,9 +48,7 @@ export function collectAffectedPlainFilepaths(
   diffItems: ReadonlyArray<IFileCipherCatalogDiffItemDraft>,
 ): string[] {
   const files: Set<string> = new Set()
-  const collect = (item: IFileCipherCatalogItem): void => {
-    files.add(item.plainFilepath)
-  }
+  const collect = (item: IFileCipherCatalogItem): void => void files.add(item.plainFilepath)
 
   for (let i = 0; i < diffItems.length; ++i) {
     const item = diffItems[i] as IFileCipherCatalogDiffItemCombine
@@ -66,10 +63,8 @@ export function collectAffectedCryptFilepaths(
 ): string[] {
   const files: Set<string> = new Set()
   const collect = (item: IFileCipherCatalogItem): void => {
-    if (item.cryptFileParts.length > 1) {
-      for (const filePart of item.cryptFileParts) {
-        files.add(item.cryptFilepath + filePart)
-      }
+    if (item.cryptFilepathParts.length > 1) {
+      for (const filePart of item.cryptFilepathParts) files.add(item.cryptFilepath + filePart)
     } else {
       files.add(item.cryptFilepath)
     }

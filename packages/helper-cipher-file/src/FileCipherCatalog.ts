@@ -9,6 +9,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import type {
   ICalcCatalogItemParams,
+  ICalcCryptFilepathParams,
   ICheckCryptIntegrityParams,
   IDiffFromCatalogItemsParams,
   IDiffFromPlainFiles,
@@ -22,7 +23,6 @@ import type {
 import { FileChangeType } from './types/IFileCipherCatalogDiffItem'
 import type {
   IFileCipherCatalogItem,
-  IFileCipherCatalogItemBase,
   IFileCipherCatalogItemDraft,
 } from './types/IFileCipherCatalogItem'
 import {
@@ -105,9 +105,8 @@ export class FileCipherCatalog implements IFileCipherCatalog {
         _itemMap.set(key, {
           plainFilepath: newItem.plainFilepath,
           cryptFilepath: newItem.cryptFilepath,
-          cryptFileParts: newItem.cryptFileParts,
+          cryptFilepathParts: newItem.cryptFilepathParts,
           fingerprint: newItem.fingerprint,
-          size: newItem.size,
           keepPlain: newItem.keepPlain,
           iv: newItem.iv,
           authTag: newItem.authTag,
@@ -117,39 +116,46 @@ export class FileCipherCatalog implements IFileCipherCatalog {
   }
 
   // @override
-  public async calcCatalogItem({
-    plainFilepath,
-    isKeepPlain = this.isKeepPlain,
-  }: ICalcCatalogItemParams): Promise<IFileCipherCatalogItemDraft | never> {
-    const { plainPathResolver, contentHashAlgorithm } = this
-    const absolutePlainFilepath = plainPathResolver.absolute(plainFilepath)
+  public async calcCatalogItem(
+    params: ICalcCatalogItemParams,
+  ): Promise<IFileCipherCatalogItemDraft | never> {
+    const { isKeepPlain = this.isKeepPlain } = params
+    const { contentHashAlgorithm, plainPathResolver } = this
+    const absolutePlainFilepath = plainPathResolver.absolute(params.plainFilepath)
     invariant(isFileSync(absolutePlainFilepath), `Not a file ${absolutePlainFilepath}.`)
 
-    const fingerprint = await calcFingerprintFromFile(absolutePlainFilepath, contentHashAlgorithm)
     const fileSize = await fs.stat(absolutePlainFilepath).then(md => md.size)
+    const fingerprint = await calcFingerprintFromFile(absolutePlainFilepath, contentHashAlgorithm)
     const relativePlainFilepath = plainPathResolver.relative(absolutePlainFilepath)
     const keepPlain: boolean = isKeepPlain(relativePlainFilepath)
 
-    return this.flatCatalogItem({
-      fingerprint,
-      size: fileSize,
+    const cryptFilepath: string = this.calcCryptFilepath({
       plainFilepath: relativePlainFilepath,
       keepPlain,
     })
+    const cryptFilepathParts = calcFilePartNames(
+      calcFilePartItemsBySize(fileSize, this.maxTargetFileSize),
+      this.partCodePrefix,
+    )
+
+    return {
+      plainFilepath: relativePlainFilepath,
+      cryptFilepath,
+      cryptFilepathParts: cryptFilepathParts.length > 1 ? cryptFilepathParts : [],
+      fingerprint,
+      keepPlain,
+    }
   }
 
   // override
-  public flatCatalogItem({
-    plainFilepath,
-    fingerprint,
-    size,
-    keepPlain,
-  }: IFileCipherCatalogItemBase): IFileCipherCatalogItemDraft {
+  public calcCryptFilepath(params: ICalcCryptFilepathParams): string {
+    const { keepPlain } = params
     const { cryptFilesDir, cryptFilepathSalt, plainPathResolver } = this
-    const plainFilepathKey = normalizePlainFilepath(plainFilepath, plainPathResolver)
-
+    const absolutePlainFilepath = plainPathResolver.absolute(params.plainFilepath)
+    const relativePlainFilepath = plainPathResolver.relative(absolutePlainFilepath)
+    const plainFilepathKey = normalizePlainFilepath(relativePlainFilepath, plainPathResolver)
     const cryptFilepath: string = keepPlain
-      ? plainFilepath
+      ? relativePlainFilepath
       : path.join(
           cryptFilesDir,
           calcFingerprintFromString(
@@ -158,19 +164,7 @@ export class FileCipherCatalog implements IFileCipherCatalog {
             this.pathHashAlgorithm,
           ),
         )
-    const cryptFileParts = calcFilePartNames(
-      calcFilePartItemsBySize(size, this.maxTargetFileSize),
-      this.partCodePrefix,
-    )
-    const item: IFileCipherCatalogItemDraft = {
-      plainFilepath,
-      cryptFilepath,
-      cryptFileParts: cryptFileParts.length > 1 ? cryptFileParts : [],
-      fingerprint,
-      size: size,
-      keepPlain,
-    }
-    return item
+    return cryptFilepath
   }
 
   // @override
@@ -193,8 +187,8 @@ export class FileCipherCatalog implements IFileCipherCatalog {
     const { _itemMap, logger } = this
     logger?.debug('[checkIntegrity] checking crypt files.')
     for (const item of _itemMap.values()) {
-      if (item.cryptFileParts.length > 1) {
-        for (const filePart of item.cryptFileParts) {
+      if (item.cryptFilepathParts.length > 1) {
+        for (const filePart of item.cryptFilepathParts) {
           const cryptFilepath = item.cryptFilepath + filePart
           const absoluteCryptFilepath = cryptPathResolver.absolute(cryptFilepath)
           invariant(

@@ -234,13 +234,13 @@ describe('FileCipherCatalog', () => {
       )
 
       // Both plain files and crypt files are exist.
-      for (const part of itemTable.C.cryptFileParts) {
+      for (const part of itemTable.C.cryptFilepathParts) {
         const absoluteEncryptedFilepath = cryptPathResolver.absolute(
           itemTable.C.cryptFilepath + part,
         )
         await writeFile(absoluteEncryptedFilepath, contentC, encoding)
       }
-      for (const part of itemTable.D.cryptFileParts) {
+      for (const part of itemTable.D.cryptFilepathParts) {
         const absoluteEncryptedFilepath = cryptPathResolver.absolute(
           itemTable.D.cryptFilepath + part,
         )
