@@ -1,5 +1,6 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
+import type { IFileCipherCatalogItem } from '@guanghechen/helper-cipher-file'
 import {
   FileChangeType,
   FileCipherBatcher,
@@ -122,52 +123,64 @@ describe('GitCipher', () => {
   const testCatalog = async (
     commit: { message: string; cryptParents: string[] },
     diffItems: unknown[],
-    items: unknown[],
+    items: IFileCipherCatalogItem[],
   ): Promise<void> => {
     await configKeeper.load()
     expect(configKeeper.data!.commit).toEqual({ message: commit.message })
-    expect(configKeeper.data!.catalog.diffItems).toEqual(
+    expect(
+      configKeeper.data!.catalog.items.map(item => ({
+        ...item,
+        cryptFilepath: catalog.calcCryptFilepath(item),
+        iv: getDynamicIv([
+          Buffer.from(item.plainFilepath, 'utf8'),
+          Buffer.from(item.fingerprint, 'hex'),
+        ])?.toString('hex'),
+        authTag: item.authTag?.toString('hex'),
+      })),
+    ).toEqual(
+      items.map(item => ({
+        ...item,
+        iv: item.iv?.toString('hex'),
+        authTag: item.authTag?.toString('hex'),
+      })),
+    )
+
+    expect(
+      configKeeper.data!.catalog.diffItems.map(diffItem => {
+        const serializeItem = (item: any): any => ({
+          plainFilepath: item.plainFilepath,
+          fingerprint: item.fingerprint,
+          cryptFilepathParts: item.cryptFilepathParts,
+          keepPlain: item.keepPlain,
+          iv: getDynamicIv([
+            Buffer.from(item.plainFilepath, 'utf8'),
+            Buffer.from(item.fingerprint, 'hex'),
+          ])?.toString('hex'),
+          authTag: item.authTag?.toString('hex'),
+        })
+
+        const result: any = { ...diffItem }
+        if (result.oldItem) result.oldItem = serializeItem(result.oldItem)
+        if (result.newItem) result.newItem = serializeItem(result.newItem)
+        return result
+      }),
+    ).toEqual(
       diffItems.map((diffItem: any): any => {
         const serializeItem = (item: any): any => ({
           plainFilepath: item.plainFilepath,
           fingerprint: item.fingerprint,
           cryptFilepathParts: item.cryptFilepathParts,
           keepPlain: item.keepPlain,
-          authTag: item.authTag,
+          iv: item.iv?.toString('hex'),
+          authTag: item.authTag?.toString('hex'),
         })
-        switch (diffItem.changeType) {
-          case FileChangeType.ADDED:
-            return {
-              changeType: diffItem.changeType,
-              newItem: serializeItem(diffItem.newItem),
-            }
-          case FileChangeType.MODIFIED:
-            return {
-              changeType: diffItem.changeType,
-              oldItem: serializeItem(diffItem.oldItem),
-              newItem: serializeItem(diffItem.newItem),
-            }
-          case FileChangeType.REMOVED:
-            return {
-              changeType: diffItem.changeType,
-              oldItem: serializeItem(diffItem.oldItem),
-            }
-          default:
-            throw new Error(`Unknown changeType(${diffItem.changeType}).`)
-        }
+
+        const result: any = { ...diffItem }
+        if (result.oldItem) result.oldItem = serializeItem(result.oldItem)
+        if (result.newItem) result.newItem = serializeItem(result.newItem)
+        return result
       }),
     )
-    expect(
-      configKeeper.data!.catalog.items.map(item => ({
-        ...item,
-        cryptFilepath: catalog.calcCryptFilepath(item),
-        iv: getDynamicIv([
-          Buffer.from(item.plainFilepath, 'hex'),
-          Buffer.from(item.fingerprint, 'hex'),
-        ]),
-        authTag: item.authTag,
-      })),
-    ).toEqual(items)
   }
 
   describe('complex', () => {

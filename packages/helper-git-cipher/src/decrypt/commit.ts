@@ -69,7 +69,7 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
   })
 
   const getIv = (item: IFileCipherCatalogItemBase): Buffer =>
-    getDynamicIv([Buffer.from(item.plainFilepath, 'hex'), Buffer.from(item.fingerprint, 'hex')])
+    getDynamicIv([Buffer.from(item.plainFilepath, 'utf8'), Buffer.from(item.fingerprint, 'hex')])
   const flatItem = (item: IFileCipherCatalogItemInstance): IFileCipherCatalogItem => ({
     ...item,
     cryptFilepath: catalog.calcCryptFilepath(item),

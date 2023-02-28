@@ -3,17 +3,17 @@ import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 export * from '@guanghechen/helper-git/__test__/_data-repo1'
 
 export const repo1CryptCommitIdTable = {
-  A: 'fad3c6db42571ed6c2f48ba9e7b7f75ee3b8e328',
-  B: '8edffe3781a61e1e542f4f9af8a13f58e5197c36',
-  C: '90e3f12fb634343d32ec04c2fcf084083d36a54e',
-  D: '99d394a1fa63f7ec8d3e9c0c59c9ba0bd1262dce',
-  E: '8e8afc6b41c14321b4ccfbf755534354ec9cce05',
-  F: 'a55645b3caec41a6c5384b064359c52f4b3726bd',
-  G: 'd9eae9d91e0f9345e47cbc77590640edbac10ee1',
-  H: 'b9ba89528832cbe2303ca9537d254558abbcfe2b',
-  I: '2e247f16f893b112cc28e51eb9a8b3c49a40e4b1',
-  J: 'e7b530a1796f1a206a02341fdfb5df0a772b3f35',
-  K: '7df3706a51d8e62c72c83bfc22ee70b015a69e8c',
+  A: '3383cd9f2d81477277cc71a82ffcf84d05f5fa68',
+  B: '8c3045fd284c8af652eea93101187bd424d6295e',
+  C: '08093f437a6e8647209e88795636a9eb32fde29a',
+  D: '42758d40ebb04c2b237ddc98559281f6d7ffa911',
+  E: '36cd985c811c9b180ddc65091ce2057207974d3b',
+  F: '2bd6036fcbdd7fd83c52045cd7047ad7f92e1615',
+  G: '7e79f58df070afde8bd8072c528594149a60d5fa',
+  H: '529eca33d4e3931c6794391351f0273c1a04939b',
+  I: 'a39ead1cdd641bd4e0204bfb02b374e2be2da968',
+  J: '363ca08ffebd25594a005ff8953a27a6836aa777',
+  K: '0a2d654b4b04f6e9841acbb18ba4f4db4aaa4c64',
 }
 
 export const repo1CryptCommitMessageTable = {
@@ -37,7 +37,7 @@ export const itemTable = {
     cryptFilepathParts: [],
     fingerprint: '4e26698e6bebd87fc210bec49fea4da6210b5769dbff50b3479effa16799120f',
     keepPlain: true,
-    iv: Buffer.from('c65b6cc1c81a805ba6a7187e', 'hex'),
+    iv: Buffer.from('c187594c5ea799e7a2f035c8', 'hex'),
     authTag: undefined,
   },
   A2: {
@@ -46,7 +46,7 @@ export const itemTable = {
     cryptFilepathParts: [],
     fingerprint: '4ec33c94039179da5febb8936428e80e7b0d3f42689a4adb38fc8e479634eeb8',
     keepPlain: true,
-    iv: Buffer.from('2b6d63cbde1c274dfe8ba9bc', 'hex'),
+    iv: Buffer.from('2f237981516b8c14dba4ebc1', 'hex'),
     authTag: undefined,
   },
   B: {
@@ -55,8 +55,8 @@ export const itemTable = {
     cryptFilepathParts: [],
     fingerprint: '965bfea36969b0b94ab0665baedd328c37f200340b937c07fdb6885ea363993c',
     keepPlain: false,
-    iv: Buffer.from('44ad63f5398f8d806658f35d', 'hex'),
-    authTag: Buffer.from('4ecc052246ff595a5549510b4a639105', 'hex'),
+    iv: Buffer.from('78d4b1241450d0151830c2b7', 'hex'),
+    authTag: Buffer.from('d3c7c317aa627a4d7f9fe82b870e48ef', 'hex'),
   },
   B2: {
     plainFilepath: 'b.txt',
@@ -65,8 +65,8 @@ export const itemTable = {
     fingerprint: '88d03f260a5158dd23220ae24160320df2ec63840dac45ad4c99cc6d0208e248',
     keepPlain: false,
     size: 1650,
-    iv: Buffer.from('c2e17ce7a041aa6a34b6508a', 'hex'),
-    authTag: Buffer.from('ddcc8070520f86d9ba48a43d17b4bfb5', 'hex'),
+    iv: Buffer.from('951619437ddaca2c541fc426', 'hex'),
+    authTag: Buffer.from('98d90ea1b70933470b489ec2d44e2c02', 'hex'),
   },
   C: {
     plainFilepath: 'x/c.txt',
@@ -74,8 +74,8 @@ export const itemTable = {
     cryptFilepathParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3'],
     fingerprint: 'fd7dc434ab208f15cd61dcc39e8e67de75a1cc6e1c6c9268d653a01b819da054',
     keepPlain: false,
-    iv: Buffer.from('ea36cfca05bee4b045956a1f', 'hex'),
-    authTag: Buffer.from('dff151f0961471d5782eed60e57ed5af', 'hex'),
+    iv: Buffer.from('f5be427ea24681db4f08ec14', 'hex'),
+    authTag: Buffer.from('9003e392320bfa3581669d18d8d747cf', 'hex'),
   },
   C2: {
     plainFilepath: 'x/c.txt',
@@ -83,8 +83,8 @@ export const itemTable = {
     cryptFilepathParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
     fingerprint: 'df91313a8fc51bce13227ad3b5e8eeea815fe149969c174b0f2da373dea473c1',
     keepPlain: false,
-    iv: Buffer.from('38eff44fe4585a632a75464a', 'hex'),
-    authTag: Buffer.from('90ec961ea6e2936020f6be60ec0b6239', 'hex'),
+    iv: Buffer.from('3c3a108f4a213e4b8fc1058f', 'hex'),
+    authTag: Buffer.from('028804f373b463785a87efc8830ed8b2', 'hex'),
   },
   C3: {
     plainFilepath: 'x/c.txt',
@@ -92,8 +92,8 @@ export const itemTable = {
     cryptFilepathParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4', '.ghc-part5'],
     fingerprint: 'ce9d19d55a13973f3e1f970e8915df800a1a61bd2f38212b55db73b8669ddcaf',
     keepPlain: false,
-    iv: Buffer.from('362b53ef8d8ac14d4689bca3', 'hex'),
-    authTag: Buffer.from('2674b106e4f472435f2b9e8ce2a6d83a', 'hex'),
+    iv: Buffer.from('5a93a535b8da6037cb0cc62a', 'hex'),
+    authTag: Buffer.from('20d560824461b1bc490e78e9d0dca65e', 'hex'),
   },
   D: {
     plainFilepath: 'x/d.txt',
@@ -101,8 +101,8 @@ export const itemTable = {
     cryptFilepathParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
     fingerprint: '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13',
     keepPlain: false,
-    iv: Buffer.from('6a60b80f8e5c5d6772cda449', 'hex'),
-    authTag: Buffer.from('333e0019fff2b8f293cdb1f698ef114e', 'hex'),
+    iv: Buffer.from('68d8d715d8b03d583ad595a8', 'hex'),
+    authTag: Buffer.from('03fcf614c9c443d34ac6c01375406197', 'hex'),
   },
   E: {
     plainFilepath: 'y/z/e.txt',
@@ -110,8 +110,8 @@ export const itemTable = {
     cryptFilepathParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
     fingerprint: '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13',
     keepPlain: false,
-    iv: Buffer.from('6a60b80f8e5c5d6772cda449', 'hex'),
-    authTag: Buffer.from('333e0019fff2b8f293cdb1f698ef114e', 'hex'),
+    iv: Buffer.from('10b54292994a5316a47034ca', 'hex'),
+    authTag: Buffer.from('46457d180a528d3739550feea231e9cd', 'hex'),
   },
 }
 
