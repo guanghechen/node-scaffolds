@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="4.6.0"></a>
+## 4.6.0 (2023-02-28)
+
+### Changed
+
+- 👽 fix(helper-git-cipher): fix due to the change of helper-cipher-file [[f2ea7fc](https://github.com/guanghechen/node-scaffolds/commit/f2ea7fcc990710bb21e98fa32319baaa48c775ad)]
+
+### Breaking changes
+
+- 💥 [BREAKING] improve(helper-cipher-file): refactor IFileCipherCatalogItem [[47367f7](https://github.com/guanghechen/node-scaffolds/commit/47367f7da28224d76f71ca74ad893a10597b5df5)]
+
+### Fixed
+
+- 🐛 fix(helper-git-cipher): plainFilepath is &#x27;utf8&#x27; encoded, not &#x27;hex&#x27; [[d809d97](https://github.com/guanghechen/node-scaffolds/commit/d809d9715aa351c9c30f9cf4aee4e23f682523cd)]
+
+
 <a name="4.5.0"></a>
 ## 4.5.0 (2023-02-27)
 
