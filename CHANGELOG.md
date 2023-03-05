@@ -1,5 +1,20 @@
 # Changelog
 
+<a name="4.6.1"></a>
+## 4.6.1 (2023-03-05)
+
+### Changed
+
+- ⬆️ chore: upgrade devDependencies [[b358df3](https://github.com/guanghechen/node-scaffolds/commit/b358df3c4da109260dbd4ab43e72f80ffdf3cecd)]
+- 🍱 improve(tool-git-cipher): update boilerplates [[01fd2ed](https://github.com/guanghechen/node-scaffolds/commit/01fd2edcf8340f34ec11ce76e0796c9c8a650891)]
+- 👽 fix(helper-git-cipher): fix test due to the change of @guanghechen/helper-config [[bf6a7e7](https://github.com/guanghechen/node-scaffolds/commit/bf6a7e74ed818e4848a9bffb7aa57a400b00e68f)]
+- 🎨 improve(helper-config): add an optional filed &#x27;__nonce__&#x27; to config [[428c4d2](https://github.com/guanghechen/node-scaffolds/commit/428c4d2b68da544a655fd70405a3f27f905493c1)]
+
+### Miscellaneous
+
+-  fix lint [[f84b74b](https://github.com/guanghechen/node-scaffolds/commit/f84b74ba5cc09d37d0aef95ae2754941a3a0a939)]
+
+
 <a name="4.6.0"></a>
 ## 4.6.0 (2023-02-28)
 
