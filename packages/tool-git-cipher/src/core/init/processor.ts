@@ -8,6 +8,7 @@ import invariant from '@guanghechen/invariant'
 import { execa } from 'execa'
 import inquirer from 'inquirer'
 import nodePlop from 'node-plop'
+import { randomBytes } from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { resolveTemplateFilepath } from '../../env/config'
 import { COMMAND_VERSION } from '../../env/constant'
@@ -249,6 +250,7 @@ export class GitCipherInitProcessor {
       catalogFilepath: relativeOfWorkspace(context.cryptRootDir, context.catalogFilepath),
       commandVersion: COMMAND_VERSION,
       configFilepath: data.configFilepath,
+      configNonce: randomBytes(20).toString('hex'),
       cryptFilepathSalt: context.cryptFilepathSalt,
       cryptFilesDir: relativeOfWorkspace(context.cryptRootDir, context.cryptFilesDir),
       cryptRootDir: relativeOfWorkspace(context.workspace, context.cryptRootDir),
