@@ -10,6 +10,10 @@ export interface IConfig<Data> {
    */
   __mac__: string
   /**
+   * A random string.
+   */
+  __nonce__: string | undefined
+  /**
    * Payload data.
    */
   data: Data

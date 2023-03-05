@@ -3,6 +3,7 @@ import { calcMac } from '@guanghechen/helper-mac'
 import type { IStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
 import type { PromiseOr } from '@guanghechen/utility-types'
+import { randomBytes } from 'node:crypto'
 import semver from 'semver'
 import type { IConfig, IConfigKeeper } from './types'
 
@@ -25,6 +26,7 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
 
   protected readonly _storage: IStorage
   protected _instance: Instance | undefined
+  protected _nonce: string | undefined
 
   constructor(props: IBaseConfigKeeperProps) {
     this.hashAlgorithm = props.hashAlgorithm ?? 'sha256'
@@ -47,6 +49,11 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
   // string -> IConfig
   protected abstract decode(stringifiedContent: string): PromiseOr<IConfig<Data>>
 
+  // Generate nonce.
+  protected nonce(oldNonce: string | undefined): string | undefined {
+    return oldNonce ?? randomBytes(20).toString('hex')
+  }
+
   public get data(): Readonly<Instance> | undefined {
     return this._instance
   }
@@ -68,7 +75,7 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
     invariant(configContent !== undefined, `[${title}] Failed to load config.`)
 
     const config: IConfig<Data> = await this.decode(configContent)
-    const { __version__, __mac__, data } = config ?? {}
+    const { __version__, __mac__, __nonce__, data } = config ?? {}
 
     // Check if config is compatible.
     invariant(
@@ -87,6 +94,7 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
 
     const instance: Instance = await this.deserialize(data)
     this._instance = instance
+    this._nonce = __nonce__
   }
 
   public async save(storage: IStorage = this._storage): Promise<void> {
@@ -95,8 +103,14 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
 
     const data: Data = await this.serialize(this._instance)
     const content: string = this.stringify(data)
-    const mac: string = calcMac([Buffer.from(content)], this.hashAlgorithm).toString('hex')
-    const config: IConfig<Data> = { __version__: this.__version__, __mac__: mac, data }
+    const __mac__: string = calcMac([Buffer.from(content)], this.hashAlgorithm).toString('hex')
+    const __nonce__: string | undefined = this.nonce(this._nonce)
+    const config: IConfig<Data> = {
+      __version__: this.__version__,
+      __mac__,
+      __nonce__,
+      data,
+    }
     const stringifiedConfig: string = await this.encode(config)
     await storage.save(stringifiedConfig)
   }
