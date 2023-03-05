@@ -33,7 +33,11 @@ export class GitCipherConfigKeeper
     this.cipher = props.cipher
   }
 
-  protected serialize(instance: Instance): PromiseOr<Data> {
+  protected override nonce(): string | undefined {
+    return undefined
+  }
+
+  protected override serialize(instance: Instance): PromiseOr<Data> {
     const title = this.constructor.name
     const cipher = this.cipher
 
@@ -108,7 +112,7 @@ export class GitCipherConfigKeeper
     }
   }
 
-  protected deserialize(data: Data): PromiseOr<Instance> {
+  protected override deserialize(data: Data): PromiseOr<Instance> {
     const title = this.constructor.name
     const cipher = this.cipher
 
