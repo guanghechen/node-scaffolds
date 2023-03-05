@@ -53,7 +53,7 @@
   "devDependencies": {
     "@guanghechen/rollup-config-cli": "^4.6.0",
     "cross-env": "^7.0.3",
-    "rimraf": "^4.1.2",
-    "rollup": "^3.17.2"
+    "rimraf": "^4.3.0",
+    "rollup": "^3.18.0"
   }
 }
