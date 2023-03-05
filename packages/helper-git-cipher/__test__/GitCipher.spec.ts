@@ -2,7 +2,6 @@ import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
 import type { IFileCipherCatalogItem } from '@guanghechen/helper-cipher-file'
 import {
-  FileChangeType,
   FileCipherBatcher,
   FileCipherCatalog,
   FileCipherFactory,
