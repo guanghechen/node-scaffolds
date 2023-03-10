@@ -45,10 +45,11 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "rimraf": "^4.3.0",
-    "rollup": "^3.18.0"
+    "rimraf": "^4.4.0",
+    "rollup": "^3.19.0"
   },
   "peerDependencies": {
-    "rollup": "^3.0.0"
+    "rollup": "^3.0.0",
+    "typescript": ">=3.7.0"
   }
 }
