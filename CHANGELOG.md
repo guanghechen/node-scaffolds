@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="4.6.2"></a>
+## 4.6.2 (2023-03-10)
+
+### Changed
+
+- 🍱 improve(tool-git-cipher): update boilerplates [[553f82a](https://github.com/guanghechen/node-scaffolds/commit/553f82a837d03a8bb37bd828295e08dd7e0e4f79)]
+- ⬆️ chore: upgrade devDependencies [[5f4cfd5](https://github.com/guanghechen/node-scaffolds/commit/5f4cfd5c9d5b8f371d54d9a4c2a3882f7498b882)]
+
+
 <a name="4.6.1"></a>
 ## 4.6.1 (2023-03-05)
 
