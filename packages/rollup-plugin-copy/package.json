@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-plugin-copy",
-  "version": "4.6.1",
+  "version": "4.6.2",
   "description": "Rollup plugins to copy files and folds (glob supported)",
   "author": {
     "name": "guanghechen",
@@ -43,8 +43,8 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-fs": "^4.6.1",
-    "@guanghechen/helper-is": "^4.6.1",
+    "@guanghechen/helper-fs": "^4.6.2",
+    "@guanghechen/helper-is": "^4.6.2",
     "chalk": "^5.2.0",
     "chokidar": "^3.5.3",
     "dir-glob": "^3.0.1",
