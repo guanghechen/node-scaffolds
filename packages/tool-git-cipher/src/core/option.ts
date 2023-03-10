@@ -38,7 +38,7 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
   readonly minPasswordLength: number
   /**
    * The directory where the plain repo located. (relative of workspace or absolute path)
-   * @default '.'
+   * @default 'ghc-plain'
    */
   readonly plainRootDir: string
   /**
@@ -64,7 +64,7 @@ export const getDefaultGlobalCommandOptions = (): IGlobalCommandOptions => ({
   maxPasswordLength: 100,
   maxRetryTimes: 3,
   minPasswordLength: 6,
-  plainRootDir: '.',
+  plainRootDir: 'ghc-plain',
   secretFilepath: '.ghc-secret.json',
   showAsterisk: true,
 })
