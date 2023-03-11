@@ -20,19 +20,14 @@ import { isBoolean, isNumber, isString } from '@guanghechen/helper-is'
  *  * Other type ==> null
  * @param v
  */
-export function convertToBoolean(v?: unknown): boolean | null {
-  if (v == null) return null
-  if (isString(v)) {
-    switch (v.toLowerCase()) {
-      case 'false':
-        return false
-      case 'true':
-        return true
-      default:
-        return null
-    }
+export const convertToBoolean = (v?: unknown): boolean | null => {
+  if (typeof v === 'boolean') return v
+  if (typeof v === 'string') {
+    const t = v.toLowerCase()
+    if (t === 'false') return false
+    if (t === 'true') return true
   }
-  return isBoolean(v) ? v : null
+  return null
 }
 
 /**

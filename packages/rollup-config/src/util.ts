@@ -1,45 +1,18 @@
-/**
- * Cover a defaultValue if the given value is not null / undefined.
- * @param defaultValue
- * @param value
- */
-export function cover<T>(defaultValue: T, value?: T | null): T {
-  return value == null ? defaultValue : value
+export const isArray = (v: unknown[] | unknown): v is unknown[] => Array.isArray(v)
+
+export const convertToBoolean = (v?: unknown): boolean | null => {
+  if (typeof v === 'boolean') return v
+  if (typeof v === 'string') {
+    const t = v.toLowerCase()
+    if (t === 'false') return false
+    if (t === 'true') return true
+  }
+  return null
 }
 
-/**
- * Cover the defaultValue with a value converted to a boolean type.
- * @param defaultValue
- * @param value
- */
-export function coverBoolean(defaultValue: boolean, value?: unknown): boolean {
+export const cover = <T>(defaultValue: T, value?: T | null): T => value ?? defaultValue
+
+export const coverBoolean = (defaultValue: boolean, value?: unknown): boolean => {
   const resolvedValue = convertToBoolean(value)
   return cover(defaultValue, resolvedValue)
-}
-
-/**
- * Convert a given value to boolean type.
- * @param v
- */
-export function convertToBoolean(v?: unknown): boolean | null {
-  if (v == null) return null
-  if (typeof v === 'string') {
-    switch (v.toLowerCase()) {
-      case 'false':
-        return false
-      case 'true':
-        return true
-      default:
-        return null
-    }
-  }
-  return typeof v === 'boolean' ? v : null
-}
-
-/**
- * Check if the given data is a `Array` type.
- * @param v
- */
-export function isArray(v: unknown[] | unknown): v is unknown[] {
-  return Object.prototype.toString.call(v) === '[object Array]'
 }
