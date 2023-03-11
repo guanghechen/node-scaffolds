@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="4.6.3"></a>
+## 4.6.3 (2023-03-11)
+
+### Changed
+
+- 🎨 improve: make code clean [[85dfe5b](https://github.com/guanghechen/node-scaffolds/commit/85dfe5b638e868369b5e3680529e0ba0bb3f0b4b)]
+
+### Miscellaneous
+
+- 📄 docs: update LICENSE [[c359055](https://github.com/guanghechen/node-scaffolds/commit/c3590550df8f676b3829392b147aea9d7c634983)]
+
+
 <a name="4.6.2"></a>
 ## 4.6.2 (2023-03-10)
 
