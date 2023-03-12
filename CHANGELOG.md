@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="4.7.0"></a>
+## 4.7.0 (2023-03-12)
+
+### Changed
+
+- 🎨 fix: make GitCipherConfigKeeper.cipher not visible [[8ee7986](https://github.com/guanghechen/node-scaffolds/commit/8ee7986f8370b633de854ca57d8b869eba62388c)]
+
+### Breaking changes
+
+- 💥 🎨  improve(tool-git-cipher): encrypt cryptFilepathSalt [[f599a3b](https://github.com/guanghechen/node-scaffolds/commit/f599a3b67cdddd2cd62d716bbac26d633d9e1d20)]
+
+
 <a name="4.6.5"></a>
 ## 4.6.5 (2023-03-12)
 
