@@ -41,7 +41,7 @@ export class GitCipherCatProcessor {
 
     invariant(
       isGitRepo(cryptPathResolver.rootDir),
-      `[${title}] Crypt dir is not a git repo. ${cryptPathResolver.rootDir}`,
+      `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.rootDir}`,
     )
 
     const secretKeeper = new SecretConfigKeeper({

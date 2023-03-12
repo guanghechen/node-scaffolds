@@ -38,8 +38,8 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
   )
 
   invariant(
-    isGitRepo(plainPathResolver.rootDir),
-    `[${title}] Crypt dir is not a git repo. ${cryptPathResolver.rootDir}`,
+    isGitRepo(cryptPathResolver.rootDir),
+    `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.rootDir}`,
   )
 
   invariant(
@@ -49,7 +49,7 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
 
   invariant(
     isGitRepo(plainPathResolver.rootDir),
-    `[${title}] plain dir is not a git repo. ${plainPathResolver.rootDir}`,
+    `[${title}] plainRootDir is not a git repo. ${plainPathResolver.rootDir}`,
   )
 
   const cryptCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }

@@ -50,8 +50,8 @@ export class GitCipherVerifyProcessor {
     )
 
     invariant(
-      isGitRepo(plainPathResolver.rootDir),
-      `[${title}] Crypt dir is not a git repo. ${cryptPathResolver.rootDir}`,
+      isGitRepo(cryptPathResolver.rootDir),
+      `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.rootDir}`,
     )
 
     invariant(
@@ -61,7 +61,7 @@ export class GitCipherVerifyProcessor {
 
     invariant(
       isGitRepo(plainPathResolver.rootDir),
-      `[${title}] plain dir is not a git repo. ${plainPathResolver.rootDir}`,
+      `[${title}] plainRootDir is not a git repo. ${plainPathResolver.rootDir}`,
     )
 
     const cryptCommitId: string = (
