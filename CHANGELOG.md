@@ -1,5 +1,15 @@
 # Changelog
 
+<a name="4.6.5"></a>
+## 4.6.5 (2023-03-12)
+
+### Changed
+
+- 🍱 improve(tool-git-cipher): update boilerplates [[1d8a432](https://github.com/guanghechen/node-scaffolds/commit/1d8a432baae690701a52ccf9a93bf9b0e6a8ce5f)]
+- 🎨 improve(tool-git-cipher): set default options based on workspace name [[79ce49a](https://github.com/guanghechen/node-scaffolds/commit/79ce49abcef1f8eb87774b0778c92576a339a033)]
+- 🎨 improve(helper-commander): support dynamic defaultOptions [[5cf0d5c](https://github.com/guanghechen/node-scaffolds/commit/5cf0d5c951da4d1e543f3d8f496d831a2ec33b6a)]
+
+
 <a name="4.6.4"></a>
 ## 4.6.4 (2023-03-12)
 
