@@ -47,6 +47,7 @@
     "@guanghechen/helper-option": "^4.6.4",
     "@guanghechen/helper-path": "^4.6.4",
     "@guanghechen/helper-string": "^4.6.4",
+    "@guanghechen/invariant": "^4.6.4",
     "command-exists": "^1.2.9",
     "commander": "^10.0.0",
     "execa": "^7.0.0",

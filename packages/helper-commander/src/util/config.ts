@@ -1,4 +1,5 @@
 import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-fs'
+import invariant from '@guanghechen/invariant'
 import yaml from 'js-yaml'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -9,7 +10,7 @@ export enum ConfigFileType {
 }
 
 export function detectConfigFileType(filepath: string): ConfigFileType | null {
-  const extname = path.extname(filepath)
+  const extname = path.extname(filepath).toLowerCase()
   switch (extname) {
     case '.json':
       return ConfigFileType.JSON
@@ -25,11 +26,10 @@ export function loadConfig(filepath: string, encoding: BufferEncoding = 'utf8'):
   ensureCriticalFilepathExistsSync(filepath)
 
   const fileType = detectConfigFileType(filepath)
-  if (fileType === null) {
-    throw new Error(
-      `[loadConfig] Only json / yaml type config files are supported. filepath: (${filepath})`,
-    )
-  }
+  invariant(
+    !!fileType,
+    `[loadConfig] Only json / yaml type config files are supported. filepath: (${filepath})`,
+  )
 
   const content: string = fs.readFileSync(filepath, encoding)
   switch (fileType) {

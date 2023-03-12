@@ -71,9 +71,8 @@ export class Command extends Command$ {
   }
 
   public override opts<T extends OptionValues>(): T {
-    const self = this
-    const nodes: Command[] = [self]
-    for (let parent = self.parent; parent != null; parent = parent.parent) {
+    const nodes: Command[] = [this]
+    for (let parent = this.parent; parent != null; parent = parent.parent) {
       nodes.push(parent as Command)
     }
 
@@ -91,7 +90,6 @@ export class Command extends Command$ {
         }
       }
     }
-
     return options as unknown as T
   }
 }
