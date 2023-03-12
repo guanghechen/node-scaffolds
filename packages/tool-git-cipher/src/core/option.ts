@@ -1,20 +1,20 @@
 import type {
   ICommandConfigurationFlatOpts,
   ICommandConfigurationOptions,
+  IResolveDefaultOptionsParams,
 } from '@guanghechen/helper-commander'
 import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
+import path from 'node:path'
 import { logger } from '../env/logger'
 
-/**
- * Global command options
- */
+// Global command options
 export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
   /**
    * The directory where the crypt repo located. (relative of workspace or absolute path)
-   * @default 'ghc-crypt'
+   * @default '{repoName}-crypt'
    */
   readonly cryptRootDir: string
   /**
@@ -38,7 +38,7 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
   readonly minPasswordLength: number
   /**
    * The directory where the plain repo located. (relative of workspace or absolute path)
-   * @default 'ghc-plain'
+   * @default '{repoName}-plain'
    */
   readonly plainRootDir: string
   /**
@@ -53,43 +53,39 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
   readonly showAsterisk: boolean
 }
 
-/**
- * Default value of global options
- */
-export const getDefaultGlobalCommandOptions = (): IGlobalCommandOptions => ({
-  logLevel: 'info',
-  configPath: ['.ghc-config.json'],
-  cryptRootDir: 'ghc-crypt',
-  encoding: 'utf8',
-  maxPasswordLength: 100,
-  maxRetryTimes: 3,
-  minPasswordLength: 6,
-  plainRootDir: 'ghc-plain',
-  secretFilepath: '.ghc-secret.json',
-  showAsterisk: true,
-})
+// Default value of global options
+export const getDefaultGlobalCommandOptions = (
+  params: IResolveDefaultOptionsParams,
+): IGlobalCommandOptions => {
+  const repoName = path.basename(params.workspace)
+  return {
+    logLevel: logger.level,
+    configPath: ['.ghc-config.json'],
+    cryptRootDir: `${repoName}-crypt`,
+    encoding: 'utf8',
+    maxPasswordLength: 100,
+    maxRetryTimes: 3,
+    minPasswordLength: 6,
+    plainRootDir: `${repoName}-plain`,
+    secretFilepath: '.ghc-secret.json',
+    showAsterisk: true,
+  }
+}
 
-/**
- * @param commandName
- * @param subCommandName
- * @param defaultOptions
- * @param workspaceDir
- * @param options
- */
-export function resolveBaseCommandOptions<C extends object>(
+export function resolveBaseCommandOptions<O extends object>(
   commandName: string,
   subCommandName: string | false,
-  defaultOptions: C,
+  getDefaultOptions: (params: IResolveDefaultOptionsParams) => O,
   workspaceDir: string,
-  options: C & IGlobalCommandOptions,
-): C & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
-  type R = C & IGlobalCommandOptions & ICommandConfigurationFlatOpts
-  const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<C & IGlobalCommandOptions>(
+  options: O & IGlobalCommandOptions,
+): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
+  type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
+  const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>(
     logger,
     commandName,
     subCommandName,
     workspaceDir,
-    { ...getDefaultGlobalCommandOptions(), ...defaultOptions },
+    params => ({ ...getDefaultGlobalCommandOptions(params), ...getDefaultOptions(params) }),
     options,
   )
 

@@ -1,5 +1,8 @@
 import type { IPBKDF2Options } from '@guanghechen/helper-cipher'
-import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commander'
+import type {
+  ICommandConfigurationFlatOpts,
+  IResolveDefaultOptionsParams,
+} from '@guanghechen/helper-commander'
 import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
@@ -83,8 +86,8 @@ interface ISubCommandOptions {
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
 export type ISubCommandInitOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
-const getDefaultCommandInitOptions = (): ICommandOptions => ({
-  ...getDefaultGlobalCommandOptions(),
+const getDefaultCommandInitOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => ({
+  ...getDefaultGlobalCommandOptions(params),
   catalogFilepath: '.ghc-catalog',
   contentHashAlgorithm: 'sha1',
   cryptFilepathSalt: randomBytes(8).toString('hex'),
@@ -114,7 +117,7 @@ export function resolveSubCommandInitOptions(
   const baseOptions: ISubCommandInitOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
-    getDefaultCommandInitOptions(),
+    getDefaultCommandInitOptions,
     workspaceDir,
     options,
   )

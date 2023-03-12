@@ -1,4 +1,7 @@
-import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commander'
+import type {
+  ICommandConfigurationFlatOpts,
+  IResolveDefaultOptionsParams,
+} from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
 import { logger } from '../../env/logger'
@@ -15,8 +18,8 @@ interface ISubCommandOptions {
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
 export type ISubCommandCatOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
-const getDefaultCommandCatOptions = (): ICommandOptions => ({
-  ...getDefaultGlobalCommandOptions(),
+const getDefaultCommandCatOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => ({
+  ...getDefaultGlobalCommandOptions(params),
   cryptCommitId: 'HEAD',
 })
 
@@ -29,7 +32,7 @@ export function resolveSubCommandCatOptions(
   const baseOptions: ISubCommandCatOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
-    getDefaultCommandCatOptions(),
+    getDefaultCommandCatOptions,
     workspaceDir,
     options,
   )

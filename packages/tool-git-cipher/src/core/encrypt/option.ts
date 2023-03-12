@@ -1,4 +1,7 @@
-import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commander'
+import type {
+  ICommandConfigurationFlatOpts,
+  IResolveDefaultOptionsParams,
+} from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
@@ -18,8 +21,10 @@ interface ISubCommandOptions {
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
 export type ISubCommandEncryptOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
-const getDefaultCommandEncryptOptions = (): ICommandOptions => ({
-  ...getDefaultGlobalCommandOptions(),
+const getDefaultCommandEncryptOptions = (
+  params: IResolveDefaultOptionsParams,
+): ICommandOptions => ({
+  ...getDefaultGlobalCommandOptions(params),
   catalogCacheFilepath: '.ghc-cache-catalog.encrypt.json',
 })
 
@@ -32,7 +37,7 @@ export function resolveSubCommandEncryptOptions(
   const baseOptions: ISubCommandEncryptOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
-    getDefaultCommandEncryptOptions(),
+    getDefaultCommandEncryptOptions,
     workspaceDir,
     options,
   )

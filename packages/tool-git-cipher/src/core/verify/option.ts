@@ -1,4 +1,7 @@
-import type { ICommandConfigurationFlatOpts } from '@guanghechen/helper-commander'
+import type {
+  ICommandConfigurationFlatOpts,
+  IResolveDefaultOptionsParams,
+} from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
@@ -25,8 +28,8 @@ interface ISubCommandOptions {
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
 export type ISubCommandVerifyOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
-const getDefaultCommandVerifyOptions = (): ICommandOptions => ({
-  ...getDefaultGlobalCommandOptions(),
+const getDefaultCommandVerifyOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => ({
+  ...getDefaultGlobalCommandOptions(params),
   catalogCacheFilepath: '.ghc-cache-catalog.encrypt.json',
   cryptCommitId: 'HEAD',
   plainCommitId: undefined,
@@ -41,7 +44,7 @@ export function resolveSubCommandVerifyOptions(
   const baseOptions: ISubCommandVerifyOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
-    getDefaultCommandVerifyOptions(),
+    getDefaultCommandVerifyOptions,
     workspaceDir,
     options,
   )
