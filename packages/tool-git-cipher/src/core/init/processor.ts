@@ -13,11 +13,8 @@ import { existsSync } from 'node:fs'
 import { resolveTemplateFilepath } from '../../env/config'
 import { COMMAND_VERSION } from '../../env/constant'
 import { logger } from '../../env/logger'
-import type {
-  IPresetSecretConfigData,
-  ISecretConfigData,
-  SecretConfigKeeper,
-} from '../../util/SecretConfig'
+import type { SecretConfigKeeper } from '../../util/SecretConfig'
+import type { IPresetSecretConfig } from '../../util/SecretConfig.types'
 import { SecretMaster } from '../../util/SecretMaster'
 import type { IGitCipherInitContext } from './context'
 
@@ -41,7 +38,7 @@ export class GitCipherInitProcessor {
     invariant(hasGitInstalled(), `Cannot find 'git', please install it before continuing.`)
 
     const { context } = this
-    const presetSecretData: IPresetSecretConfigData = {
+    const presetSecretData: IPresetSecretConfig = {
       catalogFilepath: context.catalogFilepath,
       contentHashAlgorithm: context.contentHashAlgorithm,
       cryptFilepathSalt: context.cryptFilepathSalt,
@@ -68,12 +65,7 @@ export class GitCipherInitProcessor {
         relativeOfWorkspace(context.workspace, fp),
       )
       await this._renderBoilerplates({
-        ...presetSecretData,
         configFilepath: relativeConfigPaths.find(fp => fp.endsWith('.json')) ?? '.ghc-config.json',
-        secret: '',
-        secretAuthTag: '',
-        secretNonce: '',
-        secretCatalogNonce: '',
       })
 
       // Init git repo.
@@ -81,7 +73,7 @@ export class GitCipherInitProcessor {
         cwd: context.plainRootDir,
         logger,
         eol: 'lf',
-        encoding: 'utf-8',
+        encoding: 'utf8',
         gpgSign: context.gitGpgSign,
       })
       await stageAll({ cwd: context.plainRootDir, logger })
@@ -209,9 +201,7 @@ export class GitCipherInitProcessor {
   }
 
   // Render boilerplates.
-  protected async _renderBoilerplates(
-    data: ISecretConfigData & { configFilepath: string },
-  ): Promise<void> {
+  protected async _renderBoilerplates(data: { configFilepath: string }): Promise<void> {
     const { context } = this
 
     // request repository url
@@ -263,8 +253,10 @@ export class GitCipherInitProcessor {
       partCodePrefix: context.partCodePrefix,
       pbkdf2Options: context.pbkdf2Options,
       plainRootDir: relativeOfWorkspace(context.workspace, context.plainRootDir),
-      secret: data.secret,
-      secretAuthTag: data.secretAuthTag,
+      secret: '',
+      secretAuthTag: undefined,
+      secretNonce: '',
+      secretCatalogNonce: '',
       secretFilepath: relativeOfWorkspace(context.workspace, context.secretFilepath),
       secretIvSize: context.secretIvSize,
       secretKeySize: context.secretKeySize,
@@ -277,14 +269,14 @@ export class GitCipherInitProcessor {
 
   // Create secret file
   protected async _createSecret(
-    presetConfigData: IPresetSecretConfigData,
+    presetConfigData: IPresetSecretConfig,
   ): Promise<SecretConfigKeeper> {
     const { context, secretMaster } = this
-    const configKeeper = await secretMaster.createSecret(
-      context.secretFilepath,
-      context.cryptRootDir,
+    const configKeeper = await secretMaster.createSecret({
+      cryptRootDir: context.cryptRootDir,
+      filepath: context.secretFilepath,
       presetConfigData,
-    )
+    })
     return configKeeper
   }
 

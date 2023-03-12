@@ -1,134 +1,117 @@
-import type { IPBKDF2Options } from '@guanghechen/helper-cipher'
+import type { ICipher } from '@guanghechen/helper-cipher'
 import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/helper-config'
-import { PlainJsonConfigKeeper } from '@guanghechen/helper-config'
+import { JsonConfigKeeper, PlainJsonConfigKeeper } from '@guanghechen/helper-config'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
+import type { PromiseOr } from '@guanghechen/utility-types'
+import type { ISecretConfig, ISecretConfigData } from './SecretConfig.types'
 
-export interface ISecretConfigData {
-  /**
-   * The path of catalog file of crypt repo. (relative of cryptRootDir)
-   */
-  readonly catalogFilepath: string
-  /**
-   * Hash algorithm for generate MAC for content.
-   */
-  readonly contentHashAlgorithm: IHashAlgorithm
-  /**
-   * Salt for generate encrypted file path. (utf8 string)
-   */
-  readonly cryptFilepathSalt: string
-  /**
-   * The path of not-plain files located. (relative of cryptRootDir)
-   */
-  readonly cryptFilesDir: string
-  /**
-   * Glob patterns indicated which files should be keepPlain.
-   */
-  readonly keepPlainPatterns: string[]
-  /**
-   * IV size of main cipherFactory.
-   */
-  readonly mainIvSize: number
-  /**
-   * Key size of main cipherFactory.
-   */
-  readonly mainKeySize: number
-  /**
-   * Max size (byte) of target file, once the file size exceeds this value,
-   * the target file is split into multiple files.
-   */
-  readonly maxTargetFileSize: number | undefined
-  /**
-   * Prefix of splitted files parts code.
-   */
-  readonly partCodePrefix: string
-  /**
-   * Hash algorithm for generate MAC for filepath.
-   */
-  readonly pathHashAlgorithm: IHashAlgorithm
-  /**
-   * Options for PBKDF2 algorithm.
-   */
-  readonly pbkdf2Options: IPBKDF2Options
-  /**
-   * Secret of sub cipherFactory (hex string).
-   */
-  readonly secret: string
-  /**
-   * Auth tag of secret.
-   */
-  readonly secretAuthTag: string | undefined
-  /**
-   * IV size of the secret cipherFactory.
-   */
-  readonly secretIvSize: number
-  /**
-   * Key size of the secret cipherFactory.
-   */
-  readonly secretKeySize: number
-  /**
-   * Initial nonce for generating ivs of each file in a commit.
-   */
-  readonly secretNonce: string | undefined
-  /**
-   * Initial nonce for generating iv for catalog config.
-   */
-  readonly secretCatalogNonce: string | undefined
+type Instance = ISecretConfig
+type Data = ISecretConfigData
+
+export const encodeCryptBytes = (key: Buffer): string => key.toString('hex')
+export const decodeCryptBytes = (key: string): Buffer => Buffer.from(key, 'hex')
+
+export const encodeAuthTag = (authTag: Buffer | undefined): string | undefined =>
+  authTag?.toString('hex')
+export const decodeAuthTag = (authTag: string | undefined): Buffer | undefined =>
+  typeof authTag === 'string' ? Buffer.from(authTag, 'hex') : undefined
+
+export const secretConfigHashAlgorithm: IHashAlgorithm | undefined = 'sha256'
+const __version__ = '2.0.0'
+const __compatible_version__ = '~2.0.0'
+
+export class CryptSecretConfigKeeper
+  extends PlainJsonConfigKeeper<Data>
+  implements IConfigKeeper<Data>
+{
+  public override readonly __version__: string = __version__
+  public override readonly __compatible_version__: string = __compatible_version__
 }
 
-export type IPresetSecretConfigData = Omit<
-  ISecretConfigData,
-  'secret' | 'secretAuthTag' | 'secretNonce' | 'secretCatalogNonce'
->
-
 export interface ISecretConfigKeeperProps extends IJsonConfigKeeperProps {
-  cryptRootDir: string
+  readonly cipher: ICipher
+  readonly cryptRootDir: string
 }
 
 export class SecretConfigKeeper
-  extends PlainJsonConfigKeeper<ISecretConfigData>
-  implements IConfigKeeper<ISecretConfigData>
+  extends JsonConfigKeeper<Instance, Data>
+  implements IConfigKeeper<Instance>
 {
-  public override readonly __version__: string = '1.0.1'
-  public override readonly __compatible_version__: string = '^1.0.0'
-  public readonly cryptRootDir: string
+  public override readonly __version__: string = __version__
+  public override readonly __compatible_version__: string = __compatible_version__
+  readonly #cryptRootDir: string
+  readonly #cipher: ICipher
 
   constructor(props: ISecretConfigKeeperProps) {
-    super(props)
-    this.cryptRootDir = props.cryptRootDir
+    super({ ...props, hashAlgorithm: secretConfigHashAlgorithm })
+    this.#cryptRootDir = props.cryptRootDir
+    this.#cipher = props.cipher
   }
 
-  protected override serialize(data: ISecretConfigData): ISecretConfigData {
+  protected override serialize(instance: Instance): PromiseOr<Data> {
+    const cipher = this.#cipher
+
+    const eCryptFilepathSalt = cipher.encrypt(Buffer.from(instance.cryptFilepathSalt, 'utf8'))
+    const eSecretNonce = cipher.encrypt(instance.secretNonce)
+    const eSecretCatalogNonce = cipher.encrypt(instance.secretCatalogNonce)
+
+    const cryptFilepathSalt: string = encodeCryptBytes(eCryptFilepathSalt.cryptBytes)
+    const cryptFilepathSaltAuthTag: string | undefined = encodeAuthTag(eCryptFilepathSalt.authTag)
+    const secretNonce: string = encodeCryptBytes(eSecretNonce.cryptBytes)
+    const secretCatalogNonce: string = encodeCryptBytes(eSecretCatalogNonce.cryptBytes)
+
+    const secret: string = encodeCryptBytes(instance.secret) // pre-encrypted
+    const secretAuthTag: string | undefined = encodeAuthTag(instance.secretAuthTag) // pre-encrypted
+
     return {
-      catalogFilepath: relativeOfWorkspace(this.cryptRootDir, data.catalogFilepath),
-      contentHashAlgorithm: data.contentHashAlgorithm,
-      cryptFilepathSalt: data.cryptFilepathSalt,
-      cryptFilesDir: relativeOfWorkspace(this.cryptRootDir, data.cryptFilesDir),
-      keepPlainPatterns: data.keepPlainPatterns,
-      mainIvSize: data.mainIvSize,
-      mainKeySize: data.mainKeySize,
+      catalogFilepath: relativeOfWorkspace(this.#cryptRootDir, instance.catalogFilepath),
+      contentHashAlgorithm: instance.contentHashAlgorithm,
+      cryptFilepathSalt,
+      cryptFilepathSaltAuthTag,
+      cryptFilesDir: relativeOfWorkspace(this.#cryptRootDir, instance.cryptFilesDir),
+      keepPlainPatterns: instance.keepPlainPatterns,
+      mainIvSize: instance.mainIvSize,
+      mainKeySize: instance.mainKeySize,
       maxTargetFileSize:
-        (data.maxTargetFileSize ?? Number.POSITIVE_INFINITY) > Number.MAX_SAFE_INTEGER
+        (instance.maxTargetFileSize ?? Number.POSITIVE_INFINITY) > Number.MAX_SAFE_INTEGER
           ? undefined
-          : data.maxTargetFileSize,
-      partCodePrefix: data.partCodePrefix,
-      pathHashAlgorithm: data.pathHashAlgorithm,
-      pbkdf2Options: data.pbkdf2Options,
-      secret: data.secret,
-      secretAuthTag: data.secretAuthTag,
-      secretIvSize: data.secretIvSize,
-      secretKeySize: data.secretKeySize,
-      secretNonce: data.secretNonce,
-      secretCatalogNonce: data.secretCatalogNonce,
+          : instance.maxTargetFileSize,
+      partCodePrefix: instance.partCodePrefix,
+      pathHashAlgorithm: instance.pathHashAlgorithm,
+      pbkdf2Options: instance.pbkdf2Options,
+      secret,
+      secretAuthTag,
+      secretIvSize: instance.secretIvSize,
+      secretKeySize: instance.secretKeySize,
+      secretNonce,
+      secretCatalogNonce,
     }
   }
 
-  protected override deserialize(data: ISecretConfigData): ISecretConfigData {
+  protected override deserialize(data: Data): Instance {
+    const cipher = this.#cipher
+
+    const sCryptFilepathSalt = decodeCryptBytes(data.cryptFilepathSalt)
+    const sCryptFilepathSaltAuthTag = decodeAuthTag(data.cryptFilepathSaltAuthTag)
+    const sSecretNonce = decodeCryptBytes(data.secretNonce)
+    const sSecretCatalogNonce = decodeCryptBytes(data.secretCatalogNonce)
+
+    const cryptFilepathSaltAuthTag = sCryptFilepathSaltAuthTag
+    const cryptFilepathSalt = cipher.decrypt(sCryptFilepathSalt, {
+      authTag: cryptFilepathSaltAuthTag,
+    })
+    const secretNonce = cipher.decrypt(sSecretNonce)
+    const secretCatalogNonce = cipher.decrypt(sSecretCatalogNonce)
+
+    const secret = decodeCryptBytes(data.secret) // pre-encrypted.
+    const secretAuthTag = decodeAuthTag(data.secretAuthTag) // pre-encrypted.
+
     return {
-      catalogFilepath: absoluteOfWorkspace(this.cryptRootDir, data.catalogFilepath),
+      catalogFilepath: absoluteOfWorkspace(this.#cryptRootDir, data.catalogFilepath),
       contentHashAlgorithm: data.contentHashAlgorithm,
-      cryptFilepathSalt: data.cryptFilepathSalt,
-      cryptFilesDir: relativeOfWorkspace(this.cryptRootDir, data.cryptFilesDir),
+      cryptFilepathSalt: cryptFilepathSalt.toString('utf8'),
+      cryptFilesDir: relativeOfWorkspace(this.#cryptRootDir, data.cryptFilesDir),
       keepPlainPatterns: data.keepPlainPatterns,
       mainIvSize: data.mainIvSize,
       mainKeySize: data.mainKeySize,
@@ -139,12 +122,12 @@ export class SecretConfigKeeper
       partCodePrefix: data.partCodePrefix,
       pathHashAlgorithm: data.pathHashAlgorithm,
       pbkdf2Options: data.pbkdf2Options,
-      secret: data.secret,
-      secretAuthTag: data.secretAuthTag,
+      secret,
+      secretAuthTag,
       secretIvSize: data.secretIvSize,
       secretKeySize: data.secretKeySize,
-      secretNonce: data.secretNonce,
-      secretCatalogNonce: data.secretCatalogNonce,
+      secretNonce,
+      secretCatalogNonce,
     }
   }
 }

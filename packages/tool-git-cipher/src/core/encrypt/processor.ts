@@ -15,7 +15,6 @@ import micromatch from 'micromatch'
 import { logger } from '../../env/logger'
 import type { ICatalogCache } from '../../util/CatalogCache'
 import { CatalogCacheKeeper } from '../../util/CatalogCache'
-import { SecretConfigKeeper } from '../../util/SecretConfig'
 import { SecretMaster } from '../../util/SecretMaster'
 import type { IGitCipherEncryptContext } from './context'
 
@@ -39,19 +38,13 @@ export class GitCipherEncryptProcessor {
     invariant(hasGitInstalled(), '[processor.encrypt] Cannot find git, have you installed it?')
 
     const { context, secretMaster } = this
-    const secretKeeper = new SecretConfigKeeper({
+    const secretKeeper = await secretMaster.load({
+      filepath: context.secretFilepath,
       cryptRootDir: context.cryptRootDir,
-      storage: new FileStorage({
-        strict: true,
-        filepath: context.secretFilepath,
-        encoding: 'utf8',
-      }),
     })
-    await secretMaster.load(secretKeeper)
 
-    const cipherFactory: ICipherFactory | null = secretMaster.cipherFactory
     invariant(
-      !!secretKeeper.data && !!cipherFactory && !!secretMaster.catalogCipher,
+      !!secretKeeper.data && !!secretMaster.cipherFactory && !!secretMaster.catalogCipher,
       '[processor.encrypt] Secret cipherFactory is not available!',
     )
 
@@ -66,7 +59,10 @@ export class GitCipherEncryptProcessor {
       pathHashAlgorithm,
     } = secretKeeper.data
 
-    const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
+    const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({
+      cipherFactory: secretMaster.cipherFactory,
+      logger,
+    })
     const fileHelper = new BigFileHelper({ partCodePrefix })
     const configKeeper = new GitCipherConfigKeeper({
       cipher: secretMaster.catalogCipher,

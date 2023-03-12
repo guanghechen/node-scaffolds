@@ -3,11 +3,9 @@ import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo, showFileContent } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
 import { FilepathResolver } from '@guanghechen/helper-path'
-import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'fs'
 import { logger } from '../../env/logger'
-import { SecretConfigKeeper } from '../../util/SecretConfig'
 import { SecretMaster } from '../../util/SecretMaster'
 import type { IGitCipherCatContext } from './context'
 
@@ -44,17 +42,12 @@ export class GitCipherCatProcessor {
       `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.rootDir}`,
     )
 
-    const secretKeeper = new SecretConfigKeeper({
+    const secretKeeper = await secretMaster.load({
+      filepath: context.secretFilepath,
       cryptRootDir: context.cryptRootDir,
-      storage: new FileStorage({
-        strict: true,
-        filepath: context.secretFilepath,
-        encoding: 'utf8',
-      }),
     })
-    await secretMaster.load(secretKeeper)
 
-    const cipherFactory: ICipherFactory | null = secretMaster.cipherFactory
+    const cipherFactory: ICipherFactory | undefined = secretMaster.cipherFactory
     invariant(
       !!secretKeeper.data && !!cipherFactory && !!secretMaster.catalogCipher,
       `[${title}] Secret cipherFactory is not available!`,

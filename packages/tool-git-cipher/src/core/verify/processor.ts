@@ -16,7 +16,6 @@ import { existsSync } from 'fs'
 import micromatch from 'micromatch'
 import { logger } from '../../env/logger'
 import { CatalogCacheKeeper } from '../../util/CatalogCache'
-import { SecretConfigKeeper } from '../../util/SecretConfig'
 import { SecretMaster } from '../../util/SecretMaster'
 import type { IGitCipherVerifyContext } from './context'
 
@@ -90,17 +89,12 @@ export class GitCipherVerifyProcessor {
     logger.debug(`[${title}] cryptCommitId(${cryptCommitId}), plainCommitId(${plainCommitId}).`)
     invariant(!!plainCommitId, `[${title}] Missing plainCommitId.`)
 
-    const secretKeeper = new SecretConfigKeeper({
+    const secretKeeper = await secretMaster.load({
+      filepath: context.secretFilepath,
       cryptRootDir: context.cryptRootDir,
-      storage: new FileStorage({
-        strict: true,
-        filepath: context.secretFilepath,
-        encoding: 'utf8',
-      }),
     })
-    await secretMaster.load(secretKeeper)
 
-    const cipherFactory: ICipherFactory | null = secretMaster.cipherFactory
+    const cipherFactory: ICipherFactory | undefined = secretMaster.cipherFactory
     invariant(
       !!secretKeeper.data && !!cipherFactory && !!secretMaster.catalogCipher,
       '[processor.encrypt] Secret cipherFactory is not available!',

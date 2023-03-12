@@ -7,8 +7,14 @@ import { createHash } from 'node:crypto'
 import { logger } from '../env/logger'
 import { ErrorCode, EventTypes, eventBus } from './events'
 import { confirmPassword, inputPassword } from './password'
-import type { IPresetSecretConfigData, ISecretConfigData } from './SecretConfig'
-import { SecretConfigKeeper } from './SecretConfig'
+import {
+  CryptSecretConfigKeeper,
+  SecretConfigKeeper,
+  decodeAuthTag,
+  decodeCryptBytes,
+  secretConfigHashAlgorithm,
+} from './SecretConfig'
+import type { IPresetSecretConfig, ISecretConfig, ISecretConfigData } from './SecretConfig.types'
 
 export interface ISecretMasterProps {
   /**
@@ -37,51 +43,52 @@ export class SecretMaster {
   protected readonly maxRetryTimes: number
   protected readonly minPasswordLength: number
   protected readonly maxPasswordLength: number
-  #secretCipherFactory: ICipherFactory | null
-  #secretCatalogNonce: Buffer | null
-  #secretNonce: Buffer | null
-  #secretIvSize: number | undefined
+  #secretCipherFactory: ICipherFactory | undefined
+  #secretConfigKeeper: SecretConfigKeeper | undefined
 
   constructor(props: ISecretMasterProps) {
     this.showAsterisk = props.showAsterisk
     this.maxRetryTimes = props.maxRetryTimes
     this.minPasswordLength = props.minPasswordLength
     this.maxPasswordLength = props.maxPasswordLength
-    this.#secretCipherFactory = null
-    this.#secretNonce = null
-    this.#secretCatalogNonce = null
-    this.#secretIvSize = undefined
+    this.#secretCipherFactory = undefined
+    this.#secretConfigKeeper = undefined
     eventBus.on(EventTypes.EXITING, () => this.destroy())
   }
 
-  public get cipherFactory(): ICipherFactory | null {
+  public get cipherFactory(): ICipherFactory | undefined {
     return this.#secretCipherFactory
   }
 
-  public get catalogCipher(): ICipher | null {
-    return this.#secretCipherFactory && this.#secretCatalogNonce
-      ? this.#secretCipherFactory.cipher({ iv: this.#secretCatalogNonce })
-      : null
+  public get catalogCipher(): ICipher | undefined {
+    const secretCatalogNonce = this.#secretConfigKeeper?.data?.secretCatalogNonce
+    return this.#secretCipherFactory && secretCatalogNonce
+      ? this.#secretCipherFactory.cipher({ iv: secretCatalogNonce })
+      : undefined
   }
 
   public getDynamicIv = (infos: ReadonlyArray<Buffer>): Readonly<Buffer> => {
+    const secretNonce = this.#secretConfigKeeper?.data?.secretNonce
+    const secretIvSize = this.#secretConfigKeeper?.data?.secretIvSize
     invariant(
-      !!this.#secretNonce && !!this.#secretCipherFactory,
+      !!secretNonce && !!secretIvSize && !!this.#secretCipherFactory,
       '[SecretMaster.getDynamicIv] secretCipherFactory is not available.',
     )
 
     const sha256 = createHash('sha256')
-    sha256.update(this.#secretNonce)
+    sha256.update(secretNonce)
     for (const info of infos) sha256.update(info)
-    return sha256.digest().slice(0, this.#secretIvSize)
+    return sha256.digest().slice(0, secretIvSize)
   }
 
   // create a new secret key
-  public async createSecret(
-    filepath: string,
-    cryptRootDir: string,
-    presetConfigData: IPresetSecretConfigData,
-  ): Promise<SecretConfigKeeper> {
+  public async createSecret(params: {
+    cryptRootDir: string
+    filepath: string
+    presetConfigData: IPresetSecretConfig
+  }): Promise<SecretConfigKeeper> {
+    const { cryptRootDir, filepath, presetConfigData } = params
+
     let password: Buffer | null = null
     let configKeeper: SecretConfigKeeper
     try {
@@ -132,13 +139,10 @@ export class SecretMaster {
           logger.debug('New create secret is fine.')
 
           const secretNonce: Buffer = secretCipherFactoryBuilder.createRandomIv()
-          const secretCatalogNnoce: Buffer = secretCipherFactoryBuilder.createRandomIv()
-          const secretCipher = secretCipherFactory.cipher()
-          const { cryptBytes: cryptSecretNonce } = secretCipher.encrypt(secretNonce)
-          const { cryptBytes: cryptSecretCatalogNnoce } = secretCipher.encrypt(secretCatalogNnoce)
+          const secretCatalogNonce: Buffer = secretCipherFactoryBuilder.createRandomIv()
 
-          const { cryptBytes, authTag } = passwordCipher.encrypt(secret)
-          const config: ISecretConfigData = {
+          const cSecret = passwordCipher.encrypt(secret)
+          const config: ISecretConfig = {
             catalogFilepath: presetConfigData.catalogFilepath,
             contentHashAlgorithm: presetConfigData.contentHashAlgorithm,
             cryptFilepathSalt: presetConfigData.cryptFilepathSalt,
@@ -150,14 +154,17 @@ export class SecretMaster {
             partCodePrefix: presetConfigData.partCodePrefix,
             pathHashAlgorithm: presetConfigData.pathHashAlgorithm,
             pbkdf2Options: presetConfigData.pbkdf2Options,
-            secret: cryptBytes.toString('hex'),
-            secretAuthTag: authTag ? authTag.toString('hex') : undefined,
+            secret: cSecret.cryptBytes,
+            secretAuthTag: cSecret.authTag,
             secretKeySize: presetConfigData.secretKeySize,
             secretIvSize: presetConfigData.secretIvSize,
-            secretNonce: cryptSecretNonce.toString('hex'),
-            secretCatalogNonce: cryptSecretCatalogNnoce.toString('hex'),
+            secretNonce,
+            secretCatalogNonce,
           }
+
+          const secretCipher = secretCipherFactory.cipher()
           configKeeper = new SecretConfigKeeper({
+            cipher: secretCipher,
             cryptRootDir,
             storage: new FileStorage({ strict: true, filepath, encoding: 'utf8' }),
           })
@@ -167,6 +174,7 @@ export class SecretMaster {
           await configKeeper.save()
           logger.debug('New secret config is saved.')
 
+          this.#secretConfigKeeper = configKeeper
           this.#secretCipherFactory?.destroy()
           this.#secretCipherFactory = secretCipherFactory
         } finally {
@@ -184,72 +192,82 @@ export class SecretMaster {
   }
 
   // Load secret key & initialize secret cipher factory.
-  public async load(configKeeper: SecretConfigKeeper): Promise<void> {
-    const config: ISecretConfigData = await this._loadConfig(configKeeper)
+  public async load(params: {
+    cryptRootDir: string
+    filepath: string
+  }): Promise<SecretConfigKeeper> {
+    const title: string = this.constructor.name
+    const { cryptRootDir, filepath } = params
+    const storage = new FileStorage({ strict: true, filepath, encoding: 'utf8' })
+    const plainConfigKeeper = new CryptSecretConfigKeeper({
+      storage,
+      hashAlgorithm: secretConfigHashAlgorithm,
+    })
+    await plainConfigKeeper.load()
 
-    this.#secretCipherFactory?.destroy()
-    this.#secretCipherFactory = null
+    const cryptSecretConfig = plainConfigKeeper.data
+    invariant(!!cryptSecretConfig, `[${title}.load] Bad config`)
 
-    // Ask password & initialize #secretCipherFactory.
-    {
-      let mainCipherFactory: ICipherFactory | null = null
-      let secret: Buffer | null = null
-      let password: Buffer | null = null
-      let passwordCipher: ICipher | null = null
-      try {
-        password = await this._askPassword(configKeeper)
-        if (password == null) {
-          throw {
-            code: ErrorCode.WRONG_PASSWORD,
-            message: 'Password incorrect',
-          }
+    let mainCipherFactory: ICipherFactory | null = null
+    let secret: Buffer | null = null
+    let password: Buffer | null = null
+    let passwordCipher: ICipher | null = null
+    let configKeeper: SecretConfigKeeper
+    try {
+      // Ask password to initialize mainCipherFactory
+      password = await this._askPassword(cryptSecretConfig)
+      if (password == null) {
+        throw {
+          code: ErrorCode.WRONG_PASSWORD,
+          message: 'Password incorrect',
         }
-        mainCipherFactory = new AesGcmCipherFactoryBuilder({
-          keySize: config.mainKeySize,
-          ivSize: config.mainIvSize,
-        }).buildFromPassword(password, config.pbkdf2Options)
-        passwordCipher = mainCipherFactory.cipher()
-
-        logger.debug('Trying decrypt secret.')
-        const cryptSecretBytes: Buffer = Buffer.from(config.secret, 'hex')
-        const authTag: Buffer | undefined = config.secretAuthTag
-          ? Buffer.from(config.secretAuthTag, 'hex')
-          : undefined
-        secret = passwordCipher.decrypt(cryptSecretBytes, { authTag })
-        this.#secretCipherFactory = new AesGcmCipherFactoryBuilder({
-          keySize: config.secretKeySize,
-          ivSize: config.secretIvSize,
-        }).buildFromSecret(secret)
-
-        if (config.secretNonce) {
-          const cryptSecretNonce: Buffer = Buffer.from(config.secretNonce, 'hex')
-          this.#secretNonce = this.#secretCipherFactory.cipher().decrypt(cryptSecretNonce)
-        }
-        if (config.secretCatalogNonce) {
-          const cryptSecretCatalogNonce: Buffer = Buffer.from(config.secretCatalogNonce, 'hex')
-          this.#secretCatalogNonce = this.#secretCipherFactory
-            .cipher()
-            .decrypt(cryptSecretCatalogNonce)
-        }
-      } finally {
-        mainCipherFactory?.destroy()
-        passwordCipher?.destroy()
-        destroyBuffer(secret)
-        destroyBuffer(password)
-        secret = null
-        password = null
       }
+      mainCipherFactory = new AesGcmCipherFactoryBuilder({
+        keySize: cryptSecretConfig.mainKeySize,
+        ivSize: cryptSecretConfig.mainIvSize,
+      }).buildFromPassword(password, cryptSecretConfig.pbkdf2Options)
+      passwordCipher = mainCipherFactory.cipher()
+
+      // Decrypt secret.
+      logger.debug('Trying decrypt secret.')
+      const cryptSecretBytes: Buffer = decodeCryptBytes(cryptSecretConfig.secret)
+      const authTag: Buffer | undefined = decodeAuthTag(cryptSecretConfig.secretAuthTag)
+      secret = passwordCipher.decrypt(cryptSecretBytes, { authTag })
+
+      // Initialize secretCipherFactory.
+      const secretCipherFactory = new AesGcmCipherFactoryBuilder({
+        keySize: cryptSecretConfig.secretKeySize,
+        ivSize: cryptSecretConfig.secretIvSize,
+      }).buildFromSecret(secret)
+
+      const secretCipher = secretCipherFactory.cipher()
+      configKeeper = new SecretConfigKeeper({ cipher: secretCipher, cryptRootDir, storage })
+      await configKeeper.load()
+
+      this.#secretConfigKeeper = configKeeper
+      this.#secretCipherFactory?.destroy()
+      this.#secretCipherFactory = secretCipherFactory
+    } finally {
+      mainCipherFactory?.destroy()
+      passwordCipher?.destroy()
+      destroyBuffer(secret)
+      destroyBuffer(password)
+      secret = null
+      password = null
     }
+    return configKeeper
   }
 
   // Destroy secret and sensitive data
   public destroy(): void {
     this.#secretCipherFactory?.destroy()
-    this.#secretCipherFactory = null
+    this.#secretCipherFactory = undefined
   }
 
   // Request password.
-  protected async _askPassword(configKeeper: SecretConfigKeeper): Promise<Buffer | null> {
+  protected async _askPassword(
+    cryptSecretConfig: Readonly<ISecretConfigData>,
+  ): Promise<Buffer | null> {
     const { maxRetryTimes, showAsterisk, minPasswordLength, maxPasswordLength } = this
     let password: Buffer | null = null
     for (let i = 0; i <= maxRetryTimes; ++i) {
@@ -261,7 +279,7 @@ export class SecretMaster {
         minimumSize: minPasswordLength,
         maximumSize: maxPasswordLength,
       })
-      if (await this._verifyPassword(configKeeper, password)) break
+      if (await this._verifyPassword(cryptSecretConfig, password)) break
       destroyBuffer(password)
       password = null
     }
@@ -270,26 +288,22 @@ export class SecretMaster {
 
   // Test whether the password is correct.
   protected async _verifyPassword(
-    configKeeper: SecretConfigKeeper,
+    cryptSecretConfig: Readonly<ISecretConfigData>,
     password: Readonly<Buffer>,
   ): Promise<boolean> {
-    const config: ISecretConfigData = await this._loadConfig(configKeeper)
-
     let mainCipherFactory: ICipherFactory | null = null
     let verified = false
     let secret: Buffer | null = null
     let passwordCipher: ICipher | null = null
     try {
-      mainCipherFactory = new AesGcmCipherFactoryBuilder({
-        keySize: config.mainKeySize,
-        ivSize: config.mainIvSize,
-      }).buildFromPassword(password, config.pbkdf2Options)
-      passwordCipher = mainCipherFactory.cipher()
+      const cryptSecretBytes: Buffer = decodeCryptBytes(cryptSecretConfig.secret)
+      const authTag: Buffer | undefined = decodeAuthTag(cryptSecretConfig.secretAuthTag)
 
-      const cryptSecretBytes: Buffer = Buffer.from(config.secret, 'hex')
-      const authTag: Buffer | undefined = config.secretAuthTag
-        ? Buffer.from(config.secretAuthTag, 'hex')
-        : undefined
+      mainCipherFactory = new AesGcmCipherFactoryBuilder({
+        keySize: cryptSecretConfig.mainKeySize,
+        ivSize: cryptSecretConfig.mainIvSize,
+      }).buildFromPassword(password, cryptSecretConfig.pbkdf2Options)
+      passwordCipher = mainCipherFactory.cipher()
       secret = passwordCipher.decrypt(cryptSecretBytes, { authTag })
       verified = true
     } catch (error: any) {
@@ -305,16 +319,5 @@ export class SecretMaster {
       secret = null
     }
     return verified
-  }
-
-  protected async _loadConfig(
-    configKeeper: SecretConfigKeeper,
-  ): Promise<ISecretConfigData | never> {
-    if (configKeeper.data === undefined) await configKeeper.load()
-
-    const title: string = this.constructor.name
-    const config: ISecretConfigData | undefined = configKeeper.data
-    invariant(!!config, `[${title}.load] Bad config`)
-    return config
   }
 }
