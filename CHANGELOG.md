@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="4.6.4"></a>
+## 4.6.4 (2023-03-12)
+
+### Fixed
+
+- 🐛 fix(tool-git-cipher): fix misused of cryptRootDir and plainRootDir [[e85ca10](https://github.com/guanghechen/node-scaffolds/commit/e85ca10d2c9c4eed0d8a3d8c36d657306d6d0dc9)]
+
+
 <a name="4.6.3"></a>
 ## 4.6.3 (2023-03-11)
 
