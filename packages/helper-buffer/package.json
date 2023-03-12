@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-buffer",
-  "version": "4.6.4",
+  "version": "4.6.5",
   "description": "Utility functions for handling buffers data.",
   "author": {
     "name": "guanghechen",
