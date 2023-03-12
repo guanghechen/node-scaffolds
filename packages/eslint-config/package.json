@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/eslint-config",
-  "version": "4.6.5",
+  "version": "4.7.0",
   "description": "basic eslint config for node.js/javascript project",
   "author": {
     "name": "guanghechen",

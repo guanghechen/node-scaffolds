@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-path",
-  "version": "4.6.5",
+  "version": "4.7.0",
   "description": "Utilities to handle url path and file path.",
   "author": {
     "name": "guanghechen",

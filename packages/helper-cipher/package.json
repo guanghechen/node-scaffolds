@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-cipher",
-  "version": "4.6.5",
+  "version": "4.7.0",
   "description": "Utility functions for cipher contents.",
   "author": {
     "name": "guanghechen",
@@ -43,9 +43,9 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-buffer": "^4.6.5",
-    "@guanghechen/helper-mac": "^4.6.5",
-    "@guanghechen/invariant": "^4.6.5"
+    "@guanghechen/helper-buffer": "^4.7.0",
+    "@guanghechen/helper-mac": "^4.7.0",
+    "@guanghechen/invariant": "^4.7.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
