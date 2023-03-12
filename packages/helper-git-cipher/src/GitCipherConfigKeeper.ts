@@ -26,11 +26,11 @@ export class GitCipherConfigKeeper
 {
   public override readonly __version__ = '5.1.0'
   public override readonly __compatible_version__ = '~5.1.0'
-  public readonly cipher: ICipher
+  readonly #cipher: ICipher
 
   constructor(props: IGitCipherConfigKeeperProps) {
     super(props)
-    this.cipher = props.cipher
+    this.#cipher = props.cipher
   }
 
   protected override nonce(): string | undefined {
@@ -39,7 +39,7 @@ export class GitCipherConfigKeeper
 
   protected override serialize(instance: Instance): PromiseOr<Data> {
     const title = this.constructor.name
-    const cipher = this.cipher
+    const cipher = this.#cipher
 
     const serializeItem = (item: IFileCipherCatalogItemInstance): IFileCipherCatalogItemData => {
       invariant(
@@ -114,7 +114,7 @@ export class GitCipherConfigKeeper
 
   protected override deserialize(data: Data): PromiseOr<Instance> {
     const title = this.constructor.name
-    const cipher = this.cipher
+    const cipher = this.#cipher
 
     const deserializeItem = (item: IFileCipherCatalogItemData): IFileCipherCatalogItemInstance => {
       const authTag: Buffer | undefined = item.authTag
