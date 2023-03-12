@@ -1,10 +1,13 @@
 {
-  "name": "@guanghechen/tool-git-cipher__repo__",
+  "name": "@guanghechen/fake-repo",
+  "version": "0.0.0",
   "private": true,
+  "files": [],
   "scripts": {
     "encrypt": "ghc-git-cipher encrypt .",
     "decrypt": "ghc-git-cipher decrypt .",
-    "verify": "ghc-git-cipher verify ."
-  },
-  "files": [".gitignore"]
+    "verify": "ghc-git-cipher verify .",
+    "sync:pull": "(cd {cryptRootDir} && git pull origin main)",
+    "sync:push": "(cd {cryptRootDir} && git push origin main)"
+  }
 }
