@@ -26,6 +26,7 @@ export interface IGitCipherDecryptFilesOnlyParams {
   cryptCommitId: string
   cryptPathResolver: FilepathResolver
   plainPathResolver: FilepathResolver
+  filesOnly?: string[] | undefined // If empty or undefined, then decrypt all files.
 }
 
 export interface IGitCipherDecryptParams {
@@ -99,7 +100,7 @@ export class GitCipher {
   }
 
   public async decryptFilesOnly(params: IGitCipherDecryptFilesOnlyParams): Promise<void> {
-    const { cryptCommitId, cryptPathResolver, plainPathResolver } = params
+    const { cryptCommitId, cryptPathResolver, plainPathResolver, filesOnly } = params
     const { catalog, cipherBatcher, configKeeper, logger } = this
     await decryptFilesOnly({
       catalog,
@@ -107,6 +108,7 @@ export class GitCipher {
       cryptCommitId,
       cryptPathResolver,
       configKeeper,
+      filesOnly,
       logger,
       plainPathResolver,
       getDynamicIv: this.#getDynamicIv,

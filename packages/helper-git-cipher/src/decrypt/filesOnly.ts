@@ -25,6 +25,7 @@ export interface IDecryptFilesOnlyParams {
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string
   cryptPathResolver: FilepathResolver
+  filesOnly: string[] | undefined // If empty or undefined, then decrypt all files.
   logger: ILogger | undefined
   plainPathResolver: FilepathResolver
   getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
@@ -42,6 +43,7 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
     configKeeper,
     cryptCommitId,
     cryptPathResolver,
+    filesOnly = [],
     logger,
     plainPathResolver,
     getDynamicIv,
@@ -80,8 +82,25 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
       `[decryptFilesOnly] cannot load config. encryptedCommitId(${cryptCommitId})`,
     )
 
+    let preparedItems: IFileCipherCatalogItemInstance[] = configData.catalog.items
+    if (filesOnly.length > 0) {
+      const plainFilepathSet: Set<string> = new Set<string>(
+        filesOnly.map(f => plainPathResolver.relative(f)),
+      )
+      preparedItems = preparedItems.filter(item => plainFilepathSet.has(item.plainFilepath))
+      if (preparedItems.length !== plainFilepathSet.size) {
+        const notFoundFilepaths: string[] = Array.from(plainFilepathSet).filter(
+          f => !preparedItems.some(item => item.plainFilepath === f),
+        )
+        invariant(
+          notFoundFilepaths.length === 0,
+          `[decryptFilesOnly] cannot find file(s): ${notFoundFilepaths.join(', ')}`,
+        )
+      }
+    }
+
     // Decrypt files.
-    const diffItems: IFileCipherCatalogDiffItem[] = configData.catalog.items.map(item => ({
+    const diffItems: IFileCipherCatalogDiffItem[] = preparedItems.map(item => ({
       changeType: FileChangeType.ADDED,
       newItem: flatItem(item),
     }))

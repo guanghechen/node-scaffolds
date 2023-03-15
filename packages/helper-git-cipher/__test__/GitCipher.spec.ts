@@ -23,6 +23,7 @@ import { FilepathResolver } from '@guanghechen/helper-path'
 import { FileStorage } from '@guanghechen/helper-storage'
 import {
   assertPromiseNotThrow,
+  assertPromiseThrow,
   collectAllFilesSync,
   desensitize,
   emptyDir,
@@ -693,25 +694,52 @@ describe('GitCipher', () => {
       await emptyDir(bakPlainRootDir)
     })
 
-    const decryptAt = (cryptCommitId: string): Promise<void> =>
+    const decryptAt = (cryptCommitId: string, filesOnly?: string[]): Promise<void> =>
       gitCipher.decryptFilesOnly({
         cryptCommitId,
         cryptPathResolver,
         plainPathResolver: bakPlainPathResolver,
+        filesOnly,
       })
+    const allBakFilepaths = (): string[] => collectAllFilesSync(bakPlainRootDir, () => true).sort()
 
     test('A', async () => {
       await decryptAt(repo1CryptCommitIdTable.A)
-      const files: string[] = collectAllFilesSync(bakPlainRootDir, () => true)
-      expect(files.sort()).toEqual([bakFilepathA, bakFilepathB])
+      expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB])
+      expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA)
+      expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
+    })
+
+    test('A -- with filesOnly', async () => {
+      expect(allBakFilepaths()).toEqual([])
+
+      await decryptAt(repo1CryptCommitIdTable.A, [fpA])
+      expect(allBakFilepaths()).toEqual([bakFilepathA])
+      expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA)
+
+      await decryptAt(repo1CryptCommitIdTable.A, [fpA, fpB])
+      expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA)
       expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
     })
 
     test('B', async () => {
       await decryptAt(repo1CryptCommitIdTable.B)
-      const files: string[] = collectAllFilesSync(bakPlainRootDir, () => true)
-      expect(files.sort()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC])
+      expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC])
+      expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA2)
+      expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
+      expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC)
+    })
+
+    test('B -- with filesOnly', async () => {
+      expect(allBakFilepaths()).toEqual([])
+
+      await decryptAt(repo1CryptCommitIdTable.B, [fpA])
+      expect(allBakFilepaths()).toEqual([bakFilepathA])
+      expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA2)
+
+      await decryptAt(repo1CryptCommitIdTable.B, [fpB, fpC])
+      expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA2)
       expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC)
@@ -719,16 +747,35 @@ describe('GitCipher', () => {
 
     test('C', async () => {
       await decryptAt(repo1CryptCommitIdTable.C)
-      const files: string[] = collectAllFilesSync(bakPlainRootDir, () => true)
-      expect(files.sort()).toEqual([bakFilepathB, bakFilepathC])
+      expect(allBakFilepaths()).toEqual([bakFilepathB, bakFilepathC])
       expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC)
     })
 
+    test('C -- with filesOnly', async () => {
+      expect(allBakFilepaths()).toEqual([])
+
+      await assertPromiseThrow(
+        () => decryptAt(repo1CryptCommitIdTable.C, [fpA]),
+        `Invariant failed: [decryptFilesOnly] cannot find file(s):`,
+      )
+      expect(allBakFilepaths()).toEqual([])
+
+      await decryptAt(repo1CryptCommitIdTable.C, [fpB])
+      expect(allBakFilepaths()).toEqual([bakFilepathB])
+      expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
+
+      await assertPromiseThrow(
+        () => decryptAt(repo1CryptCommitIdTable.C, [fpD]),
+        `Invariant failed: [decryptFilesOnly] cannot find file(s):`,
+      )
+      expect(allBakFilepaths()).toEqual([bakFilepathB])
+      expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
+    })
+
     test('D', async () => {
       await decryptAt(repo1CryptCommitIdTable.D)
-      const files: string[] = collectAllFilesSync(bakPlainRootDir, () => true)
-      expect(files.sort()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC])
+      expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA)
       expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC2)
@@ -736,23 +783,20 @@ describe('GitCipher', () => {
 
     test('E', async () => {
       await decryptAt(repo1CryptCommitIdTable.E)
-      const files: string[] = collectAllFilesSync(bakPlainRootDir, () => true)
-      expect(files.sort()).toEqual([bakFilepathC])
+      expect(allBakFilepaths()).toEqual([bakFilepathC])
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC2)
     })
 
     test('F', async () => {
       await decryptAt(repo1CryptCommitIdTable.F)
-      const files: string[] = collectAllFilesSync(bakPlainRootDir, () => true)
-      expect(files.sort()).toEqual([bakFilepathA, bakFilepathC])
+      expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathC])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA)
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC2)
     })
 
     test('G', async () => {
       await decryptAt(repo1CryptCommitIdTable.G)
-      const files: string[] = collectAllFilesSync(bakPlainRootDir, () => true)
-      expect(files.sort()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC])
+      expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA2)
       expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB2)
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC3)
@@ -760,16 +804,14 @@ describe('GitCipher', () => {
 
     test('H', async () => {
       await decryptAt(repo1CryptCommitIdTable.H)
-      const files: string[] = collectAllFilesSync(bakPlainRootDir, () => true)
-      expect(files.sort()).toEqual([bakFilepathB, bakFilepathC])
+      expect(allBakFilepaths()).toEqual([bakFilepathB, bakFilepathC])
       expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB2)
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC3)
     })
 
     test('I', async () => {
       await decryptAt(repo1CryptCommitIdTable.I)
-      const files: string[] = collectAllFilesSync(bakPlainRootDir, () => true)
-      expect(files.sort()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC, bakFilepathD])
+      expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC, bakFilepathD])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA2)
       expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC3)
@@ -778,8 +820,7 @@ describe('GitCipher', () => {
 
     test('J', async () => {
       await decryptAt(repo1CryptCommitIdTable.J)
-      const files: string[] = collectAllFilesSync(bakPlainRootDir, () => true)
-      expect(files.sort()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC, bakFilepathD])
+      expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC, bakFilepathD])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA)
       expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC3)
@@ -788,8 +829,7 @@ describe('GitCipher', () => {
 
     test('K', async () => {
       await decryptAt(repo1CryptCommitIdTable.K)
-      const files: string[] = collectAllFilesSync(bakPlainRootDir, () => true)
-      expect(files.sort()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC, bakFilepathE])
+      expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC, bakFilepathE])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA)
       expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC3)
