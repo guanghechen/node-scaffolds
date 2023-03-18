@@ -44,11 +44,11 @@
     "@guanghechen/invariant": "^4.7.0",
     "@guanghechen/utility-types": "^4.7.0",
     "clipboardy": "^3.0.0",
-    "execa": "^7.0.0"
+    "execa": "^7.1.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
     "rimraf": "^4.4.0",
-    "rollup": "^3.19.0"
+    "rollup": "^3.19.1"
   }
 }

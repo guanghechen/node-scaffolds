@@ -50,7 +50,7 @@
     "@guanghechen/invariant": "^4.7.0",
     "command-exists": "^1.2.9",
     "commander": "^10.0.0",
-    "execa": "^7.0.0",
+    "execa": "^7.1.1",
     "inquirer": "^9.1.4",
     "js-yaml": "^4.1.0"
   },
@@ -59,6 +59,6 @@
     "cross-env": "^7.0.3",
     "jest": "^29.5.0",
     "rimraf": "^4.4.0",
-    "rollup": "^3.19.0"
+    "rollup": "^3.19.1"
   }
 }
