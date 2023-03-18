@@ -1,10 +1,10 @@
 import { FileChangeType, collectAffectedPlainFilepaths } from '@guanghechen/helper-cipher-file'
 import type {
   IFileCipherBatcher,
-  IFileCipherCatalog,
   IFileCipherCatalogDiffItem,
   IFileCipherCatalogItem,
   IFileCipherCatalogItemBase,
+  IReadonlyFileCipherCatalog,
 } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type {
@@ -27,7 +27,7 @@ import type { IFileCipherCatalogItemInstance, IGitCipherConfig } from '../types'
 import { getPlainCommitId } from '../util'
 
 export interface IDecryptGitCommitParams {
-  catalog: IFileCipherCatalog
+  catalog: IReadonlyFileCipherCatalog
   cipherBatcher: IFileCipherBatcher
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitNode: IGitCommitDagNode

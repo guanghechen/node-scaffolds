@@ -9,34 +9,7 @@ import type {
   IFileCipherCatalogItemDraft,
 } from './IFileCipherCatalogItem'
 
-export interface IFileCipherCatalog {
-  /**
-   * Get current catalog items.
-   */
-  items: Iterable<IFileCipherCatalogItem>
-
-  /**
-   * Clear the catalog items and init with the new given items.
-   * @param items
-   */
-  reset(items?: Iterable<IFileCipherCatalogItem>): void
-
-  /**
-   * Check plain files for corruption.
-   */
-  checkPlainIntegrity(): Promise<void | never>
-
-  /**
-   * Check crypt files for corruption.
-   */
-  checkCryptIntegrity(params: ICheckCryptIntegrityParams): Promise<void | never>
-
-  /**
-   * Apply catalog diffs.
-   * @param diffItems
-   */
-  applyDiff(diffItems: Iterable<IFileCipherCatalogDiffItem>): void
-
+export interface IReadonlyFileCipherCatalog {
   /**
    * Generate a catalog item.
    */
@@ -44,9 +17,35 @@ export interface IFileCipherCatalog {
 
   /**
    * Calc crypt filepath.
-   * @param params
    */
   calcCryptFilepath(params: ICalcCryptFilepathParams): string
+
+  /**
+   * Check crypt files for corruption.
+   */
+  checkCryptIntegrity(params: ICheckCryptIntegrityParams): Promise<void | never>
+
+  /**
+   * Check plain files for corruption.
+   */
+  checkPlainIntegrity(): Promise<void | never>
+}
+
+export interface IFileCipherCatalog extends IReadonlyFileCipherCatalog {
+  /**
+   * Get current catalog items.
+   */
+  items: Iterable<IFileCipherCatalogItem>
+
+  /**
+   * Apply catalog diffs.
+   */
+  applyDiff(diffItems: Iterable<IFileCipherCatalogDiffItem>): void
+
+  /**
+   * Clear the catalog items and init with the new given items.
+   */
+  reset(items?: Iterable<IFileCipherCatalogItem>): void
 
   /**
    * Calculate diff items with the new catalog items.

@@ -1,9 +1,9 @@
 import type {
   IFileCipherBatcher,
-  IFileCipherCatalog,
   IFileCipherCatalogDiffItem,
   IFileCipherCatalogItem,
   IFileCipherCatalogItemBase,
+  IReadonlyFileCipherCatalog,
 } from '@guanghechen/helper-cipher-file'
 import { FileChangeType } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
@@ -20,7 +20,7 @@ import type { ILogger } from '@guanghechen/utility-types'
 import type { IFileCipherCatalogItemInstance, IGitCipherConfig } from '../types'
 
 export interface IDecryptFilesOnlyParams {
-  catalog: IFileCipherCatalog
+  catalog: IReadonlyFileCipherCatalog
   cipherBatcher: IFileCipherBatcher
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string

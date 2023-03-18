@@ -1,4 +1,7 @@
-import type { IFileCipherBatcher, IFileCipherCatalog } from '@guanghechen/helper-cipher-file'
+import type {
+  IFileCipherBatcher,
+  IReadonlyFileCipherCatalog,
+} from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { getCommitInTopology, showCommitInfo } from '@guanghechen/helper-git'
@@ -9,7 +12,7 @@ import { decryptGitCommit } from './commit'
 
 export interface IDecryptGitBranchParams {
   branchName: string
-  catalog: IFileCipherCatalog
+  catalog: IReadonlyFileCipherCatalog
   cipherBatcher: IFileCipherBatcher
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptPathResolver: FilepathResolver
