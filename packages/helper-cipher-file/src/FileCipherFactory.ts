@@ -4,14 +4,11 @@ import { FileCipher } from './FileCipher'
 import type { IFileCipher } from './types/IFileCipher'
 import type { ICreateFileCipherOptions, IFileCipherFactory } from './types/IFileCipherFactory'
 
-interface IFileCipherFactoryProps {
+export interface IFileCipherFactoryProps {
   readonly cipherFactory: ICipherFactory
   readonly logger?: ILogger
 }
 
-/**
- * ICipher base class.
- */
 export class FileCipherFactory implements IFileCipherFactory {
   public readonly cipherFactory: ICipherFactory
   protected readonly logger: ILogger | undefined

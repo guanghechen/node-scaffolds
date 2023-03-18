@@ -3,32 +3,30 @@ import type {
   IFileCipherCatalogDiffItem,
   IFileCipherCatalogDiffItemDraft,
 } from './IFileCipherCatalogDiffItem'
-import type {
-  IFileCipherCatalogItem,
-  IFileCipherCatalogItemBase,
-  IFileCipherCatalogItemDraft,
-} from './IFileCipherCatalogItem'
+import type { IFileCipherCatalogItem, IFileCipherCatalogItemDraft } from './IFileCipherCatalogItem'
 
 export interface IReadonlyFileCipherCatalog {
   /**
    * Generate a catalog item.
    */
-  calcCatalogItem(params: ICalcCatalogItemParams): Promise<IFileCipherCatalogItemDraft | never>
+  calcCatalogItem(
+    params: ICatalogCalcCatalogItemParams,
+  ): Promise<IFileCipherCatalogItemDraft | never>
 
   /**
    * Calc crypt filepath.
    */
-  calcCryptFilepath(params: ICalcCryptFilepathParams): string
+  calcCryptFilepath(params: ICatalogCalcCryptFilepathParams): string
 
   /**
    * Check crypt files for corruption.
    */
-  checkCryptIntegrity(params: ICheckCryptIntegrityParams): Promise<void | never>
+  checkCryptIntegrity(params: ICatalogCheckCryptIntegrityParams): Promise<void | never>
 
   /**
    * Check plain files for corruption.
    */
-  checkPlainIntegrity(): Promise<void | never>
+  checkPlainIntegrity(params: ICatalogCheckPlainIntegrityParams): Promise<void | never>
 }
 
 export interface IFileCipherCatalog extends IReadonlyFileCipherCatalog {
@@ -50,19 +48,24 @@ export interface IFileCipherCatalog extends IReadonlyFileCipherCatalog {
   /**
    * Calculate diff items with the new catalog items.
    */
-  diffFromCatalogItems(params: IDiffFromCatalogItemsParams): IFileCipherCatalogDiffItem[]
+  diffFromCatalogItems(params: ICatalogDiffFromCatalogItemsParams): IFileCipherCatalogDiffItem[]
 
   /**
    * Calculate diff items.
    */
-  diffFromPlainFiles(params: IDiffFromPlainFiles): Promise<IFileCipherCatalogDiffItemDraft[]>
+  diffFromPlainFiles(params: ICatalogDiffFromPlainFiles): Promise<IFileCipherCatalogDiffItemDraft[]>
 }
 
-export interface ICheckCryptIntegrityParams {
+export interface ICatalogCheckCryptIntegrityParams {
   cryptPathResolver: FilepathResolver
+  cryptFilepaths: string[]
 }
 
-export interface ICalcCatalogItemParams {
+export interface ICatalogCheckPlainIntegrityParams {
+  plainFilepaths: string[]
+}
+
+export interface ICatalogCalcCatalogItemParams {
   plainFilepath: string
   /**
    * Determine if a plain file should be keep plain.
@@ -71,16 +74,16 @@ export interface ICalcCatalogItemParams {
   isKeepPlain?(relativePlainFilepath: string): boolean
 }
 
-export type ICalcCryptFilepathParams = Pick<
-  IFileCipherCatalogItemBase,
-  'plainFilepath' | 'keepPlain'
->
+export interface ICatalogCalcCryptFilepathParams {
+  keepPlain: boolean
+  plainFilepath: string
+}
 
-export interface IDiffFromCatalogItemsParams {
+export interface ICatalogDiffFromCatalogItemsParams {
   newItems: Iterable<IFileCipherCatalogItem>
 }
 
-export interface IDiffFromPlainFiles {
+export interface ICatalogDiffFromPlainFiles {
   plainFilepaths: string[]
   /**
    * Check some edge cases that shouldn't affect the final result, just for higher integrity check.

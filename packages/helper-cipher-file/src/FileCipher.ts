@@ -7,14 +7,11 @@ import type { ILogger } from '@guanghechen/utility-types'
 import fs from 'node:fs'
 import type { IFileCipher } from './types/IFileCipher'
 
-interface IFileCipherProps {
+export interface IFileCipherProps {
   readonly cipher: ICipher
   readonly logger?: ILogger
 }
 
-/**
- * ICipher base class.
- */
 export class FileCipher implements IFileCipher {
   public readonly cipher: ICipher
   protected readonly logger?: ILogger

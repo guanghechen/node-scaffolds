@@ -1,13 +1,13 @@
-import type { Logger } from '@guanghechen/chalk-logger'
-import { isFileSync } from '@guanghechen/helper-fs'
 import { list2map, mapIterable } from '@guanghechen/helper-func'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import type { FilepathResolver } from '@guanghechen/helper-path'
-import invariant from '@guanghechen/invariant'
+import { diffFromCatalogItems } from './catalog/diffFromCatalogItems'
+import { diffFromPlainFiles } from './catalog/diffFromPlainFiles'
+import { normalizePlainFilepath } from './catalog/normalizePlainFilepath'
 import { ReadonlyFileCipherCatalog } from './FileCipherCatalog.readonly'
 import type {
-  IDiffFromCatalogItemsParams,
-  IDiffFromPlainFiles,
+  ICatalogDiffFromCatalogItemsParams,
+  ICatalogDiffFromPlainFiles,
   IFileCipherCatalog,
 } from './types/IFileCipherCatalog'
 import type {
@@ -16,21 +16,12 @@ import type {
   IFileCipherCatalogDiffItemDraft,
 } from './types/IFileCipherCatalogDiffItem'
 import { FileChangeType } from './types/IFileCipherCatalogDiffItem'
-import type {
-  IFileCipherCatalogItem,
-  IFileCipherCatalogItemDraft,
-} from './types/IFileCipherCatalogItem'
-import {
-  isSameFileCipherItem,
-  isSameFileCipherItemDraft,
-  normalizePlainFilepath,
-} from './util/catalog'
+import type { IFileCipherCatalogItem } from './types/IFileCipherCatalogItem'
 
 export interface IFileCipherCatalogProps {
   contentHashAlgorithm: IHashAlgorithm
   cryptFilepathSalt: string
   cryptFilesDir: string
-  logger: Logger | undefined
   maxTargetFileSize: number
   partCodePrefix: string
   pathHashAlgorithm: IHashAlgorithm
@@ -93,7 +84,7 @@ export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFil
   // @override
   public diffFromCatalogItems({
     newItems,
-  }: IDiffFromCatalogItemsParams): IFileCipherCatalogDiffItem[] {
+  }: ICatalogDiffFromCatalogItemsParams): IFileCipherCatalogDiffItem[] {
     const oldItemMap = this.#itemMap as ReadonlyMap<string, IFileCipherCatalogItem>
     if (oldItemMap.size < 1) {
       return mapIterable(newItems, newItem => ({ changeType: FileChangeType.ADDED, newItem }))
@@ -103,93 +94,25 @@ export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFil
       newItems,
       item => item.plainFilepath,
     )
-    if (newItemMap.size < 1) {
-      return mapIterable(oldItemMap.values(), oldItem => ({
-        changeType: FileChangeType.REMOVED,
-        oldItem,
-      }))
-    }
-
-    const addedItems: IFileCipherCatalogDiffItem[] = []
-    const modifiedItems: IFileCipherCatalogDiffItem[] = []
-    const removedItems: IFileCipherCatalogDiffItem[] = []
-
-    // Collect removed and modified items.
-    for (const oldItem of oldItemMap.values()) {
-      const newItem = newItemMap.get(oldItem.plainFilepath)
-      if (newItem === undefined) {
-        removedItems.push({
-          changeType: FileChangeType.REMOVED,
-          oldItem,
-        })
-      } else {
-        if (!isSameFileCipherItem(oldItem, newItem)) {
-          modifiedItems.push({
-            changeType: FileChangeType.MODIFIED,
-            oldItem,
-            newItem,
-          })
-        }
-      }
-    }
-
-    // Collect added items.
-    for (const newItem of newItemMap.values()) {
-      if (!oldItemMap.has(newItem.plainFilepath)) {
-        addedItems.push({
-          changeType: FileChangeType.ADDED,
-          newItem,
-        })
-      }
-    }
-
-    newItemMap.clear()
-    return [...removedItems, ...addedItems, ...modifiedItems]
+    return diffFromCatalogItems({ oldItemMap, newItemMap })
   }
 
   // @override
-  public async diffFromPlainFiles({
-    plainFilepaths,
-    strickCheck,
-    isKeepPlain,
-  }: IDiffFromPlainFiles): Promise<IFileCipherCatalogDiffItemDraft[]> {
-    const itemMap = this.#itemMap
-    const { plainPathResolver } = this
-    const addedItems: IFileCipherCatalogDiffItemDraft[] = []
-    const modifiedItems: IFileCipherCatalogDiffItemDraft[] = []
-    const removedItems: IFileCipherCatalogDiffItemDraft[] = []
-    for (const plainFilepath of plainFilepaths) {
-      const key = normalizePlainFilepath(plainFilepath, plainPathResolver)
-      const oldItem = itemMap.get(key)
-      const absolutePlainFilepath = plainPathResolver.absolute(plainFilepath)
-      const isSrcFileExists = isFileSync(absolutePlainFilepath)
-
-      if (isSrcFileExists) {
-        const newItem: IFileCipherCatalogItemDraft = await this.calcCatalogItem({
-          plainFilepath,
-          isKeepPlain,
-        })
-
-        if (oldItem) {
-          if (!isSameFileCipherItemDraft(oldItem, newItem)) {
-            modifiedItems.push({ changeType: FileChangeType.MODIFIED, oldItem, newItem })
-          }
-        } else {
-          addedItems.push({ changeType: FileChangeType.ADDED, newItem })
-        }
-      } else {
-        if (oldItem) {
-          removedItems.push({ changeType: FileChangeType.REMOVED, oldItem })
-        }
-
-        if (strickCheck) {
-          invariant(
-            !!oldItem,
-            `[diffFromPlainFiles] plainFilepath(${plainFilepath}) is removed but it's not in the catalog before.`,
-          )
-        }
-      }
-    }
-    return [...removedItems, ...addedItems, ...modifiedItems]
+  public async diffFromPlainFiles(
+    params: ICatalogDiffFromPlainFiles,
+  ): Promise<IFileCipherCatalogDiffItemDraft[]> {
+    return diffFromPlainFiles({
+      contentHashAlgorithm: this.contentHashAlgorithm,
+      cryptFilepathSalt: this.cryptFilepathSalt,
+      cryptFilesDir: this.cryptFilesDir,
+      maxTargetFileSize: this.maxTargetFileSize,
+      oldItemMap: this.#itemMap,
+      partCodePrefix: this.partCodePrefix,
+      pathHashAlgorithm: this.pathHashAlgorithm,
+      plainFilepaths: params.plainFilepaths,
+      plainPathResolver: this.plainPathResolver,
+      strickCheck: params.strickCheck,
+      isKeepPlain: params.isKeepPlain ?? this.isKeepPlain,
+    })
   }
 }

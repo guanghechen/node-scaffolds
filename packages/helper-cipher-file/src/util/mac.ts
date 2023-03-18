@@ -1,11 +1,11 @@
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import { calcMac, calcMacFromFile } from '@guanghechen/helper-mac'
 
-export const calcFingerprintFromMac = (mac: Buffer): string => mac.toString('hex')
+export function calcFingerprintFromMac(mac: Buffer): string {
+  return mac.toString('hex')
+}
 
-/**
- * Calc fingerprint from literal string.
- */
+// Calc fingerprint from literal string.
 export function calcFingerprintFromString(
   text: string,
   textEncoding: BufferEncoding,
@@ -16,9 +16,7 @@ export function calcFingerprintFromString(
   return calcFingerprintFromMac(mac)
 }
 
-/**
- * Calc fingerprint from file.
- */
+// Calc fingerprint from file.
 export async function calcFingerprintFromFile(
   filepath: string,
   algorithm: IHashAlgorithm,
