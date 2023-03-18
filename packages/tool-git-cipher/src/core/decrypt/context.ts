@@ -14,10 +14,17 @@ export interface IGitCipherDecryptContext {
    */
   readonly encoding: string
   /**
-   * If specified, then all of the files under the given commitId will be decrypted.
-   * Otherwise, the entire repo will be generated.
+   * Crypt repo commit hash, worked with --files-only.
    */
-  readonly filesOnly: string | undefined
+  readonly filesAt: string | undefined
+  /**
+   * If specified, the following behavior depends on the value:
+   *    - `false`: Decrypt entire git repo.
+   *    - `Empty array`: Decrypt all files from crypt repo.
+   *    - `Non-Empty array`: Decrypt files in the filesOnly from crypt repo.
+   * @default false
+   */
+  readonly filesOnly: string[]
   /**
    * Set the git config 'commit.gpgSign'.
    */
@@ -63,6 +70,7 @@ export async function createGitCipherDecryptContextFromOptions(
     catalogCacheFilepath: options.catalogCacheFilepath,
     cryptRootDir: options.cryptRootDir,
     encoding: options.encoding,
+    filesAt: options.filesAt,
     filesOnly: options.filesOnly,
     gitGpgSign: options.gitGpgSign,
     maxPasswordLength: options.maxPasswordLength,

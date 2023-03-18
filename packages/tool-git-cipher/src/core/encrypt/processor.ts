@@ -1,4 +1,3 @@
-import type { ICipherFactory } from '@guanghechen/helper-cipher'
 import type { IFileCipherFactory } from '@guanghechen/helper-cipher-file'
 import {
   FileCipherBatcher,

@@ -21,9 +21,12 @@ export const createSubCommandDecrypt = (
       '--catalog-cache-filepath <catalogCacheFilepath>',
       'The path where catalog cache file located. (relative of workspace)',
     )
+    .option('--files-at [commitHash]', 'Decrypt files only at the given commit id or branch.')
     .option(
-      '--files-only [commitId]',
-      '(commit id | branch) decrypt files only at the given commit id or branch.',
+      '--files-only <filesOnly>',
+      'Specify which files need to decrypt.',
+      (val, acc: string[]) => acc.concat(val),
+      [],
     )
     .option('--git-gpg-sign', `Config git commit.gpgSign to 'true'.`)
     .option('--no-git-gpg-sign', `Config git commit.gpgSign to 'false'.`)

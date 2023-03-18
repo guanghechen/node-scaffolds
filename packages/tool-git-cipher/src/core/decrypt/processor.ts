@@ -105,12 +105,13 @@ export class GitCipherDecryptProcessor {
     })
 
     // decrypt files
-    if (context.filesOnly) {
+    if (context.filesAt || context.filesOnly.length > 0) {
       logger.debug('Trying decryptFilesOnly...')
       await gitCipher.decryptFilesOnly({
-        cryptCommitId: context.filesOnly,
+        cryptCommitId: context.filesAt ?? 'HEAD',
         cryptPathResolver,
         plainPathResolver,
+        filesOnly: context.filesOnly,
       })
     } else {
       logger.debug('Trying decrypt entire repo...')

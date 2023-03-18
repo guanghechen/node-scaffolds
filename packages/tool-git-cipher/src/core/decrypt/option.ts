@@ -2,9 +2,10 @@ import type {
   ICommandConfigurationFlatOpts,
   IResolveDefaultOptionsParams,
 } from '@guanghechen/helper-commander'
-import { isNonBlankString, isString } from '@guanghechen/helper-is'
+import { isNonBlankString, isNotEmptyArray, isString } from '@guanghechen/helper-is'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
+import path from 'node:path'
 import { logger } from '../../env/logger'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
@@ -16,11 +17,18 @@ interface ISubCommandOptions {
    */
   readonly catalogCacheFilepath: string
   /**
-   * If specified, then all of the files under the given commitId will be decrypted.
-   * Otherwise, the entire repo will be generated.
-   * @default null
+   * Crypt repo commit hash, if specified, then decrypt files only at the given commit id or branch.
    */
-  readonly filesOnly: string | undefined // <commit id | branch | null>
+  readonly filesAt: string | undefined
+  /**
+   * Specify which files need to decrypt.
+   *
+   * If not empty, then the `filesAt` will resoled as string (fallback: `HEAD`), and only files
+   * in the `filesOnly` will be decrypted. Otherwise, if `filesAt` is not undefined, then all files
+   * will be decrypted.
+   * @default []
+   */
+  readonly filesOnly: string[] // <commit id | branch | null>
   /**
    * Set the git config 'commit.gpgSign'.
    */
@@ -35,15 +43,17 @@ interface ISubCommandOptions {
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
 export type ISubCommandDecryptOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
-const getDefaultCommandDecryptOptions = (
-  params: IResolveDefaultOptionsParams,
-): ICommandOptions => ({
-  ...getDefaultGlobalCommandOptions(params),
-  catalogCacheFilepath: '.ghc-cache-catalog.decrypt.json',
-  filesOnly: undefined,
-  gitGpgSign: false,
-  outDir: '.ghc-plain-bak',
-})
+const getDefaultCommandDecryptOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => {
+  const repoName = path.basename(params.workspace)
+  return {
+    ...getDefaultGlobalCommandOptions(params),
+    catalogCacheFilepath: '.ghc-cache-catalog.decrypt.json',
+    filesAt: undefined,
+    filesOnly: [],
+    gitGpgSign: false,
+    outDir: `${repoName}-plain-bak`,
+  }
+}
 
 export function resolveSubCommandDecryptOptions(
   commandName: string,
@@ -67,9 +77,18 @@ export function resolveSubCommandDecryptOptions(
   logger.debug('catalogCacheFilepath:', catalogCacheFilepath)
 
   // Resolve filesAt
-  const filesOnly: string | undefined = cover<string | undefined>(
+  const filesAt: string | undefined = cover<string | undefined>(
+    baseOptions.filesAt,
+    options.filesAt,
+    isNonBlankString,
+  )
+  logger.debug('filesAt:', filesAt)
+
+  // Resolve filesOnly
+  const filesOnly: string[] = cover<string[]>(
     baseOptions.filesOnly,
-    (options.filesOnly as unknown) === true ? 'HEAD' : options.filesOnly,
+    options.filesOnly,
+    isNotEmptyArray,
   )
   logger.debug('filesOnly:', filesOnly)
 
@@ -89,6 +108,7 @@ export function resolveSubCommandDecryptOptions(
 
   const resolvedOptions: ISubCommandOptions = {
     catalogCacheFilepath,
+    filesAt,
     filesOnly,
     gitGpgSign,
     outDir,
