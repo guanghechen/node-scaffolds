@@ -1,5 +1,22 @@
 # Changelog
 
+<a name="4.7.1"></a>
+## 4.7.1 (2023-03-19)
+
+### Added
+
+- ✨ feat(helper-git-cipher): support to decrypt specific files only [[1fe5030](https://github.com/guanghechen/node-scaffolds/commit/1fe5030182458acaa57da9e094437a3a6d05dccc)]
+
+### Changed
+
+- 👽 fix build error and test error due to the FileCipherCatalog change [[b462a5a](https://github.com/guanghechen/node-scaffolds/commit/b462a5a2dc26782e2ffddfb0d8975d4748a938d0)]
+- 🎨 improve(helper-cipher-file): refactor FileCipherCatalog [[745d35b](https://github.com/guanghechen/node-scaffolds/commit/745d35b36842904082b6af231a0e6f99427c1fc5)]
+- 🎨 improve(helper-cipher-file): extract ReadonlyFileCipherCatalog [[e9e8e86](https://github.com/guanghechen/node-scaffolds/commit/e9e8e860b9112a3e5759e1b230c53ae1f5a059c9)]
+- 🍱 improve(tool-git-cipher): update boilerplate [[2fe7612](https://github.com/guanghechen/node-scaffolds/commit/2fe7612bfeb11534bd89a5b39419e43a0f5f0f05)]
+- ⬆️ chore: upgrade devDependencies [[ce172dd](https://github.com/guanghechen/node-scaffolds/commit/ce172ddfc3899902475fa14795e70f261ed35b37)]
+- 🎨 improve(tool-git-cipher): support to decrypt specified files only [[c987131](https://github.com/guanghechen/node-scaffolds/commit/c987131a04352e390dd2b2dd092f1a450647ab7b)]
+
+
 <a name="4.7.0"></a>
 ## 4.7.0 (2023-03-12)
 
