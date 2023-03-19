@@ -172,7 +172,7 @@ describe('FileCipherBatcher', () => {
             diffItems,
             getIv,
           }),
-        '[encryptDiff] Bad diff item (removed), plain file should not exist.',
+        '[batchEncrypt] Bad diff item (removed), plain file should not exist.',
       )
 
       expect(existsSync(encryptedFilepathA)).toEqual(true)

@@ -28,7 +28,7 @@ export function checkCryptIntegrity(params: ICheckCryptIntegrityParams): void {
         )
         invariant(
           isFileSync(absoluteCryptFilepath),
-          `[${title}] Missing crypt file. ${cryptFilepath})`,
+          `[${title}] Missing crypt file part. ${cryptFilepath})`,
         )
       }
     } else {

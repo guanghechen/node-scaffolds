@@ -1,4 +1,4 @@
-import type { IFileCipherCatalog } from '@guanghechen/helper-cipher-file'
+import type { IReadonlyFileCipherCatalog } from '@guanghechen/helper-cipher-file'
 import { normalizePlainFilepath } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import { list2map } from '@guanghechen/helper-func'
@@ -11,7 +11,7 @@ import { existsSync } from 'node:fs'
 import type { IFileCipherCatalogItemInstance, IGitCipherConfig } from '../types'
 
 export interface IVerifyGitCommitParams {
-  catalog: IFileCipherCatalog
+  catalog: IReadonlyFileCipherCatalog
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string
   cryptPathResolver: FilepathResolver

@@ -112,7 +112,6 @@ describe('GitCipher', () => {
     partCodePrefix,
     pathHashAlgorithm,
     contentHashAlgorithm,
-    logger,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
   })
 

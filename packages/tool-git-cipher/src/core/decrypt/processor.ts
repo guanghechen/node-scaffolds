@@ -89,7 +89,6 @@ export class GitCipherDecryptProcessor {
       partCodePrefix,
       pathHashAlgorithm,
       plainPathResolver,
-      logger,
       isKeepPlain:
         keepPlainPatterns.length > 0
           ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
