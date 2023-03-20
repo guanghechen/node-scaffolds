@@ -11,19 +11,25 @@ export function createProgram(): Command {
   // global options
   program
     .option(
-      '--crypt-root-dir <cryptRootDir>',
+      '--crypt-root-dir, --cryptRootDir <cryptRootDir>',
       'The directory where the crypt repo located. (relative of workspace or absolute path)',
     )
     .option('--encoding <encoding>', 'Default encoding of files in the workspace.')
-    .option('--max-password-length <maxPasswordLength>', 'The maximum size required of password')
-    .option('--max-retry-times <maxRetryTimes>', 'Max wrong password retry times')
-    .option('--min-password-length <minPasswordLength>', 'the minimum size required of password')
     .option(
-      '--plain-root-dir <plainRootDir>',
+      '--max-password-length, --maxPasswordLength <maxPasswordLength>',
+      'The maximum size required of password',
+    )
+    .option('--max-retry-times, --maxRetryTimes <maxRetryTimes>', 'Max wrong password retry times')
+    .option(
+      '--min-password-length, --minPasswordLength <minPasswordLength>',
+      'the minimum size required of password',
+    )
+    .option(
+      '--plain-root-dir, --plainRootDir <plainRootDir>',
       'The directory where the plain repo located. (relative of workspace or absolute path)',
     )
     .option(
-      '--secret-filepath <secretFilepath>',
+      '--secret-filepath, --secretFilepath <secretFilepath>',
       'The path of secret file. (relative of workspace)',
     )
     .option('--show-asterisk', `Print password asterisk.`)
