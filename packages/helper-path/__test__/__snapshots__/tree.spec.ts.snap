@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`buildFilepathTree data1 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "prefix": "e",
+                    },
+                  ],
+                  "prefix": "d",
+                },
+                {
+                  "children": [],
+                  "prefix": "d.txt",
+                },
+                {
+                  "children": [],
+                  "prefix": "f.txt",
+                },
+              ],
+              "prefix": "c",
+            },
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "prefix": "h.txt",
+                    },
+                    {
+                      "children": [],
+                      "prefix": "i.txt",
+                    },
+                  ],
+                  "prefix": "g",
+                },
+                {
+                  "children": [],
+                  "prefix": "f.txt",
+                },
+              ],
+              "prefix": "e",
+            },
+            {
+              "children": [],
+              "prefix": "c#d.txt",
+            },
+            {
+              "children": [],
+              "prefix": "c_d.txt",
+            },
+            {
+              "children": [],
+              "prefix": "d",
+            },
+            {
+              "children": [],
+              "prefix": "f",
+            },
+          ],
+          "prefix": "b",
+        },
+      ],
+      "prefix": "a",
+    },
+  ],
+  "prefix": "/",
+}
+`;
