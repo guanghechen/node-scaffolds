@@ -5,6 +5,7 @@ import {
   mountSubCommandDecrypt,
   mountSubCommandEncrypt,
   mountSubCommandInit,
+  mountSubCommandTree,
   mountSubCommandVerify,
 } from '.'
 
@@ -21,6 +22,9 @@ mountSubCommandEncrypt(program)
 
 // mount sub-command: init
 mountSubCommandInit(program)
+
+// mount sub-command: tree
+mountSubCommandTree(program)
 
 // mount sub-command:verify
 mountSubCommandVerify(program)
