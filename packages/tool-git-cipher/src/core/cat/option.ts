@@ -9,10 +9,7 @@ import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
 interface ISubCommandOptions {
-  /**
-   * Crypt repo branch or commit id.
-   */
-  readonly cryptCommitId: string
+  plainFilepath: string | undefined
 }
 
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
@@ -20,7 +17,7 @@ export type ISubCommandCatOptions = ICommandOptions & ICommandConfigurationFlatO
 
 const getDefaultCommandCatOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(params),
-  cryptCommitId: 'HEAD',
+  plainFilepath: undefined,
 })
 
 export function resolveSubCommandCatOptions(
@@ -37,14 +34,14 @@ export function resolveSubCommandCatOptions(
     options,
   )
 
-  // Resolve cryptCommitId
-  const cryptCommitId: string = cover<string>(
-    baseOptions.cryptCommitId,
-    options.cryptCommitId,
+  // Resolve plainFilepath
+  const plainFilepath: string | undefined = cover<string | undefined>(
+    baseOptions.plainFilepath,
+    options.plainFilepath,
     isNonBlankString,
   )
-  logger.debug('cryptCommitId:', cryptCommitId)
+  logger.debug('plainFilepath:', plainFilepath)
 
-  const resolvedOptions: ISubCommandOptions = { cryptCommitId }
+  const resolvedOptions: ISubCommandOptions = { plainFilepath }
   return { ...baseOptions, ...resolvedOptions }
 }

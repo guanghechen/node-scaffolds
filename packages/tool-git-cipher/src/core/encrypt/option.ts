@@ -49,8 +49,6 @@ export function resolveSubCommandEncryptOptions(
   )
   logger.debug('catalogCacheFilepath:', catalogCacheFilepath)
 
-  const resolvedOptions: ISubCommandOptions = {
-    catalogCacheFilepath,
-  }
+  const resolvedOptions: ISubCommandOptions = { catalogCacheFilepath }
   return { ...baseOptions, ...resolvedOptions }
 }

@@ -1,8 +1,10 @@
 import type { ICipherFactory } from '@guanghechen/helper-cipher'
+import { FileCipher, calcCryptFilepath } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
-import { isGitRepo, showFileContent } from '@guanghechen/helper-git'
+import { isGitRepo } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
 import { FilepathResolver } from '@guanghechen/helper-path'
+import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'fs'
 import { logger } from '../../env/logger'
@@ -54,34 +56,59 @@ export class GitCipherCatProcessor {
     )
 
     const { catalogFilepath } = secretKeeper.data
-    const catalogContent: string = await showFileContent({
-      filepath: cryptPathResolver.relative(catalogFilepath),
-      commitHash: context.cryptCommitId,
-      cwd: cryptPathResolver.rootDir,
-      logger,
-    })
-
     const configKeeper = new GitCipherConfigKeeper({
       cipher: secretMaster.catalogCipher,
-      storage: {
-        load: async () => catalogContent,
-        save: async () => {},
-        remove: async () => {},
-        exists: async () => true,
-      },
+      storage: new FileStorage({ strict: true, encoding: 'utf8', filepath: catalogFilepath }),
     })
     await configKeeper.load()
 
-    console.log(
-      JSON.stringify(
-        configKeeper.data,
-        (key, value) => {
-          if (key === 'authTag' && value?.type === 'Buffer')
-            return Buffer.from(value).toString('hex')
-          return value
-        },
-        2,
-      ),
-    )
+    // Print catalog config.
+    if (!context.plainFilepath) {
+      console.log(
+        JSON.stringify(
+          configKeeper.data,
+          (key, value) => {
+            if (key === 'authTag' && value?.type === 'Buffer')
+              return Buffer.from(value).toString('hex')
+            return value
+          },
+          2,
+        ),
+      )
+      return
+    }
+
+    // Print plain file content.
+    const plainPathResolver = new FilepathResolver(context.plainRootDir)
+    const plainFilepath = plainPathResolver.relative(context.plainFilepath)
+    const item = configKeeper.data?.catalog.items.find(item => item.plainFilepath === plainFilepath)
+    invariant(!!item, `[${title}] Cannot find plainFilepath ${context.plainFilepath}.`)
+
+    const cryptFilepath: string = calcCryptFilepath({
+      cryptFilepathSalt: secretKeeper.data.cryptFilepathSalt,
+      cryptFilesDir: secretKeeper.data.cryptFilesDir,
+      keepPlain: item.keepPlain,
+      pathHashAlgorithm: secretKeeper.data.pathHashAlgorithm,
+      plainFilepath,
+      plainPathResolver,
+    })
+    const cryptFilepaths: string[] =
+      item.cryptFilepathParts.length > 0
+        ? item.cryptFilepathParts.map(part => cryptPathResolver.absolute(cryptFilepath + part))
+        : [cryptPathResolver.absolute(cryptFilepath)]
+    const fileCipher = new FileCipher({
+      cipher: cipherFactory.cipher({
+        iv: secretMaster.getDynamicIv([
+          Buffer.from(item.plainFilepath, 'utf8'),
+          Buffer.from(item.fingerprint, 'hex'),
+        ]),
+      }),
+      logger,
+    })
+    const plainContentBuffer: Buffer = await fileCipher.decryptFromFiles(cryptFilepaths, {
+      authTag: item.authTag,
+    })
+    const plainContent: string = plainContentBuffer.toString('utf8')
+    console.log(plainContent)
   }
 }
