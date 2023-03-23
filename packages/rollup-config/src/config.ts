@@ -175,11 +175,17 @@ function resolveOutputOptions(options: {
     }
   }
 
-  const outputs: OutputOptions[] = entries.map(entry => ({
-    format: entry.format,
-    file: entry.file,
-    exports: 'named',
-    sourcemap: env.shouldSourceMap,
-  }))
+  const outputs: OutputOptions[] = entries.map(entry => {
+    const output: OutputOptions = {
+      format: entry.format,
+      file: entry.file,
+      exports: 'named',
+      sourcemap: env.shouldSourceMap,
+    }
+    if (entry.format === 'cjs') {
+      output.interop = 'auto'
+    }
+    return output
+  })
   return outputs
 }
