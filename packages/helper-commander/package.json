@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-commander",
-  "version": "4.7.1",
+  "version": "4.7.2",
   "description": "Utils for creating node.js command line program",
   "author": {
     "name": "guanghechen",
@@ -40,14 +40,14 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/chalk-logger": "^4.7.1",
-    "@guanghechen/helper-fs": "^4.7.1",
-    "@guanghechen/helper-git": "^4.7.1",
-    "@guanghechen/helper-is": "^4.7.1",
-    "@guanghechen/helper-option": "^4.7.1",
-    "@guanghechen/helper-path": "^4.7.1",
-    "@guanghechen/helper-string": "^4.7.1",
-    "@guanghechen/invariant": "^4.7.1",
+    "@guanghechen/chalk-logger": "^4.7.2",
+    "@guanghechen/helper-fs": "^4.7.2",
+    "@guanghechen/helper-git": "^4.7.2",
+    "@guanghechen/helper-is": "^4.7.2",
+    "@guanghechen/helper-option": "^4.7.2",
+    "@guanghechen/helper-path": "^4.7.2",
+    "@guanghechen/helper-string": "^4.7.2",
+    "@guanghechen/invariant": "^4.7.2",
     "command-exists": "^1.2.9",
     "commander": "^10.0.0",
     "execa": "^7.1.1",

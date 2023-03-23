@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-config-cli",
-  "version": "4.7.1",
+  "version": "4.7.2",
   "description": "Rollup configs for bundle typescript cli project",
   "author": {
     "name": "guanghechen",
@@ -40,8 +40,8 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@guanghechen/rollup-config": "^4.7.1",
-    "@guanghechen/rollup-plugin-copy": "^4.7.1"
+    "@guanghechen/rollup-config": "^4.7.2",
+    "@guanghechen/rollup-plugin-copy": "^4.7.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
