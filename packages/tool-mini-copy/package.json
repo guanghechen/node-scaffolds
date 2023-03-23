@@ -48,13 +48,13 @@
     "@guanghechen/helper-path": "^4.7.1",
     "@guanghechen/invariant": "^4.7.1",
     "@guanghechen/mini-copy": "^4.7.1",
-    "inquirer": "^9.1.4"
+    "inquirer": "^9.1.5"
   },
   "devDependencies": {
     "@guanghechen/rollup-config-cli": "^4.7.1",
     "cross-env": "^7.0.3",
-    "rimraf": "^4.4.0",
-    "rollup": "^3.19.1",
+    "rimraf": "^4.4.1",
+    "rollup": "^3.20.1",
     "typescript": "4.9.5"
   }
 }
