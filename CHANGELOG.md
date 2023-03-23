@@ -1,5 +1,25 @@
 # Changelog
 
+<a name="4.7.2"></a>
+## 4.7.2 (2023-03-23)
+
+### Added
+
+- ✅ test: fix snapshots [[a156ef7](https://github.com/guanghechen/node-scaffolds/commit/a156ef70c47664e877cf0662d651ad14f13f9714)]
+- ✨ feat(tool-git-cipher): support new sub command &#x27;tree&#x27; [[6cf3343](https://github.com/guanghechen/node-scaffolds/commit/6cf33437add2989ef17468f5054548c7ece47de5)]
+- ✨ feat(helper-path): implement tree-like printer [[63380ba](https://github.com/guanghechen/node-scaffolds/commit/63380ba01ae856d2177dfdb4034076aacd5f8bda)]
+
+### Changed
+
+- ⬆️ chore: upgrade devDependencies [[2be4555](https://github.com/guanghechen/node-scaffolds/commit/2be4555e58cc40bd290faa66f160751be3e22bee)]
+- 🎨 improve(tool-git-cipher): support to show plain content of crypt file [[09503f9](https://github.com/guanghechen/node-scaffolds/commit/09503f9d6f1bddf577bb61d6c5865feed95757c3)]
+- 🎨 improve(tool-git-cipher): add options alias [[6bcf1ca](https://github.com/guanghechen/node-scaffolds/commit/6bcf1ca8408047c7cb061196179a713420cebc2d)]
+
+### Fixed
+
+- 🐛 fix(rollup-config): fix default import for cjs format bundles [[86b3840](https://github.com/guanghechen/node-scaffolds/commit/86b3840f2540ac892cebe8cdf772d0df469f4240)]
+
+
 <a name="4.7.1"></a>
 ## 4.7.1 (2023-03-19)
 
