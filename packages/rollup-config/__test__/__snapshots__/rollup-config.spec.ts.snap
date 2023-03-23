@@ -7,6 +7,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var fs = require('node:fs');
 
+function _interopDefault (e) { return e && e.__esModule ? e : { default: e }; }
+
+var fs__default = /*#__PURE__*/_interopDefault(fs);
+
 var data = {
   name: "alice"
 };
@@ -15,9 +19,9 @@ var data$1 = {
 };
 
 function isFileSync(filepath) {
-    if (!fs.existsSync(filepath))
+    if (!fs__default.default.existsSync(filepath))
         return false;
-    return fs.statSync(filepath).isFile();
+    return fs__default.default.statSync(filepath).isFile();
 }
 
 console.log('data:', data$1);
@@ -35,7 +39,7 @@ exports[`build simple: rollup cjs 2`] = `
   "fileName": "index.js.map",
   "name": undefined,
   "needsCodeReference": false,
-  "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":[null,null],"names":["data"],"mappings":";;;;;;;;;;;;;AAQM,SAAU,UAAU,CAAE,QAAgB,EAAA;AAC1C,IAAA,IAAI,CAAC,EAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAAE,QAAA,OAAO,KAAK,CAAA;IAC1C,OAAO,EAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE,CAAA;AACvC;;ACNA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEA,MAAI,CAAC,CAAA;AAC1B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC,CAAA;AAEnC,YAAA,CAAe,YAAM,EAAA,OAAAA,MAAI,CAAA,EAAA;;;;;"}",
+  "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":[null,null],"names":["fs","data"],"mappings":";;;;;;;;;;;;;;;;;AAQM,SAAU,UAAU,CAAE,QAAgB,EAAA;AAC1C,IAAA,IAAI,CAACA,mBAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAAE,QAAA,OAAO,KAAK,CAAA;IAC1C,OAAOA,mBAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE,CAAA;AACvC;;ACNA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEC,MAAI,CAAC,CAAA;AAC1B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC,CAAA;AAEnC,YAAA,CAAe,YAAM,EAAA,OAAAA,MAAI,CAAA,EAAA;;;;;"}",
   "type": "asset",
 }
 `;

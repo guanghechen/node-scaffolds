@@ -8,6 +8,11 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var React = require('react');
 var cn = require('clsx');
 
+function _interopDefault (e) { return e && e.__esModule ? e : { default: e }; }
+
+var React__default = /*#__PURE__*/_interopDefault(React);
+var cn__default = /*#__PURE__*/_interopDefault(cn);
+
 var name = "alice";
 var data = {
   name: name
@@ -17,13 +22,13 @@ var classes = {"container":"ghc-container","name":"ghc-name"};
 
 function Greet(props) {
     var _a = props.name, name = _a === void 0 ? 'world' : _a;
-    return (React.createElement("div", { className: cn(classes.container) },
+    return (React__default.default.createElement("div", { className: cn__default.default(classes.container) },
         "Hello, ",
-        React.createElement("span", { className: cn(classes.name) }, name),
+        React__default.default.createElement("span", { className: cn__default.default(classes.name) }, name),
         "!"));
 }
 
-var index = (function () { return React.createElement(Greet, { name: data.name }); });
+var index = (function () { return React__default.default.createElement(Greet, { name: data.name }); });
 
 exports.Greet = Greet;
 exports.default = index;
