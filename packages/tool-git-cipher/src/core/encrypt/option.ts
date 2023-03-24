@@ -31,20 +31,18 @@ const getDefaultCommandEncryptOptions = (
 export function resolveSubCommandEncryptOptions(
   commandName: string,
   subCommandName: string,
-  workspaceDir: string,
   options: ISubCommandEncryptOptions,
 ): ISubCommandEncryptOptions {
   const baseOptions: ISubCommandEncryptOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
     getDefaultCommandEncryptOptions,
-    workspaceDir,
     options,
   )
 
   // Resolve catalogCacheFilepath
   const catalogCacheFilepath: string = absoluteOfWorkspace(
-    workspaceDir,
+    baseOptions.workspace,
     cover<string>(baseOptions.catalogCacheFilepath, options.catalogCacheFilepath, isNonBlankString),
   )
   logger.debug('catalogCacheFilepath:', catalogCacheFilepath)

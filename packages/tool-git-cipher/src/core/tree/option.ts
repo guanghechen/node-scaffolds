@@ -26,14 +26,12 @@ const getDefaultCommandTreeOptions = (params: IResolveDefaultOptionsParams): ICo
 export function resolveSubCommandTreeOptions(
   commandName: string,
   subCommandName: string,
-  workspaceDir: string,
   options: ISubCommandTreeOptions,
 ): ISubCommandTreeOptions {
   const baseOptions: ISubCommandTreeOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
     getDefaultCommandTreeOptions,
-    workspaceDir,
     options,
   )
 

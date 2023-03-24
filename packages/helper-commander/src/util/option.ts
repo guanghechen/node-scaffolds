@@ -41,7 +41,7 @@ export function resolveCommandConfigurationOptions<O extends ICommandConfigurati
 ): O & ICommandConfigurationFlatOpts {
   const cwd: string = path.resolve()
   const { commandName, defaultOptions, logger, options, strategyMap, subCommandName } = params
-  const workspace = path.resolve(cwd, params.workspace || '.')
+  const workspace = path.resolve(cwd, options.workspace || params.workspace || '.')
 
   const resolvedDefaultOptions: O = isFunction(defaultOptions)
     ? defaultOptions({ cwd, workspace })

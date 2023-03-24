@@ -15,17 +15,15 @@ export const createSubCommandCat = (
   command
     .name(subCommandName)
     .aliases(aliases)
-    .arguments('<workspace>')
     .description('Show plain content of a specified crypt file on a branch/commit.')
     .option(
       '--plain-filepath, --plainFilepath <plainFilepath>',
       'The file you want to check the plain content.',
     )
-    .action(async function ([_workspaceDir], options: ISubCommandCatOptions) {
+    .action(async function (_, options: ISubCommandCatOptions) {
       const resolvedOptions: ISubCommandCatOptions = resolveSubCommandCatOptions(
         COMMAND_NAME,
         subCommandName,
-        _workspaceDir,
         options,
       )
       await handle?.(resolvedOptions)

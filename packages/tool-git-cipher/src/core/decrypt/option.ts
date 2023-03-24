@@ -58,20 +58,18 @@ const getDefaultCommandDecryptOptions = (params: IResolveDefaultOptionsParams): 
 export function resolveSubCommandDecryptOptions(
   commandName: string,
   subCommandName: string,
-  workspaceDir: string,
   options: ISubCommandDecryptOptions,
 ): ISubCommandDecryptOptions {
   const baseOptions: ISubCommandDecryptOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
     getDefaultCommandDecryptOptions,
-    workspaceDir,
     options,
   )
 
   // Resolve catalogCacheFilepath
   const catalogCacheFilepath: string = absoluteOfWorkspace(
-    workspaceDir,
+    baseOptions.workspace,
     cover<string>(baseOptions.catalogCacheFilepath, options.catalogCacheFilepath, isNonBlankString),
   )
   logger.debug('catalogCacheFilepath:', catalogCacheFilepath)

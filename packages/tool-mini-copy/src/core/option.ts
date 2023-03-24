@@ -72,7 +72,6 @@ export function resolveGlobalCommandOptions<O extends object>(
   commandName: string,
   subCommandName: string | false,
   defaultOptions: O,
-  workspaceDir: string,
   options: O & IGlobalCommandOptions,
 ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
@@ -80,10 +79,11 @@ export function resolveGlobalCommandOptions<O extends object>(
     logger,
     commandName,
     subCommandName,
-    workspace: workspaceDir,
+    workspace: undefined,
     defaultOptions: { ...__defaultGlobalCommandOptions, ...defaultOptions },
     options,
   })
+  const { workspace } = resolvedDefaultOptions
 
   // Resolve `encoding`.
   const encoding: string = cover<string>(
@@ -99,7 +99,7 @@ export function resolveGlobalCommandOptions<O extends object>(
     options.input,
     isNonBlankString,
   )
-  const input: string | undefined = _input ? absoluteOfWorkspace(workspaceDir, _input) : undefined
+  const input: string | undefined = _input ? absoluteOfWorkspace(workspace, _input) : undefined
   logger.debug('input:', input)
 
   // Resolve `output`.
@@ -108,9 +108,7 @@ export function resolveGlobalCommandOptions<O extends object>(
     options.output,
     isNonBlankString,
   )
-  const output: string | undefined = _output
-    ? absoluteOfWorkspace(workspaceDir, _output)
-    : undefined
+  const output: string | undefined = _output ? absoluteOfWorkspace(workspace, _output) : undefined
   logger.debug('output:', output)
 
   // resolve ciphertextRootDir
@@ -120,7 +118,7 @@ export function resolveGlobalCommandOptions<O extends object>(
     isNonBlankString,
   )
   const fakeClipboard: string | undefined = _fakeClipboard
-    ? absoluteOfWorkspace(workspaceDir, _fakeClipboard)
+    ? absoluteOfWorkspace(workspace, _fakeClipboard)
     : undefined
   logger.debug('fakeClipboard:', fakeClipboard)
 

@@ -15,18 +15,18 @@ export interface ICommandConfigurationFlatOpts {
    */
   readonly configPath?: string[]
   /**
-   * Filepath of parastic config,
+   * Filepath of parastic config.
    */
   readonly parasticConfigPath?: string | null
   /**
-   * The entry key of options in the parasitic configuration file
+   * The entry key of options in the parasitic configuration file.
    */
   readonly parasticConfigEntry?: string | null
 }
 
 export interface ICommandConfigurationOptions {
   /**
-   * log level
+   * Log level.
    * @default undefined
    */
   readonly logLevel?: 'debug' | 'verbose' | 'info' | 'warn' | 'error' | string
@@ -38,13 +38,17 @@ export interface ICommandConfigurationOptions {
    */
   readonly configPath?: string[]
   /**
-   * Filepath of parastic config,
+   * Filepath of parastic config.
    */
   readonly parasticConfigPath?: string | null
   /**
-   * The entry key of options in the parasitic configuration file
+   * The entry key of options in the parasitic configuration file.
    */
   readonly parasticConfigEntry?: string | null
+  /**
+   * The root dir to locate the config files and resolve relative paths.
+   */
+  readonly workspace?: string
 }
 
 export interface ICommandConfiguration<IOptions extends ICommandConfigurationOptions> {

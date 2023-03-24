@@ -111,14 +111,12 @@ const getDefaultCommandInitOptions = (params: IResolveDefaultOptionsParams): ICo
 export function resolveSubCommandInitOptions(
   commandName: string,
   subCommandName: string,
-  workspaceDir: string,
   options: ISubCommandInitOptions,
 ): ISubCommandInitOptions {
   const baseOptions: ISubCommandInitOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
     getDefaultCommandInitOptions,
-    workspaceDir,
     options,
   )
 

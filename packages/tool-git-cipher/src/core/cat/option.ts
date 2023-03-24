@@ -23,14 +23,12 @@ const getDefaultCommandCatOptions = (params: IResolveDefaultOptionsParams): ICom
 export function resolveSubCommandCatOptions(
   commandName: string,
   subCommandName: string,
-  workspaceDir: string,
   options: ISubCommandCatOptions,
 ): ISubCommandCatOptions {
   const baseOptions: ISubCommandCatOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
     getDefaultCommandCatOptions,
-    workspaceDir,
     options,
   )
 

@@ -76,7 +76,6 @@ export function resolveBaseCommandOptions<O extends object>(
   commandName: string,
   subCommandName: string | false,
   getDefaultOptions: (params: IResolveDefaultOptionsParams) => O,
-  workspaceDir: string,
   options: O & IGlobalCommandOptions,
 ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
@@ -84,17 +83,18 @@ export function resolveBaseCommandOptions<O extends object>(
     logger,
     commandName,
     subCommandName,
-    workspace: workspaceDir,
+    workspace: undefined,
     defaultOptions: params => ({
       ...getDefaultGlobalCommandOptions(params),
       ...getDefaultOptions(params),
     }),
     options,
   })
+  const { workspace } = resolvedDefaultOptions
 
   // Resolve cryptRootDir
   const cryptRootDir: string = absoluteOfWorkspace(
-    workspaceDir,
+    workspace,
     cover<string>(resolvedDefaultOptions.cryptRootDir, options.cryptRootDir, isNonBlankString),
   )
   logger.debug('cryptRootDir:', cryptRootDir)
@@ -130,14 +130,14 @@ export function resolveBaseCommandOptions<O extends object>(
 
   // Resolve plainRootDir
   const plainRootDir: string = absoluteOfWorkspace(
-    workspaceDir,
+    workspace,
     cover<string>(resolvedDefaultOptions.plainRootDir, options.plainRootDir, isNonBlankString),
   )
   logger.debug('plainRootDir:', plainRootDir)
 
   // Resolve secretFilepath
   const secretFilepath: string = absoluteOfWorkspace(
-    workspaceDir,
+    workspace,
     cover<string>(resolvedDefaultOptions.secretFilepath, options.secretFilepath, isNonBlankString),
   )
   logger.debug('secretFilepath:', secretFilepath)

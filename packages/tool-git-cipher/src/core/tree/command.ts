@@ -15,14 +15,12 @@ export const createSubCommandTree = (
   command
     .name(subCommandName)
     .aliases(aliases)
-    .arguments('<workspace>')
     .description('Preview staged files in plainRootDir with tree style')
     .option('--files-at, --filesAt <commitHash>', 'Crypt repo branch or commit id.')
-    .action(async function ([_workspaceDir], options: ISubCommandTreeOptions) {
+    .action(async function (_, options: ISubCommandTreeOptions) {
       const resolvedOptions: ISubCommandTreeOptions = resolveSubCommandTreeOptions(
         COMMAND_NAME,
         subCommandName,
-        _workspaceDir,
         options,
       )
       await handle?.(resolvedOptions)

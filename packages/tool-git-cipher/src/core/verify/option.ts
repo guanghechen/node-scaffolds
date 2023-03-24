@@ -38,20 +38,18 @@ const getDefaultCommandVerifyOptions = (params: IResolveDefaultOptionsParams): I
 export function resolveSubCommandVerifyOptions(
   commandName: string,
   subCommandName: string,
-  workspaceDir: string,
   options: ISubCommandVerifyOptions,
 ): ISubCommandVerifyOptions {
   const baseOptions: ISubCommandVerifyOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
     getDefaultCommandVerifyOptions,
-    workspaceDir,
     options,
   )
 
   // Resolve catalogCacheFilepath
   const catalogCacheFilepath: string = absoluteOfWorkspace(
-    workspaceDir,
+    baseOptions.workspace,
     cover<string>(baseOptions.catalogCacheFilepath, options.catalogCacheFilepath, isNonBlankString),
   )
   logger.debug('catalogCacheFilepath:', catalogCacheFilepath)

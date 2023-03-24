@@ -15,7 +15,6 @@ export const createSubCommandDecrypt = (
   command
     .name(subCommandName)
     .aliases(aliases)
-    .arguments('<workspace>')
     .description('Decrypt git repo or decrypt files on a branch/commit only.')
     .option(
       '--catalog-cache-filepath, --catalogCacheFilepath <catalogCacheFilepath>',
@@ -37,11 +36,10 @@ export const createSubCommandDecrypt = (
       '--out-dir, --outDir <outDir>',
       'Root dir of decrypted outputs. (Relative of workspace)',
     )
-    .action(async function ([_workspaceDir], options: ISubCommandDecryptOptions) {
+    .action(async function (_, options: ISubCommandDecryptOptions) {
       const resolvedOptions: ISubCommandDecryptOptions = resolveSubCommandDecryptOptions(
         COMMAND_NAME,
         subCommandName,
-        _workspaceDir,
         options,
       )
       await handle?.(resolvedOptions)

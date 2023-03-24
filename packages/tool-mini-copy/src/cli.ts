@@ -1,4 +1,3 @@
-import path from 'node:path'
 import type { IGlobalCommandOptions } from '.'
 import {
   PACKAGE_NAME,
@@ -17,7 +16,6 @@ program
       PACKAGE_NAME,
       '',
       __defaultGlobalCommandOptions,
-      path.resolve(),
       options,
     )
     const sourceContent = args[0]

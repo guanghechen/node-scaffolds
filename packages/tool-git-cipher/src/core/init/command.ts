@@ -16,7 +16,6 @@ export const createSubCommandInit = (
     .name(subCommandName)
     .aliases(aliases)
     .description('Initialize a encrypt / decrypt able git repo.')
-    .arguments('<workspace>')
     .option(
       '--catalog-filepath, --catalogFilepath <catalogFilepath>',
       'The path of catalog file of crypt repo. (relative of cryptRootDir)',
@@ -60,11 +59,10 @@ export const createSubCommandInit = (
       '--secret-key-size, --secretKeySize <secretKeySize>',
       'Key size of the secret cipherFactory.',
     )
-    .action(async function ([_workspaceDir], options: ISubCommandInitOptions) {
+    .action(async function (_, options: ISubCommandInitOptions) {
       const resolvedOptions: ISubCommandInitOptions = resolveSubCommandInitOptions(
         COMMAND_NAME,
         subCommandName,
-        _workspaceDir,
         options,
       )
       await handle?.(resolvedOptions)
