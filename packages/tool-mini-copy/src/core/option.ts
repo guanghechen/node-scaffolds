@@ -76,14 +76,14 @@ export function resolveGlobalCommandOptions<O extends object>(
   options: O & IGlobalCommandOptions,
 ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
-  const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>(
+  const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>({
     logger,
     commandName,
     subCommandName,
-    workspaceDir,
-    { ...__defaultGlobalCommandOptions, ...defaultOptions },
+    workspace: workspaceDir,
+    defaultOptions: { ...__defaultGlobalCommandOptions, ...defaultOptions },
     options,
-  )
+  })
 
   // Resolve `encoding`.
   const encoding: string = cover<string>(

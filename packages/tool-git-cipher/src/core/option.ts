@@ -80,14 +80,17 @@ export function resolveBaseCommandOptions<O extends object>(
   options: O & IGlobalCommandOptions,
 ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
-  const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>(
+  const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>({
     logger,
     commandName,
     subCommandName,
-    workspaceDir,
-    params => ({ ...getDefaultGlobalCommandOptions(params), ...getDefaultOptions(params) }),
+    workspace: workspaceDir,
+    defaultOptions: params => ({
+      ...getDefaultGlobalCommandOptions(params),
+      ...getDefaultOptions(params),
+    }),
     options,
-  )
+  })
 
   // Resolve cryptRootDir
   const cryptRootDir: string = absoluteOfWorkspace(

@@ -5,7 +5,12 @@ import { convertToBoolean, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import { desensitize } from 'jest.helper'
 import path from 'node:path'
-import type { Command, ICommandConfigurationFlatOpts, ICommandConfigurationOptions } from '../src'
+import type {
+  Command,
+  ICommandConfigurationFlatOpts,
+  ICommandConfigurationOptions,
+  IResolveCommandConfigurationOptionsParams,
+} from '../src'
 import { createTopCommand, resolveCommandConfigurationOptions } from '../src'
 
 describe('command', () => {
@@ -95,14 +100,14 @@ async function getCommand(
       .option('-S, --no-silence', 'print info level logs.')
       .action(function (args: string[], options: IGlobalCommandOptions): void {
         try {
-          const resolvedOptions = resolveGlobalCommandOptions(
-            '@guanghechen/helper-commander--demo',
-            '',
-            __defaultGlobalCommandOptions,
-            path.resolve(),
-            options,
+          const resolvedOptions = resolveGlobalCommandOptions<IGlobalCommandOptions>({
+            commandName: '@guanghechen/helper-commander--demo',
+            defaultOptions: __defaultGlobalCommandOptions,
             logger,
-          )
+            options,
+            subCommandName: '',
+            workspace: path.resolve(),
+          })
           resolve({ args, options, resolvedOptions, program })
         } catch (error) {
           reject(error)
@@ -121,23 +126,14 @@ interface IGlobalCommandOptions extends ICommandConfigurationOptions {
   silence: boolean
 }
 
-function resolveGlobalCommandOptions<O extends object>(
-  commandName: string,
-  subCommandName: string | false,
-  defaultOptions: O & IGlobalCommandOptions,
-  workspaceDir: string,
-  options: O & IGlobalCommandOptions,
-  logger: ChalkLogger,
+function resolveGlobalCommandOptions<O extends ICommandConfigurationOptions>(
+  params: IResolveCommandConfigurationOptionsParams<O & IGlobalCommandOptions>,
 ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
   const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>(
-    logger,
-    commandName,
-    subCommandName,
-    workspaceDir,
-    defaultOptions,
-    options,
+    params,
   )
+  const { logger, options } = params
 
   // Resolve `encoding`.
   const encoding: string = cover<string>(
@@ -153,7 +149,9 @@ function resolveGlobalCommandOptions<O extends object>(
     options.input,
     isNonBlankString,
   )
-  const input: string | undefined = _input ? absoluteOfWorkspace(workspaceDir, _input) : undefined
+  const input: string | undefined = _input
+    ? absoluteOfWorkspace(resolvedDefaultOptions.workspace, _input)
+    : undefined
   logger.debug('input:', input)
 
   // Resolve `output`.
@@ -163,7 +161,7 @@ function resolveGlobalCommandOptions<O extends object>(
     isNonBlankString,
   )
   const output: string | undefined = _output
-    ? absoluteOfWorkspace(workspaceDir, _output)
+    ? absoluteOfWorkspace(resolvedDefaultOptions.workspace, _output)
     : undefined
   logger.debug('output:', output)
 

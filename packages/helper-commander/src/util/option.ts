@@ -25,18 +25,24 @@ export interface IResolveDefaultOptionsParams {
   workspace: string
 }
 
+export interface IResolveCommandConfigurationOptionsParams<O extends ICommandConfigurationOptions> {
+  commandName: string
+  defaultOptions: O | ((params: IResolveDefaultOptionsParams) => O)
+  logger: ChalkLogger
+  options: Partial<O>
+  strategyMap?: Partial<IMergeStrategyMap<O>>
+  subCommandName: string | false
+  workspace: string | undefined
+}
+
 // Resolve CommandConfigurationOptions
 export function resolveCommandConfigurationOptions<O extends ICommandConfigurationOptions>(
-  logger: ChalkLogger,
-  commandName: string,
-  subCommandName: string | false,
-  workspaceDir: string,
-  defaultOptions: O | ((params: IResolveDefaultOptionsParams) => O),
-  options: Partial<O>,
-  strategyMap?: Partial<IMergeStrategyMap<O>>,
+  params: IResolveCommandConfigurationOptionsParams<O>,
 ): O & ICommandConfigurationFlatOpts {
   const cwd: string = path.resolve()
-  const workspace: string = path.resolve(cwd, workspaceDir)
+  const { commandName, defaultOptions, logger, options, strategyMap, subCommandName } = params
+  const workspace = path.resolve(cwd, params.workspace || '.')
+
   const resolvedDefaultOptions: O = isFunction(defaultOptions)
     ? defaultOptions({ cwd, workspace })
     : defaultOptions
@@ -95,7 +101,7 @@ export function resolveCommandConfigurationOptions<O extends ICommandConfigurati
   logger.debug('resolvedConfig:', resolvedConfig)
   logger.debug('resolvedOptions:', resolvedOptions)
 
-  return { ...resolvedOptions, ...flatOpts, logLevel }
+  return { ...defaultOptions, ...resolvedOptions, ...flatOpts, logLevel }
 }
 
 // Flat defaultOptions with configs from package.json

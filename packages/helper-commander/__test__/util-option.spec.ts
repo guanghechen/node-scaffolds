@@ -3,7 +3,7 @@ import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commande
 import { createLoggerMock } from '@guanghechen/helper-jest'
 import { desensitize, locateFixtures } from 'jest.helper'
 
-describe('resolveCommandConfigurationOptions', function () {
+describe('resolveCommandConfigurationOptions', () => {
   const logger = new ChalkLogger({
     level: Level.DEBUG,
     flights: {
@@ -15,15 +15,12 @@ describe('resolveCommandConfigurationOptions', function () {
   beforeEach(() => loggerMock.reset())
   afterAll(() => loggerMock.restore())
 
-  test('basic', function () {
+  test('basic', () => {
     expect(
       desensitize(
-        resolveCommandConfigurationOptions(
-          logger,
-          '@guanghechen/tool-demo',
-          'init',
-          locateFixtures('basic2'),
-          {
+        resolveCommandConfigurationOptions({
+          commandName: '@guanghechen/tool-demo',
+          defaultOptions: {
             logLevel: 'info',
             workspace: locateFixtures('basic2'),
             configPath: [locateFixtures('basic2/demo.config.yml')],
@@ -31,64 +28,67 @@ describe('resolveCommandConfigurationOptions', function () {
             date: false,
             a: [1, 2, 3],
           },
-          {
+          logger,
+          options: {
             color: false,
             date: true,
             a: [4, 5],
           },
-        ),
+          subCommandName: 'init',
+          workspace: locateFixtures('basic2'),
+        }),
       ),
     ).toMatchSnapshot()
     expect(loggerMock.getIndiscriminateAll()).toMatchSnapshot()
   })
 
-  test('with config', function () {
+  test('with config', () => {
     expect(
       desensitize(
-        resolveCommandConfigurationOptions(
-          logger,
-          '@guanghechen/tool-demo',
-          'generate',
-          locateFixtures('basic2'),
-          {
+        resolveCommandConfigurationOptions({
+          commandName: '@guanghechen/tool-demo',
+          defaultOptions: {
             logLevel: 'info',
             workspace: locateFixtures('basic2'),
             color: true,
             date: false,
             a: [1, 2, 3],
           },
-          {
+          logger,
+          options: {
             color: false,
             date: true,
             a: [4, 5],
           },
-        ),
+          subCommandName: 'generate',
+          workspace: locateFixtures('basic2'),
+        }),
       ),
     ).toMatchSnapshot()
     expect(loggerMock.getIndiscriminateAll()).toMatchSnapshot()
   })
 
-  test('no sub-command', function () {
+  test('no sub-command', () => {
     expect(
       desensitize(
-        resolveCommandConfigurationOptions(
-          logger,
-          '@guanghechen/tool-demo',
-          false,
-          locateFixtures('basic2'),
-          {
+        resolveCommandConfigurationOptions({
+          commandName: '@guanghechen/tool-demo',
+          defaultOptions: {
             logLevel: 'warn',
             workspace: locateFixtures('basic2'),
             color: true,
             date: false,
             a: [1, 2, 3],
           },
-          {
+          logger,
+          options: {
             color: false,
             date: true,
             a: [4, 5],
           },
-        ),
+          subCommandName: false,
+          workspace: locateFixtures('basic2'),
+        }),
       ),
     ).toMatchSnapshot()
     expect(loggerMock.getIndiscriminateAll()).toMatchSnapshot()

@@ -31,6 +31,10 @@ export function createTopCommand(commandName: string, version: string): Command 
       '--parastic-config-entry, --parasticConfigFilepath <parasticConfigFilepath>',
       'parastic config filepath',
     )
+    .option(
+      '--workspace <workspace>',
+      'The root dir to locate the config files and resolve relative paths',
+    )
 
   return program
 }
