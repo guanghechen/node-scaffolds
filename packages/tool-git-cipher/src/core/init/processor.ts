@@ -236,7 +236,7 @@ export class GitCipherInitProcessor {
     })
 
     const error = await runPlop(plop, undefined, {
-      bakPlainRootDir: context.plainRootDir,
+      bakPlainRootDir: relativeOfWorkspace(context.workspace, context.plainRootDir),
       catalogFilepath: relativeOfWorkspace(context.cryptRootDir, context.catalogFilepath),
       commandVersion: COMMAND_VERSION,
       configFilepath: data.configFilepath,

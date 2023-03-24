@@ -51,7 +51,7 @@ const getDefaultCommandDecryptOptions = (params: IResolveDefaultOptionsParams): 
     filesAt: undefined,
     filesOnly: [],
     gitGpgSign: false,
-    outDir: `${repoName}-plain-bak`,
+    outDir: `${repoName}-plain`,
   }
 }
 
