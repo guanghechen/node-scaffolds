@@ -18,13 +18,19 @@ export function createTopCommand(commandName: string, version: string): Command 
 
   program
     .option(
-      '-c, --config-path <configFilepath>',
+      '-c, --config-path, --configPath <configPath>',
       'config filepaths',
       (val, acc: string[]) => acc.concat(val),
       [],
     )
-    .option('--parastic-config-path <parasticConfigFilepath>', 'parastic config filepath')
-    .option('--parastic-config-entry <parasticConfigFilepath>', 'parastic config filepath')
+    .option(
+      '--parastic-config-path, --parasticConfigFilepath <parasticConfigFilepath>',
+      'parastic config filepath',
+    )
+    .option(
+      '--parastic-config-entry, --parasticConfigFilepath <parasticConfigFilepath>',
+      'parastic config filepath',
+    )
 
   return program
 }
