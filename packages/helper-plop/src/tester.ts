@@ -76,7 +76,7 @@ export function runPromptsWithMock(
   bypass: string[] = [],
   mockInputs: string[] = [],
 ): object {
-  const results: object = {}
+  const results: Record<string, unknown> = {}
 
   let i = 0
   let j = 0

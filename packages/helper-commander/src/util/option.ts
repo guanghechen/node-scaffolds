@@ -129,7 +129,7 @@ function flatConfiguration<O extends ICommandConfigurationOptions>(
       isNonBlankString(flatOpts.parasticConfigPath) &&
       isNonBlankString(flatOpts.parasticConfigEntry)
     ) {
-      const config = loadConfig(flatOpts.parasticConfigPath) ?? {}
+      const config = (loadConfig(flatOpts.parasticConfigPath) ?? {}) as Record<string, unknown>
       return (config[flatOpts.parasticConfigEntry] as ICommandConfiguration<O>) || {}
     }
   }

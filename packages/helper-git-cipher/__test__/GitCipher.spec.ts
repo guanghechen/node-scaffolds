@@ -280,7 +280,9 @@ describe('GitCipher', () => {
         )
 
         // Verify
-        for (const symbol of Object.keys(repo1CryptCommitIdTable)) {
+        for (const symbol of Object.keys(repo1CryptCommitIdTable) as Array<
+          keyof typeof repo1CryptCommitIdTable
+        >) {
           await assertPromiseNotThrow(() =>
             gitCipher.verifyCommit({
               cryptCommitId: repo1CryptCommitIdTable[symbol],

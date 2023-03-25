@@ -17,7 +17,7 @@ export function parseBytesString(text: string): number {
   const match = bytesRegex.exec(text)
   if (match) {
     const [, num, unit] = match
-    const bytes: number = Number(num) * (bytesUnit[unit] ?? 1)
+    const bytes: number = Number(num) * (bytesUnit[unit as keyof typeof bytesUnit] ?? 1)
     return Math.max(0, Math.floor(bytes))
   }
   return 0

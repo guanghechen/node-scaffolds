@@ -12,8 +12,8 @@ afterEach(() => {
 const resolveFixturePath = (p: string): string => path.join(__dirname, 'fixtures', p)
 const desensitizeModuleNameMapper = (
   moduleNameMapper: Record<string, string | string[]> | undefined,
-): Record<string, string> => {
-  const result = {}
+): Record<string, string | string[]> => {
+  const result: Record<string, string | string[]> = {}
   if (moduleNameMapper) {
     for (const key of Object.keys(moduleNameMapper)) {
       const values = moduleNameMapper[key]

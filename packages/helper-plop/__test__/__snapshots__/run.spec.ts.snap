@@ -157,7 +157,6 @@ exports[`runPlop simple: tsconfig.settings.json 1`] = `
     "strictFunctionTypes": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
-    "suppressImplicitAnyIndexErrors": true,
     "target": "es2015"
   }
 }

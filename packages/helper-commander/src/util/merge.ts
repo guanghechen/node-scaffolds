@@ -26,9 +26,9 @@ export function merge<O extends object>(
   const result: O = { ...options[0] }
   for (let i = 1; i < options.length; ++i) {
     const option = options[i]
-    for (const key of Object.keys(option)) {
+    for (const key of Object.keys(option) as Array<keyof O>) {
       const strategy = strategyMap[key] || defaultStrategy
-      const nextValue = strategy(result[key], option[key])
+      const nextValue = strategy(result[key], option[key]) as O[typeof key]
       result[key] = nextValue
     }
   }

@@ -17,7 +17,7 @@ export async function resolveModuleNameMapper(
     return {}
   }
 
-  const mapper = {}
+  const mapper: Record<string, string | string[]> = {}
   const pathAlias = tsconfig.compilerOptions.paths as Record<string, string[]>
   for (const moduleName of Object.keys(pathAlias)) {
     const modulePaths: string[] = pathAlias[moduleName]

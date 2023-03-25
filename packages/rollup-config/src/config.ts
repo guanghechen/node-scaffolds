@@ -167,7 +167,7 @@ function resolveOutputOptions(options: {
       if (typeof e.import === 'string') addEntry({ format: 'esm', file: e.import })
       if (typeof e.require === 'string') addEntry({ format: 'cjs', file: e.require })
 
-      const r = e['.']
+      const r = (e as Record<string, { import?: string; require?: string }>)['.']
       if (r) {
         if (typeof r.import === 'string') addEntry({ format: 'esm', file: r.import })
         if (typeof r.require === 'string') addEntry({ format: 'cjs', file: r.require })

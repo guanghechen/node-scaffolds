@@ -76,17 +76,18 @@ export class Command extends Command$ {
       nodes.push(parent as Command)
     }
 
-    const options: object = {}
+    const options: Record<string, unknown> = {}
     for (let i = nodes.length - 1; i >= 0; --i) {
       const o = nodes[i]
       if (o._storeOptionsAsProperties) {
         for (const option of o.options!) {
           const key = option.attributeName()
-          options[key] = key === o._versionOptionName ? o._version : o[key]
+          options[key] = key === o._versionOptionName ? o._version : (o as any)[key]
         }
       } else {
-        for (const key of Object.getOwnPropertyNames(o._optionValues)) {
-          options[key] = o._optionValues![key]
+        const optionValues: Record<string, unknown> = o._optionValues as any
+        for (const key of Object.getOwnPropertyNames(optionValues)) {
+          options[key] = optionValues[key]
         }
       }
     }

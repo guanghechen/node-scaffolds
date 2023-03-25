@@ -15,7 +15,6 @@
     "rootDir": "src",
     "sourceMap": false,
     "strict": true,
-    "suppressImplicitAnyIndexErrors": true,
   },
   "include": ["src"]
 }

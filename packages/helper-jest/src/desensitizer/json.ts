@@ -34,10 +34,10 @@ export function createJsonDesensitizer(
       return json.map((value, index) => desensitize(value, '' + index))
     }
     if (isObject(json)) {
-      const results: object = {}
+      const results: Record<string, unknown> = {}
       for (const _key of Object.keys(json)) {
         const key: string = desensitizers.key(_key)
-        results[key] = desensitize(json[_key], _key)
+        results[key] = desensitize(json[_key as keyof typeof json], _key)
       }
       return results
     }
