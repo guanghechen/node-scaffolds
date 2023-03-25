@@ -3,13 +3,13 @@ import type { ICommandConfigurationOptions } from '../types'
 import type { Command } from './command'
 
 // Process main command.
-export type IMainCommandProcessor<O extends ICommandConfigurationOptions, V = void> = (
+export type IMainCommandProcessor<O extends ICommandConfigurationOptions> = (
   options: O,
-) => V | Promise<V>
+) => void | Promise<void>
 
 // Create main command
-export type IMainCommandCreator<O extends ICommandConfigurationOptions, V = void> = (
-  handle?: IMainCommandProcessor<O, V>,
+export type IMainCommandCreator<O extends ICommandConfigurationOptions> = (
+  handle?: IMainCommandProcessor<O>,
 ) => Command
 
 // Mount main command
@@ -24,9 +24,9 @@ export type IMainCommandExecutor<V = void> = (args: string[]) => Promise<V>
  * @param create  main command creator
  * @param handle  main command processor
  */
-export function createMainCommandMounter<O extends ICommandConfigurationOptions, V = void>(
-  create: IMainCommandCreator<O, V>,
-  handle: IMainCommandProcessor<O, V>,
+export function createMainCommandMounter<O extends ICommandConfigurationOptions>(
+  create: IMainCommandCreator<O>,
+  handle: IMainCommandProcessor<O>,
 ): IMainCommandMounter {
   return (program: Command, opts?: CommandOptions): void => {
     const command = create(handle)
@@ -43,16 +43,15 @@ export function createMainCommandMounter<O extends ICommandConfigurationOptions,
  * @param create  main command creator
  * @param handle  main command processor
  */
-export function createMainCommandExecutor<O extends ICommandConfigurationOptions, V = void>(
-  create: IMainCommandCreator<O, V>,
-  handle: IMainCommandProcessor<O, V>,
-): IMainCommandExecutor<V> {
-  return (args: string[]): Promise<V> => {
+export function createMainCommandExecutor<O extends ICommandConfigurationOptions>(
+  create: IMainCommandCreator<O>,
+  handle: IMainCommandProcessor<O>,
+): IMainCommandExecutor {
+  return (args: string[]): Promise<void> => {
     return new Promise(resolve => {
-      const wrappedHandler = async (options: O): Promise<V> => {
-        const result = await handle(options)
-        resolve(result)
-        return result
+      const wrappedHandler = async (options: O): Promise<void> => {
+        await handle(options)
+        resolve()
       }
 
       const command = create(wrappedHandler)

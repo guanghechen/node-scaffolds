@@ -3,14 +3,14 @@ import type { ICommandConfigurationOptions } from '../types'
 import type { Command } from './command'
 
 // Process sub-command
-export type ISubCommandProcessor<O extends ICommandConfigurationOptions, V = void> = (
+export type ISubCommandProcessor<O extends ICommandConfigurationOptions> = (
   options: O,
   args: string[],
-) => V | Promise<V>
+) => void | Promise<void>
 
 // Create sub-command
-export type ISubCommandCreator<O extends ICommandConfigurationOptions, V = void> = (
-  handle?: ISubCommandProcessor<O, V>,
+export type ISubCommandCreator<O extends ICommandConfigurationOptions> = (
+  handle?: ISubCommandProcessor<O>,
   commandName?: string,
   aliases?: string[],
 ) => Command
@@ -27,9 +27,9 @@ export type ISubCommandExecutor<V = void> = (parentCommand: Command, args: strin
  * @param create  sub command creator
  * @param handle  sub command processor
  */
-export function createSubCommandMounter<O extends ICommandConfigurationOptions, V = void>(
-  create: ISubCommandCreator<O, V>,
-  handle: ISubCommandProcessor<O, V>,
+export function createSubCommandMounter<O extends ICommandConfigurationOptions>(
+  create: ISubCommandCreator<O>,
+  handle: ISubCommandProcessor<O>,
 ): ISubCommandMounter {
   return (program: Command, opts?: CommandOptions): void => {
     const command = create(handle)
@@ -45,18 +45,17 @@ export function createSubCommandMounter<O extends ICommandConfigurationOptions, 
  * @param commandName   sub-command name
  * @param aliases       sub-command aliases
  */
-export function createSubCommandExecutor<O extends ICommandConfigurationOptions, V = void>(
-  create: ISubCommandCreator<O, V>,
-  handle: ISubCommandProcessor<O, V>,
+export function createSubCommandExecutor<O extends ICommandConfigurationOptions>(
+  create: ISubCommandCreator<O>,
+  handle: ISubCommandProcessor<O>,
   commandName?: string,
   aliases?: string[],
-): ISubCommandExecutor<V> {
-  return (parentCommand: Command, rawArgs: string[]): Promise<V> => {
+): ISubCommandExecutor {
+  return (parentCommand: Command, rawArgs: string[]): Promise<void> => {
     return new Promise(resolve => {
-      const wrappedHandler = async (options: O, args: string[]): Promise<V> => {
-        const result = await handle(options, args)
-        resolve(result)
-        return result
+      const wrappedHandler = async (options: O, args: string[]): Promise<void> => {
+        await handle(options, args)
+        resolve()
       }
 
       const command = create(wrappedHandler, commandName, aliases)
