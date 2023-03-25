@@ -75,7 +75,7 @@ export function resolveGlobalCommandOptions<O extends object>(
   options: O & IGlobalCommandOptions,
 ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
-  const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>({
+  const baseOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>({
     logger,
     commandName,
     subCommandName,
@@ -83,19 +83,15 @@ export function resolveGlobalCommandOptions<O extends object>(
     defaultOptions: { ...__defaultGlobalCommandOptions, ...defaultOptions },
     options,
   })
-  const { workspace } = resolvedDefaultOptions
+  const { workspace } = baseOptions
 
   // Resolve `encoding`.
-  const encoding: string = cover<string>(
-    resolvedDefaultOptions.encoding,
-    options.encoding,
-    isNonBlankString,
-  )
+  const encoding: string = cover<string>(baseOptions.encoding, options.encoding, isNonBlankString)
   logger.debug('encoding:', encoding)
 
   // Resolve `input`.
   const _input: string | undefined = cover<string | undefined>(
-    resolvedDefaultOptions.input,
+    baseOptions.input,
     options.input,
     isNonBlankString,
   )
@@ -104,7 +100,7 @@ export function resolveGlobalCommandOptions<O extends object>(
 
   // Resolve `output`.
   const _output: string | undefined = cover<string | undefined>(
-    resolvedDefaultOptions.output,
+    baseOptions.output,
     options.output,
     isNonBlankString,
   )
@@ -113,7 +109,7 @@ export function resolveGlobalCommandOptions<O extends object>(
 
   // resolve ciphertextRootDir
   const _fakeClipboard: string | undefined = cover<string | undefined>(
-    resolvedDefaultOptions.fakeClipboard,
+    baseOptions.fakeClipboard,
     options.fakeClipboard,
     isNonBlankString,
   )
@@ -123,28 +119,22 @@ export function resolveGlobalCommandOptions<O extends object>(
   logger.debug('fakeClipboard:', fakeClipboard)
 
   // Resolve `force`.
-  const force: boolean = cover<boolean>(
-    resolvedDefaultOptions.force,
-    convertToBoolean(options.force),
-  )
+  const force: boolean = cover<boolean>(baseOptions.force, convertToBoolean(options.force))
   logger.debug('force:', force)
 
   // Resolve `silence`.
-  const silence: boolean = cover<boolean>(
-    resolvedDefaultOptions.silence,
-    convertToBoolean(options.silence),
-  )
+  const silence: boolean = cover<boolean>(baseOptions.silence, convertToBoolean(options.silence))
   logger.debug('silence:', silence)
 
   // Resolve `stripAnsi`.
   const stripAnsi: boolean = cover<boolean>(
-    resolvedDefaultOptions.stripAnsi,
+    baseOptions.stripAnsi,
     convertToBoolean(options.stripAnsi),
   )
   logger.debug('stripAnsi:', stripAnsi)
 
   return {
-    ...resolvedDefaultOptions,
+    ...baseOptions,
     encoding,
     input,
     output,

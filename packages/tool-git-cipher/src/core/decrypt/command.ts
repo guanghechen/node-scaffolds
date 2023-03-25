@@ -36,13 +36,13 @@ export const createSubCommandDecrypt = (
       '--out-dir, --outDir <outDir>',
       'Root dir of decrypted outputs. (Relative of workspace)',
     )
-    .action(async function (_, options: ISubCommandDecryptOptions) {
+    .action(async function (args: string[], options: ISubCommandDecryptOptions) {
       const resolvedOptions: ISubCommandDecryptOptions = resolveSubCommandDecryptOptions(
         COMMAND_NAME,
         subCommandName,
         options,
       )
-      await handle?.(resolvedOptions)
+      await handle?.(resolvedOptions, args)
     })
 
   return command

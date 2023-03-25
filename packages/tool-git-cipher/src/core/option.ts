@@ -79,7 +79,7 @@ export function resolveBaseCommandOptions<O extends object>(
   options: O & IGlobalCommandOptions,
 ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
-  const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>({
+  const baseOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>({
     logger,
     commandName,
     subCommandName,
@@ -90,18 +90,18 @@ export function resolveBaseCommandOptions<O extends object>(
     }),
     options,
   })
-  const { workspace } = resolvedDefaultOptions
+  const { workspace } = baseOptions
 
   // Resolve cryptRootDir
   const cryptRootDir: string = absoluteOfWorkspace(
     workspace,
-    cover<string>(resolvedDefaultOptions.cryptRootDir, options.cryptRootDir, isNonBlankString),
+    cover<string>(baseOptions.cryptRootDir, options.cryptRootDir, isNonBlankString),
   )
   logger.debug('cryptRootDir:', cryptRootDir)
 
   // Resolve encoding
   const encoding: BufferEncoding = cover<BufferEncoding>(
-    resolvedDefaultOptions.encoding,
+    baseOptions.encoding,
     options.encoding,
     isNonBlankString,
   )
@@ -109,21 +109,21 @@ export function resolveBaseCommandOptions<O extends object>(
 
   // Resolve maxPasswordLength
   const maxPasswordLength: number = cover<number>(
-    resolvedDefaultOptions.maxPasswordLength,
+    baseOptions.maxPasswordLength,
     convertToNumber(options.maxPasswordLength),
   )
   logger.debug('maxPasswordLength:', maxPasswordLength)
 
   // Resolve maxRetryTimes
   const maxRetryTimes: number = cover<number>(
-    resolvedDefaultOptions.maxRetryTimes,
+    baseOptions.maxRetryTimes,
     convertToNumber(options.maxRetryTimes),
   )
   logger.debug('maxRetryTimes:', maxRetryTimes)
 
   // Resolve minPasswordLength
   const minPasswordLength: number = cover<number>(
-    resolvedDefaultOptions.minPasswordLength,
+    baseOptions.minPasswordLength,
     convertToNumber(options.minPasswordLength),
   )
   logger.debug('minPasswordLength:', minPasswordLength)
@@ -131,20 +131,20 @@ export function resolveBaseCommandOptions<O extends object>(
   // Resolve plainRootDir
   const plainRootDir: string = absoluteOfWorkspace(
     workspace,
-    cover<string>(resolvedDefaultOptions.plainRootDir, options.plainRootDir, isNonBlankString),
+    cover<string>(baseOptions.plainRootDir, options.plainRootDir, isNonBlankString),
   )
   logger.debug('plainRootDir:', plainRootDir)
 
   // Resolve secretFilepath
   const secretFilepath: string = absoluteOfWorkspace(
     workspace,
-    cover<string>(resolvedDefaultOptions.secretFilepath, options.secretFilepath, isNonBlankString),
+    cover<string>(baseOptions.secretFilepath, options.secretFilepath, isNonBlankString),
   )
   logger.debug('secretFilepath:', secretFilepath)
 
   // Resolve showAsterisk
   const showAsterisk: boolean = cover<boolean>(
-    resolvedDefaultOptions.showAsterisk,
+    baseOptions.showAsterisk,
     convertToBoolean(options.showAsterisk),
   )
   logger.debug('showAsterisk:', showAsterisk)
@@ -160,5 +160,5 @@ export function resolveBaseCommandOptions<O extends object>(
     showAsterisk,
   }
 
-  return { ...resolvedDefaultOptions, ...resolvedOptions }
+  return { ...baseOptions, ...resolvedOptions }
 }

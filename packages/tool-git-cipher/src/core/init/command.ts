@@ -59,13 +59,13 @@ export const createSubCommandInit = (
       '--secret-key-size, --secretKeySize <secretKeySize>',
       'Key size of the secret cipherFactory.',
     )
-    .action(async function (_, options: ISubCommandInitOptions) {
+    .action(async function (args: string[], options: ISubCommandInitOptions) {
       const resolvedOptions: ISubCommandInitOptions = resolveSubCommandInitOptions(
         COMMAND_NAME,
         subCommandName,
         options,
       )
-      await handle?.(resolvedOptions)
+      await handle?.(resolvedOptions, args)
     })
 
   return command

@@ -20,13 +20,13 @@ export const createSubCommandCat = (
       '--plain-filepath, --plainFilepath <plainFilepath>',
       'The file you want to check the plain content.',
     )
-    .action(async function (_, options: ISubCommandCatOptions) {
+    .action(async function (args: string[], options: ISubCommandCatOptions) {
       const resolvedOptions: ISubCommandCatOptions = resolveSubCommandCatOptions(
         COMMAND_NAME,
         subCommandName,
         options,
       )
-      await handle?.(resolvedOptions)
+      await handle?.(resolvedOptions, args)
     })
 
   return command

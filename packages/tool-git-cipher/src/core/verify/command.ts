@@ -22,13 +22,13 @@ export const createSubCommandVerify = (
     )
     .option('--crypt-commit-id, --cryptCommitId <commitHash>', 'Crypt repo branch or commit id.')
     .option('--plain-commit-id, --plainCommitId <commitHash>', 'Plain repo branch or commit id.')
-    .action(async function (_, options: ISubCommandVerifyOptions) {
+    .action(async function (args: string[], options: ISubCommandVerifyOptions) {
       const resolvedOptions: ISubCommandVerifyOptions = resolveSubCommandVerifyOptions(
         COMMAND_NAME,
         subCommandName,
         options,
       )
-      await handle?.(resolvedOptions)
+      await handle?.(resolvedOptions, args)
     })
 
   return command

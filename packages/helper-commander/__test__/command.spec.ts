@@ -130,57 +130,45 @@ function resolveGlobalCommandOptions<O extends ICommandConfigurationOptions>(
   params: IResolveCommandConfigurationOptionsParams<O & IGlobalCommandOptions>,
 ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
-  const resolvedDefaultOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>(
-    params,
-  )
+  const baseOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>(params)
   const { logger, options } = params
 
   // Resolve `encoding`.
-  const encoding: string = cover<string>(
-    resolvedDefaultOptions.encoding,
-    options.encoding,
-    isNonBlankString,
-  )
+  const encoding: string = cover<string>(baseOptions.encoding, options.encoding, isNonBlankString)
   logger.debug('encoding:', encoding)
 
   // Resolve `input`.
   const _input: string | undefined = cover<string | undefined>(
-    resolvedDefaultOptions.input,
+    baseOptions.input,
     options.input,
     isNonBlankString,
   )
   const input: string | undefined = _input
-    ? absoluteOfWorkspace(resolvedDefaultOptions.workspace, _input)
+    ? absoluteOfWorkspace(baseOptions.workspace, _input)
     : undefined
   logger.debug('input:', input)
 
   // Resolve `output`.
   const _output: string | undefined = cover<string | undefined>(
-    resolvedDefaultOptions.output,
+    baseOptions.output,
     options.output,
     isNonBlankString,
   )
   const output: string | undefined = _output
-    ? absoluteOfWorkspace(resolvedDefaultOptions.workspace, _output)
+    ? absoluteOfWorkspace(baseOptions.workspace, _output)
     : undefined
   logger.debug('output:', output)
 
   // Resolve `force`.
-  const force: boolean = cover<boolean>(
-    resolvedDefaultOptions.force,
-    convertToBoolean(options.force),
-  )
+  const force: boolean = cover<boolean>(baseOptions.force, convertToBoolean(options.force))
   logger.debug('force:', force)
 
   // Resolve `silence`.
-  const silence: boolean = cover<boolean>(
-    resolvedDefaultOptions.silence,
-    convertToBoolean(options.silence),
-  )
+  const silence: boolean = cover<boolean>(baseOptions.silence, convertToBoolean(options.silence))
   logger.debug('silence:', silence)
 
   return {
-    ...resolvedDefaultOptions,
+    ...baseOptions,
     encoding,
     input,
     output,

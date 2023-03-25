@@ -17,13 +17,13 @@ export const createSubCommandTree = (
     .aliases(aliases)
     .description('Preview staged files in plainRootDir with tree style')
     .option('--files-at, --filesAt <commitHash>', 'Crypt repo branch or commit id.')
-    .action(async function (_, options: ISubCommandTreeOptions) {
+    .action(async function (args: string[], options: ISubCommandTreeOptions) {
       const resolvedOptions: ISubCommandTreeOptions = resolveSubCommandTreeOptions(
         COMMAND_NAME,
         subCommandName,
         options,
       )
-      await handle?.(resolvedOptions)
+      await handle?.(resolvedOptions, args)
     })
 
   return command
