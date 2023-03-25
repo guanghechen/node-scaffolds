@@ -1,4 +1,5 @@
 export * from './boolean'
+export * from './bytes'
 export * from './delay'
 export * from './identity'
 export * from './iterable'

@@ -62,15 +62,16 @@ Helpful utility funcs.
 
 ## Usage
 
-Name              | Description
-:----------------:|:----------------------------------------------------------------
-`delay`           | Waiting a given million seconds.
-`falsy`           | Always return `false`.
-`filterIterable`  | `.filter` method for Iterable structure.
-`identity`        | Return the input data directly.
-`list2map`        | Create a map from list.
-`mapIterable`     | `.map` method for Iterable structure.
-`noop`            | Do nothing.
-`truthy`          | Always return `true`.
+Name                | Description
+:------------------:|:----------------------------------------------------------------
+`delay`             | Waiting a given million seconds.
+`falsy`             | Always return `false`.
+`filterIterable`    | `.filter` method for Iterable structure.
+`identity`          | Return the input data directly.
+`list2map`          | Create a map from list.
+`mapIterable`       | `.map` method for Iterable structure.
+`noop`              | Do nothing.
+`parseBytesString`  | Parse texts like 1M, 1Mb, 1G to the number of bytes.
+`truthy`            | Always return `true`.
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-func#readme
