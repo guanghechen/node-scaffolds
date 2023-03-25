@@ -1,5 +1,31 @@
 # Changelog
 
+<a name="4.7.3"></a>
+## 4.7.3 (2023-03-25)
+
+### Added
+
+- ✨ feat: implement @guanghechen/tool-file [[b957a9b](https://github.com/guanghechen/node-scaffolds/commit/b957a9b423a97af60b2a1b1de9e87d92f0d94e9a)]
+- ✨ feat(helper-func): add new func &#x27;parseByteString&#x27; [[f51a190](https://github.com/guanghechen/node-scaffolds/commit/f51a190f89974ffac2528ef757291aca49be5901)]
+
+### Changed
+
+- 🎨 improve(tool-file): update options [[2c75565](https://github.com/guanghechen/node-scaffolds/commit/2c75565e3d59b19fde37cb7c4f0eea677859fedb)]
+- 🎨 improve: make types simpler [[f6117d3](https://github.com/guanghechen/node-scaffolds/commit/f6117d3c90a2868b1ecd28af86b2ea7d1eaca79e)]
+- 🎨 improve(helper-commander): pass args to command processor [[462fbb4](https://github.com/guanghechen/node-scaffolds/commit/462fbb40257410338dd6501ab41058f43402a4a8)]
+- 🎨 improve(tool-git-cipher): update options [[1be6fcb](https://github.com/guanghechen/node-scaffolds/commit/1be6fcb55288aef7ee9890dea8bec9bd1484683f)]
+- 🎨 improve(helper-commander): add option alias in camel-cases [[f9e53fe](https://github.com/guanghechen/node-scaffolds/commit/f9e53fe58f499c5d489cca21040d44764cd5cece)]
+
+### Breaking changes
+
+- 💥 improve(tool-*): use &#x60;--workspace&#x60; option instead of command argument [[cf95226](https://github.com/guanghechen/node-scaffolds/commit/cf95226297c5af62281a5bc41670dd5f8b4a4090)]
+- 💥 improve(helper-commander): refactor resolveCommandConfigurationOptions [[7037bf3](https://github.com/guanghechen/node-scaffolds/commit/7037bf37d54b5d71db57d31261787409bc8e3e98)]
+
+### Miscellaneous
+
+- 📝 docs: update README [[200bdbb](https://github.com/guanghechen/node-scaffolds/commit/200bdbb0b30bd96cbe9e71933a593b20f9b01598)]
+
+
 <a name="4.7.2"></a>
 ## 4.7.2 (2023-03-23)
 
