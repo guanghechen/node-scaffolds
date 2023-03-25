@@ -84,6 +84,7 @@ Package                               | Description
 [@guanghechen/rollup-config-tsx][]    | Rollup configs for bundle tsx project.
 [@guanghechen/rollup-plugin-copy][]   | Rollup plugins to copy files and folds (glob supported)
 [@guanghechen/tool-git-cipher][]      | A cli tool for encrypting a entire git repository.
+[@guanghechen/tool-file][]            | A cli tool to split / merge big file.
 [@guanghechen/tool-mini-copy][]       | "A cli tool to copy / paste with system clipboard or customized fake clipboard (file).
 [@guanghechen/utility-types][]        | Collection of typescript utility types
 
@@ -126,5 +127,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/rollup-config-tsx]: ./packages/rollup-config-tsx
 [@guanghechen/rollup-plugin-copy]: ./packages/rollup-plugin-copy
 [@guanghechen/tool-git-cipher]: ./packages/tool-git-cipher
+[@guanghechen/tool-file]: ./packages/tool-file
 [@guanghechen/tool-mini-copy]: ./packages/tool-mini-copy
 [@guanghechen/utility-types]: ./packages/utility-types

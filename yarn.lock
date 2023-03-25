@@ -1258,6 +1258,29 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@guanghechen/tool-file@workspace:packages/tool-file":
+  version: 0.0.0-use.local
+  resolution: "@guanghechen/tool-file@workspace:packages/tool-file"
+  dependencies:
+    "@guanghechen/chalk-logger": ^4.7.2
+    "@guanghechen/helper-commander": ^4.7.2
+    "@guanghechen/helper-file": ^4.7.2
+    "@guanghechen/helper-fs": ^4.7.2
+    "@guanghechen/helper-func": ^4.7.2
+    "@guanghechen/helper-is": ^4.7.2
+    "@guanghechen/helper-option": ^4.7.2
+    "@guanghechen/helper-path": ^4.7.2
+    "@guanghechen/invariant": ^4.7.2
+    "@guanghechen/rollup-config-cli": ^4.7.2
+    cross-env: ^7.0.3
+    rimraf: ^4.4.1
+    rollup: ^3.20.1
+    typescript: 4.9.5
+  bin:
+    ghc-file: ./lib/esm/cli.mjs
+  languageName: unknown
+  linkType: soft
+
 "@guanghechen/tool-git-cipher@workspace:packages/tool-git-cipher":
   version: 0.0.0-use.local
   resolution: "@guanghechen/tool-git-cipher@workspace:packages/tool-git-cipher"

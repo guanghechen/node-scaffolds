@@ -28,7 +28,7 @@ export function createTopCommand(commandName: string, version: string): Command 
       'parastic config filepath',
     )
     .option(
-      '--parastic-config-entry, --parasticConfigFilepath <parasticConfigFilepath>',
+      '--parastic-config-entry, --parasticConfigEntry <parasticConfigEntry>',
       'parastic config filepath',
     )
     .option(
