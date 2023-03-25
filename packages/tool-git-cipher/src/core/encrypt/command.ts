@@ -20,6 +20,12 @@ export const createSubCommandEncrypt = (
       '--catalog-cache-filepath, --catalogCacheFilepath <catalogCacheFilepath>',
       'The path where catalog cache file located. (relative of workspace)',
     )
+    .option(
+      '--files-only, --filesOnly <filesOnly>',
+      'Specify which files need to decrypt.',
+      (val, acc: string[]) => acc.concat(val),
+      [],
+    )
     .action(async function (args: string[], options: ISubCommandEncryptOptions) {
       const resolvedOptions: ISubCommandEncryptOptions = resolveSubCommandEncryptOptions(
         COMMAND_NAME,

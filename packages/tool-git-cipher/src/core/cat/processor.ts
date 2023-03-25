@@ -1,5 +1,5 @@
 import type { ICipherFactory } from '@guanghechen/helper-cipher'
-import { FileCipher, calcCryptFilepath } from '@guanghechen/helper-cipher-file'
+import { FileCipher, calcCryptFilepath, calcCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
@@ -92,10 +92,10 @@ export class GitCipherCatProcessor {
       plainFilepath,
       plainPathResolver,
     })
-    const cryptFilepaths: string[] =
-      item.cryptFilepathParts.length > 0
-        ? item.cryptFilepathParts.map(part => cryptPathResolver.absolute(cryptFilepath + part))
-        : [cryptPathResolver.absolute(cryptFilepath)]
+    const cryptFilepaths: string[] = calcCryptFilepaths(
+      cryptPathResolver.absolute(cryptFilepath),
+      item.cryptFilepathParts,
+    )
     const fileCipher = new FileCipher({
       cipher: cipherFactory.cipher({
         iv: secretMaster.getDynamicIv([

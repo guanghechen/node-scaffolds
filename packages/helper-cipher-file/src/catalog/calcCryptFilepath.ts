@@ -33,3 +33,9 @@ export function calcCryptFilepath(params: ICalcCryptFilepathParams): string {
       )
   return cryptFilepath
 }
+
+export function calcCryptFilepaths(cryptFilepath: string, cryptFilepathParts: string[]): string[] {
+  return cryptFilepathParts.length > 1
+    ? cryptFilepathParts.map(part => cryptFilepath + part)
+    : [cryptFilepath]
+}

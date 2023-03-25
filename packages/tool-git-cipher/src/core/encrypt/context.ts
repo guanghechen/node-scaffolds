@@ -14,6 +14,10 @@ export interface IGitCipherEncryptContext {
    */
   readonly encoding: string
   /**
+   * Specify files or directory path to commit.
+   */
+  readonly filesOnly: string[]
+  /**
    * The maximum size required of password.
    */
   readonly maxPasswordLength: number
@@ -50,6 +54,7 @@ export async function createGitCipherEncryptContextFromOptions(
     catalogCacheFilepath: options.catalogCacheFilepath,
     cryptRootDir: options.cryptRootDir,
     encoding: options.encoding,
+    filesOnly: options.filesOnly,
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,

@@ -2,7 +2,7 @@ import type {
   ICommandConfigurationFlatOpts,
   IResolveDefaultOptionsParams,
 } from '@guanghechen/helper-commander'
-import { isNonBlankString } from '@guanghechen/helper-is'
+import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import { logger } from '../../env/logger'
@@ -16,6 +16,10 @@ interface ISubCommandOptions {
    * @default '.ghc-cache-catalog.encrypt.json'
    */
   readonly catalogCacheFilepath: string
+  /**
+   * Specify files or directory path to commit.
+   */
+  readonly filesOnly: string[]
 }
 
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
@@ -26,6 +30,7 @@ const getDefaultCommandEncryptOptions = (
 ): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(params),
   catalogCacheFilepath: '.ghc-cache-catalog.encrypt.json',
+  filesOnly: [],
 })
 
 export function resolveSubCommandEncryptOptions(
@@ -47,6 +52,17 @@ export function resolveSubCommandEncryptOptions(
   )
   logger.debug('catalogCacheFilepath:', catalogCacheFilepath)
 
-  const resolvedOptions: ISubCommandOptions = { catalogCacheFilepath }
+  // Resolve filesOnly
+  const filesOnly: string[] = cover<string[]>(
+    baseOptions.filesOnly,
+    options.filesOnly,
+    isNotEmptyArray,
+  )
+  logger.debug('filesOnly:', filesOnly)
+
+  const resolvedOptions: ISubCommandOptions = {
+    catalogCacheFilepath,
+    filesOnly,
+  }
   return { ...baseOptions, ...resolvedOptions }
 }

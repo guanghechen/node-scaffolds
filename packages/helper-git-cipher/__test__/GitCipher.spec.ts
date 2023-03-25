@@ -32,7 +32,7 @@ import {
 } from 'jest.helper'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { GitCipher, GitCipherConfigKeeper } from '../src'
+import { GitCipher, GitCipherConfigKeeper, verifyCryptGitCommit } from '../src'
 import {
   buildRepo1,
   contentA,
@@ -289,6 +289,17 @@ describe('GitCipher', () => {
               cryptPathResolver,
               plainCommitId: commitIdTable[symbol],
               plainPathResolver,
+            }),
+          )
+
+          await assertPromiseNotThrow(() =>
+            verifyCryptGitCommit({
+              catalog,
+              catalogFilepath: storage.filepath,
+              configKeeper,
+              cryptCommitId: repo1CryptCommitIdTable[symbol],
+              cryptPathResolver,
+              logger,
             }),
           )
         }

@@ -6,6 +6,7 @@ import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
+import { calcCryptFilepaths } from './catalog/calcCryptFilepath'
 import type { IFileCipher } from './types/IFileCipher'
 import type {
   IBatchDecryptParams,
@@ -288,8 +289,6 @@ export class FileCipherBatcher implements IFileCipherBatcher {
   }
 
   protected _collectCryptFilepaths(item: Readonly<IFileCipherCatalogItemDraft>): string[] {
-    return item.cryptFilepathParts.length > 1
-      ? item.cryptFilepathParts.map(part => item.cryptFilepath + part)
-      : [item.cryptFilepath]
+    return calcCryptFilepaths(item.cryptFilepath, item.cryptFilepathParts)
   }
 }
