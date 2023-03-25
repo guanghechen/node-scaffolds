@@ -22,7 +22,7 @@ export class FileSplitProcessor {
 
   public async split([filepath]: string[]): Promise<void> {
     const title = 'processor.split'
-    const { workspace, partCodePrefix, partSize = 0, partTotal = 1 } = this.context
+    const { workspace, partCodePrefix, partSize = 0, partTotal = 1, output } = this.context
 
     logger.debug('args: filepath:', filepath)
 
@@ -41,7 +41,7 @@ export class FileSplitProcessor {
     }
 
     const bigFileHelper = new BigFileHelper({ partCodePrefix })
-    const partFilepaths: string[] = await bigFileHelper.split(absoluteFilepath, fileParts)
+    const partFilepaths: string[] = await bigFileHelper.split(absoluteFilepath, fileParts, output)
     logger.info(
       `Split done.`,
       partFilepaths

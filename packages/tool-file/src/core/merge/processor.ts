@@ -18,7 +18,7 @@ export class FileMergeProcessor {
 
   public async merge([filepath]: string[]): Promise<void> {
     const title = 'processor.merge'
-    const { workspace, partCodePrefix } = this.context
+    const { workspace, partCodePrefix, output = filepath } = this.context
 
     logger.debug('args: filepath:', filepath)
 
@@ -37,7 +37,10 @@ export class FileMergeProcessor {
     const absolutePartFilepaths: string[] = partFilenames.map(filename => path.join(dir, filename))
 
     const bigFileHelper = new BigFileHelper({ partCodePrefix })
-    await bigFileHelper.merge(absolutePartFilepaths, filepath)
-    logger.info(`Merge done.`, partFilenames.map(text => `\n  - ${text}`).join(''))
+    await bigFileHelper.merge(absolutePartFilepaths, output)
+    logger.info(
+      `Merge done.`,
+      partFilenames.map(text => `\n  - ${text}`).join('') + `\n==>${output}`,
+    )
   }
 }

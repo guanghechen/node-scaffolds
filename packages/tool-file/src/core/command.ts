@@ -10,14 +10,10 @@ export function createProgram(): Command {
 
   // global options
   program
+    .option('--output <output>', 'Specify the output filepath.')
     .option(
       '--part-code-prefix, --partCodePrefix <partCodePrefix>',
       `The prefix of the each file part code`,
-    )
-    .option('--part-size, --partSize <partSize>', `Maximum bytes of each file part.`)
-    .option(
-      '--part-total, --partTotal <partTotal>',
-      `Number of file parts, works only when <partSize> not specified.`,
     )
   return program
 }

@@ -42,16 +42,16 @@ export class BigFileHelper {
 
   /**
    * Split file with part descriptions.
-   *
-   * @param filepath
-   * @param parts
-   * @returns
    */
-  public async split(filepath: string, parts: IFilePartItem[]): Promise<string[]> {
+  public async split(
+    filepath: string,
+    parts: IFilePartItem[],
+    outputFilepath?: string,
+  ): Promise<string[]> {
     if (parts.length <= 1) return [filepath]
 
     const tasks: Array<Promise<void>> = []
-    const partFilepaths: string[] = this.calcPartFilepaths(filepath, parts)
+    const partFilepaths: string[] = this.calcPartFilepaths(outputFilepath ?? filepath, parts)
 
     for (let i = 0; i < partFilepaths.length; ++i) {
       const part = parts[i]

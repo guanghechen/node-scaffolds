@@ -17,6 +17,11 @@ export const createSubCommandSplit = (
     .aliases(aliases)
     .arguments('<filepath>')
     .description('Split big file into multiple parts.')
+    .option('--part-size, --partSize <partSize>', `Maximum bytes of each file part.`)
+    .option(
+      '--part-total, --partTotal <partTotal>',
+      `Number of file parts, works only when <partSize> not specified.`,
+    )
     .action(async function (args: string[], options: ISubCommandSplitOptions) {
       const resolvedOptions: ISubCommandSplitOptions = resolveSubCommandSplitOptions(
         COMMAND_NAME,

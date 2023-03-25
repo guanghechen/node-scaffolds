@@ -2,17 +2,25 @@ import type {
   ICommandConfigurationFlatOpts,
   IResolveDefaultOptionsParams,
 } from '@guanghechen/helper-commander'
+import { parseBytesString } from '@guanghechen/helper-func'
+import { convertToNumber, cover } from '@guanghechen/helper-option'
+import { logger } from '../../env/logger'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface ISubCommandOptions {}
+interface ISubCommandOptions {
+  readonly partSize: number | undefined
+  readonly partTotal: number | undefined
+}
 
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
 export type ISubCommandSplitOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
 const getDefaultCommandSplitOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(params),
+  partSize: undefined,
+  partTotal: undefined,
 })
 
 export function resolveSubCommandSplitOptions(
@@ -27,6 +35,25 @@ export function resolveSubCommandSplitOptions(
     options,
   )
 
-  const resolvedOptions: ISubCommandOptions = {}
+  // Resolve partSize.
+  const partSize: number | undefined = cover<number | undefined>(
+    baseOptions.partSize,
+    parseBytesString((options.partSize as unknown as string) ?? ''),
+    v => v !== undefined && v > 0,
+  )
+  logger.debug('partSize:', partSize)
+
+  // Resolve partTotal.
+  const partTotal: number | undefined = cover<number | undefined>(
+    baseOptions.partTotal,
+    convertToNumber(options.partTotal),
+    v => v !== undefined && v > 0,
+  )
+  logger.debug('partTotal:', partTotal)
+
+  const resolvedOptions: ISubCommandOptions = {
+    partSize,
+    partTotal,
+  }
   return { ...baseOptions, ...resolvedOptions }
 }

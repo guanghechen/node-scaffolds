@@ -4,16 +4,14 @@ import type {
   IResolveDefaultOptionsParams,
 } from '@guanghechen/helper-commander'
 import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
-import { parseBytesString } from '@guanghechen/helper-func'
 import { isNonBlankString } from '@guanghechen/helper-is'
-import { convertToNumber, cover, coverString } from '@guanghechen/helper-option'
+import { cover, coverString } from '@guanghechen/helper-option'
 import { logger } from '../env/logger'
 
 // Global command options
 export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
+  readonly output: string | undefined
   readonly partCodePrefix: string
-  readonly partSize: number | undefined
-  readonly partTotal: number | undefined
 }
 
 // Default value of global options
@@ -22,8 +20,7 @@ export const getDefaultGlobalCommandOptions = (
 ): IGlobalCommandOptions => ({
   logLevel: logger.level,
   partCodePrefix: '.ghc-part',
-  partSize: undefined,
-  partTotal: undefined,
+  output: undefined,
 })
 
 export function resolveBaseCommandOptions<O extends object>(
@@ -45,6 +42,14 @@ export function resolveBaseCommandOptions<O extends object>(
     options,
   })
 
+  // Resolve output.
+  const output: string | undefined = cover<string | undefined>(
+    baseOptions.output,
+    options.output,
+    isNonBlankString,
+  )
+  logger.debug('output:', output)
+
   // Resolve partCodePrefix.
   const partCodePrefix: string = coverString(
     baseOptions.partCodePrefix,
@@ -53,26 +58,9 @@ export function resolveBaseCommandOptions<O extends object>(
   )
   logger.debug('partCodePrefix:', partCodePrefix)
 
-  // Resolve partSize.
-  const partSize: number | undefined = cover<number | undefined>(
-    baseOptions.partSize,
-    parseBytesString((options.partSize as unknown as string) ?? ''),
-    v => v !== undefined && v > 0,
-  )
-  logger.debug('partSize:', partSize)
-
-  // Resolve partTotal.
-  const partTotal: number | undefined = cover<number | undefined>(
-    baseOptions.partTotal,
-    convertToNumber(options.partTotal),
-    v => v !== undefined && v > 0,
-  )
-  logger.debug('partTotal:', partTotal)
-
   const resolvedOptions: IGlobalCommandOptions = {
+    output,
     partCodePrefix,
-    partSize,
-    partTotal,
   }
   return { ...baseOptions, ...resolvedOptions }
 }
