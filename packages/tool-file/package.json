@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/tool-file",
-  "version": "4.7.3",
+  "version": "4.7.4",
   "description": "A cli tool to split / merge big file.",
   "author": {
     "name": "guanghechen",
@@ -40,18 +40,18 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@guanghechen/chalk-logger": "^4.7.3",
-    "@guanghechen/helper-commander": "^4.7.3",
-    "@guanghechen/helper-file": "^4.7.3",
-    "@guanghechen/helper-fs": "^4.7.3",
-    "@guanghechen/helper-func": "^4.7.3",
-    "@guanghechen/helper-is": "^4.7.3",
-    "@guanghechen/helper-option": "^4.7.3",
-    "@guanghechen/helper-path": "^4.7.3",
-    "@guanghechen/invariant": "^4.7.3"
+    "@guanghechen/chalk-logger": "^4.7.4",
+    "@guanghechen/helper-commander": "^4.7.4",
+    "@guanghechen/helper-file": "^4.7.4",
+    "@guanghechen/helper-fs": "^4.7.4",
+    "@guanghechen/helper-func": "^4.7.4",
+    "@guanghechen/helper-is": "^4.7.4",
+    "@guanghechen/helper-option": "^4.7.4",
+    "@guanghechen/helper-path": "^4.7.4",
+    "@guanghechen/invariant": "^4.7.4"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config-cli": "^4.7.3",
+    "@guanghechen/rollup-config-cli": "^4.7.4",
     "cross-env": "^7.0.3",
     "rimraf": "^4.4.1",
     "rollup": "^3.20.2",
