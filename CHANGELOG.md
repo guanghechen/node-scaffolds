@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="4.7.4"></a>
+## 4.7.4 (2023-03-26)
+
+### Changed
+
+- 🎨 extract repo verify to utils [[e9efb05](https://github.com/guanghechen/node-scaffolds/commit/e9efb05f6cbb0b9c0d5e0b9f8191d7a4bd49f287)]
+- 🎨 improve(tool-git-cipher): verify crypt repo only if no plain repo found [[0b9af73](https://github.com/guanghechen/node-scaffolds/commit/0b9af73e6b49e48cbf6ce045820bcf2902535444)]
+- 🎨 improve(helper-git-cipher): add verifyCryptCommit [[452489b](https://github.com/guanghechen/node-scaffolds/commit/452489bc34849613f02f2fd1e4f404815481255d)]
+- ⬆️ chore: upgrade devDependencies [[8bfcfc5](https://github.com/guanghechen/node-scaffolds/commit/8bfcfc5931cb388a7e93c17b417507f0ce964bb5)]
+
+### Miscellaneous
+
+- 📝 fix([#6](https://github.com/guanghechen/node-scaffolds/issues/6)): correct repository url in package.json [[fdede9c](https://github.com/guanghechen/node-scaffolds/commit/fdede9cefe8f4910679e6e7d7ffc45fbb4f1e088)]
+-  fix build error due to the upgrade of typescript [[cae659a](https://github.com/guanghechen/node-scaffolds/commit/cae659abb80e30d662ad19b5dc73da790c250d6a)]
+
+
 <a name="4.7.3"></a>
 ## 4.7.3 (2023-03-25)
 
