@@ -8,7 +8,11 @@ import {
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { BigFileHelper } from '@guanghechen/helper-file'
 import { isGitRepo, showCommitInfo } from '@guanghechen/helper-git'
-import { GitCipher, GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
+import {
+  GitCipher,
+  GitCipherConfigKeeper,
+  verifyCryptGitCommit,
+} from '@guanghechen/helper-git-cipher'
 import { FilepathResolver } from '@guanghechen/helper-path'
 import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
@@ -37,9 +41,8 @@ export class GitCipherVerifyProcessor {
 
   public async verify(): Promise<void> {
     const title = 'processor.verify'
-    const { context, secretMaster } = this
-    const plainPathResolver = new FilepathResolver(context.plainRootDir)
-    const cryptPathResolver = new FilepathResolver(context.cryptRootDir)
+    const plainPathResolver = new FilepathResolver(this.context.plainRootDir)
+    const cryptPathResolver = new FilepathResolver(this.context.cryptRootDir)
 
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
@@ -53,10 +56,19 @@ export class GitCipherVerifyProcessor {
       `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.rootDir}`,
     )
 
-    invariant(
-      existsSync(plainPathResolver.rootDir),
-      `[${title}] Cannot find plainRootDir. ${plainPathResolver.rootDir}`,
-    )
+    if (existsSync(plainPathResolver.rootDir) && isGitRepo(plainPathResolver.rootDir)) {
+      await this._verifyStrict(cryptPathResolver, plainPathResolver)
+    } else {
+      await this._verifyCryptRepo(cryptPathResolver, plainPathResolver)
+    }
+  }
+
+  protected async _verifyStrict(
+    cryptPathResolver: FilepathResolver,
+    plainPathResolver: FilepathResolver,
+  ): Promise<void> {
+    const title = 'processor.verify'
+    const { context, secretMaster } = this
 
     invariant(
       isGitRepo(plainPathResolver.rootDir),
@@ -97,7 +109,7 @@ export class GitCipherVerifyProcessor {
     const cipherFactory: ICipherFactory | undefined = secretMaster.cipherFactory
     invariant(
       !!secretKeeper.data && !!cipherFactory && !!secretMaster.catalogCipher,
-      '[processor.encrypt] Secret cipherFactory is not available!',
+      `[${title}] Secret cipherFactory is not available!`,
     )
 
     const {
@@ -155,6 +167,76 @@ export class GitCipherVerifyProcessor {
       cryptPathResolver,
       plainCommitId,
       plainPathResolver,
+    })
+  }
+
+  protected async _verifyCryptRepo(
+    cryptPathResolver: FilepathResolver,
+    plainPathResolver: FilepathResolver,
+  ): Promise<void> {
+    const title = 'processor.verify'
+    const { context, secretMaster } = this
+
+    const cryptCommitId: string = (
+      await showCommitInfo({
+        commitHash: context.cryptCommitId,
+        cwd: cryptPathResolver.rootDir,
+        logger,
+      })
+    ).commitId
+
+    const secretKeeper = await secretMaster.load({
+      filepath: context.secretFilepath,
+      cryptRootDir: context.cryptRootDir,
+    })
+
+    const cipherFactory: ICipherFactory | undefined = secretMaster.cipherFactory
+    invariant(
+      !!secretKeeper.data && !!cipherFactory && !!secretMaster.catalogCipher,
+      `[${title}] Secret cipherFactory is not available!`,
+    )
+
+    const {
+      catalogFilepath,
+      contentHashAlgorithm,
+      cryptFilepathSalt,
+      cryptFilesDir,
+      keepPlainPatterns,
+      maxTargetFileSize = Number.POSITIVE_INFINITY,
+      partCodePrefix,
+      pathHashAlgorithm,
+    } = secretKeeper.data
+
+    const configKeeper = new GitCipherConfigKeeper({
+      cipher: secretMaster.catalogCipher,
+      storage: new FileStorage({
+        strict: true,
+        filepath: catalogFilepath,
+        encoding: 'utf8',
+      }),
+    })
+
+    const catalog = new FileCipherCatalog({
+      contentHashAlgorithm,
+      cryptFilepathSalt,
+      cryptFilesDir,
+      maxTargetFileSize,
+      partCodePrefix,
+      pathHashAlgorithm,
+      plainPathResolver,
+      isKeepPlain:
+        keepPlainPatterns.length > 0
+          ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
+          : () => false,
+    })
+
+    await verifyCryptGitCommit({
+      catalog,
+      catalogFilepath,
+      configKeeper,
+      cryptCommitId,
+      cryptPathResolver,
+      logger,
     })
   }
 }
