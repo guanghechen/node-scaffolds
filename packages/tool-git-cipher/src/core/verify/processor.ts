@@ -1,26 +1,12 @@
-import type { ICipherFactory } from '@guanghechen/helper-cipher'
-import type { IFileCipherFactory } from '@guanghechen/helper-cipher-file'
-import {
-  FileCipherBatcher,
-  FileCipherCatalog,
-  FileCipherFactory,
-} from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
-import { BigFileHelper } from '@guanghechen/helper-file'
-import { isGitRepo, showCommitInfo } from '@guanghechen/helper-git'
-import {
-  GitCipher,
-  GitCipherConfigKeeper,
-  verifyCryptGitCommit,
-} from '@guanghechen/helper-git-cipher'
+import { isGitRepo } from '@guanghechen/helper-git'
 import { FilepathResolver } from '@guanghechen/helper-path'
-import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'fs'
-import micromatch from 'micromatch'
 import { logger } from '../../env/logger'
-import { CatalogCacheKeeper } from '../../util/CatalogCache'
 import { SecretMaster } from '../../util/SecretMaster'
+import { verifyCryptRepo } from '../../util/verifyCryptRepo'
+import { verifyRepoStrictly } from '../../util/verifyRepoStrictly'
 import type { IGitCipherVerifyContext } from './context'
 
 export class GitCipherVerifyProcessor {
@@ -70,103 +56,22 @@ export class GitCipherVerifyProcessor {
     const title = 'processor.verify'
     const { context, secretMaster } = this
 
-    invariant(
-      isGitRepo(plainPathResolver.rootDir),
-      `[${title}] plainRootDir is not a git repo. ${plainPathResolver.rootDir}`,
-    )
-
-    const cryptCommitId: string = (
-      await showCommitInfo({
-        commitHash: context.cryptCommitId,
-        cwd: cryptPathResolver.rootDir,
-        logger,
-      })
-    ).commitId
-
-    let plainCommitId = context.plainCommitId
-    if (!plainCommitId) {
-      const cacheKeeper = new CatalogCacheKeeper({
-        storage: new FileStorage({
-          strict: true,
-          filepath: context.catalogCacheFilepath,
-          encoding: 'utf8',
-        }),
-      })
-
-      await cacheKeeper.load()
-      const { crypt2plainIdMap } = cacheKeeper.data ?? { crypt2plainIdMap: new Map() }
-      plainCommitId = crypt2plainIdMap.get(cryptCommitId)
-    }
-
-    logger.debug(`[${title}] cryptCommitId(${cryptCommitId}), plainCommitId(${plainCommitId}).`)
-    invariant(!!plainCommitId, `[${title}] Missing plainCommitId.`)
-
     const secretKeeper = await secretMaster.load({
       filepath: context.secretFilepath,
       cryptRootDir: context.cryptRootDir,
     })
+    invariant(!!secretKeeper.data, `[${title}] secret is not available.`)
 
-    const cipherFactory: ICipherFactory | undefined = secretMaster.cipherFactory
-    invariant(
-      !!secretKeeper.data && !!cipherFactory && !!secretMaster.catalogCipher,
-      `[${title}] Secret cipherFactory is not available!`,
-    )
-
-    const {
-      catalogFilepath,
-      contentHashAlgorithm,
-      cryptFilepathSalt,
-      cryptFilesDir,
-      keepPlainPatterns,
-      maxTargetFileSize = Number.POSITIVE_INFINITY,
-      partCodePrefix,
-      pathHashAlgorithm,
-    } = secretKeeper.data
-
-    const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
-    const fileHelper = new BigFileHelper({ partCodePrefix })
-    const configKeeper = new GitCipherConfigKeeper({
-      cipher: secretMaster.catalogCipher,
-      storage: new FileStorage({
-        strict: true,
-        filepath: catalogFilepath,
-        encoding: 'utf8',
-      }),
-    })
-    const cipherBatcher = new FileCipherBatcher({
-      fileCipherFactory,
-      fileHelper,
-      maxTargetFileSize,
-      logger,
-    })
-
-    const catalog = new FileCipherCatalog({
-      contentHashAlgorithm,
-      cryptFilepathSalt,
-      cryptFilesDir,
-      maxTargetFileSize,
-      partCodePrefix,
-      pathHashAlgorithm,
-      plainPathResolver,
-      isKeepPlain:
-        keepPlainPatterns.length > 0
-          ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
-          : () => false,
-    })
-
-    const gitCipher = new GitCipher({
-      catalog,
-      cipherBatcher,
-      configKeeper,
-      logger,
-      getDynamicIv: secretMaster.getDynamicIv,
-    })
-
-    await gitCipher.verifyCommit({
-      cryptCommitId,
+    await verifyRepoStrictly({
+      catalogCacheFilepath: context.catalogCacheFilepath,
+      catalogCipher: secretMaster.catalogCipher,
+      cipherFactory: secretMaster.cipherFactory,
+      cryptCommitId: context.cryptCommitId,
       cryptPathResolver,
-      plainCommitId,
+      plainCommitId: context.plainCommitId,
       plainPathResolver,
+      secretConfig: secretKeeper.data,
+      getDynamicIv: secretMaster.getDynamicIv,
     })
   }
 
@@ -177,66 +82,19 @@ export class GitCipherVerifyProcessor {
     const title = 'processor.verify'
     const { context, secretMaster } = this
 
-    const cryptCommitId: string = (
-      await showCommitInfo({
-        commitHash: context.cryptCommitId,
-        cwd: cryptPathResolver.rootDir,
-        logger,
-      })
-    ).commitId
-
     const secretKeeper = await secretMaster.load({
       filepath: context.secretFilepath,
       cryptRootDir: context.cryptRootDir,
     })
+    invariant(!!secretKeeper.data, `[${title}] secret is not available.`)
 
-    const cipherFactory: ICipherFactory | undefined = secretMaster.cipherFactory
-    invariant(
-      !!secretKeeper.data && !!cipherFactory && !!secretMaster.catalogCipher,
-      `[${title}] Secret cipherFactory is not available!`,
-    )
-
-    const {
-      catalogFilepath,
-      contentHashAlgorithm,
-      cryptFilepathSalt,
-      cryptFilesDir,
-      keepPlainPatterns,
-      maxTargetFileSize = Number.POSITIVE_INFINITY,
-      partCodePrefix,
-      pathHashAlgorithm,
-    } = secretKeeper.data
-
-    const configKeeper = new GitCipherConfigKeeper({
-      cipher: secretMaster.catalogCipher,
-      storage: new FileStorage({
-        strict: true,
-        filepath: catalogFilepath,
-        encoding: 'utf8',
-      }),
-    })
-
-    const catalog = new FileCipherCatalog({
-      contentHashAlgorithm,
-      cryptFilepathSalt,
-      cryptFilesDir,
-      maxTargetFileSize,
-      partCodePrefix,
-      pathHashAlgorithm,
-      plainPathResolver,
-      isKeepPlain:
-        keepPlainPatterns.length > 0
-          ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
-          : () => false,
-    })
-
-    await verifyCryptGitCommit({
-      catalog,
-      catalogFilepath,
-      configKeeper,
-      cryptCommitId,
+    await verifyCryptRepo({
+      catalogCipher: secretMaster.catalogCipher,
+      cipherFactory: secretMaster.cipherFactory,
+      cryptCommitId: context.cryptCommitId,
       cryptPathResolver,
-      logger,
+      plainPathResolver,
+      secretConfig: secretKeeper.data,
     })
   }
 }
