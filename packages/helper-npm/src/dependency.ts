@@ -1,17 +1,15 @@
 import { locateNearestFilepath } from '@guanghechen/helper-path'
 import { resolve } from 'import-meta-resolve'
-import fs from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 
 export type IDependencyField = 'dependencies' | 'optionalDependencies' | 'peerDependencies'
 
 /**
  * Default Dependency fields
  */
-export const getDefaultDependencyFields = (): IDependencyField[] => [
-  'dependencies',
-  'optionalDependencies',
-  'peerDependencies',
-]
+export function getDefaultDependencyFields(): IDependencyField[] {
+  return ['dependencies', 'optionalDependencies', 'peerDependencies']
+}
 
 /**
  * Collect all dependencies declared in the package.json and the dependency's dependencies and so on.
@@ -28,7 +26,7 @@ export async function collectAllDependencies(
   additionalDependencies: ReadonlyArray<string> | null = null,
   isAbsentAllowed: ((moduleName: string) => boolean) | null = null,
 ): Promise<string[]> {
-  const dependencySet: Set<string> = new Set()
+  const dependencySet: Set<string> = new Set<string>()
 
   if (isAbsentAllowed == null) {
     const regex = /^@types\//
@@ -36,8 +34,21 @@ export async function collectAllDependencies(
     isAbsentAllowed = moduleName => regex.test(moduleName)
   }
 
-  const followDependency = async (dependency: string): Promise<void> => {
-    /* c8 ignore start */
+  // collect from package.json
+  if (packageJsonPath != null) {
+    await collectDependencies(packageJsonPath)
+  }
+
+  // collect from dependencies
+  if (additionalDependencies != null) {
+    for (const dependency of additionalDependencies) {
+      await followDependency(dependency)
+    }
+  }
+
+  return Array.from(dependencySet).sort()
+
+  async function followDependency(dependency: string): Promise<void> {
     if (dependencySet.has(dependency)) return
     dependencySet.add(dependency)
 
@@ -71,17 +82,13 @@ export async function collectAllDependencies(
     await collectDependencies(nextPackageJsonPath)
   }
 
-  /**
-   * @param {string} dependencyPackageJsonPath
-   * @returns {void}
-   */
-  const collectDependencies = async (dependencyPackageJsonPath: string): Promise<void> => {
-    if (!fs.existsSync(dependencyPackageJsonPath)) {
+  async function collectDependencies(dependencyPackageJsonPath: string): Promise<void> {
+    if (!existsSync(dependencyPackageJsonPath)) {
       console.warn(`no such file or directory: ${dependencyPackageJsonPath}`)
       return
     }
 
-    const content = fs.readFileSync(dependencyPackageJsonPath, 'utf8')
+    const content = readFileSync(dependencyPackageJsonPath, 'utf8')
     const manifest = JSON.parse(content)
     for (const fieldName of dependenciesFields) {
       const field = manifest[fieldName]
@@ -92,20 +99,6 @@ export async function collectAllDependencies(
       }
     }
   }
-
-  // collect from package.json
-  if (packageJsonPath != null) {
-    await collectDependencies(packageJsonPath)
-  }
-
-  // collect from dependencies
-  if (additionalDependencies != null) {
-    for (const dependency of additionalDependencies) {
-      await followDependency(dependency)
-    }
-  }
-
-  return Array.from(dependencySet).sort()
 }
 
 /**

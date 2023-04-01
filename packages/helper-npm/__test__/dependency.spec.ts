@@ -11,11 +11,13 @@ import {
 
 describe('getDefaultDependencyFields', () => {
   test('basic', () => {
-    expect(getDefaultDependencyFields()).toEqual([
-      'dependencies',
-      'optionalDependencies',
-      'peerDependencies',
-    ])
+    expect(getDefaultDependencyFields()).toMatchInlineSnapshot(`
+      [
+        "dependencies",
+        "optionalDependencies",
+        "peerDependencies",
+      ]
+    `)
   })
 })
 
@@ -43,11 +45,13 @@ describe('collectAllDependencies', () => {
       () => true,
     )
     expect(dependencies).toEqual(['rollup'])
-    expect(desensitize(logMock.getIndiscriminateAll())).toEqual([
+    expect(desensitize(logMock.getIndiscriminateAll())).toMatchInlineSnapshot(`
       [
-        'no such file or directory: <$WORKSPACE$>/packages/helper-npm/__test__/fixtures/nonexistent/package.json',
-      ],
-    ])
+        [
+          "no such file or directory: <$WORKSPACE$>/packages/helper-npm/__test__/fixtures/nonexistent/package.json",
+        ],
+      ]
+    `)
   })
 
   test('normal repo', async () => {
@@ -55,9 +59,13 @@ describe('collectAllDependencies', () => {
       'peerDependencies',
     ])
     expect(dependencies).toEqual(['@guanghechen/not-existed-repo', 'rollup'])
-    expect(desensitize(logMock.getIndiscriminateAll())).toEqual([
-      ["cannot find package.json for '@guanghechen/not-existed-repo'"],
-    ])
+    expect(desensitize(logMock.getIndiscriminateAll())).toMatchInlineSnapshot(`
+      [
+        [
+          "cannot find package.json for '@guanghechen/not-existed-repo'",
+        ],
+      ]
+    `)
   })
 })
 
