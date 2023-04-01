@@ -1,8 +1,9 @@
 import type { IEnv, IManifestWithDependencies } from '../types'
-import builtinModules from './builtin-modules.json' assert { type: 'json' }
-import { collectAllDependencies, getDefaultDependencyFields } from './dependency'
-
-const builtinExternals: string[] = builtinModules.concat(['glob', 'sync'])
+import {
+  builtinExternalSet,
+  collectAllDependencies,
+  getDefaultDependencyFields,
+} from './dependency'
 
 export async function resolveExternal(
   manifest: IManifestWithDependencies,
@@ -18,9 +19,10 @@ export async function resolveExternal(
   if (env.externalAll) {
     dependencies = await collectAllDependencies(null, dependencyFields, dependencies, () => true)
   }
-  const externalSet = new Set(builtinExternals.concat(dependencies))
+  const externalSet = new Set(dependencies)
 
   const external = (id: string): boolean => {
+    if (builtinExternalSet.has(id)) return true
     if (/^node:[\w\S]+$/.test(id)) return true
 
     const m = /^([.][\s\S]*|@[^/\s]+[/][^/\s]+|[^/\s]+)/.exec(id)

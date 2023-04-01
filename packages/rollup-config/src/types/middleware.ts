@@ -4,12 +4,10 @@ import type { IEnv } from './env'
 import type { IManifest } from './manifest'
 
 export interface IConfigMiddlewareContext {
-  env: IEnv
-  manifest: IManifest
-  /**
-   * Preset rollup config map, key is the RollupConfigBuilder name.
-   */
-  presetMap: ReadonlyMap<string, IPresetRollupConfig>
+  readonly env: IEnv
+  readonly manifest: IManifest
+  // Preset rollup config map, key is the RollupConfigBuilder name.
+  readonly presetMap: ReadonlyMap<string, IPresetRollupConfig>
 }
 
 export type IConfigMiddlewareNext = (

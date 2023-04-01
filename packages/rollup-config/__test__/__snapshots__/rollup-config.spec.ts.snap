@@ -44,25 +44,6 @@ exports[`build simple: rollup cjs 2`] = `
 }
 `;
 
-exports[`build simple: rollup es 1`] = `
-"/**
- * Check if the given filepath is an existed path of file.
- *
- * @param filepath
- * @returns
- */
-declare function isFileSync(filepath: string): boolean;
-
-declare const _default: () => {
-    data: {
-        name: string;
-    };
-};
-
-export { _default as default, isFileSync };
-"
-`;
-
 exports[`build simple: rollup esm 1`] = `
 "import fs from 'node:fs';
 
@@ -96,4 +77,23 @@ exports[`build simple: rollup esm 2`] = `
   "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":[null,null],"names":["data"],"mappings":";;;;;;;;;AAQM,SAAU,UAAU,CAAE,QAAgB,EAAA;AAC1C,IAAA,IAAI,CAAC,EAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAAE,QAAA,OAAO,KAAK,CAAA;IAC1C,OAAO,EAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE,CAAA;AACvC;;ACNA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEA,MAAI,CAAC,CAAA;AAC1B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC,CAAA;AAEnC,YAAA,CAAe,YAAM,EAAA,OAAAA,MAAI,CAAA,EAAA;;;;"}",
   "type": "asset",
 }
+`;
+
+exports[`build simple: rollup esm 3`] = `
+"/**
+ * Check if the given filepath is an existed path of file.
+ *
+ * @param filepath
+ * @returns
+ */
+declare function isFileSync(filepath: string): boolean;
+
+declare const _default: () => {
+    data: {
+        name: string;
+    };
+};
+
+export { _default as default, isFileSync };
+"
 `;

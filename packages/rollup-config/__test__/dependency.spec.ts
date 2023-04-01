@@ -7,11 +7,13 @@ import { collectAllDependencies, getDefaultDependencyFields } from '../src/exter
 
 describe('getDefaultDependencyFields', () => {
   test('basic', () => {
-    expect(getDefaultDependencyFields()).toEqual([
-      'dependencies',
-      'optionalDependencies',
-      'peerDependencies',
-    ])
+    expect(getDefaultDependencyFields()).toMatchInlineSnapshot(`
+      [
+        "dependencies",
+        "optionalDependencies",
+        "peerDependencies",
+      ]
+    `)
   })
 })
 
@@ -27,25 +29,27 @@ describe('collectAllDependencies', () => {
   test('current repo', async () => {
     const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
     const dependencies = await collectAllDependencies(path.join(__dirname, '../package.json'))
-    expect(dependencies).toEqual([
-      '@babel/code-frame',
-      '@babel/helper-validator-identifier',
-      '@babel/highlight',
-      '@rollup/plugin-commonjs',
-      '@rollup/plugin-json',
-      '@rollup/plugin-node-resolve',
-      '@rollup/plugin-typescript',
-      'chalk',
-      'import-meta-resolve',
-      'js-tokens',
-      'magic-string',
-      'rollup',
-      'rollup-plugin-dts',
-      'sourcemap-codec',
-      'typescript',
-    ])
+    expect(dependencies).toMatchInlineSnapshot(`
+      [
+        "@babel/code-frame",
+        "@babel/helper-validator-identifier",
+        "@babel/highlight",
+        "@rollup/plugin-commonjs",
+        "@rollup/plugin-json",
+        "@rollup/plugin-node-resolve",
+        "@rollup/plugin-typescript",
+        "chalk",
+        "import-meta-resolve",
+        "js-tokens",
+        "magic-string",
+        "rollup",
+        "rollup-plugin-dts",
+        "sourcemap-codec",
+        "typescript",
+      ]
+    `)
 
-    expect(desensitize(logMock.getIndiscriminateAll())).toEqual([])
+    expect(desensitize(logMock.getIndiscriminateAll())).toMatchInlineSnapshot(`[]`)
   })
 
   test('nonexistent repo', async () => {
@@ -55,23 +59,38 @@ describe('collectAllDependencies', () => {
       ['rollup'],
       () => true,
     )
-    expect(dependencies).toEqual(['rollup'])
-
-    expect(desensitize(logMock.getIndiscriminateAll())).toEqual([
+    expect(dependencies).toMatchInlineSnapshot(`
       [
-        'no such file or directory: <$WORKSPACE$>/packages/rollup-config/__test__/fixtures/nonexistent/package.json',
-      ],
-    ])
+        "rollup",
+      ]
+    `)
+
+    expect(desensitize(logMock.getIndiscriminateAll())).toMatchInlineSnapshot(`
+      [
+        [
+          "no such file or directory: <$WORKSPACE$>/packages/rollup-config/__test__/fixtures/nonexistent/package.json",
+        ],
+      ]
+    `)
   })
 
   test('normal repo', async () => {
     const dependencies = await collectAllDependencies(locateFixtures('normal-repo/package.json'), [
       'peerDependencies',
     ])
-    expect(dependencies).toEqual(['@guanghechen/not-existed-repo', 'rollup'])
+    expect(dependencies).toMatchInlineSnapshot(`
+      [
+        "@guanghechen/not-existed-repo",
+        "rollup",
+      ]
+    `)
 
-    expect(desensitize(logMock.getIndiscriminateAll())).toEqual([
-      ["cannot find package.json for '@guanghechen/not-existed-repo'"],
-    ])
+    expect(desensitize(logMock.getIndiscriminateAll())).toMatchInlineSnapshot(`
+      [
+        [
+          "cannot find package.json for '@guanghechen/not-existed-repo'",
+        ],
+      ]
+    `)
   })
 })

@@ -5,12 +5,12 @@ export interface IRawRollupConfigEnv {
    * Whether if generate sourcemaps.
    * @default true
    */
-  shouldSourceMap?: boolean
+  sourcemap?: boolean
   /**
    * Whether if make all dependencies external.
    * @default true
    */
-  shouldExternalAll?: boolean
+  external?: boolean
 }
 
 export function resolveRollupConfigEnv(rawEnv: IRawRollupConfigEnv): IEnv {
@@ -19,8 +19,8 @@ export function resolveRollupConfigEnv(rawEnv: IRawRollupConfigEnv): IEnv {
     process.env.ROLLUP_EXTERNAL_ALL_DEPENDENCIES,
   )
   const env: IEnv = {
-    sourcemap: forceSourceMap ?? rawEnv.shouldSourceMap ?? true,
-    externalAll: forceExternalAll ?? rawEnv.shouldExternalAll ?? true,
+    sourcemap: forceSourceMap ?? rawEnv.sourcemap ?? true,
+    externalAll: forceExternalAll ?? rawEnv.external ?? true,
   }
   return env
 }

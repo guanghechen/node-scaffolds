@@ -6,7 +6,7 @@ import path from 'node:path'
 import url from 'node:url'
 import { rollup } from 'rollup'
 import type { OutputOptions, RollupOutput } from 'rollup'
-import createRollupConfig from '../src'
+import { createRollupConfig, tsPresetConfigBuilder } from '../src'
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
@@ -24,18 +24,23 @@ async function build(dependencies: string[]): Promise<RollupOutput[]> {
       types: 'lib/types/index.d.ts',
       dependencies: dependencies,
     },
-    pluginOptions: {
-      typescriptOptions: { tsconfig: 'tsconfig.src.json' },
-    },
+    presetConfigBuilders: [
+      tsPresetConfigBuilder({
+        typescriptOptions: {
+          tsconfig: 'tsconfig.src.json',
+        },
+      }),
+    ],
   })
 
   const results: any[] = []
   for (const config of configs) {
     const bundle = await rollup(config)
-    for (const outputOptions of config.output as OutputOptions[]) {
-      const outputs = await bundle.generate(outputOptions)
+    const outputOptions: OutputOptions[] = [config.output ?? []].flat()
+    for (const outputOption of outputOptions) {
+      const outputs = await bundle.generate(outputOption)
       for (const output of outputs.output as any[]) {
-        const { format } = outputOptions
+        const { format } = outputOption
         if (output.code != null) {
           results.push({ format, code: output.code })
         } else {

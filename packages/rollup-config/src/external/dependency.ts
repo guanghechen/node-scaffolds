@@ -1,6 +1,10 @@
 import { resolve } from 'import-meta-resolve'
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
+import builtinModules from './builtin-modules.json' assert { type: 'json' }
+
+const builtinExternals: ReadonlyArray<string> = builtinModules.concat(['glob', 'sync'])
+export const builtinExternalSet: ReadonlySet<string> = new Set<string>(builtinExternals)
 
 export type IDependencyField = 'dependencies' | 'optionalDependencies' | 'peerDependencies'
 
@@ -26,7 +30,7 @@ export async function collectAllDependencies(
   additionalDependencies: ReadonlyArray<string> | null = null,
   isAbsentAllowed: ((moduleName: string) => boolean) | null = null,
 ): Promise<string[]> {
-  const dependencySet: Set<string> = new Set()
+  const dependencySet: Set<string> = new Set<string>()
 
   if (isAbsentAllowed == null) {
     const regex = /^@types\//
@@ -34,8 +38,22 @@ export async function collectAllDependencies(
     isAbsentAllowed = moduleName => regex.test(moduleName)
   }
 
-  const followDependency = async (dependency: string): Promise<void> => {
-    if (dependencySet.has(dependency)) return
+  // collect from package.json
+  if (packageJsonPath != null) {
+    await collectDependencies(packageJsonPath)
+  }
+
+  // collect from dependencies
+  if (additionalDependencies != null) {
+    for (const dependency of additionalDependencies) {
+      await followDependency(dependency)
+    }
+  }
+
+  return Array.from(dependencySet).sort()
+
+  async function followDependency(dependency: string): Promise<void> {
+    if (builtinExternalSet.has(dependency) || dependencySet.has(dependency)) return
     dependencySet.add(dependency)
 
     // recursively collect
@@ -66,11 +84,7 @@ export async function collectAllDependencies(
     await collectDependencies(nextPackageJsonPath)
   }
 
-  /**
-   * @param {string} dependencyPackageJsonPath
-   * @returns {void}
-   */
-  const collectDependencies = async (dependencyPackageJsonPath: string): Promise<void> => {
+  async function collectDependencies(dependencyPackageJsonPath: string): Promise<void> {
     if (!existsSync(dependencyPackageJsonPath)) {
       console.warn(`no such file or directory: ${dependencyPackageJsonPath}`)
       return
@@ -87,20 +101,6 @@ export async function collectAllDependencies(
       }
     }
   }
-
-  // collect from package.json
-  if (packageJsonPath != null) {
-    await collectDependencies(packageJsonPath)
-  }
-
-  // collect from dependencies
-  if (additionalDependencies != null) {
-    for (const dependency of additionalDependencies) {
-      await followDependency(dependency)
-    }
-  }
-
-  return Array.from(dependencySet).sort()
 }
 
 function locateNearestFilepath(currentDir0: string, filenames: string | string[]): string | null {

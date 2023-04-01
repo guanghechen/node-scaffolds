@@ -14,8 +14,8 @@ export interface IRollupConfig extends RollupOptions {
 export interface IPresetRollupConfig extends Omit<IRollupConfig, 'input' | 'output'> {}
 
 export interface IPresetConfigBuilderContext {
-  env: IEnv
-  manifest: IManifest
+  readonly env: IEnv
+  readonly manifest: IManifest
   baseExternal(id: string): boolean
 }
 

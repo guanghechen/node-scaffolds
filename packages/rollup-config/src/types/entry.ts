@@ -18,8 +18,8 @@ export interface IRawEntryItem {
 }
 
 export interface IEntryItem {
-  import: string | undefined
-  require: string | undefined
-  source: string[]
-  types: string | undefined
+  readonly import: string | undefined
+  readonly require: string | undefined
+  readonly source: string[]
+  readonly types: string | undefined
 }
