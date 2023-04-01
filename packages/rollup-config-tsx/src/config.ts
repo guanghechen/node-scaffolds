@@ -1,7 +1,12 @@
 import { isObject } from '@guanghechen/helper-is'
 import dts from '@guanghechen/postcss-modules-dts'
-import createBaseRollupConfig, { resolveRollupConfigEnvs } from '@guanghechen/rollup-config'
-import type { IRollupConfigEnvs } from '@guanghechen/rollup-config'
+import type { IEnv, IPresetConfigBuilder } from '@guanghechen/rollup-config'
+import {
+  PresetBuilderName,
+  buildRollupConfig,
+  resolveRollupConfigEnv,
+  tsPresetConfigBuilder,
+} from '@guanghechen/rollup-config'
 import multiEntry from '@rollup/plugin-multi-entry'
 import autoprefixer from 'autoprefixer'
 import postcssFlexbugsFixes from 'postcss-flexbugs-fixes'
@@ -16,7 +21,7 @@ import type { IPreprocessConfigOptions, IRollupConfigOptions, PostcssOptions } f
  */
 export function createPreprocessorConfig(
   options: IPreprocessConfigOptions,
-  env: IRollupConfigEnvs,
+  env: IEnv,
 ): RollupOptions {
   const {
     input,
@@ -35,15 +40,15 @@ export function createPreprocessorConfig(
   }
 
   const precessStylesheetConfig: RollupOptions = {
-    input: input as any,
-    output: output,
+    input,
+    output,
     plugins: [
       multiEntry(multiEntryOptions),
       postcss({
         autoModules: false,
         extract: false,
         minimize: false,
-        sourceMap: env.shouldSourceMap,
+        sourceMap: env.sourcemap,
         plugins: [postcssUrlOptions && postcssUrl(postcssUrlOptions)].filter(Boolean),
         ...postcssOptions,
         modules,
@@ -59,35 +64,45 @@ export function createPreprocessorConfig(
  */
 export async function createRollupConfigs(options: IRollupConfigOptions): Promise<RollupOptions[]> {
   const { preprocessOptions, ...baseOptions } = options
-  const env = resolveRollupConfigEnvs(options)
-
-  const { postcssOptions: _postcssOptions, ...pluginOptions } = baseOptions.pluginOptions || {}
   const { autoprefixerOptions, flexbugsFixesOptions, postcssUrlOptions, ...postcssOptions } =
-    _postcssOptions || {}
+    preprocessOptions?.pluginOptions?.postcssOptions || {}
 
-  baseOptions.pluginOptions = pluginOptions
-  baseOptions.additionalPlugins = [
-    _postcssOptions &&
-      postcss({
-        autoModules: false,
-        sourceMap: env.shouldSourceMap,
-        plugins: [
-          autoprefixer({ ...autoprefixerOptions }),
-          postcssFlexbugsFixes({ ...flexbugsFixesOptions }),
-          postcssUrlOptions && postcssUrl(postcssUrlOptions),
-        ].filter(Boolean),
-        ...postcssOptions,
-      }),
-    ...(baseOptions.additionalPlugins || []),
-  ].filter((x): x is Plugin => Boolean(x))
-
-  const config = await createBaseRollupConfig(baseOptions)
+  const env = resolveRollupConfigEnv(options.env ?? {})
+  const additionalPlugins = [
+    postcss({
+      autoModules: false,
+      sourceMap: env.sourcemap,
+      plugins: [
+        autoprefixer({ ...autoprefixerOptions }),
+        postcssFlexbugsFixes({ ...flexbugsFixesOptions }),
+        postcssUrlOptions && postcssUrl(postcssUrlOptions),
+      ].filter(Boolean),
+      ...postcssOptions,
+    }),
+  ]
+  let presetConfigBuilders: IPresetConfigBuilder[] = baseOptions.presetConfigBuilders ?? []
+  presetConfigBuilders = presetConfigBuilders.some(builder => builder.name === PresetBuilderName.TS)
+    ? presetConfigBuilders.map(builder =>
+        builder.name === PresetBuilderName.TS
+          ? {
+              ...builder,
+              build: async ctx => {
+                const config = await builder.build(ctx)
+                return {
+                  ...config,
+                  plugins: [...config.plugins, ...additionalPlugins],
+                }
+              },
+            }
+          : builder,
+      )
+    : [tsPresetConfigBuilder({ additionalPlugins })]
 
   // Resolve preprocess config.
+  const { configs } = await buildRollupConfig({ ...baseOptions, presetConfigBuilders })
   if (preprocessOptions != null) {
     const preprocessConfig = createPreprocessorConfig(preprocessOptions, env)
-    return [preprocessConfig, ...config]
+    return [preprocessConfig, ...configs]
   }
-
-  return config
+  return configs
 }

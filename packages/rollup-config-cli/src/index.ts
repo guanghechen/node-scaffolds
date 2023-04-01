@@ -1,4 +1,5 @@
-import createBaseRollupConfig from '@guanghechen/rollup-config'
+import invariant from '@guanghechen/invariant'
+import { PresetBuilderName, buildRollupConfig } from '@guanghechen/rollup-config'
 import type { IRollupConfigOptions as IBaseRollupConfigOptions } from '@guanghechen/rollup-config'
 import copy from '@guanghechen/rollup-plugin-copy'
 import type { IOptions as IRollupPluginCopyOptions } from '@guanghechen/rollup-plugin-copy'
@@ -31,21 +32,17 @@ export interface IRollupConfigOptions extends IBaseRollupConfigOptions {
 
 export async function createRollupConfig(options: IRollupConfigOptions): Promise<RollupOptions[]> {
   const { resources, targets, ...baseOptions } = options
-  const [baseConfig, ...additionalConfigs] = await createBaseRollupConfig(baseOptions)
+  const { configs: baseConfigs, presetMap } = await buildRollupConfig(baseOptions)
 
-  let plugins = (await baseConfig.plugins) ?? []
-  if (plugins !== false && !Array.isArray(plugins)) plugins = [plugins]
+  const tsPresetConfig = presetMap.get(PresetBuilderName.TS)
+  invariant(!!tsPresetConfig, `Cannot find ${PresetBuilderName.TS} preset config.`)
 
-  const external = baseConfig.external as (id: string) => boolean
-
-  const configs: RollupOptions[] = [
-    {
-      ...baseConfig,
-      plugins: plugins === false ? false : [...plugins, copy(resources)],
-    },
-    ...additionalConfigs,
+  const external = (tsPresetConfig.external ?? (() => false)) as (id: string) => boolean
+  let configs: RollupOptions[] = [
+    ...baseConfigs,
     ...targets.map(
       (item): RollupOptions => ({
+        ...tsPresetConfig,
         input: item.src,
         output: [
           {
@@ -60,10 +57,26 @@ export async function createRollupConfig(options: IRollupConfigOptions): Promise
           if (external(id)) return true
           return /\.\/index$/.test(id) || /\.\/index\.(js|mjs)$/.test(id) || /^[.]+$/.test(id)
         },
-        plugins,
       }),
     ),
   ]
+
+  if (resources) {
+    invariant(configs.length > 0, `Cannot find valid rollup input`)
+    const copyPlugin = copy(resources)
+    let plugins = await configs[0].plugins
+    if (Array.isArray(plugins)) plugins = [...plugins, copyPlugin]
+    else if (!plugins) plugins = [copyPlugin]
+    else plugins = [plugins, copyPlugin]
+
+    configs = [
+      {
+        ...configs[0],
+        plugins,
+      },
+      ...configs.slice(1),
+    ]
+  }
   return configs
 }
 

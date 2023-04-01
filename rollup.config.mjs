@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import createRollupConfig from '@guanghechen/rollup-config'
+import { createRollupConfig, tsPresetConfigBuilder } from '@guanghechen/rollup-config'
 import path from 'node:path'
 
 export default async function rollupConfig() {
@@ -8,10 +8,16 @@ export default async function rollupConfig() {
   })
   const config = await createRollupConfig({
     manifest,
-    shouldSourceMap: true,
-    pluginOptions: {
-      typescriptOptions: { tsconfig: 'tsconfig.src.json' },
+    env: {
+      shouldSourceMap: true,
     },
+    presetConfigBuilders: [
+      tsPresetConfigBuilder({
+        typescriptOptions: {
+          tsconfig: 'tsconfig.src.json',
+        },
+      }),
+    ],
   })
   return config
 }

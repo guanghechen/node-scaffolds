@@ -1,4 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { tsPresetConfigBuilder } from '@guanghechen/rollup-config'
+// eslint-disable-next-line import/no-extraneous-dependencies
 import createRollupConfig from '@guanghechen/rollup-config-cli'
 import replace from '@rollup/plugin-replace'
 import path from 'node:path'
@@ -9,25 +11,29 @@ export default async function () {
   })
   const config = await createRollupConfig({
     manifest,
-    pluginOptions: {
-      typescriptOptions: { tsconfig: 'tsconfig.src.json' },
-    },
-    additionalPlugins: [
-      replace({
-        include: ['src/cli.ts'],
-        delimiters: ['', ''],
-        preventAssignment: true,
-        values: {
-          [`} from '.';`]: `} from './index.mjs';`,
+    presetConfigBuilders: [
+      tsPresetConfigBuilder({
+        typescriptOptions: {
+          tsconfig: 'tsconfig.src.json',
         },
-      }),
-      replace({
-        include: ['src/**/*'],
-        delimiters: ['', ''],
-        preventAssignment: true,
-        values: {
-          [` from '${manifest.name}/package.json'`]: ` from '../../package.json'`,
-        },
+        additionalPlugins: [
+          replace({
+            include: ['src/cli.ts'],
+            delimiters: ['', ''],
+            preventAssignment: true,
+            values: {
+              [`} from '.';`]: `} from './index.mjs';`,
+            },
+          }),
+          replace({
+            include: ['src/**/*'],
+            delimiters: ['', ''],
+            preventAssignment: true,
+            values: {
+              [` from '${manifest.name}/package.json'`]: ` from '../../package.json'`,
+            },
+          }),
+        ],
       }),
     ],
     targets: [

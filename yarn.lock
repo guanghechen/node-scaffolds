@@ -1015,6 +1015,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli"
   dependencies:
+    "@guanghechen/invariant": ^4.7.4
     "@guanghechen/rollup-config": ^4.7.4
     "@guanghechen/rollup-plugin-copy": ^4.7.4
     cross-env: ^7.0.3
