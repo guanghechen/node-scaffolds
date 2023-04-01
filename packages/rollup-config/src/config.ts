@@ -1,191 +1,107 @@
-import commonjs from '@rollup/plugin-commonjs'
-import json from '@rollup/plugin-json'
-import nodeResolve from '@rollup/plugin-node-resolve'
-import typescript from '@rollup/plugin-typescript'
-import type { OutputOptions, RollupOptions } from 'rollup'
-import dts from 'rollup-plugin-dts'
-import builtinModules from './builtin-modules.json' assert { type: 'json' }
-import { collectAllDependencies, getDefaultDependencyFields } from './dependency'
+import type { RollupOptions } from 'rollup'
+import { resolveEntryItems } from './entry'
+import type { IRawRollupConfigEnv } from './env'
+import { resolveRollupConfigEnv } from './env'
+import { resolveExternal } from './external'
+import { dtsConfigMiddleware } from './middleware/dts'
+import { tsConfigMiddleware } from './middleware/ts'
+import { dtsPresetConfigBuilder } from './preset/dts'
+import { tsPresetConfigBuilder } from './preset/ts'
 import type {
-  IRawRollupConfigEnvs,
-  IRollupConfigEnvs,
-  IRollupConfigOptions,
-  IRollupManifestOptions,
+  IConfigMiddleware,
+  IConfigMiddlewareContext,
+  IConfigMiddlewareNext,
+  IEntryItem,
+  IEnv,
+  IManifest,
+  IPresetConfigBuilder,
+  IPresetConfigBuilderContext,
+  IPresetRollupConfig,
+  IRollupConfig,
 } from './types'
-import { convertToBoolean, coverBoolean, isArray } from './util'
+import { PresetBuilderName } from './types'
 
-const builtinExternals: string[] = builtinModules.concat(['glob', 'sync'])
-
-/**
- * Resolve RollupConfigEnvs
- *
- * @param rawEnv
- * @returns
- */
-export function resolveRollupConfigEnvs(rawEnv: IRawRollupConfigEnvs): IRollupConfigEnvs {
-  const defaultShouldSourcemap = coverBoolean(
-    true,
-    convertToBoolean(process.env.ROLLUP_SHOULD_SOURCEMAP),
-  )
-  const defaultShouldExternalAll = coverBoolean(
-    true,
-    convertToBoolean(process.env.ROLLUP_EXTERNAL_ALL_DEPENDENCIES),
-  )
-
-  const { shouldSourceMap = defaultShouldSourcemap, shouldExternalAll = defaultShouldExternalAll } =
-    rawEnv
-  return { shouldSourceMap, shouldExternalAll }
+export interface IRollupConfigOptions {
+  /**
+   * Main input / output options.
+   */
+  manifest: IManifest
+  /**
+   * Environment variables.
+   */
+  env?: IRawRollupConfigEnv | undefined
+  /**
+   * Rollup preset configs.
+   */
+  presetConfigBuilders?: IPresetConfigBuilder[] | undefined
+  /**
+   * Rollup config middlewares.
+   */
+  middlewares?: IConfigMiddleware[] | undefined
 }
 
-/**
- * Create a rollup options.
- * @param options
- */
-export async function createRollupConfig(options: IRollupConfigOptions): Promise<RollupOptions[]> {
-  const env = resolveRollupConfigEnvs(options)
-
-  const { manifest, pluginOptions = {}, additionalPlugins = [] } = options
-
-  const { commonjsOptions, jsonOptions, nodeResolveOptions, typescriptOptions, dtsOptions } =
-    pluginOptions
-
-  const dependencyFields = getDefaultDependencyFields()
-  let dependencies: string[] = dependencyFields.reduce((acc, key) => {
-    const deps = manifest[key] as Record<string, string> | string[]
-    const result: string[] = isArray(deps) ? deps : Object.keys(deps || {})
-    return acc.concat(result)
-  }, [] as string[])
-  if (env.shouldExternalAll) {
-    dependencies = await collectAllDependencies(null, dependencyFields, dependencies, () => true)
-  }
-  const externalSet = new Set(builtinExternals.concat(dependencies))
-
-  const external = (id: string): boolean => {
-    if (/^node:[\w\S]+$/.test(id)) return true
-
-    const m = /^([.][\s\S]*|@[^/\s]+[/][^/\s]+|[^/\s]+)/.exec(id)
-    if (m == null) return false
-    return externalSet.has(m[1])
-  }
-
-  const config: RollupOptions[] = [
-    {
-      input: manifest.source,
-      output: resolveOutputOptions({ env, manifest }),
-      external,
-      plugins: [
-        nodeResolve({
-          browser: true,
-          preferBuiltins: false,
-          ...nodeResolveOptions,
-        }),
-        json({
-          indent: '  ',
-          namedExports: true,
-          ...jsonOptions,
-        }),
-        typescript({
-          include: ['**/*.tsx', '**/*.ts'],
-          ...typescriptOptions,
-          compilerOptions: {
-            // compilerOptions
-            outDir: 'lib',
-            removeComments: true,
-            sourceMap: env.shouldSourceMap,
-
-            ...typescriptOptions?.compilerOptions,
-
-            declaration: false,
-            declarationMap: false,
-            declarationDir: undefined,
-          },
-        }),
-        commonjs({
-          extensions: ['.js', '.jsx', '.ts', '.tsx'],
-          ...commonjsOptions,
-        }),
-        ...additionalPlugins,
-      ],
-    },
-    manifest.types && [
-      {
-        input: manifest.source,
-        output: [
-          {
-            file: manifest.types,
-            format: 'es',
-          },
-        ],
-        external: (id: string) => {
-          if (id === manifest.name + '/package.json') return true
-          return external(id)
-        },
-        plugins: [
-          dts({
-            ...dtsOptions,
-            compilerOptions: {
-              removeComments: false,
-              sourceMap: env.shouldSourceMap,
-              declaration: true,
-              declarationMap: false,
-              emitDeclarationOnly: true,
-              ...dtsOptions?.compilerOptions,
-            },
-          }),
-        ],
-      },
-    ],
-  ]
-    .filter((x: unknown): x is RollupOptions | RollupOptions[] => !!x)
-    .flat() as RollupOptions[]
-  return config
+export interface IBuildRollupConfigResult {
+  env: IEnv
+  configs: IRollupConfig[]
+  presetMap: ReadonlyMap<string, IPresetRollupConfig>
 }
 
-function resolveOutputOptions(options: {
-  env: IRollupConfigEnvs
-  manifest: IRollupManifestOptions
-}): OutputOptions[] {
-  interface IEntry {
-    file: string
-    format: 'esm' | 'cjs'
+export async function buildRollupConfig(
+  options: IRollupConfigOptions,
+): Promise<IBuildRollupConfigResult> {
+  const { manifest } = options
+  const env = resolveRollupConfigEnv(options.env ?? {})
+  const baseExternal = await resolveExternal(manifest, env)
+  const presetContext: IPresetConfigBuilderContext = {
+    env,
+    manifest,
+    baseExternal,
   }
 
-  const { env, manifest } = options
-  const entries: IEntry[] = []
-  const addEntry = (entry: IEntry): void => {
-    if (!entries.some(item => item.file === entry.file && item.format === entry.format)) {
-      entries.push(entry)
-    }
-  }
-
-  if (manifest.main) addEntry({ format: 'cjs', file: manifest.main })
-  if (manifest.module) addEntry({ format: 'esm', file: manifest.module })
-  if (manifest.exports) {
-    const e = manifest.exports
-    if (typeof e === 'string') addEntry({ format: 'esm', file: e })
-    else {
-      if (typeof e.import === 'string') addEntry({ format: 'esm', file: e.import })
-      if (typeof e.require === 'string') addEntry({ format: 'cjs', file: e.require })
-
-      const r = (e as Record<string, { import?: string; require?: string }>)['.']
-      if (r) {
-        if (typeof r.import === 'string') addEntry({ format: 'esm', file: r.import })
-        if (typeof r.require === 'string') addEntry({ format: 'cjs', file: r.require })
+  const presetConfigMap: Map<string, IPresetRollupConfig> = new Map()
+  {
+    const builders = options.presetConfigBuilders ?? []
+    for (const builder of builders) {
+      if (presetConfigMap.has(builder.name)) {
+        console.warn(`[createRollupConfig] Duplicate builder name: (${builder.name})`)
+        continue
       }
+      const presetConfig = await builder.build(presetContext)
+      presetConfigMap.set(builder.name, presetConfig)
+    }
+
+    if (!presetConfigMap.has(PresetBuilderName.TS)) {
+      presetConfigMap.set(PresetBuilderName.TS, await tsPresetConfigBuilder().build(presetContext))
+    }
+
+    if (!presetConfigMap.has(PresetBuilderName.DTS)) {
+      presetConfigMap.set(
+        PresetBuilderName.DTS,
+        await dtsPresetConfigBuilder().build(presetContext),
+      )
     }
   }
 
-  const outputs: OutputOptions[] = entries.map(entry => {
-    const output: OutputOptions = {
-      format: entry.format,
-      file: entry.file,
-      exports: 'named',
-      sourcemap: env.shouldSourceMap,
-    }
-    if (entry.format === 'cjs') {
-      output.interop = 'auto'
-    }
-    return output
-  })
-  return outputs
+  const middlewareContext: IConfigMiddlewareContext = {
+    env,
+    manifest,
+    presetMap: presetConfigMap,
+  }
+  const lastMiddlewareHandler: IConfigMiddlewareNext = (_, results) => results
+  const handle: IConfigMiddlewareNext = [
+    ...(options.middlewares ?? []),
+    tsConfigMiddleware,
+    dtsConfigMiddleware,
+  ]
+    .map(middleware => middleware(middlewareContext))
+    .reduceRight((next, middlewareInner) => middlewareInner(next), lastMiddlewareHandler)
+
+  const entries: IEntryItem[] = resolveEntryItems(manifest)
+  const configs: IRollupConfig[] = entries.map(entry => handle(entry, [])).flat()
+  return { configs, presetMap: presetConfigMap, env }
+}
+
+export async function createRollupConfig(options: IRollupConfigOptions): Promise<RollupOptions[]> {
+  const { configs } = await buildRollupConfig(options)
+  return configs
 }

@@ -1,15 +1,17 @@
 import { rollup } from 'rollup'
 import manifest from '../package.json' assert { type: 'json' }
-import { createRollupConfig } from '../src'
+import { createRollupConfig, tsPresetConfigBuilder } from '../src'
 
 async function build(): Promise<void> {
   const configs = await createRollupConfig({
     manifest,
-    pluginOptions: {
-      typescriptOptions: {
-        tsconfig: 'tsconfig.src.json',
-      },
-    },
+    presetConfigBuilders: [
+      tsPresetConfigBuilder({
+        typescriptOptions: {
+          tsconfig: 'tsconfig.src.json',
+        },
+      }),
+    ],
   })
 
   for (const config of configs) {

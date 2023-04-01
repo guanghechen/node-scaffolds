@@ -7,11 +7,9 @@ export type IDependencyField = 'dependencies' | 'optionalDependencies' | 'peerDe
 /**
  * Default Dependency fields
  */
-export const getDefaultDependencyFields = (): IDependencyField[] => [
-  'dependencies',
-  'optionalDependencies',
-  'peerDependencies',
-]
+export function getDefaultDependencyFields(): IDependencyField[] {
+  return ['dependencies', 'optionalDependencies', 'peerDependencies']
+}
 
 /**
  * Collect all dependencies declared in the package.json and the dependency's dependencies and so on.

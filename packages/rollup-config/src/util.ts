@@ -1,18 +1,24 @@
-export const isArray = (v: unknown[] | unknown): v is unknown[] => Array.isArray(v)
+import type { OutputOptions, RollupOptions } from 'rollup'
 
-export const convertToBoolean = (v?: unknown): boolean | null => {
-  if (typeof v === 'boolean') return v
-  if (typeof v === 'string') {
-    const t = v.toLowerCase()
-    if (t === 'false') return false
-    if (t === 'true') return true
-  }
-  return null
+export function findElement<T>(
+  elements: T | T[] | undefined,
+  predicate: (element: T) => boolean,
+): T | undefined {
+  if (elements === undefined) return undefined
+  if (Array.isArray(elements)) return elements.find(predicate)
+  return predicate(elements) ? elements : undefined
 }
 
-export const cover = <T>(defaultValue: T, value?: T | null): T => value ?? defaultValue
+export function hasSpecifiedOutputConfig(
+  configs: ReadonlyArray<Pick<RollupOptions, 'output'>>,
+  predicate: (output: OutputOptions) => boolean,
+): boolean {
+  return configs.some(config => findElement(config.output, predicate))
+}
 
-export const coverBoolean = (defaultValue: boolean, value?: unknown): boolean => {
-  const resolvedValue = convertToBoolean(value)
-  return cover(defaultValue, resolvedValue)
+export function hasSpecifiedOutputFile(
+  configs: ReadonlyArray<Pick<RollupOptions, 'output'>>,
+  outputFile: string,
+): boolean {
+  return hasSpecifiedOutputConfig(configs, output => output.file === outputFile)
 }

@@ -3,7 +3,7 @@ import { createConsoleMock } from '@guanghechen/helper-jest'
 import { desensitize, locateFixtures } from 'jest.helper'
 import path from 'node:path'
 import url from 'node:url'
-import { collectAllDependencies, getDefaultDependencyFields } from '../src/dependency'
+import { collectAllDependencies, getDefaultDependencyFields } from '../src/external/dependency'
 
 describe('getDefaultDependencyFields', () => {
   test('basic', () => {
