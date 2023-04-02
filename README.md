@@ -21,7 +21,7 @@
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"
-        src="https://img.shields.io/node/v/@guanghechen/rollup-config-tsx"
+        src="https://img.shields.io/node/v/@guanghechen/rollup-config"
       />
     </a>
     <a href="https://github.com/guanghechen/node-scaffolds/actions/workflows/ci.yml">
@@ -81,7 +81,6 @@ Package                               | Description
 [@guanghechen/postcss-modules-dts][]  | Generate `*.d.ts` files for style files (such as css, stylus and etc)
 [@guanghechen/rollup-config][]        | Rollup config for bundle typescript project.
 [@guanghechen/rollup-config-cli][]    | Rollup configs for bundle typescript cli project.
-[@guanghechen/rollup-config-tsx][]    | Rollup configs for bundle tsx project.
 [@guanghechen/rollup-plugin-copy][]   | Rollup plugins to copy files and folds (glob supported)
 [@guanghechen/tool-git-cipher][]      | A cli tool for encrypting a entire git repository.
 [@guanghechen/tool-file][]            | A cli tool to split / merge big file.
@@ -124,7 +123,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/postcss-modules-dts]: ./packages/postcss-modules-dts
 [@guanghechen/rollup-config]: ./packages/rollup-config
 [@guanghechen/rollup-config-cli]: ./packages/rollup-config-cli
-[@guanghechen/rollup-config-tsx]: ./packages/rollup-config-tsx
 [@guanghechen/rollup-plugin-copy]: ./packages/rollup-plugin-copy
 [@guanghechen/tool-git-cipher]: ./packages/tool-git-cipher
 [@guanghechen/tool-file]: ./packages/tool-file

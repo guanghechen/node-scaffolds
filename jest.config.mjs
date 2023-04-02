@@ -21,7 +21,6 @@ export default async function () {
       'packages/helper-commander/src/util/git.ts',
       'packages/helper-commander/src/util/stdin.ts',
       'packages/helper-commander/src/util/yarn.ts',
-      'packages/rollup-config-tsx/src/postcss-flexbugs-fixes.d.ts',
     ],
     coverageThreshold: {
       global: {

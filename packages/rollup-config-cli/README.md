@@ -109,12 +109,10 @@ Extended from `RollupConfigOptions` of [@guanghechen/rollup-config][].
 ## Related
 
 * [@guanghechen/rollup-config][]
-* [@guanghechen/rollup-config-tsx][]
 * [@guanghechen/rollup-plugin-copy][]
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/rollup-config-cli#readme
 [@guanghechen/rollup-config]: https://www.npmjs.com/package/@guanghechen/rollup-config
 [@guanghechen/rollup-config-cli]: https://www.npmjs.com/package/@guanghechen/rollup-config-cli
-[@guanghechen/rollup-config-tsx]: https://www.npmjs.com/package/@guanghechen/rollup-config-tsx
 [@guanghechen/rollup-plugin-copy]: https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy
