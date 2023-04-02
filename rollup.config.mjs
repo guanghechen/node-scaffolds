@@ -9,7 +9,7 @@ export default async function rollupConfig() {
   const config = await createRollupConfig({
     manifest,
     env: {
-      sourcemap: true,
+      sourcemap: false,
     },
     presetConfigBuilders: [
       tsPresetConfigBuilder({
