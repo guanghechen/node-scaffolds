@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-is",
-  "version": "4.7.4",
+  "version": "5.0.0-alpha.0",
   "description": "Utilities to detect data type.",
   "author": {
     "name": "guanghechen",

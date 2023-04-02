@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-mac",
-  "version": "4.7.4",
+  "version": "5.0.0-alpha.0",
   "description": "Utility functions for calculating Message Authentication Code.",
   "author": {
     "name": "guanghechen",
