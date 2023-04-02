@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
     "directory": "packages/rollup-plugin-copy"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/rollup-plugin-copy#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/rollup-plugin-copy#readme",
   "keywords": [
     "rollup",
     "rollup plugin",

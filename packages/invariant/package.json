@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
     "directory": "packages/invariant"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/invariant#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/invariant#readme",
   "type": "module",
   "main": "./lib/cjs/index.cjs",
   "module": "./lib/esm/index.mjs",

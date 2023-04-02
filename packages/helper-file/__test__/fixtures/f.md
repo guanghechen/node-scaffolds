@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-file#readme">@guanghechen/helper-file</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/helper-file#readme">@guanghechen/helper-file</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-file">
@@ -67,12 +67,12 @@
 ## Usage
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-file#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/helper-file#readme
 
 
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-file#readme">@guanghechen/helper-file</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/helper-file#readme">@guanghechen/helper-file</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-file">
@@ -139,12 +139,12 @@
 ## Usage
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-file#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/helper-file#readme
 
 
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-file#readme">@guanghechen/helper-file</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/helper-file#readme">@guanghechen/helper-file</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-file">
@@ -211,4 +211,4 @@
 ## Usage
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-file#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/helper-file#readme

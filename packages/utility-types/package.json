@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
     "directory": "packages/utility-types"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/utility-types#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/utility-types#readme",
   "keywords": [],
   "type": "module",
   "main": "./lib/cjs/index.cjs",

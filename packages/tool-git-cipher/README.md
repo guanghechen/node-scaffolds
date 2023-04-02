@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/tool-git-cipher#readme">@guanghechen/tool-git-cipher</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/tool-git-cipher#readme">@guanghechen/tool-git-cipher</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/tool-git-cipher">
@@ -144,4 +144,4 @@
   the sub-command `encrypt` and etc.
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/tool-git-cipher#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/tool-git-cipher#readme

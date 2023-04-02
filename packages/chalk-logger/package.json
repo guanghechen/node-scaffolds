@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
     "directory": "packages/chalk-logger"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/chalk-logger#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/chalk-logger#readme",
   "keywords": [
     "logger",
     "colorful logger"

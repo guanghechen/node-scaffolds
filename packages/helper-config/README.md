@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-config#readme">@guanghechen/helper-config</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/helper-config#readme">@guanghechen/helper-config</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-config">
@@ -68,4 +68,4 @@ Name                    | Description
 `JsonConfigKeeper`      |
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-4.x.x/packages/helper-config#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/helper-config#readme
