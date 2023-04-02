@@ -1,5 +1,30 @@
 # Changelog
 
+<a name="5.0.0-alpha.0"></a>
+## 5.0.0-alpha.0 (2023-04-02)
+
+### Added
+
+- ✅ test: update tests [[f2b443c](https://github.com/guanghechen/node-scaffolds/commit/f2b443c5908ed128155e3fb12abe60e053832756)]
+
+### Changed
+
+- ⬆️ chore: don&#x27;t pack src/ folder in tarball [[69671c5](https://github.com/guanghechen/node-scaffolds/commit/69671c533e15278052bf7b99bec2d70eab141393)]
+- ⬆️ chore: upgrade devDependencies [[b6322db](https://github.com/guanghechen/node-scaffolds/commit/b6322dbb8516be2a76a471e919960d0f4ddf994f)]
+- 🎨 improve(helper-npm): refactor codes [[3be9ea0](https://github.com/guanghechen/node-scaffolds/commit/3be9ea0a60c5b77bfa5e13b0b5ffa17088e375b4)]
+- 🔧 chore(rollup-config): fix types and add builtin packages into dependencySet [[f6afe28](https://github.com/guanghechen/node-scaffolds/commit/f6afe28a289e58c0190d936f682ae0b90dbee6c6)]
+- 👽 fix build error due to the refactor of @guanghechen/rollup-config [[8cbc87f](https://github.com/guanghechen/node-scaffolds/commit/8cbc87f0313d21b2eca12d41841ad42f45258018)]
+
+### Breaking changes
+
+- 💥 refactor(rollup-config): rewrite createRollupConfig to support middlewares and multiple entries [[10bf333](https://github.com/guanghechen/node-scaffolds/commit/10bf333609227693d98e8083a1dd4b0ef8bd9370)]
+
+### Miscellaneous
+
+- 📝 docs: update links for release-5.x.x [[672ea87](https://github.com/guanghechen/node-scaffolds/commit/672ea87c86f2eca1adfd136e74a4a4f7c58592a2)]
+- ⚰️ remove @guanghechen/rollup-config-tsx, not longer maintained [[f66bbe0](https://github.com/guanghechen/node-scaffolds/commit/f66bbe0155866172e775d559e64f930e25789bc3)]
+
+
 <a name="4.7.4"></a>
 ## 4.7.4 (2023-03-26)
 
