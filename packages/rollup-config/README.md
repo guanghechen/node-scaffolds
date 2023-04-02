@@ -128,7 +128,7 @@ Extended from rollup.InputOptions.
   - Required: `false`
   - Default: `[]`
 
-* `shouldSourceMap`: Whether if generate sourcemaps.
+* `sourcemap`: Whether if generate sourcemaps.
 
   - Type: `boolean`
   - Required: `false`
@@ -173,7 +173,7 @@ Extended from rollup.InputOptions.
 
 ### Environment Variables
 
-  * `ROLLUP_SHOULD_SOURCEMAP`: Determine the default value of `Options.shouldSourceMap`.
+  * `ROLLUP_SHOULD_SOURCEMAP`: Determine the default value of `Options.sourcemap`.
 
     - Default: `true`
 

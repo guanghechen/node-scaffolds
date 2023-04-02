@@ -28,10 +28,23 @@ export function resolveEntryItems(manifest: IManifestEntryFields): IEntryItem[] 
       })
     } else if (typeof manifest.exports === 'object') {
       if (manifest.exports.import || manifest.exports.require) {
-        addEntryItem(manifest.exports)
+        addEntryItem({
+          ...manifest.exports,
+          source: (manifest.exports.source as string | string[] | undefined) || manifest.source,
+          types: (manifest.types as string | undefined) || manifest.types,
+        })
       } else {
-        for (const key of Object.keys(manifest.exports) as Array<keyof typeof manifest.exports>) {
-          addEntryItem(manifest.exports[key] as IRawEntryItem)
+        for (const key of Object.keys(manifest.exports)) {
+          const value = manifest.exports[key as keyof typeof manifest.exports] as IRawEntryItem
+          if (key === '.') {
+            addEntryItem({
+              ...value,
+              source: (value.source as string | string[] | undefined) || manifest.source,
+              types: (value.types as string | undefined) || manifest.types,
+            })
+          } else {
+            addEntryItem(value)
+          }
         }
       }
     }
