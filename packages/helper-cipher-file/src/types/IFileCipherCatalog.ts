@@ -1,4 +1,5 @@
 import type { FilepathResolver } from '@guanghechen/helper-path'
+import type { IFileCipherCatalogContext } from './IFileCipherCatalogContext'
 import type {
   IFileCipherCatalogDiffItem,
   IFileCipherCatalogDiffItemDraft,
@@ -6,6 +7,8 @@ import type {
 import type { IFileCipherCatalogItem, IFileCipherCatalogItemDraft } from './IFileCipherCatalogItem'
 
 export interface IReadonlyFileCipherCatalog {
+  readonly context: IFileCipherCatalogContext
+
   /**
    * Generate a catalog item.
    */

@@ -1,7 +1,4 @@
-import type {
-  IFileCipherBatcher,
-  IReadonlyFileCipherCatalog,
-} from '@guanghechen/helper-cipher-file'
+import type { IFileCipherBatcher, IFileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
@@ -23,7 +20,7 @@ import { resolveIdMap } from '../util'
 import { decryptGitBranch } from './branch'
 
 export interface IDecryptGitRepoParams {
-  catalog: IReadonlyFileCipherCatalog
+  catalogContext: IFileCipherCatalogContext
   cipherBatcher: IFileCipherBatcher
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptPathResolver: FilepathResolver
@@ -51,7 +48,7 @@ export async function decryptGitRepo(
   params: IDecryptGitRepoParams,
 ): Promise<IDecryptGitRepoResult> {
   const {
-    catalog,
+    catalogContext,
     cipherBatcher,
     configKeeper,
     cryptPathResolver,
@@ -121,7 +118,7 @@ export async function decryptGitRepo(
       for (const branchName of cryptLocalBranch.branches) {
         await decryptGitBranch({
           branchName,
-          catalog,
+          catalogContext,
           cipherBatcher,
           configKeeper,
           cryptPathResolver,

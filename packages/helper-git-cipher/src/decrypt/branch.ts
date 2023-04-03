@@ -1,7 +1,4 @@
-import type {
-  IFileCipherBatcher,
-  IReadonlyFileCipherCatalog,
-} from '@guanghechen/helper-cipher-file'
+import type { IFileCipherBatcher, IFileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { getCommitInTopology, showCommitInfo } from '@guanghechen/helper-git'
@@ -12,7 +9,7 @@ import { decryptGitCommit } from './commit'
 
 export interface IDecryptGitBranchParams {
   branchName: string
-  catalog: IReadonlyFileCipherCatalog
+  catalogContext: IFileCipherCatalogContext
   cipherBatcher: IFileCipherBatcher
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptPathResolver: FilepathResolver
@@ -35,7 +32,7 @@ export interface IDecryptGitBranchParams {
 export async function decryptGitBranch(params: IDecryptGitBranchParams): Promise<void> {
   const {
     branchName,
-    catalog,
+    catalogContext,
     cipherBatcher,
     configKeeper,
     cryptPathResolver,
@@ -56,7 +53,7 @@ export async function decryptGitBranch(params: IDecryptGitBranchParams): Promise
     const cryptCommitId: string = cryptCommitNode.id
     if (!crypt2plainIdMap.has(cryptCommitId)) {
       await decryptGitCommit({
-        catalog,
+        catalogContext,
         cryptCommitNode,
         cipherBatcher,
         configKeeper,

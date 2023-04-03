@@ -54,7 +54,6 @@ export class SecretConfigKeeper
   public createCatalogContext(): FileCipherCatalogContext | undefined {
     if (this.data) {
       const {
-        catalogFilepath,
         contentHashAlgorithm,
         cryptFilepathSalt,
         cryptFilesDir,

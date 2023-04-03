@@ -86,7 +86,7 @@ export class GitCipher {
     const { cryptPathResolver, crypt2plainIdMap, gpgSign, plainPathResolver } = params
     const { catalog, cipherBatcher, configKeeper, logger } = this
     const result = await decryptGitRepo({
-      catalog,
+      catalogContext: catalog.context,
       cipherBatcher,
       configKeeper,
       cryptPathResolver: cryptPathResolver,
@@ -103,7 +103,7 @@ export class GitCipher {
     const { cryptCommitId, cryptPathResolver, plainPathResolver, filesOnly } = params
     const { catalog, cipherBatcher, configKeeper, logger } = this
     await decryptFilesOnly({
-      catalog,
+      catalogContext: catalog.context,
       cipherBatcher,
       cryptCommitId,
       cryptPathResolver,

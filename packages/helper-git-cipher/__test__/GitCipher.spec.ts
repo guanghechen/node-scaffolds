@@ -295,7 +295,7 @@ describe('GitCipher', () => {
 
           await assertPromiseNotThrow(() =>
             verifyCryptGitCommit({
-              catalog,
+              catalogContext,
               catalogFilepath: storage.filepath,
               configKeeper,
               cryptCommitId: repo1CryptCommitIdTable[symbol],

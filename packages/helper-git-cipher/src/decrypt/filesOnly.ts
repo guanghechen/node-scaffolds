@@ -1,11 +1,11 @@
 import type {
   IFileCipherBatcher,
+  IFileCipherCatalogContext,
   IFileCipherCatalogDiffItem,
   IFileCipherCatalogItem,
   IFileCipherCatalogItemBase,
-  IReadonlyFileCipherCatalog,
 } from '@guanghechen/helper-cipher-file'
-import { FileChangeType } from '@guanghechen/helper-cipher-file'
+import { FileChangeType, calcCryptFilepath } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import {
   checkBranch,
@@ -20,7 +20,7 @@ import type { ILogger } from '@guanghechen/utility-types'
 import type { IFileCipherCatalogItemInstance, IGitCipherConfig } from '../types'
 
 export interface IDecryptFilesOnlyParams {
-  catalog: IReadonlyFileCipherCatalog
+  catalogContext: IFileCipherCatalogContext
   cipherBatcher: IFileCipherBatcher
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string
@@ -38,7 +38,7 @@ export interface IDecryptFilesOnlyParams {
  */
 export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise<void> {
   const {
-    catalog,
+    catalogContext,
     cipherBatcher,
     configKeeper,
     cryptCommitId,
@@ -54,7 +54,7 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
     getDynamicIv([Buffer.from(item.plainFilepath, 'utf8'), Buffer.from(item.fingerprint, 'hex')])
   const flatItem = (item: IFileCipherCatalogItemInstance): IFileCipherCatalogItem => ({
     ...item,
-    cryptFilepath: catalog.calcCryptFilepath(item.plainFilepath),
+    cryptFilepath: calcCryptFilepath(item.plainFilepath, catalogContext),
     iv: getIv(item),
     authTag: item.authTag,
   })

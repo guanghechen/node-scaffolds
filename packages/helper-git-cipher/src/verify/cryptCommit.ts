@@ -1,5 +1,5 @@
-import type { IReadonlyFileCipherCatalog } from '@guanghechen/helper-cipher-file'
-import { calcCryptFilepaths } from '@guanghechen/helper-cipher-file'
+import type { IFileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
+import { calcCryptFilepath, calcCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { checkBranch, getAllLocalBranches, isGitRepo, listAllFiles } from '@guanghechen/helper-git'
@@ -10,7 +10,7 @@ import { existsSync } from 'node:fs'
 import type { IGitCipherConfig } from '../types'
 
 export interface IVerifyCryptGitCommitParams {
-  catalog: IReadonlyFileCipherCatalog
+  catalogContext: IFileCipherCatalogContext
   catalogFilepath: string
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string
@@ -22,7 +22,7 @@ export async function verifyCryptGitCommit(
   params: IVerifyCryptGitCommitParams,
 ): Promise<void | never> {
   const title = 'verifyCryptGitCommit'
-  const { catalog, configKeeper, cryptCommitId, cryptPathResolver, logger } = params
+  const { catalogContext, configKeeper, cryptCommitId, cryptPathResolver, logger } = params
 
   invariant(
     existsSync(cryptPathResolver.rootDir),
@@ -47,7 +47,7 @@ export async function verifyCryptGitCommit(
     const expectedCryptFilepaths: string[] =
       configKeeper.data?.catalog.items
         ?.map(item => {
-          const cryptFilepath: string = catalog.calcCryptFilepath(item.plainFilepath)
+          const cryptFilepath: string = calcCryptFilepath(item.plainFilepath, catalogContext)
           return calcCryptFilepaths(cryptFilepath, item.cryptFilepathParts)
         })
         .flat() ?? []
