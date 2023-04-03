@@ -3,6 +3,7 @@ import type { IFileCipherFactory } from '@guanghechen/helper-cipher-file'
 import {
   FileCipherBatcher,
   FileCipherCatalog,
+  FileCipherCatalogContext,
   FileCipherFactory,
 } from '@guanghechen/helper-cipher-file'
 import { BigFileHelper } from '@guanghechen/helper-file'
@@ -101,19 +102,19 @@ export async function verifyRepoStrictly(params: IVerifyCryptRepoParams): Promis
     logger,
   })
 
-  const catalog = new FileCipherCatalog({
+  const catalogContext = new FileCipherCatalogContext({
     contentHashAlgorithm,
     cryptFilepathSalt,
     cryptFilesDir,
     maxTargetFileSize,
     partCodePrefix,
     pathHashAlgorithm,
-    plainPathResolver,
     isKeepPlain:
       keepPlainPatterns.length > 0
         ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
         : () => false,
   })
+  const catalog = new FileCipherCatalog({ context: catalogContext, plainPathResolver })
 
   const gitCipher = new GitCipher({
     catalog,

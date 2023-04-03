@@ -54,7 +54,7 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
     getDynamicIv([Buffer.from(item.plainFilepath, 'utf8'), Buffer.from(item.fingerprint, 'hex')])
   const flatItem = (item: IFileCipherCatalogItemInstance): IFileCipherCatalogItem => ({
     ...item,
-    cryptFilepath: catalog.calcCryptFilepath(item),
+    cryptFilepath: catalog.calcCryptFilepath(item.plainFilepath),
     iv: getIv(item),
     authTag: item.authTag,
   })

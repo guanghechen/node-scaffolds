@@ -1,9 +1,11 @@
 import type { ICipher } from '@guanghechen/helper-cipher'
+import { FileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/helper-config'
 import { JsonConfigKeeper, PlainJsonConfigKeeper } from '@guanghechen/helper-config'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
 import type { PromiseOr } from '@guanghechen/utility-types'
+import micromatch from 'micromatch'
 import type { ISecretConfig, ISecretConfigData } from './SecretConfig.types'
 
 type Instance = ISecretConfig
@@ -47,6 +49,35 @@ export class SecretConfigKeeper
     super({ ...props, hashAlgorithm: secretConfigHashAlgorithm })
     this.#cryptRootDir = props.cryptRootDir
     this.#cipher = props.cipher
+  }
+
+  public createCatalogContext(): FileCipherCatalogContext | undefined {
+    if (this.data) {
+      const {
+        catalogFilepath,
+        contentHashAlgorithm,
+        cryptFilepathSalt,
+        cryptFilesDir,
+        keepPlainPatterns,
+        maxTargetFileSize = Number.POSITIVE_INFINITY,
+        partCodePrefix,
+        pathHashAlgorithm,
+      } = this.data
+      const catalogContext = new FileCipherCatalogContext({
+        contentHashAlgorithm,
+        cryptFilepathSalt,
+        cryptFilesDir,
+        maxTargetFileSize,
+        partCodePrefix,
+        pathHashAlgorithm,
+        isKeepPlain:
+          keepPlainPatterns.length > 0
+            ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
+            : () => false,
+      })
+      return catalogContext
+    }
+    return undefined
   }
 
   protected override serialize(instance: Instance): PromiseOr<Data> {

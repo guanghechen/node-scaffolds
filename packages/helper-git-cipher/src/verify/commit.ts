@@ -81,7 +81,7 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
       const item: IFileCipherCatalogItemInstance | undefined = catalogItemMap.get(key)
       invariant(item !== undefined, `[${title}] Missing file. plainFilepath(${plainFilepath})`)
 
-      const expectedItem = await catalog.calcCatalogItem({ plainFilepath })
+      const expectedItem = await catalog.calcCatalogItem(plainFilepath)
       /* c8 ignore start */
       if (item.fingerprint !== expectedItem.fingerprint) {
         logger?.error(`[${title}] Bad file content, fingerprint are not matched.`, {

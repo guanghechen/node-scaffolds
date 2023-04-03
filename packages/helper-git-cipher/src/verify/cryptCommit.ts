@@ -47,10 +47,7 @@ export async function verifyCryptGitCommit(
     const expectedCryptFilepaths: string[] =
       configKeeper.data?.catalog.items
         ?.map(item => {
-          const cryptFilepath: string = catalog.calcCryptFilepath({
-            keepPlain: item.keepPlain,
-            plainFilepath: item.plainFilepath,
-          })
+          const cryptFilepath: string = catalog.calcCryptFilepath(item.plainFilepath)
           return calcCryptFilepaths(cryptFilepath, item.cryptFilepathParts)
         })
         .flat() ?? []

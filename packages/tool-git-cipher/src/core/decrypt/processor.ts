@@ -1,5 +1,5 @@
 import type { ICipherFactory } from '@guanghechen/helper-cipher'
-import type { IFileCipherFactory } from '@guanghechen/helper-cipher-file'
+import type { FileCipherCatalogContext, IFileCipherFactory } from '@guanghechen/helper-cipher-file'
 import {
   FileCipherBatcher,
   FileCipherCatalog,
@@ -12,7 +12,6 @@ import { coverString } from '@guanghechen/helper-option'
 import { FilepathResolver } from '@guanghechen/helper-path'
 import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
-import micromatch from 'micromatch'
 import { logger } from '../../env/logger'
 import type { ICatalogCache } from '../../util/CatalogCache'
 import { CatalogCacheKeeper } from '../../util/CatalogCache'
@@ -45,22 +44,17 @@ export class GitCipherDecryptProcessor {
     })
 
     const cipherFactory: ICipherFactory | undefined = secretMaster.cipherFactory
+    const catalogContext: FileCipherCatalogContext | undefined = secretKeeper.createCatalogContext()
     invariant(
-      !!secretKeeper.data && !!cipherFactory && !!secretMaster.catalogCipher,
+      !!secretKeeper.data && !!catalogContext && !!cipherFactory && !!secretMaster.catalogCipher,
       '[processor.decrypt] Secret cipherFactory is not available!',
     )
 
     const {
       catalogFilepath,
-      contentHashAlgorithm,
-      cryptFilepathSalt,
-      cryptFilesDir,
-      keepPlainPatterns,
       maxTargetFileSize = Number.POSITIVE_INFINITY,
       partCodePrefix,
-      pathHashAlgorithm,
     } = secretKeeper.data
-
     const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
     const fileHelper = new BigFileHelper({ partCodePrefix: partCodePrefix })
     const configKeeper = new GitCipherConfigKeeper({
@@ -81,20 +75,7 @@ export class GitCipherDecryptProcessor {
     const outRootDir = coverString(context.plainRootDir, context.outDir)
     const plainPathResolver = new FilepathResolver(outRootDir)
     const cryptPathResolver = new FilepathResolver(context.cryptRootDir)
-    const catalog = new FileCipherCatalog({
-      contentHashAlgorithm,
-      cryptFilepathSalt,
-      cryptFilesDir,
-      maxTargetFileSize,
-      partCodePrefix,
-      pathHashAlgorithm,
-      plainPathResolver,
-      isKeepPlain:
-        keepPlainPatterns.length > 0
-          ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
-          : () => false,
-    })
-
+    const catalog = new FileCipherCatalog({ context: catalogContext, plainPathResolver })
     const gitCipher = new GitCipher({
       catalog,
       cipherBatcher,

@@ -1,5 +1,5 @@
 import type { ICipher, ICipherFactory } from '@guanghechen/helper-cipher'
-import { FileCipherCatalog } from '@guanghechen/helper-cipher-file'
+import { FileCipherCatalog, FileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import { showCommitInfo } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper, verifyCryptGitCommit } from '@guanghechen/helper-git-cipher'
 import type { FilepathResolver } from '@guanghechen/helper-path'
@@ -57,19 +57,19 @@ export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<v
     }),
   })
 
-  const catalog = new FileCipherCatalog({
+  const catalogContext = new FileCipherCatalogContext({
     contentHashAlgorithm,
     cryptFilepathSalt,
     cryptFilesDir,
     maxTargetFileSize,
     partCodePrefix,
     pathHashAlgorithm,
-    plainPathResolver,
     isKeepPlain:
       keepPlainPatterns.length > 0
         ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
         : () => false,
   })
+  const catalog = new FileCipherCatalog({ context: catalogContext, plainPathResolver })
 
   await verifyCryptGitCommit({
     catalog,

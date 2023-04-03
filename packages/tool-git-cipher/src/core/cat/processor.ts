@@ -1,4 +1,5 @@
 import type { ICipherFactory } from '@guanghechen/helper-cipher'
+import type { FileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import { FileCipher, calcCryptFilepath, calcCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
@@ -50,8 +51,9 @@ export class GitCipherCatProcessor {
     })
 
     const cipherFactory: ICipherFactory | undefined = secretMaster.cipherFactory
+    const catalogContext: FileCipherCatalogContext | undefined = secretKeeper.createCatalogContext()
     invariant(
-      !!secretKeeper.data && !!cipherFactory && !!secretMaster.catalogCipher,
+      !!secretKeeper.data && !!catalogContext && !!cipherFactory && !!secretMaster.catalogCipher,
       `[${title}] Secret cipherFactory is not available!`,
     )
 
@@ -84,14 +86,10 @@ export class GitCipherCatProcessor {
     const item = configKeeper.data?.catalog.items.find(item => item.plainFilepath === plainFilepath)
     invariant(!!item, `[${title}] Cannot find plainFilepath ${context.plainFilepath}.`)
 
-    const cryptFilepath: string = calcCryptFilepath({
-      cryptFilepathSalt: secretKeeper.data.cryptFilepathSalt,
-      cryptFilesDir: secretKeeper.data.cryptFilesDir,
-      keepPlain: item.keepPlain,
-      pathHashAlgorithm: secretKeeper.data.pathHashAlgorithm,
-      plainFilepath,
-      plainPathResolver,
-    })
+    const cryptFilepath: string = calcCryptFilepath(
+      plainPathResolver.relative(plainFilepath),
+      catalogContext,
+    )
     const cryptFilepaths: string[] = calcCryptFilepaths(
       cryptPathResolver.absolute(cryptFilepath),
       item.cryptFilepathParts,

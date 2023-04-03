@@ -4,6 +4,7 @@ import type { IFileCipherCatalogItem } from '@guanghechen/helper-cipher-file'
 import {
   FileCipherBatcher,
   FileCipherCatalog,
+  FileCipherCatalogContext,
   FileCipherFactory,
 } from '@guanghechen/helper-cipher-file'
 import { BigFileHelper } from '@guanghechen/helper-file'
@@ -104,8 +105,7 @@ describe('GitCipher', () => {
   })
   const configKeeper = new GitCipherConfigKeeper({ storage, cipher: cipherFactory.cipher() })
 
-  const catalog = new FileCipherCatalog({
-    plainPathResolver,
+  const catalogContext = new FileCipherCatalogContext({
     cryptFilesDir,
     cryptFilepathSalt: 'guanghechen_git_cipher',
     maxTargetFileSize,
@@ -114,6 +114,7 @@ describe('GitCipher', () => {
     contentHashAlgorithm,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
   })
+  const catalog = new FileCipherCatalog({ context: catalogContext, plainPathResolver })
 
   const getDynamicIv = (infos: ReadonlyArray<Buffer>): Readonly<Buffer> =>
     calcMac(infos, 'sha256').slice(0, ivSize)
@@ -129,7 +130,7 @@ describe('GitCipher', () => {
     expect(
       configKeeper.data!.catalog.items.map(item => ({
         ...item,
-        cryptFilepath: catalog.calcCryptFilepath(item),
+        cryptFilepath: catalog.calcCryptFilepath(item.plainFilepath),
         iv: getDynamicIv([
           Buffer.from(item.plainFilepath, 'utf8'),
           Buffer.from(item.fingerprint, 'hex'),
