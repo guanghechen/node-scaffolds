@@ -18,10 +18,10 @@ export const itemDraftTable: Record<ISymbol, IFileCipherCatalogItemDraft> = {
   },
   A2: {
     plainFilepath: 'a.txt',
-    cryptFilepath: 'kirito/16f8e82b0acef7d4f1f70fb748bc30621aeb1c8de2504ff8abafc58e1f0d5d60',
+    cryptFilepath: 'a.txt',
     cryptFilepathParts: [],
     fingerprint: '70b47f9cc28ad379043b328d7d058097c69e7bb38d766ecca2655cd3afb6b5fa',
-    keepPlain: false,
+    keepPlain: true,
   },
   B: {
     plainFilepath: 'b.txt',
@@ -39,10 +39,10 @@ export const itemDraftTable: Record<ISymbol, IFileCipherCatalogItemDraft> = {
   },
   D: {
     plainFilepath: 'd.txt',
-    cryptFilepath: 'd.txt',
+    cryptFilepath: 'kirito/3f85a53ebde475b03be7e172d034d9530734639502f2c03e82ee09608af33526',
     cryptFilepathParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
     fingerprint: '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13',
-    keepPlain: true,
+    keepPlain: false,
   },
 }
 
@@ -54,8 +54,8 @@ export const itemTable: Record<ISymbol, IFileCipherCatalogItem> = {
   },
   A2: {
     ...itemDraftTable.A2,
-    iv: Buffer.from('fb2b66c9a126b9c0b1cf24fe', 'hex'),
-    authTag: Buffer.from('847dd96fac8018017d1a1d8bc86a4e4d', 'hex'),
+    iv: undefined,
+    authTag: undefined,
   },
   B: {
     ...itemDraftTable.B,
@@ -70,7 +70,7 @@ export const itemTable: Record<ISymbol, IFileCipherCatalogItem> = {
   D: {
     ...itemDraftTable.D,
     iv: undefined,
-    authTag: undefined,
+    authTag: Buffer.from('6d721d17fe9def40a17a05aa532d3648', 'hex'),
   },
 }
 

@@ -5,6 +5,10 @@ export function normalizePlainFilepath(
   plainFilepath: string,
   plainPathResolver: FilepathResolver,
 ): string {
-  const fp = plainPathResolver.relative(plainFilepath)
-  return normalizeUrlPath(fp)
+  const relativePlainFilepath = plainPathResolver.relative(plainFilepath)
+  return normalizeRelativePlainFilepath(relativePlainFilepath)
+}
+
+export function normalizeRelativePlainFilepath(relativePlainFilepath: string): string {
+  return normalizeUrlPath(relativePlainFilepath)
 }

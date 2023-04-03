@@ -79,10 +79,10 @@ describe('FileCipherBatcher', () => {
   const contentD: string = contentTable.D
 
   const cryptContentFingerA = '4e26698e6bebd87fc210bec49fea4da6210b5769dbff50b3479effa16799120f'
-  const cryptContentFingerA2 = '567d61041150b3ab51e448f37ad60d26bff2ffd8572fa4cd4cb15df75ccb4eab'
+  const cryptContentFingerA2 = '70b47f9cc28ad379043b328d7d058097c69e7bb38d766ecca2655cd3afb6b5fa'
   const cryptContentFingerB = '7155dd86eeabef61d44b738ffb1cde7cbf955f4c75c82395193cd117722d91ea'
   const cryptContentFingerC = '1dfcd91be6d7a9b32cf42d8ef78544886302e3946810da8da4077d1c70374d66'
-  const cryptContentFingerD = '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13'
+  const cryptContentFingerD = '74d6230e1ce4eb794184fee9a4d15747b5b96374e0afc4f3de74f4f9458d74aa'
 
   const fileHelper = new BigFileHelper({ partCodePrefix })
   const cipherFactory = new AesGcmCipherFactoryBuilder().buildFromPassword(
@@ -230,7 +230,6 @@ describe('FileCipherBatcher', () => {
         getIv,
       })
 
-      expect(existsSync(encryptedFilepathA)).toEqual(false)
       expect(existsSync(encryptedFilepathA2)).toEqual(true)
       expect(encryptedFilepathsC.some(fp => existsSync(fp))).toEqual(false)
       expect(encryptedFilepathsD.every(fp => existsSync(fp))).toEqual(true)

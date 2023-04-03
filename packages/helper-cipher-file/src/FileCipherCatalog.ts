@@ -1,15 +1,15 @@
 import { list2map, mapIterable } from '@guanghechen/helper-func'
-import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import type { FilepathResolver } from '@guanghechen/helper-path'
 import { diffFromCatalogItems } from './catalog/diffFromCatalogItems'
 import { diffFromPlainFiles } from './catalog/diffFromPlainFiles'
-import { normalizePlainFilepath } from './catalog/normalizePlainFilepath'
+import { normalizeRelativePlainFilepath } from './catalog/normalizePlainFilepath'
 import { ReadonlyFileCipherCatalog } from './FileCipherCatalog.readonly'
 import type {
   ICatalogDiffFromCatalogItemsParams,
   ICatalogDiffFromPlainFiles,
   IFileCipherCatalog,
 } from './types/IFileCipherCatalog'
+import type { IFileCipherCatalogContext } from './types/IFileCipherCatalogContext'
 import type {
   IFileCipherCatalogDiffItem,
   IFileCipherCatalogDiffItemCombine,
@@ -19,14 +19,8 @@ import { FileChangeType } from './types/IFileCipherCatalogDiffItem'
 import type { IFileCipherCatalogItem } from './types/IFileCipherCatalogItem'
 
 export interface IFileCipherCatalogProps {
-  contentHashAlgorithm: IHashAlgorithm
-  cryptFilepathSalt: string
-  cryptFilesDir: string
-  maxTargetFileSize: number
-  partCodePrefix: string
-  pathHashAlgorithm: IHashAlgorithm
-  plainPathResolver: FilepathResolver
-  isKeepPlain(relativePlainFilepath: string): boolean
+  readonly context: IFileCipherCatalogContext
+  readonly plainPathResolver: FilepathResolver
 }
 
 export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFileCipherCatalog {
@@ -48,9 +42,8 @@ export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFil
     itemMap.clear()
 
     if (items) {
-      const { plainPathResolver } = this
       for (const item of items) {
-        const key: string = normalizePlainFilepath(item.plainFilepath, plainPathResolver)
+        const key: string = normalizeRelativePlainFilepath(item.plainFilepath)
         itemMap.set(key, item)
       }
     }
@@ -59,15 +52,14 @@ export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFil
   // @override
   public applyDiff(diffItems: Iterable<IFileCipherCatalogDiffItem>): void {
     const itemMap = this.#itemMap
-    const { plainPathResolver } = this
     for (const diffItem of diffItems) {
       const { oldItem, newItem } = diffItem as IFileCipherCatalogDiffItemCombine
       if (oldItem) {
-        const key = normalizePlainFilepath(oldItem.plainFilepath, plainPathResolver)
+        const key = normalizeRelativePlainFilepath(oldItem.plainFilepath)
         itemMap.delete(key)
       }
       if (newItem) {
-        const key = normalizePlainFilepath(newItem.plainFilepath, plainPathResolver)
+        const key = normalizeRelativePlainFilepath(newItem.plainFilepath)
         itemMap.set(key, {
           plainFilepath: newItem.plainFilepath,
           cryptFilepath: newItem.cryptFilepath,
@@ -94,7 +86,7 @@ export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFil
       newItems,
       item => item.plainFilepath,
     )
-    return diffFromCatalogItems({ oldItemMap, newItemMap })
+    return diffFromCatalogItems(oldItemMap, newItemMap)
   }
 
   // @override
@@ -102,17 +94,11 @@ export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFil
     params: ICatalogDiffFromPlainFiles,
   ): Promise<IFileCipherCatalogDiffItemDraft[]> {
     return diffFromPlainFiles({
-      contentHashAlgorithm: this.contentHashAlgorithm,
-      cryptFilepathSalt: this.cryptFilepathSalt,
-      cryptFilesDir: this.cryptFilesDir,
-      maxTargetFileSize: this.maxTargetFileSize,
+      context: this.context,
       oldItemMap: this.#itemMap,
-      partCodePrefix: this.partCodePrefix,
-      pathHashAlgorithm: this.pathHashAlgorithm,
       plainFilepaths: params.plainFilepaths,
       plainPathResolver: this.plainPathResolver,
       strickCheck: params.strickCheck,
-      isKeepPlain: params.isKeepPlain ?? this.isKeepPlain,
     })
   }
 }

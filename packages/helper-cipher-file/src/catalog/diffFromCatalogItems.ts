@@ -4,15 +4,10 @@ import { FileChangeType } from '../types/IFileCipherCatalogDiffItem'
 import type { IFileCipherCatalogItem } from '../types/IFileCipherCatalogItem'
 import { isSameFileCipherItem } from './isSameFileCipherItem'
 
-export interface IDiffFromCatalogItemsParams {
-  oldItemMap: ReadonlyMap<string, IFileCipherCatalogItem>
-  newItemMap: ReadonlyMap<string, IFileCipherCatalogItem>
-}
-
 export function diffFromCatalogItems(
-  params: IDiffFromCatalogItemsParams,
+  oldItemMap: ReadonlyMap<string, IFileCipherCatalogItem>,
+  newItemMap: ReadonlyMap<string, IFileCipherCatalogItem>,
 ): IFileCipherCatalogDiffItem[] {
-  const { oldItemMap, newItemMap } = params
   if (oldItemMap.size < 1) {
     return mapIterable(newItemMap.values(), newItem => ({
       changeType: FileChangeType.ADDED,

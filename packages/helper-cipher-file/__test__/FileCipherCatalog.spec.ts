@@ -1,7 +1,7 @@
 import { ChalkLogger } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
 import { BigFileHelper } from '@guanghechen/helper-file'
-import { falsy, truthy } from '@guanghechen/helper-func'
+import { list2map } from '@guanghechen/helper-func'
 import { FilepathResolver } from '@guanghechen/helper-path'
 import {
   assertPromiseNotThrow,
@@ -15,7 +15,9 @@ import path from 'node:path'
 import {
   FileCipherBatcher,
   FileCipherCatalog,
+  FileCipherCatalogContext,
   FileCipherFactory,
+  diffFromCatalogItems,
   isSameFileCipherItemDraft,
 } from '../src'
 import type {
@@ -55,8 +57,7 @@ describe('FileCipherCatalog', () => {
   const contentC: string = contentTable.C
   const contentD: string = contentTable.D
 
-  const catalog = new FileCipherCatalog({
-    plainPathResolver,
+  const catalogContext = new FileCipherCatalogContext({
     cryptFilesDir,
     cryptFilepathSalt: 'guanghechen',
     maxTargetFileSize,
@@ -65,6 +66,7 @@ describe('FileCipherCatalog', () => {
     pathHashAlgorithm: pathHashAlgorithm,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
   })
+  const catalog = new FileCipherCatalog({ context: catalogContext, plainPathResolver })
 
   beforeEach(async () => {
     catalog.reset()
@@ -106,25 +108,19 @@ describe('FileCipherCatalog', () => {
     expect(Array.from(catalog.items)).toEqual([])
 
     await writeFile(filepathA, contentA, encoding)
-    const itemA = await catalog.calcCatalogItem({ plainFilepath: filepathA })
+    const itemA = await catalog.calcCatalogItem(filepathA)
 
     await writeFile(filepathA, contentA2, encoding)
-    const itemA2 = await catalog.calcCatalogItem({
-      plainFilepath: filepathA,
-      isKeepPlain: falsy,
-    })
+    const itemA2 = await catalog.calcCatalogItem(filepathA)
 
     await writeFile(filepathB, contentB, encoding)
-    const itemB = await catalog.calcCatalogItem({ plainFilepath: filepathB })
+    const itemB = await catalog.calcCatalogItem(filepathB)
 
     await writeFile(filepathC, contentC, encoding)
-    const itemC = await catalog.calcCatalogItem({ plainFilepath: filepathC })
+    const itemC = await catalog.calcCatalogItem(filepathC)
 
     await writeFile(filepathD, contentD, encoding)
-    const itemD = await catalog.calcCatalogItem({
-      plainFilepath: filepathD,
-      isKeepPlain: truthy,
-    })
+    const itemD = await catalog.calcCatalogItem(filepathD)
 
     expect(itemA).toEqual(itemDraftTable.A)
     expect(itemA2).toEqual(itemDraftTable.A2)
@@ -132,6 +128,13 @@ describe('FileCipherCatalog', () => {
     expect(itemC).toEqual(itemDraftTable.C)
     expect(itemD).toEqual(itemDraftTable.D)
     expect(Array.from(catalog.items)).toEqual([])
+  })
+
+  test('calcCryptFilepath', async () => {
+    expect(catalog.calcCryptFilepath(filepathA)).toEqual(itemDraftTable.A.cryptFilepath)
+    expect(catalog.calcCryptFilepath(filepathB)).toEqual(itemDraftTable.B.cryptFilepath)
+    expect(catalog.calcCryptFilepath(filepathC)).toEqual(itemDraftTable.C.cryptFilepath)
+    expect(catalog.calcCryptFilepath(filepathD)).toEqual(itemDraftTable.D.cryptFilepath)
   })
 
   describe('checkIntegrity', () => {
@@ -293,6 +296,12 @@ describe('FileCipherCatalog', () => {
 
   test('diffFromCatalogItems', async () => {
     expect(Array.from(catalog.items)).toEqual([])
+    expect(
+      diffFromCatalogItems(
+        new Map(),
+        list2map([itemTable.A, itemTable.B], item => item.plainFilepath),
+      ),
+    ).toEqual(diffItemsTable.step1)
 
     // diffItems1
     {
@@ -469,7 +478,6 @@ describe('FileCipherCatalog', () => {
       const draftDiffItems: IFileCipherCatalogDiffItemDraft[] = await catalog.diffFromPlainFiles({
         plainFilepaths: [filepathA, filepathC, filepathD],
         strickCheck: true,
-        isKeepPlain: sourceFilepath => sourceFilepath === 'd.txt',
       })
       const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
         strictCheck: false,

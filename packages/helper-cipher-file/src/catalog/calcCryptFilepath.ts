@@ -1,35 +1,28 @@
-import type { IHashAlgorithm } from '@guanghechen/helper-mac'
-import type { FilepathResolver } from '@guanghechen/helper-path'
+import invariant from '@guanghechen/invariant'
 import path from 'node:path'
+import type { IFileCipherCatalogContext } from '../types/IFileCipherCatalogContext'
 import { calcFingerprintFromString } from '../util/mac'
-import { normalizePlainFilepath } from './normalizePlainFilepath'
+import { normalizeRelativePlainFilepath } from './normalizePlainFilepath'
 
-export interface ICalcCryptFilepathParams {
-  cryptFilepathSalt: string
-  cryptFilesDir: string
-  keepPlain: boolean
-  pathHashAlgorithm: IHashAlgorithm
-  plainFilepath: string
-  plainPathResolver: FilepathResolver
-}
+export function calcCryptFilepath(
+  relativePlainFilepath: string,
+  context: IFileCipherCatalogContext,
+): string {
+  invariant(
+    !path.isAbsolute(relativePlainFilepath),
+    `[calcCryptFilepath] relativePlainFilepath should be a relative path. received(${relativePlainFilepath})`,
+  )
 
-export function calcCryptFilepath(params: ICalcCryptFilepathParams): string {
-  const {
-    cryptFilepathSalt,
-    cryptFilesDir,
-    keepPlain,
-    pathHashAlgorithm,
-    plainFilepath,
-    plainPathResolver,
-  } = params
-  const absolutePlainFilepath = plainPathResolver.absolute(plainFilepath)
-  const relativePlainFilepath = plainPathResolver.relative(absolutePlainFilepath)
-  const plainFilepathKey = normalizePlainFilepath(relativePlainFilepath, plainPathResolver)
-  const cryptFilepath: string = keepPlain
+  const plainFilepathKey = normalizeRelativePlainFilepath(relativePlainFilepath)
+  const cryptFilepath: string = context.isKeepPlain(relativePlainFilepath)
     ? relativePlainFilepath
     : path.join(
-        cryptFilesDir,
-        calcFingerprintFromString(cryptFilepathSalt + plainFilepathKey, 'utf8', pathHashAlgorithm),
+        context.cryptFilesDir,
+        calcFingerprintFromString(
+          context.cryptFilepathSalt + plainFilepathKey,
+          'utf8',
+          context.pathHashAlgorithm,
+        ),
       )
   return cryptFilepath
 }

@@ -9,14 +9,12 @@ export interface IReadonlyFileCipherCatalog {
   /**
    * Generate a catalog item.
    */
-  calcCatalogItem(
-    params: ICatalogCalcCatalogItemParams,
-  ): Promise<IFileCipherCatalogItemDraft | never>
+  calcCatalogItem(plainFilepath: string): Promise<IFileCipherCatalogItemDraft | never>
 
   /**
    * Calc crypt filepath.
    */
-  calcCryptFilepath(params: ICatalogCalcCryptFilepathParams): string
+  calcCryptFilepath(plainFilepath: string): string
 
   /**
    * Check crypt files for corruption.
@@ -65,20 +63,6 @@ export interface ICatalogCheckPlainIntegrityParams {
   plainFilepaths: string[]
 }
 
-export interface ICatalogCalcCatalogItemParams {
-  plainFilepath: string
-  /**
-   * Determine if a plain file should be keep plain.
-   * @param relativePlainFilepath relative plain filepath
-   */
-  isKeepPlain?(relativePlainFilepath: string): boolean
-}
-
-export interface ICatalogCalcCryptFilepathParams {
-  keepPlain: boolean
-  plainFilepath: string
-}
-
 export interface ICatalogDiffFromCatalogItemsParams {
   newItems: Iterable<IFileCipherCatalogItem>
 }
@@ -89,9 +73,4 @@ export interface ICatalogDiffFromPlainFiles {
    * Check some edge cases that shouldn't affect the final result, just for higher integrity check.
    */
   strickCheck: boolean
-  /**
-   * Determine if a plain file should be keep plain.
-   * @param relativePlainFilepath relative plain filepath
-   */
-  isKeepPlain?(relativePlainFilepath: string): boolean
 }
