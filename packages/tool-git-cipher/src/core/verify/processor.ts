@@ -45,7 +45,7 @@ export class GitCipherVerifyProcessor {
     if (existsSync(plainPathResolver.rootDir) && isGitRepo(plainPathResolver.rootDir)) {
       await this._verifyStrict(cryptPathResolver, plainPathResolver)
     } else {
-      await this._verifyCryptRepo(cryptPathResolver, plainPathResolver)
+      await this._verifyCryptRepo(cryptPathResolver)
     }
   }
 
@@ -75,10 +75,7 @@ export class GitCipherVerifyProcessor {
     })
   }
 
-  protected async _verifyCryptRepo(
-    cryptPathResolver: FilepathResolver,
-    plainPathResolver: FilepathResolver,
-  ): Promise<void> {
+  protected async _verifyCryptRepo(cryptPathResolver: FilepathResolver): Promise<void> {
     const title = 'processor.verify'
     const { context, secretMaster } = this
 
@@ -93,7 +90,6 @@ export class GitCipherVerifyProcessor {
       cipherFactory: secretMaster.cipherFactory,
       cryptCommitId: context.cryptCommitId,
       cryptPathResolver,
-      plainPathResolver,
       secretConfig: secretKeeper.data,
     })
   }

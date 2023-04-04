@@ -21,6 +21,7 @@ import type { IFileCipherCatalogItem } from './types/IFileCipherCatalogItem'
 export interface IFileCipherCatalogProps {
   readonly context: IFileCipherCatalogContext
   readonly plainPathResolver: FilepathResolver
+  readonly cryptPathResolver: FilepathResolver
 }
 
 export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFileCipherCatalog {

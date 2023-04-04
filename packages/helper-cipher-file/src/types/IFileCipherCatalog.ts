@@ -1,4 +1,3 @@
-import type { FilepathResolver } from '@guanghechen/helper-path'
 import type { IFileCipherCatalogContext } from './IFileCipherCatalogContext'
 import type {
   IFileCipherCatalogDiffItem,
@@ -22,12 +21,12 @@ export interface IReadonlyFileCipherCatalog {
   /**
    * Check crypt files for corruption.
    */
-  checkCryptIntegrity(params: ICatalogCheckCryptIntegrityParams): Promise<void | never>
+  checkCryptIntegrity(plainFilepaths: string[]): Promise<void | never>
 
   /**
    * Check plain files for corruption.
    */
-  checkPlainIntegrity(params: ICatalogCheckPlainIntegrityParams): Promise<void | never>
+  checkPlainIntegrity(cryptFilepaths: string[]): Promise<void | never>
 }
 
 export interface IFileCipherCatalog extends IReadonlyFileCipherCatalog {
@@ -55,15 +54,6 @@ export interface IFileCipherCatalog extends IReadonlyFileCipherCatalog {
    * Calculate diff items.
    */
   diffFromPlainFiles(params: ICatalogDiffFromPlainFiles): Promise<IFileCipherCatalogDiffItemDraft[]>
-}
-
-export interface ICatalogCheckCryptIntegrityParams {
-  cryptPathResolver: FilepathResolver
-  cryptFilepaths: string[]
-}
-
-export interface ICatalogCheckPlainIntegrityParams {
-  plainFilepaths: string[]
 }
 
 export interface ICatalogDiffFromCatalogItemsParams {

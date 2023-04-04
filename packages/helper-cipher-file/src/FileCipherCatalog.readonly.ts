@@ -3,11 +3,7 @@ import { calcCatalogItem } from './catalog/calcCatalogItem'
 import { calcCryptFilepath } from './catalog/calcCryptFilepath'
 import { checkCryptIntegrity } from './catalog/checkCryptIntegrity'
 import { checkPlainIntegrity } from './catalog/checkPlainIntegrity'
-import type {
-  ICatalogCheckCryptIntegrityParams,
-  ICatalogCheckPlainIntegrityParams,
-  IReadonlyFileCipherCatalog,
-} from './types/IFileCipherCatalog'
+import type { IReadonlyFileCipherCatalog } from './types/IFileCipherCatalog'
 import type { IFileCipherCatalogContext } from './types/IFileCipherCatalogContext'
 import type {
   IFileCipherCatalogItem,
@@ -17,15 +13,18 @@ import type {
 export interface IReadonlyFileCipherCatalogProps {
   readonly context: IFileCipherCatalogContext
   readonly plainPathResolver: FilepathResolver
+  readonly cryptPathResolver: FilepathResolver
 }
 
 export abstract class ReadonlyFileCipherCatalog implements IReadonlyFileCipherCatalog {
-  public readonly plainPathResolver: FilepathResolver
   public readonly context: IFileCipherCatalogContext
+  public readonly cryptPathResolver: FilepathResolver
+  public readonly plainPathResolver: FilepathResolver
 
   constructor(props: IReadonlyFileCipherCatalogProps) {
-    this.plainPathResolver = props.plainPathResolver
     this.context = props.context
+    this.cryptPathResolver = props.cryptPathResolver
+    this.plainPathResolver = props.plainPathResolver
   }
 
   // @override
@@ -49,20 +48,20 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyFileCipherCa
   }
 
   // @override
-  public async checkPlainIntegrity(params: ICatalogCheckPlainIntegrityParams): Promise<void> {
+  public async checkPlainIntegrity(plainFilepaths: string[]): Promise<void> {
     checkPlainIntegrity({
       items: this.items,
-      plainFilepaths: params.plainFilepaths,
+      plainFilepaths,
       plainPathResolver: this.plainPathResolver,
     })
   }
 
   // @override
-  public async checkCryptIntegrity(params: ICatalogCheckCryptIntegrityParams): Promise<void> {
+  public async checkCryptIntegrity(cryptFilepaths: string[]): Promise<void> {
     checkCryptIntegrity({
       items: this.items,
-      cryptFilepaths: params.cryptFilepaths,
-      cryptPathResolver: params.cryptPathResolver,
+      cryptFilepaths,
+      cryptPathResolver: this.cryptPathResolver,
     })
   }
 }

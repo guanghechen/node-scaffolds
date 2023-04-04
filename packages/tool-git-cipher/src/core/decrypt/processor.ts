@@ -75,7 +75,11 @@ export class GitCipherDecryptProcessor {
     const outRootDir = coverString(context.plainRootDir, context.outDir)
     const plainPathResolver = new FilepathResolver(outRootDir)
     const cryptPathResolver = new FilepathResolver(context.cryptRootDir)
-    const catalog = new FileCipherCatalog({ context: catalogContext, plainPathResolver })
+    const catalog = new FileCipherCatalog({
+      context: catalogContext,
+      cryptPathResolver,
+      plainPathResolver,
+    })
     const gitCipher = new GitCipher({
       catalog,
       cipherBatcher,

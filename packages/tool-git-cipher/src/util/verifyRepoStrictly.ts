@@ -114,7 +114,11 @@ export async function verifyRepoStrictly(params: IVerifyCryptRepoParams): Promis
         ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
         : () => false,
   })
-  const catalog = new FileCipherCatalog({ context: catalogContext, plainPathResolver })
+  const catalog = new FileCipherCatalog({
+    context: catalogContext,
+    cryptPathResolver,
+    plainPathResolver,
+  })
 
   const gitCipher = new GitCipher({
     catalog,

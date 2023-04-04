@@ -114,7 +114,11 @@ describe('GitCipher', () => {
     contentHashAlgorithm,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
   })
-  const catalog = new FileCipherCatalog({ context: catalogContext, plainPathResolver })
+  const catalog = new FileCipherCatalog({
+    context: catalogContext,
+    plainPathResolver,
+    cryptPathResolver,
+  })
 
   const getDynamicIv = (infos: ReadonlyArray<Buffer>): Readonly<Buffer> =>
     calcMac(infos, 'sha256').slice(0, ivSize)

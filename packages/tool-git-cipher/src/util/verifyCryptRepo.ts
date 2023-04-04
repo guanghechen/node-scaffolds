@@ -14,14 +14,12 @@ export interface IVerifyCryptRepoParams {
   readonly cipherFactory: ICipherFactory | undefined
   readonly cryptCommitId: string
   readonly cryptPathResolver: FilepathResolver
-  readonly plainPathResolver: FilepathResolver
   readonly secretConfig: Readonly<ISecretConfig>
 }
 
 export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<void> {
   const title = 'verifyCryptRepo'
-  const { catalogCipher, cipherFactory, cryptPathResolver, plainPathResolver, secretConfig } =
-    params
+  const { catalogCipher, cipherFactory, cryptPathResolver, secretConfig } = params
 
   invariant(
     !!cipherFactory && !!catalogCipher,

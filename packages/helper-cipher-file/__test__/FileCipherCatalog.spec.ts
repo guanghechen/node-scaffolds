@@ -66,7 +66,11 @@ describe('FileCipherCatalog', () => {
     pathHashAlgorithm: pathHashAlgorithm,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
   })
-  const catalog = new FileCipherCatalog({ context: catalogContext, plainPathResolver })
+  const catalog = new FileCipherCatalog({
+    context: catalogContext,
+    cryptPathResolver,
+    plainPathResolver,
+  })
 
   beforeEach(async () => {
     catalog.reset()
@@ -144,8 +148,8 @@ describe('FileCipherCatalog', () => {
       expect(Array.from(catalog.items)).toEqual([])
       await assertPromiseNotThrow(() =>
         Promise.all([
-          catalog.checkPlainIntegrity({ plainFilepaths }),
-          catalog.checkCryptIntegrity({ cryptPathResolver, cryptFilepaths }),
+          catalog.checkPlainIntegrity(plainFilepaths),
+          catalog.checkCryptIntegrity(cryptFilepaths),
         ]),
       )
 
@@ -156,8 +160,8 @@ describe('FileCipherCatalog', () => {
       await assertPromiseThrow(
         () =>
           Promise.all([
-            catalog.checkPlainIntegrity({ plainFilepaths }),
-            catalog.checkCryptIntegrity({ cryptPathResolver, cryptFilepaths }),
+            catalog.checkPlainIntegrity(plainFilepaths),
+            catalog.checkCryptIntegrity(cryptFilepaths),
           ]),
         'Missing plain file.',
       )
@@ -165,17 +169,17 @@ describe('FileCipherCatalog', () => {
       // Plain files exist but the crypt files not exist.
       await writeFile(filepathA, contentA, encoding)
       await writeFile(filepathB, contentB, encoding)
-      await assertPromiseNotThrow(() => catalog.checkPlainIntegrity({ plainFilepaths }))
+      await assertPromiseNotThrow(() => catalog.checkPlainIntegrity(plainFilepaths))
       await assertPromiseThrow(
         () =>
           Promise.all([
-            catalog.checkPlainIntegrity({ plainFilepaths }),
-            catalog.checkCryptIntegrity({ cryptPathResolver, cryptFilepaths }),
+            catalog.checkPlainIntegrity(plainFilepaths),
+            catalog.checkCryptIntegrity(cryptFilepaths),
           ]),
         'Missing crypt file.',
       )
       await assertPromiseThrow(
-        () => catalog.checkCryptIntegrity({ cryptPathResolver, cryptFilepaths }),
+        () => catalog.checkCryptIntegrity(cryptFilepaths),
         'Missing crypt file.',
       )
 
@@ -184,27 +188,25 @@ describe('FileCipherCatalog', () => {
       await writeFile(cryptPathResolver.absolute(itemTable.B.cryptFilepath), contentB, encoding)
       await assertPromiseNotThrow(() =>
         Promise.all([
-          catalog.checkPlainIntegrity({ plainFilepaths }),
-          catalog.checkCryptIntegrity({ cryptPathResolver, cryptFilepaths }),
+          catalog.checkPlainIntegrity(plainFilepaths),
+          catalog.checkCryptIntegrity(cryptFilepaths),
         ]),
       )
 
       // Crypt files exist but the plain files not exist.
       await rm(filepathA)
       await rm(filepathB)
-      await assertPromiseNotThrow(() =>
-        catalog.checkCryptIntegrity({ cryptPathResolver, cryptFilepaths }),
-      )
+      await assertPromiseNotThrow(() => catalog.checkCryptIntegrity(cryptFilepaths))
       await assertPromiseThrow(
         () =>
           Promise.all([
-            catalog.checkPlainIntegrity({ plainFilepaths }),
-            catalog.checkCryptIntegrity({ cryptPathResolver, cryptFilepaths }),
+            catalog.checkPlainIntegrity(plainFilepaths),
+            catalog.checkCryptIntegrity(cryptFilepaths),
           ]),
         'Missing plain file.',
       )
       await assertPromiseThrow(
-        () => catalog.checkPlainIntegrity({ plainFilepaths }),
+        () => catalog.checkPlainIntegrity(plainFilepaths),
         'Missing plain file.',
       )
     })
@@ -215,8 +217,8 @@ describe('FileCipherCatalog', () => {
       expect(Array.from(catalog.items)).toEqual([])
       await assertPromiseNotThrow(() =>
         Promise.all([
-          catalog.checkPlainIntegrity({ plainFilepaths }),
-          catalog.checkCryptIntegrity({ cryptPathResolver, cryptFilepaths }),
+          catalog.checkPlainIntegrity(plainFilepaths),
+          catalog.checkCryptIntegrity(cryptFilepaths),
         ]),
       )
 
@@ -230,8 +232,8 @@ describe('FileCipherCatalog', () => {
       await assertPromiseThrow(
         () =>
           Promise.all([
-            catalog.checkPlainIntegrity({ plainFilepaths }),
-            catalog.checkCryptIntegrity({ cryptPathResolver, cryptFilepaths }),
+            catalog.checkPlainIntegrity(plainFilepaths),
+            catalog.checkCryptIntegrity(cryptFilepaths),
           ]),
         'Missing plain file.',
       )
@@ -239,17 +241,17 @@ describe('FileCipherCatalog', () => {
       // Plain files exist but the crypt files not exist.
       await writeFile(filepathC, contentC, encoding)
       await writeFile(filepathD, contentD, encoding)
-      await assertPromiseNotThrow(() => catalog.checkPlainIntegrity({ plainFilepaths }))
+      await assertPromiseNotThrow(() => catalog.checkPlainIntegrity(plainFilepaths))
       await assertPromiseThrow(
         () =>
           Promise.all([
-            catalog.checkPlainIntegrity({ plainFilepaths }),
-            catalog.checkCryptIntegrity({ cryptPathResolver, cryptFilepaths }),
+            catalog.checkPlainIntegrity(plainFilepaths),
+            catalog.checkCryptIntegrity(cryptFilepaths),
           ]),
         'Missing crypt file part.',
       )
       await assertPromiseThrow(
-        () => catalog.checkCryptIntegrity({ cryptPathResolver, cryptFilepaths }),
+        () => catalog.checkCryptIntegrity(cryptFilepaths),
         'Missing crypt file part.',
       )
 
@@ -268,27 +270,25 @@ describe('FileCipherCatalog', () => {
       }
       await assertPromiseNotThrow(() =>
         Promise.all([
-          catalog.checkPlainIntegrity({ plainFilepaths }),
-          catalog.checkCryptIntegrity({ cryptPathResolver, cryptFilepaths }),
+          catalog.checkPlainIntegrity(plainFilepaths),
+          catalog.checkCryptIntegrity(cryptFilepaths),
         ]),
       )
 
       // Crypt files exist but the plain files not exist.
       await rm(filepathC)
       await rm(filepathD)
-      await assertPromiseNotThrow(() =>
-        catalog.checkCryptIntegrity({ cryptPathResolver, cryptFilepaths }),
-      )
+      await assertPromiseNotThrow(() => catalog.checkCryptIntegrity(cryptFilepaths))
       await assertPromiseThrow(
         () =>
           Promise.all([
-            catalog.checkPlainIntegrity({ plainFilepaths }),
-            catalog.checkCryptIntegrity({ cryptPathResolver, cryptFilepaths }),
+            catalog.checkPlainIntegrity(plainFilepaths),
+            catalog.checkCryptIntegrity(cryptFilepaths),
           ]),
         'Missing plain file.',
       )
       await assertPromiseThrow(
-        () => catalog.checkPlainIntegrity({ plainFilepaths }),
+        () => catalog.checkPlainIntegrity(plainFilepaths),
         'Missing plain file.',
       )
     })
