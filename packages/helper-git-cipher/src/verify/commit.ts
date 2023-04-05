@@ -55,22 +55,22 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
   const cryptCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
   const plainCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
 
-  const cryptCurrentBranches = await getAllLocalBranches({ ...cryptCtx })
-  invariant(!!cryptCurrentBranches.currentBranch, `[${title}] crypt repo not at any branch.`)
+  const cryptCurrentBranches = await getAllLocalBranches(cryptCtx)
+  invariant(!!cryptCurrentBranches.currentBranch, `[${title}] crypt repo does not at any branch.`)
 
-  const plainCurrentBranches = await getAllLocalBranches({ ...plainCtx })
-  invariant(!!plainCurrentBranches.currentBranch, `[${title}] plain repo not at any branch.`)
+  const plainCurrentBranches = await getAllLocalBranches(plainCtx)
+  invariant(!!plainCurrentBranches.currentBranch, `[${title}] plain repo does not at any branch.`)
 
   try {
     await checkBranch({ ...cryptCtx, commitHash: cryptCommitId })
     await checkBranch({ ...plainCtx, commitHash: plainCommitId })
     await configKeeper.load()
+    const allPlainFiles: string[] = await listAllFiles({ ...plainCtx, commitHash: plainCommitId })
 
     const catalogItemMap: Map<string, IFileCipherCatalogItemInstance> = list2map(
       configKeeper.data?.catalog.items ?? [],
       item => normalizePlainFilepath(item.plainFilepath, plainPathResolver),
     )
-    const allPlainFiles: string[] = await listAllFiles({ ...plainCtx, commitHash: plainCommitId })
     invariant(
       catalogItemMap.size === allPlainFiles.length,
       `[${title}] File count not matched. expect(${allPlainFiles.length}), received(${catalogItemMap.size})`,

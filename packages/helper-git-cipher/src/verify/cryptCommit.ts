@@ -34,34 +34,28 @@ export async function verifyCryptGitCommit(
     `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.rootDir}`,
   )
 
-  const catalogFilepath: string = cryptPathResolver.relative(params.catalogFilepath)
   const cryptCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
 
-  const cryptCurrentBranches = await getAllLocalBranches({ ...cryptCtx })
-  invariant(!!cryptCurrentBranches.currentBranch, `[${title}] crypt repo not at any branch.`)
+  const cryptCurrentBranches = await getAllLocalBranches(cryptCtx)
+  invariant(!!cryptCurrentBranches.currentBranch, `[${title}] crypt repo does not at any branch.`)
 
   try {
     await checkBranch({ ...cryptCtx, commitHash: cryptCommitId })
-
     await configKeeper.load()
-    const expectedCryptFilepaths: string[] =
-      configKeeper.data?.catalog.items
-        ?.map(item => {
-          const cryptFilepath: string = calcCryptFilepath(item.plainFilepath, catalogContext)
-          return calcCryptFilepaths(cryptFilepath, item.cryptFilepathParts)
-        })
-        .flat() ?? []
+    const allCryptFiles: string[] = await listAllFiles({ ...cryptCtx, commitHash: cryptCommitId })
+
+    const expectedCryptFilepaths: string[] = (configKeeper.data?.catalog.items ?? [])
+      .map(item => {
+        const cryptFilepath: string = calcCryptFilepath(item.plainFilepath, catalogContext)
+        return calcCryptFilepaths(cryptFilepath, item.cryptFilepathParts)
+      })
+      .flat()
     const expectedSet: Set<string> = new Set(expectedCryptFilepaths)
-
-    const allCryptFilepaths: string[] = await listAllFiles({
-      ...cryptCtx,
-      commitHash: cryptCommitId,
-    })
-
     const matchedSet: Set<string> = new Set()
     const unMatchedSet: Set<string> = new Set()
 
-    for (const cryptFilepath of allCryptFilepaths) {
+    const catalogFilepath: string = cryptPathResolver.relative(params.catalogFilepath)
+    for (const cryptFilepath of allCryptFiles) {
       if (cryptFilepath === catalogFilepath) continue
       if (expectedSet.has(cryptFilepath)) matchedSet.add(cryptFilepath)
       else unMatchedSet.add(cryptFilepath)
@@ -69,15 +63,14 @@ export async function verifyCryptGitCommit(
 
     invariant(
       unMatchedSet.size === 0,
-      `Some crypt filepaths are not recorded in catalog:` +
+      `[${title}] Some crypt filepaths are not recorded in catalog:` +
         Array.from(unMatchedSet)
           .map(f => `\n  - ${f}`)
           .join(''),
     )
-
     invariant(
       matchedSet.size === expectedSet.size,
-      `Missing crypt filepaths in catalog:` +
+      `[${title}] Missing crypt filepaths in catalog:` +
         Array.from(expectedSet)
           .filter(f => !matchedSet.has(f))
           .map(f => `\n  - ${f}`)
