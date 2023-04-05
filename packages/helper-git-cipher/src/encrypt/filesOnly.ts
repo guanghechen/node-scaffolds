@@ -43,6 +43,12 @@ export async function encryptFilesOnly(params: IEncryptFilesOnlyParams): Promise
     `[${title}] crypt repo has uncommitted changes.`,
   )
 
+  const plainFiles: string[] = (await collectAllFiles(plainPathResolver.rootDir)).sort()
+  if (plainFiles.length <= 0) {
+    logger?.info(`[${title}] No files to commit.`)
+    return
+  }
+
   await configKeeper.load()
   const configData = configKeeper.data
   invariant(!!configData, `[${title}] cannot load config.`)
@@ -57,10 +63,21 @@ export async function encryptFilesOnly(params: IEncryptFilesOnlyParams): Promise
   })
   catalog.reset(items)
 
-  const plainFiles: string[] = (await collectAllFiles(plainPathResolver.rootDir)).sort()
   const candidateDraftDiffItems: IFileCipherCatalogDiffItemDraft[] =
     await catalog.diffFromPlainFiles({ plainFilepaths: plainFiles.sort(), strickCheck: false })
-  const { diffItems: draftDiffItems, message } = await confirm(candidateDraftDiffItems)
+  const confirmResult = await confirm(candidateDraftDiffItems)
+  const draftDiffItems = confirmResult.diffItems
+  const message = confirmResult.message.trim()
+
+  if (draftDiffItems.length <= 0) {
+    logger?.info(`[${title}] No files to commit.`)
+    return
+  }
+
+  if (!message) {
+    logger?.error(`[${title}] bad git commit message. (abort)`)
+    return
+  }
 
   // [crypt] Clean untracked filepaths to avoid unexpected errors.
   const cryptFiles: string[] = collectAffectedCryptFilepaths(draftDiffItems)
@@ -75,6 +92,8 @@ export async function encryptFilesOnly(params: IEncryptFilesOnlyParams): Promise
     getIv,
   })
   catalog.applyDiff(diffItems)
+
+  logger?.debug(`[${title}] diffItems:`, diffItems)
 
   // Encrypt files & update config.
   const config: IGitCipherConfig = {

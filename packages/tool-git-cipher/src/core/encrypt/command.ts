@@ -21,10 +21,9 @@ export const createSubCommandEncrypt = (
       'The path where catalog cache file located. (relative of workspace)',
     )
     .option(
-      '--files-only, --filesOnly <filesOnly>',
-      'Specify which files need to decrypt.',
-      (val, acc: string[]) => acc.concat(val),
-      [],
+      '--files-only, --filesOnly',
+      'Determines whether `plainRootDir` represents the root directory of source files' +
+        ' or the root directory of a git repository containing the source files.',
     )
     .action(async function (args: string[], options: ISubCommandEncryptOptions) {
       const resolvedOptions: ISubCommandEncryptOptions = resolveSubCommandEncryptOptions(

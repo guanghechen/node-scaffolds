@@ -14,9 +14,13 @@ export interface IGitCipherEncryptContext {
    */
   readonly encoding: string
   /**
-   * Specify files or directory path to commit.
+   * Determines whether `plainRootDir` represents the root directory of source files
+   * or the root directory of a git repository containing the source files.
+   *
+   * - true: the `plainRootDir` is the root directory of some source files.
+   * - false: the `plainRootDir` is the root directory of the git repo where the source files located.
    */
-  readonly filesOnly: string[]
+  readonly filesOnly: boolean
   /**
    * The maximum size required of password.
    */

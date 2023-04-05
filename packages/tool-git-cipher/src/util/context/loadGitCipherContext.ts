@@ -15,6 +15,8 @@ export async function loadGitCipherContext(
   params: ILoadGitCipherContextParams,
 ): Promise<{ cipherFactory: ICipherFactory; context: IGitCipherContext }> {
   const { cryptRootDir, secretFilepath, secretMaster } = params
+  const secretKeeper = await secretMaster.load({ filepath: secretFilepath, cryptRootDir })
+
   const catalogCipher: ICipher | undefined = secretMaster.catalogCipher
   const cipherFactory: ICipherFactory | undefined = secretMaster.cipherFactory
   invariant(
@@ -22,7 +24,6 @@ export async function loadGitCipherContext(
     '[loadGitCipherContext] Secret master is not available!',
   )
 
-  const secretKeeper = await secretMaster.load({ filepath: secretFilepath, cryptRootDir })
   const catalogContext: FileCipherCatalogContext | undefined = secretKeeper.createCatalogContext()
   const catalogFilepath: string | undefined = secretKeeper.data?.catalogFilepath
   invariant(

@@ -2,7 +2,7 @@ import type {
   ICommandConfigurationFlatOpts,
   IResolveDefaultOptionsParams,
 } from '@guanghechen/helper-commander'
-import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
+import { isBoolean, isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import { logger } from '../../env/logger'
@@ -17,9 +17,13 @@ interface ISubCommandOptions {
    */
   readonly catalogCacheFilepath: string
   /**
-   * Specify files or directory path to commit.
+   * Determines whether `plainRootDir` represents the root directory of source files
+   * or the root directory of a git repository containing the source files.
+   *
+   * - true: the `plainRootDir` is the root directory of some source files.
+   * - false: the `plainRootDir` is the root directory of the git repo where the source files located.
    */
-  readonly filesOnly: string[]
+  readonly filesOnly: boolean
 }
 
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
@@ -30,7 +34,7 @@ const getDefaultCommandEncryptOptions = (
 ): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(params),
   catalogCacheFilepath: '.ghc-cache-catalog.encrypt.json',
-  filesOnly: [],
+  filesOnly: false,
 })
 
 export function resolveSubCommandEncryptOptions(
@@ -53,11 +57,7 @@ export function resolveSubCommandEncryptOptions(
   logger.debug('catalogCacheFilepath:', catalogCacheFilepath)
 
   // Resolve filesOnly
-  const filesOnly: string[] = cover<string[]>(
-    baseOptions.filesOnly,
-    options.filesOnly,
-    isNotEmptyArray,
-  )
+  const filesOnly: boolean = cover<boolean>(baseOptions.filesOnly, options.filesOnly, isBoolean)
   logger.debug('filesOnly:', filesOnly)
 
   const resolvedOptions: ISubCommandOptions = {
