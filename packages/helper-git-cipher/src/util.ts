@@ -62,7 +62,7 @@ export const generateCommitHash = (items: IFileCipherCatalogItemBase[]): string 
 
 export const getCryptCommitId = (
   plainCommitId: string,
-  plain2cryptIdMap: Map<string, string>,
+  plain2cryptIdMap: ReadonlyMap<string, string>,
 ): string => {
   const cryptParentId: string | undefined = plain2cryptIdMap.get(plainCommitId)
   invariant(
@@ -74,7 +74,7 @@ export const getCryptCommitId = (
 
 export const getPlainCommitId = (
   cryptCommitId: string,
-  crypt2plainIdMap: Map<string, string>,
+  crypt2plainIdMap: ReadonlyMap<string, string>,
 ): string => {
   const cryptParentId: string | undefined = crypt2plainIdMap.get(cryptCommitId)
   invariant(

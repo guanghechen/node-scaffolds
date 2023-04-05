@@ -1,16 +1,5 @@
-import {
-  FileChangeType,
-  calcCryptFilepath,
-  collectAffectedPlainFilepaths,
-} from '@guanghechen/helper-cipher-file'
-import type {
-  IFileCipherBatcher,
-  IFileCipherCatalogContext,
-  IFileCipherCatalogDiffItem,
-  IFileCipherCatalogItem,
-  IFileCipherCatalogItemBase,
-} from '@guanghechen/helper-cipher-file'
-import type { IConfigKeeper } from '@guanghechen/helper-config'
+import { FileChangeType, collectAffectedPlainFilepaths } from '@guanghechen/helper-cipher-file'
+import type { IFileCipherCatalogDiffItem } from '@guanghechen/helper-cipher-file'
 import type {
   IGitCommandBaseParams,
   IGitCommitDagNode,
@@ -26,42 +15,30 @@ import {
 } from '@guanghechen/helper-git'
 import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
-import type { ILogger } from '@guanghechen/utility-types'
-import type { IFileCipherCatalogItemInstance, IGitCipherConfig } from '../types'
+import type { IGitCipherContext } from '../GitCipherContext'
 import { getPlainCommitId } from '../util'
 
 export interface IDecryptGitCommitParams {
-  catalogContext: IFileCipherCatalogContext
-  cipherBatcher: IFileCipherBatcher
-  configKeeper: IConfigKeeper<IGitCipherConfig>
+  context: IGitCipherContext
   cryptCommitNode: IGitCommitDagNode
   cryptPathResolver: FilepathResolver
   crypt2plainIdMap: Map<string, string>
-  logger: ILogger | undefined
   plainPathResolver: FilepathResolver
-  getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
 /**
  * Decrypt git commit.
  *
- * !!! Required (this method is not recommend to use directly)
+ * !!!Requirement (this method is not recommend to use directly)
  *  - Both the plain repo (could be empty) and crypt repo should be clean (no untracked files).
  *
  * @param params
  */
 export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise<void> {
-  const {
-    catalogContext,
-    cipherBatcher,
-    configKeeper,
-    cryptCommitNode,
-    cryptPathResolver,
-    crypt2plainIdMap,
-    logger,
-    plainPathResolver,
-    getDynamicIv,
-  } = params
+  const title = 'decryptGitCommit'
+  const { context, cryptCommitNode, crypt2plainIdMap, cryptPathResolver, plainPathResolver } =
+    params
+  const { cipherBatcher, configKeeper, logger } = context
   const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
 
@@ -72,22 +49,10 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
     commitHash: cryptCommitNode.id,
   })
 
-  const getIv = (item: IFileCipherCatalogItemBase): Buffer =>
-    getDynamicIv([Buffer.from(item.plainFilepath, 'utf8'), Buffer.from(item.fingerprint, 'hex')])
-  const flatItem = (item: IFileCipherCatalogItemInstance): IFileCipherCatalogItem => ({
-    ...item,
-    cryptFilepath: calcCryptFilepath(item.plainFilepath, catalogContext),
-    iv: getIv(item),
-    authTag: item.authTag,
-  })
-
   // Load the diffItems between the <first parent>...<current>.
   await configKeeper.load()
   const configData = configKeeper.data
-  invariant(
-    !!configData,
-    `[decryptGitCommit] cannot load config. cryptCommitId(${cryptCommitNode.id})`,
-  )
+  invariant(!!configData, `[${title}] cannot load config. cryptCommitId(${cryptCommitNode.id})`)
 
   // [plain] Move the HEAD pointer to the first parent commit for creating commit or merging.
   const { message } = configData.commit
@@ -121,22 +86,22 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
       case FileChangeType.ADDED:
         return {
           changeType: FileChangeType.ADDED,
-          newItem: flatItem(diffItem.newItem),
+          newItem: context.flatItem(diffItem.newItem),
         }
       case FileChangeType.MODIFIED:
         return {
           changeType: FileChangeType.MODIFIED,
-          oldItem: flatItem(diffItem.oldItem),
-          newItem: flatItem(diffItem.newItem),
+          oldItem: context.flatItem(diffItem.oldItem),
+          newItem: context.flatItem(diffItem.newItem),
         }
       case FileChangeType.REMOVED:
         return {
           changeType: FileChangeType.REMOVED,
-          oldItem: flatItem(diffItem.oldItem),
+          oldItem: context.flatItem(diffItem.oldItem),
         }
       /* c8 ignore start */
       default:
-        throw new Error(`[decryptGitCommit] unexpected changeType. ${diffItem['changeType']}`)
+        throw new Error(`[${title}] unexpected changeType. ${diffItem['changeType']}`)
       /* c8 ignore end */
     }
   })

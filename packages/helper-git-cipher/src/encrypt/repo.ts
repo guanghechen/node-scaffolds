@@ -1,5 +1,4 @@
-import type { IFileCipherBatcher, IFileCipherCatalog } from '@guanghechen/helper-cipher-file'
-import type { IConfigKeeper } from '@guanghechen/helper-config'
+import type { IFileCipherCatalog } from '@guanghechen/helper-cipher-file'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import {
@@ -14,20 +13,16 @@ import {
 } from '@guanghechen/helper-git'
 import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
-import type { ILogger } from '@guanghechen/utility-types'
-import type { IGitCipherConfig } from '../types'
+import type { IGitCipherContext } from '../GitCipherContext'
 import { resolveIdMap } from '../util'
 import { encryptGitBranch } from './branch'
 
 export interface IEncryptGitRepoParams {
   catalog: IFileCipherCatalog
-  cipherBatcher: IFileCipherBatcher
-  configKeeper: IConfigKeeper<IGitCipherConfig>
+  context: IGitCipherContext
   cryptPathResolver: FilepathResolver
   crypt2plainIdMap: ReadonlyMap<string, string>
-  logger: ILogger | undefined
   plainPathResolver: FilepathResolver
-  getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
 export interface IEncryptGitRepoResult {
@@ -37,32 +32,26 @@ export interface IEncryptGitRepoResult {
 export async function encryptGitRepo(
   params: IEncryptGitRepoParams,
 ): Promise<IEncryptGitRepoResult> {
-  const {
-    catalog,
-    cipherBatcher,
-    configKeeper,
-    cryptPathResolver,
-    logger,
-    plainPathResolver,
-    getDynamicIv,
-  } = params
+  const title = 'encryptGitRepo'
+  const { catalog, context, cryptPathResolver, plainPathResolver } = params
+  const { logger } = context
   const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
 
   invariant(
     isGitRepo(plainPathResolver.rootDir),
-    `[decryptGitRepo] plain repo is not a git repo. (${plainPathResolver.rootDir})`,
+    `[${title}] plain repo is not a git repo. (${plainPathResolver.rootDir})`,
   )
 
   invariant(
     !(await hasUncommittedContent(plainCmdCtx)),
-    '[encryptGitRepo] plain repo has uncommitted contents.',
+    `[${title}] plain repo has uncommitted contents.`,
   )
 
   const plainLocalBranch = await getAllLocalBranches(plainCmdCtx)
   invariant(
     plainLocalBranch.currentBranch !== null,
-    '[encryptGitRepo] plain repo is not under any branch.',
+    `[${title}] plain repo is not under any branch.`,
   )
 
   const isCryptRepoInitialized: boolean = isGitRepo(cryptPathResolver.rootDir)
@@ -83,7 +72,7 @@ export async function encryptGitRepo(
   // Initialize crypt repo.
   if (!isCryptRepoInitialized) {
     mkdirsIfNotExists(cryptPathResolver.rootDir, true)
-    logger?.verbose?.('[encryptGitRepo] initialize crypt repo.')
+    logger?.verbose?.(`[${title}] initialize crypt repo.`)
     await initGitRepo({
       ...cryptCmdCtx,
       defaultBranch: plainLocalBranch.currentBranch,
@@ -92,12 +81,12 @@ export async function encryptGitRepo(
   } else {
     invariant(
       !(await hasUncommittedContent(cryptCmdCtx)),
-      '[encryptGitRepo] crypt repo has uncommitted contents.',
+      `[${title}] crypt repo has uncommitted contents.`,
     )
 
     invariant(
       crypt2plainIdMap.size > 0,
-      '[encryptGitRepo] bad crypt repo, no paired plain/crypt commit found.',
+      `[${title}] bad crypt repo, no paired plain/crypt commit found.`,
     )
   }
 
@@ -111,15 +100,11 @@ export async function encryptGitRepo(
       await encryptGitBranch({
         branchName,
         catalog,
-        cipherBatcher,
-        configKeeper,
+        context,
         cryptPathResolver,
-        logger,
-        plainPathResolver,
         plain2cryptIdMap,
-        getDynamicIv,
+        plainPathResolver,
       })
-
       const { commitId: cryptHeadCommitId } = await showCommitInfo({
         ...cryptCmdCtx,
         commitHash: 'HEAD',

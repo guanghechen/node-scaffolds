@@ -1,5 +1,3 @@
-import type { IFileCipherBatcher, IFileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
-import type { IConfigKeeper } from '@guanghechen/helper-config'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import {
@@ -14,21 +12,16 @@ import {
 } from '@guanghechen/helper-git'
 import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
-import type { ILogger } from '@guanghechen/utility-types'
-import type { IGitCipherConfig } from '../types'
+import type { IGitCipherContext } from '../GitCipherContext'
 import { resolveIdMap } from '../util'
 import { decryptGitBranch } from './branch'
 
 export interface IDecryptGitRepoParams {
-  catalogContext: IFileCipherCatalogContext
-  cipherBatcher: IFileCipherBatcher
-  configKeeper: IConfigKeeper<IGitCipherConfig>
+  context: IGitCipherContext
   cryptPathResolver: FilepathResolver
   crypt2plainIdMap: ReadonlyMap<string, string>
   gpgSign?: boolean
-  logger: ILogger | undefined
   plainPathResolver: FilepathResolver
-  getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
 export interface IDecryptGitRepoResult {
@@ -38,7 +31,7 @@ export interface IDecryptGitRepoResult {
 /**
  * Decrypt git repo (all branches with names).
  *
- * !!! Required (this method is not recommend to use directly)
+ * !!!Requirement (this method is not recommend to use directly)
  *  - Both the plain repo (could be empty) and crypt repo should be clean (no untracked files).
  *  - The crypt repo should under one of named branch.
  *
@@ -47,32 +40,26 @@ export interface IDecryptGitRepoResult {
 export async function decryptGitRepo(
   params: IDecryptGitRepoParams,
 ): Promise<IDecryptGitRepoResult> {
-  const {
-    catalogContext,
-    cipherBatcher,
-    configKeeper,
-    cryptPathResolver,
-    logger,
-    plainPathResolver,
-    getDynamicIv,
-  } = params
+  const title = 'decryptGitRepo'
+  const { context, cryptPathResolver, plainPathResolver } = params
+  const { logger } = context
   const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
 
   invariant(
     isGitRepo(cryptPathResolver.rootDir),
-    `[decryptGitRepo] crypt repo is not a git repo. (${cryptPathResolver.rootDir})`,
+    `[${title}] crypt repo is not a git repo. (${cryptPathResolver.rootDir})`,
   )
 
   invariant(
     !(await hasUncommittedContent(cryptCmdCtx)),
-    '[decryptGitRepo] crypt repo has uncommitted contents.',
+    `[${title}] crypt repo has uncommitted contents.`,
   )
 
   const cryptLocalBranch = await getAllLocalBranches(cryptCmdCtx)
   invariant(
     cryptLocalBranch.currentBranch !== null,
-    '[decryptGitRepo] crypt repo is not under any branch.',
+    `[${title}] crypt repo is not under any branch.`,
   )
 
   const isPlainRepoInitialized: boolean = isGitRepo(plainPathResolver.rootDir)
@@ -93,7 +80,7 @@ export async function decryptGitRepo(
   // Initialize plain repo.
   if (!isPlainRepoInitialized) {
     mkdirsIfNotExists(plainPathResolver.rootDir, true)
-    logger?.verbose?.('[decryptGitRepo] initialize plain repo.')
+    logger?.verbose?.(`[${title}] initialize plain repo.`)
     await initGitRepo({
       ...plainCmdCtx,
       defaultBranch: cryptLocalBranch.currentBranch,
@@ -102,12 +89,12 @@ export async function decryptGitRepo(
   } else {
     invariant(
       !(await hasUncommittedContent(plainCmdCtx)),
-      '[decryptGitRepo] plain repo has uncommitted contents.',
+      `[${title}] plain repo has uncommitted contents.`,
     )
 
     invariant(
       crypt2plainIdMap.size > 0,
-      '[decryptGitRepo] bad plain repo, no paired plain/crypt commit found.',
+      `[${title}] bad plain repo, no paired plain/crypt commit found.`,
     )
   }
 
@@ -118,16 +105,11 @@ export async function decryptGitRepo(
       for (const branchName of cryptLocalBranch.branches) {
         await decryptGitBranch({
           branchName,
-          catalogContext,
-          cipherBatcher,
-          configKeeper,
-          cryptPathResolver,
+          context,
           crypt2plainIdMap,
-          logger,
+          cryptPathResolver,
           plainPathResolver,
-          getDynamicIv,
         })
-
         const { commitId: plainHeadCommitId } = await showCommitInfo({
           ...plainCmdCtx,
           commitHash: 'HEAD',
@@ -154,11 +136,7 @@ export async function decryptGitRepo(
 
       // Create branches.
       for (const { branchName, commitId } of newPlainBranches) {
-        await createBranch({
-          ...plainCmdCtx,
-          newBranchName: branchName,
-          commitHash: commitId,
-        })
+        await createBranch({ ...plainCmdCtx, newBranchName: branchName, commitHash: commitId })
       }
 
       // Check to the same branch with the crypt repo.

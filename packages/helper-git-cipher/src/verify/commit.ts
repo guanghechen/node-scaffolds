@@ -1,5 +1,5 @@
-import type { IReadonlyFileCipherCatalog } from '@guanghechen/helper-cipher-file'
-import { normalizePlainFilepath } from '@guanghechen/helper-cipher-file'
+import type { IFileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
+import { calcCatalogItem, normalizePlainFilepath } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import { list2map } from '@guanghechen/helper-func'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
@@ -11,7 +11,7 @@ import { existsSync } from 'node:fs'
 import type { IFileCipherCatalogItemInstance, IGitCipherConfig } from '../types'
 
 export interface IVerifyGitCommitParams {
-  catalog: IReadonlyFileCipherCatalog
+  catalogContext: IFileCipherCatalogContext
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string
   cryptPathResolver: FilepathResolver
@@ -23,7 +23,7 @@ export interface IVerifyGitCommitParams {
 export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<void | never> {
   const title = 'verifyGitCommit'
   const {
-    catalog,
+    catalogContext,
     configKeeper,
     cryptCommitId,
     cryptPathResolver,
@@ -81,7 +81,11 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
       const item: IFileCipherCatalogItemInstance | undefined = catalogItemMap.get(key)
       invariant(item !== undefined, `[${title}] Missing file. plainFilepath(${plainFilepath})`)
 
-      const expectedItem = await catalog.calcCatalogItem(plainFilepath)
+      const expectedItem = await calcCatalogItem({
+        context: catalogContext,
+        plainFilepath,
+        plainPathResolver,
+      })
       /* c8 ignore start */
       if (item.fingerprint !== expectedItem.fingerprint) {
         logger?.error(`[${title}] Bad file content, fingerprint are not matched.`, {

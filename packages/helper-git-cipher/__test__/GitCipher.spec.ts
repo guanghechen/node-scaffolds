@@ -34,6 +34,7 @@ import {
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { GitCipher, GitCipherConfigKeeper, verifyCryptGitCommit } from '../src'
+import { GitCipherContext } from '../src/GitCipherContext'
 import {
   buildRepo1,
   contentA,
@@ -120,9 +121,14 @@ describe('GitCipher', () => {
     cryptPathResolver,
   })
 
-  const getDynamicIv = (infos: ReadonlyArray<Buffer>): Readonly<Buffer> =>
-    calcMac(infos, 'sha256').slice(0, ivSize)
-  const gitCipher = new GitCipher({ catalog, cipherBatcher, configKeeper, logger, getDynamicIv })
+  const context = new GitCipherContext({
+    catalogContext,
+    cipherBatcher,
+    configKeeper,
+    logger,
+    getDynamicIv: (infos): Readonly<Buffer> => calcMac(infos, 'sha256').slice(0, ivSize),
+  })
+  const gitCipher = new GitCipher({ catalog, context })
 
   const testCatalog = async (
     commit: { message: string; cryptParents: string[] },
@@ -135,10 +141,7 @@ describe('GitCipher', () => {
       configKeeper.data!.catalog.items.map(item => ({
         ...item,
         cryptFilepath: catalog.calcCryptFilepath(item.plainFilepath),
-        iv: getDynamicIv([
-          Buffer.from(item.plainFilepath, 'utf8'),
-          Buffer.from(item.fingerprint, 'hex'),
-        ])?.toString('hex'),
+        iv: context.getIv(item).toString('hex'),
         authTag: item.authTag?.toString('hex'),
       })),
     ).toEqual(
@@ -156,10 +159,7 @@ describe('GitCipher', () => {
           fingerprint: item.fingerprint,
           cryptFilepathParts: item.cryptFilepathParts,
           keepPlain: item.keepPlain,
-          iv: getDynamicIv([
-            Buffer.from(item.plainFilepath, 'utf8'),
-            Buffer.from(item.fingerprint, 'hex'),
-          ])?.toString('hex'),
+          iv: context.getIv(item).toString('hex'),
           authTag: item.authTag?.toString('hex'),
         })
 
