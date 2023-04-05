@@ -23,7 +23,7 @@ import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import type { IGitCipherContext } from '../GitCipherContext'
 import type { IGitCipherConfig } from '../types'
-import { generateCommitHash as generateCommitMessage, getCryptCommitId } from '../util'
+import { generateCommitHash, getCryptCommitId } from '../util'
 
 export interface IEncryptGitCommitParams {
   catalog: IFileCipherCatalog
@@ -40,8 +40,6 @@ export interface IEncryptGitCommitParams {
  * !!!Requirement (this method is not recommend to use directly)
  *  - Both the plain repo and crypt repo (could be empty) should be clean (no untracked files).
  *  - The plain2cryptIdMap and crypt2plainIdMap should be set correctly.
- *
- * @param params
  */
 export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise<void> {
   const title = 'encryptGitCommit'
@@ -132,14 +130,12 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     },
     catalog: {
       diffItems,
-      items: Array.from(catalog.items).sort((x, y) =>
-        x.plainFilepath.localeCompare(y.plainFilepath),
-      ),
+      items: Array.from(catalog.items),
     },
   }
   await configKeeper.update(config)
   await configKeeper.save()
 
-  const message: string = generateCommitMessage(config.catalog.items)
-  await commitAll({ ...cryptCmdCtx, ...signature, message, amend: shouldAmend })
+  const cryptMessage: string = generateCommitHash(config.catalog.items)
+  await commitAll({ ...cryptCmdCtx, ...signature, message: cryptMessage, amend: shouldAmend })
 }

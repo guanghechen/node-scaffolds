@@ -53,7 +53,7 @@ export async function decryptGitRepo(
 
   invariant(
     !(await hasUncommittedContent(cryptCmdCtx)),
-    `[${title}] crypt repo has uncommitted contents.`,
+    `[${title}] crypt repo has uncommitted changes.`,
   )
 
   const cryptLocalBranch = await getAllLocalBranches(cryptCmdCtx)

@@ -107,7 +107,9 @@ export class GitCipherConfigKeeper
             }
           },
         ),
-        items: instance.catalog.items.map(serializeItem),
+        items: instance.catalog.items
+          .sort((x, y) => x.plainFilepath.localeCompare(y.plainFilepath))
+          .map(serializeItem),
       },
     }
   }

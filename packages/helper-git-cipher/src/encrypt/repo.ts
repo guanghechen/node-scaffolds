@@ -49,7 +49,7 @@ export async function encryptGitRepo(
 
   invariant(
     !(await hasUncommittedContent(plainCmdCtx)),
-    `[${title}] plain repo has uncommitted contents.`,
+    `[${title}] plain repo has uncommitted changes.`,
   )
 
   const plainLocalBranch = await getAllLocalBranches(plainCmdCtx)

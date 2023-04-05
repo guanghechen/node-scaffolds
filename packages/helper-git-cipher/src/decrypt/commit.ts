@@ -60,9 +60,7 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
     ...cryptCmdCtx,
     commitHash: cryptCommitNode.id,
   })
-  const plainParents = cryptParentIds.map(cryptParentId =>
-    getPlainCommitId(cryptParentId, crypt2plainIdMap),
-  )
+  const plainParents = cryptParentIds.map(cid => getPlainCommitId(cid, crypt2plainIdMap))
 
   if (plainParents.length > 0) {
     await checkBranch({ ...plainCmdCtx, commitHash: plainParents[0] })

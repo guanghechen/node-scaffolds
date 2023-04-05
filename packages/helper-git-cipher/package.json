@@ -46,6 +46,7 @@
     "@guanghechen/helper-fs": "^5.0.0-alpha.0",
     "@guanghechen/helper-func": "^5.0.0-alpha.0",
     "@guanghechen/helper-git": "^5.0.0-alpha.0",
+    "@guanghechen/helper-path": "^5.0.0-alpha.0",
     "@guanghechen/helper-storage": "^5.0.0-alpha.0",
     "@guanghechen/invariant": "^5.0.0-alpha.0",
     "@guanghechen/utility-types": "^5.0.0-alpha.0"
