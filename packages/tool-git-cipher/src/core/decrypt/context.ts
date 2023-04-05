@@ -1,3 +1,4 @@
+import { coverString } from '@guanghechen/helper-option'
 import type { ISubCommandDecryptOptions } from './option'
 
 export interface IGitCipherDecryptContext {
@@ -42,10 +43,6 @@ export interface IGitCipherDecryptContext {
    */
   readonly minPasswordLength: number
   /**
-   * Root dir of decrypted outputs. (absolute path)
-   */
-  readonly outDir: string | undefined
-  /**
    * The directory where the plain repo located. (absolute path)
    */
   readonly plainRootDir: string
@@ -76,8 +73,7 @@ export async function createGitCipherDecryptContextFromOptions(
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
-    outDir: options.outDir,
-    plainRootDir: options.plainRootDir,
+    plainRootDir: coverString(options.plainRootDir, options.outDir),
     secretFilepath: options.secretFilepath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,

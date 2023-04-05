@@ -1,21 +1,11 @@
 import type { ICipher, ICipherFactory } from '@guanghechen/helper-cipher'
-import type { IFileCipherFactory } from '@guanghechen/helper-cipher-file'
-import {
-  FileCipherBatcher,
-  FileCipherCatalog,
-  FileCipherCatalogContext,
-  FileCipherFactory,
-} from '@guanghechen/helper-cipher-file'
-import { BigFileHelper } from '@guanghechen/helper-file'
 import { showCommitInfo } from '@guanghechen/helper-git'
-import { GitCipher, GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
+import type { GitCipher } from '@guanghechen/helper-git-cipher'
 import type { FilepathResolver } from '@guanghechen/helper-path'
 import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
-import micromatch from 'micromatch'
 import { logger } from '../env/logger'
 import { CatalogCacheKeeper } from './CatalogCache'
-import type { ISecretConfig } from './SecretConfig.types'
 
 export interface IVerifyCryptRepoParams {
   readonly catalogCacheFilepath: string
@@ -23,10 +13,9 @@ export interface IVerifyCryptRepoParams {
   readonly cipherFactory: ICipherFactory | undefined
   readonly cryptCommitId: string
   readonly cryptPathResolver: FilepathResolver
+  readonly gitCipher: GitCipher
   readonly plainCommitId: string | undefined
   readonly plainPathResolver: FilepathResolver
-  readonly secretConfig: Readonly<ISecretConfig>
-  getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
 export async function verifyRepoStrictly(params: IVerifyCryptRepoParams): Promise<void> {
@@ -36,9 +25,8 @@ export async function verifyRepoStrictly(params: IVerifyCryptRepoParams): Promis
     catalogCipher,
     cipherFactory,
     cryptPathResolver,
+    gitCipher,
     plainPathResolver,
-    secretConfig,
-    getDynamicIv,
   } = params
 
   invariant(
@@ -72,61 +60,6 @@ export async function verifyRepoStrictly(params: IVerifyCryptRepoParams): Promis
 
   logger.debug(`[${title}] cryptCommitId(${cryptCommitId}), plainCommitId(${plainCommitId}).`)
   invariant(!!plainCommitId, `[${title}] Missing plainCommitId.`)
-
-  const {
-    catalogFilepath,
-    contentHashAlgorithm,
-    cryptFilepathSalt,
-    cryptFilesDir,
-    keepPlainPatterns,
-    maxTargetFileSize = Number.POSITIVE_INFINITY,
-    partCodePrefix,
-    pathHashAlgorithm,
-  } = secretConfig
-
-  const configKeeper = new GitCipherConfigKeeper({
-    cipher: catalogCipher,
-    storage: new FileStorage({
-      strict: true,
-      filepath: catalogFilepath,
-      encoding: 'utf8',
-    }),
-  })
-
-  const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
-  const fileHelper = new BigFileHelper({ partCodePrefix })
-  const cipherBatcher = new FileCipherBatcher({
-    fileCipherFactory,
-    fileHelper,
-    maxTargetFileSize,
-    logger,
-  })
-
-  const catalogContext = new FileCipherCatalogContext({
-    contentHashAlgorithm,
-    cryptFilepathSalt,
-    cryptFilesDir,
-    maxTargetFileSize,
-    partCodePrefix,
-    pathHashAlgorithm,
-    isKeepPlain:
-      keepPlainPatterns.length > 0
-        ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
-        : () => false,
-  })
-  const catalog = new FileCipherCatalog({
-    context: catalogContext,
-    cryptPathResolver,
-    plainPathResolver,
-  })
-
-  const gitCipher = new GitCipher({
-    catalog,
-    cipherBatcher,
-    configKeeper,
-    logger,
-    getDynamicIv,
-  })
 
   await gitCipher.verifyCommit({
     cryptCommitId,

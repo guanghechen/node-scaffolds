@@ -1,19 +1,12 @@
-import type { ICipherFactory } from '@guanghechen/helper-cipher'
-import type { FileCipherCatalogContext, IFileCipherFactory } from '@guanghechen/helper-cipher-file'
-import {
-  FileCipherBatcher,
-  FileCipherCatalog,
-  FileCipherFactory,
-} from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
-import { BigFileHelper } from '@guanghechen/helper-file'
-import { GitCipher, GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
+import { GitCipher } from '@guanghechen/helper-git-cipher'
 import { FilepathResolver } from '@guanghechen/helper-path'
 import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
 import { logger } from '../../env/logger'
 import type { ICatalogCache } from '../../util/CatalogCache'
 import { CatalogCacheKeeper } from '../../util/CatalogCache'
+import { loadGitCipherContext } from '../../util/context/loadGitCipherContext'
 import { SecretMaster } from '../../util/SecretMaster'
 import type { IGitCipherEncryptContext } from './context'
 
@@ -34,57 +27,19 @@ export class GitCipherEncryptProcessor {
   }
 
   public async encrypt(): Promise<void> {
-    invariant(hasGitInstalled(), '[processor.encrypt] Cannot find git, have you installed it?')
+    const title = 'processor.encrypt'
+    invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
-    const { context, secretMaster } = this
-    const secretKeeper = await secretMaster.load({
-      filepath: context.secretFilepath,
+    const { context } = this
+    const { context: gitCipherContext } = await loadGitCipherContext({
       cryptRootDir: context.cryptRootDir,
+      secretFilepath: context.secretFilepath,
+      secretMaster: this.secretMaster,
     })
-
-    const cipherFactory: ICipherFactory | undefined = secretMaster.cipherFactory
-    const catalogContext: FileCipherCatalogContext | undefined = secretKeeper.createCatalogContext()
-    invariant(
-      !!secretKeeper.data && !!catalogContext && !!cipherFactory && !!secretMaster.catalogCipher,
-      '[processor.encrypt] Secret cipherFactory is not available!',
-    )
-
-    const {
-      catalogFilepath,
-      maxTargetFileSize = Number.POSITIVE_INFINITY,
-      partCodePrefix,
-    } = secretKeeper.data
-    const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
-    const fileHelper = new BigFileHelper({ partCodePrefix })
-    const configKeeper = new GitCipherConfigKeeper({
-      cipher: secretMaster.catalogCipher,
-      storage: new FileStorage({
-        strict: true,
-        filepath: catalogFilepath,
-        encoding: 'utf8',
-      }),
-    })
-    const cipherBatcher = new FileCipherBatcher({
-      fileCipherFactory,
-      fileHelper,
-      maxTargetFileSize,
-      logger,
-    })
+    const gitCipher = new GitCipher({ context: gitCipherContext })
 
     const plainPathResolver = new FilepathResolver(context.plainRootDir)
     const cryptPathResolver = new FilepathResolver(context.cryptRootDir)
-    const catalog = new FileCipherCatalog({
-      context: catalogContext,
-      cryptPathResolver,
-      plainPathResolver,
-    })
-    const gitCipher = new GitCipher({
-      catalog,
-      cipherBatcher,
-      configKeeper,
-      logger,
-      getDynamicIv: secretMaster.getDynamicIv,
-    })
 
     // encrypt files
     const cacheKeeper = new CatalogCacheKeeper({

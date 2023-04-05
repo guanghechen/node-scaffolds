@@ -1,9 +1,11 @@
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
+import { GitCipher } from '@guanghechen/helper-git-cipher'
 import { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'fs'
 import { logger } from '../../env/logger'
+import { loadGitCipherContext } from '../../util/context/loadGitCipherContext'
 import { SecretMaster } from '../../util/SecretMaster'
 import { verifyCryptRepo } from '../../util/verifyCryptRepo'
 import { verifyRepoStrictly } from '../../util/verifyRepoStrictly'
@@ -53,14 +55,13 @@ export class GitCipherVerifyProcessor {
     cryptPathResolver: FilepathResolver,
     plainPathResolver: FilepathResolver,
   ): Promise<void> {
-    const title = 'processor.verify'
     const { context, secretMaster } = this
-
-    const secretKeeper = await secretMaster.load({
-      filepath: context.secretFilepath,
+    const { context: gitCipherContext } = await loadGitCipherContext({
       cryptRootDir: context.cryptRootDir,
+      secretFilepath: context.secretFilepath,
+      secretMaster: this.secretMaster,
     })
-    invariant(!!secretKeeper.data, `[${title}] secret is not available.`)
+    const gitCipher = new GitCipher({ context: gitCipherContext })
 
     await verifyRepoStrictly({
       catalogCacheFilepath: context.catalogCacheFilepath,
@@ -68,10 +69,9 @@ export class GitCipherVerifyProcessor {
       cipherFactory: secretMaster.cipherFactory,
       cryptCommitId: context.cryptCommitId,
       cryptPathResolver,
+      gitCipher,
       plainCommitId: context.plainCommitId,
       plainPathResolver,
-      secretConfig: secretKeeper.data,
-      getDynamicIv: secretMaster.getDynamicIv,
     })
   }
 
