@@ -3,9 +3,9 @@ import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
 import type { IFileCipherCatalogItem } from '@guanghechen/helper-cipher-file'
 import {
   FileCipherBatcher,
-  FileCipherCatalog,
   FileCipherCatalogContext,
   FileCipherFactory,
+  calcCryptFilepath,
 } from '@guanghechen/helper-cipher-file'
 import { BigFileHelper } from '@guanghechen/helper-file'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
@@ -115,12 +115,6 @@ describe('GitCipher', () => {
     contentHashAlgorithm,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
   })
-  const catalog = new FileCipherCatalog({
-    context: catalogContext,
-    plainPathResolver,
-    cryptPathResolver,
-  })
-
   const context = new GitCipherContext({
     catalogContext,
     cipherBatcher,
@@ -128,7 +122,7 @@ describe('GitCipher', () => {
     logger,
     getDynamicIv: (infos): Readonly<Buffer> => calcMac(infos, 'sha256').slice(0, ivSize),
   })
-  const gitCipher = new GitCipher({ catalog, context })
+  const gitCipher = new GitCipher({ context })
 
   const testCatalog = async (
     commit: { message: string; cryptParents: string[] },
@@ -140,7 +134,7 @@ describe('GitCipher', () => {
     expect(
       configKeeper.data!.catalog.items.map(item => ({
         ...item,
-        cryptFilepath: catalog.calcCryptFilepath(item.plainFilepath),
+        cryptFilepath: calcCryptFilepath(item.plainFilepath, context.catalogContext),
         iv: context.getIv(item).toString('hex'),
         authTag: item.authTag?.toString('hex'),
       })),

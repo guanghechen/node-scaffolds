@@ -1,4 +1,3 @@
-import type { IFileCipherCatalog } from '@guanghechen/helper-cipher-file'
 import type { FilepathResolver } from '@guanghechen/helper-path'
 import { decryptFilesOnly } from './decrypt/filesOnly'
 import { decryptGitRepo } from './decrypt/repo'
@@ -7,7 +6,6 @@ import type { IGitCipherContext } from './GitCipherContext'
 import { verifyGitCommit } from './verify/commit'
 
 export interface IGitCipherProps {
-  readonly catalog: IFileCipherCatalog
   readonly context: IGitCipherContext
 }
 
@@ -20,14 +18,14 @@ export interface IGitCipherEncryptParams {
 export interface IGitCipherDecryptFilesOnlyParams {
   readonly cryptCommitId: string
   readonly cryptPathResolver: FilepathResolver
-  readonly filesOnly?: string[] | undefined // If empty or undefined, then decrypt all files.
+  readonly filesOnly: string[] | undefined // If empty or undefined, then decrypt all files.
   readonly plainPathResolver: FilepathResolver
 }
 
 export interface IGitCipherDecryptParams {
   readonly crypt2plainIdMap: ReadonlyMap<string, string>
   readonly cryptPathResolver: FilepathResolver
-  readonly gpgSign?: boolean
+  readonly gpgSign: boolean | undefined
   readonly plainPathResolver: FilepathResolver
 }
 
@@ -47,19 +45,16 @@ export interface IGitCipherDecryptRepoResult {
 }
 
 export class GitCipher {
-  public readonly catalog: IFileCipherCatalog
   public readonly context: IGitCipherContext
 
   constructor(props: IGitCipherProps) {
-    this.catalog = props.catalog
     this.context = props.context
   }
 
   public async encrypt(params: IGitCipherEncryptParams): Promise<IGitCipherEncryptRepoResult> {
-    const { catalog, context } = this
+    const { context } = this
     const { cryptPathResolver, crypt2plainIdMap, plainPathResolver } = params
     const result = await encryptGitRepo({
-      catalog,
       context,
       crypt2plainIdMap,
       cryptPathResolver,

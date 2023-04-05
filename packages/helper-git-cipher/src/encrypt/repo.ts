@@ -1,4 +1,4 @@
-import type { IFileCipherCatalog } from '@guanghechen/helper-cipher-file'
+import { FileCipherCatalog } from '@guanghechen/helper-cipher-file'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import {
@@ -18,7 +18,6 @@ import { resolveIdMap } from '../util'
 import { encryptGitBranch } from './branch'
 
 export interface IEncryptGitRepoParams {
-  catalog: IFileCipherCatalog
   context: IGitCipherContext
   cryptPathResolver: FilepathResolver
   crypt2plainIdMap: ReadonlyMap<string, string>
@@ -33,8 +32,13 @@ export async function encryptGitRepo(
   params: IEncryptGitRepoParams,
 ): Promise<IEncryptGitRepoResult> {
   const title = 'encryptGitRepo'
-  const { catalog, context, cryptPathResolver, plainPathResolver } = params
+  const { context, cryptPathResolver, plainPathResolver } = params
   const { logger } = context
+  const catalog = new FileCipherCatalog({
+    context: context.catalogContext,
+    cryptPathResolver,
+    plainPathResolver,
+  })
   const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
 
