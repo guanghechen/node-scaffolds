@@ -15,6 +15,7 @@ export const createSubCommandInit = (
   command
     .name(subCommandName)
     .aliases(aliases)
+    .arguments('<workspace>')
     .description('Initialize a encrypt / decrypt able git repo.')
     .option(
       '--catalog-filepath, --catalogFilepath <catalogFilepath>',
@@ -64,6 +65,7 @@ export const createSubCommandInit = (
         COMMAND_NAME,
         subCommandName,
         options,
+        args,
       )
       await handle?.(resolvedOptions, args)
     })

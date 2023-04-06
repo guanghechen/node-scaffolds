@@ -112,12 +112,13 @@ export function resolveSubCommandInitOptions(
   commandName: string,
   subCommandName: string,
   options: ISubCommandInitOptions,
+  [workspace]: string[],
 ): ISubCommandInitOptions {
   const baseOptions: ISubCommandInitOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
     getDefaultCommandInitOptions,
-    options,
+    { ...options, workspace },
   )
 
   // Resolve catalogFilepath

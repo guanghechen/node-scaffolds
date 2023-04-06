@@ -5,7 +5,7 @@
   "files": [],
   "scripts": {
     "encrypt": "ghc-git-cipher encrypt",
-    "encrypt:files": "ghc-git-cipher encrypt --plainRootDir plain-files --filesOnly",
+    "encrypt:files": "ghc-git-cipher encrypt --plainRootDir {{{plainRootDir}}}-files --filesOnly",
     "decrypt": "ghc-git-cipher decrypt",
     "verify": "ghc-git-cipher verify",
     "sync:pull": "(cd {{{cryptRootDir}}} && git pull origin main)",
