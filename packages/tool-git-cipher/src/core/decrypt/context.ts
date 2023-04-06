@@ -73,7 +73,7 @@ export async function createGitCipherDecryptContextFromOptions(
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
-    plainRootDir: coverString(options.plainRootDir, options.outDir),
+    plainRootDir: options.plainRootDir,
     secretFilepath: options.secretFilepath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,

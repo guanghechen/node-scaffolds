@@ -2,7 +2,7 @@ import type {
   ICommandConfigurationFlatOpts,
   IResolveDefaultOptionsParams,
 } from '@guanghechen/helper-commander'
-import { isNonBlankString, isNotEmptyArray, isString } from '@guanghechen/helper-is'
+import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import path from 'node:path'
@@ -33,11 +33,6 @@ interface ISubCommandOptions {
    * Set the git config 'commit.gpgSign'.
    */
   readonly gitGpgSign: boolean | undefined
-  /**
-   * Root dir of decrypted outputs. (Relative of workspace)
-   * @default null
-   */
-  readonly outDir: string | undefined
 }
 
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
@@ -51,7 +46,6 @@ const getDefaultCommandDecryptOptions = (params: IResolveDefaultOptionsParams): 
     filesAt: undefined,
     filesOnly: [],
     gitGpgSign: false,
-    outDir: `${repoName}-plain`,
   }
 }
 
@@ -97,19 +91,11 @@ export function resolveSubCommandDecryptOptions(
   )
   logger.debug('gitGpgSign:', gitGpgSign)
 
-  // Resolve outDir
-  const _rawOutDir = cover<string | undefined>(baseOptions.outDir, options.outDir)
-  const outDir: string | undefined = isString(_rawOutDir)
-    ? absoluteOfWorkspace(baseOptions.workspace, _rawOutDir)
-    : undefined
-  logger.debug('outDir:', outDir)
-
   const resolvedOptions: ISubCommandOptions = {
     catalogCacheFilepath,
     filesAt,
     filesOnly,
     gitGpgSign,
-    outDir,
   }
   return { ...baseOptions, ...resolvedOptions }
 }

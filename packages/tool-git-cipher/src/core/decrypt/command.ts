@@ -32,10 +32,6 @@ export const createSubCommandDecrypt = (
     )
     .option('--git-gpg-sign', `Config git commit.gpgSign to 'true'.`)
     .option('--no-git-gpg-sign', `Config git commit.gpgSign to 'false'.`)
-    .option(
-      '--out-dir, --outDir <outDir>',
-      'Root dir of decrypted outputs. (Relative of workspace)',
-    )
     .action(async function (args: string[], options: ISubCommandDecryptOptions) {
       const resolvedOptions: ISubCommandDecryptOptions = resolveSubCommandDecryptOptions(
         COMMAND_NAME,
