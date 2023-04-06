@@ -1,7 +1,5 @@
-import { collectAffectedCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import type {
   IFileCipherCatalog,
-  IFileCipherCatalogDiffItem,
   IFileCipherCatalogDiffItemDraft,
   IFileCipherCatalogItem,
 } from '@guanghechen/helper-cipher-file'
@@ -12,8 +10,6 @@ import type {
 } from '@guanghechen/helper-git'
 import {
   checkBranch,
-  cleanUntrackedFilepaths,
-  commitAll,
   listAllFiles,
   listDiffFiles,
   mergeCommits,
@@ -22,8 +18,8 @@ import {
 import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import type { IGitCipherContext } from '../GitCipherContext'
-import type { IGitCipherConfig } from '../types'
-import { generateCommitHash, getCryptCommitId } from '../util'
+import { getCryptCommitId } from '../util'
+import { internalEncryptDiffItems } from './_internal'
 
 export interface IEncryptGitCommitParams {
   catalog: IFileCipherCatalog
@@ -51,7 +47,7 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     plain2cryptIdMap,
     plainPathResolver,
   } = params
-  const { cipherBatcher, configKeeper, logger, getIv } = context
+  const { configKeeper, logger } = context
   const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
 
@@ -93,7 +89,6 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     plainFilepaths: plainFiles.sort(),
     strickCheck: false,
   })
-
   const cryptParentCommitIds: string[] = plainCommitNode.parents.map(plainParentId =>
     getCryptCommitId(plainParentId, plain2cryptIdMap),
   )
@@ -109,33 +104,13 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     shouldAmend = true
   }
 
-  // [crypt] Clean untracked filepaths to avoid unexpected errors.
-  const cryptFiles: string[] = collectAffectedCryptFilepaths(draftDiffItems)
-  await cleanUntrackedFilepaths({ ...cryptCmdCtx, filepaths: cryptFiles })
-
-  // Update catalog.
-  const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
-    diffItems: draftDiffItems,
-    plainPathResolver,
+  await internalEncryptDiffItems({
+    catalog,
+    context,
     cryptPathResolver,
-    strictCheck: false,
-    getIv,
+    draftDiffItems,
+    plainPathResolver,
+    shouldAmend,
+    signature,
   })
-  catalog.applyDiff(diffItems)
-
-  // Encrypt files & update config.
-  const config: IGitCipherConfig = {
-    commit: {
-      message: signature.message,
-    },
-    catalog: {
-      diffItems,
-      items: Array.from(catalog.items),
-    },
-  }
-  await configKeeper.update(config)
-  await configKeeper.save()
-
-  const cryptMessage: string = generateCommitHash(config.catalog.items)
-  await commitAll({ ...cryptCmdCtx, ...signature, message: cryptMessage, amend: shouldAmend })
 }
