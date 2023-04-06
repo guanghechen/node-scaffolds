@@ -103,7 +103,14 @@ async function pickDiffItems(
     }
   }
 
-  const answers = await inquirer.prompt(
+  interface IAnswers {
+    removed: number[] | undefined
+    added: number[] | undefined
+    modified: number[] | undefined
+    message: string | undefined
+  }
+
+  const answers: IAnswers = await inquirer.prompt<IAnswers>(
     [
       removed.length > 0 && {
         type: 'checkbox',
@@ -139,10 +146,13 @@ async function pickDiffItems(
         type: 'input',
         name: 'message',
         message: 'Commit message',
+        transformer: (value: string): string => value.trim(),
         validate: (value: string) => {
           if (isNonBlankString(value.trim())) return true
           return 'Please input a non-blank string!'
         },
+        when: (answer: IAnswers): boolean =>
+          !!answer.removed?.length || !!answer.added?.length || !!answer.modified?.length,
       },
     ].filter(Boolean),
   )
@@ -156,6 +166,6 @@ async function pickDiffItems(
   const diffItems = candidateDiffItems.filter((_, i) => idSet.has(i))
   return {
     diffItems,
-    message: answers.message.trim(),
+    message: (answers.message ?? '').trim(),
   }
 }
