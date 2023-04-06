@@ -1,6 +1,6 @@
 {
   "root": true,
-  "extends": ["@guanghechen", "@guanghechen/jsx", "prettier"],
+  "extends": ["@guanghechen", "prettier"],
   "env": {
     "browser": true,
     "commonjs": true,
@@ -11,11 +11,11 @@
   "overrides": [
     {
       "files": ["**/*.ts", "**/*tsx", "**/*.mts"],
-      "extends": ["@guanghechen", "@guanghechen/jsx", "@guanghechen/ts", "prettier"]
+      "extends": ["@guanghechen", "@guanghechen/ts", "prettier"]
     },
     {
       "files": ["**/demo/**/*.ts", "**/demo/**/*tsx"],
-      "extends": ["@guanghechen", "@guanghechen/jsx", "@guanghechen/ts", "prettier"],
+      "extends": ["@guanghechen", "@guanghechen/ts", "prettier"],
       "rules": {
         "import/no-extraneous-dependencies": 0
       }
