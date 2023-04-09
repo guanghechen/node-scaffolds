@@ -5,7 +5,6 @@
   "command": {
     "publish": {
       "graphType": "all",
-      "verifyAccess": false,
       "ignoreChanges": ["*.md", "**/__test__/**/*"],
       "message": ":bookmark:  release: publish %s",
       "push": false,
