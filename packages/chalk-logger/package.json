@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/chalk-logger",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "description": "A simple colorful logger",
   "author": {
     "name": "guanghechen",
@@ -42,9 +42,9 @@
     "ts:run": "cross-env NODE_ENV=production node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm -r tsconfig-paths/register"
   },
   "dependencies": {
-    "@guanghechen/helper-is": "^5.0.0-alpha.0",
-    "@guanghechen/invariant": "^5.0.0-alpha.0",
-    "@guanghechen/utility-types": "^5.0.0-alpha.0",
+    "@guanghechen/helper-is": "^5.0.0-alpha.1",
+    "@guanghechen/invariant": "^5.0.0-alpha.1",
+    "@guanghechen/utility-types": "^5.0.0-alpha.1",
     "chalk": "^5.2.0",
     "dayjs": "^1.11.7",
     "json5": "^2.2.3"

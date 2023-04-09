@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-storage",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "description": "Utilities for read / write content",
   "author": {
     "name": "guanghechen",
