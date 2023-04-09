@@ -1,5 +1,41 @@
 # Changelog
 
+<a name="5.0.0-alpha.1"></a>
+## 5.0.0-alpha.1 (2023-04-09)
+
+### Added
+
+- ✨ feat(tool-git-cipher): encrypt filesOnly [[329a5c9](https://github.com/guanghechen/node-scaffolds/commit/329a5c96655d42c9cac6ba6dbe40228dc07fdf0e)]
+
+### Changed
+
+- 🔧 chore: remove legacy configs for lerna [[1dc0058](https://github.com/guanghechen/node-scaffolds/commit/1dc00588a9b45a01fb902b1e77787c89df963d12)]
+- 🎨 improve(tool-git-cipher): avoid duplicated password ask [[5cac0c6](https://github.com/guanghechen/node-scaffolds/commit/5cac0c6d017609ee334e089db37f3cfc81a452a5)]
+- 🍱 improve: update boilerplates [[7c67579](https://github.com/guanghechen/node-scaffolds/commit/7c6757916b2f0505979664c114797afec8695de2)]
+- 🎨 improve(tool-git-cipher): remove useless options [[545f17c](https://github.com/guanghechen/node-scaffolds/commit/545f17c59b65e2ff66bafa5c743e9fd4d725fc19)]
+- 🎨 improve(tool-git-cipher): avoid meaningless input ask [[7742711](https://github.com/guanghechen/node-scaffolds/commit/7742711172a57414e9137a0269d4c70e626f6668)]
+- 🎨 refactor(helper-git-cipher): extract internalEncryptDiffItems [[ebfdc31](https://github.com/guanghechen/node-scaffolds/commit/ebfdc31d47f3338ec74095600ac73d7d9251673d)]
+- 🔧 chore: fix eslint config [[6cd9774](https://github.com/guanghechen/node-scaffolds/commit/6cd9774efe3ba8ae92bfdc17ba50967233a7beca)]
+- 🎨 improve(helper-git-cipher): add encryptFilesOnly [[b3e2087](https://github.com/guanghechen/node-scaffolds/commit/b3e2087599687060fdef4701290c588478a24c9b)]
+- 🎨 improve: make code clean [[c33b556](https://github.com/guanghechen/node-scaffolds/commit/c33b5564928223a44a0e919114ee6d52c73529fb)]
+- 🎨 refactor(tool-git-cipher): extract and reuse the creating GitCipherContext code [[5bfea41](https://github.com/guanghechen/node-scaffolds/commit/5bfea413e48e95740cb80041b29301f14e53c6e4)]
+- 🎨 refactor(helper-git-cipher): no need to pass catalog anymore [[885f5cf](https://github.com/guanghechen/node-scaffolds/commit/885f5cf9398477d5a4162d9cac63b980160ee98d)]
+- 🎨 refactor(helper-git-cipher): add GitCipherContext to group common params [[90c3c94](https://github.com/guanghechen/node-scaffolds/commit/90c3c9426f109cfa2a4a9d818487775ba2971394)]
+- 🎨 improve(helper-cipher-file): make code more readable [[ef3b259](https://github.com/guanghechen/node-scaffolds/commit/ef3b259f5654904df7f109f5e9f1139e11974432)]
+- 🎨 improve(helper-git-cipher): make params simpler [[b165cce](https://github.com/guanghechen/node-scaffolds/commit/b165cce5f8758334f6d80464c89a40fbfeb428b3)]
+- 👽 fix build error due to the refactor of @guanghechen/helper-cipher-file [[ab7a009](https://github.com/guanghechen/node-scaffolds/commit/ab7a009b390b40b5a01f8908a4f49173c0b924f7)]
+
+### Breaking changes
+
+- 💥 improve(helper-cipher-file): make FileCipherCatalog easier to use [[1db98b0](https://github.com/guanghechen/node-scaffolds/commit/1db98b0dce7cc72afc64968380538d13713a11c4)]
+- 💥 refactor(helper-cipher-file): refactor FileCipherCatalog [[50f4bf4](https://github.com/guanghechen/node-scaffolds/commit/50f4bf4cc333b6d4ec6d5d4e5212e22f796a0839)]
+
+### Fixed
+
+- 🐛 fix(tool-git-cipher): fix missing arguments of subCommand &#x27;init&#x27; [[0da1f02](https://github.com/guanghechen/node-scaffolds/commit/0da1f022181aa9fbf6962a6975c4b95b28697a9d)]
+- 🐛 fix(helper-git-cipher): expose GitCipherContext [[2868ba2](https://github.com/guanghechen/node-scaffolds/commit/2868ba21bcb830e783aa14fbb24a9ab8a19bb8b7)]
+
+
 <a name="5.0.0-alpha.0"></a>
 ## 5.0.0-alpha.0 (2023-04-02)
 
