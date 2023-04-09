@@ -1,4 +1,3 @@
-import { coverString } from '@guanghechen/helper-option'
 import type { ISubCommandDecryptOptions } from './option'
 
 export interface IGitCipherDecryptContext {

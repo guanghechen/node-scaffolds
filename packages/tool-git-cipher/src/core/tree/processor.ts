@@ -45,6 +45,7 @@ export class GitCipherTreeProcessor {
     const secretKeeper = await secretMaster.load({
       filepath: context.secretFilepath,
       cryptRootDir: context.cryptRootDir,
+      force: false,
     })
 
     const cipherFactory: ICipherFactory | undefined = secretMaster.cipherFactory

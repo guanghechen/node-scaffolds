@@ -195,7 +195,10 @@ export class SecretMaster {
   public async load(params: {
     cryptRootDir: string
     filepath: string
+    force: boolean
   }): Promise<SecretConfigKeeper> {
+    if (!params.force && this.#secretConfigKeeper) return this.#secretConfigKeeper
+
     const title: string = this.constructor.name
     const { cryptRootDir, filepath } = params
     const storage = new FileStorage({ strict: true, filepath, encoding: 'utf8' })

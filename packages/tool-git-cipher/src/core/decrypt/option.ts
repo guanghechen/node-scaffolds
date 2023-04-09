@@ -39,7 +39,6 @@ type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
 export type ISubCommandDecryptOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
 const getDefaultCommandDecryptOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => {
-  const repoName = path.basename(params.workspace)
   return {
     ...getDefaultGlobalCommandOptions(params),
     catalogCacheFilepath: '.ghc-cache-catalog.decrypt.json',

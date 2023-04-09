@@ -15,7 +15,11 @@ export async function loadGitCipherContext(
   params: ILoadGitCipherContextParams,
 ): Promise<{ cipherFactory: ICipherFactory; context: IGitCipherContext }> {
   const { cryptRootDir, secretFilepath, secretMaster } = params
-  const secretKeeper = await secretMaster.load({ filepath: secretFilepath, cryptRootDir })
+  const secretKeeper = await secretMaster.load({
+    filepath: secretFilepath,
+    cryptRootDir,
+    force: false,
+  })
 
   const catalogCipher: ICipher | undefined = secretMaster.catalogCipher
   const cipherFactory: ICipherFactory | undefined = secretMaster.cipherFactory

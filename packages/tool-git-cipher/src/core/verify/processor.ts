@@ -82,6 +82,7 @@ export class GitCipherVerifyProcessor {
     const secretKeeper = await secretMaster.load({
       filepath: context.secretFilepath,
       cryptRootDir: context.cryptRootDir,
+      force: true,
     })
     invariant(!!secretKeeper.data, `[${title}] secret is not available.`)
 
