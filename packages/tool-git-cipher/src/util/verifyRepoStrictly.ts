@@ -7,7 +7,7 @@ import invariant from '@guanghechen/invariant'
 import { logger } from '../env/logger'
 import { CatalogCacheKeeper } from './CatalogCache'
 
-export interface IVerifyCryptRepoParams {
+export interface IVerifyCryptRepoStrictlyParams {
   readonly catalogCacheFilepath: string
   readonly catalogCipher: ICipher | undefined
   readonly cipherFactory: ICipherFactory | undefined
@@ -18,7 +18,7 @@ export interface IVerifyCryptRepoParams {
   readonly plainPathResolver: FilepathResolver
 }
 
-export async function verifyRepoStrictly(params: IVerifyCryptRepoParams): Promise<void> {
+export async function verifyRepoStrictly(params: IVerifyCryptRepoStrictlyParams): Promise<void> {
   const title = 'verifyRepoStrictly'
   const {
     catalogCacheFilepath,

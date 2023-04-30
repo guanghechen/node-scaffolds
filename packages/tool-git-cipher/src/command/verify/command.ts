@@ -1,15 +1,32 @@
-import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
-import { Command } from '@guanghechen/helper-commander'
+import {
+  Command,
+  createSubCommandExecutor,
+  createSubCommandMounter,
+} from '@guanghechen/helper-commander'
+import type {
+  ISubCommandExecutor,
+  ISubCommandMounter,
+  ISubCommandProcessor,
+} from '@guanghechen/helper-commander'
 import { COMMAND_NAME } from '../../env/constant'
 import type { ISubCommandVerifyOptions } from './option'
 import { resolveSubCommandVerifyOptions } from './option'
+import { verify } from './run'
+
+// Mount Sub-command: verify
+export const mountSubCommandVerify: ISubCommandMounter =
+  createSubCommandMounter<ISubCommandVerifyOptions>(createSubCommandVerify, verify)
+
+// Execute sub-command: verify
+export const execSubCommandVerify: ISubCommandExecutor =
+  createSubCommandExecutor<ISubCommandVerifyOptions>(createSubCommandVerify, verify)
 
 // Create Sub-command: verify (v)
-export const createSubCommandVerify = (
+export function createSubCommandVerify(
   handle?: ISubCommandProcessor<ISubCommandVerifyOptions>,
   subCommandName = 'verify',
   aliases: string[] = ['v'],
-): Command => {
+): Command {
   const command = new Command()
 
   command

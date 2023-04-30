@@ -1,15 +1,32 @@
-import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
-import { Command } from '@guanghechen/helper-commander'
+import {
+  Command,
+  createSubCommandExecutor,
+  createSubCommandMounter,
+} from '@guanghechen/helper-commander'
+import type {
+  ISubCommandExecutor,
+  ISubCommandMounter,
+  ISubCommandProcessor,
+} from '@guanghechen/helper-commander'
 import { COMMAND_NAME } from '../../env/constant'
-import type { ISubCommandCatOptions } from './option'
 import { resolveSubCommandCatOptions } from './option'
+import type { ISubCommandCatOptions } from './option'
+import { cat } from './run'
+
+// Mount Sub-command: cat
+export const mountSubCommandCat: ISubCommandMounter =
+  createSubCommandMounter<ISubCommandCatOptions>(createSubCommandCat, cat)
+
+// Execute sub-command: cat
+export const execSubCommandCat: ISubCommandExecutor =
+  createSubCommandExecutor<ISubCommandCatOptions>(createSubCommandCat, cat)
 
 // Create Sub-command: cat (c)
-export const createSubCommandCat = (
+export function createSubCommandCat(
   handle?: ISubCommandProcessor<ISubCommandCatOptions>,
   subCommandName = 'cat',
   aliases: string[] = ['c'],
-): Command => {
+): Command {
   const command = new Command()
 
   command

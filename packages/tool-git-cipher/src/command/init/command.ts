@@ -1,15 +1,32 @@
-import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
-import { Command } from '@guanghechen/helper-commander'
+import type {
+  ISubCommandExecutor,
+  ISubCommandMounter,
+  ISubCommandProcessor,
+} from '@guanghechen/helper-commander'
+import {
+  Command,
+  createSubCommandExecutor,
+  createSubCommandMounter,
+} from '@guanghechen/helper-commander'
 import { COMMAND_NAME } from '../../env/constant'
 import type { ISubCommandInitOptions } from './option'
 import { resolveSubCommandInitOptions } from './option'
+import { init } from './run'
+
+// Mount Sub-command: init
+export const mountSubCommandInit: ISubCommandMounter =
+  createSubCommandMounter<ISubCommandInitOptions>(createSubCommandInit, init)
+
+// Execute sub-command: init
+export const execSubCommandInit: ISubCommandExecutor =
+  createSubCommandExecutor<ISubCommandInitOptions>(createSubCommandInit, init)
 
 // Create Sub-command: init (i)
-export const createSubCommandInit = (
+export function createSubCommandInit(
   handle?: ISubCommandProcessor<ISubCommandInitOptions>,
   subCommandName = 'init',
   aliases: string[] = ['i'],
-): Command => {
+): Command {
   const command = new Command()
 
   command

@@ -1,15 +1,32 @@
-import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
-import { Command } from '@guanghechen/helper-commander'
+import type {
+  ISubCommandExecutor,
+  ISubCommandMounter,
+  ISubCommandProcessor,
+} from '@guanghechen/helper-commander'
+import {
+  Command,
+  createSubCommandExecutor,
+  createSubCommandMounter,
+} from '@guanghechen/helper-commander'
 import { COMMAND_NAME } from '../../env/constant'
 import type { ISubCommandDecryptOptions } from './option'
 import { resolveSubCommandDecryptOptions } from './option'
+import { decrypt } from './run'
+
+// Mount Sub-command: decrypt
+export const mountSubCommandDecrypt: ISubCommandMounter =
+  createSubCommandMounter<ISubCommandDecryptOptions>(createSubCommandDecrypt, decrypt)
+
+// Execute sub-command: decrypt
+export const execSubCommandDecrypt: ISubCommandExecutor =
+  createSubCommandExecutor<ISubCommandDecryptOptions>(createSubCommandDecrypt, decrypt)
 
 // Create Sub-command: decrypt (d)
-export const createSubCommandDecrypt = (
+export function createSubCommandDecrypt(
   handle?: ISubCommandProcessor<ISubCommandDecryptOptions>,
   subCommandName = 'decrypt',
   aliases: string[] = ['d'],
-): Command => {
+): Command {
   const command = new Command()
 
   command

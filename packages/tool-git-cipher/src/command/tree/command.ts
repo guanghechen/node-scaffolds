@@ -1,15 +1,32 @@
-import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
-import { Command } from '@guanghechen/helper-commander'
+import type {
+  ISubCommandExecutor,
+  ISubCommandMounter,
+  ISubCommandProcessor,
+} from '@guanghechen/helper-commander'
+import {
+  Command,
+  createSubCommandExecutor,
+  createSubCommandMounter,
+} from '@guanghechen/helper-commander'
 import { COMMAND_NAME } from '../../env/constant'
 import type { ISubCommandTreeOptions } from './option'
 import { resolveSubCommandTreeOptions } from './option'
+import { tree } from './run'
+
+// Mount Sub-command: tree
+export const mountSubCommandTree: ISubCommandMounter =
+  createSubCommandMounter<ISubCommandTreeOptions>(createSubCommandTree, tree)
+
+// Execute sub-command: tree
+export const execSubCommandTree: ISubCommandExecutor =
+  createSubCommandExecutor<ISubCommandTreeOptions>(createSubCommandTree, tree)
 
 // Create Sub-command: tree
-export const createSubCommandTree = (
+export function createSubCommandTree(
   handle?: ISubCommandProcessor<ISubCommandTreeOptions>,
   subCommandName = 'tree',
   aliases: string[] = [],
-): Command => {
+): Command {
   const command = new Command()
 
   command
