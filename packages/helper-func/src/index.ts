@@ -1,3 +1,4 @@
+export * from './array'
 export * from './boolean'
 export * from './bytes'
 export * from './delay'
