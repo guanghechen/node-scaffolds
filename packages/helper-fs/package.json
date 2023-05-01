@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-fs",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.0-alpha.2",
   "description": "Provide some enhanced methods base on `node:fs`.",
   "author": {
     "name": "guanghechen",
@@ -43,8 +43,8 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/invariant": "^5.0.0-alpha.1",
-    "@guanghechen/utility-types": "^5.0.0-alpha.1"
+    "@guanghechen/invariant": "^5.0.0-alpha.2",
+    "@guanghechen/utility-types": "^5.0.0-alpha.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
