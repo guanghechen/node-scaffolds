@@ -1,3 +1,4 @@
+import { filterInPlace } from '@guanghechen/helper-func'
 import type {
   IEvent,
   IEventBus,
@@ -23,11 +24,11 @@ import type {
  *    event.
  */
 export class SimpleEventBus<T extends IEventType> implements IEventBus<T> {
-  protected listeners: Record<T, Array<IEventListener<T>>>
+  protected listeners: Map<T, Array<IEventListener<T>>>
   protected subscribers: Array<IEventSubscriber<T>>
 
   constructor() {
-    this.listeners = {} as unknown as Record<T, Array<IEventListener<T>>>
+    this.listeners = new Map<T, Array<IEventListener<T>>>()
     this.subscribers = []
   }
 
@@ -49,7 +50,11 @@ export class SimpleEventBus<T extends IEventType> implements IEventBus<T> {
     P extends IEventPayload = IEventPayload,
     E extends IEvent<T, P> = IEvent<T, P>,
   >(type: T, handle: IEventHandler<T, P, E>, once: boolean): this {
-    const listeners = this.listeners[type] || []
+    let listeners = this.listeners.get(type)
+    if (!listeners) {
+      listeners = []
+      this.listeners.set(type, listeners)
+    }
 
     // An event handle can only be registered once.
     const listener = listeners.find(listener => listener.handle === handle)
@@ -59,7 +64,6 @@ export class SimpleEventBus<T extends IEventType> implements IEventBus<T> {
     }
 
     listeners.push({ once, handle: handle as IEventHandler<T> })
-    this.listeners[type] = listeners
     return this
   }
 
@@ -67,9 +71,9 @@ export class SimpleEventBus<T extends IEventType> implements IEventBus<T> {
     P extends IEventPayload = IEventPayload,
     E extends IEvent<T, P> = IEvent<T, P>,
   >(type: T, handle: IEventHandler<T, P, E>): this {
-    const listeners = this.listeners[type]
+    const listeners = this.listeners.get(type)
     if (listeners) {
-      this.listeners[type] = listeners.filter(listener => listener.handle !== handle)
+      filterInPlace(listeners, listener => listener.handle !== handle)
     }
     return this
   }
@@ -93,37 +97,39 @@ export class SimpleEventBus<T extends IEventType> implements IEventBus<T> {
     P extends IEventPayload = IEventPayload,
     E extends IEvent<T, P> = IEvent<T, P>,
   >(handle: IEventHandler<T, P, E>): this {
-    this.subscribers = this.subscribers.filter(subscriber => subscriber.handle !== handle)
+    filterInPlace(this.subscribers, subscriber => subscriber.handle !== handle)
     return this
   }
 
   public dispatch<P extends IEventPayload = IEventPayload, E extends IEvent<T, P> = IEvent<T, P>>(
     evt: Readonly<E>,
   ): this {
-    // trigger subscribers
-    const subscribers = this.subscribers
-    for (const subscriber of subscribers) {
-      subscriber.handle(evt)
-      if (subscriber.once) {
-        this.unsubscribe(subscriber.handle)
+    {
+      // trigger subscribers
+      const subscribers = this.subscribers
+      for (const subscriber of subscribers) {
+        subscriber.handle(evt)
       }
+
+      // Remove one-time subscribers
+      filterInPlace(this.subscribers, subscriber => !subscriber.once)
     }
 
     // trigger listeners
-    const listeners = this.listeners[evt.type]
-    if (listeners != null) {
+    const listeners = this.listeners.get(evt.type)
+    if (listeners) {
       for (const listener of listeners) {
         listener.handle(evt)
-        if (listener.once) {
-          this.removeListener(evt.type, listener.handle)
-        }
       }
+
+      // Remove one-time listeners
+      filterInPlace(listeners, listener => !listener.once)
     }
     return this
   }
 
   public cleanup(): this {
-    this.listeners = {} as unknown as Record<T, Array<IEventListener<T>>>
+    this.listeners.clear()
     this.subscribers = []
     return this
   }

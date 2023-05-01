@@ -11,14 +11,14 @@ describe('SimpleEventBus', function () {
   describe('listener', function () {
     test('Only event emitted after the listener register could be received', function () {
       const eventBus = new SimpleEventBus<EventTypes>()
-      const [messages, handle] = createEventHandler()
+      const [messages, handle] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
       eventBus.on(EventTypes.INIT, handle)
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 2 } })
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 3 } })
 
-      expect(messages.length === 2).toBeTruthy()
+      expect(messages.length).toEqual(2)
       expect(messages).toEqual([
         { type: EventTypes.INIT, payload: { id: 2 } },
         { type: EventTypes.INIT, payload: { id: 3 } },
@@ -27,19 +27,19 @@ describe('SimpleEventBus', function () {
 
     test('Only be executed once if the listener registered through the `.once()`', function () {
       const eventBus = new SimpleEventBus<EventTypes>()
-      const [messages, handle] = createEventHandler()
+      const [messages, handle] = mockEventHandler()
 
       eventBus.once(EventTypes.INIT, handle)
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 2 } })
 
-      expect(messages.length === 1).toBeTruthy()
+      expect(messages.length).toEqual(1)
       expect(messages).toEqual([{ type: EventTypes.INIT, payload: { id: 1 } }])
     })
 
     test('Only listened events will trigger listener', function () {
       const eventBus = new SimpleEventBus<EventTypes>()
-      const [messages, handle] = createEventHandler()
+      const [messages, handle] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
       eventBus.on(EventTypes.INIT, handle)
@@ -48,7 +48,7 @@ describe('SimpleEventBus', function () {
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 4 } })
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 5 } })
 
-      expect(messages.length === 3).toBeTruthy()
+      expect(messages.length).toEqual(3)
       expect(messages).toEqual([
         { type: EventTypes.INIT, payload: { id: 2 } },
         { type: EventTypes.INIT, payload: { id: 4 } },
@@ -58,8 +58,8 @@ describe('SimpleEventBus', function () {
 
     test('Event listener could be unregistered manually', function () {
       const eventBus = new SimpleEventBus<EventTypes>()
-      const [messages, handle] = createEventHandler()
-      const [messages2, handle2] = createEventHandler()
+      const [messages, handle] = mockEventHandler()
+      const [messages2, handle2] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
       eventBus.on(EventTypes.INIT, handle)
@@ -70,13 +70,13 @@ describe('SimpleEventBus', function () {
       eventBus.removeListener(EventTypes.INIT, handle)
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 5 } })
 
-      expect(messages.length === 2).toBeTruthy()
+      expect(messages.length).toEqual(2)
       expect(messages).toEqual([
         { type: EventTypes.INIT, payload: { id: 2 } },
         { type: EventTypes.INIT, payload: { id: 4 } },
       ])
 
-      expect(messages2.length === 2).toBeTruthy()
+      expect(messages2.length).toEqual(2)
       expect(messages2).toEqual([
         { type: EventTypes.INIT, payload: { id: 4 } },
         { type: EventTypes.INIT, payload: { id: 5 } },
@@ -89,7 +89,7 @@ describe('SimpleEventBus', function () {
 
     test('Event listener can only be registered once for each particular event', function () {
       const eventBus = new SimpleEventBus<EventTypes>()
-      const [messages, handle] = createEventHandler()
+      const [messages, handle] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
       eventBus.on(EventTypes.INIT, handle)
@@ -111,7 +111,7 @@ describe('SimpleEventBus', function () {
       eventBus.on(EventTypes.INIT, handle)
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 7 } })
 
-      expect(messages.length === 3).toBeTruthy()
+      expect(messages.length).toEqual(3)
       expect(messages).toEqual([
         { type: EventTypes.INIT, payload: { id: 2 } },
         { type: EventTypes.EXIT, payload: { id: 4 } },
@@ -121,33 +121,33 @@ describe('SimpleEventBus', function () {
 
     test('Remove all subscriber after called clear()', function () {
       const eventBus = new SimpleEventBus<EventTypes>()
-      const [messages, handle] = createEventHandler()
+      const [messages, handle] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
       eventBus.on(EventTypes.INIT, handle)
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 2 } })
       eventBus.on(EventTypes.INIT, handle)
 
-      expect(messages.length === 1).toBeTruthy()
+      expect(messages.length).toEqual(1)
 
       eventBus.cleanup()
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 2 } })
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 2 } })
-      expect(messages.length === 1).toBeTruthy()
+      expect(messages.length).toEqual(1)
     })
   })
 
   describe('subscriber', function () {
     test('Only event emitted after the subscriber register could be received', function () {
       const eventBus = new SimpleEventBus<EventTypes>()
-      const [messages, handle] = createEventHandler()
+      const [messages, handle] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
       eventBus.subscribe(handle, false)
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 2 } })
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 3 } })
 
-      expect(messages.length === 2).toBeTruthy()
+      expect(messages.length).toEqual(2)
       expect(messages).toEqual([
         { type: EventTypes.INIT, payload: { id: 2 } },
         { type: EventTypes.INIT, payload: { id: 3 } },
@@ -156,19 +156,19 @@ describe('SimpleEventBus', function () {
 
     test('Only be executed once if the subscriber registered with once flag `true`', function () {
       const eventBus = new SimpleEventBus<EventTypes>()
-      const [messages, handle] = createEventHandler()
+      const [messages, handle] = mockEventHandler()
 
       eventBus.subscribe(handle, true)
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 2 } })
 
-      expect(messages.length === 1).toBeTruthy()
+      expect(messages.length).toEqual(1)
       expect(messages).toEqual([{ type: EventTypes.INIT, payload: { id: 1 } }])
     })
 
     test('No matter what event will trigger the subscriber', function () {
       const eventBus = new SimpleEventBus<EventTypes>()
-      const [messages, handle] = createEventHandler()
+      const [messages, handle] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
       eventBus.subscribe(handle, false)
@@ -177,7 +177,7 @@ describe('SimpleEventBus', function () {
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 4 } })
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 5 } })
 
-      expect(messages.length === 4).toBeTruthy()
+      expect(messages.length).toEqual(4)
       expect(messages).toEqual([
         { type: EventTypes.INIT, payload: { id: 2 } },
         { type: EventTypes.EXIT, payload: { id: 3 } },
@@ -188,8 +188,8 @@ describe('SimpleEventBus', function () {
 
     test('Event subscriber could be unregistered manually', async function () {
       const eventBus = new SimpleEventBus<EventTypes>()
-      const [messages, handle] = createEventHandler()
-      const [messages2, handle2] = createEventHandler()
+      const [messages, handle] = mockEventHandler()
+      const [messages2, handle2] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
       eventBus.subscribe(handle, false)
@@ -203,14 +203,14 @@ describe('SimpleEventBus', function () {
       eventBus.unsubscribe(handle)
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 5 } })
 
-      expect(messages.length === 3).toBeTruthy()
+      expect(messages.length).toEqual(3)
       expect(messages).toEqual([
         { type: EventTypes.INIT, payload: { id: 2 } },
         { type: EventTypes.EXIT, payload: { id: 3 } },
         { type: EventTypes.INIT, payload: { id: 4 } },
       ])
 
-      expect(messages2.length === 3).toBeTruthy()
+      expect(messages2.length).toEqual(3)
       expect(messages2).toEqual([
         { type: EventTypes.EXIT, payload: { id: 3 } },
         { type: EventTypes.INIT, payload: { id: 4 } },
@@ -220,7 +220,7 @@ describe('SimpleEventBus', function () {
 
     test('Event subscriber can only be registered once', function () {
       const eventBus = new SimpleEventBus<EventTypes>()
-      const [messages, handle] = createEventHandler()
+      const [messages, handle] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
       eventBus.subscribe(handle, true)
@@ -234,7 +234,7 @@ describe('SimpleEventBus', function () {
       eventBus.subscribe(handle, true)
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 6 } })
 
-      expect(messages.length === 4).toBeTruthy()
+      expect(messages.length).toEqual(4)
       expect(messages).toEqual([
         { type: EventTypes.INIT, payload: { id: 2 } },
         { type: EventTypes.EXIT, payload: { id: 3 } },
@@ -245,7 +245,7 @@ describe('SimpleEventBus', function () {
   })
 })
 
-function createEventHandler(): [Array<IEvent<EventTypes>>, IEventHandler<EventTypes>] {
+function mockEventHandler(): [Array<IEvent<EventTypes>>, IEventHandler<EventTypes>] {
   const messages: Array<IEvent<EventTypes>> = []
   const handle = (evt: IEvent<EventTypes>): unknown => messages.push(evt)
   return [messages, handle]
