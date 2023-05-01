@@ -1,5 +1,26 @@
 # Changelog
 
+<a name="5.0.0-alpha.2"></a>
+## 5.0.0-alpha.2 (2023-05-01)
+
+### Added
+
+- ✨ feat: add @guanghechen/observable [[e0ef27b](https://github.com/guanghechen/node-scaffolds/commit/e0ef27bcf22a2e9e05ff29fea05f6a4778ef3ebf)]
+- ✨ feat(helper-func): add new method &#x27;filterInPlace&#x27; [[bde0fd7](https://github.com/guanghechen/node-scaffolds/commit/bde0fd7b2aefb3ecb35c4d3a65cdc2acbc5e2436)]
+
+### Changed
+
+- ⚡ improve(event-bus): use filterInPlace instead .filter to save memory [[5af9129](https://github.com/guanghechen/node-scaffolds/commit/5af9129e7cd8588c0b2c3aea5c2e839c89a20640)]
+- 🎨 improve(helper-func): rename list2map to iterable2map [[9acdf62](https://github.com/guanghechen/node-scaffolds/commit/9acdf623c626037cb948325c71e0d69bee2991a2)]
+- 🎨 improve(helper-func): re-organize files [[fc39a59](https://github.com/guanghechen/node-scaffolds/commit/fc39a59723bd28ebdee6370b646654f1910fb145)]
+- 🎨 refactor(tool-git-cipher): re-organize files [[850069e](https://github.com/guanghechen/node-scaffolds/commit/850069ee810cdf7096bef3f3e3deac017df2ac46)]
+- ⬆️ chore: upgrade dependencies [[d7f49fe](https://github.com/guanghechen/node-scaffolds/commit/d7f49fe9a0cedfbb2a7584da196a1bcc7b78bacd)]
+
+### Breaking changes
+
+- 💥 rename SimpleEventBus to EventBus [[5601895](https://github.com/guanghechen/node-scaffolds/commit/5601895881a17f5451f757db0fcbfd27583b3962)]
+
+
 <a name="5.0.0-alpha.1"></a>
 ## 5.0.0-alpha.1 (2023-04-09)
 
