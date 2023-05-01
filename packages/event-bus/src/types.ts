@@ -18,7 +18,7 @@ export interface IEventHandler<
    * The returned value will be ignored
    * @param evt
    */
-  (evt: Readonly<E>): void
+  (evt: Readonly<E>, eventBus: IEventBus<T>): void
 }
 
 export interface IEventSubscriber<

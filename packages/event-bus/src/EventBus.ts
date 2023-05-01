@@ -107,9 +107,7 @@ export class EventBus<T extends IEventType> implements IEventBus<T> {
     {
       // trigger subscribers
       const subscribers = this.subscribers
-      for (const subscriber of subscribers) {
-        subscriber.handle(evt)
-      }
+      for (const subscriber of subscribers) subscriber.handle(evt, this)
 
       // Remove one-time subscribers
       filterInPlace(this.subscribers, subscriber => !subscriber.once)
@@ -118,9 +116,7 @@ export class EventBus<T extends IEventType> implements IEventBus<T> {
     // trigger listeners
     const listeners = this.listeners.get(evt.type)
     if (listeners) {
-      for (const listener of listeners) {
-        listener.handle(evt)
-      }
+      for (const listener of listeners) listener.handle(evt, this)
 
       // Remove one-time listeners
       filterInPlace(listeners, listener => !listener.once)
