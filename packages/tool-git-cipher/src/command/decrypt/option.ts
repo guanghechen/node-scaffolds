@@ -5,7 +5,6 @@ import type {
 import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
-import path from 'node:path'
 import { logger } from '../../env/logger'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
