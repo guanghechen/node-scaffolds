@@ -29,6 +29,7 @@
       "@guanghechen/invariant": ["packages/invariant/src"],
       "@guanghechen/jest-config": ["packages/jest-config/src"],
       "@guanghechen/mini-copy": ["packages/mini-copy/src"],
+      "@guanghechen/observable": ["packages/observable/src"],
       "@guanghechen/postcss-modules-dts": ["packages/postcss-modules-dts/src"],
       "@guanghechen/rollup-config": ["packages/rollup-config/src"],
       "@guanghechen/rollup-config-cli": ["packages/rollup-config-cli/src"],
