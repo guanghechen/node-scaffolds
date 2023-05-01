@@ -1,16 +1,16 @@
 import { delay } from '@guanghechen/helper-func'
 import type { IEvent, IEventHandler } from '../src'
-import { SimpleEventBus } from '../src'
+import { EventBus } from '../src'
 
 enum EventTypes {
   INIT = 'INIT',
   EXIT = 'EXIT',
 }
 
-describe('SimpleEventBus', function () {
+describe('EventBus', function () {
   describe('listener', function () {
     test('Only event emitted after the listener register could be received', function () {
-      const eventBus = new SimpleEventBus<EventTypes>()
+      const eventBus = new EventBus<EventTypes>()
       const [messages, handle] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
@@ -26,7 +26,7 @@ describe('SimpleEventBus', function () {
     })
 
     test('Only be executed once if the listener registered through the `.once()`', function () {
-      const eventBus = new SimpleEventBus<EventTypes>()
+      const eventBus = new EventBus<EventTypes>()
       const [messages, handle] = mockEventHandler()
 
       eventBus.once(EventTypes.INIT, handle)
@@ -38,7 +38,7 @@ describe('SimpleEventBus', function () {
     })
 
     test('Only listened events will trigger listener', function () {
-      const eventBus = new SimpleEventBus<EventTypes>()
+      const eventBus = new EventBus<EventTypes>()
       const [messages, handle] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
@@ -57,7 +57,7 @@ describe('SimpleEventBus', function () {
     })
 
     test('Event listener could be unregistered manually', function () {
-      const eventBus = new SimpleEventBus<EventTypes>()
+      const eventBus = new EventBus<EventTypes>()
       const [messages, handle] = mockEventHandler()
       const [messages2, handle2] = mockEventHandler()
 
@@ -88,7 +88,7 @@ describe('SimpleEventBus', function () {
     })
 
     test('Event listener can only be registered once for each particular event', function () {
-      const eventBus = new SimpleEventBus<EventTypes>()
+      const eventBus = new EventBus<EventTypes>()
       const [messages, handle] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
@@ -120,7 +120,7 @@ describe('SimpleEventBus', function () {
     })
 
     test('Remove all subscriber after called clear()', function () {
-      const eventBus = new SimpleEventBus<EventTypes>()
+      const eventBus = new EventBus<EventTypes>()
       const [messages, handle] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
@@ -139,7 +139,7 @@ describe('SimpleEventBus', function () {
 
   describe('subscriber', function () {
     test('Only event emitted after the subscriber register could be received', function () {
-      const eventBus = new SimpleEventBus<EventTypes>()
+      const eventBus = new EventBus<EventTypes>()
       const [messages, handle] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
@@ -155,7 +155,7 @@ describe('SimpleEventBus', function () {
     })
 
     test('Only be executed once if the subscriber registered with once flag `true`', function () {
-      const eventBus = new SimpleEventBus<EventTypes>()
+      const eventBus = new EventBus<EventTypes>()
       const [messages, handle] = mockEventHandler()
 
       eventBus.subscribe(handle, true)
@@ -167,7 +167,7 @@ describe('SimpleEventBus', function () {
     })
 
     test('No matter what event will trigger the subscriber', function () {
-      const eventBus = new SimpleEventBus<EventTypes>()
+      const eventBus = new EventBus<EventTypes>()
       const [messages, handle] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })
@@ -187,7 +187,7 @@ describe('SimpleEventBus', function () {
     })
 
     test('Event subscriber could be unregistered manually', async function () {
-      const eventBus = new SimpleEventBus<EventTypes>()
+      const eventBus = new EventBus<EventTypes>()
       const [messages, handle] = mockEventHandler()
       const [messages2, handle2] = mockEventHandler()
 
@@ -219,7 +219,7 @@ describe('SimpleEventBus', function () {
     })
 
     test('Event subscriber can only be registered once', function () {
-      const eventBus = new SimpleEventBus<EventTypes>()
+      const eventBus = new EventBus<EventTypes>()
       const [messages, handle] = mockEventHandler()
 
       eventBus.dispatch({ type: EventTypes.INIT, payload: { id: 1 } })

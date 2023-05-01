@@ -1,4 +1,4 @@
-import { SimpleEventBus } from '@guanghechen/event-bus'
+import { EventBus } from '@guanghechen/event-bus'
 import { logger } from '../env/logger'
 
 /**
@@ -32,7 +32,7 @@ export enum EventTypes {
   EXITING = 'EXITING',
 }
 
-export const eventBus = new SimpleEventBus<EventTypes>()
+export const eventBus = new EventBus<EventTypes>()
   .on(EventTypes.CANCELED, () => {
     logger.info('canceled')
     eventBus.dispatch({ type: EventTypes.EXITING })

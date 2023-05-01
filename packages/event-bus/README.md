@@ -72,14 +72,14 @@ A simple event bus.
 
   ```typescript
   import type { IEvent, IEventHandler } from '@guanghechen/event-bus'
-  import { SimpleEventBus } from '@guanghechen/event-bus'
+  import { EventBus } from '@guanghechen/event-bus'
 
   enum EventTypes {
     INIT = 'INIT',
     EXIT = 'EXIT',
   }
 
-  const eventBus = new SimpleEventBus<EventTypes>()
+  const eventBus = new EventBus<EventTypes>()
 
   const handle: IEventHandler<EventTypes> = (evt: IEvent<EventTypes>) => {
     console.log('evt:', evt)

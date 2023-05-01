@@ -23,7 +23,7 @@ import type {
  *    event will be aborted, that is, other subsequent listeners / subscribers will not receive this
  *    event.
  */
-export class SimpleEventBus<T extends IEventType> implements IEventBus<T> {
+export class EventBus<T extends IEventType> implements IEventBus<T> {
   protected listeners: Map<T, Array<IEventListener<T>>>
   protected subscribers: Array<IEventSubscriber<T>>
 
