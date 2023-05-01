@@ -3,7 +3,7 @@ import type { FileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import type { IGitCipherContext } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import type { SecretMaster } from '../SecretMaster'
-import { createGitCipherContext } from './createGitCipherContext'
+import { createContext } from './createContext'
 
 export interface ILoadGitCipherContextParams {
   cryptRootDir: string
@@ -35,7 +35,7 @@ export async function loadGitCipherContext(
     '[loadGitCipherContext] Secret cipherFactory is not available!',
   )
 
-  const context = createGitCipherContext({
+  const context = createContext({
     catalogCipher,
     catalogContext,
     catalogFilepath,

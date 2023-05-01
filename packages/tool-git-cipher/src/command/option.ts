@@ -8,7 +8,7 @@ import { isNonBlankString } from '@guanghechen/helper-is'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import path from 'node:path'
-import { logger } from '../env/logger'
+import { logger } from '../core/logger'
 
 // Global command options
 export interface IGlobalCommandOptions extends ICommandConfigurationOptions {

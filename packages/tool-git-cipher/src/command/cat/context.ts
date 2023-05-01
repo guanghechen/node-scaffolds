@@ -43,7 +43,7 @@ export interface IGitCipherCatContext {
   readonly workspace: string
 }
 
-export async function createGitCipherCatContextFromOptions(
+export async function createCatContextFromOptions(
   options: ISubCommandCatOptions,
 ): Promise<IGitCipherCatContext> {
   const context: IGitCipherCatContext = {

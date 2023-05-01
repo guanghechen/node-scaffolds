@@ -51,7 +51,7 @@ export interface IGitCipherVerifyContext {
   readonly workspace: string
 }
 
-export async function createGitCipherVerifyContextFromOptions(
+export async function createVerifyContextFromOptions(
   options: ISubCommandVerifyOptions,
 ): Promise<IGitCipherVerifyContext> {
   const context: IGitCipherVerifyContext = {

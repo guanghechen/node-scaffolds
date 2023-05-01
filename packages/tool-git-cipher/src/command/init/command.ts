@@ -8,7 +8,7 @@ import {
   createSubCommandExecutor,
   createSubCommandMounter,
 } from '@guanghechen/helper-commander'
-import { COMMAND_NAME } from '../../env/constant'
+import { COMMAND_NAME } from '../../core/constant'
 import type { ISubCommandInitOptions } from './option'
 import { resolveSubCommandInitOptions } from './option'
 import { init } from './run'

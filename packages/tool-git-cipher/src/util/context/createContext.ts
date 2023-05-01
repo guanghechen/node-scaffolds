@@ -5,7 +5,7 @@ import { BigFileHelper } from '@guanghechen/helper-file'
 import type { IGitCipherContext } from '@guanghechen/helper-git-cipher'
 import { GitCipherConfigKeeper, GitCipherContext } from '@guanghechen/helper-git-cipher'
 import { FileStorage } from '@guanghechen/helper-storage'
-import { logger } from '../../env/logger'
+import { logger } from '../../core/logger'
 
 export interface ICreateGitCipherContextParams {
   catalogCipher: ICipher
@@ -15,7 +15,7 @@ export interface ICreateGitCipherContextParams {
   getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
 }
 
-export function createGitCipherContext(params: ICreateGitCipherContextParams): IGitCipherContext {
+export function createContext(params: ICreateGitCipherContextParams): IGitCipherContext {
   const { catalogCipher, catalogContext, catalogFilepath, cipherFactory, getDynamicIv } = params
   const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
   const fileHelper = new BigFileHelper({ partCodePrefix: catalogContext.partCodePrefix })

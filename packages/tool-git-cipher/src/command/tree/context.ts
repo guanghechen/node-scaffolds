@@ -39,7 +39,7 @@ export interface IGitCipherTreeContext {
   readonly workspace: string
 }
 
-export async function createGitCipherTreeContextFromOptions(
+export async function createTreeContextFromOptions(
   options: ISubCommandTreeOptions,
 ): Promise<IGitCipherTreeContext> {
   const context: IGitCipherTreeContext = {

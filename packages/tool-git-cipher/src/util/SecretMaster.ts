@@ -4,8 +4,9 @@ import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
 import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
 import { createHash } from 'node:crypto'
-import { logger } from '../env/logger'
-import { ErrorCode, EventTypes, eventBus } from './events'
+import { ErrorCode } from '../core/error'
+import { EventTypes, eventBus } from '../core/event'
+import { logger } from '../core/logger'
 import { confirmPassword, inputPassword } from './password'
 import {
   CryptSecretConfigKeeper,

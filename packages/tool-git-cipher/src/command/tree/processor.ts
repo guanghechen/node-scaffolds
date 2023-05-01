@@ -5,7 +5,7 @@ import { GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
 import { FilepathResolver, buildFilepathTree, printFilepathTree } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'fs'
-import { logger } from '../../env/logger'
+import { logger } from '../../core/logger'
 import { SecretMaster } from '../../util/SecretMaster'
 import type { IGitCipherTreeContext } from './context'
 

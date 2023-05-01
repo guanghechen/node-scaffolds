@@ -8,7 +8,7 @@ import {
   createSubCommandExecutor,
   createSubCommandMounter,
 } from '@guanghechen/helper-commander'
-import { COMMAND_NAME } from '../../env/constant'
+import { COMMAND_NAME } from '../../core/constant'
 import type { ISubCommandEncryptOptions } from './option'
 import { resolveSubCommandEncryptOptions } from './option'
 import { encrypt } from './run'

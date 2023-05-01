@@ -51,7 +51,7 @@ export interface IGitCipherEncryptContext {
   readonly workspace: string
 }
 
-export async function createGitCipherEncryptContextFromOptions(
+export async function createEncryptContextFromOptions(
   options: ISubCommandEncryptOptions,
 ): Promise<IGitCipherEncryptContext> {
   const context: IGitCipherEncryptContext = {

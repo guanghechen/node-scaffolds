@@ -4,7 +4,7 @@ import type { GitCipher } from '@guanghechen/helper-git-cipher'
 import type { FilepathResolver } from '@guanghechen/helper-path'
 import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
-import { logger } from '../env/logger'
+import { logger } from '../core/logger'
 import { CatalogCacheKeeper } from './CatalogCache'
 
 export interface IVerifyCryptRepoStrictlyParams {

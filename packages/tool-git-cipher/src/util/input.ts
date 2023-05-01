@@ -1,6 +1,6 @@
 import { destroyBuffer } from '@guanghechen/helper-buffer'
 import { isNonBlankString } from '@guanghechen/helper-is'
-import { EventTypes, eventBus } from './events'
+import { EventTypes, eventBus } from '../core/event'
 
 export interface IInputSingleLineParams {
   question?: string

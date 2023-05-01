@@ -103,7 +103,7 @@ export interface IGitCipherInitContext {
   readonly workspace: string
 }
 
-export async function createGitCipherInitContextFromOptions(
+export async function createInitContextFromOptions(
   options: ISubCommandInitOptions,
 ): Promise<IGitCipherInitContext> {
   const context: IGitCipherInitContext = {

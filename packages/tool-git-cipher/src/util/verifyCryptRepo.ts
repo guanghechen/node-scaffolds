@@ -6,7 +6,7 @@ import type { FilepathResolver } from '@guanghechen/helper-path'
 import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
 import micromatch from 'micromatch'
-import { logger } from '../env/logger'
+import { logger } from '../core/logger'
 import type { ISecretConfig } from './SecretConfig.types'
 
 export interface IVerifyCryptRepoParams {

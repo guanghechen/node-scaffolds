@@ -1,7 +1,7 @@
 import type { IConfigKeeper } from '@guanghechen/helper-config'
 import { JsonConfigKeeper } from '@guanghechen/helper-config'
 import type { PromiseOr } from '@guanghechen/utility-types'
-import { logger } from '../env/logger'
+import { logger } from '../core/logger'
 
 export interface ICatalogCache {
   crypt2plainIdMap: Map<string, string>

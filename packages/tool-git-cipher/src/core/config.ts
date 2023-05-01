@@ -1,5 +1,12 @@
 import path from 'node:path'
-import { boilerplateRootDir, configRootDir } from './constant'
+import url from 'node:url'
+
+// Config files root dir
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
+const configRootDir = path.resolve(__dirname, '../config')
+
+// Template files root dir
+const boilerplateRootDir = path.join(configRootDir, 'boilerplates')
 
 /**
  * Calc absolute path of configs

@@ -8,7 +8,7 @@ import type {
   ISubCommandMounter,
   ISubCommandProcessor,
 } from '@guanghechen/helper-commander'
-import { COMMAND_NAME } from '../../env/constant'
+import { COMMAND_NAME } from '../../core/constant'
 import { resolveSubCommandCatOptions } from './option'
 import type { ISubCommandCatOptions } from './option'
 import { cat } from './run'

@@ -7,7 +7,7 @@ export const logger = new ChalkLogger(
     flights: {
       colorful: true,
       date: false,
-      inline: false,
+      inline: true,
       title: true,
     },
   },

@@ -1,6 +1,6 @@
 import type { Command } from '@guanghechen/helper-commander'
 import { createTopCommand } from '@guanghechen/helper-commander'
-import { COMMAND_NAME, COMMAND_VERSION } from '../env/constant'
+import { COMMAND_NAME, COMMAND_VERSION } from '../core/constant'
 
 /**
  * Create a top commander instance with default global options

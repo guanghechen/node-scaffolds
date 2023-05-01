@@ -1,7 +1,7 @@
 import { destroyBuffer } from '@guanghechen/helper-buffer'
 import { calcMac } from '@guanghechen/helper-mac'
-import type { ICustomError } from './events'
-import { ErrorCode } from './events'
+import type { ICustomError } from '../core/error'
+import { ErrorCode } from '../core/error'
 import { inputAnswer } from './input'
 
 interface IInputPasswordParams {
