@@ -1,4 +1,4 @@
-import { filterIterable, mapIterable } from '../src'
+import { filterIterable, iterable2map, mapIterable } from '../src'
 
 describe('filterIterable', () => {
   test('array', () => {
@@ -37,5 +37,47 @@ describe('mapIterable', () => {
         (x, y) => x - y,
       ),
     ).toEqual([1, 12, 23, 34, 45])
+  })
+})
+
+describe('iterable2map', () => {
+  interface IStudent {
+    name: string
+    age: number
+  }
+
+  describe('object list', () => {
+    const students: IStudent[] = [
+      { name: 'alice', age: 20 },
+      { name: 'bob', age: 20 },
+      { name: 'tom', age: 12 },
+      { name: 'jerry', age: 11 },
+    ]
+
+    test('basic', () => {
+      expect(Array.from(iterable2map(students, item => item.name))).toEqual([
+        ['alice', { name: 'alice', age: 20 }],
+        ['bob', { name: 'bob', age: 20 }],
+        ['tom', { name: 'tom', age: 12 }],
+        ['jerry', { name: 'jerry', age: 11 }],
+      ])
+    })
+
+    test('duplicated', () => {
+      expect(Array.from(iterable2map(students, item => item.age))).toEqual([
+        [20, { name: 'bob', age: 20 }],
+        [12, { name: 'tom', age: 12 }],
+        [11, { name: 'jerry', age: 11 }],
+      ])
+    })
+
+    test('index', () => {
+      expect(Array.from(iterable2map(students, (_item, index) => index))).toEqual([
+        [0, { name: 'alice', age: 20 }],
+        [1, { name: 'bob', age: 20 }],
+        [2, { name: 'tom', age: 12 }],
+        [3, { name: 'jerry', age: 11 }],
+      ])
+    })
   })
 })

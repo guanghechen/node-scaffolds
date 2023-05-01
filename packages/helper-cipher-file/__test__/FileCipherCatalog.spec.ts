@@ -1,7 +1,7 @@
 import { ChalkLogger } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
 import { BigFileHelper } from '@guanghechen/helper-file'
-import { list2map } from '@guanghechen/helper-func'
+import { iterable2map } from '@guanghechen/helper-func'
 import { FilepathResolver } from '@guanghechen/helper-path'
 import {
   assertPromiseNotThrow,
@@ -299,7 +299,7 @@ describe('FileCipherCatalog', () => {
     expect(
       diffFromCatalogItems(
         new Map(),
-        list2map([itemTable.A, itemTable.B], item => item.plainFilepath),
+        iterable2map([itemTable.A, itemTable.B], item => item.plainFilepath),
       ),
     ).toEqual(diffItemsTable.step1)
 

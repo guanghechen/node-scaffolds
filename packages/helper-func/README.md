@@ -68,7 +68,7 @@ Name                | Description
 `falsy`             | Always return `false`.
 `filterIterable`    | `.filter` method for Iterable structure.
 `identity`          | Return the input data directly.
-`list2map`          | Create a map from list.
+`iterable2map`      | Create a map from list.
 `mapIterable`       | `.map` method for Iterable structure.
 `noop`              | Do nothing.
 `parseBytesString`  | Parse texts like 1M, 1Mb, 1G to the number of bytes.

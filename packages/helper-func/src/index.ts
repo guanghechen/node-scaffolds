@@ -1,6 +1,5 @@
 export * from './array'
 export * from './bytes'
 export * from './iterable'
-export * from './list2map'
 export * from './misc'
 export * from './misc.async'

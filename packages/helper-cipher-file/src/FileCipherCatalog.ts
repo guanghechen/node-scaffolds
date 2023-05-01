@@ -1,4 +1,4 @@
-import { list2map, mapIterable } from '@guanghechen/helper-func'
+import { iterable2map, mapIterable } from '@guanghechen/helper-func'
 import type { FilepathResolver } from '@guanghechen/helper-path'
 import { diffFromCatalogItems } from './catalog/diffFromCatalogItems'
 import { diffFromPlainFiles } from './catalog/diffFromPlainFiles'
@@ -83,7 +83,7 @@ export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFil
       return mapIterable(newItems, newItem => ({ changeType: FileChangeType.ADDED, newItem }))
     }
 
-    const newItemMap: Map<string, IFileCipherCatalogItem> = list2map(
+    const newItemMap: Map<string, IFileCipherCatalogItem> = iterable2map(
       newItems,
       item => item.plainFilepath,
     )

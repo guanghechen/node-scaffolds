@@ -1,7 +1,7 @@
 import type { IFileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import { calcCatalogItem, normalizePlainFilepath } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper } from '@guanghechen/helper-config'
-import { list2map } from '@guanghechen/helper-func'
+import { iterable2map } from '@guanghechen/helper-func'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { checkBranch, getAllLocalBranches, isGitRepo, listAllFiles } from '@guanghechen/helper-git'
 import type { FilepathResolver } from '@guanghechen/helper-path'
@@ -67,7 +67,7 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
     await configKeeper.load()
     const allPlainFiles: string[] = await listAllFiles({ ...plainCtx, commitHash: plainCommitId })
 
-    const catalogItemMap: Map<string, IFileCipherCatalogItemInstance> = list2map(
+    const catalogItemMap: Map<string, IFileCipherCatalogItemInstance> = iterable2map(
       configKeeper.data?.catalog.items ?? [],
       item => normalizePlainFilepath(item.plainFilepath, plainPathResolver),
     )
