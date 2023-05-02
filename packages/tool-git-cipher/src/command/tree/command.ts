@@ -9,20 +9,21 @@ import {
   createSubCommandMounter,
 } from '@guanghechen/helper-commander'
 import { COMMAND_NAME } from '../../core/constant'
+import { wrapErrorHandler } from '../../core/error'
 import type { ISubCommandTreeOptions } from './option'
 import { resolveSubCommandTreeOptions } from './option'
 import { tree } from './run'
 
 // Mount Sub-command: tree
 export const mountSubCommandTree: ISubCommandMounter =
-  createSubCommandMounter<ISubCommandTreeOptions>(createSubCommandTree, tree)
+  createSubCommandMounter<ISubCommandTreeOptions>(commandTree, wrapErrorHandler(tree))
 
 // Execute sub-command: tree
 export const execSubCommandTree: ISubCommandExecutor =
-  createSubCommandExecutor<ISubCommandTreeOptions>(createSubCommandTree, tree)
+  createSubCommandExecutor<ISubCommandTreeOptions>(commandTree, wrapErrorHandler(tree))
 
 // Create Sub-command: tree
-export function createSubCommandTree(
+function commandTree(
   handle?: ISubCommandProcessor<ISubCommandTreeOptions>,
   subCommandName = 'tree',
   aliases: string[] = [],

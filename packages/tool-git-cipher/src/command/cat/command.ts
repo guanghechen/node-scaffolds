@@ -9,21 +9,22 @@ import type {
   ISubCommandProcessor,
 } from '@guanghechen/helper-commander'
 import { COMMAND_NAME } from '../../core/constant'
+import { wrapErrorHandler } from '../../core/error'
 import { resolveSubCommandCatOptions } from './option'
 import type { ISubCommandCatOptions } from './option'
 import { cat } from './run'
 
 // Mount Sub-command: cat
 export const mountSubCommandCat: ISubCommandMounter =
-  createSubCommandMounter<ISubCommandCatOptions>(createSubCommandCat, cat)
+  createSubCommandMounter<ISubCommandCatOptions>(commandCat, wrapErrorHandler(cat))
 
 // Execute sub-command: cat
 export const execSubCommandCat: ISubCommandExecutor =
-  createSubCommandExecutor<ISubCommandCatOptions>(createSubCommandCat, cat)
+  createSubCommandExecutor<ISubCommandCatOptions>(commandCat, wrapErrorHandler(cat))
 
 // Create Sub-command: cat (c)
-export function createSubCommandCat(
-  handle?: ISubCommandProcessor<ISubCommandCatOptions>,
+function commandCat(
+  handle: ISubCommandProcessor<ISubCommandCatOptions>,
   subCommandName = 'cat',
   aliases: string[] = ['c'],
 ): Command {
@@ -43,7 +44,7 @@ export function createSubCommandCat(
         subCommandName,
         options,
       )
-      await handle?.(resolvedOptions, args)
+      await handle(resolvedOptions, args)
     })
 
   return command

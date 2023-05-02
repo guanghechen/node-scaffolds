@@ -9,20 +9,21 @@ import type {
   ISubCommandProcessor,
 } from '@guanghechen/helper-commander'
 import { COMMAND_NAME } from '../../core/constant'
+import { wrapErrorHandler } from '../../core/error'
 import type { ISubCommandVerifyOptions } from './option'
 import { resolveSubCommandVerifyOptions } from './option'
 import { verify } from './run'
 
 // Mount Sub-command: verify
 export const mountSubCommandVerify: ISubCommandMounter =
-  createSubCommandMounter<ISubCommandVerifyOptions>(createSubCommandVerify, verify)
+  createSubCommandMounter<ISubCommandVerifyOptions>(commandVerify, wrapErrorHandler(verify))
 
 // Execute sub-command: verify
 export const execSubCommandVerify: ISubCommandExecutor =
-  createSubCommandExecutor<ISubCommandVerifyOptions>(createSubCommandVerify, verify)
+  createSubCommandExecutor<ISubCommandVerifyOptions>(commandVerify, wrapErrorHandler(verify))
 
 // Create Sub-command: verify (v)
-export function createSubCommandVerify(
+function commandVerify(
   handle?: ISubCommandProcessor<ISubCommandVerifyOptions>,
   subCommandName = 'verify',
   aliases: string[] = ['v'],

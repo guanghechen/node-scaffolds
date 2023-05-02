@@ -10,7 +10,7 @@ export type ISubCommandProcessor<O extends ICommandConfigurationOptions> = (
 
 // Create sub-command
 export type ISubCommandCreator<O extends ICommandConfigurationOptions> = (
-  handle?: ISubCommandProcessor<O>,
+  handle: ISubCommandProcessor<O>,
   commandName?: string,
   aliases?: string[],
 ) => Command
@@ -52,10 +52,14 @@ export function createSubCommandExecutor<O extends ICommandConfigurationOptions>
   aliases?: string[],
 ): ISubCommandExecutor {
   return (parentCommand: Command, rawArgs: string[]): Promise<void> => {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       const wrappedHandler = async (options: O, args: string[]): Promise<void> => {
-        await handle(options, args)
-        resolve()
+        try {
+          await handle(options, args)
+          resolve()
+        } catch (error) {
+          reject(error)
+        }
       }
 
       const command = create(wrappedHandler, commandName, aliases)

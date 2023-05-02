@@ -9,20 +9,21 @@ import {
   createSubCommandMounter,
 } from '@guanghechen/helper-commander'
 import { COMMAND_NAME } from '../../core/constant'
+import { wrapErrorHandler } from '../../core/error'
 import type { ISubCommandDecryptOptions } from './option'
 import { resolveSubCommandDecryptOptions } from './option'
 import { decrypt } from './run'
 
 // Mount Sub-command: decrypt
 export const mountSubCommandDecrypt: ISubCommandMounter =
-  createSubCommandMounter<ISubCommandDecryptOptions>(createSubCommandDecrypt, decrypt)
+  createSubCommandMounter<ISubCommandDecryptOptions>(commandDecrypt, wrapErrorHandler(decrypt))
 
 // Execute sub-command: decrypt
 export const execSubCommandDecrypt: ISubCommandExecutor =
-  createSubCommandExecutor<ISubCommandDecryptOptions>(createSubCommandDecrypt, decrypt)
+  createSubCommandExecutor<ISubCommandDecryptOptions>(commandDecrypt, wrapErrorHandler(decrypt))
 
 // Create Sub-command: decrypt (d)
-export function createSubCommandDecrypt(
+function commandDecrypt(
   handle?: ISubCommandProcessor<ISubCommandDecryptOptions>,
   subCommandName = 'decrypt',
   aliases: string[] = ['d'],

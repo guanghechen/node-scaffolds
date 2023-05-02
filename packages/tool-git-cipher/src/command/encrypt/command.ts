@@ -9,20 +9,21 @@ import {
   createSubCommandMounter,
 } from '@guanghechen/helper-commander'
 import { COMMAND_NAME } from '../../core/constant'
+import { wrapErrorHandler } from '../../core/error'
 import type { ISubCommandEncryptOptions } from './option'
 import { resolveSubCommandEncryptOptions } from './option'
 import { encrypt } from './run'
 
 // Mount Sub-command: encrypt
 export const mountSubCommandEncrypt: ISubCommandMounter =
-  createSubCommandMounter<ISubCommandEncryptOptions>(createSubCommandEncrypt, encrypt)
+  createSubCommandMounter<ISubCommandEncryptOptions>(commandEncrypt, wrapErrorHandler(encrypt))
 
 // Execute sub-command: encrypt
 export const execSubCommandEncrypt: ISubCommandExecutor =
-  createSubCommandExecutor<ISubCommandEncryptOptions>(createSubCommandEncrypt, encrypt)
+  createSubCommandExecutor<ISubCommandEncryptOptions>(commandEncrypt, wrapErrorHandler(encrypt))
 
 // Create Sub-command: encrypt (e)
-export function createSubCommandEncrypt(
+function commandEncrypt(
   handle?: ISubCommandProcessor<ISubCommandEncryptOptions>,
   subCommandName = 'encrypt',
   aliases: string[] = ['e'],

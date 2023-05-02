@@ -9,20 +9,21 @@ import {
   createSubCommandMounter,
 } from '@guanghechen/helper-commander'
 import { COMMAND_NAME } from '../../core/constant'
+import { wrapErrorHandler } from '../../core/error'
 import type { ISubCommandInitOptions } from './option'
 import { resolveSubCommandInitOptions } from './option'
 import { init } from './run'
 
 // Mount Sub-command: init
 export const mountSubCommandInit: ISubCommandMounter =
-  createSubCommandMounter<ISubCommandInitOptions>(createSubCommandInit, init)
+  createSubCommandMounter<ISubCommandInitOptions>(commandInit, wrapErrorHandler(init))
 
 // Execute sub-command: init
 export const execSubCommandInit: ISubCommandExecutor =
-  createSubCommandExecutor<ISubCommandInitOptions>(createSubCommandInit, init)
+  createSubCommandExecutor<ISubCommandInitOptions>(commandInit, wrapErrorHandler(init))
 
 // Create Sub-command: init (i)
-export function createSubCommandInit(
+function commandInit(
   handle?: ISubCommandProcessor<ISubCommandInitOptions>,
   subCommandName = 'init',
   aliases: string[] = ['i'],
