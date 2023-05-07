@@ -34,17 +34,19 @@ function getWriterOpts() {
         }
       }
 
-      if (commit.type === 'feat') commit.type = 'Features'
-      else if (commit.type === 'fix') commit.type = 'Bug Fixes'
-      else if (commit.type === 'perf') commit.type = 'Performance Improvements'
-      else if (commit.type === 'revert' || commit.revert) commit.type = 'Reverts'
+      const commitType = typeof commit.type === 'string' ? commit.type.toLowerCase() : ''
+
+      if (/^feat|feature$/.test(commitType)) commit.type = 'Features'
+      else if (commitType === 'fix') commit.type = 'Bug Fixes'
+      else if (/^perf|performance|improve$/.test('perf')) commit.type = 'Performance Improvements'
+      else if (commitType === 'revert' || commit.revert) commit.type = 'Reverts'
       else if (discard) return
-      else if (commit.type === 'docs') commit.type = 'Documentation'
-      else if (commit.type === 'style') commit.type = 'Styles'
-      else if (commit.type === 'refactor') commit.type = 'Code Refactoring'
-      else if (commit.type === 'test') commit.type = 'Tests'
-      else if (commit.type === 'build') commit.type = 'Build System'
-      else if (commit.type === 'ci') commit.type = 'Continuous Integration'
+      else if (/^doc|docs$/.test(commitType)) commit.type = 'Documentation'
+      else if (commitType === 'style') commit.type = 'Styles'
+      else if (commitType === 'refactor') commit.type = 'Code Refactoring'
+      else if (commitType === 'test') commit.type = 'Tests'
+      else if (commitType === 'build') commit.type = 'Build System'
+      else if (commitType === 'ci') commit.type = 'Continuous Integration'
 
       if (commit.scope === '*') commit.scope = ''
       if (typeof commit.hash === 'string') commit.shortHash = commit.hash.substring(0, 7)
