@@ -581,6 +581,8 @@ __metadata:
 "@guanghechen/conventional-changelog@workspace:packages/conventional-changelog":
   version: 0.0.0-use.local
   resolution: "@guanghechen/conventional-changelog@workspace:packages/conventional-changelog"
+  dependencies:
+    gitmojis: ^3.13.4
   languageName: unknown
   linkType: soft
 
@@ -6461,6 +6463,13 @@ __metadata:
   bin:
     gitmoji-changelog: src/index.js
   checksum: bd6076a07497b2b8f82737934a11bcff3f93936816459391bc651358a5154650fa822c3aebe6926452818f14e044f166f8d391f65e16c0f4c57099a83850dc68
+  languageName: node
+  linkType: hard
+
+"gitmojis@npm:^3.13.4":
+  version: 3.13.4
+  resolution: "gitmojis@npm:3.13.4"
+  checksum: f9d8ec955eb63e4a5c5ba7303a110d55c12b8bfb77f08e991f392d3d002c2c818f13b0ce2a087768affbd30add37155587bb12387051035206ff8e30e198e7f5
   languageName: node
   linkType: hard
 

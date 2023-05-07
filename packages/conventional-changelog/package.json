@@ -33,5 +33,8 @@
     "CHANGELOG.md",
     "LICENSE",
     "README.md"
-  ]
+  ],
+  "dependencies": {
+    "gitmojis": "^3.13.4"
+  }
 }

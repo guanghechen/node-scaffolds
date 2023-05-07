@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+const { gitmojis } = require('gitmojis')
 const { readFile } = require('node:fs/promises')
 const path = require('node:path')
 
@@ -26,6 +27,14 @@ function getWriterOpts() {
     transform: (commit, context) => {
       let discard = true
       const issues = []
+
+      // Replace gitmoji code to emoji.
+      if (typeof commit.gitmoji === 'string') {
+        const gitmoji = gitmojis.find(emoji => emoji.code === commit.gitmoji)
+        if (gitmoji) {
+          commit.gitmoji = gitmoji.emoji
+        }
+      }
 
       if (Array.isArray(commit.notes)) {
         for (const note of commit.notes) {

@@ -1,5 +1,5 @@
 module.exports.parserOpts = {
-  headerPattern: /^(:\w+:\s)?\s*(\w*)(?:\((.*)\))?: (.*)$/,
+  headerPattern: /^\s*(?:(:\w+:)\s)?\s*(\w*)(?:\((.*)\))?: (.*)$/,
   headerCorrespondence: ['gitmoji', 'type', 'scope', 'subject'],
   issuePrefixes: ['#'],
   noteKeywords: ['BREAKING CHANGE'],
