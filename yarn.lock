@@ -578,6 +578,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@guanghechen/conventional-changelog@workspace:packages/conventional-changelog":
+  version: 0.0.0-use.local
+  resolution: "@guanghechen/conventional-changelog@workspace:packages/conventional-changelog"
+  languageName: unknown
+  linkType: soft
+
 "@guanghechen/eslint-config-jsx@workspace:packages/eslint-config-jsx":
   version: 0.0.0-use.local
   resolution: "@guanghechen/eslint-config-jsx@workspace:packages/eslint-config-jsx"

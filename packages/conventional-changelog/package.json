@@ -1,0 +1,37 @@
+{
+  "name": "@guanghechen/conventional-changelog",
+  "version": "5.0.0-alpha.2",
+  "description": "Customized conventional changelog preset",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
+    "directory": "packages/conventional-changelog"
+  },
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/conventional-changelog#readme",
+  "keywords": [
+    "conventional-changelog preset"
+  ],
+  "type": "commonjs",
+  "main": "./index.js",
+  "exports": {
+    "require": "./index.js"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">= 16.0.0"
+  },
+  "files": [
+    "boilerplates/",
+    "opts/",
+    "eslint.json",
+    "index.js",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ]
+}
