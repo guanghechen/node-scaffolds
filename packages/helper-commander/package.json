@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-commander",
-  "version": "5.0.0-alpha.2",
+  "version": "5.0.0-alpha.3",
   "description": "Utils for creating node.js command line program",
   "author": {
     "name": "guanghechen",
@@ -40,14 +40,14 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/chalk-logger": "^5.0.0-alpha.2",
-    "@guanghechen/helper-fs": "^5.0.0-alpha.2",
-    "@guanghechen/helper-git": "^5.0.0-alpha.2",
-    "@guanghechen/helper-is": "^5.0.0-alpha.2",
-    "@guanghechen/helper-option": "^5.0.0-alpha.2",
-    "@guanghechen/helper-path": "^5.0.0-alpha.2",
-    "@guanghechen/helper-string": "^5.0.0-alpha.2",
-    "@guanghechen/invariant": "^5.0.0-alpha.2",
+    "@guanghechen/chalk-logger": "^5.0.0-alpha.3",
+    "@guanghechen/helper-fs": "^5.0.0-alpha.3",
+    "@guanghechen/helper-git": "^5.0.0-alpha.3",
+    "@guanghechen/helper-is": "^5.0.0-alpha.3",
+    "@guanghechen/helper-option": "^5.0.0-alpha.3",
+    "@guanghechen/helper-path": "^5.0.0-alpha.3",
+    "@guanghechen/helper-string": "^5.0.0-alpha.3",
+    "@guanghechen/invariant": "^5.0.0-alpha.3",
     "command-exists": "^1.2.9",
     "commander": "^10.0.1",
     "execa": "^7.1.1",
