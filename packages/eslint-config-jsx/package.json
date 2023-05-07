@@ -44,7 +44,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@babel/eslint-parser": "^7.21.3",
+    "@babel/eslint-parser": "^7.21.8",
     "@babel/plugin-syntax-import-assertions": "^7.20.0",
     "@guanghechen/eslint-config": "^5.0.0-alpha.2",
     "eslint-plugin-import": "^2.27.5",
