@@ -34,6 +34,7 @@
       "@guanghechen/rollup-config": ["packages/rollup-config/src"],
       "@guanghechen/rollup-config-cli": ["packages/rollup-config-cli/src"],
       "@guanghechen/rollup-plugin-copy": ["packages/rollup-plugin-copy/src"],
+      "@guanghechen/script-doc-link": ["packages/script-doc-link/src"],
       "@guanghechen/tool-file": ["packages/tool-file/src"],
       "@guanghechen/tool-git-cipher": ["packages/tool-git-cipher/src"],
       "@guanghechen/tool-mini-copy": ["packages/tool-mini-copy/src"],

@@ -1,0 +1,51 @@
+{
+  "name": "@guanghechen/script-doc-link",
+  "version": "5.0.0-alpha.3",
+  "description": "Script-doc-link function",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
+    "directory": "packages/script-doc-link"
+  },
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/script-doc-link#readme",
+  "type": "module",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/esm/index.mjs",
+  "exports": {
+    "import": "./lib/esm/index.mjs",
+    "require": "./lib/cjs/index.cjs"
+  },
+  "types": "lib/types/index.d.ts",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 16.0.0"
+  },
+  "files": [
+    "lib/",
+    "!lib/**/*.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
+    "prepublishOnly": "yarn build",
+    "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
+  },
+  "dependencies": {
+    "@guanghechen/helper-func": "5.0.0-alpha.3",
+    "@guanghechen/invariant": "5.0.0-alpha.3"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "jest": "^29.5.0",
+    "rimraf": "^5.0.0",
+    "rollup": "^3.21.5"
+  }
+}

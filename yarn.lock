@@ -714,7 +714,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-func@^5.0.0-alpha.3, @guanghechen/helper-func@workspace:packages/helper-func":
+"@guanghechen/helper-func@5.0.0-alpha.3, @guanghechen/helper-func@^5.0.0-alpha.3, @guanghechen/helper-func@workspace:packages/helper-func":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-func@workspace:packages/helper-func"
   dependencies:
@@ -896,7 +896,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/invariant@^5.0.0-alpha.3, @guanghechen/invariant@workspace:packages/invariant":
+"@guanghechen/invariant@5.0.0-alpha.3, @guanghechen/invariant@^5.0.0-alpha.3, @guanghechen/invariant@workspace:packages/invariant":
   version: 0.0.0-use.local
   resolution: "@guanghechen/invariant@workspace:packages/invariant"
   dependencies:
@@ -1049,6 +1049,19 @@ __metadata:
     rollup: ^3.21.5
   peerDependencies:
     rollup: ^2.0.0 || ^3.0.0
+  languageName: unknown
+  linkType: soft
+
+"@guanghechen/script-doc-link@workspace:packages/script-doc-link":
+  version: 0.0.0-use.local
+  resolution: "@guanghechen/script-doc-link@workspace:packages/script-doc-link"
+  dependencies:
+    "@guanghechen/helper-func": 5.0.0-alpha.3
+    "@guanghechen/invariant": 5.0.0-alpha.3
+    cross-env: ^7.0.3
+    jest: ^29.5.0
+    rimraf: ^5.0.0
+    rollup: ^3.21.5
   languageName: unknown
   linkType: soft
 
