@@ -26,11 +26,11 @@ export class MonorepoDocLinkRewriter implements IDocLinkRewriter {
     const repositoryPattern = escapeRegexSpecialChars(context.repository)
     const packagePathPattern = context.packagePaths.map(p => escapeRegexSpecialChars(p)).join('|')
     const regex = new RegExp(
-      `\bhttps://github\\.com/${usernamePattern}/${repositoryPattern}/tree/(?<tagName>[^/]+)/(?<packagePath>${packagePathPattern})`,
+      `\\bhttps://github\\.com/${usernamePattern}/${repositoryPattern}/tree/(?<tagName>[^/]+)/(?<packagePath>${packagePathPattern})`,
       'g',
     )
     return text =>
-      text.replace(regex, ([substring, tagName, packagePath]) => {
+      text.replace(regex, (substring, tagName, packagePath) => {
         const nextTagName: string = context.getTagName(packagePath) ?? tagName
         return substring.replace(tagName, nextTagName)
       })
@@ -43,11 +43,11 @@ export class MonorepoDocLinkRewriter implements IDocLinkRewriter {
     const repositoryPattern = escapeRegexSpecialChars(context.repository)
     const packagePathPattern = context.packagePaths.map(p => escapeRegexSpecialChars(p)).join('|')
     const regex = new RegExp(
-      `\bhttps://raw\\.githubusercontent\\.com/${usernamePattern}/${repositoryPattern}/(?<tagName>[^/]+)/(?<packagePath>${packagePathPattern})`,
+      `\\bhttps://raw\\.githubusercontent\\.com/${usernamePattern}/${repositoryPattern}/(?<tagName>[^/]+)/(?<packagePath>${packagePathPattern})`,
       'g',
     )
     return text =>
-      text.replace(regex, ([substring, tagName, packagePath]) => {
+      text.replace(regex, (substring, tagName, packagePath) => {
         const nextTagName: string = context.getTagName(packagePath) ?? tagName
         return substring.replace(tagName, nextTagName)
       })
