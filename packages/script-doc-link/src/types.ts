@@ -7,4 +7,14 @@ export interface IDocLinkRewriter {
 export interface ITopPackageJson {
   author?: string | { name?: string } | undefined
   repository?: string | { url?: string } | undefined
+  workspaces?: string[]
+}
+
+export interface IPackageJson {
+  name?: string
+  version?: string
+}
+
+export interface ILernaJson {
+  version?: string
 }

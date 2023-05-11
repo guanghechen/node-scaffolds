@@ -701,7 +701,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-fs@^5.0.0-alpha.3, @guanghechen/helper-fs@workspace:packages/helper-fs":
+"@guanghechen/helper-fs@5.0.0-alpha.3, @guanghechen/helper-fs@^5.0.0-alpha.3, @guanghechen/helper-fs@workspace:packages/helper-fs":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-fs@workspace:packages/helper-fs"
   dependencies:
@@ -764,7 +764,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-is@^5.0.0-alpha.3, @guanghechen/helper-is@workspace:packages/helper-is":
+"@guanghechen/helper-is@5.0.0-alpha.3, @guanghechen/helper-is@^5.0.0-alpha.3, @guanghechen/helper-is@workspace:packages/helper-is":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-is@workspace:packages/helper-is"
   dependencies:
@@ -1056,9 +1056,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/script-doc-link@workspace:packages/script-doc-link"
   dependencies:
+    "@guanghechen/helper-fs": 5.0.0-alpha.3
     "@guanghechen/helper-func": 5.0.0-alpha.3
+    "@guanghechen/helper-is": 5.0.0-alpha.3
     "@guanghechen/invariant": 5.0.0-alpha.3
     cross-env: ^7.0.3
+    globby: ^13.1.4
     jest: ^29.5.0
     rimraf: ^5.0.0
     rollup: ^3.21.5

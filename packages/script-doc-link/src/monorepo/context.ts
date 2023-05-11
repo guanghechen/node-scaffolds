@@ -1,26 +1,41 @@
+import { isFileSync } from '@guanghechen/helper-fs'
+import { escapeRegexSpecialChars } from '@guanghechen/helper-func'
+import { isNonBlankString } from '@guanghechen/helper-is'
 import invariant from '@guanghechen/invariant'
+import { globby } from 'globby'
 import path from 'node:path'
-import { escapeRegexSpecialChars } from 'packages/helper-func/lib/types'
-import type { ITopPackageJson } from '../types'
+import type { ILernaJson, IPackageJson, ITopPackageJson } from '../types'
 import { loadJson } from '../util'
+
+interface IPackageItem {
+  name: string
+  version: string
+}
 
 interface IMonorepoContextProps {
   readonly username: string
   readonly repository: string
-  readonly workspaces: string[]
+  readonly rootDir: string
+  readonly packagePaths: string[]
+  readonly packagePathMap: ReadonlyMap<string, IPackageItem>
+  readonly isVersionIndependent: boolean
 }
 
 export class MonorepoContext {
   public readonly username: string
   public readonly repository: string
-  public readonly workspaces: ReadonlyArray<string>
-  protected readonly versionMap: Map<string, string> //
+  public readonly rootDir: string
+  public readonly packagePaths: ReadonlyArray<string>
+  public readonly isVersionIndependent: boolean
+  protected readonly packagePathMap: ReadonlyMap<string, IPackageItem>
 
   constructor(props: IMonorepoContextProps) {
-    this.versionMap = new Map()
+    this.rootDir = props.rootDir
     this.username = props.username
     this.repository = props.repository
-    this.workspaces = props.workspaces
+    this.packagePaths = props.packagePaths.slice()
+    this.packagePathMap = new Map(props.packagePathMap)
+    this.isVersionIndependent = props.isVersionIndependent
   }
 
   public static async scanAndBuild(rootDir: string): Promise<MonorepoContext> {
@@ -30,7 +45,10 @@ export class MonorepoContext {
       typeof topPackageJson.author === 'string'
         ? topPackageJson.author
         : topPackageJson.author?.name
-    invariant(!!username, `[${this.name}] Not found valid username in ${topPackageJsonPath}`)
+    invariant(
+      isNonBlankString(username),
+      `[${this.name}] Not found valid username in ${topPackageJsonPath}`,
+    )
 
     const rawRepository: string | undefined =
       typeof topPackageJson.repository === 'string'
@@ -42,26 +60,63 @@ export class MonorepoContext {
     const repositoryMatch = rawRepository ? repositoryRegex.exec(rawRepository) : undefined
     const repository: string | undefined = repositoryMatch ? repositoryMatch[1] : undefined
     invariant(
-      !!repository,
+      isNonBlankString(repository),
       `[${this.name}] Not found valid repository url in ${topPackageJsonPath}`,
     )
 
-    // FIXME: resolve all possible workspaces.
-    return new MonorepoContext({ username, repository, workspaces: [] })
+    const workspacesPattern: string[] = topPackageJson.workspaces ?? []
+    invariant(
+      Array.isArray(workspacesPattern) &&
+        workspacesPattern.length > 0 &&
+        workspacesPattern.every(isNonBlankString),
+      `[${this.name}] Not found valid workspaces`,
+    )
+    const packagePaths = (
+      await globby(workspacesPattern, {
+        onlyDirectories: true,
+        onlyFiles: false,
+        expandDirectories: false,
+        cwd: rootDir,
+      })
+    )
+      .filter(packagePath => isFileSync(path.join(rootDir, packagePath, 'package.json')))
+      .map(packagePath => packagePath.replace(/[/\\]+/g, '/').replace(/[/\\]$/, ''))
+
+    const packagePathMap: Map<string, IPackageItem> = new Map() // key is <${workspace}/${packageDir}>, value is version
+    for (const packagePath of packagePaths) {
+      const packageJsonPath = path.join(rootDir, packagePath, 'package.json')
+      const packageJson = await loadJson<IPackageJson>(packageJsonPath)
+      invariant(
+        isNonBlankString(packageJson.name) && isNonBlankString(packageJson.version),
+        `[${this.name}] Not found valid package name or package version in ${packageJsonPath}`,
+      )
+      packagePathMap.set(packagePath, { name: packageJson.name, version: packageJson.version })
+    }
+
+    let isVersionIndependent: boolean = new Set(packagePathMap.values()).size > 1
+    if (!isVersionIndependent) {
+      const lernaJsonPath: string = path.join(rootDir, 'lerna.json')
+      if (isFileSync(lernaJsonPath)) {
+        const lernaJson = await loadJson<ILernaJson>(lernaJsonPath)
+        if (lernaJson.version === 'independent') isVersionIndependent = true
+      }
+    }
+    return new MonorepoContext({
+      username,
+      repository,
+      rootDir,
+      packagePaths,
+      packagePathMap,
+      isVersionIndependent,
+    })
   }
 
-  public getTagName(workspace: string, packageDirName: string): string | undefined {
-    const version = this.versionMap.get(packageDirName)
-    if (version) return this.generateTagNameFromVersion(version, workspace, packageDirName)
+  public getTagName(packagePath: string): string | undefined {
+    const packageItem = this.packagePathMap.get(packagePath)
+    if (packageItem) {
+      const { name, version } = packageItem
+      return this.isVersionIndependent ? `${name}@${version}` : `v${version}`
+    }
     return undefined
-  }
-
-  protected generateTagNameFromVersion(
-    version: string,
-    workspace: string,
-    packageDirName: string,
-  ): string {
-    // FIXME: resolve the tagName from version
-    return ''
   }
 }

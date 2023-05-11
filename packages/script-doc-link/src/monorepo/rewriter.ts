@@ -1,5 +1,4 @@
-import invariant from '@guanghechen/invariant'
-import { escapeRegexSpecialChars } from 'packages/helper-func/lib/types'
+import { escapeRegexSpecialChars } from '@guanghechen/helper-func'
 import type { IDocLinkRewriter, ITextTransformer } from '../types'
 import type { MonorepoContext } from './context'
 
@@ -25,14 +24,14 @@ export class MonorepoDocLinkRewriter implements IDocLinkRewriter {
     const { context } = this
     const usernamePattern = escapeRegexSpecialChars(context.username)
     const repositoryPattern = escapeRegexSpecialChars(context.repository)
-    const workspacePattern = context.workspaces.map(escapeRegexSpecialChars).join('|')
+    const packagePathPattern = context.packagePaths.map(p => escapeRegexSpecialChars(p)).join('|')
     const regex = new RegExp(
-      `\bhttps://github\\.com/${usernamePattern}/${repositoryPattern}/tree/(?<tagName>[^/]+)/(?<workspace>${workspacePattern})/(?<packageDirName>[\\w.-]+)`,
+      `\bhttps://github\\.com/${usernamePattern}/${repositoryPattern}/tree/(?<tagName>[^/]+)/(?<packagePath>${packagePathPattern})`,
       'g',
     )
     return text =>
-      text.replace(regex, ([substring, tagName, workspace, packageDirName]) => {
-        const nextTagName: string = context.getTagName(workspace, packageDirName) ?? tagName
+      text.replace(regex, ([substring, tagName, packagePath]) => {
+        const nextTagName: string = context.getTagName(packagePath) ?? tagName
         return substring.replace(tagName, nextTagName)
       })
   }
@@ -42,14 +41,14 @@ export class MonorepoDocLinkRewriter implements IDocLinkRewriter {
     const { context } = this
     const usernamePattern = escapeRegexSpecialChars(context.username)
     const repositoryPattern = escapeRegexSpecialChars(context.repository)
-    const workspacePattern = context.workspaces.map(escapeRegexSpecialChars).join('|')
+    const packagePathPattern = context.packagePaths.map(p => escapeRegexSpecialChars(p)).join('|')
     const regex = new RegExp(
-      `\bhttps://raw\\.githubusercontent\\.com/${usernamePattern}/${repositoryPattern}/(?<tagName>[^/]+)/(?<workspace>${workspacePattern})/(?<packageDirName>[\\w.-]+)`,
+      `\bhttps://raw\\.githubusercontent\\.com/${usernamePattern}/${repositoryPattern}/(?<tagName>[^/]+)/(?<packagePath>${packagePathPattern})`,
       'g',
     )
     return text =>
-      text.replace(regex, ([substring, tagName, workspace, packageDirName]) => {
-        const nextTagName: string = context.getTagName(workspace, packageDirName) ?? tagName
+      text.replace(regex, ([substring, tagName, packagePath]) => {
+        const nextTagName: string = context.getTagName(packagePath) ?? tagName
         return substring.replace(tagName, nextTagName)
       })
   }
