@@ -56,7 +56,6 @@ describe('context', () => {
         "packages/tool-git-cipher",
         "packages/tool-mini-copy",
         "packages/utility-types",
-        "playground/rollup-plugin-copy",
       ]
     `)
   })
@@ -77,7 +76,6 @@ describe('rewriter', () => {
       rootDir: workspaceRootDir,
       username: 'guanghechen',
       repository: 'node-scaffolds',
-      packagePaths: ['packages/chalk-logger', 'packages/invariant', 'packages/script-doc-link'],
       packagePathMap: new Map()
         .set('packages/script-doc-link', {
           name: '@guanghechen/script-doc-link',
@@ -121,7 +119,6 @@ describe('rewriter', () => {
       rootDir: workspaceRootDir,
       username: 'guanghechen',
       repository: 'node-scaffolds',
-      packagePaths: ['packages/chalk-logger', 'packages/invariant', 'packages/script-doc-link'],
       packagePathMap: new Map()
         .set('packages/script-doc-link', {
           name: '@guanghechen/script-doc-link',

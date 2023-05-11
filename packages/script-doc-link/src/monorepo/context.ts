@@ -10,14 +10,12 @@ import { loadJson } from '../util'
 interface IPackageItem {
   name: string
   version: string
-  private: boolean
 }
 
 interface IMonorepoContextProps {
   readonly username: string
   readonly repository: string
   readonly rootDir: string
-  readonly packagePaths: string[]
   readonly packagePathMap: ReadonlyMap<string, IPackageItem>
   readonly isVersionIndependent: boolean
 }
@@ -34,7 +32,7 @@ export class MonorepoContext {
     this.rootDir = props.rootDir
     this.username = props.username
     this.repository = props.repository
-    this.packagePaths = props.packagePaths.slice()
+    this.packagePaths = Array.from(props.packagePathMap.keys())
     this.packagePathMap = new Map(props.packagePathMap)
     this.isVersionIndependent = props.isVersionIndependent
   }
@@ -91,19 +89,18 @@ export class MonorepoContext {
         isNonBlankString(packageJson.name) && isNonBlankString(packageJson.version),
         `[${this.name}] Not found valid package name or package version in ${packageJsonPath}`,
       )
-      packagePathMap.set(packagePath, {
-        name: packageJson.name,
-        version: packageJson.version,
-        private: packageJson.private ?? false,
-      })
+
+      const isPrivatePackage: boolean = packageJson.private ?? false
+      if (!isPrivatePackage) {
+        packagePathMap.set(packagePath, {
+          name: packageJson.name,
+          version: packageJson.version,
+        })
+      }
     }
 
     let isVersionIndependent: boolean =
-      new Set(
-        Array.from(packagePathMap.values())
-          .filter(p => !p.private)
-          .map(p => p.version),
-      ).size > 1
+      new Set(Array.from(packagePathMap.values()).map(p => p.version)).size > 1
     if (!isVersionIndependent) {
       const lernaJsonPath: string = path.join(rootDir, 'lerna.json')
       if (isFileSync(lernaJsonPath)) {
@@ -115,7 +112,6 @@ export class MonorepoContext {
       username,
       repository,
       rootDir,
-      packagePaths,
       packagePathMap,
       isVersionIndependent,
     })
