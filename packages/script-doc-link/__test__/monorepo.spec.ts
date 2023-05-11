@@ -101,22 +101,36 @@ describe('rewriter', () => {
       rewriter.rewrite(
         'https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/script-doc-link#readme' +
           '\n' +
-          'https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/fake-script-doc-link#readme',
+          'https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/fake-script-doc-link#readme' +
+          '\n' +
+          '"url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",' +
+          '\n' +
+          '"directory": "packages/script-doc-link"',
+        'packages/script-doc-link',
       ),
     ).toMatchInlineSnapshot(`
       "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@2.0.0/packages/script-doc-link#readme
-      https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/fake-script-doc-link#readme"
+      https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/fake-script-doc-link#readme
+      "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@2.0.0",
+      "directory": "packages/script-doc-link""
     `)
 
     expect(
       rewriter.rewrite(
         '[demo1.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/chalk-logger/screenshots/demo1.1.png' +
           '\n' +
-          'https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/fake-chalk-logger/screenshots/demo1.1.png',
+          'https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/fake-chalk-logger/screenshots/demo1.1.png' +
+          '\n' +
+          '"url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",' +
+          '\n' +
+          '"directory": "packages/chalk-logger',
+        'packages/chalk-logger',
       ),
     ).toMatchInlineSnapshot(`
       "[demo1.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/@guanghechen/chalk-logger@4.2.3/packages/chalk-logger/screenshots/demo1.1.png
-      https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/fake-chalk-logger/screenshots/demo1.1.png"
+      https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/fake-chalk-logger/screenshots/demo1.1.png
+      "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/chalk-logger@4.2.3",
+      "directory": "packages/chalk-logger"
     `)
   })
 
@@ -144,22 +158,36 @@ describe('rewriter', () => {
       rewriter.rewrite(
         'https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/script-doc-link#readme' +
           '\n' +
-          'https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/fake-script-doc-link#readme',
+          'https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/fake-script-doc-link#readme' +
+          '\n' +
+          '"url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",' +
+          '\n' +
+          '"directory": "packages/script-doc-link"',
+        'packages/script-doc-link',
       ),
     ).toMatchInlineSnapshot(`
       "https://github.com/guanghechen/node-scaffolds/tree/v2.0.0/packages/script-doc-link#readme
-      https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/fake-script-doc-link#readme"
+      https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/fake-script-doc-link#readme
+      "url": "https://github.com/guanghechen/node-scaffolds/tree/v2.0.0",
+      "directory": "packages/script-doc-link""
     `)
 
     expect(
       rewriter.rewrite(
         '[demo1.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/chalk-logger/screenshots/demo1.1.png' +
           '\n' +
-          'https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/fake-chalk-logger/screenshots/demo1.1.png',
+          'https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/fake-chalk-logger/screenshots/demo1.1.png' +
+          '\n' +
+          '"url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",' +
+          '\n' +
+          '"directory": "packages/chalk-logger',
+        'packages/chalk-logger',
       ),
     ).toMatchInlineSnapshot(`
       "[demo1.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/v2.0.0/packages/chalk-logger/screenshots/demo1.1.png
-      https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/fake-chalk-logger/screenshots/demo1.1.png"
+      https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/fake-chalk-logger/screenshots/demo1.1.png
+      "url": "https://github.com/guanghechen/node-scaffolds/tree/v2.0.0",
+      "directory": "packages/chalk-logger"
     `)
   })
 })

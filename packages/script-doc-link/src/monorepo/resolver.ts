@@ -17,7 +17,7 @@ export async function resolveMonorepoDocLinkRewrite(params: IParams): Promise<vo
   const items: IMonorepoRewriteAbleItem[] = await scanner.scan()
   for (const item of items) {
     const content: string = await fs.readFile(item.filepath, encoding)
-    const resolvedContent: string = rewriter.rewrite(content)
+    const resolvedContent: string = rewriter.rewrite(content, item.packagePath)
     await fs.writeFile(item.filepath, resolvedContent, encoding)
   }
 }

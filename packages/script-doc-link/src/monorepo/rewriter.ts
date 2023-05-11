@@ -11,7 +11,7 @@ export class MonorepoDocLinkRewriter {
   protected readonly usernamePattern: string
   protected readonly repositoryPattern: string
   protected readonly packagePathPattern: string
-  protected readonly transforms: ITextTransformer[] = []
+  protected readonly staticTransforms: ITextTransformer[] = []
 
   constructor(props: IMonorepoDocLinkRewriterProps) {
     this.context = props.context
@@ -20,18 +20,22 @@ export class MonorepoDocLinkRewriter {
     this.packagePathPattern = this.context.packagePaths
       .map(p => escapeRegexSpecialChars(p))
       .join('|')
-    this.transforms = [this.getRepoLinkTransform(), this.getRawContentLinkTransform()]
+    this.staticTransforms = [this.getRepoLinkTransform(), this.getRawContentLinkTransform()]
   }
 
-  public rewrite(text: string): string {
-    return this.transforms.reduce((acc, transform) => transform(acc), text)
+  public rewrite(text: string, packagePath: string): string {
+    const transforms: ITextTransformer[] = [
+      ...this.staticTransforms,
+      this.getRepoUrlTransform(packagePath),
+    ]
+    return transforms.reduce((acc, transform) => transform(acc), text)
   }
 
   // "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x"
   protected getRepoUrlTransform = (packagePath: string): ITextTransformer => {
     const { context, usernamePattern, repositoryPattern } = this
     const regex = new RegExp(
-      `"url":\\s*"https://github\\.com/${usernamePattern}/${repositoryPattern}/tree/(?<tagName>[^/]+)"`,
+      `"url":\\s*"https://github\\.com/${usernamePattern}/${repositoryPattern}/tree/(?<tagName>[^/"]+)"`,
       'g',
     )
     return text =>
