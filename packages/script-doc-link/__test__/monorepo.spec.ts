@@ -72,7 +72,7 @@ describe('context', () => {
 })
 
 describe('rewriter', () => {
-  it('independent context', async () => {
+  it('independent version', async () => {
     const context = new MonorepoContext({
       rootDir: workspaceRootDir,
       username: 'guanghechen',
@@ -95,18 +95,68 @@ describe('rewriter', () => {
 
     expect(
       rewriter.rewrite(
-        'https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/script-doc-link#readme',
+        'https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/script-doc-link#readme' +
+          '\n' +
+          'https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/fake-script-doc-link#readme',
       ),
-    ).toMatchInlineSnapshot(
-      `"https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@2.0.0/packages/script-doc-link#readme"`,
-    )
+    ).toMatchInlineSnapshot(`
+      "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@2.0.0/packages/script-doc-link#readme
+      https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/fake-script-doc-link#readme"
+    `)
 
     expect(
       rewriter.rewrite(
-        '[demo1.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/chalk-logger/screenshots/demo1.1.png',
+        '[demo1.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/chalk-logger/screenshots/demo1.1.png' +
+          '\n' +
+          'https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/fake-chalk-logger/screenshots/demo1.1.png',
       ),
-    ).toMatchInlineSnapshot(
-      `"[demo1.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/@guanghechen/chalk-logger@4.2.3/packages/chalk-logger/screenshots/demo1.1.png"`,
-    )
+    ).toMatchInlineSnapshot(`
+      "[demo1.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/@guanghechen/chalk-logger@4.2.3/packages/chalk-logger/screenshots/demo1.1.png
+      https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/fake-chalk-logger/screenshots/demo1.1.png"
+    `)
+  })
+
+  it('same version context', async () => {
+    const context = new MonorepoContext({
+      rootDir: workspaceRootDir,
+      username: 'guanghechen',
+      repository: 'node-scaffolds',
+      packagePaths: ['packages/chalk-logger', 'packages/invariant', 'packages/script-doc-link'],
+      packagePathMap: new Map()
+        .set('packages/script-doc-link', {
+          name: '@guanghechen/script-doc-link',
+          version: '2.0.0',
+          private: 'false',
+        })
+        .set('packages/chalk-logger', {
+          name: '@guanghechen/chalk-logger',
+          version: '2.0.0',
+          private: 'false',
+        }),
+      isVersionIndependent: false,
+    })
+    const rewriter = new MonorepoDocLinkRewriter({ context })
+
+    expect(
+      rewriter.rewrite(
+        'https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/script-doc-link#readme' +
+          '\n' +
+          'https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/fake-script-doc-link#readme',
+      ),
+    ).toMatchInlineSnapshot(`
+      "https://github.com/guanghechen/node-scaffolds/tree/v2.0.0/packages/script-doc-link#readme
+      https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/fake-script-doc-link#readme"
+    `)
+
+    expect(
+      rewriter.rewrite(
+        '[demo1.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/chalk-logger/screenshots/demo1.1.png' +
+          '\n' +
+          'https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/fake-chalk-logger/screenshots/demo1.1.png',
+      ),
+    ).toMatchInlineSnapshot(`
+      "[demo1.1.png]: https://raw.githubusercontent.com/guanghechen/node-scaffolds/v2.0.0/packages/chalk-logger/screenshots/demo1.1.png
+      https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/fake-chalk-logger/screenshots/demo1.1.png"
+    `)
   })
 })
