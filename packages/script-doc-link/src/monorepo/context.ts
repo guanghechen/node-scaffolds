@@ -10,6 +10,7 @@ import { loadJson } from '../util'
 interface IPackageItem {
   name: string
   version: string
+  private: boolean
 }
 
 interface IMonorepoContextProps {
@@ -90,10 +91,19 @@ export class MonorepoContext {
         isNonBlankString(packageJson.name) && isNonBlankString(packageJson.version),
         `[${this.name}] Not found valid package name or package version in ${packageJsonPath}`,
       )
-      packagePathMap.set(packagePath, { name: packageJson.name, version: packageJson.version })
+      packagePathMap.set(packagePath, {
+        name: packageJson.name,
+        version: packageJson.version,
+        private: packageJson.private ?? false,
+      })
     }
 
-    let isVersionIndependent: boolean = new Set(packagePathMap.values()).size > 1
+    let isVersionIndependent: boolean =
+      new Set(
+        Array.from(packagePathMap.values())
+          .filter(p => !p.private)
+          .map(p => p.version),
+      ).size > 1
     if (!isVersionIndependent) {
       const lernaJsonPath: string = path.join(rootDir, 'lerna.json')
       if (isFileSync(lernaJsonPath)) {
