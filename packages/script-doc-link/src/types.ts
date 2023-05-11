@@ -1,11 +1,8 @@
 export type ITextTransformer = (text: string) => string
 
-export interface IDocLinkRewriter {
-  rewrite: ITextTransformer
-}
-
-export interface IDocScanner {
-  scan(): Promise<string[]> // Absolute doc filepaths.
+export interface IMonorepoRewriteAbleItem {
+  filepath: string
+  packagePath: string
 }
 
 export interface ITopPackageJson {

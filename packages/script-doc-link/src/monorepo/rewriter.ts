@@ -1,17 +1,25 @@
 import { escapeRegexSpecialChars } from '@guanghechen/helper-func'
-import type { IDocLinkRewriter, ITextTransformer } from '../types'
+import type { ITextTransformer } from '../types'
 import type { MonorepoContext } from './context'
 
 interface IMonorepoDocLinkRewriterProps {
   context: Readonly<MonorepoContext>
 }
 
-export class MonorepoDocLinkRewriter implements IDocLinkRewriter {
+export class MonorepoDocLinkRewriter {
   public readonly context: Readonly<MonorepoContext>
+  protected readonly usernamePattern: string
+  protected readonly repositoryPattern: string
+  protected readonly packagePathPattern: string
   protected readonly transforms: ITextTransformer[] = []
 
   constructor(props: IMonorepoDocLinkRewriterProps) {
     this.context = props.context
+    this.usernamePattern = escapeRegexSpecialChars(this.context.username)
+    this.repositoryPattern = escapeRegexSpecialChars(this.context.repository)
+    this.packagePathPattern = this.context.packagePaths
+      .map(p => escapeRegexSpecialChars(p))
+      .join('|')
     this.transforms = [this.getRepoLinkTransform(), this.getRawContentLinkTransform()]
   }
 
@@ -19,12 +27,23 @@ export class MonorepoDocLinkRewriter implements IDocLinkRewriter {
     return this.transforms.reduce((acc, transform) => transform(acc), text)
   }
 
+  // "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x"
+  protected getRepoUrlTransform = (packagePath: string): ITextTransformer => {
+    const { context, usernamePattern, repositoryPattern } = this
+    const regex = new RegExp(
+      `"url":\\s*"https://github\\.com/${usernamePattern}/${repositoryPattern}/tree/(?<tagName>[^/]+)"`,
+      'g',
+    )
+    return text =>
+      text.replace(regex, (substring, tagName) => {
+        const nextTagName: string = context.getTagName(packagePath) ?? tagName
+        return substring.replace(tagName, nextTagName)
+      })
+  }
+
   // https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/rollup-plugin-copy#readme
   protected getRepoLinkTransform = (): ITextTransformer => {
-    const { context } = this
-    const usernamePattern = escapeRegexSpecialChars(context.username)
-    const repositoryPattern = escapeRegexSpecialChars(context.repository)
-    const packagePathPattern = context.packagePaths.map(p => escapeRegexSpecialChars(p)).join('|')
+    const { context, usernamePattern, repositoryPattern, packagePathPattern } = this
     const regex = new RegExp(
       `\\bhttps://github\\.com/${usernamePattern}/${repositoryPattern}/tree/(?<tagName>[^/]+)/(?<packagePath>${packagePathPattern})`,
       'g',
@@ -38,10 +57,7 @@ export class MonorepoDocLinkRewriter implements IDocLinkRewriter {
 
   // https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/chalk-logger/screenshots/demo1.1.png
   protected getRawContentLinkTransform = (): ITextTransformer => {
-    const { context } = this
-    const usernamePattern = escapeRegexSpecialChars(context.username)
-    const repositoryPattern = escapeRegexSpecialChars(context.repository)
-    const packagePathPattern = context.packagePaths.map(p => escapeRegexSpecialChars(p)).join('|')
+    const { context, usernamePattern, repositoryPattern, packagePathPattern } = this
     const regex = new RegExp(
       `\\bhttps://raw\\.githubusercontent\\.com/${usernamePattern}/${repositoryPattern}/(?<tagName>[^/]+)/(?<packagePath>${packagePathPattern})`,
       'g',

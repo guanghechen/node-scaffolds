@@ -1,6 +1,7 @@
 import { isFileSync } from '@guanghechen/helper-fs'
 import { workspaceRootDir } from 'jest.helper'
 import path from 'node:path'
+import type { IMonorepoRewriteAbleItem } from '../src'
 import { MonorepoContext, MonorepoDocLinkRewriter, MonorepoDocScanner } from '../src'
 
 describe('context', () => {
@@ -62,11 +63,16 @@ describe('context', () => {
 
   it('scanner', async () => {
     const scanner = new MonorepoDocScanner({ context })
-    const filepaths: string[] = await scanner.scan()
-    expect(filepaths.length > 0).toEqual(true)
-    expect(filepaths.every(filepath => path.isAbsolute(filepath) && isFileSync(filepath))).toEqual(
-      true,
-    )
+    const items: IMonorepoRewriteAbleItem[] = await scanner.scan()
+    expect(items.length > 0).toEqual(true)
+    expect(
+      items.every(
+        item =>
+          path.isAbsolute(item.filepath) &&
+          item.filepath.includes(item.packagePath) &&
+          isFileSync(item.filepath),
+      ),
+    ).toEqual(true)
   })
 })
 

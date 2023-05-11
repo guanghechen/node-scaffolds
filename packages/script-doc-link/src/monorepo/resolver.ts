@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises'
+import type { IMonorepoRewriteAbleItem } from '../types'
 import { MonorepoContext } from './context'
 import { MonorepoDocLinkRewriter } from './rewriter'
 import { MonorepoDocScanner } from './scanner'
@@ -13,10 +14,10 @@ export async function resolveMonorepoDocLinkRewrite(params: IParams): Promise<vo
   const context = await MonorepoContext.scanAndBuild(rootDir)
   const scanner = new MonorepoDocScanner({ context })
   const rewriter = new MonorepoDocLinkRewriter({ context })
-  const filepaths: string[] = await scanner.scan()
-  for (const filepath of filepaths) {
-    const content: string = await fs.readFile(filepath, encoding)
+  const items: IMonorepoRewriteAbleItem[] = await scanner.scan()
+  for (const item of items) {
+    const content: string = await fs.readFile(item.filepath, encoding)
     const resolvedContent: string = rewriter.rewrite(content)
-    await fs.writeFile(filepath, resolvedContent, encoding)
+    await fs.writeFile(item.filepath, resolvedContent, encoding)
   }
 }
