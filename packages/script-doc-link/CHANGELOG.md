@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.2](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@5.0.1...@guanghechen/script-doc-link@5.0.2) (2023-05-13)
+
+
+### Bug Fixes
+
+* 🐛 fix transformers ([31290fb](https://github.com/guanghechen/node-scaffolds/commit/31290fbc9ba3be3491e26e09f09b869bac790e10))
+
+
+
+
+
 ## [5.0.1](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@5.0.0...@guanghechen/script-doc-link@5.0.1) (2023-05-13)
 
 
