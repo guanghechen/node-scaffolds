@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@5.0.0...@guanghechen/script-doc-link@5.0.1) (2023-05-13)
+
+
+### Performance Improvements
+
+* 🎨 support to specify some options manually ([e7f1942](https://github.com/guanghechen/node-scaffolds/commit/e7f1942ab2c3ecf627a8757bed841942a25eba13))
+
+
+
+
+
 # 5.0.0 (2023-05-13)
 
 
