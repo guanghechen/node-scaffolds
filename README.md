@@ -6,12 +6,6 @@
         src="https://img.shields.io/github/license/guanghechen/node-scaffolds"
       />
     </a>
-    <a href="https://github.com/guanghechen/node-scaffolds/tags">
-      <img
-        alt="Package Version"
-        src="https://img.shields.io/github/v/tag/guanghechen/node-scaffolds?include_prereleases&sort=semver"
-      />
-    </a>
     <a href="https://github.com/guanghechen/node-scaffolds/search?l=typescript">
       <img
         alt="Github Top Language"
