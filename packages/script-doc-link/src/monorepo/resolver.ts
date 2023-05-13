@@ -7,11 +7,13 @@ import { MonorepoDocScanner } from './scanner'
 interface IParams {
   rootDir: string
   encoding?: BufferEncoding
+  username?: string
+  repository?: string
 }
 
 export async function resolveMonorepoDocLinkRewrite(params: IParams): Promise<void> {
-  const { rootDir, encoding = 'utf8' } = params
-  const context = await MonorepoContext.scanAndBuild(rootDir)
+  const { rootDir, username, repository, encoding = 'utf8' } = params
+  const context = await MonorepoContext.scanAndBuild({ rootDir, username, repository })
   const scanner = new MonorepoDocScanner({ context })
   const rewriter = new MonorepoDocLinkRewriter({ context })
   const items: IMonorepoRewriteAbleItem[] = await scanner.scan()

@@ -20,6 +20,12 @@ interface IMonorepoContextProps {
   readonly isVersionIndependent: boolean
 }
 
+interface IScanAndBuildOptions {
+  rootDir: string
+  username?: string
+  repository?: string
+}
+
 export class MonorepoContext {
   public readonly username: string
   public readonly repository: string
@@ -37,31 +43,36 @@ export class MonorepoContext {
     this.isVersionIndependent = props.isVersionIndependent
   }
 
-  public static async scanAndBuild(rootDir: string): Promise<MonorepoContext> {
+  public static async scanAndBuild(options: IScanAndBuildOptions): Promise<MonorepoContext> {
+    const { rootDir } = options
     const topPackageJsonPath = path.join(rootDir, 'package.json')
     const topPackageJson = await loadJson<ITopPackageJson>(topPackageJsonPath)
-    const username: string | undefined =
-      typeof topPackageJson.author === 'string'
-        ? topPackageJson.author
-        : topPackageJson.author?.name
+    const username: string | undefined = isNonBlankString(options.username)
+      ? options.username
+      : typeof topPackageJson.author === 'string'
+      ? topPackageJson.author
+      : topPackageJson.author?.name
     invariant(
       isNonBlankString(username),
       `[${this.name}] Not found valid username in ${topPackageJsonPath}`,
     )
 
-    const rawRepository: string | undefined =
-      typeof topPackageJson.repository === 'string'
-        ? topPackageJson.repository
-        : topPackageJson.repository?.url
-    const repositoryRegex = new RegExp(
-      `^https://github\\.com/${escapeRegexSpecialChars(username)}/([^/]+)`,
-    )
-    const repositoryMatch = rawRepository ? repositoryRegex.exec(rawRepository) : undefined
-    const repository: string | undefined = repositoryMatch ? repositoryMatch[1] : undefined
-    invariant(
-      isNonBlankString(repository),
-      `[${this.name}] Not found valid repository url in ${topPackageJsonPath}`,
-    )
+    let repository: string | undefined = options.repository
+    if (!isNonBlankString(repository)) {
+      const rawRepository: string | undefined =
+        typeof topPackageJson.repository === 'string'
+          ? topPackageJson.repository
+          : topPackageJson.repository?.url
+      const repositoryRegex = new RegExp(
+        `^https://github\\.com/${escapeRegexSpecialChars(username)}/([^/]+)`,
+      )
+      const repositoryMatch = rawRepository ? repositoryRegex.exec(rawRepository) : undefined
+      repository = repositoryMatch ? repositoryMatch[1] : undefined
+      invariant(
+        isNonBlankString(repository),
+        `[${this.name}] Not found valid repository url in ${topPackageJsonPath}`,
+      )
+    }
 
     const workspacesPattern: string[] = topPackageJson.workspaces ?? []
     invariant(

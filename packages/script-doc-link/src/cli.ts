@@ -26,6 +26,8 @@ async function run(argv: string[]): Promise<void> {
       logger.debug('rootDir:', rootDir)
       await resolveMonorepoDocLinkRewrite({
         rootDir: args.rootDir ?? path.resolve(),
+        username: args.username,
+        repository: args.repository,
       })
       break
     }

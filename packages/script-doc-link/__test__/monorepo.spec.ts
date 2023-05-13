@@ -7,7 +7,7 @@ import { MonorepoContext, MonorepoDocLinkRewriter, MonorepoDocScanner } from '..
 describe('context', () => {
   let context: MonorepoContext
   beforeAll(async () => {
-    context = await MonorepoContext.scanAndBuild(workspaceRootDir)
+    context = await MonorepoContext.scanAndBuild({ rootDir: workspaceRootDir })
   })
 
   it('basic', async () => {
