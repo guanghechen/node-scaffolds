@@ -162,6 +162,8 @@ describe('rewriter', () => {
           '\n' +
           '"url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",' +
           '\n' +
+          '"url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@5.0.0"' +
+          '\n' +
           '"directory": "packages/script-doc-link"',
         'packages/script-doc-link',
       ),
@@ -169,6 +171,7 @@ describe('rewriter', () => {
       "https://github.com/guanghechen/node-scaffolds/tree/v2.0.0/packages/script-doc-link#readme
       https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/fake-script-doc-link#readme
       "url": "https://github.com/guanghechen/node-scaffolds/tree/v2.0.0",
+      "url": "https://github.com/guanghechen/node-scaffolds/tree/v2.0.0"
       "directory": "packages/script-doc-link""
     `)
 

@@ -1,5 +1,6 @@
 import { escapeRegexSpecialChars } from '@guanghechen/helper-func'
 import type { ITextTransformer } from '../types'
+import { tagNamePattern } from '../util'
 import type { MonorepoContext } from './context'
 
 interface IMonorepoDocLinkRewriterProps {
@@ -35,7 +36,7 @@ export class MonorepoDocLinkRewriter {
   protected getRepoUrlTransform = (packagePath: string): ITextTransformer => {
     const { context, usernamePattern, repositoryPattern } = this
     const regex = new RegExp(
-      `"url":\\s*"https://github\\.com/${usernamePattern}/${repositoryPattern}/tree/(?<tagName>[^/"]+)"`,
+      `"url":\\s*"https://github\\.com/${usernamePattern}/${repositoryPattern}/tree/(?<tagName>${tagNamePattern})"`,
       'g',
     )
     return text =>
@@ -51,7 +52,7 @@ export class MonorepoDocLinkRewriter {
   protected getRepoLinkTransform = (): ITextTransformer => {
     const { context, usernamePattern, repositoryPattern, packagePathPattern } = this
     const regex = new RegExp(
-      `\\bhttps://github\\.com/${usernamePattern}/${repositoryPattern}/tree/(?<tagName>[^/]+)/(?<packagePath>${packagePathPattern})`,
+      `\\bhttps://github\\.com/${usernamePattern}/${repositoryPattern}/tree/(?<tagName>${tagNamePattern})/(?<packagePath>${packagePathPattern})`,
       'g',
     )
     return text =>
@@ -67,7 +68,7 @@ export class MonorepoDocLinkRewriter {
   protected getRawContentLinkTransform = (): ITextTransformer => {
     const { context, usernamePattern, repositoryPattern, packagePathPattern } = this
     const regex = new RegExp(
-      `\\bhttps://raw\\.githubusercontent\\.com/${usernamePattern}/${repositoryPattern}/(?<tagName>[^/]+)/(?<packagePath>${packagePathPattern})`,
+      `\\bhttps://raw\\.githubusercontent\\.com/${usernamePattern}/${repositoryPattern}/(?<tagName>${tagNamePattern})/(?<packagePath>${packagePathPattern})`,
       'g',
     )
     return text =>

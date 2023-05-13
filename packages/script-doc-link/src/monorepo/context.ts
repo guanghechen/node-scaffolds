@@ -2,6 +2,7 @@ import { isFileSync } from '@guanghechen/helper-fs'
 import { escapeRegexSpecialChars } from '@guanghechen/helper-func'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import invariant from '@guanghechen/invariant'
+import type { ILogger } from '@guanghechen/utility-types'
 import { globby } from 'globby'
 import path from 'node:path'
 import type { ILernaJson, IPackageJson, ITopPackageJson } from '../types'
@@ -18,12 +19,14 @@ interface IMonorepoContextProps {
   readonly rootDir: string
   readonly packagePathMap: ReadonlyMap<string, IPackageItem>
   readonly isVersionIndependent: boolean
+  readonly logger?: ILogger | undefined
 }
 
 interface IScanAndBuildOptions {
   rootDir: string
   username?: string
   repository?: string
+  logger?: ILogger | undefined
 }
 
 export class MonorepoContext {
@@ -32,6 +35,7 @@ export class MonorepoContext {
   public readonly rootDir: string
   public readonly packagePaths: ReadonlyArray<string>
   public readonly isVersionIndependent: boolean
+  public readonly logger: ILogger | undefined
   protected readonly packagePathMap: ReadonlyMap<string, IPackageItem>
 
   constructor(props: IMonorepoContextProps) {
@@ -41,10 +45,11 @@ export class MonorepoContext {
     this.packagePaths = Array.from(props.packagePathMap.keys())
     this.packagePathMap = new Map(props.packagePathMap)
     this.isVersionIndependent = props.isVersionIndependent
+    this.logger = props.logger
   }
 
   public static async scanAndBuild(options: IScanAndBuildOptions): Promise<MonorepoContext> {
-    const { rootDir } = options
+    const { rootDir, logger } = options
     const topPackageJsonPath = path.join(rootDir, 'package.json')
     const topPackageJson = await loadJson<ITopPackageJson>(topPackageJsonPath)
     const username: string | undefined = isNonBlankString(options.username)
@@ -119,12 +124,15 @@ export class MonorepoContext {
         if (lernaJson.version === 'independent') isVersionIndependent = true
       }
     }
+
+    logger?.debug('packagePathMap:', Array.from(packagePathMap.entries()))
     return new MonorepoContext({
       username,
       repository,
       rootDir,
       packagePathMap,
       isVersionIndependent,
+      logger,
     })
   }
 

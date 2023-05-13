@@ -47,6 +47,7 @@
     "@guanghechen/helper-func": "5.0.0",
     "@guanghechen/helper-is": "5.0.0",
     "@guanghechen/invariant": "5.0.0",
+    "@guanghechen/utility-types": "5.0.0",
     "globby": "^13.1.4",
     "minimist": "^1.2.8"
   },

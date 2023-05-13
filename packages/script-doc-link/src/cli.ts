@@ -24,10 +24,13 @@ async function run(argv: string[]): Promise<void> {
     case 'monorepo': {
       const rootDir: string = args.rootDir ?? path.resolve()
       logger.debug('rootDir:', rootDir)
+      logger.debug('username:', args.username)
+      logger.debug('repository:', args.repository)
       await resolveMonorepoDocLinkRewrite({
         rootDir: args.rootDir ?? path.resolve(),
         username: args.username,
         repository: args.repository,
+        logger,
       })
       break
     }
