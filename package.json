@@ -32,7 +32,8 @@
     "test": "lerna run test --concurrency 1",
     "test:coverage": "lerna run --concurrency 1 test -- --coverage",
     "test:update": "lerna run --concurrency 1 test -- -u",
-    "version": "yarn && git stage yarn.lock"
+    "ts:run": "node --experimental-specifier-resolution=node --loader ./loader.js",
+    "version": "yarn && yarn ts:run packages/script-doc-link/src/cli.ts && git stage -u yarn.lock **/*/package.json **/*/README.md"
   },
   "workspaces": [
     "packages/*",

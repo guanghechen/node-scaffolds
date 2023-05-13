@@ -1063,6 +1063,7 @@ __metadata:
     cross-env: ^7.0.3
     globby: ^13.1.4
     jest: ^29.5.0
+    minimist: ^1.2.8
     rimraf: ^5.0.0
     rollup: ^3.21.5
   languageName: unknown
