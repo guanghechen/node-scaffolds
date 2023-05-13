@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/eslint-config",
-  "version": "5.0.0-alpha.3",
+  "version": "5.0.0",
   "description": "basic eslint config for node.js/javascript project",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@5.0.0",
     "directory": "packages/eslint-config"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/eslint-config#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@5.0.0/packages/eslint-config#readme",
   "keywords": [
     "eslint",
     "eslint config"

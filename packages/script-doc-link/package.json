@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/script-doc-link",
-  "version": "5.0.0-alpha.3",
+  "version": "5.0.0",
   "description": "Script-doc-link function",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@5.0.0",
     "directory": "packages/script-doc-link"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/script-doc-link#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@5.0.0/packages/script-doc-link#readme",
   "type": "module",
   "main": "./lib/cjs/index.cjs",
   "module": "./lib/esm/index.mjs",
@@ -42,11 +42,11 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/chalk-logger": "5.0.0-alpha.3",
-    "@guanghechen/helper-fs": "5.0.0-alpha.3",
-    "@guanghechen/helper-func": "5.0.0-alpha.3",
-    "@guanghechen/helper-is": "5.0.0-alpha.3",
-    "@guanghechen/invariant": "5.0.0-alpha.3",
+    "@guanghechen/chalk-logger": "5.0.0",
+    "@guanghechen/helper-fs": "5.0.0",
+    "@guanghechen/helper-func": "5.0.0",
+    "@guanghechen/helper-is": "5.0.0",
+    "@guanghechen/invariant": "5.0.0",
     "globby": "^13.1.4",
     "minimist": "^1.2.8"
   },

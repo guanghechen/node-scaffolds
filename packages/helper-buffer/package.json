@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-buffer",
-  "version": "5.0.0-alpha.3",
+  "version": "5.0.0",
   "description": "Utility functions for handling buffers data.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-buffer@5.0.0",
     "directory": "packages/helper-buffer"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/helper-buffer#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-buffer@5.0.0/packages/helper-buffer#readme",
   "keywords": [],
   "type": "module",
   "main": "./lib/cjs/index.cjs",

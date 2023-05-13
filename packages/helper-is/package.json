@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-is",
-  "version": "5.0.0-alpha.3",
+  "version": "5.0.0",
   "description": "Utilities to detect data type.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-is@5.0.0",
     "directory": "packages/helper-is"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/helper-is#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-is@5.0.0/packages/helper-is#readme",
   "keywords": [
     "is",
     "detect type"

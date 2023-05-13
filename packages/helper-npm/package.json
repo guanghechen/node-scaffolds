@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-npm",
-  "version": "5.0.0-alpha.3",
+  "version": "5.0.0",
   "description": "Utilities for handling npm repo and `package.json`.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-npm@5.0.0",
     "directory": "packages/helper-npm"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/helper-npm#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-npm@5.0.0/packages/helper-npm#readme",
   "keywords": [],
   "type": "module",
   "module": "./lib/esm/index.mjs",
@@ -38,7 +38,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-path": "^5.0.0-alpha.3",
+    "@guanghechen/helper-path": "5.0.0",
     "import-meta-resolve": "^3.0.0"
   },
   "devDependencies": {

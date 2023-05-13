@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-stream",
-  "version": "5.0.0-alpha.3",
+  "version": "5.0.0",
   "description": "Utilities for handing node streams.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-stream@5.0.0",
     "directory": "packages/helper-stream"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/helper-stream#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-stream@5.0.0/packages/helper-stream#readme",
   "keywords": [
     "stream",
     "concat streams",
@@ -44,7 +44,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-buffer": "^5.0.0-alpha.3"
+    "@guanghechen/helper-buffer": "5.0.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

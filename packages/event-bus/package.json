@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/event-bus",
-  "version": "5.0.0-alpha.3",
+  "version": "5.0.0",
   "description": "A simple event bus.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/event-bus@5.0.0",
     "directory": "packages/event-bus"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/event-bus#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/event-bus@5.0.0/packages/event-bus#readme",
   "keywords": [
     "event bus"
   ],
@@ -42,7 +42,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-func": "^5.0.0-alpha.3"
+    "@guanghechen/helper-func": "5.0.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/utility-types",
-  "version": "5.0.0-alpha.3",
+  "version": "5.0.0",
   "description": "Collection of typescript utility types",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/utility-types@5.0.0",
     "directory": "packages/utility-types"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/utility-types#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/utility-types@5.0.0/packages/utility-types#readme",
   "keywords": [],
   "type": "module",
   "main": "./lib/cjs/index.cjs",
