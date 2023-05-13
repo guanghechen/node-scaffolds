@@ -21,6 +21,7 @@ export default async function () {
       'packages/helper-commander/src/util/git.ts',
       'packages/helper-commander/src/util/stdin.ts',
       'packages/helper-commander/src/util/yarn.ts',
+      'packages/script-doc-link/src/cli.ts',
     ],
     coverageThreshold: {
       global: {

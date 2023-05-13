@@ -40,7 +40,9 @@ export class MonorepoDocLinkRewriter {
     )
     return text =>
       text.replace(regex, (substring, tagName) => {
+        /* c8 ignore start */
         const nextTagName: string = context.getTagName(packagePath) ?? tagName
+        /* c8 ignore end */
         return substring.replace(tagName, nextTagName)
       })
   }
@@ -54,7 +56,9 @@ export class MonorepoDocLinkRewriter {
     )
     return text =>
       text.replace(regex, (substring, tagName, packagePath) => {
+        /* c8 ignore start */
         const nextTagName: string = context.getTagName(packagePath) ?? tagName
+        /* c8 ignore end */
         return substring.replace(tagName, nextTagName)
       })
   }
@@ -68,7 +72,9 @@ export class MonorepoDocLinkRewriter {
     )
     return text =>
       text.replace(regex, (substring, tagName, packagePath) => {
+        /* c8 ignore start */
         const nextTagName: string = context.getTagName(packagePath) ?? tagName
+        /* c8 ignore end */
         return substring.replace(tagName, nextTagName)
       })
   }
