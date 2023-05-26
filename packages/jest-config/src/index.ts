@@ -1,4 +1,5 @@
 import type { Config as IJestConfig } from 'jest'
+import json5 from 'json5'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -12,7 +13,8 @@ export async function resolveModuleNameMapper(
   const tsconfigFilepath = path.resolve(rootDir, tsconfigFilename)
   if (!fs.existsSync(tsconfigFilepath)) return {}
 
-  const { default: tsconfig } = await import(tsconfigFilepath, { assert: { type: 'json' } })
+  const rawContent = fs.readFileSync(tsconfigFilepath, 'utf8')
+  const tsconfig = json5.parse(rawContent)
   if (tsconfig.compilerOptions == null || tsconfig.compilerOptions.paths == null) {
     return {}
   }
@@ -36,13 +38,20 @@ export async function resolveModuleNameMapper(
   return mapper
 }
 
+export interface ITsMonorepoConfigOptions {
+  useESM?: boolean
+  tsconfigFilepath?: string
+}
+
 /**
  * Create basic jest config
  */
 export async function tsMonorepoConfig(
   repositoryRootDir: string,
-  options: { useESM?: boolean } = {},
+  options: ITsMonorepoConfigOptions = {},
 ): Promise<IJestConfig> {
+  const { useESM, tsconfigFilepath = '<rootDir>/tsconfig.json' } = options
+
   const moduleNameMapper = {
     ...(await resolveModuleNameMapper(repositoryRootDir)),
     ...(await resolveModuleNameMapper(path.resolve())),
@@ -59,8 +68,8 @@ export async function tsMonorepoConfig(
       '^.+\\.[cm]?tsx?$': [
         'ts-jest',
         {
-          tsconfig: '<rootDir>/tsconfig.json',
-          useESM: options?.useESM,
+          tsconfig: tsconfigFilepath,
+          useESM: useESM,
         },
       ],
     },
@@ -91,7 +100,7 @@ export async function tsMonorepoConfig(
     coverageReporters: ['text', 'text-summary'],
   }
 
-  if (options?.useESM) {
+  if (useESM) {
     config.preset = 'ts-jest/presets/default-esm'
   }
   return config
