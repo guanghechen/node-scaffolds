@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-git-cipher@5.0.0...@guanghechen/helper-git-cipher@5.0.1) (2023-05-26)
+
+
+### Performance Improvements
+
+* 🔧 update jest config to reuse tsconfig for test ([54883f0](https://github.com/guanghechen/node-scaffolds/commit/54883f032cbba78af4609d6d4fb2b5e1ac68b518))
+
+
+
+
+
 # 5.0.0 (2023-05-13)
 
 

@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-option@5.0.0/packages/helper-option#readme">@guanghechen/helper-option</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-option@5.0.1/packages/helper-option#readme">@guanghechen/helper-option</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-option">
@@ -81,4 +81,4 @@ Utilities for resolving options or props.
   `convertToString`     | -
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-option@5.0.0/packages/helper-option#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-option@5.0.1/packages/helper-option#readme
