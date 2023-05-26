@@ -6,7 +6,10 @@ import url from 'node:url'
 
 export default async function () {
   const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
-  const baseConfig = await tsMonorepoConfig(__dirname, { useESM: true })
+  const baseConfig = await tsMonorepoConfig(__dirname, {
+    useESM: true,
+    tsconfigFilepath: path.join(__dirname, 'tsconfig.test.esm.json'),
+  })
   const { default: manifest } = await import(path.resolve('package.json'), {
     assert: { type: 'json' },
   })
