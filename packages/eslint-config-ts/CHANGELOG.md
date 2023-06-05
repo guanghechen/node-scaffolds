@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/eslint-config-ts@5.0.0...@guanghechen/eslint-config-ts@5.0.1) (2023-06-05)
+
+
+### Performance Improvements
+
+* 💄 disable @typescript-eslint/method-signature-style ([3a39485](https://github.com/guanghechen/node-scaffolds/commit/3a39485729abca9243c9cfc46952ce23486e3eca))
+
+
+
+
+
 # 5.0.0 (2023-05-13)
 
 
