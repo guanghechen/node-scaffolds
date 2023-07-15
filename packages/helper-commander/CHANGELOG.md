@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.2](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-commander@5.0.1...@guanghechen/helper-commander@5.0.2) (2023-07-15)
+
+
+### Performance Improvements
+
+* ✅ fix test ([1bc7fca](https://github.com/guanghechen/node-scaffolds/commit/1bc7fca953ded5afa525341425eda6683e07ca81))
+* ⬆️ upgrade dependencies ([4f0f471](https://github.com/guanghechen/node-scaffolds/commit/4f0f4712d061099ea9d5605efeb54357e4479f6a))
+
+
+
+
+
 ## [5.0.1](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-commander@5.0.0...@guanghechen/helper-commander@5.0.1) (2023-05-26)
 
 

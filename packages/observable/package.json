@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/observable",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "A simple observable for subscript/notification pattern.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/observable@5.0.1",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/observable@5.0.2",
     "directory": "packages/observable"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/observable@5.0.1/packages/observable#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/observable@5.0.2/packages/observable#readme",
   "keywords": [
     "observable"
   ],

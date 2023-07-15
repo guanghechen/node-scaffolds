@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/observable@5.0.1/packages/observable#readme">@guanghechen/observable</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/observable@5.0.2/packages/observable#readme">@guanghechen/observable</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/observable">
@@ -71,4 +71,4 @@ A simple observable for subscript/notification pattern.
 * Basic
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/observable@5.0.1/packages/observable#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/observable@5.0.2/packages/observable#readme

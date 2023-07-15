@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/invariant@5.0.1/packages/invariant#readme">@guanghechen/invariant</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/invariant@5.0.2/packages/invariant#readme">@guanghechen/invariant</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/invariant">
@@ -84,5 +84,5 @@ and throw an error when the given condition fails.
 
 ## Related
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/invariant@5.0.1/packages/invariant#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/invariant@5.0.2/packages/invariant#readme
 [tiny-invariant]: https://github.com/alexreardon/tiny-invariant
