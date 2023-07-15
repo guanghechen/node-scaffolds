@@ -48,13 +48,13 @@
     "@guanghechen/helper-is": "^5.0.1",
     "@guanghechen/invariant": "^5.0.1",
     "@guanghechen/utility-types": "^5.0.1",
-    "globby": "^13.1.4",
+    "globby": "^13.2.2",
     "minimist": "^1.2.8"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "jest": "^29.5.0",
-    "rimraf": "^5.0.0",
-    "rollup": "^3.21.5"
+    "jest": "^29.6.1",
+    "rimraf": "^5.0.1",
+    "rollup": "^3.26.2"
   }
 }
