@@ -34,6 +34,7 @@ describe('collectAllDependencies', () => {
         "@babel/code-frame",
         "@babel/helper-validator-identifier",
         "@babel/highlight",
+        "@jridgewell/sourcemap-codec",
         "@rollup/plugin-commonjs",
         "@rollup/plugin-json",
         "@rollup/plugin-node-resolve",
@@ -44,7 +45,6 @@ describe('collectAllDependencies', () => {
         "magic-string",
         "rollup",
         "rollup-plugin-dts",
-        "sourcemap-codec",
         "typescript",
       ]
     `)

@@ -1,6 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { tsMonorepoConfig } from '@guanghechen/jest-config'
-import { resolve } from 'import-meta-resolve'
 import path from 'node:path'
 import url from 'node:url'
 
@@ -14,7 +13,6 @@ export default async function () {
     assert: { type: 'json' },
   })
 
-  const chalkLocation = url.fileURLToPath(await resolve('chalk', import.meta.url))
   const config = {
     ...baseConfig,
     collectCoverageFrom: [baseConfig.collectCoverageFrom ?? []].flat(),
@@ -38,15 +36,6 @@ export default async function () {
     extensionsToTreatAsEsm: ['.ts', '.mts'],
     moduleNameMapper: {
       ...baseConfig.moduleNameMapper,
-      chalk: chalkLocation,
-      '#ansi-styles': path.join(
-        chalkLocation.split('chalk')[0],
-        'chalk/source/vendor/ansi-styles/index.js',
-      ),
-      '#supports-color': path.join(
-        chalkLocation.split('chalk')[0],
-        'chalk/source/vendor/supports-color/index.js',
-      ),
     },
   }
   return config

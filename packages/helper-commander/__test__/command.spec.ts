@@ -1,4 +1,4 @@
-import ChalkLogger from '@guanghechen/chalk-logger'
+import { ChalkLogger } from '@guanghechen/chalk-logger'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { createLoggerMock } from '@guanghechen/helper-jest'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
