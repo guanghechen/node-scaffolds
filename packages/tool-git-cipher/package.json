@@ -68,7 +68,7 @@
     "@types/micromatch": "^4.0.2",
     "cross-env": "^7.0.3",
     "rimraf": "^5.0.1",
-    "rollup": "^3.26.2",
+    "rollup": "^3.26.3",
     "typescript": "5.1.6"
   }
 }
