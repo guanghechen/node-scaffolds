@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-func",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "description": "Helpful utility funcs.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-func@5.0.2",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-func@5.0.3",
     "directory": "packages/helper-func"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-func@5.0.2/packages/helper-func#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-func@5.0.3/packages/helper-func#readme",
   "keywords": [
     "utility"
   ],

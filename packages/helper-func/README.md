@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-func@5.0.2/packages/helper-func#readme">@guanghechen/helper-func</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-func@5.0.3/packages/helper-func#readme">@guanghechen/helper-func</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-func">
@@ -74,4 +74,4 @@ Name                | Description
 `parseBytesString`  | Parse texts like 1M, 1Mb, 1G to the number of bytes.
 `truthy`            | Always return `true`.
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-func@5.0.2/packages/helper-func#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-func@5.0.3/packages/helper-func#readme

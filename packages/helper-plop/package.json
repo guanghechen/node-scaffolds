@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-plop",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "description": "A collection of utility functions for plop templates",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@5.0.2",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@5.0.3",
     "directory": "packages/helper-plop"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@5.0.2/packages/helper-plop#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@5.0.3/packages/helper-plop#readme",
   "keywords": [
     "plop"
   ],
@@ -40,11 +40,11 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-is": "^5.0.2",
-    "@guanghechen/helper-npm": "^5.0.2",
-    "@guanghechen/helper-option": "^5.0.2",
-    "@guanghechen/helper-string": "^5.0.2",
-    "@guanghechen/invariant": "^5.0.2",
+    "@guanghechen/helper-is": "^5.0.3",
+    "@guanghechen/helper-npm": "^5.0.3",
+    "@guanghechen/helper-option": "^5.0.3",
+    "@guanghechen/helper-string": "^5.0.3",
+    "@guanghechen/invariant": "^5.0.3",
     "chalk": "^5.3.0",
     "minimist": "^1.2.8",
     "mock-stdin": "^1.0.0",
