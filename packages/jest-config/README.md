@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/jest-config@5.0.3/packages/jest-config#readme">@guanghechen/jest-config</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/jest-config@5.0.4/packages/jest-config#readme">@guanghechen/jest-config</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/jest-config">
@@ -105,4 +105,4 @@ Basic jest configs for typescript monorepo.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/jest-config@5.0.3/packages/jest-config#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/jest-config@5.0.4/packages/jest-config#readme

@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-config",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "Utilities for read / write config files.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-config@5.0.3",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-config@5.0.4",
     "directory": "packages/helper-config"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-config@5.0.3/packages/helper-config#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-config@5.0.4/packages/helper-config#readme",
   "keywords": [
     "config"
   ],
@@ -42,10 +42,10 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-mac": "^5.0.3",
-    "@guanghechen/helper-storage": "^5.0.3",
-    "@guanghechen/invariant": "^5.0.3",
-    "@guanghechen/utility-types": "^5.0.3",
+    "@guanghechen/helper-mac": "^5.0.4",
+    "@guanghechen/helper-storage": "^5.0.4",
+    "@guanghechen/invariant": "^5.0.4",
+    "@guanghechen/utility-types": "^5.0.4",
     "@types/semver": "^7.5.0",
     "semver": "^7.5.4"
   },

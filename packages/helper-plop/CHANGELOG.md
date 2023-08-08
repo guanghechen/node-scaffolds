@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.4](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-plop@5.0.3...@guanghechen/helper-plop@5.0.4) (2023-08-08)
+
+
+### Performance Improvements
+
+* 🔧 fix jest config ([621b3b2](https://github.com/guanghechen/node-scaffolds/commit/621b3b2fb4f97cd1d1e84e8769ab6196b63fe5a0))
+* ⬆️ upgrade dependencies ([bbc1ae6](https://github.com/guanghechen/node-scaffolds/commit/bbc1ae6b40aa4030f4103035f062dd4040a35b08))
+
+
+
+
+
 ## [5.0.3](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-plop@5.0.2...@guanghechen/helper-plop@5.0.3) (2023-07-25)
 
 

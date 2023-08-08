@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/eslint-config@5.0.0...@guanghechen/eslint-config@5.0.1) (2023-08-08)
+
+
+### Performance Improvements
+
+* ⬆️ upgrade dependencies ([bbc1ae6](https://github.com/guanghechen/node-scaffolds/commit/bbc1ae6b40aa4030f4103035f062dd4040a35b08))
+
+
+
+
+
 # 5.0.0 (2023-05-13)
 
 

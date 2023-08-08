@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-mac",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "Utility functions for calculating Message Authentication Code.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-mac@5.0.3",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-mac@5.0.4",
     "directory": "packages/helper-mac"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-mac@5.0.3/packages/helper-mac#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-mac@5.0.4/packages/helper-mac#readme",
   "keywords": [],
   "type": "module",
   "main": "./lib/cjs/index.cjs",

@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-file",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "File helper",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-file@5.0.3",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-file@5.0.4",
     "directory": "packages/helper-file"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-file@5.0.3/packages/helper-file#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-file@5.0.4/packages/helper-file#readme",
   "keywords": [
     "file helper",
     "split file",
@@ -44,8 +44,8 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-stream": "^5.0.3",
-    "@guanghechen/invariant": "^5.0.3"
+    "@guanghechen/helper-stream": "^5.0.4",
+    "@guanghechen/invariant": "^5.0.4"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

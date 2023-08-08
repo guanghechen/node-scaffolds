@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-commander",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "Utils for creating node.js command line program",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@5.0.3",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@5.0.4",
     "directory": "packages/helper-commander"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@5.0.3/packages/helper-commander#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@5.0.4/packages/helper-commander#readme",
   "keywords": [
     "commander"
   ],
@@ -40,14 +40,14 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/chalk-logger": "^5.0.3",
-    "@guanghechen/helper-fs": "^5.0.3",
-    "@guanghechen/helper-git": "^5.0.3",
-    "@guanghechen/helper-is": "^5.0.3",
-    "@guanghechen/helper-option": "^5.0.3",
-    "@guanghechen/helper-path": "^5.0.3",
-    "@guanghechen/helper-string": "^5.0.3",
-    "@guanghechen/invariant": "^5.0.3",
+    "@guanghechen/chalk-logger": "^5.0.4",
+    "@guanghechen/helper-fs": "^5.0.4",
+    "@guanghechen/helper-git": "^5.0.4",
+    "@guanghechen/helper-is": "^5.0.4",
+    "@guanghechen/helper-option": "^5.0.4",
+    "@guanghechen/helper-path": "^5.0.4",
+    "@guanghechen/helper-string": "^5.0.4",
+    "@guanghechen/invariant": "^5.0.4",
     "command-exists": "^1.2.9",
     "commander": "^11.0.0",
     "execa": "^7.2.0",

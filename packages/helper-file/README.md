@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-file@5.0.3/packages/helper-file#readme">@guanghechen/helper-file</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-file@5.0.4/packages/helper-file#readme">@guanghechen/helper-file</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-file">
@@ -94,5 +94,5 @@ Name                                | Description
 `calcFilePartNames`                 | Generate file part names (suffix)
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-file@5.0.3/packages/helper-file#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-file@5.0.4/packages/helper-file#readme
 [split-file]: https://github.com/tomvlk/node-split-file
