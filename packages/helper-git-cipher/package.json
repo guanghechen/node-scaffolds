@@ -55,8 +55,8 @@
     "@guanghechen/chalk-logger": "^5.0.3",
     "@guanghechen/helper-jest": "^5.0.3",
     "cross-env": "^7.0.3",
-    "jest": "^29.6.1",
+    "jest": "^29.6.2",
     "rimraf": "^5.0.1",
-    "rollup": "^3.26.3"
+    "rollup": "^3.27.2"
   }
 }
