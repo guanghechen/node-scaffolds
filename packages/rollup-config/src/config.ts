@@ -38,6 +38,12 @@ export interface IRollupConfigOptions {
    * Rollup config middlewares.
    */
   middlewares?: IConfigMiddleware[] | undefined
+  /**
+   * Additional rollup external
+   * @param id
+   * @returns
+   */
+  additionalExternal?: (id: string) => boolean
 }
 
 export interface IBuildRollupConfigResult {
@@ -49,9 +55,9 @@ export interface IBuildRollupConfigResult {
 export async function buildRollupConfig(
   options: IRollupConfigOptions,
 ): Promise<IBuildRollupConfigResult> {
-  const { manifest } = options
+  const { manifest, additionalExternal } = options
   const env = resolveRollupConfigEnv(options.env ?? {})
-  const baseExternal = await resolveExternal(manifest, env)
+  const baseExternal = await resolveExternal(manifest, env, additionalExternal)
   const presetContext: IPresetConfigBuilderContext = {
     env,
     manifest,

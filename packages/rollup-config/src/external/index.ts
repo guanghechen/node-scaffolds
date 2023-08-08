@@ -8,6 +8,7 @@ import {
 export async function resolveExternal(
   manifest: IManifestWithDependencies,
   env: IEnv,
+  additionalExternal: ((id: string) => boolean) | undefined,
 ): Promise<(id: string) => boolean> {
   const dependencyFields = getDefaultDependencyFields()
   let dependencies: string[] = dependencyFields.reduce((acc, key) => {
@@ -24,6 +25,7 @@ export async function resolveExternal(
   const external = (id: string): boolean => {
     if (builtinExternalSet.has(id)) return true
     if (/^node:[\w\S]+$/.test(id)) return true
+    if (additionalExternal && additionalExternal(id)) return true
 
     const m = /^([.][\s\S]*|@[^/\s]+[/][^/\s]+|[^/\s]+)/.exec(id)
     if (m == null) return false
