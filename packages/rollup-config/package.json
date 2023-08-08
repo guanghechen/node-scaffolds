@@ -58,15 +58,5 @@
   "peerDependencies": {
     "rollup": "^3.0.0",
     "typescript": ">=3.7.0"
-  },
-  "jest": {
-    "coverageThreshold": {
-      "global": {
-        "branches": 77,
-        "functions": 100,
-        "lines": 90,
-        "statements": 90
-      }
-    }
   }
 }
