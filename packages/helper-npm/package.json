@@ -14,12 +14,12 @@
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-npm@5.0.4/packages/helper-npm#readme",
   "keywords": [],
   "type": "module",
-  "module": "./lib/esm/index.mjs",
+  "module": "./src/index.mjs",
   "exports": {
-    "import": "./lib/esm/index.mjs"
+    "import": "./src/index.mjs"
   },
-  "types": "lib/types/index.d.ts",
-  "source": "src/index.ts",
+  "types": "src/index.d.ts",
+  "source": "src/index.mjs",
   "license": "MIT",
   "engines": {
     "node": ">= 16.0.0"

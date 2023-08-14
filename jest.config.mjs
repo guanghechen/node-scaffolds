@@ -20,11 +20,13 @@ export default async function () {
       'packages/helper-commander/src/util/git.ts',
       'packages/helper-commander/src/util/stdin.ts',
       'packages/helper-commander/src/util/yarn.ts',
+      'packages/helper-npm/src/index.d.ts',
       'packages/script-doc-link/src/cli.ts',
     ],
     coverageThreshold: Object.fromEntries(
       [
         ['global', { branches: 80, functions: 90, lines: 90, statements: 90 }],
+        ['packages/helper-plop/src/cli.ts', { functions: 0, lines: 27, statements: 27 }],
         ['packages/helper-plop/src/cli.ts', { functions: 0, lines: 27, statements: 27 }],
         [
           'packages/helper-plop/src/run/types.ts',
