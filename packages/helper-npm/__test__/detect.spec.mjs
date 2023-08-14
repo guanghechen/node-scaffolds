@@ -1,9 +1,8 @@
-import { locateNearestFilepath } from '@guanghechen/helper-path'
 import { locateFixtures } from 'jest.helper'
 import fs from 'node:fs'
 import path from 'node:path'
 import url from 'node:url'
-import { detectMonorepo, detectPackageAuthor } from '../src'
+import { detectMonorepo, detectPackageAuthor, locateNearestFilepath } from '../src/index.mjs'
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 

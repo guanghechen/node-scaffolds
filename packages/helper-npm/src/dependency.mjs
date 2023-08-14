@@ -1,33 +1,38 @@
-import { locateNearestFilepath } from '@guanghechen/helper-path'
 import { resolve } from 'import-meta-resolve'
 import { existsSync, readFileSync } from 'node:fs'
 import url from 'node:url'
+import { locateNearestFilepath } from './locate.mjs'
 
-export type IDependencyField = 'dependencies' | 'optionalDependencies' | 'peerDependencies'
+/**
+ * Represents a field name within a package.json file that specifies different types of dependencies.
+ * @typedef {'dependencies' | 'optionalDependencies' | 'peerDependencies'} IDependencyField
+ */
 
 /**
  * Default Dependency fields
+ * @returns {IDependencyField[]}
  */
-export function getDefaultDependencyFields(): IDependencyField[] {
+export function getDefaultDependencyFields() {
   return ['dependencies', 'optionalDependencies', 'peerDependencies']
 }
 
 /**
  * Collect all dependencies declared in the package.json and the dependency's dependencies and so on.
  *
- * @param packageJsonPath
- * @param dependenciesFields (such as ['dependencies', 'devDependencies'])
- * @param additionalDependencies
- * @param isAbsentAllowed
- * @returns
+ * @param {string|null} packageJsonPath
+ * @param {ReadonlyArray<IDependencyField>|undefined} dependenciesFields (such as ['dependencies', 'devDependencies'])
+ * @param {ReadonlyArray<string>|null|undefined} additionalDependencies
+ * @param {((moduleName: string) => boolean)|null|undefined} isAbsentAllowed
+ * @returns {Promise<string[]>}
  */
 export async function collectAllDependencies(
-  packageJsonPath: string | null,
-  dependenciesFields: ReadonlyArray<IDependencyField> = getDefaultDependencyFields(),
-  additionalDependencies: ReadonlyArray<string> | null = null,
-  isAbsentAllowed: ((moduleName: string) => boolean) | null = null,
-): Promise<string[]> {
-  const dependencySet: Set<string> = new Set<string>()
+  packageJsonPath,
+  dependenciesFields = getDefaultDependencyFields(),
+  additionalDependencies = null,
+  isAbsentAllowed = null,
+) {
+  /** @type {Set<string>} */
+  const dependencySet = new Set()
 
   if (isAbsentAllowed == null) {
     const regex = /^@types\//
@@ -49,21 +54,28 @@ export async function collectAllDependencies(
 
   return Array.from(dependencySet).sort()
 
-  async function followDependency(dependency: string): Promise<void> {
+  /**
+   * Follow the dependency to find and collect more dependencies.
+   * @param {string} dependency
+   * @returns {Promise<void>}
+   */
+  async function followDependency(dependency) {
     if (dependencySet.has(dependency)) return
     dependencySet.add(dependency)
 
     // recursively collect
     let nextPackageJsonPath = null
     try {
-      const dependencyUrl: string = resolve(dependency, import.meta.url)
-      const dependencyPath: string = url.fileURLToPath(dependencyUrl)
+      /** @type {string} */
+      const dependencyUrl = resolve(dependency, import.meta.url)
+      /** @type {string} */
+      const dependencyPath = url.fileURLToPath(dependencyUrl)
       nextPackageJsonPath = locateNearestFilepath(dependencyPath, 'package.json')
-    } catch (e: any) {
+    } catch (e) {
       /* c8 ignore start */
       switch (e.code) {
         case 'ERR_MODULE_NOT_FOUND':
-          if (isAbsentAllowed!(dependency)) return
+          if (isAbsentAllowed(dependency)) return
           break
         case 'ERR_PACKAGE_PATH_NOT_EXPORTED':
           return
@@ -82,7 +94,12 @@ export async function collectAllDependencies(
     await collectDependencies(nextPackageJsonPath)
   }
 
-  async function collectDependencies(dependencyPackageJsonPath: string): Promise<void> {
+  /**
+   * Collect dependencies.
+   * @param {string} dependencyPackageJsonPath
+   * @returns {Promise<void>}
+   */
+  async function collectDependencies(dependencyPackageJsonPath) {
     if (!existsSync(dependencyPackageJsonPath)) {
       console.warn(`no such file or directory: ${dependencyPackageJsonPath}`)
       return
@@ -99,14 +116,4 @@ export async function collectAllDependencies(
       }
     }
   }
-}
-
-/**
- * Find the latest package.json under the give {currentDir} or its ancestor path.
- *
- * @param currentDir
- * @returns
- */
-export function locateLatestPackageJson(currentDir: string): string | null {
-  return locateNearestFilepath(currentDir, 'package.json')
 }

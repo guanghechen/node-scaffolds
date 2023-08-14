@@ -1,13 +1,9 @@
-import type { IConsoleMock } from '@guanghechen/helper-jest'
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { createConsoleMock } from '@guanghechen/helper-jest'
 import { desensitize, locateFixtures } from 'jest.helper'
 import path from 'node:path'
 import url from 'node:url'
-import {
-  collectAllDependencies,
-  getDefaultDependencyFields,
-  locateLatestPackageJson,
-} from '../src/dependency'
+import { collectAllDependencies, getDefaultDependencyFields } from '../src/index.mjs'
 
 describe('getDefaultDependencyFields', () => {
   test('basic', () => {
@@ -22,7 +18,8 @@ describe('getDefaultDependencyFields', () => {
 })
 
 describe('collectAllDependencies', () => {
-  let logMock: IConsoleMock
+  /** @type {import('@guanghechen/helper-jest').IConsoleMock} */
+  let logMock
   beforeEach(() => {
     logMock = createConsoleMock(['warn'])
   })
@@ -33,7 +30,7 @@ describe('collectAllDependencies', () => {
   test('current repo', async () => {
     const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
     const dependencies = await collectAllDependencies(path.join(__dirname, '../package.json'))
-    expect(dependencies).toEqual(['@guanghechen/helper-path', 'import-meta-resolve'])
+    expect(dependencies).toEqual(['import-meta-resolve'])
     expect(desensitize(logMock.getIndiscriminateAll())).toEqual([])
   })
 
@@ -66,12 +63,5 @@ describe('collectAllDependencies', () => {
         ],
       ]
     `)
-  })
-})
-
-describe('locateLatestPackageJson', () => {
-  test('basic', () => {
-    const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
-    expect(locateLatestPackageJson(__dirname)).toBe(path.join(__dirname, '../package.json'))
   })
 })

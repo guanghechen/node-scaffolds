@@ -25,20 +25,16 @@
     "node": ">= 16.0.0"
   },
   "files": [
-    "lib/",
-    "!lib/**/*.map",
+    "src/",
     "package.json",
     "CHANGELOG.md",
     "LICENSE",
     "README.md"
   ],
   "scripts": {
-    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
-    "prepublishOnly": "yarn build",
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-path": "^5.0.4",
     "import-meta-resolve": "^3.0.0"
   },
   "devDependencies": {
