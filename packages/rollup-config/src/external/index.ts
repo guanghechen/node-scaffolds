@@ -1,9 +1,9 @@
+import { collectAllDependencies, getDefaultDependencyFields } from '@guanghechen/helper-npm'
 import type { IEnv, IManifestWithDependencies } from '../types'
-import {
-  builtinExternalSet,
-  collectAllDependencies,
-  getDefaultDependencyFields,
-} from './dependency'
+import builtinModules from './builtin-modules.json' assert { type: 'json' }
+
+const builtinExternals: ReadonlyArray<string> = builtinModules.concat(['glob', 'sync'])
+export const builtinExternalSet: ReadonlySet<string> = new Set<string>(builtinExternals)
 
 export async function resolveExternal(
   manifest: IManifestWithDependencies,

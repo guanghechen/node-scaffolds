@@ -35,8 +35,10 @@ export default async function () {
           { branches: 10, functions: 50, lines: 50, statements: 50 },
         ],
         ['packages/rollup-config/src/config.ts', { branches: 66 }],
+        ['packages/rollup-config/src/env.ts', { branches: 50 }],
         ['packages/rollup-config/src/middleware/dts.ts', { branches: 60 }],
         ['packages/rollup-config/src/middleware/ts.ts', { branches: 50 }],
+        ['packages/rollup-config/src/preset/dts.ts', { branches: 60 }],
       ]
         .filter(([p]) => !p.startsWith('packages/') || p.startsWith(packageDir))
         .map(([p, val]) => (p.startsWith(packageDir) ? [path.join(__dirname, p), val] : [p, val])),
