@@ -1,5 +1,6 @@
 import { existsSync, readdirSync } from 'node:fs'
-import path from 'node:path'
+import { dirname, isAbsolute, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 /**
  * Locate a nearest filepath from the given `currentDir` which name included in the give `filenames`.
@@ -9,25 +10,13 @@ import path from 'node:path'
  * @returns
  */
 export function locateNearestFilepath(
-  currentDir0: string,
-  filenames: string | string[],
+  currentDir: string,
+  filenames: string | ReadonlyArray<string>,
 ): string | null {
-  // eslint-disable-next-line no-param-reassign
-  filenames = [filenames].flat()
-  return recursiveLocate(currentDir0.replace(/^file:\/\//, ''))
-
-  function recursiveLocate(currentDir: string): string | null {
-    for (const filename of filenames) {
-      const filepath = path.join(currentDir, filename)
-      if (existsSync(filepath)) return filepath
-    }
-
-    const parentDir = path.dirname(currentDir)
-    if (parentDir === currentDir || !path.isAbsolute(parentDir)) return null
-
-    // Recursively locate.
-    return locateNearestFilepath(parentDir, filenames)
-  }
+  return internalRecursiveLocate(
+    currentDir.startsWith('file://') ? fileURLToPath(currentDir) : currentDir,
+    [filenames].flat(),
+  )
 }
 
 /**
@@ -41,15 +30,41 @@ export function findNearestFilepath(
   currentDir: string,
   predicate: (filepath: string) => boolean,
 ): string | null {
+  return internalFindNearestFilepath(
+    currentDir.startsWith('file://') ? fileURLToPath(currentDir) : currentDir,
+    predicate,
+  )
+}
+
+function internalRecursiveLocate(
+  currentDir: string,
+  filenames: ReadonlyArray<string>,
+): string | null {
+  for (const filename of filenames) {
+    const filepath = join(currentDir, filename)
+    if (existsSync(filepath)) return filepath
+  }
+
+  const parentDir = dirname(currentDir)
+  if (parentDir === currentDir || !isAbsolute(parentDir)) return null
+
+  // Recursively locate.
+  return locateNearestFilepath(parentDir, filenames)
+}
+
+function internalFindNearestFilepath(
+  currentDir: string,
+  predicate: (filepath: string) => boolean,
+): string | null {
   const filenames = readdirSync(currentDir)
   for (const filename of filenames) {
-    const filepath = path.join(currentDir, filename)
+    const filepath = join(currentDir, filename)
     if (predicate(filepath)) return filepath
   }
 
-  const parentDir = path.dirname(currentDir)
+  const parentDir = dirname(currentDir)
   if (parentDir === currentDir) return null
 
   // Recursively locate.
-  return findNearestFilepath(parentDir, predicate)
+  return internalFindNearestFilepath(parentDir, predicate)
 }

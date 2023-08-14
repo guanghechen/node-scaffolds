@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url'
  * Locate a nearest filepath from the given `currentDir` which name included in the give `filenames`.
  *
  * @param {string} currentDir
- * @param {string|string[]} filenames
+ * @param {string|ReadonlyArray<string>} filenames
  * @returns {string|null}
  */
 export function locateNearestFilepath(currentDir, filenames) {
