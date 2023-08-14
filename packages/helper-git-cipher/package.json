@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-git-cipher",
-  "version": "5.0.4",
+  "version": "5.0.5",
   "description": "Utility functions for encrypt / decrypt git repo.",
   "author": {
     "name": "guanghechen",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git-cipher@5.0.4",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git-cipher@5.0.5",
     "directory": "packages/helper-git-cipher"
   },
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@5.0.4/packages/helper-git-cipher#readme",
@@ -41,12 +41,12 @@
   },
   "dependencies": {
     "@guanghechen/helper-cipher": "^5.0.4",
-    "@guanghechen/helper-cipher-file": "^5.0.4",
+    "@guanghechen/helper-cipher-file": "^5.0.5",
     "@guanghechen/helper-config": "^5.0.4",
     "@guanghechen/helper-fs": "^5.0.4",
     "@guanghechen/helper-func": "^5.0.4",
     "@guanghechen/helper-git": "^5.0.4",
-    "@guanghechen/helper-path": "^5.0.4",
+    "@guanghechen/helper-path": "^5.0.5",
     "@guanghechen/helper-storage": "^5.0.4",
     "@guanghechen/invariant": "^5.0.4",
     "@guanghechen/utility-types": "^5.0.4"

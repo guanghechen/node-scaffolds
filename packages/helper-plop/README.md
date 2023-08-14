@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@5.0.4/packages/helper-plop#readme">@guanghechen/helper-plop</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@5.0.5/packages/helper-plop#readme">@guanghechen/helper-plop</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-plop">
@@ -185,5 +185,5 @@ And the `cli.js` exposed a Node.js CLI script, such as:
 
 
 [@yozora/template-tokenizer]: https://github.com/yozorajs/yozora/blob/main/scaffolds/template-tokenizer
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@5.0.4/packages/helper-plop#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@5.0.5/packages/helper-plop#readme
 [inquirer]: https://github.com/SBoudrias/Inquirer.js/

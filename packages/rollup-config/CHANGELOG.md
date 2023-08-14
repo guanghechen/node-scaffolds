@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.1](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/rollup-config@5.1.0...@guanghechen/rollup-config@5.1.1) (2023-08-14)
+
+
+### Bug Fixes
+
+* 🐛 use url.fileURLToPath to get file file ([5b1d4d3](https://github.com/guanghechen/node-scaffolds/commit/5b1d4d3b92ac91fb8acdb3c969962ee785d6d0fd))
+
+
+### Performance Improvements
+
+* 🎨 re-organize files ([80f88d5](https://github.com/guanghechen/node-scaffolds/commit/80f88d5dc2755c58b92f60432b4376d5dbc501c7))
+* 🎨 use @guanghechen/helper-npm to avoid duplicated codes ([9b28cb5](https://github.com/guanghechen/node-scaffolds/commit/9b28cb5ee07cb3acc989b0c6c3c926eec698bfcf))
+
+
+
+
+
 # [5.1.0](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/rollup-config@5.0.3...@guanghechen/rollup-config@5.1.0) (2023-08-08)
 
 

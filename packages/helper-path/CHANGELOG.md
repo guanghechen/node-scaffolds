@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.5](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-path@5.0.4...@guanghechen/helper-path@5.0.5) (2023-08-14)
+
+
+### Bug Fixes
+
+* 🐛 support file url path ([d5d27f9](https://github.com/guanghechen/node-scaffolds/commit/d5d27f98495a6416784a5a5b493c62ff92fc11b9))
+
+
+
+
+
 ## [5.0.4](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-path@5.0.3...@guanghechen/helper-path@5.0.4) (2023-08-08)
 
 

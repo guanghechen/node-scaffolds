@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.5](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-npm@5.0.4...@guanghechen/helper-npm@5.0.5) (2023-08-14)
+
+
+### Bug Fixes
+
+* 🐛 support file url path ([d5d27f9](https://github.com/guanghechen/node-scaffolds/commit/d5d27f98495a6416784a5a5b493c62ff92fc11b9))
+* 🐛 use url.fileURLToPath to get file file ([5b1d4d3](https://github.com/guanghechen/node-scaffolds/commit/5b1d4d3b92ac91fb8acdb3c969962ee785d6d0fd))
+
+
+### Performance Improvements
+
+* 🔧 fix entry ([c9cb34a](https://github.com/guanghechen/node-scaffolds/commit/c9cb34a68fa3c0a53692006e833c131467a5460c))
+* 🎨 refactor with mjs ([f3a5b17](https://github.com/guanghechen/node-scaffolds/commit/f3a5b17a78248163d0109a453b5f4b4f795942af))
+
+
+
+
+
 ## [5.0.4](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-npm@5.0.3...@guanghechen/helper-npm@5.0.4) (2023-08-08)
 
 

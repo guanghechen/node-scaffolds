@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/tool-git-cipher",
-  "version": "5.0.4",
+  "version": "5.0.5",
   "description": "A cli tool to cipher git repository",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-git-cipher@5.0.4",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-git-cipher@5.0.5",
     "directory": "packages/tool-git-cipher"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-git-cipher@5.0.4/packages/tool-git-cipher#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-git-cipher@5.0.5/packages/tool-git-cipher#readme",
   "keywords": [],
   "type": "module",
   "module": "./lib/esm/index.mjs",
@@ -44,18 +44,18 @@
     "@guanghechen/event-bus": "^5.0.4",
     "@guanghechen/helper-buffer": "^5.0.4",
     "@guanghechen/helper-cipher": "^5.0.4",
-    "@guanghechen/helper-cipher-file": "^5.0.4",
-    "@guanghechen/helper-commander": "^5.0.4",
+    "@guanghechen/helper-cipher-file": "^5.0.5",
+    "@guanghechen/helper-commander": "^5.0.5",
     "@guanghechen/helper-config": "^5.0.4",
     "@guanghechen/helper-file": "^5.0.4",
     "@guanghechen/helper-fs": "^5.0.4",
     "@guanghechen/helper-git": "^5.0.4",
-    "@guanghechen/helper-git-cipher": "^5.0.4",
+    "@guanghechen/helper-git-cipher": "^5.0.5",
     "@guanghechen/helper-is": "^5.0.4",
     "@guanghechen/helper-mac": "^5.0.4",
     "@guanghechen/helper-option": "^5.0.4",
-    "@guanghechen/helper-path": "^5.0.4",
-    "@guanghechen/helper-plop": "^5.0.4",
+    "@guanghechen/helper-path": "^5.0.5",
+    "@guanghechen/helper-plop": "^5.0.5",
     "@guanghechen/helper-storage": "^5.0.4",
     "@guanghechen/invariant": "^5.0.4",
     "execa": "^7.2.0",
@@ -64,7 +64,7 @@
     "node-plop": "~0.31.1"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config-cli": "^5.0.4",
+    "@guanghechen/rollup-config-cli": "^5.0.5",
     "@types/micromatch": "^4.0.2",
     "cross-env": "^7.0.3",
     "rimraf": "^5.0.1",
