@@ -1,6 +1,7 @@
 import { resolve } from 'import-meta-resolve'
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
+import url from 'node:url'
 import builtinModules from './builtin-modules.json' assert { type: 'json' }
 
 const builtinExternals: ReadonlyArray<string> = builtinModules.concat(['glob', 'sync'])
@@ -59,10 +60,9 @@ export async function collectAllDependencies(
     // recursively collect
     let nextPackageJsonPath = null
     try {
-      const dependencyPath = await resolve(dependency, import.meta.url)
-      if (dependencyPath != null) {
-        nextPackageJsonPath = locateNearestFilepath(dependencyPath, 'package.json')
-      }
+      const dependencyUrl: string = resolve(dependency, import.meta.url)
+      const dependencyPath: string = url.fileURLToPath(dependencyUrl)
+      nextPackageJsonPath = locateNearestFilepath(dependencyPath, 'package.json')
     } catch (e: any) {
       switch (e.code) {
         case 'ERR_MODULE_NOT_FOUND':

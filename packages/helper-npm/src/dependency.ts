@@ -1,6 +1,7 @@
 import { locateNearestFilepath } from '@guanghechen/helper-path'
 import { resolve } from 'import-meta-resolve'
 import { existsSync, readFileSync } from 'node:fs'
+import url from 'node:url'
 
 export type IDependencyField = 'dependencies' | 'optionalDependencies' | 'peerDependencies'
 
@@ -55,10 +56,9 @@ export async function collectAllDependencies(
     // recursively collect
     let nextPackageJsonPath = null
     try {
-      const dependencyPath = await resolve(dependency, import.meta.url)
-      if (dependencyPath != null) {
-        nextPackageJsonPath = locateNearestFilepath(dependencyPath, 'package.json')
-      }
+      const dependencyUrl: string = resolve(dependency, import.meta.url)
+      const dependencyPath: string = url.fileURLToPath(dependencyUrl)
+      nextPackageJsonPath = locateNearestFilepath(dependencyPath, 'package.json')
     } catch (e: any) {
       /* c8 ignore start */
       switch (e.code) {
