@@ -58,7 +58,7 @@
     "@guanghechen/helper-plop": "^5.0.5",
     "@guanghechen/helper-storage": "^5.0.4",
     "@guanghechen/invariant": "^5.0.4",
-    "execa": "^7.2.0",
+    "execa": "^8.0.0",
     "inquirer": "9.2.10",
     "micromatch": "^4.0.5",
     "node-plop": "~0.31.1"
@@ -68,7 +68,7 @@
     "@types/micromatch": "^4.0.2",
     "cross-env": "^7.0.3",
     "rimraf": "^5.0.1",
-    "rollup": "^3.27.2",
+    "rollup": "^3.28.0",
     "typescript": "5.1.6"
   }
 }
