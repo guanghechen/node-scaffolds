@@ -966,17 +966,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/observable@workspace:packages/observable":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/observable@workspace:packages/observable"
-  dependencies:
-    cross-env: ^7.0.3
-    jest: ^29.6.2
-    rimraf: ^5.0.1
-    rollup: ^3.27.2
-  languageName: unknown
-  linkType: soft
-
 "@guanghechen/postcss-modules-dts@workspace:packages/postcss-modules-dts":
   version: 0.0.0-use.local
   resolution: "@guanghechen/postcss-modules-dts@workspace:packages/postcss-modules-dts"
