@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.5](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/postcss-modules-dts@5.0.4...@guanghechen/postcss-modules-dts@5.0.5) (2023-08-19)
+
+
+### Performance Improvements
+
+* ⬆️ upgrade dependencies ([2c25097](https://github.com/guanghechen/node-scaffolds/commit/2c25097d9733f3e17d9725fede8dc960073099fe))
+
+
+
+
+
 ## [5.0.4](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/postcss-modules-dts@5.0.3...@guanghechen/postcss-modules-dts@5.0.4) (2023-08-08)
 
 

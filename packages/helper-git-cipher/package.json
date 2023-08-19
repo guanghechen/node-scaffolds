@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-git-cipher",
-  "version": "5.0.5",
+  "version": "5.0.6",
   "description": "Utility functions for encrypt / decrypt git repo.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git-cipher@5.0.5",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git-cipher@5.0.6",
     "directory": "packages/helper-git-cipher"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@5.0.4/packages/helper-git-cipher#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@5.0.5/packages/helper-git-cipher#readme",
   "keywords": [
     "cipher"
   ],
@@ -40,20 +40,20 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-cipher": "^5.0.4",
-    "@guanghechen/helper-cipher-file": "^5.0.5",
-    "@guanghechen/helper-config": "^5.0.4",
-    "@guanghechen/helper-fs": "^5.0.4",
-    "@guanghechen/helper-func": "^5.0.4",
-    "@guanghechen/helper-git": "^5.0.4",
-    "@guanghechen/helper-path": "^5.0.5",
-    "@guanghechen/helper-storage": "^5.0.4",
-    "@guanghechen/invariant": "^5.0.4",
-    "@guanghechen/utility-types": "^5.0.4"
+    "@guanghechen/helper-cipher": "^5.0.5",
+    "@guanghechen/helper-cipher-file": "^5.0.6",
+    "@guanghechen/helper-config": "^5.0.5",
+    "@guanghechen/helper-fs": "^5.0.5",
+    "@guanghechen/helper-func": "^5.0.5",
+    "@guanghechen/helper-git": "^5.0.5",
+    "@guanghechen/helper-path": "^5.0.6",
+    "@guanghechen/helper-storage": "^5.0.5",
+    "@guanghechen/invariant": "^5.0.5",
+    "@guanghechen/utility-types": "^5.0.5"
   },
   "devDependencies": {
-    "@guanghechen/chalk-logger": "^5.0.4",
-    "@guanghechen/helper-jest": "^5.0.4",
+    "@guanghechen/chalk-logger": "^5.0.5",
+    "@guanghechen/helper-jest": "^5.0.5",
     "cross-env": "^7.0.3",
     "jest": "^29.6.2",
     "rimraf": "^5.0.1",

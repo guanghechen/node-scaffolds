@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-npm",
-  "version": "5.0.5",
+  "version": "5.0.6",
   "description": "Utilities for handling npm repo and `package.json`.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-npm@5.0.5",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-npm@5.0.6",
     "directory": "packages/helper-npm"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-npm@5.0.5/packages/helper-npm#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-npm@5.0.6/packages/helper-npm#readme",
   "keywords": [],
   "type": "module",
   "module": "./src/index.mjs",

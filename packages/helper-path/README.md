@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-path@5.0.5/packages/helper-path#readme">@guanghechen/helper-path</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-path@5.0.6/packages/helper-path#readme">@guanghechen/helper-path</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-path">
@@ -72,4 +72,4 @@ Name                    | Description
 `relativeOfWorkspace`   | Calc relative filepath to workspace.
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-path@5.0.5/packages/helper-path#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-path@5.0.6/packages/helper-path#readme

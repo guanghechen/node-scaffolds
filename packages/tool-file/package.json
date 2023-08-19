@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/tool-file",
-  "version": "5.0.5",
+  "version": "5.0.6",
   "description": "A cli tool to split / merge big file.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@5.0.5",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@5.0.6",
     "directory": "packages/tool-file"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@5.0.5/packages/tool-file#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@5.0.6/packages/tool-file#readme",
   "keywords": [],
   "type": "module",
   "module": "./lib/esm/index.mjs",
@@ -40,18 +40,18 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@guanghechen/chalk-logger": "^5.0.4",
-    "@guanghechen/helper-commander": "^5.0.5",
-    "@guanghechen/helper-file": "^5.0.4",
-    "@guanghechen/helper-fs": "^5.0.4",
-    "@guanghechen/helper-func": "^5.0.4",
-    "@guanghechen/helper-is": "^5.0.4",
-    "@guanghechen/helper-option": "^5.0.4",
-    "@guanghechen/helper-path": "^5.0.5",
-    "@guanghechen/invariant": "^5.0.4"
+    "@guanghechen/chalk-logger": "^5.0.5",
+    "@guanghechen/helper-commander": "^5.0.6",
+    "@guanghechen/helper-file": "^5.0.5",
+    "@guanghechen/helper-fs": "^5.0.5",
+    "@guanghechen/helper-func": "^5.0.5",
+    "@guanghechen/helper-is": "^5.0.5",
+    "@guanghechen/helper-option": "^5.0.5",
+    "@guanghechen/helper-path": "^5.0.6",
+    "@guanghechen/invariant": "^5.0.5"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config-cli": "^5.0.5",
+    "@guanghechen/rollup-config-cli": "^5.0.6",
     "cross-env": "^7.0.3",
     "rimraf": "^5.0.1",
     "rollup": "^3.28.0",
