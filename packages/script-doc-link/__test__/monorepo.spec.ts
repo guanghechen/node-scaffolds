@@ -47,7 +47,6 @@ describe('context', () => {
         "packages/invariant",
         "packages/jest-config",
         "packages/mini-copy",
-        "packages/observable",
         "packages/postcss-modules-dts",
         "packages/rollup-config",
         "packages/rollup-config-cli",
