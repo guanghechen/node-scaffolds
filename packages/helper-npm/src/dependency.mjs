@@ -69,7 +69,9 @@ export async function collectAllDependencies(
       /** @type {string} */
       const dependencyUrl = resolve(dependency, import.meta.url)
       /** @type {string} */
-      const dependencyPath = url.fileURLToPath(dependencyUrl)
+      const dependencyPath = /^\w+:\/\//.test(dependencyUrl)
+        ? url.fileURLToPath(dependencyUrl)
+        : dependencyUrl
       nextPackageJsonPath = locateNearestFilepath(dependencyPath, 'package.json')
     } catch (e) {
       /* c8 ignore start */
