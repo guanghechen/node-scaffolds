@@ -51,6 +51,7 @@ describe('context', () => {
         "packages/rollup-config",
         "packages/rollup-config-cli",
         "packages/rollup-plugin-copy",
+        "packages/scheduler",
         "packages/script-doc-link",
         "packages/tool-file",
         "packages/tool-git-cipher",
