@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/scheduler",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "description": "Utilities to schedule tasks",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/scheduler@5.0.0",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/scheduler@5.1.0",
     "directory": "packages/scheduler"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/scheduler@5.0.0/packages/scheduler#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/scheduler@5.1.0/packages/scheduler#readme",
   "type": "module",
   "main": "./lib/cjs/index.cjs",
   "module": "./lib/esm/index.mjs",
