@@ -41,6 +41,7 @@ export default async function () {
         ],
         ['packages/rollup-config/src/config.ts', { branches: 66 }],
         ['packages/rollup-config/src/env.ts', { branches: 50 }],
+        ['packages/rollup-config/src/external.ts', { branches: 70 }],
         ['packages/rollup-config/src/middleware/dts.ts', { branches: 60 }],
         ['packages/rollup-config/src/middleware/ts.ts', { branches: 50 }],
         ['packages/rollup-config/src/preset/dts.ts', { branches: 60 }],
