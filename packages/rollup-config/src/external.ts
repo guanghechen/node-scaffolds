@@ -82,7 +82,8 @@ export async function resolveExternal(
     if (/^node:[\w\S]+$/.test(id)) return true
 
     const m = /^([.][\s\S]*|@[^/\s]+[/][^/\s]+|[^/\s]+)/.exec(id)
-    return typeof m === 'string' && externalSet.has(m[1])
+    if (m == null) return false
+    return externalSet.has(m[1])
   }
   return external
 }
