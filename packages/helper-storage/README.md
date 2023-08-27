@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-storage@5.0.5/packages/helper-storage#readme">@guanghechen/helper-storage</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-storage@5.0.6/packages/helper-storage#readme">@guanghechen/helper-storage</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-storage">
@@ -67,4 +67,4 @@ Name                    | Description
 
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-storage@5.0.5/packages/helper-storage#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-storage@5.0.6/packages/helper-storage#readme

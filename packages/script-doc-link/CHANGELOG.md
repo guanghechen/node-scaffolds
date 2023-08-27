@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.8](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@5.0.7...@guanghechen/script-doc-link@5.0.8) (2023-08-27)
+
+
+### Performance Improvements
+
+* :fire:  move @guanghechen/scheduler to github.com/guanghechen/sora.git ([b083abb](https://github.com/guanghechen/node-scaffolds/commit/b083abbca64329b3b1265ee54749718d137764c2))
+* ✅ fix test snapshots ([12b0ddc](https://github.com/guanghechen/node-scaffolds/commit/12b0ddc376f6e490305cb205195b7aed28e63fc9))
+* ⬆️ upgrade dependencies ([8fa97de](https://github.com/guanghechen/node-scaffolds/commit/8fa97dee952f55565a2ac9b6680256c406df72ab))
+
+
+
+
+
 ## [5.0.7](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@5.0.6...@guanghechen/script-doc-link@5.0.7) (2023-08-19)
 
 

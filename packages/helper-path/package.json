@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-path",
-  "version": "5.0.6",
+  "version": "5.0.7",
   "description": "Utilities to handle url path and file path.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-path@5.0.6",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-path@5.0.7",
     "directory": "packages/helper-path"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-path@5.0.6/packages/helper-path#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-path@5.0.7/packages/helper-path#readme",
   "keywords": [
     "url path",
     "file path"

@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-string",
-  "version": "5.0.5",
+  "version": "5.0.6",
   "description": "Utilities for processing strings or stringify other type data.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-string@5.0.5",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-string@5.0.6",
     "directory": "packages/helper-string"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-string@5.0.5/packages/helper-string#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-string@5.0.6/packages/helper-string#readme",
   "keywords": [
     "string",
     "string transformer",
