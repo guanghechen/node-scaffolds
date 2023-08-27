@@ -1,4 +1,5 @@
 import { collectAllDependencies, getDefaultDependencyFields } from '@guanghechen/helper-npm'
+import { DependencyCategory } from './types'
 import type { IEnv, IManifestWithDependencies } from './types'
 
 const builtinModules = [
@@ -50,7 +51,7 @@ export const builtinExternalSet: ReadonlySet<string> = new Set<string>(builtinEx
 export async function resolveExternal(
   manifest: IManifestWithDependencies,
   env: IEnv,
-  additionalExternal: ((id: string) => boolean) | undefined,
+  classifyDependency: (id: string) => DependencyCategory = () => DependencyCategory.UNKNOWN,
 ): Promise<(id: string) => boolean> {
   const dependencyFields = getDefaultDependencyFields()
   let dependencies: string[] = dependencyFields.reduce((acc, key) => {
@@ -65,13 +66,23 @@ export async function resolveExternal(
   const externalSet = new Set(dependencies)
 
   const external = (id: string): boolean => {
+    const classify = classifyDependency(id)
+    switch (classify) {
+      case DependencyCategory.BUILTIN:
+        return false
+      case DependencyCategory.EXTERNAL:
+        return true
+      case DependencyCategory.UNKNOWN:
+        break
+      default:
+        throw new TypeError(`Unknown return value from classifyDependency`)
+    }
+
     if (builtinExternalSet.has(id)) return true
     if (/^node:[\w\S]+$/.test(id)) return true
-    if (additionalExternal && additionalExternal(id)) return true
 
     const m = /^([.][\s\S]*|@[^/\s]+[/][^/\s]+|[^/\s]+)/.exec(id)
-    if (m == null) return false
-    return externalSet.has(m[1])
+    return typeof m === 'string' && externalSet.has(m[1])
   }
   return external
 }

@@ -8,6 +8,7 @@ import { tsConfigMiddleware } from './middleware/ts'
 import { dtsPresetConfigBuilder } from './preset/dts'
 import { tsPresetConfigBuilder } from './preset/ts'
 import type {
+  DependencyCategory,
   IConfigMiddleware,
   IConfigMiddlewareContext,
   IConfigMiddlewareNext,
@@ -39,11 +40,11 @@ export interface IRollupConfigOptions {
    */
   middlewares?: IConfigMiddleware[] | undefined
   /**
-   * Additional rollup external
+   * Classify dependency.
    * @param id
    * @returns
    */
-  additionalExternal?: (id: string) => boolean
+  classifyDependency?: (id: string) => DependencyCategory
 }
 
 export interface IBuildRollupConfigResult {
@@ -55,9 +56,9 @@ export interface IBuildRollupConfigResult {
 export async function buildRollupConfig(
   options: IRollupConfigOptions,
 ): Promise<IBuildRollupConfigResult> {
-  const { manifest, additionalExternal } = options
+  const { manifest, classifyDependency } = options
   const env = resolveRollupConfigEnv(options.env ?? {})
-  const baseExternal = await resolveExternal(manifest, env, additionalExternal)
+  const baseExternal = await resolveExternal(manifest, env, classifyDependency)
   const presetContext: IPresetConfigBuilderContext = {
     env,
     manifest,

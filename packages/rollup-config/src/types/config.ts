@@ -7,6 +7,12 @@ export enum PresetBuilderName {
   DTS = 'dts',
 }
 
+export enum DependencyCategory {
+  BUILTIN = 'builtin',
+  EXTERNAL = 'external',
+  UNKNOWN = 'unknown',
+}
+
 export interface IRollupConfig extends RollupOptions {
   plugins: Plugin[]
 }
