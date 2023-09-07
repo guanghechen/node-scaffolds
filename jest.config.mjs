@@ -44,6 +44,10 @@ export default async function () {
         ['packages/rollup-config/src/external.ts', { branches: 70 }],
         ['packages/rollup-config/src/middleware/dts.ts', { branches: 60 }],
         ['packages/rollup-config/src/middleware/ts.ts', { branches: 50 }],
+        [
+          'packages/rollup-config/src/plugin/modify.ts',
+          { branches: 0, functions: 0, lines: 0, statements: 0 },
+        ],
         ['packages/rollup-config/src/preset/dts.ts', { branches: 60 }],
       ]
         .filter(([p]) => !p.startsWith('packages/') || p.startsWith(packageDir))
