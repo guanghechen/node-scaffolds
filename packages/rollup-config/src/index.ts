@@ -1,5 +1,6 @@
 export * from './middleware/dts'
 export * from './middleware/ts'
+export * from './plugin/modify'
 export * from './preset/dts'
 export * from './preset/ts'
 export * from './config'
