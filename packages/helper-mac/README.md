@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-mac@5.0.6/packages/helper-mac#readme">@guanghechen/helper-mac</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-mac@5.0.7/packages/helper-mac#readme">@guanghechen/helper-mac</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-mac">
@@ -75,4 +75,4 @@ Name                  | Description
 `calcMacFromFile`     | Calc mac (Message Authentication Code) from fle.
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-mac@5.0.6/packages/helper-mac#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-mac@5.0.7/packages/helper-mac#readme

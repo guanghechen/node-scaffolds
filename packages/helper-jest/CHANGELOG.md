@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.7](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-jest@5.0.6...@guanghechen/helper-jest@5.0.7) (2023-09-07)
+
+
+### Performance Improvements
+
+* ⬆️ upgrade dependencies ([83e3f3e](https://github.com/guanghechen/node-scaffolds/commit/83e3f3eaf4c3a354e2ddf167fa1a4bb75e750427))
+
+
+
+
+
 ## [5.0.6](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-jest@5.0.5...@guanghechen/helper-jest@5.0.6) (2023-08-27)
 
 

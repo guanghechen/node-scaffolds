@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-storage",
-  "version": "5.0.6",
+  "version": "5.0.7",
   "description": "Utilities for read / write content",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-storage@5.0.6",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-storage@5.0.7",
     "directory": "packages/helper-storage"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-storage@5.0.6/packages/helper-storage#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-storage@5.0.7/packages/helper-storage#readme",
   "keywords": [
     "config"
   ],

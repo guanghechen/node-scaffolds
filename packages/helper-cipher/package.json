@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-cipher",
-  "version": "5.0.6",
+  "version": "5.0.7",
   "description": "Utility functions for cipher contents.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-cipher@5.0.6",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-cipher@5.0.7",
     "directory": "packages/helper-cipher"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-cipher@5.0.6/packages/helper-cipher#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-cipher@5.0.7/packages/helper-cipher#readme",
   "keywords": [
     "cipher",
     "cipher helper"
@@ -43,9 +43,9 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-buffer": "^5.0.6",
-    "@guanghechen/helper-mac": "^5.0.6",
-    "@guanghechen/invariant": "^5.0.6"
+    "@guanghechen/helper-buffer": "^5.0.7",
+    "@guanghechen/helper-mac": "^5.0.7",
+    "@guanghechen/invariant": "^5.0.7"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

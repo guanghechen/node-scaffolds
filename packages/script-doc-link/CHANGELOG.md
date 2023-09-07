@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.9](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@5.0.8...@guanghechen/script-doc-link@5.0.9) (2023-09-07)
+
+
+### Performance Improvements
+
+* ⬆️ upgrade dependencies ([83e3f3e](https://github.com/guanghechen/node-scaffolds/commit/83e3f3eaf4c3a354e2ddf167fa1a4bb75e750427))
+
+
+
+
+
 ## [5.0.8](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@5.0.7...@guanghechen/script-doc-link@5.0.8) (2023-08-27)
 
 

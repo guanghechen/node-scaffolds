@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config@5.2.0/packages/rollup-config#readme">@guanghechen/rollup-config</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config@5.3.0/packages/rollup-config#readme">@guanghechen/rollup-config</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/rollup-config">
@@ -188,7 +188,7 @@ Extended from rollup.InputOptions.
 * [@guanghechen/rollup-plugin-copy][]
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config@5.2.0/packages/rollup-config#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config@5.3.0/packages/rollup-config#readme
 [@guanghechen/rollup-config]: https://www.npmjs.com/package/@guanghechen/rollup-config
 [@guanghechen/rollup-config-cli]: https://www.npmjs.com/package/@guanghechen/rollup-config-cli
 [@guanghechen/rollup-plugin-copy]: https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy

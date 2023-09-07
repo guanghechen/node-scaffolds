@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/jest-config",
-  "version": "5.0.6",
+  "version": "5.0.7",
   "description": "basic jest configs for typescript monorepo",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/jest-config@5.0.6",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/jest-config@5.0.7",
     "directory": "packages/jest-config"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/jest-config@5.0.6/packages/jest-config#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/jest-config@5.0.7/packages/jest-config#readme",
   "keywords": [
     "eslint",
     "eslint config"
