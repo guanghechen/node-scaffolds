@@ -4,7 +4,7 @@ interface IModifyPluginOptions {
   modify?(filename: string, code: string): string
 }
 
-export function modify(options: IModifyPluginOptions): rollup.Plugin {
+export function modify(options: IModifyPluginOptions = {}): rollup.Plugin {
   return {
     name: '@guanghechen/rollup-plugin-modify',
     generateBundle: async (_, bundle) => {

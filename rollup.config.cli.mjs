@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { tsPresetConfigBuilder } from '@guanghechen/rollup-config'
+import { modify, tsPresetConfigBuilder } from '@guanghechen/rollup-config'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import createRollupConfig from '@guanghechen/rollup-config-cli'
 import replace from '@rollup/plugin-replace'
@@ -33,6 +33,7 @@ export default async function () {
               [` from '${manifest.name}/package.json'`]: ` from '../../package.json'`,
             },
           }),
+          modify(),
         ],
       }),
     ],
