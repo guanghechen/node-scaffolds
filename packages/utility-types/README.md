@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/utility-types@5.0.7/packages/utility-types#readme">@guanghechen/utility-types</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/utility-types@5.0.8/packages/utility-types#readme">@guanghechen/utility-types</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/utility-types">
@@ -124,4 +124,4 @@ type PartialProps2 = PickPartial<Props, 'name'>
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/utility-types@5.0.7/packages/utility-types#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/utility-types@5.0.8/packages/utility-types#readme

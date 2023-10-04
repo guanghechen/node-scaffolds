@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-jest@5.0.7/packages/helper-jest#readme">@guanghechen/helper-jest</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-jest@5.0.8/packages/helper-jest#readme">@guanghechen/helper-jest</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-jest">
@@ -196,4 +196,4 @@ A collection of utility functions for jest tests.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-jest@5.0.7/packages/helper-jest#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-jest@5.0.8/packages/helper-jest#readme

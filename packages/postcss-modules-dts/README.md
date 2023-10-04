@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/postcss-modules-dts@5.0.7/packages/postcss-modules-dts#readme">@guanghechen/postcss-modules-dts</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/postcss-modules-dts@5.0.8/packages/postcss-modules-dts#readme">@guanghechen/postcss-modules-dts</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/postcss-modules-dts">
@@ -132,6 +132,6 @@ Name                | Type        | Required | Default
 * [rollup-plugin-postcss | Github][rollup-plugin-postcss]
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/postcss-modules-dts@5.0.7/packages/postcss-modules-dts#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/postcss-modules-dts@5.0.8/packages/postcss-modules-dts#readme
 [postcss-modules]: https://github.com/madyankin/postcss-modules
 [rollup-plugin-postcss]: https://github.com/egoist/rollup-plugin-postcss

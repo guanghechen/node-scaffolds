@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.9](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-git-cipher@5.0.8...@guanghechen/helper-git-cipher@5.0.9) (2023-10-04)
+
+
+### Performance Improvements
+
+* :art:  migrate few packages to sora ([e369ad8](https://github.com/guanghechen/node-scaffolds/commit/e369ad8aca6b8686accf7fd2e8bef32f40fa354f))
+* ⬆️ the version of subpackage devDependencies is not matter ([1ac18c0](https://github.com/guanghechen/node-scaffolds/commit/1ac18c0d6276a4655ad9c865aa67705c4808c725))
+
+
+
+
+
 ## [5.0.8](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-git-cipher@5.0.7...@guanghechen/helper-git-cipher@5.0.8) (2023-09-07)
 
 
