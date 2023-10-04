@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@guanghechen/helper-option": "^5.0.7",
-    "@types/reserved-words": "0.1.0",
+    "@types/reserved-words": "0.1.2",
     "reserved-words": "0.1.2"
   },
   "devDependencies": {

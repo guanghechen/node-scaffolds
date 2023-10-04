@@ -46,7 +46,7 @@
     "@guanghechen/helper-storage": "^5.0.7",
     "@guanghechen/invariant": "^5.0.7",
     "@guanghechen/utility-types": "^5.0.7",
-    "@types/semver": "^7.5.1",
+    "@types/semver": "^7.5.3",
     "semver": "^7.5.4"
   },
   "devDependencies": {

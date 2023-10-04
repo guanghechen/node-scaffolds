@@ -59,13 +59,13 @@
     "@guanghechen/helper-storage": "^5.0.7",
     "@guanghechen/invariant": "^5.0.7",
     "execa": "^8.0.1",
-    "inquirer": "9.2.10",
+    "inquirer": "9.2.11",
     "micromatch": "^4.0.5",
     "node-plop": "~0.31.1"
   },
   "devDependencies": {
     "@guanghechen/rollup-config-cli": "^5.0.8",
-    "@types/micromatch": "^4.0.2",
+    "@types/micromatch": "^4.0.3",
     "cross-env": "*",
     "rimraf": "*",
     "rollup": "*"

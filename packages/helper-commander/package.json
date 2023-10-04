@@ -51,11 +51,11 @@
     "command-exists": "^1.2.9",
     "commander": "^11.0.0",
     "execa": "^8.0.1",
-    "inquirer": "9.2.10",
+    "inquirer": "9.2.11",
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
-    "@types/js-yaml": "^4.0.5",
+    "@types/js-yaml": "^4.0.6",
     "cross-env": "*",
     "jest": "*",
     "rimraf": "*",

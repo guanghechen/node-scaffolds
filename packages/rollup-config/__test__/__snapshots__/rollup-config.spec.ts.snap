@@ -39,7 +39,7 @@ exports[`build simple: rollup cjs 2`] = `
   "fileName": "index.js.map",
   "name": undefined,
   "needsCodeReference": false,
-  "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":["import fs from 'node:fs';\\nexport function isFileSync(filepath) {\\n    if (!fs.existsSync(filepath))\\n        return false;\\n    return fs.statSync(filepath).isFile();\\n}\\n//# sourceMappingURL=util.js.map","import data from './data.json';\\nimport { isFileSync } from './util';\\nexport { isFileSync } from './util';\\nconsole.log('data:', data);\\nconsole.log(isFileSync(__filename));\\nexport default (function () { return data; });\\n//# sourceMappingURL=index.js.map"],"names":["fs","data"],"mappings":";;;;;;;;;;;;;;;;;AACO,SAAS,UAAU,CAAC,QAAQ,EAAE;AACrC,IAAI,IAAI,CAACA,mBAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAChC,QAAQ,OAAO,KAAK,CAAC;AACrB,IAAI,OAAOA,mBAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE,CAAC;AAC1C;;ACFA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEC,MAAI,CAAC,CAAC;AAC3B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC,CAAC;AACpC,YAAe,CAAC,YAAY,EAAE,OAAOA,MAAI,CAAC,EAAE;;;;;"}",
+  "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":[null,null],"names":["fs","data"],"mappings":";;;;;;;;;;;;;;;;;AAQM,SAAU,UAAU,CAAE,QAAgB,EAAA;AAC1C,IAAA,IAAI,CAACA,mBAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAAE,QAAA,OAAO,KAAK,CAAA;IAC1C,OAAOA,mBAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE,CAAA;AACvC;;ACNA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEC,MAAI,CAAC,CAAA;AAC1B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC,CAAA;AAEnC,YAAA,CAAe,YAAM,EAAA,OAAAA,MAAI,CAAA,EAAA;;;;;"}",
   "type": "asset",
 }
 `;
@@ -74,7 +74,7 @@ exports[`build simple: rollup esm 2`] = `
   "fileName": "index.js.map",
   "name": undefined,
   "needsCodeReference": false,
-  "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":["import fs from 'node:fs';\\nexport function isFileSync(filepath) {\\n    if (!fs.existsSync(filepath))\\n        return false;\\n    return fs.statSync(filepath).isFile();\\n}\\n//# sourceMappingURL=util.js.map","import data from './data.json';\\nimport { isFileSync } from './util';\\nexport { isFileSync } from './util';\\nconsole.log('data:', data);\\nconsole.log(isFileSync(__filename));\\nexport default (function () { return data; });\\n//# sourceMappingURL=index.js.map"],"names":["data"],"mappings":";;;;;;;;;AACO,SAAS,UAAU,CAAC,QAAQ,EAAE;AACrC,IAAI,IAAI,CAAC,EAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAChC,QAAQ,OAAO,KAAK,CAAC;AACrB,IAAI,OAAO,EAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE,CAAC;AAC1C;;ACFA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEA,MAAI,CAAC,CAAC;AAC3B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC,CAAC;AACpC,YAAe,CAAC,YAAY,EAAE,OAAOA,MAAI,CAAC,EAAE;;;;"}",
+  "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":[null,null],"names":["data"],"mappings":";;;;;;;;;AAQM,SAAU,UAAU,CAAE,QAAgB,EAAA;AAC1C,IAAA,IAAI,CAAC,EAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAAE,QAAA,OAAO,KAAK,CAAA;IAC1C,OAAO,EAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE,CAAA;AACvC;;ACNA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEA,MAAI,CAAC,CAAA;AAC1B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC,CAAA;AAEnC,YAAA,CAAe,YAAM,EAAA,OAAAA,MAAI,CAAA,EAAA;;;;"}",
   "type": "asset",
 }
 `;
