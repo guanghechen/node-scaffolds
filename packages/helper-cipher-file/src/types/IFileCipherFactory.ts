@@ -1,4 +1,4 @@
-import type { ICipherFactory } from '@guanghechen/helper-cipher'
+import type { ICipherFactory } from '@guanghechen/cipher'
 import type { IFileCipher } from './IFileCipher'
 
 export interface ICreateFileCipherOptions {

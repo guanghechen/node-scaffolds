@@ -1,9 +1,9 @@
 import {
-  BigFileHelper,
+  FileSplitter,
   calcFilePartItemsByCount,
   calcFilePartItemsBySize,
-} from '@guanghechen/helper-file'
-import type { IFilePartItem } from '@guanghechen/helper-file'
+} from '@guanghechen/file-split'
+import type { IFilePartItem } from '@guanghechen/file-split'
 import { isFileSync } from '@guanghechen/helper-fs'
 import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
@@ -40,8 +40,8 @@ export class FileSplitProcessor {
       return
     }
 
-    const bigFileHelper = new BigFileHelper({ partCodePrefix })
-    const partFilepaths: string[] = await bigFileHelper.split(absoluteFilepath, fileParts, output)
+    const fileSplitter = new FileSplitter({ partCodePrefix })
+    const partFilepaths: string[] = await fileSplitter.split(absoluteFilepath, fileParts, output)
     logger.info(
       `Split done.`,
       partFilepaths

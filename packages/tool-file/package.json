@@ -41,8 +41,8 @@
   },
   "dependencies": {
     "@guanghechen/chalk-logger": "^5.0.7",
+    "@guanghechen/file-split": "^1.0.0-alpha.1",
     "@guanghechen/helper-commander": "^5.0.8",
-    "@guanghechen/helper-file": "^5.0.7",
     "@guanghechen/helper-fs": "^5.0.7",
     "@guanghechen/helper-func": "^5.0.7",
     "@guanghechen/helper-is": "^5.0.7",

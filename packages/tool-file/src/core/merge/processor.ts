@@ -1,4 +1,4 @@
-import { BigFileHelper } from '@guanghechen/helper-file'
+import { FileSplitter } from '@guanghechen/file-split'
 import { isDirectorySync } from '@guanghechen/helper-fs'
 import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
@@ -36,8 +36,8 @@ export class FileMergeProcessor {
       .map(item => item.filename)
     const absolutePartFilepaths: string[] = partFilenames.map(filename => path.join(dir, filename))
 
-    const bigFileHelper = new BigFileHelper({ partCodePrefix })
-    await bigFileHelper.merge(absolutePartFilepaths, output)
+    const fileSplitter = new FileSplitter({ partCodePrefix })
+    await fileSplitter.merge(absolutePartFilepaths, output)
     logger.info(
       `Merge done.`,
       partFilenames.map(text => `\n  - ${text}`).join('') + `\n==>${output}`,

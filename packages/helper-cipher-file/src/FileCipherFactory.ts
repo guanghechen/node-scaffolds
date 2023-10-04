@@ -1,4 +1,4 @@
-import type { ICipher, ICipherFactory } from '@guanghechen/helper-cipher'
+import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import type { ILogger } from '@guanghechen/utility-types'
 import { FileCipher } from './FileCipher'
 import type { IFileCipher } from './types/IFileCipher'

@@ -1,4 +1,4 @@
-import type { ICipher, ICipherFactory } from '@guanghechen/helper-cipher'
+import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import { FileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import { showCommitInfo } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper, verifyCryptGitCommit } from '@guanghechen/helper-git-cipher'

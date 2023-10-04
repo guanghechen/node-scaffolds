@@ -1,6 +1,6 @@
 import { ChalkLogger } from '@guanghechen/chalk-logger'
-import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
-import { BigFileHelper } from '@guanghechen/helper-file'
+import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
+import { FileSplitter } from '@guanghechen/file-split'
 import { iterable2map } from '@guanghechen/helper-func'
 import { FilepathResolver } from '@guanghechen/helper-path'
 import {
@@ -364,7 +364,7 @@ describe('FileCipherCatalog', () => {
   })
 
   test('diffFromPlainFiles', async () => {
-    const fileHelper = new BigFileHelper({ partCodePrefix })
+    const fileSplitter = new FileSplitter({ partCodePrefix })
     const cipherFactory = new AesGcmCipherFactoryBuilder().buildFromPassword(
       Buffer.from('guanghechen', encoding),
       {
@@ -375,7 +375,7 @@ describe('FileCipherCatalog', () => {
     )
     const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
     const cipherBatcher = new FileCipherBatcher({
-      fileHelper,
+      fileSplitter,
       fileCipherFactory,
       maxTargetFileSize,
       logger,

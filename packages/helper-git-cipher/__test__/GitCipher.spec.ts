@@ -1,5 +1,6 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
+import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
+import { FileSplitter } from '@guanghechen/file-split'
 import type { IFileCipherCatalogItem } from '@guanghechen/helper-cipher-file'
 import {
   FileCipherBatcher,
@@ -7,7 +8,6 @@ import {
   FileCipherFactory,
   calcCryptFilepath,
 } from '@guanghechen/helper-cipher-file'
-import { BigFileHelper } from '@guanghechen/helper-file'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import {
   checkBranch,
@@ -81,7 +81,7 @@ describe('GitCipher', () => {
   const cryptCtx: IGitCommandBaseParams = { cwd: cryptRootDir, logger, execaOptions: {} }
   const bakPlainCtx: IGitCommandBaseParams = { cwd: bakPlainRootDir, logger, execaOptions: {} }
 
-  const fileHelper = new BigFileHelper({ partCodePrefix })
+  const fileSplitter = new FileSplitter({ partCodePrefix })
   const ivSize = 12
   const cipherFactory = new AesGcmCipherFactoryBuilder({ ivSize }).buildFromPassword(
     Buffer.from('guanghechen', encoding),
@@ -93,7 +93,7 @@ describe('GitCipher', () => {
   )
   const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
   const cipherBatcher = new FileCipherBatcher({
-    fileHelper,
+    fileSplitter,
     fileCipherFactory,
     maxTargetFileSize,
     logger,

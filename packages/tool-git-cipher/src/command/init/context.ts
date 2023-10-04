@@ -1,4 +1,4 @@
-import type { IPBKDF2Options } from '@guanghechen/helper-cipher'
+import type { IPBKDF2Options } from '@guanghechen/cipher'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import type { ISubCommandInitOptions } from './option'
 

@@ -1,4 +1,4 @@
-import type { ICipher, ICipherFactory } from '@guanghechen/helper-cipher'
+import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import { showCommitInfo } from '@guanghechen/helper-git'
 import type { GitCipher } from '@guanghechen/helper-git-cipher'
 import type { FilepathResolver } from '@guanghechen/helper-path'

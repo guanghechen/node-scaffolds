@@ -1,10 +1,10 @@
 import ChalkLogger from '@guanghechen/chalk-logger'
-import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
+import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import {
-  BigFileHelper,
+  FileSplitter,
   calcFilePartItemsByCount,
   calcFilePartItemsBySize,
-} from '@guanghechen/helper-file'
+} from '@guanghechen/file-split'
 import {
   assertPromiseThrow,
   emptyDir,
@@ -24,7 +24,7 @@ describe('FileCipher', () => {
   const logger = new ChalkLogger({ flights: { colorful: false, date: false } })
   let fileCipher: IFileCipher
 
-  const fileHelper = new BigFileHelper()
+  const fileSplitter = new FileSplitter()
   const sourceFilepath = locateFixtures('basic/big-file.md')
   const originalBytes = readFileSync(sourceFilepath)
   let partFilepaths: string[] = []
@@ -36,7 +36,7 @@ describe('FileCipher', () => {
     const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
 
     fileCipher = fileCipherFactory.fileCipher()
-    partFilepaths = await fileHelper.split(
+    partFilepaths = await fileSplitter.split(
       sourceFilepath,
       calcFilePartItemsByCount(statSync(sourceFilepath).size, 5),
     )
@@ -72,7 +72,7 @@ describe('FileCipher', () => {
         const { authTag } = await fileCipher.encryptFile(sourceFilepath, cipherFilepath)
         expect(existsSync(cipherFilepath)).toBe(true)
 
-        cipherPartFilepaths = await fileHelper.split(
+        cipherPartFilepaths = await fileSplitter.split(
           cipherFilepath,
           calcFilePartItemsByCount(statSync(cipherFilepath).size, 5),
         )
@@ -209,13 +209,13 @@ describe('FileCipher', () => {
         expect(existsSync(plainFilepath)).toBe(true)
         expect(readFileSync(plainFilepath)).toEqual(originalBytes)
 
-        cipherPartFilepaths = await fileHelper.split(
+        cipherPartFilepaths = await fileSplitter.split(
           cipherFilepath,
           calcFilePartItemsByCount(statSync(cipherFilepath).size, 5),
         )
         expect(cipherPartFilepaths.length).toEqual(5)
 
-        await fileHelper.merge(cipherPartFilepaths, cipherFilepath2)
+        await fileSplitter.merge(cipherPartFilepaths, cipherFilepath2)
         expect(existsSync(cipherFilepath2)).toBe(true)
 
         await fileCipher.decryptFile(cipherFilepath2, plainFilepath2, { authTag })
@@ -257,9 +257,9 @@ describe('FileCipher', () => {
     expect(plain2Content).toEqual(plainContent)
 
     const cryptParts = calcFilePartItemsBySize(statSync(cryptFilepath).size, 1024)
-    const cryptPartsFilepaths = await fileHelper.split(cryptFilepath, cryptParts)
+    const cryptPartsFilepaths = await fileSplitter.split(cryptFilepath, cryptParts)
 
-    await fileHelper.merge(cryptPartsFilepaths, crypt2Filepath)
+    await fileSplitter.merge(cryptPartsFilepaths, crypt2Filepath)
     const crypt2Content: Buffer = await fs.readFile(crypt2Filepath)
     expect(crypt2Content).toEqual(cryptContent)
 

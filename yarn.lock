@@ -550,6 +550,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@guanghechen/cipher.types@npm:^1.0.0-alpha.1":
+  version: 1.0.0-alpha.1
+  resolution: "@guanghechen/cipher.types@npm:1.0.0-alpha.1"
+  checksum: 0b17622e7394468813b4d231ed530f03b0699969b3d371d9d94aa635692e18a8d30ff5955acd0a8f44a022990b9bfa918dad454f9dfa872578dc5eab78448d91
+  languageName: node
+  linkType: hard
+
+"@guanghechen/cipher@npm:^1.0.0-alpha.1":
+  version: 1.0.0-alpha.1
+  resolution: "@guanghechen/cipher@npm:1.0.0-alpha.1"
+  dependencies:
+    "@guanghechen/cipher.types": ^1.0.0-alpha.1
+  checksum: d56192cab4f9e5c8c31ca1c2df22e47e86d0fb0dac911457186633f38ae26d2fabdd885803c2814f1a2f2699b33249e6181efa0e7fe999739cf3f637a41b0895
+  languageName: node
+  linkType: hard
+
 "@guanghechen/conventional-changelog@workspace:packages/conventional-changelog":
   version: 0.0.0-use.local
   resolution: "@guanghechen/conventional-changelog@workspace:packages/conventional-changelog"
@@ -609,6 +625,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@guanghechen/file-split@npm:^1.0.0-alpha.1":
+  version: 1.0.0-alpha.1
+  resolution: "@guanghechen/file-split@npm:1.0.0-alpha.1"
+  dependencies:
+    "@guanghechen/stream": ^1.0.0-alpha.1
+  checksum: 70af0fa30d809153131dec8993cfe5c2e2ceedb6cc8b33e6b8af99f5e2997d5c933e16f4c6cc06eff3289ecf9f590ef25161ae65a36b2ad00d9e29ccb6755786
+  languageName: node
+  linkType: hard
+
 "@guanghechen/helper-buffer@^5.0.7, @guanghechen/helper-buffer@workspace:packages/helper-buffer":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-buffer@workspace:packages/helper-buffer"
@@ -624,30 +649,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file"
   dependencies:
+    "@guanghechen/cipher": ^1.0.0-alpha.1
+    "@guanghechen/file-split": ^1.0.0-alpha.1
     "@guanghechen/helper-buffer": ^5.0.7
-    "@guanghechen/helper-cipher": ^5.0.7
-    "@guanghechen/helper-file": ^5.0.7
     "@guanghechen/helper-fs": ^5.0.7
     "@guanghechen/helper-func": ^5.0.7
     "@guanghechen/helper-mac": ^5.0.7
     "@guanghechen/helper-path": ^5.0.8
-    "@guanghechen/helper-stream": ^5.0.7
     "@guanghechen/invariant": ^5.0.7
+    "@guanghechen/stream": ^1.0.0-alpha.1
     "@guanghechen/utility-types": ^5.0.7
-    cross-env: ^7.0.3
-    jest: ^29.6.4
-    rimraf: ^5.0.1
-    rollup: ^3.29.0
-  languageName: unknown
-  linkType: soft
-
-"@guanghechen/helper-cipher@^5.0.7, @guanghechen/helper-cipher@workspace:packages/helper-cipher":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/helper-cipher@workspace:packages/helper-cipher"
-  dependencies:
-    "@guanghechen/helper-buffer": ^5.0.7
-    "@guanghechen/helper-mac": ^5.0.7
-    "@guanghechen/invariant": ^5.0.7
     cross-env: ^7.0.3
     jest: ^29.6.4
     rimraf: ^5.0.1
@@ -697,19 +708,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-file@^5.0.7, @guanghechen/helper-file@workspace:packages/helper-file":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/helper-file@workspace:packages/helper-file"
-  dependencies:
-    "@guanghechen/helper-stream": ^5.0.7
-    "@guanghechen/invariant": ^5.0.7
-    cross-env: ^7.0.3
-    jest: ^29.6.4
-    rimraf: ^5.0.1
-    rollup: ^3.29.0
-  languageName: unknown
-  linkType: soft
-
 "@guanghechen/helper-fs@^5.0.7, @guanghechen/helper-fs@workspace:packages/helper-fs":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-fs@workspace:packages/helper-fs"
@@ -739,7 +737,7 @@ __metadata:
   resolution: "@guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher"
   dependencies:
     "@guanghechen/chalk-logger": ^5.0.7
-    "@guanghechen/helper-cipher": ^5.0.7
+    "@guanghechen/cipher": ^1.0.0-alpha.1
     "@guanghechen/helper-cipher-file": ^5.0.8
     "@guanghechen/helper-config": ^5.0.7
     "@guanghechen/helper-fs": ^5.0.7
@@ -870,18 +868,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-storage@workspace:packages/helper-storage"
   dependencies:
-    cross-env: ^7.0.3
-    jest: ^29.6.4
-    rimraf: ^5.0.1
-    rollup: ^3.29.0
-  languageName: unknown
-  linkType: soft
-
-"@guanghechen/helper-stream@^5.0.7, @guanghechen/helper-stream@workspace:packages/helper-stream":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/helper-stream@workspace:packages/helper-stream"
-  dependencies:
-    "@guanghechen/helper-buffer": ^5.0.7
     cross-env: ^7.0.3
     jest: ^29.6.4
     rimraf: ^5.0.1
@@ -1071,13 +1057,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@guanghechen/stream@npm:^1.0.0-alpha.1":
+  version: 1.0.0-alpha.1
+  resolution: "@guanghechen/stream@npm:1.0.0-alpha.1"
+  checksum: 2fd8958be9b7fa069a7c1a9736651772441a92d1fe036dfd621b32aea80b526502941d6ece6a742a520d2b37000baf75bb733c68a6cba61a5fe49c3887464d58
+  languageName: node
+  linkType: hard
+
 "@guanghechen/tool-file@workspace:packages/tool-file":
   version: 0.0.0-use.local
   resolution: "@guanghechen/tool-file@workspace:packages/tool-file"
   dependencies:
     "@guanghechen/chalk-logger": ^5.0.7
+    "@guanghechen/file-split": ^1.0.0-alpha.1
     "@guanghechen/helper-commander": ^5.0.8
-    "@guanghechen/helper-file": ^5.0.7
     "@guanghechen/helper-fs": ^5.0.7
     "@guanghechen/helper-func": ^5.0.7
     "@guanghechen/helper-is": ^5.0.7
@@ -1099,13 +1092,13 @@ __metadata:
   resolution: "@guanghechen/tool-git-cipher@workspace:packages/tool-git-cipher"
   dependencies:
     "@guanghechen/chalk-logger": ^5.0.7
+    "@guanghechen/cipher": ^1.0.0-alpha.1
     "@guanghechen/event-bus": ^5.0.7
+    "@guanghechen/file-split": ^1.0.0-alpha.1
     "@guanghechen/helper-buffer": ^5.0.7
-    "@guanghechen/helper-cipher": ^5.0.7
     "@guanghechen/helper-cipher-file": ^5.0.8
     "@guanghechen/helper-commander": ^5.0.8
     "@guanghechen/helper-config": ^5.0.7
-    "@guanghechen/helper-file": ^5.0.7
     "@guanghechen/helper-fs": ^5.0.7
     "@guanghechen/helper-git": ^5.0.7
     "@guanghechen/helper-git-cipher": ^5.0.8

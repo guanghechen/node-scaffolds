@@ -1,4 +1,4 @@
-import type { ICipher, IDecipherOptions, IEncryptResult } from '@guanghechen/helper-cipher'
+import type { ICipher, IDecipherOptions, IEncryptResult } from '@guanghechen/cipher'
 
 export interface IFileCipher {
   readonly cipher: ICipher

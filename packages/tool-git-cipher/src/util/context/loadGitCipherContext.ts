@@ -1,4 +1,4 @@
-import type { ICipher, ICipherFactory } from '@guanghechen/helper-cipher'
+import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import type { FileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import type { IGitCipherContext } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'

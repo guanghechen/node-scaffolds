@@ -1,4 +1,4 @@
-import type { ICipher } from '@guanghechen/helper-cipher'
+import type { ICipher } from '@guanghechen/cipher'
 import { FileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/helper-config'
 import { JsonConfigKeeper, PlainJsonConfigKeeper } from '@guanghechen/helper-config'

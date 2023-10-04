@@ -1,4 +1,4 @@
-import type { ICipherFactory } from '@guanghechen/helper-cipher'
+import type { ICipherFactory } from '@guanghechen/cipher'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo, showFileContent } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'

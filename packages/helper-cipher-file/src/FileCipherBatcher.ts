@@ -1,6 +1,6 @@
 import type { Logger } from '@guanghechen/chalk-logger'
-import type { BigFileHelper, IFilePartItem } from '@guanghechen/helper-file'
-import { calcFilePartItemsBySize } from '@guanghechen/helper-file'
+import type { FileSplitter, IFilePartItem } from '@guanghechen/file-split'
+import { calcFilePartItemsBySize } from '@guanghechen/file-split'
 import { isFileSync, mkdirsIfNotExists, rm } from '@guanghechen/helper-fs'
 import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
@@ -22,21 +22,21 @@ import type {
 import type { IFileCipherFactory } from './types/IFileCipherFactory'
 
 export interface IFileCipherBatcherProps {
-  fileHelper: BigFileHelper
+  fileSplitter: FileSplitter
   fileCipherFactory: IFileCipherFactory
   maxTargetFileSize: number
   logger?: Logger
 }
 
 export class FileCipherBatcher implements IFileCipherBatcher {
-  public readonly fileHelper: BigFileHelper
+  public readonly fileSplitter: FileSplitter
   public readonly fileCipherFactory: IFileCipherFactory
   public readonly maxTargetFileSize: number
   public readonly logger: Logger | undefined
 
   constructor(props: IFileCipherBatcherProps) {
     this.fileCipherFactory = props.fileCipherFactory
-    this.fileHelper = props.fileHelper
+    this.fileSplitter = props.fileSplitter
     this.maxTargetFileSize = props.maxTargetFileSize
     this.logger = props.logger
   }
@@ -44,7 +44,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
   public async batchEncrypt(params: IBatchEncryptParams): Promise<IFileCipherCatalogDiffItem[]> {
     const title = 'batchEncrypt'
     const { strictCheck, plainPathResolver, cryptPathResolver, diffItems, getIv } = params
-    const { logger, fileCipherFactory, fileHelper, maxTargetFileSize } = this
+    const { logger, fileCipherFactory, fileSplitter, maxTargetFileSize } = this
 
     const results: IFileCipherCatalogDiffItem[] = []
     for (const diffItem of diffItems) {
@@ -130,7 +130,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
           maxTargetFileSize,
         )
         if (parts.length > 1) {
-          const partFilepaths: string[] = await fileHelper.split(absoluteCryptFilepath, parts)
+          const partFilepaths: string[] = await fileSplitter.split(absoluteCryptFilepath, parts)
           const relativeCryptFilepath: string = cryptPathResolver.relative(cryptFilepath)
           const cryptFilepathParts: string[] = partFilepaths.map(p =>
             cryptPathResolver.relative(p).slice(relativeCryptFilepath.length),
@@ -170,7 +170,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
   public async batchDecrypt(params: IBatchDecryptParams): Promise<void> {
     const title = 'batchDecrypt'
     const { strictCheck, diffItems, plainPathResolver, cryptPathResolver } = params
-    const { logger, fileCipherFactory, fileHelper } = this
+    const { logger, fileCipherFactory, fileSplitter } = this
 
     // Plain filepath should always pointer to the plain contents,
     // while crypt files indicate those encrypted contents.
@@ -226,7 +226,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       mkdirsIfNotExists(absolutePlainFilepath, false, logger)
 
       if (item.keepPlain) {
-        await fileHelper.merge(absoluteCryptFilepaths, absolutePlainFilepath)
+        await fileSplitter.merge(absoluteCryptFilepaths, absolutePlainFilepath)
       } else {
         const fileCipher = fileCipherFactory.fileCipher({ iv: item.iv })
         await fileCipher.decryptFiles(absoluteCryptFilepaths, absolutePlainFilepath, {

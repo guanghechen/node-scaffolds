@@ -1,9 +1,9 @@
 import ChalkLogger from '@guanghechen/chalk-logger'
-import { AesGcmCipherFactoryBuilder } from '@guanghechen/helper-cipher'
-import { BigFileHelper } from '@guanghechen/helper-file'
+import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
+import { FileSplitter } from '@guanghechen/file-split'
 import { calcMac } from '@guanghechen/helper-mac'
 import { FilepathResolver } from '@guanghechen/helper-path'
-import { mergeStreams, stream2buffer } from '@guanghechen/helper-stream'
+import { mergeStreams, stream2buffer } from '@guanghechen/stream'
 import {
   assertPromiseNotThrow,
   assertPromiseThrow,
@@ -84,7 +84,7 @@ describe('FileCipherBatcher', () => {
   const cryptContentFingerC = '1dfcd91be6d7a9b32cf42d8ef78544886302e3946810da8da4077d1c70374d66'
   const cryptContentFingerD = '74d6230e1ce4eb794184fee9a4d15747b5b96374e0afc4f3de74f4f9458d74aa'
 
-  const fileHelper = new BigFileHelper({ partCodePrefix })
+  const fileSplitter = new FileSplitter({ partCodePrefix })
   const cipherFactory = new AesGcmCipherFactoryBuilder().buildFromPassword(
     Buffer.from('guanghechen', encoding),
     {
@@ -95,7 +95,7 @@ describe('FileCipherBatcher', () => {
   )
   const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
   const cipherBatcher = new FileCipherBatcher({
-    fileHelper,
+    fileSplitter: fileSplitter,
     fileCipherFactory,
     maxTargetFileSize,
     logger,

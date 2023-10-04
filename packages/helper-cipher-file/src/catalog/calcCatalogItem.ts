@@ -1,4 +1,4 @@
-import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/helper-file'
+import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/file-split'
 import { isFileSync } from '@guanghechen/helper-fs'
 import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
