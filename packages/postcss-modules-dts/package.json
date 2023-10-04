@@ -47,8 +47,8 @@
     "reserved-words": "0.1.2"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
-    "rimraf": "^5.0.1",
-    "rollup": "^3.29.0"
+    "cross-env": "*",
+    "rimraf": "*",
+    "rollup": "*"
   }
 }

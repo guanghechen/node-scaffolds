@@ -52,9 +52,9 @@
     "minimist": "^1.2.8"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
-    "jest": "^29.6.4",
-    "rimraf": "^5.0.1",
-    "rollup": "^3.29.0"
+    "cross-env": "*",
+    "jest": "*",
+    "rimraf": "*",
+    "rollup": "*"
   }
 }
