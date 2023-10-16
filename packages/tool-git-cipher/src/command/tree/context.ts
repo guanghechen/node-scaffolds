@@ -1,3 +1,5 @@
+import type { IWorkspacePathResolver } from '@guanghechen/path'
+import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
 import type { ISubCommandTreeOptions } from './option'
 
 export interface IGitCipherTreeContext {
@@ -5,10 +7,6 @@ export interface IGitCipherTreeContext {
    * Crypt repo branch or commit id.
    */
   readonly cryptCommitId: string
-  /**
-   * The directory where the crypt repo located. (absolute path)
-   */
-  readonly cryptRootDir: string
   /**
    * Default encoding of files in the workspace.
    */
@@ -37,14 +35,20 @@ export interface IGitCipherTreeContext {
    * Working directory. (absolute path)
    */
   readonly workspace: string
+  /**
+   * Crypt workspace path resolver.
+   */
+  readonly cryptPathResolver: IWorkspacePathResolver
 }
 
 export async function createTreeContextFromOptions(
   options: ISubCommandTreeOptions,
 ): Promise<IGitCipherTreeContext> {
+  const cryptRootDir: string = options.cryptRootDir
+  const cryptPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(cryptRootDir)
+
   const context: IGitCipherTreeContext = {
     cryptCommitId: options.filesAt,
-    cryptRootDir: options.cryptRootDir,
     encoding: options.encoding,
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
@@ -52,6 +56,7 @@ export async function createTreeContextFromOptions(
     secretFilepath: options.secretFilepath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
+    cryptPathResolver,
   }
   return context
 }

@@ -64,7 +64,6 @@ Package                               | Description
 [@guanghechen/helper-mac][]           | A collection of utility functions for generating MAC.
 [@guanghechen/helper-npm][]           | Utilities for handling npm repo and `package.json`.
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
-[@guanghechen/helper-path][]          | Utilities to handle url path and file path.
 [@guanghechen/helper-plop][]          | A collection of utility functions for plop templates
 [@guanghechen/helper-storage][]       | Utilities for read / write content.
 [@guanghechen/helper-stream][]        | Utilities for handing node streams.
@@ -107,7 +106,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/helper-mac]: ./packages/helper-mac
 [@guanghechen/helper-npm]: ./packages/helper-npm
 [@guanghechen/helper-option]: ./packages/helper-option
-[@guanghechen/helper-path]: ./packages/helper-path
 [@guanghechen/helper-plop]: ./packages/helper-plop
 [@guanghechen/helper-storage]: ./packages/helper-storage
 [@guanghechen/helper-stream]: ./packages/helper-stream

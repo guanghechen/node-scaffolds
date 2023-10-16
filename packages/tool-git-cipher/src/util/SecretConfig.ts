@@ -3,7 +3,8 @@ import { FileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/helper-config'
 import { JsonConfigKeeper, PlainJsonConfigKeeper } from '@guanghechen/helper-config'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
-import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
+import { physicalPathResolver as pathResolver } from '@guanghechen/path'
 import type { PromiseOr } from '@guanghechen/utility-types'
 import micromatch from 'micromatch'
 import type { ISecretConfig, ISecretConfigData } from './SecretConfig.types'
@@ -51,7 +52,10 @@ export class SecretConfigKeeper
     this.#cipher = props.cipher
   }
 
-  public createCatalogContext(): FileCipherCatalogContext | undefined {
+  public createCatalogContext(
+    cryptPathResolver: IWorkspacePathResolver,
+    plainPathResolver: IWorkspacePathResolver,
+  ): FileCipherCatalogContext | undefined {
     if (this.data) {
       const {
         contentHashAlgorithm,
@@ -69,6 +73,8 @@ export class SecretConfigKeeper
         maxTargetFileSize,
         partCodePrefix,
         pathHashAlgorithm,
+        plainPathResolver,
+        cryptPathResolver,
         isKeepPlain:
           keepPlainPatterns.length > 0
             ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
@@ -95,11 +101,11 @@ export class SecretConfigKeeper
     const secretAuthTag: string | undefined = encodeAuthTag(instance.secretAuthTag) // pre-encrypted
 
     return {
-      catalogFilepath: relativeOfWorkspace(this.#cryptRootDir, instance.catalogFilepath),
+      catalogFilepath: pathResolver.safeRelative(this.#cryptRootDir, instance.catalogFilepath),
       contentHashAlgorithm: instance.contentHashAlgorithm,
       cryptFilepathSalt,
       cryptFilepathSaltAuthTag,
-      cryptFilesDir: relativeOfWorkspace(this.#cryptRootDir, instance.cryptFilesDir),
+      cryptFilesDir: pathResolver.safeRelative(this.#cryptRootDir, instance.cryptFilesDir),
       keepPlainPatterns: instance.keepPlainPatterns,
       mainIvSize: instance.mainIvSize,
       mainKeySize: instance.mainKeySize,
@@ -138,10 +144,10 @@ export class SecretConfigKeeper
     const secretAuthTag = decodeAuthTag(data.secretAuthTag) // pre-encrypted.
 
     return {
-      catalogFilepath: absoluteOfWorkspace(this.#cryptRootDir, data.catalogFilepath),
+      catalogFilepath: pathResolver.safeResolve(this.#cryptRootDir, data.catalogFilepath),
       contentHashAlgorithm: data.contentHashAlgorithm,
       cryptFilepathSalt: cryptFilepathSalt.toString('utf8'),
-      cryptFilesDir: relativeOfWorkspace(this.#cryptRootDir, data.cryptFilesDir),
+      cryptFilesDir: pathResolver.safeRelative(this.#cryptRootDir, data.cryptFilesDir),
       keepPlainPatterns: data.keepPlainPatterns,
       mainIvSize: data.mainIvSize,
       mainKeySize: data.mainKeySize,

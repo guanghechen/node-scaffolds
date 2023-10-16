@@ -1,8 +1,8 @@
 import { iterable2map, mapIterable } from '@guanghechen/helper-func'
-import type { FilepathResolver } from '@guanghechen/helper-path'
+import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import { diffFromCatalogItems } from './catalog/diffFromCatalogItems'
 import { diffFromPlainFiles } from './catalog/diffFromPlainFiles'
-import { normalizeRelativePlainFilepath } from './catalog/normalizePlainFilepath'
+import { normalizePlainFilepath } from './catalog/normalizePlainFilepath'
 import { ReadonlyFileCipherCatalog } from './FileCipherCatalog.readonly'
 import type {
   ICatalogDiffFromCatalogItemsParams,
@@ -20,8 +20,8 @@ import type { IFileCipherCatalogItem } from './types/IFileCipherCatalogItem'
 
 export interface IFileCipherCatalogProps {
   readonly context: IFileCipherCatalogContext
-  readonly plainPathResolver: FilepathResolver
-  readonly cryptPathResolver: FilepathResolver
+  readonly plainPathResolver: IWorkspacePathResolver
+  readonly cryptPathResolver: IWorkspacePathResolver
 }
 
 export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFileCipherCatalog {
@@ -44,7 +44,7 @@ export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFil
 
     if (items) {
       for (const item of items) {
-        const key: string = normalizeRelativePlainFilepath(item.plainFilepath)
+        const key: string = normalizePlainFilepath(item.plainFilepath, this.plainPathResolver)
         itemMap.set(key, item)
       }
     }
@@ -56,11 +56,11 @@ export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFil
     for (const diffItem of diffItems) {
       const { oldItem, newItem } = diffItem as IFileCipherCatalogDiffItemCombine
       if (oldItem) {
-        const key = normalizeRelativePlainFilepath(oldItem.plainFilepath)
+        const key: string = normalizePlainFilepath(oldItem.plainFilepath, this.plainPathResolver)
         itemMap.delete(key)
       }
       if (newItem) {
-        const key = normalizeRelativePlainFilepath(newItem.plainFilepath)
+        const key: string = normalizePlainFilepath(newItem.plainFilepath, this.plainPathResolver)
         itemMap.set(key, {
           plainFilepath: newItem.plainFilepath,
           cryptFilepath: newItem.cryptFilepath,

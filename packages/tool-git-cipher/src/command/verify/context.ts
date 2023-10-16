@@ -1,3 +1,5 @@
+import type { IWorkspacePathResolver } from '@guanghechen/path'
+import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
 import type { ISubCommandVerifyOptions } from './option'
 
 export interface IGitCipherVerifyContext {
@@ -9,10 +11,6 @@ export interface IGitCipherVerifyContext {
    * Crypt repo branch or commit id.
    */
   readonly cryptCommitId: string
-  /**
-   * The directory where the crypt repo located. (absolute path)
-   */
-  readonly cryptRootDir: string
   /**
    * Default encoding of files in the workspace.
    */
@@ -34,10 +32,6 @@ export interface IGitCipherVerifyContext {
    */
   readonly plainCommitId: string | undefined
   /**
-   * The directory where the plain repo located. (absolute path)
-   */
-  readonly plainRootDir: string
-  /**
    * The path of secret file. (absolute path)
    */
   readonly secretFilepath: string
@@ -49,24 +43,37 @@ export interface IGitCipherVerifyContext {
    * Working directory. (absolute path)
    */
   readonly workspace: string
+  /**
+   * Crypt workspace path resolver.
+   */
+  readonly cryptPathResolver: IWorkspacePathResolver
+  /**
+   * Plain workspace path resolver.
+   */
+  readonly plainPathResolver: IWorkspacePathResolver
 }
 
 export async function createVerifyContextFromOptions(
   options: ISubCommandVerifyOptions,
 ): Promise<IGitCipherVerifyContext> {
+  const cryptRootDir: string = options.cryptRootDir
+  const plainRootDir: string = options.plainRootDir
+  const cryptPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(cryptRootDir)
+  const plainPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(plainRootDir)
+
   const context: IGitCipherVerifyContext = {
     catalogCacheFilepath: options.catalogCacheFilepath,
     cryptCommitId: options.cryptCommitId,
-    cryptRootDir: options.cryptRootDir,
     encoding: options.encoding,
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
     plainCommitId: options.plainCommitId,
-    plainRootDir: options.plainRootDir,
     secretFilepath: options.secretFilepath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
+    cryptPathResolver,
+    plainPathResolver,
   }
   return context
 }

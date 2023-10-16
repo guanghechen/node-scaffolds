@@ -8,7 +8,9 @@ const require = createRequire(import.meta.url)
 
 export default async function () {
   const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
-  const packageDir = path.relative(__dirname, path.resolve()) + '/'
+  const { default: manifest } = await import(path.resolve('package.json'), {
+    assert: { type: 'json' },
+  })
   const baseConfig = await tsMonorepoConfig(__dirname, {
     useESM: true,
     tsconfigFilepath: path.join(__dirname, 'tsconfig.test.esm.json'),
@@ -16,7 +18,7 @@ export default async function () {
 
   const config = {
     ...baseConfig,
-    collectCoverageFrom: [baseConfig.collectCoverageFrom ?? []].flat(),
+    collectCoverageFrom: [...(baseConfig.collectCoverageFrom ?? [])],
     coveragePathIgnorePatterns: [
       'packages/helper-commander/src/command/main.ts',
       'packages/helper-commander/src/command/sub.ts',
@@ -26,38 +28,38 @@ export default async function () {
       'packages/helper-npm/src/index.d.ts',
       'packages/script-doc-link/src/cli.ts',
     ],
-    coverageThreshold: Object.fromEntries(
-      [
-        ['global', { branches: 80, functions: 90, lines: 90, statements: 90 }],
-        ['packages/helper-plop/src/cli.ts', { functions: 0, lines: 27, statements: 27 }],
-        ['packages/helper-plop/src/cli.ts', { functions: 0, lines: 27, statements: 27 }],
-        [
-          'packages/helper-plop/src/run/types.ts',
-          { branches: 0, functions: 0, lines: 0, statements: 0 },
-        ],
-        [
-          'packages/helper-plop/src/run/util.ts',
-          { branches: 10, functions: 50, lines: 50, statements: 50 },
-        ],
-        ['packages/rollup-config/src/config.ts', { branches: 66 }],
-        ['packages/rollup-config/src/env.ts', { branches: 50 }],
-        ['packages/rollup-config/src/external.ts', { branches: 70 }],
-        ['packages/rollup-config/src/middleware/dts.ts', { branches: 60 }],
-        ['packages/rollup-config/src/middleware/ts.ts', { branches: 50 }],
-        [
-          'packages/rollup-config/src/plugin/modify.ts',
-          { branches: 0, functions: 0, lines: 0, statements: 0 },
-        ],
-        ['packages/rollup-config/src/preset/dts.ts', { branches: 60 }],
-      ]
-        .filter(([p]) => !p.startsWith('packages/') || p.startsWith(packageDir))
-        .map(([p, val]) => (p.startsWith(packageDir) ? [path.join(__dirname, p), val] : [p, val])),
-    ),
-    extensionsToTreatAsEsm: ['.ts', '.mts'],
-    moduleNameMapper: {
-      ...baseConfig.moduleNameMapper,
+    coverageThreshold: {
+      global: {
+        branches: 80,
+        functions: 90,
+        lines: 90,
+        statements: 90,
+      },
+      ...coverageMap[manifest.name],
     },
+    extensionsToTreatAsEsm: ['.ts', '.mts'],
     prettierPath: require.resolve('prettier-2'),
   }
   return config
+}
+
+const coverageMap = {
+  '@guanghechen/helper-plop': {
+    'src/cli.ts': { functions: 0, lines: 27, statements: 27 },
+    'src/run/types.ts': { branches: 0, functions: 0, lines: 0, statements: 0 },
+    'src/run/util.ts': { branches: 10, functions: 50, lines: 50, statements: 50 },
+  },
+  '@guanghechen/helper-string': {
+    'src/vender/change-case.ts': { branches: 53, functions: 82 },
+    'src/vender/title-case.ts': { branches: 50 },
+  },
+  '@guanghechen/rollup-config': {
+    'src/config.ts': { branches: 66 },
+    'src/env.ts': { branches: 50 },
+    'src/external.ts': { branches: 70 },
+    'src/middleware/dts.ts': { branches: 60 },
+    'src/middleware/ts.ts': { branches: 50 },
+    'src/plugin/modify.ts': { branches: 0, functions: 0, lines: 0, statements: 0 },
+    'src/preset/dts.ts': { branches: 60 },
+  },
 }

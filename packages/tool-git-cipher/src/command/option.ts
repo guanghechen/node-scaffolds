@@ -6,7 +6,7 @@ import type {
 import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
-import { absoluteOfWorkspace } from '@guanghechen/helper-path'
+import { physicalPathResolver as pathResolver } from '@guanghechen/path'
 import path from 'node:path'
 import { logger } from '../core/logger'
 
@@ -93,7 +93,7 @@ export function resolveBaseCommandOptions<O extends object>(
   const { workspace } = baseOptions
 
   // Resolve cryptRootDir
-  const cryptRootDir: string = absoluteOfWorkspace(
+  const cryptRootDir: string = pathResolver.safeResolve(
     workspace,
     cover<string>(baseOptions.cryptRootDir, options.cryptRootDir, isNonBlankString),
   )
@@ -129,14 +129,14 @@ export function resolveBaseCommandOptions<O extends object>(
   logger.debug('minPasswordLength:', minPasswordLength)
 
   // Resolve plainRootDir
-  const plainRootDir: string = absoluteOfWorkspace(
+  const plainRootDir: string = pathResolver.safeResolve(
     workspace,
     cover<string>(baseOptions.plainRootDir, options.plainRootDir, isNonBlankString),
   )
   logger.debug('plainRootDir:', plainRootDir)
 
   // Resolve secretFilepath
-  const secretFilepath: string = absoluteOfWorkspace(
+  const secretFilepath: string = pathResolver.safeResolve(
     workspace,
     cover<string>(baseOptions.secretFilepath, options.secretFilepath, isNonBlankString),
   )

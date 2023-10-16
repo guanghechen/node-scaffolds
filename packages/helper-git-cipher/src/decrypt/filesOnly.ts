@@ -7,17 +7,17 @@ import {
   isGitRepo,
 } from '@guanghechen/helper-git'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
-import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IGitCipherContext } from '../GitCipherContext'
 import type { IFileCipherCatalogItemInstance } from '../types'
 
 export interface IDecryptFilesOnlyParams {
   context: IGitCipherContext
   cryptCommitId: string
-  cryptPathResolver: FilepathResolver
+  cryptPathResolver: IWorkspacePathResolver
   filesOnly: string[] | undefined // If empty or undefined, then decrypt all files.
-  plainPathResolver: FilepathResolver
+  plainPathResolver: IWorkspacePathResolver
 }
 
 /**
@@ -27,11 +27,11 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
   const title = 'decryptFilesOnly'
   const { context, cryptCommitId, cryptPathResolver, filesOnly = [], plainPathResolver } = params
   const { cipherBatcher, configKeeper, logger } = context
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
 
   invariant(
-    isGitRepo(cryptPathResolver.rootDir),
-    `[${title}] crypt repo is not a git repo. (${cryptPathResolver.rootDir})`,
+    isGitRepo(cryptPathResolver.root),
+    `[${title}] crypt repo is not a git repo. (${cryptPathResolver.root})`,
   )
 
   invariant(

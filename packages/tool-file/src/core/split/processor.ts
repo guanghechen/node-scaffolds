@@ -5,8 +5,8 @@ import {
 } from '@guanghechen/file-split'
 import type { IFilePartItem } from '@guanghechen/file-split'
 import { isFileSync } from '@guanghechen/helper-fs'
-import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
+import { physicalPathResolver as pathResolver } from '@guanghechen/path'
 import fs from 'node:fs/promises'
 import { logger } from '../../env/logger'
 import type { IFileSplitContext } from './context'
@@ -26,7 +26,7 @@ export class FileSplitProcessor {
 
     logger.debug('args: filepath:', filepath)
 
-    const absoluteFilepath = absoluteOfWorkspace(workspace, filepath)
+    const absoluteFilepath = pathResolver.safeResolve(workspace, filepath)
     invariant(isFileSync(absoluteFilepath), `[${title}] Cannot find ${absoluteFilepath}.`)
 
     const fileSize: number = await fs.stat(absoluteFilepath).then(file => file.size)
@@ -45,7 +45,7 @@ export class FileSplitProcessor {
     logger.info(
       `Split done.`,
       partFilepaths
-        .map(partFilepath => `\n  - ${relativeOfWorkspace(workspace, partFilepath)}`)
+        .map(partFilepath => `\n  - ${pathResolver.safeRelative(workspace, partFilepath)}`)
         .join(''),
     )
   }

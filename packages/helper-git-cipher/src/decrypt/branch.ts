@@ -1,15 +1,15 @@
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { getCommitInTopology, showCommitInfo } from '@guanghechen/helper-git'
-import type { FilepathResolver } from '@guanghechen/helper-path'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IGitCipherContext } from '../GitCipherContext'
 import { decryptGitCommit } from './commit'
 
 export interface IDecryptGitBranchParams {
   branchName: string
   context: IGitCipherContext
-  cryptPathResolver: FilepathResolver
+  cryptPathResolver: IWorkspacePathResolver
   crypt2plainIdMap: Map<string, string>
-  plainPathResolver: FilepathResolver
+  plainPathResolver: IWorkspacePathResolver
 }
 
 /**
@@ -25,8 +25,8 @@ export interface IDecryptGitBranchParams {
 export async function decryptGitBranch(params: IDecryptGitBranchParams): Promise<void> {
   const { branchName, context, crypt2plainIdMap, cryptPathResolver, plainPathResolver } = params
   const { logger } = context
-  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
 
   const cryptCommitNodes = await getCommitInTopology({
     ...cryptCmdCtx,

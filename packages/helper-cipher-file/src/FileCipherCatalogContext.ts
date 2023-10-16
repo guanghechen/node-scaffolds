@@ -1,5 +1,6 @@
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import path from 'node:path'
 import type { IFileCipherCatalogContext } from './types/IFileCipherCatalogContext'
 
@@ -10,6 +11,8 @@ export interface IFileCipherCatalogContextProps {
   readonly maxTargetFileSize: number
   readonly partCodePrefix: string
   readonly pathHashAlgorithm: IHashAlgorithm
+  readonly plainPathResolver: IWorkspacePathResolver
+  readonly cryptPathResolver: IWorkspacePathResolver
   isKeepPlain(relativePlainFilepath: string): boolean
 }
 
@@ -20,6 +23,8 @@ export class FileCipherCatalogContext implements IFileCipherCatalogContext {
   public readonly maxTargetFileSize: number
   public readonly partCodePrefix: string
   public readonly pathHashAlgorithm: IHashAlgorithm
+  public readonly plainPathResolver: IWorkspacePathResolver
+  public readonly cryptPathResolver: IWorkspacePathResolver
   public readonly isKeepPlain: (relativePlainFilepath: string) => boolean
 
   constructor(props: IFileCipherCatalogContextProps) {
@@ -34,6 +39,8 @@ export class FileCipherCatalogContext implements IFileCipherCatalogContext {
     this.maxTargetFileSize = props.maxTargetFileSize
     this.partCodePrefix = props.partCodePrefix
     this.pathHashAlgorithm = props.pathHashAlgorithm
+    this.plainPathResolver = props.plainPathResolver
+    this.cryptPathResolver = props.cryptPathResolver
     this.isKeepPlain = props.isKeepPlain
   }
 }

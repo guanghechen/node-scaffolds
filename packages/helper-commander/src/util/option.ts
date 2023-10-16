@@ -8,7 +8,7 @@ import {
   isObject,
 } from '@guanghechen/helper-is'
 import { cover, coverString } from '@guanghechen/helper-option'
-import { absoluteOfWorkspace, locateNearestFilepath } from '@guanghechen/helper-path'
+import { locateNearestFilepath, physicalPathResolver as pathResolver } from '@guanghechen/path'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import type {
@@ -55,7 +55,7 @@ export function resolveCommandConfigurationOptions<O extends ICommandConfigurati
   )
     .map(p => p.trim())
     .filter(Boolean)
-    .map(p => absoluteOfWorkspace(workspace, p))
+    .map(p => pathResolver.safeResolve(workspace, p))
 
   // Resolve parasticConfigPath
   const parasticConfigPath: string | null | undefined = cover<string | null>(

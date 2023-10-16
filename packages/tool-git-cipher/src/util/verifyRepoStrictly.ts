@@ -1,9 +1,9 @@
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import { showCommitInfo } from '@guanghechen/helper-git'
 import type { GitCipher } from '@guanghechen/helper-git-cipher'
-import type { FilepathResolver } from '@guanghechen/helper-path'
 import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { logger } from '../core/logger'
 import { CatalogCacheKeeper } from './CatalogCache'
 
@@ -12,10 +12,10 @@ export interface IVerifyCryptRepoStrictlyParams {
   readonly catalogCipher: ICipher | undefined
   readonly cipherFactory: ICipherFactory | undefined
   readonly cryptCommitId: string
-  readonly cryptPathResolver: FilepathResolver
+  readonly cryptPathResolver: IWorkspacePathResolver
   readonly gitCipher: GitCipher
   readonly plainCommitId: string | undefined
-  readonly plainPathResolver: FilepathResolver
+  readonly plainPathResolver: IWorkspacePathResolver
 }
 
 export async function verifyRepoStrictly(params: IVerifyCryptRepoStrictlyParams): Promise<void> {
@@ -38,7 +38,7 @@ export async function verifyRepoStrictly(params: IVerifyCryptRepoStrictlyParams)
   const cryptCommitId: string = (
     await showCommitInfo({
       commitHash: params.cryptCommitId,
-      cwd: cryptPathResolver.rootDir,
+      cwd: cryptPathResolver.root,
       logger,
     })
   ).commitId

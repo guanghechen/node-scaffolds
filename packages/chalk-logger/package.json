@@ -36,7 +36,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
+    "build": "../../node_modules/.bin/rimraf lib/ && ../../node_modules/.bin/cross-env NODE_ENV=production ../../node_modules/.bin/rollup -c ../../rollup.config.mjs",
     "prepublishOnly": "yarn build",
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir .",
     "ts:run": "cross-env NODE_ENV=production node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm -r tsconfig-paths/register"
@@ -48,11 +48,5 @@
     "chalk": "^5.3.0",
     "dayjs": "^1.11.10",
     "json5": "^2.2.3"
-  },
-  "devDependencies": {
-    "cross-env": "*",
-    "jest": "*",
-    "rimraf": "*",
-    "rollup": "*"
   }
 }

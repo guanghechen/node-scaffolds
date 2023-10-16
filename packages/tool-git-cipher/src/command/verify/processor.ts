@@ -1,9 +1,9 @@
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
 import { GitCipher } from '@guanghechen/helper-git-cipher'
-import { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
-import { existsSync } from 'fs'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
+import { existsSync } from 'node:fs'
 import { logger } from '../../core/logger'
 import { loadGitCipherContext } from '../../util/context/loadGitCipherContext'
 import { SecretMaster } from '../../util/SecretMaster'
@@ -29,37 +29,34 @@ export class GitCipherVerifyProcessor {
 
   public async verify(): Promise<void> {
     const title = 'processor.verify'
-    const plainPathResolver = new FilepathResolver(this.context.plainRootDir)
-    const cryptPathResolver = new FilepathResolver(this.context.cryptRootDir)
-
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
+    const { cryptPathResolver, plainPathResolver } = this.context
     invariant(
-      existsSync(cryptPathResolver.rootDir),
-      `[${title}] Cannot find cryptRootDir. ${cryptPathResolver.rootDir}`,
+      existsSync(cryptPathResolver.root),
+      `[${title}] Cannot find cryptRootDir. ${cryptPathResolver.root}`,
     )
 
     invariant(
-      isGitRepo(cryptPathResolver.rootDir),
-      `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.rootDir}`,
+      isGitRepo(cryptPathResolver.root),
+      `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.root}`,
     )
 
-    if (existsSync(plainPathResolver.rootDir) && isGitRepo(plainPathResolver.rootDir)) {
-      await this._verifyStrict(cryptPathResolver, plainPathResolver)
+    if (existsSync(plainPathResolver.root) && isGitRepo(plainPathResolver.root)) {
+      await this._verifyStrict()
     } else {
-      await this._verifyCryptRepo(cryptPathResolver)
+      await this._verifyCryptRepo(cryptPathResolver, plainPathResolver)
     }
   }
 
-  protected async _verifyStrict(
-    cryptPathResolver: FilepathResolver,
-    plainPathResolver: FilepathResolver,
-  ): Promise<void> {
+  protected async _verifyStrict(): Promise<void> {
     const { context, secretMaster } = this
+    const { cryptPathResolver, plainPathResolver } = context
     const { context: gitCipherContext } = await loadGitCipherContext({
-      cryptRootDir: context.cryptRootDir,
       secretFilepath: context.secretFilepath,
       secretMaster: this.secretMaster,
+      cryptPathResolver,
+      plainPathResolver,
     })
     const gitCipher = new GitCipher({ context: gitCipherContext })
 
@@ -75,13 +72,16 @@ export class GitCipherVerifyProcessor {
     })
   }
 
-  protected async _verifyCryptRepo(cryptPathResolver: FilepathResolver): Promise<void> {
+  protected async _verifyCryptRepo(
+    cryptPathResolver: IWorkspacePathResolver,
+    plainPathResolver: IWorkspacePathResolver,
+  ): Promise<void> {
     const title = 'processor.verify'
     const { context, secretMaster } = this
 
     const secretKeeper = await secretMaster.load({
       filepath: context.secretFilepath,
-      cryptRootDir: context.cryptRootDir,
+      cryptRootDir: context.cryptPathResolver.root,
       force: true,
     })
     invariant(!!secretKeeper.data, `[${title}] secret is not available.`)
@@ -91,6 +91,7 @@ export class GitCipherVerifyProcessor {
       cipherFactory: secretMaster.cipherFactory,
       cryptCommitId: context.cryptCommitId,
       cryptPathResolver,
+      plainPathResolver,
       secretConfig: secretKeeper.data,
     })
   }

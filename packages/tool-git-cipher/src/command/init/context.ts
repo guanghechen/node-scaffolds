@@ -1,5 +1,7 @@
 import type { IPBKDF2Options } from '@guanghechen/cipher'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
+import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
 import type { ISubCommandInitOptions } from './option'
 
 export interface IGitCipherInitContext {
@@ -23,10 +25,6 @@ export interface IGitCipherInitContext {
    * The path of not-plain files located. (relative of cryptRootDir)
    */
   readonly cryptFilesDir: string
-  /**
-   * The directory where the crypt repo located. (absolute path)
-   */
-  readonly cryptRootDir: string
   /**
    * Default encoding of files in the workspace.
    */
@@ -78,10 +76,6 @@ export interface IGitCipherInitContext {
    */
   readonly pbkdf2Options: IPBKDF2Options
   /**
-   * The directory where the plain repo located. (absolute path)
-   */
-  readonly plainRootDir: string
-  /**
    * The path of secret file. (absolute path)
    */
   readonly secretFilepath: string
@@ -101,18 +95,30 @@ export interface IGitCipherInitContext {
    * Working directory. (absolute path)
    */
   readonly workspace: string
+  /**
+   * Crypt workspace path resolver.
+   */
+  readonly cryptPathResolver: IWorkspacePathResolver
+  /**
+   * Plain workspace path resolver.
+   */
+  readonly plainPathResolver: IWorkspacePathResolver
 }
 
 export async function createInitContextFromOptions(
   options: ISubCommandInitOptions,
 ): Promise<IGitCipherInitContext> {
+  const cryptRootDir: string = options.cryptRootDir
+  const plainRootDir: string = options.plainRootDir
+  const cryptPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(cryptRootDir)
+  const plainPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(plainRootDir)
+
   const context: IGitCipherInitContext = {
     catalogFilepath: options.catalogFilepath,
     configFilepaths: options.configPath ?? [],
     contentHashAlgorithm: options.contentHashAlgorithm,
     cryptFilepathSalt: options.cryptFilepathSalt,
     cryptFilesDir: options.cryptFilesDir,
-    cryptRootDir: options.cryptRootDir,
     encoding: options.encoding,
     gitGpgSign: options.gitGpgSign,
     keepPlainPatterns: options.keepPlainPatterns,
@@ -125,12 +131,13 @@ export async function createInitContextFromOptions(
     partCodePrefix: options.partCodePrefix,
     pathHashAlgorithm: options.pathHashAlgorithm,
     pbkdf2Options: options.pbkdf2Options,
-    plainRootDir: options.plainRootDir,
     secretFilepath: options.secretFilepath,
     secretIvSize: options.secretIvSize,
     secretKeySize: options.secretKeySize,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
+    cryptPathResolver,
+    plainPathResolver,
   }
   return context
 }

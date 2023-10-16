@@ -1,3 +1,5 @@
+import type { IWorkspacePathResolver } from '@guanghechen/path'
+import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
 import type { ISubCommandEncryptOptions } from './option'
 
 export interface IGitCipherEncryptContext {
@@ -5,10 +7,6 @@ export interface IGitCipherEncryptContext {
    * The path of catalog cache file of crypt repo. (absolute path)
    */
   readonly catalogCacheFilepath: string
-  /**
-   * The directory where the crypt repo located. (absolute path)
-   */
-  readonly cryptRootDir: string
   /**
    * Default encoding of files in the workspace.
    */
@@ -34,10 +32,6 @@ export interface IGitCipherEncryptContext {
    */
   readonly minPasswordLength: number
   /**
-   * The directory where the plain repo located. (absolute path)
-   */
-  readonly plainRootDir: string
-  /**
    * The path of secret file. (absolute path)
    */
   readonly secretFilepath: string
@@ -49,23 +43,36 @@ export interface IGitCipherEncryptContext {
    * Working directory. (absolute path)
    */
   readonly workspace: string
+  /**
+   * Crypt workspace path resolver.
+   */
+  readonly cryptPathResolver: IWorkspacePathResolver
+  /**
+   * Plain workspace path resolver.
+   */
+  readonly plainPathResolver: IWorkspacePathResolver
 }
 
 export async function createEncryptContextFromOptions(
   options: ISubCommandEncryptOptions,
 ): Promise<IGitCipherEncryptContext> {
+  const cryptRootDir: string = options.cryptRootDir
+  const plainRootDir: string = options.plainRootDir
+  const cryptPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(cryptRootDir)
+  const plainPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(plainRootDir)
+
   const context: IGitCipherEncryptContext = {
     catalogCacheFilepath: options.catalogCacheFilepath,
-    cryptRootDir: options.cryptRootDir,
     encoding: options.encoding,
     filesOnly: options.filesOnly,
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
-    plainRootDir: options.plainRootDir,
     secretFilepath: options.secretFilepath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
+    cryptPathResolver,
+    plainPathResolver,
   }
   return context
 }

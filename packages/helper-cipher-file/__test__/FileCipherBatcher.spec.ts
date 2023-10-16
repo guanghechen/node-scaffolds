@@ -2,7 +2,7 @@ import ChalkLogger from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import { FileSplitter } from '@guanghechen/file-split'
 import { calcMac } from '@guanghechen/helper-mac'
-import { FilepathResolver } from '@guanghechen/helper-path'
+import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
 import { mergeStreams, stream2buffer } from '@guanghechen/stream'
 import {
   assertPromiseNotThrow,
@@ -47,29 +47,29 @@ describe('FileCipherBatcher', () => {
   const plainRootDir: string = path.join(workspaceDir, 'src')
   const cryptRootDir: string = path.join(workspaceDir, 'src_encrypted')
   const bakPlainRootDir: string = path.join(workspaceDir, 'src_backup')
-  const plainPathResolver = new FilepathResolver(plainRootDir)
-  const cryptPathResolver = new FilepathResolver(cryptRootDir)
-  const bakPlainPathResolver = new FilepathResolver(bakPlainRootDir)
+  const plainPathResolver = new WorkspacePathResolver(plainRootDir)
+  const cryptPathResolver = new WorkspacePathResolver(cryptRootDir)
+  const bakPlainPathResolver = new WorkspacePathResolver(bakPlainRootDir)
   const logger = new ChalkLogger({ flights: { colorful: false, date: false } })
 
-  const filepathA: string = plainPathResolver.absolute(itemTable.A.plainFilepath)
-  const filepathB: string = plainPathResolver.absolute(itemTable.B.plainFilepath)
-  const filepathC: string = plainPathResolver.absolute(itemTable.C.plainFilepath)
-  const filepathD: string = plainPathResolver.absolute(itemTable.D.plainFilepath)
+  const filepathA: string = plainPathResolver.resolve(itemTable.A.plainFilepath)
+  const filepathB: string = plainPathResolver.resolve(itemTable.B.plainFilepath)
+  const filepathC: string = plainPathResolver.resolve(itemTable.C.plainFilepath)
+  const filepathD: string = plainPathResolver.resolve(itemTable.D.plainFilepath)
 
-  const filepath2A: string = bakPlainPathResolver.absolute(itemTable.A.plainFilepath)
-  const filepath2B: string = bakPlainPathResolver.absolute(itemTable.B.plainFilepath)
-  const filepath2C: string = bakPlainPathResolver.absolute(itemTable.C.plainFilepath)
-  const filepath2D: string = bakPlainPathResolver.absolute(itemTable.D.plainFilepath)
+  const filepath2A: string = bakPlainPathResolver.resolve(itemTable.A.plainFilepath)
+  const filepath2B: string = bakPlainPathResolver.resolve(itemTable.B.plainFilepath)
+  const filepath2C: string = bakPlainPathResolver.resolve(itemTable.C.plainFilepath)
+  const filepath2D: string = bakPlainPathResolver.resolve(itemTable.D.plainFilepath)
 
-  const encryptedFilepathA: string = cryptPathResolver.absolute(itemTable.A.cryptFilepath)
-  const encryptedFilepathA2: string = cryptPathResolver.absolute(itemTable.A2.cryptFilepath)
-  const encryptedFilepathB: string = cryptPathResolver.absolute(itemTable.B.cryptFilepath)
+  const encryptedFilepathA: string = cryptPathResolver.resolve(itemTable.A.cryptFilepath)
+  const encryptedFilepathA2: string = cryptPathResolver.resolve(itemTable.A2.cryptFilepath)
+  const encryptedFilepathB: string = cryptPathResolver.resolve(itemTable.B.cryptFilepath)
   const encryptedFilepathsC: string[] = itemTable.C.cryptFilepathParts.map(part =>
-    cryptPathResolver.absolute(itemTable.C.cryptFilepath + part),
+    cryptPathResolver.resolve(itemTable.C.cryptFilepath + part),
   )
   const encryptedFilepathsD: string[] = itemTable.D.cryptFilepathParts.map(part =>
-    cryptPathResolver.absolute(itemTable.D.cryptFilepath + part),
+    cryptPathResolver.resolve(itemTable.D.cryptFilepath + part),
   )
 
   const contentA: string = contentTable.A

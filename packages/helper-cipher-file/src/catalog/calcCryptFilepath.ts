@@ -2,7 +2,7 @@ import invariant from '@guanghechen/invariant'
 import path from 'node:path'
 import type { IFileCipherCatalogContext } from '../types/IFileCipherCatalogContext'
 import { calcFingerprintFromString } from '../util/mac'
-import { normalizeRelativePlainFilepath } from './normalizePlainFilepath'
+import { normalizePlainFilepath } from './normalizePlainFilepath'
 
 export function calcCryptFilepath(
   relativePlainFilepath: string,
@@ -13,7 +13,10 @@ export function calcCryptFilepath(
     `[calcCryptFilepath] relativePlainFilepath should be a relative path. received(${relativePlainFilepath})`,
   )
 
-  const plainFilepathKey = normalizeRelativePlainFilepath(relativePlainFilepath)
+  const plainFilepathKey: string = normalizePlainFilepath(
+    relativePlainFilepath,
+    context.plainPathResolver,
+  )
   const cryptFilepath: string = context.isKeepPlain(relativePlainFilepath)
     ? relativePlainFilepath
     : path.join(

@@ -11,17 +11,17 @@ import {
   isGitRepo,
   showCommitInfo,
 } from '@guanghechen/helper-git'
-import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IGitCipherContext } from '../GitCipherContext'
 import { resolveIdMap } from '../util'
 import { encryptGitBranch } from './branch'
 
 export interface IEncryptGitRepoParams {
   context: IGitCipherContext
-  cryptPathResolver: FilepathResolver
+  cryptPathResolver: IWorkspacePathResolver
   crypt2plainIdMap: ReadonlyMap<string, string>
-  plainPathResolver: FilepathResolver
+  plainPathResolver: IWorkspacePathResolver
 }
 
 export interface IEncryptGitRepoResult {
@@ -39,12 +39,12 @@ export async function encryptGitRepo(
     cryptPathResolver,
     plainPathResolver,
   })
-  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
 
   invariant(
-    isGitRepo(plainPathResolver.rootDir),
-    `[${title}] plain repo is not a git repo. (${plainPathResolver.rootDir})`,
+    isGitRepo(plainPathResolver.root),
+    `[${title}] plain repo is not a git repo. (${plainPathResolver.root})`,
   )
 
   invariant(
@@ -58,7 +58,7 @@ export async function encryptGitRepo(
     `[${title}] plain repo is not under any branch.`,
   )
 
-  const isCryptRepoInitialized: boolean = isGitRepo(cryptPathResolver.rootDir)
+  const isCryptRepoInitialized: boolean = isGitRepo(cryptPathResolver.root)
   const oldCryptLocalBranch = isCryptRepoInitialized
     ? await getAllLocalBranches(cryptCmdCtx)
     : {
@@ -67,15 +67,15 @@ export async function encryptGitRepo(
       }
 
   const { crypt2plainIdMap } = await resolveIdMap({
-    cryptRootDir: cryptPathResolver.rootDir,
-    plainRootDir: plainPathResolver.rootDir,
+    cryptRootDir: cryptPathResolver.root,
+    plainRootDir: plainPathResolver.root,
     crypt2plainIdMap: params.crypt2plainIdMap,
     logger,
   })
 
   // Initialize crypt repo.
   if (!isCryptRepoInitialized) {
-    mkdirsIfNotExists(cryptPathResolver.rootDir, true)
+    mkdirsIfNotExists(cryptPathResolver.root, true)
     logger?.verbose?.(`[${title}] initialize crypt repo.`)
     await initGitRepo({
       ...cryptCmdCtx,

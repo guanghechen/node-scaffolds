@@ -36,7 +36,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
+    "build": "../../node_modules/.bin/rimraf lib/ && ../../node_modules/.bin/cross-env NODE_ENV=production ../../node_modules/.bin/rollup -c ../../rollup.config.mjs",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
@@ -45,10 +45,5 @@
     "@guanghechen/utility-types": "^5.0.8",
     "clipboardy": "^3.0.0",
     "execa": "^8.0.1"
-  },
-  "devDependencies": {
-    "cross-env": "*",
-    "rimraf": "*",
-    "rollup": "*"
   }
 }

@@ -35,6 +35,6 @@
     "README.md"
   ],
   "dependencies": {
-    "gitmojis": "^3.13.5"
+    "gitmojis": "^3.14.0"
   }
 }

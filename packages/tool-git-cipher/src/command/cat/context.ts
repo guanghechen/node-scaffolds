@@ -1,10 +1,8 @@
+import type { IWorkspacePathResolver } from '@guanghechen/path'
+import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
 import type { ISubCommandCatOptions } from './option'
 
 export interface IGitCipherCatContext {
-  /**
-   * The directory where the crypt repo located. (absolute path)
-   */
-  readonly cryptRootDir: string
   /**
    * Default encoding of files in the workspace.
    */
@@ -26,10 +24,6 @@ export interface IGitCipherCatContext {
    */
   readonly plainFilepath: string | undefined
   /**
-   * The directory where the plain repo located. (absolute path)
-   */
-  readonly plainRootDir: string
-  /**
    * The path of secret file. (absolute path)
    */
   readonly secretFilepath: string
@@ -41,22 +35,35 @@ export interface IGitCipherCatContext {
    * Working directory. (absolute path)
    */
   readonly workspace: string
+  /**
+   * Crypt workspace path resolver.
+   */
+  readonly cryptPathResolver: IWorkspacePathResolver
+  /**
+   * Plain workspace path resolver.
+   */
+  readonly plainPathResolver: IWorkspacePathResolver
 }
 
 export async function createCatContextFromOptions(
   options: ISubCommandCatOptions,
 ): Promise<IGitCipherCatContext> {
+  const cryptRootDir: string = options.cryptRootDir
+  const plainRootDir: string = options.plainRootDir
+  const cryptPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(cryptRootDir)
+  const plainPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(plainRootDir)
+
   const context: IGitCipherCatContext = {
-    cryptRootDir: options.cryptRootDir,
     encoding: options.encoding,
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
     plainFilepath: options.plainFilepath,
-    plainRootDir: options.plainRootDir,
     secretFilepath: options.secretFilepath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
+    cryptPathResolver,
+    plainPathResolver,
   }
   return context
 }

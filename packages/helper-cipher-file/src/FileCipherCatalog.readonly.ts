@@ -1,4 +1,4 @@
-import type { FilepathResolver } from '@guanghechen/helper-path'
+import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import { calcCatalogItem } from './catalog/calcCatalogItem'
 import { calcCryptFilepath } from './catalog/calcCryptFilepath'
 import { checkCryptIntegrity } from './catalog/checkCryptIntegrity'
@@ -12,14 +12,14 @@ import type {
 
 export interface IReadonlyFileCipherCatalogProps {
   readonly context: IFileCipherCatalogContext
-  readonly plainPathResolver: FilepathResolver
-  readonly cryptPathResolver: FilepathResolver
+  readonly plainPathResolver: IWorkspacePathResolver
+  readonly cryptPathResolver: IWorkspacePathResolver
 }
 
 export abstract class ReadonlyFileCipherCatalog implements IReadonlyFileCipherCatalog {
   public readonly context: IFileCipherCatalogContext
-  public readonly cryptPathResolver: FilepathResolver
-  public readonly plainPathResolver: FilepathResolver
+  public readonly cryptPathResolver: IWorkspacePathResolver
+  public readonly plainPathResolver: IWorkspacePathResolver
 
   constructor(props: IReadonlyFileCipherCatalogProps) {
     this.context = props.context

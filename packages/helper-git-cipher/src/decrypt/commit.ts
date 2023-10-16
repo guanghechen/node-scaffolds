@@ -13,17 +13,17 @@ import {
   mergeCommits,
   showCommitInfo,
 } from '@guanghechen/helper-git'
-import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IGitCipherContext } from '../GitCipherContext'
 import { getPlainCommitId } from '../util'
 
 export interface IDecryptGitCommitParams {
   context: IGitCipherContext
   cryptCommitNode: IGitCommitDagNode
-  cryptPathResolver: FilepathResolver
+  cryptPathResolver: IWorkspacePathResolver
   crypt2plainIdMap: Map<string, string>
-  plainPathResolver: FilepathResolver
+  plainPathResolver: IWorkspacePathResolver
 }
 
 /**
@@ -39,8 +39,8 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
   const { context, cryptCommitNode, crypt2plainIdMap, cryptPathResolver, plainPathResolver } =
     params
   const { cipherBatcher, configKeeper, logger } = context
-  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
 
   // [crypt] Move the HEAD pointer to the current decrypting commit.
   await checkBranch({ ...cryptCmdCtx, commitHash: cryptCommitNode.id })

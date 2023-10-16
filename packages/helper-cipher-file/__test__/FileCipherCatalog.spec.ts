@@ -2,7 +2,7 @@ import { ChalkLogger } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import { FileSplitter } from '@guanghechen/file-split'
 import { iterable2map } from '@guanghechen/helper-func'
-import { FilepathResolver } from '@guanghechen/helper-path'
+import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
 import {
   assertPromiseNotThrow,
   assertPromiseThrow,
@@ -42,14 +42,14 @@ describe('FileCipherCatalog', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.FileCipherCatalog')
   const plainRootDir: string = path.join(workspaceDir, 'src')
   const cryptRootDir: string = path.join(workspaceDir, 'src_encrypted')
-  const plainPathResolver = new FilepathResolver(plainRootDir)
-  const cryptPathResolver = new FilepathResolver(cryptRootDir)
+  const plainPathResolver = new WorkspacePathResolver(plainRootDir)
+  const cryptPathResolver = new WorkspacePathResolver(cryptRootDir)
   const logger = new ChalkLogger({ name: 'FileCipherCatalog' })
 
-  const filepathA: string = plainPathResolver.absolute(itemTable.A.plainFilepath)
-  const filepathB: string = plainPathResolver.absolute(itemTable.B.plainFilepath)
-  const filepathC: string = plainPathResolver.absolute(itemTable.C.plainFilepath)
-  const filepathD: string = plainPathResolver.absolute(itemTable.D.plainFilepath)
+  const filepathA: string = plainPathResolver.resolve(itemTable.A.plainFilepath)
+  const filepathB: string = plainPathResolver.resolve(itemTable.B.plainFilepath)
+  const filepathC: string = plainPathResolver.resolve(itemTable.C.plainFilepath)
+  const filepathD: string = plainPathResolver.resolve(itemTable.D.plainFilepath)
 
   const contentA: string = contentTable.A
   const contentA2: string = contentTable.A2
@@ -64,6 +64,8 @@ describe('FileCipherCatalog', () => {
     partCodePrefix,
     contentHashAlgorithm: contentHashAlgorithm,
     pathHashAlgorithm: pathHashAlgorithm,
+    plainPathResolver,
+    cryptPathResolver,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
   })
   const catalog = new FileCipherCatalog({
@@ -184,8 +186,8 @@ describe('FileCipherCatalog', () => {
       )
 
       // Both plain files and crypt files are exist.
-      await writeFile(cryptPathResolver.absolute(itemTable.A.cryptFilepath), contentA, encoding)
-      await writeFile(cryptPathResolver.absolute(itemTable.B.cryptFilepath), contentB, encoding)
+      await writeFile(cryptPathResolver.resolve(itemTable.A.cryptFilepath), contentA, encoding)
+      await writeFile(cryptPathResolver.resolve(itemTable.B.cryptFilepath), contentB, encoding)
       await assertPromiseNotThrow(() =>
         Promise.all([
           catalog.checkPlainIntegrity(plainFilepaths),
@@ -257,13 +259,13 @@ describe('FileCipherCatalog', () => {
 
       // Both plain files and crypt files are exist.
       for (const part of itemTable.C.cryptFilepathParts) {
-        const absoluteEncryptedFilepath = cryptPathResolver.absolute(
+        const absoluteEncryptedFilepath = cryptPathResolver.resolve(
           itemTable.C.cryptFilepath + part,
         )
         await writeFile(absoluteEncryptedFilepath, contentC, encoding)
       }
       for (const part of itemTable.D.cryptFilepathParts) {
-        const absoluteEncryptedFilepath = cryptPathResolver.absolute(
+        const absoluteEncryptedFilepath = cryptPathResolver.resolve(
           itemTable.D.cryptFilepath + part,
         )
         await writeFile(absoluteEncryptedFilepath, contentD, encoding)

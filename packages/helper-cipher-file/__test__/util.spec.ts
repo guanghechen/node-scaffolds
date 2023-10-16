@@ -1,5 +1,5 @@
 import { calcMac, calcMacFromFile } from '@guanghechen/helper-mac'
-import { FilepathResolver } from '@guanghechen/helper-path'
+import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
 import { locateFixtures } from 'jest.helper'
 import type {
   IFileCipherCatalogDiffItemDraft,
@@ -21,7 +21,7 @@ import { contentHashAlgorithm, itemTable, pathHashAlgorithm } from './_data'
 
 describe('catalog', () => {
   const plainRootDir = locateFixtures('basic')
-  const plainPathResolver = new FilepathResolver(plainRootDir)
+  const plainPathResolver = new WorkspacePathResolver(plainRootDir)
 
   test('normalizePlainFilepath', () => {
     expect(normalizePlainFilepath('a.txt', plainPathResolver)).toEqual('a.txt')
@@ -29,16 +29,12 @@ describe('catalog', () => {
     expect(normalizePlainFilepath('./a.txt', plainPathResolver)).toEqual('a.txt')
     expect(normalizePlainFilepath('./a.txt/', plainPathResolver)).toEqual('a.txt')
     expect(normalizePlainFilepath('a/b/c//d/e/a.txt', plainPathResolver)).toEqual('a/b/c/d/e/a.txt')
-    expect(() => normalizePlainFilepath('/a.txt', plainPathResolver)).toThrow(
-      '[FilepathResolver.relative] Not under the rootDir:',
-    )
+    expect(() => normalizePlainFilepath('/a.txt', plainPathResolver)).toThrow('not under the root')
     expect(() => normalizePlainFilepath('../a.txt', plainPathResolver)).toThrow(
-      '[FilepathResolver.relative] Not under the rootDir:',
+      'not under the root',
     )
-    expect(() => normalizePlainFilepath('..', plainPathResolver)).toThrow(
-      '[FilepathResolver.relative] Not under the rootDir:',
-    )
-    expect(normalizePlainFilepath(plainPathResolver.absolute('a.txt'), plainPathResolver)).toEqual(
+    expect(() => normalizePlainFilepath('..', plainPathResolver)).toThrow('not under the root')
+    expect(normalizePlainFilepath(plainPathResolver.resolve('a.txt'), plainPathResolver)).toEqual(
       'a.txt',
     )
   })

@@ -5,7 +5,7 @@ import type {
 import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
-import { absoluteOfWorkspace } from '@guanghechen/helper-path'
+import { physicalPathResolver as pathResolver } from '@guanghechen/path'
 import { logger } from '../env/logger'
 
 /**
@@ -95,7 +95,7 @@ export function resolveGlobalCommandOptions<O extends object>(
     options.input,
     isNonBlankString,
   )
-  const input: string | undefined = _input ? absoluteOfWorkspace(workspace, _input) : undefined
+  const input: string | undefined = _input ? pathResolver.safeResolve(workspace, _input) : undefined
   logger.debug('input:', input)
 
   // Resolve `output`.
@@ -104,7 +104,9 @@ export function resolveGlobalCommandOptions<O extends object>(
     options.output,
     isNonBlankString,
   )
-  const output: string | undefined = _output ? absoluteOfWorkspace(workspace, _output) : undefined
+  const output: string | undefined = _output
+    ? pathResolver.safeResolve(workspace, _output)
+    : undefined
   logger.debug('output:', output)
 
   // resolve ciphertextRootDir
@@ -114,7 +116,7 @@ export function resolveGlobalCommandOptions<O extends object>(
     isNonBlankString,
   )
   const fakeClipboard: string | undefined = _fakeClipboard
-    ? absoluteOfWorkspace(workspace, _fakeClipboard)
+    ? pathResolver.safeResolve(workspace, _fakeClipboard)
     : undefined
   logger.debug('fakeClipboard:', fakeClipboard)
 

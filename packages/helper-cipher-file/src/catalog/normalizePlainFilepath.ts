@@ -1,14 +1,9 @@
-import type { FilepathResolver } from '@guanghechen/helper-path'
-import { normalizeUrlPath } from '@guanghechen/helper-path'
+import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 
 export function normalizePlainFilepath(
   plainFilepath: string,
-  plainPathResolver: FilepathResolver,
+  plainPathResolver: IWorkspacePathResolver,
 ): string {
   const relativePlainFilepath = plainPathResolver.relative(plainFilepath)
-  return normalizeRelativePlainFilepath(relativePlainFilepath)
-}
-
-export function normalizeRelativePlainFilepath(relativePlainFilepath: string): string {
-  return normalizeUrlPath(relativePlainFilepath)
+  return relativePlainFilepath.replace(/[/\\]+/g, '/')
 }

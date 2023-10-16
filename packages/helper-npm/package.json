@@ -36,11 +36,5 @@
   },
   "dependencies": {
     "import-meta-resolve": "^3.0.0"
-  },
-  "devDependencies": {
-    "cross-env": "*",
-    "jest": "*",
-    "rimraf": "*",
-    "rollup": "*"
   }
 }

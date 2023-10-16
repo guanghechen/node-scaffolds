@@ -2,8 +2,8 @@ import type { Logger } from '@guanghechen/chalk-logger'
 import type { FileSplitter, IFilePartItem } from '@guanghechen/file-split'
 import { calcFilePartItemsBySize } from '@guanghechen/file-split'
 import { isFileSync, mkdirsIfNotExists, rm } from '@guanghechen/helper-fs'
-import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import { existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import { calcCryptFilepaths } from './catalog/calcCryptFilepath'
@@ -99,13 +99,13 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       changeType: FileChangeType,
     ): Promise<IFileCipherCatalogItem> {
       const { plainFilepath, cryptFilepath } = item
-      const absolutePlainFilepath = plainPathResolver.absolute(plainFilepath)
+      const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
       invariant(
         isFileSync(absolutePlainFilepath),
         `[${title}.add] Bad diff item (${changeType}), plain file does not exist or it is not a file. (${plainFilepath})`,
       )
 
-      const absoluteCryptFilepath = cryptPathResolver.absolute(cryptFilepath)
+      const absoluteCryptFilepath = cryptPathResolver.resolve(cryptFilepath)
       mkdirsIfNotExists(absoluteCryptFilepath, false, logger)
 
       const nextItem: IFileCipherCatalogItem = { ...item, iv: undefined, authTag: undefined }
@@ -153,7 +153,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
 
       // pre-check
       for (const cryptFilepath of cryptFilepaths) {
-        const absoluteCryptFilepath = cryptPathResolver.absolute(cryptFilepath)
+        const absoluteCryptFilepath = cryptPathResolver.resolve(cryptFilepath)
         if (strictCheck) {
           invariant(
             isFileSync(absoluteCryptFilepath),
@@ -213,7 +213,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
 
       // pre-check
       for (const cryptFilepath of cryptFilepaths) {
-        const absoluteCryptFilepath = cryptPathResolver.absolute(cryptFilepath)
+        const absoluteCryptFilepath = cryptPathResolver.resolve(cryptFilepath)
         absoluteCryptFilepaths.push(absoluteCryptFilepath)
 
         invariant(
@@ -222,7 +222,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
         )
       }
 
-      const absolutePlainFilepath = plainPathResolver.absolute(item.plainFilepath)
+      const absolutePlainFilepath = plainPathResolver.resolve(item.plainFilepath)
       mkdirsIfNotExists(absolutePlainFilepath, false, logger)
 
       if (item.keepPlain) {
@@ -237,7 +237,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
 
     async function remove(item: IFileCipherCatalogItem, changeType: FileChangeType): Promise<void> {
       const { plainFilepath } = item
-      const absolutePlainFilepath = plainPathResolver.absolute(plainFilepath)
+      const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
 
       if (strictCheck) {
         invariant(
@@ -255,11 +255,11 @@ export class FileCipherBatcher implements IFileCipherBatcher {
   protected async _ensurePlainPathNotExist(
     item: Readonly<IFileCipherCatalogItem>,
     strictCheck: boolean,
-    plainPathResolver: FilepathResolver,
+    plainPathResolver: IWorkspacePathResolver,
     getErrorMsg: (plainFilepath: string) => string,
   ): Promise<void> {
     const { plainFilepath } = item
-    const absolutePlainFilepath = plainPathResolver.absolute(plainFilepath)
+    const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
     if (strictCheck) {
       invariant(!existsSync(absolutePlainFilepath), () => getErrorMsg(plainFilepath))
     } else {
@@ -271,12 +271,12 @@ export class FileCipherBatcher implements IFileCipherBatcher {
   protected async _ensureCryptPathNotExist(
     item: Readonly<IFileCipherCatalogItemDraft>,
     strictCheck: boolean,
-    cryptPathResolver: FilepathResolver,
+    cryptPathResolver: IWorkspacePathResolver,
     getErrorMsg: (cryptFilepath: string) => string,
   ): Promise<void | never> {
     const cryptFilepaths = calcCryptFilepaths(item.cryptFilepath, item.cryptFilepathParts)
     for (const cryptFilepath of cryptFilepaths) {
-      const absoluteCryptFilepath = cryptPathResolver.absolute(cryptFilepath)
+      const absoluteCryptFilepath = cryptPathResolver.resolve(cryptFilepath)
       if (strictCheck) {
         invariant(!existsSync(absoluteCryptFilepath), () => getErrorMsg(cryptFilepath))
       } else {

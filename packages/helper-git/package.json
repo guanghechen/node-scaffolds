@@ -35,7 +35,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
+    "build": "../../node_modules/.bin/rimraf lib/ && ../../node_modules/.bin/cross-env NODE_ENV=production ../../node_modules/.bin/rollup -c ../../rollup.config.mjs",
     "prepublishOnly": "yarn build",
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
@@ -46,10 +46,6 @@
   },
   "devDependencies": {
     "@guanghechen/chalk-logger": "^5.0.8",
-    "@guanghechen/helper-jest": "^5.0.8",
-    "cross-env": "*",
-    "jest": "*",
-    "rimraf": "*",
-    "rollup": "*"
+    "@guanghechen/helper-jest": "^5.0.8"
   }
 }

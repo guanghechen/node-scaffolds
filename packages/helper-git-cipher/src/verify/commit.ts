@@ -4,8 +4,8 @@ import type { IConfigKeeper } from '@guanghechen/helper-config'
 import { iterable2map } from '@guanghechen/helper-func'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { checkBranch, getAllLocalBranches, isGitRepo, listAllFiles } from '@guanghechen/helper-git'
-import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { ILogger } from '@guanghechen/utility-types'
 import { existsSync } from 'node:fs'
 import type { IFileCipherCatalogItemInstance, IGitCipherConfig } from '../types'
@@ -14,10 +14,10 @@ export interface IVerifyGitCommitParams {
   catalogContext: IFileCipherCatalogContext
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string
-  cryptPathResolver: FilepathResolver
+  cryptPathResolver: IWorkspacePathResolver
   logger: ILogger | undefined
   plainCommitId: string
-  plainPathResolver: FilepathResolver
+  plainPathResolver: IWorkspacePathResolver
 }
 
 export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<void | never> {
@@ -33,27 +33,27 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
   } = params
 
   invariant(
-    existsSync(cryptPathResolver.rootDir),
-    `[${title}] Cannot find cryptRootDir. ${cryptPathResolver.rootDir}`,
+    existsSync(cryptPathResolver.root),
+    `[${title}] Cannot find cryptRootDir. ${cryptPathResolver.root}`,
   )
 
   invariant(
-    isGitRepo(cryptPathResolver.rootDir),
-    `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.rootDir}`,
+    isGitRepo(cryptPathResolver.root),
+    `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.root}`,
   )
 
   invariant(
-    existsSync(plainPathResolver.rootDir),
-    `[${title}] Cannot find plainRootDir. ${plainPathResolver.rootDir}`,
+    existsSync(plainPathResolver.root),
+    `[${title}] Cannot find plainRootDir. ${plainPathResolver.root}`,
   )
 
   invariant(
-    isGitRepo(plainPathResolver.rootDir),
-    `[${title}] plainRootDir is not a git repo. ${plainPathResolver.rootDir}`,
+    isGitRepo(plainPathResolver.root),
+    `[${title}] plainRootDir is not a git repo. ${plainPathResolver.root}`,
   )
 
-  const cryptCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
-  const plainCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
+  const cryptCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
+  const plainCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, logger }
 
   const cryptCurrentBranches = await getAllLocalBranches(cryptCtx)
   invariant(!!cryptCurrentBranches.currentBranch, `[${title}] crypt repo does not at any branch.`)

@@ -1,10 +1,11 @@
 import type { ICipherFactory } from '@guanghechen/cipher'
+import type { IFileTree } from '@guanghechen/filetree'
+import { FileTree, FileTreeNodeTypeEnum } from '@guanghechen/filetree'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo, showFileContent } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
-import { FilepathResolver, buildFilepathTree, printFilepathTree } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
-import { existsSync } from 'fs'
+import { existsSync } from 'node:fs'
 import { logger } from '../../core/logger'
 import { SecretMaster } from '../../util/SecretMaster'
 import type { IGitCipherTreeContext } from './context'
@@ -28,23 +29,23 @@ export class GitCipherTreeProcessor {
   public async tree(): Promise<void> {
     const title = 'processor.tree'
     const { context, secretMaster } = this
-    const cryptPathResolver = new FilepathResolver(context.cryptRootDir)
+    const { cryptPathResolver } = context
 
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
     invariant(
-      existsSync(cryptPathResolver.rootDir),
-      `[${title}] Cannot find cryptRootDir. ${cryptPathResolver.rootDir}`,
+      existsSync(cryptPathResolver.root),
+      `[${title}] Cannot find cryptRootDir. ${cryptPathResolver.root}`,
     )
 
     invariant(
-      isGitRepo(cryptPathResolver.rootDir),
-      `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.rootDir}`,
+      isGitRepo(cryptPathResolver.root),
+      `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.root}`,
     )
 
     const secretKeeper = await secretMaster.load({
       filepath: context.secretFilepath,
-      cryptRootDir: context.cryptRootDir,
+      cryptRootDir: cryptPathResolver.root,
       force: false,
     })
 
@@ -58,7 +59,7 @@ export class GitCipherTreeProcessor {
     const catalogContent: string = await showFileContent({
       filepath: cryptPathResolver.relative(catalogFilepath),
       commitHash: context.cryptCommitId,
-      cwd: cryptPathResolver.rootDir,
+      cwd: cryptPathResolver.root,
       logger,
     })
 
@@ -73,10 +74,15 @@ export class GitCipherTreeProcessor {
     })
     await configKeeper.load()
 
-    const tree = buildFilepathTree({
-      rootDir: '',
-      files: configKeeper.data?.catalog.items.map(item => item.plainFilepath) ?? [],
-    })
-    printFilepathTree({ tree })
+    const filepaths: string[] =
+      configKeeper.data?.catalog.items.map(item => item.plainFilepath) ?? []
+    const filetree: IFileTree = FileTree.build(
+      filepaths.map(filepath => ({
+        type: FileTreeNodeTypeEnum.FILE,
+        paths: filepath.split(/[/\\]/g).filter(x => !!x),
+      })),
+      (x, y) => x.localeCompare(y),
+    )
+    filetree.print()
   }
 }

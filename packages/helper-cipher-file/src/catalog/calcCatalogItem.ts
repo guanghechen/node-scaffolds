@@ -1,7 +1,7 @@
 import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/file-split'
 import { isFileSync } from '@guanghechen/helper-fs'
-import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import fs from 'node:fs/promises'
 import type { IFileCipherCatalogContext } from '../types/IFileCipherCatalogContext'
 import type { IFileCipherCatalogItemDraft } from '../types/IFileCipherCatalogItem'
@@ -11,7 +11,7 @@ import { calcCryptFilepath } from './calcCryptFilepath'
 export interface ICalcCatalogItemParams {
   context: IFileCipherCatalogContext
   plainFilepath: string
-  plainPathResolver: FilepathResolver
+  plainPathResolver: IWorkspacePathResolver
 }
 
 export async function calcCatalogItem(
@@ -20,7 +20,7 @@ export async function calcCatalogItem(
   const title = 'calcCatalogItem'
 
   const { context, plainFilepath, plainPathResolver } = params
-  const absolutePlainFilepath = params.plainPathResolver.absolute(plainFilepath)
+  const absolutePlainFilepath = params.plainPathResolver.resolve(plainFilepath)
   invariant(isFileSync(absolutePlainFilepath), `[${title}] Not a file ${absolutePlainFilepath}.`)
 
   const fileSize = await fs.stat(absolutePlainFilepath).then(md => md.size)

@@ -1,6 +1,5 @@
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { GitCipher } from '@guanghechen/helper-git-cipher'
-import { FilepathResolver } from '@guanghechen/helper-path'
 import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
 import { logger } from '../../core/logger'
@@ -31,15 +30,14 @@ export class GitCipherDecryptProcessor {
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
     const { context } = this
+    const { cryptPathResolver, plainPathResolver } = context
     const { context: gitCipherContext } = await loadGitCipherContext({
-      cryptRootDir: context.cryptRootDir,
       secretFilepath: context.secretFilepath,
       secretMaster: this.secretMaster,
+      cryptPathResolver,
+      plainPathResolver,
     })
     const gitCipher = new GitCipher({ context: gitCipherContext })
-
-    const plainPathResolver = new FilepathResolver(context.plainRootDir)
-    const cryptPathResolver = new FilepathResolver(context.cryptRootDir)
 
     // decrypt files
     if (context.filesAt || context.filesOnly.length > 0) {

@@ -37,7 +37,7 @@
     "ghc-doc-link-rewrite": "./lib/esm/cli.mjs"
   },
   "scripts": {
-    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.cli.mjs",
+    "build": "../../node_modules/.bin/rimraf lib/ && ../../node_modules/.bin/cross-env NODE_ENV=production ../../node_modules/.bin/rollup -c ../../rollup.config.cli.mjs",
     "prepublishOnly": "yarn build",
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
@@ -52,9 +52,6 @@
     "minimist": "^1.2.8"
   },
   "devDependencies": {
-    "cross-env": "*",
-    "jest": "*",
-    "rimraf": "*",
-    "rollup": "*"
+    "@guanghechen/rollup-config-cli": "^5.0.9"
   }
 }

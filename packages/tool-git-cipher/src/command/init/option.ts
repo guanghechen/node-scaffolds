@@ -6,7 +6,7 @@ import type {
 import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
-import { absoluteOfWorkspace } from '@guanghechen/helper-path'
+import { physicalPathResolver as pathResolver } from '@guanghechen/path'
 import { randomBytes } from 'node:crypto'
 import { logger } from '../../core/logger'
 import type { IGlobalCommandOptions } from '../option'
@@ -122,7 +122,7 @@ export function resolveSubCommandInitOptions(
   )
 
   // Resolve catalogFilepath
-  const catalogFilepath: string = absoluteOfWorkspace(
+  const catalogFilepath: string = pathResolver.safeResolve(
     baseOptions.cryptRootDir,
     cover<string>(baseOptions.catalogFilepath, options.catalogFilepath, isNonBlankString),
   )

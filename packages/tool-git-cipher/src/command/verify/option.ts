@@ -4,7 +4,7 @@ import type {
 } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
-import { absoluteOfWorkspace } from '@guanghechen/helper-path'
+import { physicalPathResolver as pathResolver } from '@guanghechen/path'
 import { logger } from '../../core/logger'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
@@ -48,7 +48,7 @@ export function resolveSubCommandVerifyOptions(
   )
 
   // Resolve catalogCacheFilepath
-  const catalogCacheFilepath: string = absoluteOfWorkspace(
+  const catalogCacheFilepath: string = pathResolver.safeResolve(
     baseOptions.workspace,
     cover<string>(baseOptions.catalogCacheFilepath, options.catalogCacheFilepath, isNonBlankString),
   )

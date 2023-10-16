@@ -36,7 +36,7 @@
     "mcp": "./lib/esm/cli.mjs"
   },
   "scripts": {
-    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.cli.mjs",
+    "build": "../../node_modules/.bin/rimraf lib/ && ../../node_modules/.bin/cross-env NODE_ENV=production ../../node_modules/.bin/rollup -c ../../rollup.config.cli.mjs",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
@@ -45,15 +45,12 @@
     "@guanghechen/helper-fs": "^5.0.8",
     "@guanghechen/helper-is": "^5.0.8",
     "@guanghechen/helper-option": "^5.0.8",
-    "@guanghechen/helper-path": "^5.0.9",
     "@guanghechen/invariant": "^5.0.8",
     "@guanghechen/mini-copy": "^5.0.8",
+    "@guanghechen/path": "^1.0.0-alpha.5",
     "inquirer": "9.2.11"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config-cli": "^5.0.9",
-    "cross-env": "*",
-    "rimraf": "*",
-    "rollup": "*"
+    "@guanghechen/rollup-config-cli": "^5.0.9"
   }
 }

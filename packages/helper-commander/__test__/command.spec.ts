@@ -2,7 +2,7 @@ import { ChalkLogger } from '@guanghechen/chalk-logger'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { createLoggerMock } from '@guanghechen/helper-jest'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
-import { absoluteOfWorkspace } from '@guanghechen/helper-path'
+import { physicalPathResolver as pathResolver } from '@guanghechen/path'
 import { desensitize } from 'jest.helper'
 import path from 'node:path'
 import type {
@@ -144,7 +144,7 @@ function resolveGlobalCommandOptions<O extends ICommandConfigurationOptions>(
     isNonBlankString,
   )
   const input: string | undefined = _input
-    ? absoluteOfWorkspace(baseOptions.workspace, _input)
+    ? pathResolver.safeResolve(baseOptions.workspace, _input)
     : undefined
   logger.debug('input:', input)
 
@@ -155,7 +155,7 @@ function resolveGlobalCommandOptions<O extends ICommandConfigurationOptions>(
     isNonBlankString,
   )
   const output: string | undefined = _output
-    ? absoluteOfWorkspace(baseOptions.workspace, _output)
+    ? pathResolver.safeResolve(baseOptions.workspace, _output)
     : undefined
   logger.debug('output:', output)
 

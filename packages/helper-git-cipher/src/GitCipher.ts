@@ -1,4 +1,4 @@
-import type { FilepathResolver } from '@guanghechen/helper-path'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { decryptFilesOnly } from './decrypt/filesOnly'
 import { decryptGitRepo } from './decrypt/repo'
 import { encryptGitRepo } from './encrypt/repo'
@@ -11,29 +11,29 @@ export interface IGitCipherProps {
 
 export interface IGitCipherEncryptParams {
   readonly crypt2plainIdMap: ReadonlyMap<string, string>
-  readonly cryptPathResolver: FilepathResolver
-  readonly plainPathResolver: FilepathResolver
+  readonly cryptPathResolver: IWorkspacePathResolver
+  readonly plainPathResolver: IWorkspacePathResolver
 }
 
 export interface IGitCipherDecryptFilesOnlyParams {
   readonly cryptCommitId: string
-  readonly cryptPathResolver: FilepathResolver
+  readonly cryptPathResolver: IWorkspacePathResolver
   readonly filesOnly: string[] | undefined // If empty or undefined, then decrypt all files.
-  readonly plainPathResolver: FilepathResolver
+  readonly plainPathResolver: IWorkspacePathResolver
 }
 
 export interface IGitCipherDecryptParams {
   readonly crypt2plainIdMap: ReadonlyMap<string, string>
-  readonly cryptPathResolver: FilepathResolver
+  readonly cryptPathResolver: IWorkspacePathResolver
   readonly gpgSign: boolean | undefined
-  readonly plainPathResolver: FilepathResolver
+  readonly plainPathResolver: IWorkspacePathResolver
 }
 
 export interface IGitCipherVerifyParams {
   readonly cryptCommitId: string
-  readonly cryptPathResolver: FilepathResolver
+  readonly cryptPathResolver: IWorkspacePathResolver
   readonly plainCommitId: string
-  readonly plainPathResolver: FilepathResolver
+  readonly plainPathResolver: IWorkspacePathResolver
 }
 
 export interface IGitCipherEncryptRepoResult {

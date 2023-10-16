@@ -1,12 +1,12 @@
 import { isFileSync } from '@guanghechen/helper-fs'
-import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import type { IFileCipherCatalogItemDraft } from '../types/IFileCipherCatalogItem'
 
 export interface ICheckCryptIntegrityParams {
   items: Iterable<IFileCipherCatalogItemDraft>
   cryptFilepaths: string[]
-  cryptPathResolver: FilepathResolver
+  cryptPathResolver: IWorkspacePathResolver
 }
 
 export function checkCryptIntegrity(params: ICheckCryptIntegrityParams): void {
@@ -19,7 +19,7 @@ export function checkCryptIntegrity(params: ICheckCryptIntegrityParams): void {
     if (item.cryptFilepathParts.length > 1) {
       for (const filePart of item.cryptFilepathParts) {
         const cryptFilepath = item.cryptFilepath + filePart
-        const absoluteCryptFilepath = cryptPathResolver.absolute(cryptFilepath)
+        const absoluteCryptFilepath = cryptPathResolver.resolve(cryptFilepath)
         count += 1
 
         invariant(
@@ -33,7 +33,7 @@ export function checkCryptIntegrity(params: ICheckCryptIntegrityParams): void {
       }
     } else {
       const { cryptFilepath } = item
-      const absoluteCryptFilepath = cryptPathResolver.absolute(cryptFilepath)
+      const absoluteCryptFilepath = cryptPathResolver.resolve(cryptFilepath)
       count += 1
 
       invariant(

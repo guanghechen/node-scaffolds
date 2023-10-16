@@ -2,9 +2,9 @@ import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import { FileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import { showCommitInfo } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper, verifyCryptGitCommit } from '@guanghechen/helper-git-cipher'
-import type { FilepathResolver } from '@guanghechen/helper-path'
 import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
 import micromatch from 'micromatch'
 import { logger } from '../core/logger'
 import type { ISecretConfig } from './SecretConfig.types'
@@ -13,13 +13,15 @@ export interface IVerifyCryptRepoParams {
   readonly catalogCipher: ICipher | undefined
   readonly cipherFactory: ICipherFactory | undefined
   readonly cryptCommitId: string
-  readonly cryptPathResolver: FilepathResolver
+  readonly cryptPathResolver: IWorkspacePathResolver
+  readonly plainPathResolver: IWorkspacePathResolver
   readonly secretConfig: Readonly<ISecretConfig>
 }
 
 export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<void> {
   const title = 'verifyCryptRepo'
-  const { catalogCipher, cipherFactory, cryptPathResolver, secretConfig } = params
+  const { catalogCipher, cipherFactory, plainPathResolver, cryptPathResolver, secretConfig } =
+    params
 
   invariant(
     !!cipherFactory && !!catalogCipher,
@@ -30,7 +32,7 @@ export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<v
   const cryptCommitId: string = (
     await showCommitInfo({
       commitHash: params.cryptCommitId,
-      cwd: cryptPathResolver.rootDir,
+      cwd: cryptPathResolver.root,
       logger,
     })
   ).commitId
@@ -62,6 +64,8 @@ export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<v
     maxTargetFileSize,
     partCodePrefix,
     pathHashAlgorithm,
+    plainPathResolver,
+    cryptPathResolver,
     isKeepPlain:
       keepPlainPatterns.length > 0
         ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })

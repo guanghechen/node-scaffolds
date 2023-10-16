@@ -2,9 +2,9 @@ import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isNonExistentOrEmpty, mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import { initGitRepo, stageAll } from '@guanghechen/helper-git'
 import { isNonBlankString } from '@guanghechen/helper-is'
-import { absoluteOfWorkspace, relativeOfWorkspace } from '@guanghechen/helper-path'
 import { runPlop } from '@guanghechen/helper-plop'
 import invariant from '@guanghechen/invariant'
+import { physicalPathResolver as pathResolver } from '@guanghechen/path'
 import { execa } from 'execa'
 import inquirer from 'inquirer'
 import nodePlop from 'node-plop'
@@ -38,6 +38,7 @@ export class GitCipherInitProcessor {
     invariant(hasGitInstalled(), `Cannot find 'git', please install it before continuing.`)
 
     const { context } = this
+    const { plainPathResolver } = context
     const presetSecretData: IPresetSecretConfig = {
       catalogFilepath: context.catalogFilepath,
       contentHashAlgorithm: context.contentHashAlgorithm,
@@ -57,12 +58,12 @@ export class GitCipherInitProcessor {
 
     const isWorkspaceEmpty = isNonExistentOrEmpty(context.workspace)
     mkdirsIfNotExists(context.workspace, true)
-    mkdirsIfNotExists(context.plainRootDir, true)
+    mkdirsIfNotExists(plainPathResolver.root, true)
 
     if (isWorkspaceEmpty) {
       // Render boilerplates if the workspace is non-exist or empty.
       const relativeConfigPaths: string[] = context.configFilepaths.map(fp =>
-        relativeOfWorkspace(context.workspace, fp),
+        pathResolver.safeRelative(context.workspace, fp),
       )
       await this._renderBoilerplates({
         configFilepath: relativeConfigPaths.find(fp => fp.endsWith('.json')) ?? '.ghc-config.json',
@@ -70,13 +71,13 @@ export class GitCipherInitProcessor {
 
       // Init git repo.
       await initGitRepo({
-        cwd: context.plainRootDir,
+        cwd: plainPathResolver.root,
         logger,
         eol: 'lf',
         encoding: 'utf8',
         gpgSign: context.gitGpgSign,
       })
-      await stageAll({ cwd: context.plainRootDir, logger })
+      await stageAll({ cwd: plainPathResolver.root, logger })
     }
 
     let shouldGenerateSecret = true
@@ -203,6 +204,7 @@ export class GitCipherInitProcessor {
   // Render boilerplates.
   protected async _renderBoilerplates(data: { configFilepath: string }): Promise<void> {
     const { context } = this
+    const { cryptPathResolver, plainPathResolver } = context
 
     // request repository url
     let { plainRepoUrl } = await inquirer.prompt([
@@ -218,7 +220,7 @@ export class GitCipherInitProcessor {
     // resolve plainRepoUrl
     if (isNonBlankString(plainRepoUrl)) {
       if (/^[.]/.test(plainRepoUrl)) {
-        plainRepoUrl = absoluteOfWorkspace(context.workspace, plainRepoUrl)
+        plainRepoUrl = pathResolver.safeResolve(context.workspace, plainRepoUrl)
       }
     }
     logger.debug('plainRepoUrl:', plainRepoUrl)
@@ -236,14 +238,14 @@ export class GitCipherInitProcessor {
     })
 
     const error = await runPlop(plop, undefined, {
-      bakPlainRootDir: relativeOfWorkspace(context.workspace, context.plainRootDir),
-      catalogFilepath: relativeOfWorkspace(context.cryptRootDir, context.catalogFilepath),
+      bakPlainRootDir: pathResolver.safeRelative(context.workspace, plainPathResolver.root),
+      catalogFilepath: pathResolver.safeRelative(cryptPathResolver.root, context.catalogFilepath),
       commandVersion: COMMAND_VERSION,
       configFilepath: data.configFilepath,
       configNonce: randomBytes(20).toString('hex'),
       cryptFilepathSalt: context.cryptFilepathSalt,
-      cryptFilesDir: relativeOfWorkspace(context.cryptRootDir, context.cryptFilesDir),
-      cryptRootDir: relativeOfWorkspace(context.workspace, context.cryptRootDir),
+      cryptFilesDir: pathResolver.safeRelative(cryptPathResolver.root, context.cryptFilesDir),
+      cryptRootDir: pathResolver.safeRelative(context.workspace, cryptPathResolver.root),
       encoding: context.encoding,
       logLevel: logger.level,
       mainIvSize: context.mainIvSize,
@@ -252,12 +254,12 @@ export class GitCipherInitProcessor {
       minPasswordLength: context.minPasswordLength,
       partCodePrefix: context.partCodePrefix,
       pbkdf2Options: context.pbkdf2Options,
-      plainRootDir: relativeOfWorkspace(context.workspace, context.plainRootDir),
+      plainRootDir: pathResolver.safeRelative(context.workspace, plainPathResolver.root),
       secret: '',
       secretAuthTag: undefined,
       secretNonce: '',
       secretCatalogNonce: '',
-      secretFilepath: relativeOfWorkspace(context.workspace, context.secretFilepath),
+      secretFilepath: pathResolver.safeRelative(context.workspace, context.secretFilepath),
       secretIvSize: context.secretIvSize,
       secretKeySize: context.secretKeySize,
       showAsterisk: context.showAsterisk,
@@ -273,7 +275,7 @@ export class GitCipherInitProcessor {
   ): Promise<SecretConfigKeeper> {
     const { context, secretMaster } = this
     const configKeeper = await secretMaster.createSecret({
-      cryptRootDir: context.cryptRootDir,
+      cryptRootDir: context.cryptPathResolver.root,
       filepath: context.secretFilepath,
       presetConfigData,
     })
@@ -286,10 +288,11 @@ export class GitCipherInitProcessor {
    */
   protected async _cloneFromRemote(plainRepoUrl: string): Promise<void> {
     const { context } = this
-    mkdirsIfNotExists(context.plainRootDir, true, logger)
-    await execa('git', ['clone', plainRepoUrl, context.plainRootDir], {
+    const { plainPathResolver } = context
+    mkdirsIfNotExists(plainPathResolver.root, true, logger)
+    await execa('git', ['clone', plainRepoUrl, plainPathResolver.root], {
       stdio: 'inherit',
-      cwd: context.plainRootDir,
+      cwd: plainPathResolver.root,
     })
   }
 }

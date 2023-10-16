@@ -6,7 +6,7 @@ import type {
 import { collectAffectedCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import { cleanUntrackedFilepaths, commitAll } from '@guanghechen/helper-git'
 import type { IGitCommandBaseParams, IGitCommitInfo } from '@guanghechen/helper-git'
-import type { FilepathResolver } from '@guanghechen/helper-path'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IGitCipherContext } from '../GitCipherContext'
 import type { IGitCipherConfig } from '../types'
 import { generateCommitHash } from '../util'
@@ -14,9 +14,9 @@ import { generateCommitHash } from '../util'
 export interface IInternalEncryptDiffItemsParams {
   catalog: IFileCipherCatalog
   context: IGitCipherContext
-  cryptPathResolver: FilepathResolver
+  cryptPathResolver: IWorkspacePathResolver
   draftDiffItems: IFileCipherCatalogDiffItemDraft[]
-  plainPathResolver: FilepathResolver
+  plainPathResolver: IWorkspacePathResolver
   shouldAmend: boolean
   signature: Partial<IGitCommitInfo> & Pick<IGitCommitInfo, 'message'>
 }
@@ -37,7 +37,7 @@ export async function internalEncryptDiffItems(
     signature,
   } = params
   const { cipherBatcher, configKeeper, logger, getIv } = context
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
 
   // [crypt] Clean untracked filepaths to avoid unexpected errors.
   const cryptFiles: string[] = collectAffectedCryptFilepaths(draftDiffItems)

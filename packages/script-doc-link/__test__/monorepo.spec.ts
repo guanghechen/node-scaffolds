@@ -37,7 +37,6 @@ describe('context', () => {
         "packages/helper-mac",
         "packages/helper-npm",
         "packages/helper-option",
-        "packages/helper-path",
         "packages/helper-plop",
         "packages/helper-storage",
         "packages/helper-string",

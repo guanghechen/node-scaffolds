@@ -1,6 +1,6 @@
 import { isFileSync } from '@guanghechen/helper-fs'
-import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import type { IFileCipherCatalogContext } from '../types/IFileCipherCatalogContext'
 import type { IFileCipherCatalogDiffItemDraft } from '../types/IFileCipherCatalogDiffItem'
 import { FileChangeType } from '../types/IFileCipherCatalogDiffItem'
@@ -15,7 +15,7 @@ import { normalizePlainFilepath } from './normalizePlainFilepath'
 export interface IDiffFromPlainFiles {
   context: IFileCipherCatalogContext
   oldItemMap: ReadonlyMap<string, IFileCipherCatalogItem>
-  plainPathResolver: FilepathResolver
+  plainPathResolver: IWorkspacePathResolver
   plainFilepaths: string[]
   // Check some edge cases that shouldn't affect the final result, just for higher integrity check.
   strickCheck: boolean
@@ -32,7 +32,7 @@ export async function diffFromPlainFiles(
   for (const plainFilepath of plainFilepaths) {
     const key = normalizePlainFilepath(plainFilepath, plainPathResolver)
     const oldItem = oldItemMap.get(key)
-    const absolutePlainFilepath = plainPathResolver.absolute(plainFilepath)
+    const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
     const isSrcFileExists = isFileSync(absolutePlainFilepath)
 
     if (isSrcFileExists) {

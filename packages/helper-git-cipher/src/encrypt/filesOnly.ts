@@ -6,15 +6,15 @@ import { FileCipherCatalog } from '@guanghechen/helper-cipher-file'
 import { collectAllFiles } from '@guanghechen/helper-fs'
 import { hasUncommittedContent, isGitRepo } from '@guanghechen/helper-git'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
-import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IGitCipherContext } from '../GitCipherContext'
 import { internalEncryptDiffItems } from './_internal'
 
 export interface IEncryptFilesOnlyParams {
   context: IGitCipherContext
-  cryptPathResolver: FilepathResolver
-  plainPathResolver: FilepathResolver
+  cryptPathResolver: IWorkspacePathResolver
+  plainPathResolver: IWorkspacePathResolver
   confirm(
     candidateDiffItems: ReadonlyArray<IFileCipherCatalogDiffItemDraft>,
   ): Promise<{ diffItems: IFileCipherCatalogDiffItemDraft[]; message: string }>
@@ -27,16 +27,16 @@ export async function encryptFilesOnly(params: IEncryptFilesOnlyParams): Promise
   const title = 'encryptFilesOnly'
   const { context, cryptPathResolver, plainPathResolver, confirm } = params
   const { catalogContext, configKeeper, logger } = context
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
 
-  invariant(isGitRepo(cryptPathResolver.rootDir), `[${title}] crypt repo is not a git repo.`)
+  invariant(isGitRepo(cryptPathResolver.root), `[${title}] crypt repo is not a git repo.`)
 
   invariant(
     !(await hasUncommittedContent(cryptCmdCtx)),
     `[${title}] crypt repo has uncommitted changes.`,
   )
 
-  const plainFiles: string[] = (await collectAllFiles(plainPathResolver.rootDir)).sort()
+  const plainFiles: string[] = (await collectAllFiles(plainPathResolver.root)).sort()
   if (plainFiles.length <= 0) {
     logger?.info(`[${title}] No files to commit.`)
     return

@@ -36,24 +36,21 @@
     "ghc-file": "./lib/esm/cli.mjs"
   },
   "scripts": {
-    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.cli.mjs",
+    "build": "../../node_modules/.bin/rimraf lib/ && ../../node_modules/.bin/cross-env NODE_ENV=production ../../node_modules/.bin/rollup -c ../../rollup.config.cli.mjs",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@guanghechen/chalk-logger": "^5.0.8",
-    "@guanghechen/file-split": "^1.0.0-alpha.1",
+    "@guanghechen/file-split": "^1.0.0-alpha.4",
     "@guanghechen/helper-commander": "^5.0.9",
     "@guanghechen/helper-fs": "^5.0.8",
     "@guanghechen/helper-func": "^5.0.8",
     "@guanghechen/helper-is": "^5.0.8",
     "@guanghechen/helper-option": "^5.0.8",
-    "@guanghechen/helper-path": "^5.0.9",
-    "@guanghechen/invariant": "^5.0.8"
+    "@guanghechen/invariant": "^5.0.8",
+    "@guanghechen/path": "^1.0.0-alpha.5"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config-cli": "^5.0.9",
-    "cross-env": "*",
-    "rimraf": "*",
-    "rollup": "*"
+    "@guanghechen/rollup-config-cli": "^5.0.9"
   }
 }

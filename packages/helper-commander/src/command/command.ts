@@ -20,7 +20,6 @@ export type ICommandActionCallback<T extends ICommandConfigurationOptions> = (
 export class Command extends Command$ {
   // add missing type declarations
   protected _actionHandler: ((args: string[]) => void) | null | undefined
-  protected _args: string[]
   protected _optionValues: object
   protected _storeOptionsAsProperties: boolean
   protected _version: string | undefined
@@ -29,7 +28,6 @@ export class Command extends Command$ {
   constructor() {
     super()
 
-    this._args = []
     this._optionValues = {}
     this._storeOptionsAsProperties = false
   }
@@ -53,7 +51,7 @@ export class Command extends Command$ {
   ): this {
     const listener = (args: string[]): unknown | Promise<unknown> => {
       // The .action callback takes an extra parameter which is the command or options.
-      const expectedArgsCount = this._args.length
+      const expectedArgsCount = this.registeredArguments.length
 
       const actionArgs: Parameters<ICommandActionCallback<T>> = [
         args.slice(0, expectedArgsCount),

@@ -18,7 +18,6 @@
       "@guanghechen/helper-jest": ["packages/helper-jest/src"],
       "@guanghechen/helper-mac": ["packages/helper-mac/src"],
       "@guanghechen/helper-option": ["packages/helper-option/src"],
-      "@guanghechen/helper-path": ["packages/helper-path/src"],
       "@guanghechen/helper-plop": ["packages/helper-plop/src"],
       "@guanghechen/helper-storage": ["packages/helper-storage/src"],
       "@guanghechen/helper-string": ["packages/helper-string/src"],

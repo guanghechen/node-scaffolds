@@ -35,28 +35,25 @@
     "README.md"
   ],
   "scripts": {
-    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
+    "build": "../../node_modules/.bin/rimraf lib/ && ../../node_modules/.bin/cross-env NODE_ENV=production ../../node_modules/.bin/rollup -c ../../rollup.config.mjs",
     "prepublishOnly": "yarn build",
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/cipher": "^1.0.0-alpha.1",
+    "@guanghechen/cipher": "^1.0.0-alpha.4",
     "@guanghechen/helper-cipher-file": "^5.0.9",
     "@guanghechen/helper-config": "^5.0.8",
     "@guanghechen/helper-fs": "^5.0.8",
     "@guanghechen/helper-func": "^5.0.8",
     "@guanghechen/helper-git": "^5.0.8",
-    "@guanghechen/helper-path": "^5.0.9",
     "@guanghechen/helper-storage": "^5.0.8",
     "@guanghechen/invariant": "^5.0.8",
+    "@guanghechen/path.types": "^1.0.0-alpha.4",
     "@guanghechen/utility-types": "^5.0.8"
   },
   "devDependencies": {
     "@guanghechen/chalk-logger": "^5.0.8",
     "@guanghechen/helper-jest": "^5.0.8",
-    "cross-env": "*",
-    "jest": "*",
-    "rimraf": "*",
-    "rollup": "*"
+    "@guanghechen/path": "^1.0.0-alpha.5"
   }
 }

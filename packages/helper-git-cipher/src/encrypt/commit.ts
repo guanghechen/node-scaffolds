@@ -15,8 +15,8 @@ import {
   mergeCommits,
   showCommitInfo,
 } from '@guanghechen/helper-git'
-import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IGitCipherContext } from '../GitCipherContext'
 import { getCryptCommitId } from '../util'
 import { internalEncryptDiffItems } from './_internal'
@@ -24,9 +24,9 @@ import { internalEncryptDiffItems } from './_internal'
 export interface IEncryptGitCommitParams {
   catalog: IFileCipherCatalog
   context: IGitCipherContext
-  cryptPathResolver: FilepathResolver
+  cryptPathResolver: IWorkspacePathResolver
   plainCommitNode: IGitCommitDagNode
-  plainPathResolver: FilepathResolver
+  plainPathResolver: IWorkspacePathResolver
   plain2cryptIdMap: ReadonlyMap<string, string>
 }
 
@@ -48,8 +48,8 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     plainPathResolver,
   } = params
   const { configKeeper, logger } = context
-  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.rootDir, logger }
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.rootDir, logger }
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, logger }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
 
   // [plain] Move the HEAD pointer to the current encrypting commit.
   await checkBranch({ ...plainCmdCtx, commitHash: plainCommitNode.id })

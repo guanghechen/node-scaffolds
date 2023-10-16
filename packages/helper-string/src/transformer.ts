@@ -1,22 +1,15 @@
-import $changeCase from 'change-case'
-import $lowerCase from 'lower-case'
-import $titleCase from 'title-case'
-import $upperCase from 'upper-case'
-
-const {
+import {
   camelCase,
   capitalCase,
   constantCase,
   dotCase,
-  paramCase,
+  kebabCase,
   pascalCase,
   pathCase,
   sentenceCase,
   snakeCase,
-} = $changeCase
-const { lowerCase } = $lowerCase
-const { titleCase } = $titleCase
-const { upperCase } = $upperCase
+} from './vender/change-case'
+import { titleCase } from './vender/title-case'
 
 /**
  * Text transformer.
@@ -89,7 +82,7 @@ export const toDotCase: ITextTransformer = text => dotCase(text)
  * @param text
  * @see https://github.com/blakeembrey/change-case#paramcase
  */
-export const toKebabCase: ITextTransformer = text => paramCase(text)
+export const toKebabCase: ITextTransformer = text => kebabCase(text)
 
 /**
  * Transforms the string to lower case.
@@ -99,7 +92,7 @@ export const toKebabCase: ITextTransformer = text => paramCase(text)
  * @param text
  * @see https://github.com/blakeembrey/change-case#lowerCase
  */
-export const toLowerCase: ITextTransformer = text => lowerCase(text)
+export const toLowerCase: ITextTransformer = text => text.toLocaleLowerCase()
 
 /**
  * Transform into a string of capitalized words without separators.
@@ -170,4 +163,4 @@ export const toTrim: ITextTransformer = text => text.trim()
  * @param text
  * @see https://github.com/blakeembrey/change-case#upperCase
  */
-export const toUpperCase: ITextTransformer = text => upperCase(text)
+export const toUpperCase: ITextTransformer = text => text.toLocaleUpperCase()

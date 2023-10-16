@@ -1,9 +1,8 @@
 import { FileCipher, calcCryptFilepath, calcCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
-import { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
-import { existsSync } from 'fs'
+import { existsSync } from 'node:fs'
 import { logger } from '../../core/logger'
 import { loadGitCipherContext } from '../../util/context/loadGitCipherContext'
 import { SecretMaster } from '../../util/SecretMaster'
@@ -30,20 +29,22 @@ export class GitCipherCatProcessor {
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
     const { context } = this
-    const cryptPathResolver = new FilepathResolver(context.cryptRootDir)
+    const { cryptPathResolver, plainPathResolver } = context
+
     invariant(
-      existsSync(cryptPathResolver.rootDir),
-      `[${title}] Cannot find cryptRootDir. ${cryptPathResolver.rootDir}`,
+      existsSync(cryptPathResolver.root),
+      `[${title}] Cannot find cryptRootDir. ${cryptPathResolver.root}`,
     )
     invariant(
-      isGitRepo(cryptPathResolver.rootDir),
-      `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.rootDir}`,
+      isGitRepo(cryptPathResolver.root),
+      `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.root}`,
     )
 
     const { cipherFactory, context: gitCipherContext } = await loadGitCipherContext({
-      cryptRootDir: context.cryptRootDir,
       secretFilepath: context.secretFilepath,
       secretMaster: this.secretMaster,
+      cryptPathResolver,
+      plainPathResolver,
     })
 
     const { catalogContext, configKeeper, getIv } = gitCipherContext
@@ -66,7 +67,6 @@ export class GitCipherCatProcessor {
     }
 
     // Print plain file content.
-    const plainPathResolver = new FilepathResolver(context.plainRootDir)
     const plainFilepath = plainPathResolver.relative(context.plainFilepath)
     const item = configKeeper.data?.catalog.items.find(item => item.plainFilepath === plainFilepath)
     invariant(!!item, `[${title}] Cannot find plainFilepath ${context.plainFilepath}.`)
@@ -76,7 +76,7 @@ export class GitCipherCatProcessor {
       catalogContext,
     )
     const cryptFilepaths: string[] = calcCryptFilepaths(
-      cryptPathResolver.absolute(cryptFilepath),
+      cryptPathResolver.resolve(cryptFilepath),
       item.cryptFilepathParts,
     )
     const fileCipher = new FileCipher({

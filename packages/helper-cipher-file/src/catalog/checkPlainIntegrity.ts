@@ -1,12 +1,12 @@
 import { isFileSync } from '@guanghechen/helper-fs'
-import type { FilepathResolver } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import type { IFileCipherCatalogItemDraft } from '../types/IFileCipherCatalogItem'
 
 export interface ICheckPlainIntegrityParams {
   items: Iterable<IFileCipherCatalogItemDraft>
   plainFilepaths: string[]
-  plainPathResolver: FilepathResolver
+  plainPathResolver: IWorkspacePathResolver
 }
 
 export function checkPlainIntegrity(params: ICheckPlainIntegrityParams): void {
@@ -17,7 +17,7 @@ export function checkPlainIntegrity(params: ICheckPlainIntegrityParams): void {
   let count = 0
   for (const item of items) {
     const { plainFilepath } = item
-    const absolutePlainFilepath = plainPathResolver.absolute(plainFilepath)
+    const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
     count += 1
 
     invariant(

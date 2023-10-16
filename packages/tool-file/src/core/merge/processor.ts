@@ -1,7 +1,7 @@
 import { FileSplitter } from '@guanghechen/file-split'
 import { isDirectorySync } from '@guanghechen/helper-fs'
-import { absoluteOfWorkspace } from '@guanghechen/helper-path'
 import invariant from '@guanghechen/invariant'
+import { physicalPathResolver as pathResolver } from '@guanghechen/path'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { logger } from '../../env/logger'
@@ -22,7 +22,7 @@ export class FileMergeProcessor {
 
     logger.debug('args: filepath:', filepath)
 
-    const { dir, base } = path.parse(absoluteOfWorkspace(workspace, filepath))
+    const { dir, base } = path.parse(pathResolver.safeResolve(workspace, filepath))
     invariant(isDirectorySync(dir), `[${title}] Cannot find ${dir}`)
 
     const filenames: string[] = await fs.readdir(dir)

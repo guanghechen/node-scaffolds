@@ -20,8 +20,8 @@ import {
 import type { ILoggerMock } from '@guanghechen/helper-jest'
 import { createLoggerMock } from '@guanghechen/helper-jest'
 import { calcMac } from '@guanghechen/helper-mac'
-import { FilepathResolver } from '@guanghechen/helper-path'
 import { FileStorage } from '@guanghechen/helper-storage'
+import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
 import {
   assertPromiseNotThrow,
   assertPromiseThrow,
@@ -67,9 +67,9 @@ describe('GitCipher', () => {
   const plainRootDir: string = path.join(workspaceDir, 'plain')
   const cryptRootDir: string = path.join(workspaceDir, 'crypt')
   const bakPlainRootDir: string = path.join(workspaceDir, 'plain_bak')
-  const plainPathResolver = new FilepathResolver(plainRootDir)
-  const cryptPathResolver = new FilepathResolver(cryptRootDir)
-  const bakPlainPathResolver = new FilepathResolver(bakPlainRootDir)
+  const plainPathResolver = new WorkspacePathResolver(plainRootDir)
+  const cryptPathResolver = new WorkspacePathResolver(cryptRootDir)
+  const bakPlainPathResolver = new WorkspacePathResolver(bakPlainRootDir)
 
   const logger = new ChalkLogger({
     name: 'GitCipher',
@@ -113,6 +113,8 @@ describe('GitCipher', () => {
     partCodePrefix,
     pathHashAlgorithm,
     contentHashAlgorithm,
+    plainPathResolver,
+    cryptPathResolver,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
   })
   const context = new GitCipherContext({
@@ -683,11 +685,11 @@ describe('GitCipher', () => {
   })
 
   describe('decryptFilesOnly', () => {
-    const bakFilepathA: string = bakPlainPathResolver.absolute(fpA)
-    const bakFilepathB: string = bakPlainPathResolver.absolute(fpB)
-    const bakFilepathC: string = bakPlainPathResolver.absolute(fpC)
-    const bakFilepathD: string = bakPlainPathResolver.absolute(fpD)
-    const bakFilepathE: string = bakPlainPathResolver.absolute(fpE)
+    const bakFilepathA: string = bakPlainPathResolver.resolve(fpA)
+    const bakFilepathB: string = bakPlainPathResolver.resolve(fpB)
+    const bakFilepathC: string = bakPlainPathResolver.resolve(fpC)
+    const bakFilepathD: string = bakPlainPathResolver.resolve(fpD)
+    const bakFilepathE: string = bakPlainPathResolver.resolve(fpE)
 
     let logMock: ILoggerMock
     beforeAll(async () => {
