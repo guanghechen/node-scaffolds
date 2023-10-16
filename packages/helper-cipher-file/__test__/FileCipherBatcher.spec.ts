@@ -2,7 +2,7 @@ import ChalkLogger from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import { FileSplitter } from '@guanghechen/file-split'
 import { calcMac } from '@guanghechen/helper-mac'
-import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
+import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import { mergeStreams, stream2buffer } from '@guanghechen/stream'
 import {
   assertPromiseNotThrow,
@@ -47,9 +47,9 @@ describe('FileCipherBatcher', () => {
   const plainRootDir: string = path.join(workspaceDir, 'src')
   const cryptRootDir: string = path.join(workspaceDir, 'src_encrypted')
   const bakPlainRootDir: string = path.join(workspaceDir, 'src_backup')
-  const plainPathResolver = new WorkspacePathResolver(plainRootDir)
-  const cryptPathResolver = new WorkspacePathResolver(cryptRootDir)
-  const bakPlainPathResolver = new WorkspacePathResolver(bakPlainRootDir)
+  const plainPathResolver = new WorkspacePathResolver(plainRootDir, pathResolver)
+  const cryptPathResolver = new WorkspacePathResolver(cryptRootDir, pathResolver)
+  const bakPlainPathResolver = new WorkspacePathResolver(bakPlainRootDir, pathResolver)
   const logger = new ChalkLogger({ flights: { colorful: false, date: false } })
 
   const filepathA: string = plainPathResolver.resolve(itemTable.A.plainFilepath)

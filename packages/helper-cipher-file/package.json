@@ -55,6 +55,6 @@
     "@guanghechen/utility-types": "^5.0.8"
   },
   "devDependencies": {
-    "@guanghechen/path": "^1.0.0-alpha.5"
+    "@guanghechen/path": "^1.0.0-alpha.6"
   }
 }

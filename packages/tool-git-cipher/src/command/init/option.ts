@@ -6,7 +6,7 @@ import type {
 import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
-import { physicalPathResolver as pathResolver } from '@guanghechen/path'
+import { pathResolver } from '@guanghechen/path'
 import { randomBytes } from 'node:crypto'
 import { logger } from '../../core/logger'
 import type { IGlobalCommandOptions } from '../option'

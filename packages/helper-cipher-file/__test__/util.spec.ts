@@ -1,5 +1,5 @@
 import { calcMac, calcMacFromFile } from '@guanghechen/helper-mac'
-import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
+import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import { locateFixtures } from 'jest.helper'
 import type {
   IFileCipherCatalogDiffItemDraft,
@@ -21,7 +21,7 @@ import { contentHashAlgorithm, itemTable, pathHashAlgorithm } from './_data'
 
 describe('catalog', () => {
   const plainRootDir = locateFixtures('basic')
-  const plainPathResolver = new WorkspacePathResolver(plainRootDir)
+  const plainPathResolver = new WorkspacePathResolver(plainRootDir, pathResolver)
 
   test('normalizePlainFilepath', () => {
     expect(normalizePlainFilepath('a.txt', plainPathResolver)).toEqual('a.txt')

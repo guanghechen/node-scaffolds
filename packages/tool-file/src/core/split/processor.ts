@@ -6,7 +6,7 @@ import {
 import type { IFilePartItem } from '@guanghechen/file-split'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
-import { physicalPathResolver as pathResolver } from '@guanghechen/path'
+import { pathResolver } from '@guanghechen/path'
 import fs from 'node:fs/promises'
 import { logger } from '../../env/logger'
 import type { IFileSplitContext } from './context'
@@ -45,7 +45,7 @@ export class FileSplitProcessor {
     logger.info(
       `Split done.`,
       partFilepaths
-        .map(partFilepath => `\n  - ${pathResolver.safeRelative(workspace, partFilepath)}`)
+        .map(p => `\n  - ${pathResolver.safeRelative(workspace, p).replace(/\\/g, '/')}`)
         .join(''),
     )
   }

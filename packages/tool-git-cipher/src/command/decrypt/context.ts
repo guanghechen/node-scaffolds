@@ -1,5 +1,5 @@
 import type { IWorkspacePathResolver } from '@guanghechen/path'
-import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
+import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import type { ISubCommandDecryptOptions } from './option'
 
 export interface IGitCipherDecryptContext {
@@ -66,8 +66,14 @@ export async function createDecryptContextFromOptions(
 ): Promise<IGitCipherDecryptContext> {
   const cryptRootDir: string = options.cryptRootDir
   const plainRootDir: string = options.plainRootDir
-  const cryptPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(cryptRootDir)
-  const plainPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(plainRootDir)
+  const cryptPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(
+    cryptRootDir,
+    pathResolver,
+  )
+  const plainPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(
+    plainRootDir,
+    pathResolver,
+  )
 
   const context: IGitCipherDecryptContext = {
     catalogCacheFilepath: options.catalogCacheFilepath,

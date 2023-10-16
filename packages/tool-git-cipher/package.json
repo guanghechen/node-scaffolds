@@ -58,7 +58,7 @@
     "@guanghechen/helper-plop": "^5.0.9",
     "@guanghechen/helper-storage": "^5.0.8",
     "@guanghechen/invariant": "^5.0.8",
-    "@guanghechen/path": "^1.0.0-alpha.5",
+    "@guanghechen/path": "^1.0.0-alpha.6",
     "execa": "^8.0.1",
     "inquirer": "9.2.11",
     "micromatch": "^4.0.5",

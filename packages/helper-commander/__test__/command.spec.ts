@@ -2,7 +2,7 @@ import { ChalkLogger } from '@guanghechen/chalk-logger'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { createLoggerMock } from '@guanghechen/helper-jest'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
-import { physicalPathResolver as pathResolver } from '@guanghechen/path'
+import { pathResolver } from '@guanghechen/path'
 import { desensitize } from 'jest.helper'
 import path from 'node:path'
 import type {

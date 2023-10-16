@@ -2,7 +2,7 @@ import { ChalkLogger } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import { FileSplitter } from '@guanghechen/file-split'
 import { iterable2map } from '@guanghechen/helper-func'
-import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
+import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import {
   assertPromiseNotThrow,
   assertPromiseThrow,
@@ -42,8 +42,8 @@ describe('FileCipherCatalog', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.FileCipherCatalog')
   const plainRootDir: string = path.join(workspaceDir, 'src')
   const cryptRootDir: string = path.join(workspaceDir, 'src_encrypted')
-  const plainPathResolver = new WorkspacePathResolver(plainRootDir)
-  const cryptPathResolver = new WorkspacePathResolver(cryptRootDir)
+  const plainPathResolver = new WorkspacePathResolver(plainRootDir, pathResolver)
+  const cryptPathResolver = new WorkspacePathResolver(cryptRootDir, pathResolver)
   const logger = new ChalkLogger({ name: 'FileCipherCatalog' })
 
   const filepathA: string = plainPathResolver.resolve(itemTable.A.plainFilepath)

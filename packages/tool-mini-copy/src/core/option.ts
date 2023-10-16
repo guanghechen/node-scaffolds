@@ -5,7 +5,7 @@ import type {
 import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
-import { physicalPathResolver as pathResolver } from '@guanghechen/path'
+import { pathResolver } from '@guanghechen/path'
 import { logger } from '../env/logger'
 
 /**

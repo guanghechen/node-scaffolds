@@ -4,7 +4,7 @@ import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/helper-
 import { JsonConfigKeeper, PlainJsonConfigKeeper } from '@guanghechen/helper-config'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
-import { physicalPathResolver as pathResolver } from '@guanghechen/path'
+import { pathResolver } from '@guanghechen/path'
 import type { PromiseOr } from '@guanghechen/utility-types'
 import micromatch from 'micromatch'
 import type { ISecretConfig, ISecretConfigData } from './SecretConfig.types'

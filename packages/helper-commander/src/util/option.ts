@@ -8,7 +8,7 @@ import {
   isObject,
 } from '@guanghechen/helper-is'
 import { cover, coverString } from '@guanghechen/helper-option'
-import { locateNearestFilepath, physicalPathResolver as pathResolver } from '@guanghechen/path'
+import { locateNearestFilepath, pathResolver } from '@guanghechen/path'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import type {

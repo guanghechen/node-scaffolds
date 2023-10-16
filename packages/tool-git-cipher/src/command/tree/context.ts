@@ -1,5 +1,5 @@
 import type { IWorkspacePathResolver } from '@guanghechen/path'
-import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
+import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import type { ISubCommandTreeOptions } from './option'
 
 export interface IGitCipherTreeContext {
@@ -45,7 +45,10 @@ export async function createTreeContextFromOptions(
   options: ISubCommandTreeOptions,
 ): Promise<IGitCipherTreeContext> {
   const cryptRootDir: string = options.cryptRootDir
-  const cryptPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(cryptRootDir)
+  const cryptPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(
+    cryptRootDir,
+    pathResolver,
+  )
 
   const context: IGitCipherTreeContext = {
     cryptCommitId: options.filesAt,

@@ -21,7 +21,7 @@ import type { ILoggerMock } from '@guanghechen/helper-jest'
 import { createLoggerMock } from '@guanghechen/helper-jest'
 import { calcMac } from '@guanghechen/helper-mac'
 import { FileStorage } from '@guanghechen/helper-storage'
-import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
+import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import {
   assertPromiseNotThrow,
   assertPromiseThrow,
@@ -67,9 +67,9 @@ describe('GitCipher', () => {
   const plainRootDir: string = path.join(workspaceDir, 'plain')
   const cryptRootDir: string = path.join(workspaceDir, 'crypt')
   const bakPlainRootDir: string = path.join(workspaceDir, 'plain_bak')
-  const plainPathResolver = new WorkspacePathResolver(plainRootDir)
-  const cryptPathResolver = new WorkspacePathResolver(cryptRootDir)
-  const bakPlainPathResolver = new WorkspacePathResolver(bakPlainRootDir)
+  const plainPathResolver = new WorkspacePathResolver(plainRootDir, pathResolver)
+  const cryptPathResolver = new WorkspacePathResolver(cryptRootDir, pathResolver)
+  const bakPlainPathResolver = new WorkspacePathResolver(bakPlainRootDir, pathResolver)
 
   const logger = new ChalkLogger({
     name: 'GitCipher',

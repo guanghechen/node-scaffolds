@@ -4,7 +4,7 @@ import type {
 } from '@guanghechen/helper-commander'
 import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
-import { physicalPathResolver as pathResolver } from '@guanghechen/path'
+import { pathResolver } from '@guanghechen/path'
 import { logger } from '../../core/logger'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'

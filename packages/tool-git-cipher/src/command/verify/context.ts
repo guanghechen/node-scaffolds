@@ -1,5 +1,5 @@
 import type { IWorkspacePathResolver } from '@guanghechen/path'
-import { PhysicalWorkspacePathResolver as WorkspacePathResolver } from '@guanghechen/path'
+import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import type { ISubCommandVerifyOptions } from './option'
 
 export interface IGitCipherVerifyContext {
@@ -58,8 +58,14 @@ export async function createVerifyContextFromOptions(
 ): Promise<IGitCipherVerifyContext> {
   const cryptRootDir: string = options.cryptRootDir
   const plainRootDir: string = options.plainRootDir
-  const cryptPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(cryptRootDir)
-  const plainPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(plainRootDir)
+  const cryptPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(
+    cryptRootDir,
+    pathResolver,
+  )
+  const plainPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(
+    plainRootDir,
+    pathResolver,
+  )
 
   const context: IGitCipherVerifyContext = {
     catalogCacheFilepath: options.catalogCacheFilepath,

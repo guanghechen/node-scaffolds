@@ -1,7 +1,7 @@
 import { FileSplitter } from '@guanghechen/file-split'
 import { isDirectorySync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
-import { physicalPathResolver as pathResolver } from '@guanghechen/path'
+import { pathResolver } from '@guanghechen/path'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { logger } from '../../env/logger'

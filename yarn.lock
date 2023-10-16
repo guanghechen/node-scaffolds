@@ -659,7 +659,7 @@ __metadata:
     "@guanghechen/helper-func": ^5.0.8
     "@guanghechen/helper-mac": ^5.0.8
     "@guanghechen/invariant": ^5.0.8
-    "@guanghechen/path": ^1.0.0-alpha.5
+    "@guanghechen/path": ^1.0.0-alpha.6
     "@guanghechen/path.types": ^1.0.0-alpha.4
     "@guanghechen/stream": ^1.0.0-alpha.4
     "@guanghechen/utility-types": ^5.0.8
@@ -677,7 +677,7 @@ __metadata:
     "@guanghechen/helper-option": ^5.0.8
     "@guanghechen/helper-string": ^5.0.8
     "@guanghechen/invariant": ^5.0.8
-    "@guanghechen/path": ^1.0.0-alpha.5
+    "@guanghechen/path": ^1.0.0-alpha.6
     "@types/js-yaml": ^4.0.7
     command-exists: ^1.2.9
     commander: ^11.1.0
@@ -729,7 +729,7 @@ __metadata:
     "@guanghechen/helper-jest": ^5.0.8
     "@guanghechen/helper-storage": ^5.0.8
     "@guanghechen/invariant": ^5.0.8
-    "@guanghechen/path": ^1.0.0-alpha.5
+    "@guanghechen/path": ^1.0.0-alpha.6
     "@guanghechen/path.types": ^1.0.0-alpha.4
     "@guanghechen/utility-types": ^5.0.8
   languageName: unknown
@@ -884,12 +884,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/path@npm:^1.0.0-alpha.5":
-  version: 1.0.0-alpha.5
-  resolution: "@guanghechen/path@npm:1.0.0-alpha.5"
+"@guanghechen/path@npm:^1.0.0-alpha.6":
+  version: 1.0.0-alpha.6
+  resolution: "@guanghechen/path@npm:1.0.0-alpha.6"
   dependencies:
     "@guanghechen/path.types": ^1.0.0-alpha.4
-  checksum: 04dcb75b554e10259a7ce184363f5f3d839abd4e1a669a0359616fdbe2f8401c59856339beb305082befaaa3f1ff4667b3653b7898816d5b759f269fa98f702e
+  checksum: 48200802ad0461bfe1edf8aeffe1049df24d6131ac9440e2011b37f3542d4e2fda9947035d7d52f69896fcaaf513ed866d65acbb0a55318d5e0d60e834962ece
   languageName: node
   linkType: hard
 
@@ -988,7 +988,7 @@ __metadata:
     "@guanghechen/helper-is": ^5.0.8
     "@guanghechen/helper-option": ^5.0.8
     "@guanghechen/invariant": ^5.0.8
-    "@guanghechen/path": ^1.0.0-alpha.5
+    "@guanghechen/path": ^1.0.0-alpha.6
     "@guanghechen/rollup-config-cli": ^5.0.9
   bin:
     ghc-file: ./lib/esm/cli.mjs
@@ -1017,7 +1017,7 @@ __metadata:
     "@guanghechen/helper-plop": ^5.0.9
     "@guanghechen/helper-storage": ^5.0.8
     "@guanghechen/invariant": ^5.0.8
-    "@guanghechen/path": ^1.0.0-alpha.5
+    "@guanghechen/path": ^1.0.0-alpha.6
     "@guanghechen/rollup-config-cli": ^5.0.9
     "@types/micromatch": ^4.0.3
     execa: ^8.0.1
@@ -1040,7 +1040,7 @@ __metadata:
     "@guanghechen/helper-option": ^5.0.8
     "@guanghechen/invariant": ^5.0.8
     "@guanghechen/mini-copy": ^5.0.8
-    "@guanghechen/path": ^1.0.0-alpha.5
+    "@guanghechen/path": ^1.0.0-alpha.6
     "@guanghechen/rollup-config-cli": ^5.0.9
     inquirer: 9.2.11
   bin:
