@@ -102,11 +102,15 @@ export class SecretConfigKeeper
     const secretAuthTag: string | undefined = encodeAuthTag(instance.secretAuthTag) // pre-encrypted
 
     return {
-      catalogFilepath: pathResolver.safeRelative(this.#cryptRootDir, instance.catalogFilepath),
+      catalogFilepath: pathResolver.safeRelative(
+        this.#cryptRootDir,
+        instance.catalogFilepath,
+        true,
+      ),
       contentHashAlgorithm: instance.contentHashAlgorithm,
       cryptFilepathSalt,
       cryptFilepathSaltAuthTag,
-      cryptFilesDir: pathResolver.safeRelative(this.#cryptRootDir, instance.cryptFilesDir),
+      cryptFilesDir: pathResolver.safeRelative(this.#cryptRootDir, instance.cryptFilesDir, true),
       keepPlainPatterns: instance.keepPlainPatterns,
       mainIvSize: instance.mainIvSize,
       mainKeySize: instance.mainKeySize,
@@ -148,7 +152,7 @@ export class SecretConfigKeeper
       catalogFilepath: pathResolver.safeResolve(this.#cryptRootDir, data.catalogFilepath),
       contentHashAlgorithm: data.contentHashAlgorithm,
       cryptFilepathSalt: cryptFilepathSalt.toString('utf8'),
-      cryptFilesDir: pathResolver.safeRelative(this.#cryptRootDir, data.cryptFilesDir),
+      cryptFilesDir: pathResolver.safeRelative(this.#cryptRootDir, data.cryptFilesDir, true),
       keepPlainPatterns: data.keepPlainPatterns,
       mainIvSize: data.mainIvSize,
       mainKeySize: data.mainKeySize,

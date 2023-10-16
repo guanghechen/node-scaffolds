@@ -659,8 +659,8 @@ __metadata:
     "@guanghechen/helper-func": ^5.0.8
     "@guanghechen/helper-mac": ^5.0.8
     "@guanghechen/invariant": ^5.0.8
-    "@guanghechen/path": ^1.0.0-alpha.6
-    "@guanghechen/path.types": ^1.0.0-alpha.4
+    "@guanghechen/path": ^1.0.0-alpha.7
+    "@guanghechen/path.types": ^1.0.0-alpha.5
     "@guanghechen/stream": ^1.0.0-alpha.4
     "@guanghechen/utility-types": ^5.0.8
   languageName: unknown
@@ -677,7 +677,7 @@ __metadata:
     "@guanghechen/helper-option": ^5.0.8
     "@guanghechen/helper-string": ^5.0.8
     "@guanghechen/invariant": ^5.0.8
-    "@guanghechen/path": ^1.0.0-alpha.6
+    "@guanghechen/path": ^1.0.0-alpha.7
     "@types/js-yaml": ^4.0.7
     command-exists: ^1.2.9
     commander: ^11.1.0
@@ -729,8 +729,8 @@ __metadata:
     "@guanghechen/helper-jest": ^5.0.8
     "@guanghechen/helper-storage": ^5.0.8
     "@guanghechen/invariant": ^5.0.8
-    "@guanghechen/path": ^1.0.0-alpha.6
-    "@guanghechen/path.types": ^1.0.0-alpha.4
+    "@guanghechen/path": ^1.0.0-alpha.7
+    "@guanghechen/path.types": ^1.0.0-alpha.5
     "@guanghechen/utility-types": ^5.0.8
   languageName: unknown
   linkType: soft
@@ -877,19 +877,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/path.types@npm:^1.0.0-alpha.4":
-  version: 1.0.0-alpha.4
-  resolution: "@guanghechen/path.types@npm:1.0.0-alpha.4"
-  checksum: 6e9c90b93b170f37a5da5a038c1956cfd877f3fb35d86e250d89b8dd98920a6b492ac640087959be3062d9a7fe3729ff815da880ef4d97dbc3b74b42b6ac3b45
+"@guanghechen/path.types@npm:^1.0.0-alpha.5":
+  version: 1.0.0-alpha.5
+  resolution: "@guanghechen/path.types@npm:1.0.0-alpha.5"
+  checksum: 667d5556dba7fdea65ffbd0f5f02d41b30d06330a5d0ff36ee0bdb0a00c1517e459fc84d6b507a8f7a63c0fb9a3f4869e9cf9a5e60078cb03f276b7e71bdeddf
   languageName: node
   linkType: hard
 
-"@guanghechen/path@npm:^1.0.0-alpha.6":
-  version: 1.0.0-alpha.6
-  resolution: "@guanghechen/path@npm:1.0.0-alpha.6"
+"@guanghechen/path@npm:^1.0.0-alpha.7":
+  version: 1.0.0-alpha.7
+  resolution: "@guanghechen/path@npm:1.0.0-alpha.7"
   dependencies:
-    "@guanghechen/path.types": ^1.0.0-alpha.4
-  checksum: 48200802ad0461bfe1edf8aeffe1049df24d6131ac9440e2011b37f3542d4e2fda9947035d7d52f69896fcaaf513ed866d65acbb0a55318d5e0d60e834962ece
+    "@guanghechen/path.types": ^1.0.0-alpha.5
+  checksum: 389a16c54237beceb154ef4e5dc66cc7491b54f05a7280a3e5ed4bbdc4f7f56cfad47e7aa87b052c6ac2afcbe521449cf254ba8bdbaaef123e0892cef3dfd9d8
   languageName: node
   linkType: hard
 
@@ -988,7 +988,7 @@ __metadata:
     "@guanghechen/helper-is": ^5.0.8
     "@guanghechen/helper-option": ^5.0.8
     "@guanghechen/invariant": ^5.0.8
-    "@guanghechen/path": ^1.0.0-alpha.6
+    "@guanghechen/path": ^1.0.0-alpha.7
     "@guanghechen/rollup-config-cli": ^5.0.9
   bin:
     ghc-file: ./lib/esm/cli.mjs
@@ -1017,7 +1017,7 @@ __metadata:
     "@guanghechen/helper-plop": ^5.0.9
     "@guanghechen/helper-storage": ^5.0.8
     "@guanghechen/invariant": ^5.0.8
-    "@guanghechen/path": ^1.0.0-alpha.6
+    "@guanghechen/path": ^1.0.0-alpha.7
     "@guanghechen/rollup-config-cli": ^5.0.9
     "@types/micromatch": ^4.0.3
     execa: ^8.0.1
@@ -1040,7 +1040,7 @@ __metadata:
     "@guanghechen/helper-option": ^5.0.8
     "@guanghechen/invariant": ^5.0.8
     "@guanghechen/mini-copy": ^5.0.8
-    "@guanghechen/path": ^1.0.0-alpha.6
+    "@guanghechen/path": ^1.0.0-alpha.7
     "@guanghechen/rollup-config-cli": ^5.0.9
     inquirer: 9.2.11
   bin:

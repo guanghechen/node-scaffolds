@@ -63,7 +63,7 @@ export class GitCipherInitProcessor {
     if (isWorkspaceEmpty) {
       // Render boilerplates if the workspace is non-exist or empty.
       const relativeConfigPaths: string[] = context.configFilepaths.map(fp =>
-        pathResolver.safeRelative(context.workspace, fp),
+        pathResolver.safeRelative(context.workspace, fp, true),
       )
       await this._renderBoilerplates({
         configFilepath: relativeConfigPaths.find(fp => fp.endsWith('.json')) ?? '.ghc-config.json',
@@ -238,14 +238,18 @@ export class GitCipherInitProcessor {
     })
 
     const error = await runPlop(plop, undefined, {
-      bakPlainRootDir: pathResolver.safeRelative(context.workspace, plainPathResolver.root),
-      catalogFilepath: pathResolver.safeRelative(cryptPathResolver.root, context.catalogFilepath),
+      bakPlainRootDir: pathResolver.safeRelative(context.workspace, plainPathResolver.root, true),
+      catalogFilepath: pathResolver.safeRelative(
+        cryptPathResolver.root,
+        context.catalogFilepath,
+        true,
+      ),
       commandVersion: COMMAND_VERSION,
       configFilepath: data.configFilepath,
       configNonce: randomBytes(20).toString('hex'),
       cryptFilepathSalt: context.cryptFilepathSalt,
-      cryptFilesDir: pathResolver.safeRelative(cryptPathResolver.root, context.cryptFilesDir),
-      cryptRootDir: pathResolver.safeRelative(context.workspace, cryptPathResolver.root),
+      cryptFilesDir: pathResolver.safeRelative(cryptPathResolver.root, context.cryptFilesDir, true),
+      cryptRootDir: pathResolver.safeRelative(context.workspace, cryptPathResolver.root, true),
       encoding: context.encoding,
       logLevel: logger.level,
       mainIvSize: context.mainIvSize,
@@ -254,12 +258,12 @@ export class GitCipherInitProcessor {
       minPasswordLength: context.minPasswordLength,
       partCodePrefix: context.partCodePrefix,
       pbkdf2Options: context.pbkdf2Options,
-      plainRootDir: pathResolver.safeRelative(context.workspace, plainPathResolver.root),
+      plainRootDir: pathResolver.safeRelative(context.workspace, plainPathResolver.root, true),
       secret: '',
       secretAuthTag: undefined,
       secretNonce: '',
       secretCatalogNonce: '',
-      secretFilepath: pathResolver.safeRelative(context.workspace, context.secretFilepath),
+      secretFilepath: pathResolver.safeRelative(context.workspace, context.secretFilepath, true),
       secretIvSize: context.secretIvSize,
       secretKeySize: context.secretKeySize,
       showAsterisk: context.showAsterisk,

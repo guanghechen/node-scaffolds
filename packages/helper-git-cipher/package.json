@@ -48,12 +48,12 @@
     "@guanghechen/helper-git": "^5.0.8",
     "@guanghechen/helper-storage": "^5.0.8",
     "@guanghechen/invariant": "^5.0.8",
-    "@guanghechen/path.types": "^1.0.0-alpha.4",
+    "@guanghechen/path.types": "^1.0.0-alpha.5",
     "@guanghechen/utility-types": "^5.0.8"
   },
   "devDependencies": {
     "@guanghechen/chalk-logger": "^5.0.8",
     "@guanghechen/helper-jest": "^5.0.8",
-    "@guanghechen/path": "^1.0.0-alpha.6"
+    "@guanghechen/path": "^1.0.0-alpha.7"
   }
 }

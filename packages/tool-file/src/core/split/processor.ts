@@ -44,9 +44,7 @@ export class FileSplitProcessor {
     const partFilepaths: string[] = await fileSplitter.split(absoluteFilepath, fileParts, output)
     logger.info(
       `Split done.`,
-      partFilepaths
-        .map(p => `\n  - ${pathResolver.safeRelative(workspace, p).replace(/\\/g, '/')}`)
-        .join(''),
+      partFilepaths.map(p => `\n  - ${pathResolver.safeRelative(workspace, p)}`).join(''),
     )
   }
 }
