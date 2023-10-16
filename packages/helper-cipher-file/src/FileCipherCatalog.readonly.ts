@@ -12,8 +12,8 @@ import type {
 
 export interface IReadonlyFileCipherCatalogProps {
   readonly context: IFileCipherCatalogContext
-  readonly plainPathResolver: IWorkspacePathResolver
   readonly cryptPathResolver: IWorkspacePathResolver
+  readonly plainPathResolver: IWorkspacePathResolver
 }
 
 export abstract class ReadonlyFileCipherCatalog implements IReadonlyFileCipherCatalog {

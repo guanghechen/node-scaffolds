@@ -30,10 +30,10 @@ export async function loadGitCipherContext(
     '[loadGitCipherContext] Secret master is not available!',
   )
 
-  const catalogContext: FileCipherCatalogContext | undefined = secretKeeper.createCatalogContext(
+  const catalogContext: FileCipherCatalogContext | undefined = secretKeeper.createCatalogContext({
     cryptPathResolver,
     plainPathResolver,
-  )
+  })
   const catalogFilepath: string | undefined = secretKeeper.data?.catalogFilepath
   invariant(
     !!catalogContext && !!catalogFilepath,

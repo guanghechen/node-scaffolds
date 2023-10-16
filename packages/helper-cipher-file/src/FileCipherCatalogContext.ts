@@ -8,11 +8,11 @@ export interface IFileCipherCatalogContextProps {
   readonly contentHashAlgorithm: IHashAlgorithm
   readonly cryptFilepathSalt: string
   readonly cryptFilesDir: string
+  readonly cryptPathResolver: IWorkspacePathResolver
   readonly maxTargetFileSize: number
   readonly partCodePrefix: string
   readonly pathHashAlgorithm: IHashAlgorithm
   readonly plainPathResolver: IWorkspacePathResolver
-  readonly cryptPathResolver: IWorkspacePathResolver
   isKeepPlain(relativePlainFilepath: string): boolean
 }
 
@@ -20,11 +20,11 @@ export class FileCipherCatalogContext implements IFileCipherCatalogContext {
   public readonly contentHashAlgorithm: IHashAlgorithm
   public readonly cryptFilepathSalt: string
   public readonly cryptFilesDir: string
+  public readonly cryptPathResolver: IWorkspacePathResolver
   public readonly maxTargetFileSize: number
   public readonly partCodePrefix: string
   public readonly pathHashAlgorithm: IHashAlgorithm
   public readonly plainPathResolver: IWorkspacePathResolver
-  public readonly cryptPathResolver: IWorkspacePathResolver
   public readonly isKeepPlain: (relativePlainFilepath: string) => boolean
 
   constructor(props: IFileCipherCatalogContextProps) {
@@ -36,11 +36,11 @@ export class FileCipherCatalogContext implements IFileCipherCatalogContext {
     this.contentHashAlgorithm = props.contentHashAlgorithm
     this.cryptFilesDir = props.cryptFilesDir
     this.cryptFilepathSalt = props.cryptFilepathSalt
+    this.cryptPathResolver = props.cryptPathResolver
     this.maxTargetFileSize = props.maxTargetFileSize
     this.partCodePrefix = props.partCodePrefix
     this.pathHashAlgorithm = props.pathHashAlgorithm
     this.plainPathResolver = props.plainPathResolver
-    this.cryptPathResolver = props.cryptPathResolver
     this.isKeepPlain = props.isKeepPlain
   }
 }

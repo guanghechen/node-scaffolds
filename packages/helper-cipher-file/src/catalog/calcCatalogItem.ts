@@ -20,7 +20,7 @@ export async function calcCatalogItem(
   const title = 'calcCatalogItem'
 
   const { context, plainFilepath, plainPathResolver } = params
-  const absolutePlainFilepath = params.plainPathResolver.resolve(plainFilepath)
+  const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
   invariant(isFileSync(absolutePlainFilepath), `[${title}] Not a file ${absolutePlainFilepath}.`)
 
   const fileSize = await fs.stat(absolutePlainFilepath).then(md => md.size)

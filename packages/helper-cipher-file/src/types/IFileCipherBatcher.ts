@@ -18,16 +18,16 @@ export interface IFileCipherBatcher {
 }
 
 export interface IBatchEncryptParams {
-  strictCheck: boolean
-  plainPathResolver: IWorkspacePathResolver
   cryptPathResolver: IWorkspacePathResolver
   diffItems: Iterable<Readonly<IFileCipherCatalogDiffItemDraft>>
+  plainPathResolver: IWorkspacePathResolver
+  strictCheck: boolean
   getIv(item: IFileCipherCatalogItemDraft): Promise<Buffer | undefined> | Buffer | undefined
 }
 
 export interface IBatchDecryptParams {
-  strictCheck: boolean
-  plainPathResolver: IWorkspacePathResolver
   cryptPathResolver: IWorkspacePathResolver
   diffItems: Iterable<Readonly<IFileCipherCatalogDiffItem>>
+  plainPathResolver: IWorkspacePathResolver
+  strictCheck: boolean
 }

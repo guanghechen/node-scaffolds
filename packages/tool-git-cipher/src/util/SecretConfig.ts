@@ -52,11 +52,12 @@ export class SecretConfigKeeper
     this.#cipher = props.cipher
   }
 
-  public createCatalogContext(
-    cryptPathResolver: IWorkspacePathResolver,
-    plainPathResolver: IWorkspacePathResolver,
-  ): FileCipherCatalogContext | undefined {
+  public createCatalogContext(params: {
+    cryptPathResolver: IWorkspacePathResolver
+    plainPathResolver: IWorkspacePathResolver
+  }): FileCipherCatalogContext | undefined {
     if (this.data) {
+      const { cryptPathResolver, plainPathResolver } = params
       const {
         contentHashAlgorithm,
         cryptFilepathSalt,
