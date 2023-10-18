@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.10](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-git-cipher@5.0.9...@guanghechen/tool-git-cipher@5.0.10) (2023-10-18)
+
+
+### Performance Improvements
+
+* prefer slash style for relative paths ([135c3b1](https://github.com/guanghechen/node-scaffolds/commit/135c3b14001e541df7a472d8afbe7e6aa0a48244))
+* update due to the upgrade of @guanghechen/path ([e418513](https://github.com/guanghechen/node-scaffolds/commit/e4185136cfb430ecdff92a205ed3e7b03ad57ff0))
+* make code tidy ([6fe37e1](https://github.com/guanghechen/node-scaffolds/commit/6fe37e11a39990a8f61b8ab52924635159545249))
+* :art:  refactor codes with @guanghechen/path and @guanghechen/filepath ([38b75ff](https://github.com/guanghechen/node-scaffolds/commit/38b75ff89abdbdfc0f0c0a34b18ce353c49a3f50))
+
+
+
+
+
 ## [5.0.9](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-git-cipher@5.0.8...@guanghechen/tool-git-cipher@5.0.9) (2023-10-04)
 
 

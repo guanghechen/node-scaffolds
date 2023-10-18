@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-config",
-  "version": "5.3.1",
+  "version": "5.3.2",
   "description": "Rollup configs for bundle typescript project",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config@5.3.1",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config@5.3.2",
     "directory": "packages/rollup-config"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config@5.3.1/packages/rollup-config#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config@5.3.2/packages/rollup-config#readme",
   "keywords": [
     "rollup",
     "typescript"
@@ -41,7 +41,7 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-npm": "^5.0.9",
+    "@guanghechen/helper-npm": "^5.0.10",
     "@rollup/plugin-commonjs": "25.0.7",
     "@rollup/plugin-json": "6.0.1",
     "@rollup/plugin-node-resolve": "15.2.3",

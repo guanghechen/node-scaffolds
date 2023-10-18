@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.2](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/rollup-config@5.3.1...@guanghechen/rollup-config@5.3.2) (2023-10-18)
+
+
+### Performance Improvements
+
+* :art:  refactor codes with @guanghechen/path and @guanghechen/filepath ([38b75ff](https://github.com/guanghechen/node-scaffolds/commit/38b75ff89abdbdfc0f0c0a34b18ce353c49a3f50))
+
+
+
+
+
 ## [5.3.1](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/rollup-config@5.3.0...@guanghechen/rollup-config@5.3.1) (2023-10-04)
 
 

@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-is@5.0.8/packages/helper-is#readme">@guanghechen/helper-is</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-is@5.0.9/packages/helper-is#readme">@guanghechen/helper-is</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-is">
@@ -87,4 +87,4 @@ Name                  | Description
 `isNumberLike`        | Check if the given data is an `number` / `Number` or number like `string` type
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-is@5.0.8/packages/helper-is#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-is@5.0.9/packages/helper-is#readme

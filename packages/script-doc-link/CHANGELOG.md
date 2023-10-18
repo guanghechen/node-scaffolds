@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.11](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@5.0.10...@guanghechen/script-doc-link@5.0.11) (2023-10-18)
+
+
+### Performance Improvements
+
+* :art:  refactor codes with @guanghechen/path and @guanghechen/filepath ([38b75ff](https://github.com/guanghechen/node-scaffolds/commit/38b75ff89abdbdfc0f0c0a34b18ce353c49a3f50))
+
+
+
+
+
 ## [5.0.10](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@5.0.9...@guanghechen/script-doc-link@5.0.10) (2023-10-04)
 
 

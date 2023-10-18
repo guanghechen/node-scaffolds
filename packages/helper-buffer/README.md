@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-buffer@5.0.8/packages/helper-buffer#readme">@guanghechen/helper-buffer</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-buffer@5.0.9/packages/helper-buffer#readme">@guanghechen/helper-buffer</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-buffer">
@@ -75,4 +75,4 @@ Name                  | Description
 `destroyBuffers`      | Fill buffers with random numbers.
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-buffer@5.0.8/packages/helper-buffer#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-buffer@5.0.9/packages/helper-buffer#readme

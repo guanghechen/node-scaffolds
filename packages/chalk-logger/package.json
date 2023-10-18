@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/chalk-logger",
-  "version": "5.0.8",
+  "version": "5.0.9",
   "description": "A simple colorful logger",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/chalk-logger@5.0.8",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/chalk-logger@5.0.9",
     "directory": "packages/chalk-logger"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/chalk-logger@5.0.8/packages/chalk-logger#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/chalk-logger@5.0.9/packages/chalk-logger#readme",
   "keywords": [
     "logger",
     "colorful logger"
@@ -42,9 +42,9 @@
     "ts:run": "cross-env NODE_ENV=production node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm -r tsconfig-paths/register"
   },
   "dependencies": {
-    "@guanghechen/helper-is": "^5.0.8",
-    "@guanghechen/invariant": "^5.0.8",
-    "@guanghechen/utility-types": "^5.0.8",
+    "@guanghechen/helper-is": "^5.0.9",
+    "@guanghechen/invariant": "^5.0.9",
+    "@guanghechen/utility-types": "^5.0.9",
     "chalk": "^5.3.0",
     "dayjs": "^1.11.10",
     "json5": "^2.2.3"

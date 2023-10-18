@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-git-cipher",
-  "version": "5.0.9",
+  "version": "5.0.10",
   "description": "Utility functions for encrypt / decrypt git repo.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git-cipher@5.0.9",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git-cipher@5.0.10",
     "directory": "packages/helper-git-cipher"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@5.0.8/packages/helper-git-cipher#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@5.0.9/packages/helper-git-cipher#readme",
   "keywords": [
     "cipher"
   ],
@@ -41,19 +41,19 @@
   },
   "dependencies": {
     "@guanghechen/cipher": "^1.0.0-alpha.4",
-    "@guanghechen/helper-cipher-file": "^5.0.9",
-    "@guanghechen/helper-config": "^5.0.8",
-    "@guanghechen/helper-fs": "^5.0.8",
-    "@guanghechen/helper-func": "^5.0.8",
-    "@guanghechen/helper-git": "^5.0.8",
-    "@guanghechen/helper-storage": "^5.0.8",
-    "@guanghechen/invariant": "^5.0.8",
+    "@guanghechen/helper-cipher-file": "^5.0.10",
+    "@guanghechen/helper-config": "^5.0.9",
+    "@guanghechen/helper-fs": "^5.0.9",
+    "@guanghechen/helper-func": "^5.0.9",
+    "@guanghechen/helper-git": "^5.0.9",
+    "@guanghechen/helper-storage": "^5.0.9",
+    "@guanghechen/invariant": "^5.0.9",
     "@guanghechen/path.types": "^1.0.0-alpha.5",
-    "@guanghechen/utility-types": "^5.0.8"
+    "@guanghechen/utility-types": "^5.0.9"
   },
   "devDependencies": {
-    "@guanghechen/chalk-logger": "^5.0.8",
-    "@guanghechen/helper-jest": "^5.0.8",
+    "@guanghechen/chalk-logger": "^5.0.9",
+    "@guanghechen/helper-jest": "^5.0.9",
     "@guanghechen/path": "^1.0.0-alpha.7"
   }
 }
