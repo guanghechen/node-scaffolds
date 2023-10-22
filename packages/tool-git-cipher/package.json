@@ -40,12 +40,12 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
+    "@guanghechen/byte": "^1.0.0-alpha.1",
     "@guanghechen/chalk-logger": "^5.0.9",
     "@guanghechen/cipher": "^1.0.0-alpha.5",
     "@guanghechen/event-bus": "^5.0.9",
     "@guanghechen/file-split": "^1.0.0-alpha.5",
     "@guanghechen/filetree": "^1.0.0-alpha.4",
-    "@guanghechen/helper-buffer": "^5.0.9",
     "@guanghechen/helper-cipher-file": "^5.0.10",
     "@guanghechen/helper-commander": "^5.0.10",
     "@guanghechen/helper-config": "^5.0.9",

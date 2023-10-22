@@ -24,7 +24,6 @@ describe('context', () => {
         "packages/eslint-config-jsx",
         "packages/eslint-config-ts",
         "packages/event-bus",
-        "packages/helper-buffer",
         "packages/helper-cipher-file",
         "packages/helper-commander",
         "packages/helper-config",

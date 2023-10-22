@@ -1,6 +1,6 @@
+import { destroyBytes } from '@guanghechen/byte'
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
-import { destroyBuffer } from '@guanghechen/helper-buffer'
 import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
 import { createHash } from 'node:crypto'
@@ -181,12 +181,12 @@ export class SecretMaster {
         } finally {
           mainCipherFactory?.destroy()
           passwordCipher?.destroy()
-          destroyBuffer(secret)
+          destroyBytes(secret)
           secret = null
         }
       }
     } finally {
-      destroyBuffer(password)
+      destroyBytes(password)
       password = null
     }
     return configKeeper
@@ -254,8 +254,8 @@ export class SecretMaster {
     } finally {
       mainCipherFactory?.destroy()
       passwordCipher?.destroy()
-      destroyBuffer(secret)
-      destroyBuffer(password)
+      destroyBytes(secret)
+      destroyBytes(password)
       secret = null
       password = null
     }
@@ -284,7 +284,7 @@ export class SecretMaster {
         maximumSize: maxPasswordLength,
       })
       if (await this._verifyPassword(cryptSecretConfig, password)) break
-      destroyBuffer(password)
+      destroyBytes(password)
       password = null
     }
     return password
@@ -319,7 +319,7 @@ export class SecretMaster {
     } finally {
       mainCipherFactory?.destroy()
       passwordCipher?.destroy()
-      destroyBuffer(secret)
+      destroyBytes(secret)
       secret = null
     }
     return verified

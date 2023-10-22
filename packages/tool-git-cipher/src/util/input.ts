@@ -1,4 +1,4 @@
-import { destroyBuffer } from '@guanghechen/helper-buffer'
+import { destroyBytes } from '@guanghechen/byte'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { EventTypes, eventBus } from '../core/event'
 
@@ -31,7 +31,7 @@ export function inputSingleLine({
       stdin.removeListener('data', onData)
       stdin.removeListener('end', onResolved)
       stdin.removeListener('error', onRejected)
-      destroyBuffer(chunkAcc)
+      destroyBytes(chunkAcc)
       reject(error)
     }
 
@@ -73,17 +73,17 @@ export function inputSingleLine({
       }
 
       if (pieceTot <= 0) {
-        destroyBuffer(chunkAcc)
+        destroyBytes(chunkAcc)
         chunkAcc = null
       }
 
       // collect characters
       if (chunkAcc == null || chunkAcc.length !== pieceTot) {
-        destroyBuffer(chunkAcc)
+        destroyBytes(chunkAcc)
         chunkAcc = Buffer.alloc(pieceTot)
       }
       piece.copy(chunkAcc, 0, 0, pieceTot)
-      destroyBuffer(piece)
+      destroyBytes(piece)
     }
 
     stdin.resume()
@@ -125,7 +125,7 @@ export async function inputAnswer({
     }
 
     // destroy previous answer before read new answer
-    destroyBuffer(answer)
+    destroyBytes(answer)
 
     answer = await inputSingleLine({
       question: questionWithHint,

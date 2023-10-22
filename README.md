@@ -51,7 +51,6 @@ Package                               | Description
 [@guanghechen/eslint-config-jsx][]    | Eslint config for `Jsx` project
 [@guanghechen/eslint-config-ts][]     | Eslint config for `Typescript` project
 [@guanghechen/event-bus]              | A simple event bus.
-[@guanghechen/helper-buffer][]        | Utility functions for handling buffer.
 [@guanghechen/helper-cipher][]        | Utility functions for cipher contents.
 [@guanghechen/helper-cipher-file][]   | Utility functions for cipher files.
 [@guanghechen/helper-commander][]     | Utility functions for creating command line programs.
@@ -93,7 +92,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/eslint-config-jsx]: ./packages/eslint-config-jsx
 [@guanghechen/eslint-config-ts]: ./packages/eslint-config-ts
 [@guanghechen/event-bus]: ./packages/event-bus
-[@guanghechen/helper-buffer]: ./packages/helper-buffer
 [@guanghechen/helper-cipher]: ./packages/helper-cipher
 [@guanghechen/helper-cipher-file]: ./packages/helper-cipher-file
 [@guanghechen/helper-commander]: ./packages/helper-commander

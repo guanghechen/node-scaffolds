@@ -1,4 +1,4 @@
-import { destroyBuffer } from '@guanghechen/helper-buffer'
+import { destroyBytes } from '@guanghechen/byte'
 import { calcMac } from '@guanghechen/helper-mac'
 import type { ICustomError } from '../core/error'
 import { ErrorCode } from '../core/error'
@@ -79,7 +79,7 @@ export async function inputPassword({
 
   // Perform a hash operation on the password
   const hashedPassword: Buffer = calcMac([password], 'sha256')
-  destroyBuffer(password)
+  destroyBytes(password)
   return hashedPassword
 }
 
@@ -129,6 +129,6 @@ export async function confirmPassword({
   }
 
   const result = isSame()
-  destroyBuffer(repeatedPassword)
+  destroyBytes(repeatedPassword)
   return result
 }

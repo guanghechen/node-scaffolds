@@ -1,5 +1,5 @@
+import { destroyBytesList } from '@guanghechen/byte'
 import type { ICipher, IDecipherOptions, IEncryptResult } from '@guanghechen/cipher'
-import { destroyBuffers } from '@guanghechen/helper-buffer'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import { consumeStream, consumeStreams } from '@guanghechen/stream'
@@ -36,7 +36,7 @@ export class FileCipher implements IFileCipher {
       cryptBytes = Buffer.concat(pieces)
       authTag = encipher.getAuthTag?.()
     } finally {
-      destroyBuffers(pieces)
+      destroyBytesList(pieces)
       encipher.destroy()
     }
     return { cryptBytes, authTag }
@@ -58,7 +58,7 @@ export class FileCipher implements IFileCipher {
       for await (const chunk of decipher) plainBytesList.push(chunk)
       plainBytes = Buffer.concat(plainBytesList)
     } finally {
-      destroyBuffers(plainBytesList)
+      destroyBytesList(plainBytesList)
       decipher.destroy()
     }
     return plainBytes

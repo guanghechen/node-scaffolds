@@ -623,19 +623,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/helper-buffer@^5.0.9, @guanghechen/helper-buffer@workspace:packages/helper-buffer":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/helper-buffer@workspace:packages/helper-buffer"
-  languageName: unknown
-  linkType: soft
-
 "@guanghechen/helper-cipher-file@^5.0.10, @guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file"
   dependencies:
+    "@guanghechen/byte": ^1.0.0-alpha.1
     "@guanghechen/cipher": ^1.0.0-alpha.5
     "@guanghechen/file-split": ^1.0.0-alpha.5
-    "@guanghechen/helper-buffer": ^5.0.9
     "@guanghechen/helper-fs": ^5.0.9
     "@guanghechen/helper-func": ^5.0.9
     "@guanghechen/helper-mac": ^5.0.9
@@ -982,12 +976,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/tool-git-cipher@workspace:packages/tool-git-cipher"
   dependencies:
+    "@guanghechen/byte": ^1.0.0-alpha.1
     "@guanghechen/chalk-logger": ^5.0.9
     "@guanghechen/cipher": ^1.0.0-alpha.5
     "@guanghechen/event-bus": ^5.0.9
     "@guanghechen/file-split": ^1.0.0-alpha.5
     "@guanghechen/filetree": ^1.0.0-alpha.4
-    "@guanghechen/helper-buffer": ^5.0.9
     "@guanghechen/helper-cipher-file": ^5.0.10
     "@guanghechen/helper-commander": ^5.0.10
     "@guanghechen/helper-config": ^5.0.9
