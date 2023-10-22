@@ -41,9 +41,9 @@
   },
   "dependencies": {
     "@guanghechen/chalk-logger": "^5.0.9",
-    "@guanghechen/cipher": "^1.0.0-alpha.4",
+    "@guanghechen/cipher": "^1.0.0-alpha.5",
     "@guanghechen/event-bus": "^5.0.9",
-    "@guanghechen/file-split": "^1.0.0-alpha.4",
+    "@guanghechen/file-split": "^1.0.0-alpha.5",
     "@guanghechen/filetree": "^1.0.0-alpha.4",
     "@guanghechen/helper-buffer": "^5.0.9",
     "@guanghechen/helper-cipher-file": "^5.0.10",
@@ -66,6 +66,6 @@
   },
   "devDependencies": {
     "@guanghechen/rollup-config-cli": "^5.0.10",
-    "@types/micromatch": "^4.0.3"
+    "@types/micromatch": "^4.0.4"
   }
 }
