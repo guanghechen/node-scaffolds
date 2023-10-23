@@ -22,7 +22,9 @@ export interface IBatchEncryptParams {
   diffItems: Iterable<Readonly<IFileCipherCatalogDiffItemDraft>>
   plainPathResolver: IWorkspacePathResolver
   strictCheck: boolean
-  getIv(item: IFileCipherCatalogItemDraft): Promise<Buffer | undefined> | Buffer | undefined
+  getIv(
+    item: IFileCipherCatalogItemDraft,
+  ): Promise<Readonly<Uint8Array> | undefined> | Readonly<Uint8Array> | undefined
 }
 
 export interface IBatchDecryptParams {

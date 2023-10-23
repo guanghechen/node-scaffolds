@@ -2,7 +2,7 @@ import type { ICipherFactory } from '@guanghechen/cipher'
 import type { IFileCipher } from './IFileCipher'
 
 export interface ICreateFileCipherOptions {
-  iv: Readonly<Buffer> | undefined
+  readonly iv: Readonly<Uint8Array> | undefined
 }
 
 export interface IFileCipherFactory {

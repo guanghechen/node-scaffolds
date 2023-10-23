@@ -1,5 +1,5 @@
+import { randomBytes } from '@guanghechen/byte'
 import { assertPromiseThrow, emptyDir, locateFixtures, rm } from 'jest.helper'
-import { randomBytes } from 'node:crypto'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { calcMac, calcMacFromFile } from '../src'
@@ -12,10 +12,10 @@ describe('helper-mac', () => {
   const filepath3: string = path.join(workspaceDir, '3.txt')
   const filepaths: string[] = [filepath1, filepath2, filepath3]
 
-  const content1: Buffer = Buffer.from('Hello, world! 你好'.repeat(20))
-  const content2: Buffer = randomBytes(500)
-  const content3: Buffer = randomBytes(2048)
-  const contents: Buffer[] = [content1, content2, content3]
+  const content1: Uint8Array = Buffer.from('Hello, world! 你好'.repeat(20))
+  const content2: Uint8Array = randomBytes(500)
+  const content3: Uint8Array = randomBytes(2048)
+  const contents: Uint8Array[] = [content1, content2, content3]
 
   beforeEach(async () => {
     await emptyDir(workspaceDir)

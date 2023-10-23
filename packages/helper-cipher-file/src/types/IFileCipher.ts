@@ -11,7 +11,7 @@ export interface IFileCipher {
   /**
    * Decrypt cipher data from ciphered files.
    */
-  decryptFromFiles(cryptFilepaths: string[], options?: IDecipherOptions): Promise<Buffer>
+  decryptFromFiles(cryptFilepaths: string[], options?: IDecipherOptions): Promise<Uint8Array>
 
   /**
    * Encrypt contents from plainFilepath, and save into cryptFilepath.

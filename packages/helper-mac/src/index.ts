@@ -9,7 +9,7 @@ export type IHashAlgorithm = 'md5' | 'sha1' | 'sha256' | 'sha512'
  * @param pieces
  */
 export function calcMac(
-  chunks: ReadonlyArray<Readonly<Buffer>>,
+  chunks: ReadonlyArray<Readonly<Uint8Array>>,
   algorithm: IHashAlgorithm,
 ): Buffer {
   const sha256 = createHash(algorithm)

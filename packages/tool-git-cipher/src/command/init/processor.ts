@@ -1,3 +1,4 @@
+import { bytes2text, randomBytes } from '@guanghechen/byte'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isNonExistentOrEmpty, mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import { initGitRepo, stageAll } from '@guanghechen/helper-git'
@@ -8,7 +9,6 @@ import { pathResolver } from '@guanghechen/path'
 import { execa } from 'execa'
 import inquirer from 'inquirer'
 import nodePlop from 'node-plop'
-import { randomBytes } from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { resolveTemplateFilepath } from '../../core/config'
 import { COMMAND_VERSION } from '../../core/constant'
@@ -246,7 +246,7 @@ export class GitCipherInitProcessor {
       ),
       commandVersion: COMMAND_VERSION,
       configFilepath: data.configFilepath,
-      configNonce: randomBytes(20).toString('hex'),
+      configNonce: bytes2text(randomBytes(20), 'hex'),
       cryptFilepathSalt: context.cryptFilepathSalt,
       cryptFilesDir: pathResolver.safeRelative(cryptPathResolver.root, context.cryptFilesDir, true),
       cryptRootDir: pathResolver.safeRelative(context.workspace, cryptPathResolver.root, true),

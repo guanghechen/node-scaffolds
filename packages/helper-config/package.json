@@ -42,6 +42,7 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
+    "@guanghechen/byte": "^1.0.0-alpha.1",
     "@guanghechen/helper-mac": "^5.0.9",
     "@guanghechen/helper-storage": "^5.0.9",
     "@guanghechen/invariant": "^5.0.9",

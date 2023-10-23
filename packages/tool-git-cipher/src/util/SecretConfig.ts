@@ -1,3 +1,4 @@
+import { bytes2text, text2bytes } from '@guanghechen/byte'
 import type { ICipher } from '@guanghechen/cipher'
 import { FileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/helper-config'
@@ -12,13 +13,13 @@ import type { ISecretConfig, ISecretConfigData } from './SecretConfig.types'
 type Instance = ISecretConfig
 type Data = ISecretConfigData
 
-export const encodeCryptBytes = (key: Buffer): string => key.toString('hex')
-export const decodeCryptBytes = (key: string): Buffer => Buffer.from(key, 'hex')
+export const encodeCryptBytes = (key: Uint8Array): string => bytes2text(key, 'hex')
+export const decodeCryptBytes = (key: string): Uint8Array => text2bytes(key, 'hex')
 
-export const encodeAuthTag = (authTag: Buffer | undefined): string | undefined =>
-  authTag?.toString('hex')
-export const decodeAuthTag = (authTag: string | undefined): Buffer | undefined =>
-  typeof authTag === 'string' ? Buffer.from(authTag, 'hex') : undefined
+export const encodeAuthTag = (authTag: Uint8Array | undefined): string | undefined =>
+  authTag === undefined ? undefined : bytes2text(authTag, 'hex')
+export const decodeAuthTag = (authTag: string | undefined): Uint8Array | undefined =>
+  authTag === undefined ? undefined : text2bytes(authTag, 'hex')
 
 export const secretConfigHashAlgorithm: IHashAlgorithm | undefined = 'sha256'
 const __version__ = '2.0.0'
@@ -89,7 +90,7 @@ export class SecretConfigKeeper
   protected override serialize(instance: Instance): PromiseOr<Data> {
     const cipher = this.#cipher
 
-    const eCryptFilepathSalt = cipher.encrypt(Buffer.from(instance.cryptFilepathSalt, 'utf8'))
+    const eCryptFilepathSalt = cipher.encrypt(text2bytes(instance.cryptFilepathSalt, 'utf8'))
     const eSecretNonce = cipher.encrypt(instance.secretNonce)
     const eSecretCatalogNonce = cipher.encrypt(instance.secretCatalogNonce)
 
@@ -151,7 +152,7 @@ export class SecretConfigKeeper
     return {
       catalogFilepath: pathResolver.safeResolve(this.#cryptRootDir, data.catalogFilepath),
       contentHashAlgorithm: data.contentHashAlgorithm,
-      cryptFilepathSalt: cryptFilepathSalt.toString('utf8'),
+      cryptFilepathSalt: bytes2text(cryptFilepathSalt, 'utf8'),
       cryptFilesDir: pathResolver.safeRelative(this.#cryptRootDir, data.cryptFilesDir, true),
       keepPlainPatterns: data.keepPlainPatterns,
       mainIvSize: data.mainIvSize,

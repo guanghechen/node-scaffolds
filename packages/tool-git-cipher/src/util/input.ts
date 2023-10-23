@@ -1,4 +1,4 @@
-import { destroyBytes } from '@guanghechen/byte'
+import { destroyBytes, mergeBytes } from '@guanghechen/byte'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { EventTypes, eventBus } from '../core/event'
 
@@ -12,11 +12,11 @@ export function inputSingleLine({
   question,
   isValidCharacter,
   showAsterisk = true,
-}: IInputSingleLineParams): Promise<Buffer> {
-  return new Promise<Buffer>((resolve, reject) => {
+}: IInputSingleLineParams): Promise<Uint8Array> {
+  return new Promise<Uint8Array>((resolve, reject) => {
     const stdin = process.stdin
     const stdout = process.stdout
-    let chunkAcc: Buffer | null = null
+    let chunkAcc: Uint8Array | null = null
 
     // on fulfilled
     const onResolved = (): void => {
@@ -31,14 +31,14 @@ export function inputSingleLine({
       stdin.removeListener('data', onData)
       stdin.removeListener('end', onResolved)
       stdin.removeListener('error', onRejected)
-      destroyBytes(chunkAcc)
+      if (chunkAcc) destroyBytes(chunkAcc)
       reject(error)
     }
 
     // on data
-    const onData = (chunk: Buffer): void => {
+    const onData = (chunk: Uint8Array): void => {
       let pieceTot: number = chunkAcc == null ? 0 : chunkAcc.length
-      const piece: Buffer = chunkAcc == null ? chunk : Buffer.concat([chunkAcc, chunk])
+      const piece: Uint8Array = chunkAcc == null ? chunk : mergeBytes([chunkAcc, chunk])
       for (let i = 0; i < chunk.length; ++i) {
         switch (chunk[i]) {
           case 0x03: // Ctrl-c
@@ -73,14 +73,14 @@ export function inputSingleLine({
       }
 
       if (pieceTot <= 0) {
-        destroyBytes(chunkAcc)
+        if (chunkAcc) destroyBytes(chunkAcc)
         chunkAcc = null
       }
 
       // collect characters
       if (chunkAcc == null || chunkAcc.length !== pieceTot) {
-        destroyBytes(chunkAcc)
-        chunkAcc = Buffer.alloc(pieceTot)
+        if (chunkAcc) destroyBytes(chunkAcc)
+        chunkAcc = new Uint8Array(pieceTot)
       }
       piece.copy(chunkAcc, 0, 0, pieceTot)
       destroyBytes(piece)
@@ -102,9 +102,9 @@ export interface IInputAnswerParams {
   question: string
   maxRetryTimes?: number
   showAsterisk?: boolean
-  isValidAnswer?(answer: Buffer | null): boolean
+  isValidAnswer?(answer: Uint8Array | null): boolean
   isValidCharacter?(c: number): boolean
-  hintOnInvalidAnswer?(answer: Buffer | null): string
+  hintOnInvalidAnswer?(answer: Uint8Array | null): string
 }
 export async function inputAnswer({
   question,
@@ -113,8 +113,8 @@ export async function inputAnswer({
   isValidAnswer,
   isValidCharacter,
   hintOnInvalidAnswer,
-}: IInputAnswerParams): Promise<Buffer | null> {
-  let answer: Buffer | null = null
+}: IInputAnswerParams): Promise<Uint8Array | null> {
+  let answer: Uint8Array | null = null
   for (let i = 0, end = Math.max(0, maxRetryTimes) + 1; i < end; ++i) {
     let questionWithHint: string = question
     if (i > 0 && hintOnInvalidAnswer != null) {
@@ -125,7 +125,7 @@ export async function inputAnswer({
     }
 
     // destroy previous answer before read new answer
-    destroyBytes(answer)
+    if (answer) destroyBytes(answer)
 
     answer = await inputSingleLine({
       question: questionWithHint,

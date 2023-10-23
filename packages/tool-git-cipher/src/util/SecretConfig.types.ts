@@ -50,11 +50,11 @@ export interface ISecretConfig {
   /**
    * Secret of sub cipherFactory. (hex string)
    */
-  readonly secret: Buffer
+  readonly secret: Readonly<Uint8Array>
   /**
    * Auth tag of secret. (hex string)
    */
-  readonly secretAuthTag: Buffer | undefined
+  readonly secretAuthTag: Readonly<Uint8Array> | undefined
   /**
    * IV size of the secret cipherFactory.
    */
@@ -66,11 +66,11 @@ export interface ISecretConfig {
   /**
    * Initial nonce for generating ivs of each file in a commit. (hex string)
    */
-  readonly secretNonce: Buffer
+  readonly secretNonce: Readonly<Uint8Array>
   /**
    * Initial nonce for generating iv for catalog config. (hex string)
    */
-  readonly secretCatalogNonce: Buffer
+  readonly secretCatalogNonce: Readonly<Uint8Array>
 }
 
 export interface ISecretConfigData {

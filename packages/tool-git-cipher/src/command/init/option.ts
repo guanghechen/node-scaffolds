@@ -1,3 +1,4 @@
+import { bytes2text, randomBytes } from '@guanghechen/byte'
 import type { IPBKDF2Options } from '@guanghechen/cipher'
 import type {
   ICommandConfigurationFlatOpts,
@@ -7,7 +8,6 @@ import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
 import { pathResolver } from '@guanghechen/path'
-import { randomBytes } from 'node:crypto'
 import { logger } from '../../core/logger'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
@@ -90,7 +90,7 @@ const getDefaultCommandInitOptions = (params: IResolveDefaultOptionsParams): ICo
   ...getDefaultGlobalCommandOptions(params),
   catalogFilepath: '.ghc-catalog',
   contentHashAlgorithm: 'sha1',
-  cryptFilepathSalt: randomBytes(8).toString('hex'),
+  cryptFilepathSalt: bytes2text(randomBytes(8), 'hex'),
   cryptFilesDir: 'encrypted',
   gitGpgSign: false,
   keepPlainPatterns: ['.ghc-config.json', '.ghc-secret.json'],
@@ -100,7 +100,7 @@ const getDefaultCommandInitOptions = (params: IResolveDefaultOptionsParams): ICo
   partCodePrefix: '.ghc-part',
   pathHashAlgorithm: 'sha1',
   pbkdf2Options: {
-    salt: randomBytes(12).toString('hex'),
+    salt: bytes2text(randomBytes(12), 'hex'),
     iterations: 200000,
     digest: 'sha256',
   },

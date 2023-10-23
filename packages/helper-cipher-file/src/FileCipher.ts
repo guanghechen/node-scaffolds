@@ -1,4 +1,4 @@
-import { destroyBytesList } from '@guanghechen/byte'
+import { destroyBytesList, mergeBytes } from '@guanghechen/byte'
 import type { ICipher, IDecipherOptions, IEncryptResult } from '@guanghechen/cipher'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
@@ -26,14 +26,14 @@ export class FileCipher implements IFileCipher {
     for (const fp of plainFilepaths) mkdirsIfNotExists(fp, false, this.logger)
     const readers: NodeJS.ReadableStream[] = plainFilepaths.map(fp => fs.createReadStream(fp))
     const encipher = this.cipher.encipher()
-    const pieces: Buffer[] = []
+    const pieces: Uint8Array[] = []
 
-    let cryptBytes: Buffer
-    let authTag: Buffer | undefined
+    let cryptBytes: Uint8Array
+    let authTag: Uint8Array | undefined
     try {
       await consumeStreams(readers, encipher)
       for await (const chunk of encipher) pieces.push(chunk)
-      cryptBytes = Buffer.concat(pieces)
+      cryptBytes = mergeBytes(pieces)
       authTag = encipher.getAuthTag?.()
     } finally {
       destroyBytesList(pieces)
@@ -46,17 +46,17 @@ export class FileCipher implements IFileCipher {
   public async decryptFromFiles(
     cryptFilepaths: string[],
     options: IDecipherOptions,
-  ): Promise<Buffer> {
+  ): Promise<Uint8Array> {
     for (const fp of cryptFilepaths) mkdirsIfNotExists(fp, false, this.logger)
     const readers: NodeJS.ReadableStream[] = cryptFilepaths.map(fp => fs.createReadStream(fp))
     const decipher = this.cipher.decipher(options)
-    const plainBytesList: Buffer[] = []
+    const plainBytesList: Uint8Array[] = []
 
-    let plainBytes: Buffer
+    let plainBytes: Uint8Array
     try {
       await consumeStreams(readers, decipher)
       for await (const chunk of decipher) plainBytesList.push(chunk)
-      plainBytes = Buffer.concat(plainBytesList)
+      plainBytes = mergeBytes(plainBytesList)
     } finally {
       destroyBytesList(plainBytesList)
       decipher.destroy()
@@ -74,7 +74,7 @@ export class FileCipher implements IFileCipher {
     const writer: NodeJS.WritableStream = fs.createWriteStream(cryptFilepath)
     const encipher = this.cipher.encipher()
 
-    let authTag: Buffer | undefined
+    let authTag: Uint8Array | undefined
     try {
       await consumeStream(reader, writer, encipher)
       authTag = encipher.getAuthTag?.()
@@ -116,7 +116,7 @@ export class FileCipher implements IFileCipher {
     const writer: NodeJS.WritableStream = fs.createWriteStream(cryptFilepath)
     const encipher = this.cipher.encipher()
 
-    let authTag: Buffer | undefined
+    let authTag: Uint8Array | undefined
     try {
       await consumeStreams(readers, writer, encipher)
       authTag = encipher.getAuthTag?.()

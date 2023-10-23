@@ -68,7 +68,7 @@ export class SecretMaster {
       : undefined
   }
 
-  public getDynamicIv = (infos: ReadonlyArray<Buffer>): Readonly<Buffer> => {
+  public getDynamicIv = (infos: ReadonlyArray<Uint8Array>): Readonly<Uint8Array> => {
     const secretNonce = this.#secretConfigKeeper?.data?.secretNonce
     const secretIvSize = this.#secretConfigKeeper?.data?.secretIvSize
     invariant(
@@ -90,7 +90,7 @@ export class SecretMaster {
   }): Promise<SecretConfigKeeper> {
     const { cryptRootDir, filepath, presetConfigData } = params
 
-    let password: Buffer | null = null
+    let password: Uint8Array | null = null
     let configKeeper: SecretConfigKeeper
     try {
       const { showAsterisk, minPasswordLength, maxPasswordLength } = this
@@ -120,7 +120,7 @@ export class SecretMaster {
       // Use password to encrypt new secret.
       {
         let mainCipherFactory: ICipherFactory | null = null
-        let secret: Buffer | null = null
+        let secret: Uint8Array | null = null
         let passwordCipher: ICipher | null = null
         try {
           mainCipherFactory = new AesGcmCipherFactoryBuilder({
@@ -139,8 +139,8 @@ export class SecretMaster {
           const secretCipherFactory = secretCipherFactoryBuilder.buildFromSecret(secret)
           logger.debug('New create secret is fine.')
 
-          const secretNonce: Buffer = secretCipherFactoryBuilder.createRandomIv()
-          const secretCatalogNonce: Buffer = secretCipherFactoryBuilder.createRandomIv()
+          const secretNonce: Uint8Array = secretCipherFactoryBuilder.createRandomIv()
+          const secretCatalogNonce: Uint8Array = secretCipherFactoryBuilder.createRandomIv()
 
           const cSecret = passwordCipher.encrypt(secret)
           const config: ISecretConfig = {
@@ -181,12 +181,12 @@ export class SecretMaster {
         } finally {
           mainCipherFactory?.destroy()
           passwordCipher?.destroy()
-          destroyBytes(secret)
+          if (secret) destroyBytes(secret)
           secret = null
         }
       }
     } finally {
-      destroyBytes(password)
+      if (password) destroyBytes(password)
       password = null
     }
     return configKeeper
@@ -213,8 +213,8 @@ export class SecretMaster {
     invariant(!!cryptSecretConfig, `[${title}.load] Bad config`)
 
     let mainCipherFactory: ICipherFactory | null = null
-    let secret: Buffer | null = null
-    let password: Buffer | null = null
+    let secret: Uint8Array | null = null
+    let password: Uint8Array | null = null
     let passwordCipher: ICipher | null = null
     let configKeeper: SecretConfigKeeper
     try {
@@ -234,8 +234,8 @@ export class SecretMaster {
 
       // Decrypt secret.
       logger.debug('Trying decrypt secret.')
-      const cryptSecretBytes: Buffer = decodeCryptBytes(cryptSecretConfig.secret)
-      const authTag: Buffer | undefined = decodeAuthTag(cryptSecretConfig.secretAuthTag)
+      const cryptSecretBytes: Uint8Array = decodeCryptBytes(cryptSecretConfig.secret)
+      const authTag: Uint8Array | undefined = decodeAuthTag(cryptSecretConfig.secretAuthTag)
       secret = passwordCipher.decrypt(cryptSecretBytes, { authTag })
 
       // Initialize secretCipherFactory.
@@ -254,8 +254,8 @@ export class SecretMaster {
     } finally {
       mainCipherFactory?.destroy()
       passwordCipher?.destroy()
-      destroyBytes(secret)
-      destroyBytes(password)
+      if (secret) destroyBytes(secret)
+      if (password) destroyBytes(password)
       secret = null
       password = null
     }
@@ -271,9 +271,9 @@ export class SecretMaster {
   // Request password.
   protected async _askPassword(
     cryptSecretConfig: Readonly<ISecretConfigData>,
-  ): Promise<Buffer | null> {
+  ): Promise<Uint8Array | null> {
     const { maxRetryTimes, showAsterisk, minPasswordLength, maxPasswordLength } = this
-    let password: Buffer | null = null
+    let password: Uint8Array | null = null
     for (let i = 0; i <= maxRetryTimes; ++i) {
       const question = i > 0 ? '(Retry) Password: ' : 'Password: '
       password = await inputPassword({
@@ -293,15 +293,15 @@ export class SecretMaster {
   // Test whether the password is correct.
   protected async _verifyPassword(
     cryptSecretConfig: Readonly<ISecretConfigData>,
-    password: Readonly<Buffer>,
+    password: Readonly<Uint8Array>,
   ): Promise<boolean> {
     let mainCipherFactory: ICipherFactory | null = null
     let verified = false
-    let secret: Buffer | null = null
+    let secret: Uint8Array | null = null
     let passwordCipher: ICipher | null = null
     try {
-      const cryptSecretBytes: Buffer = decodeCryptBytes(cryptSecretConfig.secret)
-      const authTag: Buffer | undefined = decodeAuthTag(cryptSecretConfig.secretAuthTag)
+      const cryptSecretBytes: Uint8Array = decodeCryptBytes(cryptSecretConfig.secret)
+      const authTag: Uint8Array | undefined = decodeAuthTag(cryptSecretConfig.secretAuthTag)
 
       mainCipherFactory = new AesGcmCipherFactoryBuilder({
         keySize: cryptSecretConfig.mainKeySize,
@@ -319,7 +319,7 @@ export class SecretMaster {
     } finally {
       mainCipherFactory?.destroy()
       passwordCipher?.destroy()
-      destroyBytes(secret)
+      if (secret) destroyBytes(secret)
       secret = null
     }
     return verified

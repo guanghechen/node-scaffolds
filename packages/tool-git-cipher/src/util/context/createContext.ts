@@ -12,7 +12,7 @@ export interface ICreateGitCipherContextParams {
   catalogContext: IFileCipherCatalogContext
   catalogFilepath: string
   cipherFactory: ICipherFactory
-  getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
+  getDynamicIv(infos: ReadonlyArray<Uint8Array>): Readonly<Uint8Array>
 }
 
 export function createContext(params: ICreateGitCipherContextParams): IGitCipherContext {

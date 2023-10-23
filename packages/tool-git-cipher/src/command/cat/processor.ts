@@ -1,3 +1,4 @@
+import { bytes2text } from '@guanghechen/byte'
 import { FileCipher, calcCryptFilepath, calcCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
@@ -56,9 +57,11 @@ export class GitCipherCatProcessor {
         JSON.stringify(
           configKeeper.data,
           (key, value) => {
-            return key === 'authTag' && value?.type === 'Buffer'
-              ? Buffer.from(value).toString('hex')
-              : value
+            if (key === 'authTag') {
+              if (value?.type === 'Buffer') return Buffer.from(value).toString('hex')
+              if (value instanceof Uint8Array) return bytes2text(value, 'hex')
+            }
+            return value
           },
           2,
         ),
@@ -83,10 +86,10 @@ export class GitCipherCatProcessor {
       cipher: cipherFactory.cipher({ iv: getIv(item) }),
       logger,
     })
-    const plainContentBuffer: Buffer = await fileCipher.decryptFromFiles(cryptFilepaths, {
+    const plainContentBuffer: Uint8Array = await fileCipher.decryptFromFiles(cryptFilepaths, {
       authTag: item.authTag,
     })
-    const plainContent: string = plainContentBuffer.toString('utf8')
+    const plainContent: string = bytes2text(plainContentBuffer, 'utf8')
     console.log(plainContent)
   }
 }

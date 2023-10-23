@@ -1,9 +1,9 @@
+import { randomBytes } from '@guanghechen/byte'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import { calcMac } from '@guanghechen/helper-mac'
 import type { IStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
 import type { PromiseOr } from '@guanghechen/utility-types'
-import { randomBytes } from 'node:crypto'
 import semver from 'semver'
 import type { IConfig, IConfigKeeper } from './types'
 

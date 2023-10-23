@@ -1,3 +1,4 @@
+import { text2bytes } from '@guanghechen/byte'
 import type {
   IFileCipherBatcher,
   IFileCipherCatalogContext,
@@ -14,7 +15,7 @@ export interface IGitCipherContextProps {
   readonly cipherBatcher: IFileCipherBatcher
   readonly configKeeper: IConfigKeeper<IGitCipherConfig>
   readonly logger: ILogger | undefined
-  getDynamicIv(infos: ReadonlyArray<Buffer>): Readonly<Buffer>
+  getDynamicIv(infos: ReadonlyArray<Uint8Array>): Readonly<Uint8Array>
 }
 
 export interface IGitCipherContext {
@@ -23,7 +24,7 @@ export interface IGitCipherContext {
   readonly cipherBatcher: IFileCipherBatcher
   readonly logger: ILogger | undefined
   flatItem(item: IFileCipherCatalogItemInstance): IFileCipherCatalogItem
-  getIv(item: IFileCipherCatalogItemBase): Buffer
+  getIv(item: IFileCipherCatalogItemBase): Uint8Array
 }
 
 export class GitCipherContext implements IGitCipherContext {
@@ -31,7 +32,7 @@ export class GitCipherContext implements IGitCipherContext {
   public readonly cipherBatcher: IFileCipherBatcher
   public readonly configKeeper: IConfigKeeper<IGitCipherConfig>
   public readonly logger: ILogger | undefined
-  public readonly getIv: (item: IFileCipherCatalogItemBase) => Buffer
+  public readonly getIv: (item: IFileCipherCatalogItemBase) => Uint8Array
 
   constructor(props: IGitCipherContextProps) {
     const { catalogContext, cipherBatcher, configKeeper, logger, getDynamicIv } = props
@@ -39,8 +40,8 @@ export class GitCipherContext implements IGitCipherContext {
     this.cipherBatcher = cipherBatcher
     this.configKeeper = configKeeper
     this.logger = logger
-    this.getIv = (item: IFileCipherCatalogItemBase): Buffer =>
-      getDynamicIv([Buffer.from(item.plainFilepath, 'utf8'), Buffer.from(item.fingerprint, 'hex')])
+    this.getIv = (item: IFileCipherCatalogItemBase): Uint8Array =>
+      getDynamicIv([text2bytes(item.plainFilepath, 'utf8'), text2bytes(item.fingerprint, 'hex')])
   }
 
   public readonly flatItem = (item: IFileCipherCatalogItemInstance): IFileCipherCatalogItem => {

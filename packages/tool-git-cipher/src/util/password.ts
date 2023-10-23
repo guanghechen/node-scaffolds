@@ -33,9 +33,9 @@ export async function inputPassword({
   maxInputRetryTimes = 3,
   minimumSize = -1,
   maximumSize = -1,
-}: IInputPasswordParams): Promise<Buffer> {
+}: IInputPasswordParams): Promise<Readonly<Uint8Array>> {
   let hint: string
-  const isValidPassword = (password: Buffer | null): boolean => {
+  const isValidPassword = (password: Readonly<Uint8Array> | null): boolean => {
     if (password == null || (minimumSize > 0 && password.length < minimumSize)) {
       hint = `At least ${minimumSize} ascii non-space characters needed`
       return false
@@ -58,7 +58,7 @@ export async function inputPassword({
     return true
   }
 
-  const password: Buffer | null = await inputAnswer({
+  const password: Uint8Array | null = await inputAnswer({
     question: question.padStart(20),
     maxRetryTimes: maxInputRetryTimes,
     showAsterisk,
@@ -78,7 +78,7 @@ export async function inputPassword({
   }
 
   // Perform a hash operation on the password
-  const hashedPassword: Buffer = calcMac([password], 'sha256')
+  const hashedPassword: Uint8Array = calcMac([password], 'sha256')
   destroyBytes(password)
   return hashedPassword
 }
@@ -87,7 +87,7 @@ export interface IConfirmPasswordParams {
   /**
    * The password entered earlier
    */
-  password: Buffer
+  password: Readonly<Uint8Array>
   /**
    * Question to ask for input password
    */
@@ -113,7 +113,7 @@ export async function confirmPassword({
   minimumSize = -1,
   maximumSize = -1,
 }: IConfirmPasswordParams): Promise<boolean | never> {
-  const repeatedPassword: Buffer = await inputPassword({
+  const repeatedPassword: Uint8Array = await inputPassword({
     question,
     showAsterisk,
     maxInputRetryTimes: 1,

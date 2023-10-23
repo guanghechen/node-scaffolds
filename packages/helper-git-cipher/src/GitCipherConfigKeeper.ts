@@ -1,3 +1,4 @@
+import { bytes2text, text2bytes } from '@guanghechen/byte'
 import type { ICipher } from '@guanghechen/cipher'
 import type { IFileCipherCatalogDiffItemBase } from '@guanghechen/helper-cipher-file'
 import { FileChangeType } from '@guanghechen/helper-cipher-file'
@@ -47,9 +48,10 @@ export class GitCipherConfigKeeper
         `[${title}] bad catalog, contains absolute filepaths. plainFilepath:(${item.plainFilepath})`,
       )
 
-      const eAuthTag: Buffer | undefined = item.authTag
-        ? cipher.encrypt(Buffer.from(item.authTag)).cryptBytes
-        : undefined
+      const eAuthTag: Uint8Array | undefined =
+        item.authTag === undefined
+          ? undefined
+          : cipher.encrypt(Uint8Array.from(item.authTag)).cryptBytes
 
       if (item.keepPlain) {
         return {
@@ -57,18 +59,22 @@ export class GitCipherConfigKeeper
           fingerprint: item.fingerprint,
           cryptFilepathParts: item.cryptFilepathParts,
           keepPlain: true,
-          authTag: eAuthTag?.toString('hex'),
+          authTag: eAuthTag === undefined ? undefined : bytes2text(eAuthTag, 'hex'),
         }
       }
 
-      const ePlainFilepath: Buffer = cipher.encrypt(Buffer.from(item.plainFilepath)).cryptBytes
-      const eFingerprint: Buffer = cipher.encrypt(Buffer.from(item.fingerprint, 'hex')).cryptBytes
+      const ePlainFilepath: Uint8Array = cipher.encrypt(
+        text2bytes(item.plainFilepath, 'utf8'),
+      ).cryptBytes
+      const eFingerprint: Uint8Array = cipher.encrypt(
+        text2bytes(item.fingerprint, 'hex'),
+      ).cryptBytes
       return {
-        plainFilepath: ePlainFilepath.toString('base64'),
-        fingerprint: eFingerprint.toString('hex'),
+        plainFilepath: bytes2text(ePlainFilepath, 'base64'),
+        fingerprint: bytes2text(eFingerprint, 'hex'),
         cryptFilepathParts: item.cryptFilepathParts,
         keepPlain: false,
-        authTag: eAuthTag?.toString('hex'),
+        authTag: eAuthTag === undefined ? undefined : bytes2text(eAuthTag, 'hex'),
       }
     }
 

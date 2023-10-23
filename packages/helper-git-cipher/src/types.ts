@@ -4,35 +4,35 @@ import type {
 } from '@guanghechen/helper-cipher-file'
 
 export interface IFileCipherCatalogItemInstance extends IFileCipherCatalogItemBase {
-  authTag: Buffer | undefined
+  readonly authTag: Readonly<Uint8Array> | undefined
 }
 
 export interface IFileCipherCatalogItemData extends IFileCipherCatalogItemBase {
-  authTag: string | undefined
+  readonly authTag: string | undefined
 }
 
 export interface IGitCipherConfig {
-  commit: {
-    message: string
+  readonly commit: {
+    readonly message: string
   }
-  catalog: {
+  readonly catalog: {
     // Diff from the first parent commit.
-    diffItems: Array<IFileCipherCatalogDiffItemBase<IFileCipherCatalogItemInstance>>
-    items: IFileCipherCatalogItemInstance[]
+    readonly diffItems: Array<IFileCipherCatalogDiffItemBase<IFileCipherCatalogItemInstance>>
+    readonly items: IFileCipherCatalogItemInstance[]
   }
 }
 
 export interface IGitCipherConfigData {
-  commit: {
-    message: string
+  readonly commit: {
+    readonly message: string
   }
-  catalog: {
+  readonly catalog: {
     // Diff from the first parent commit.
-    diffItems: Array<IFileCipherCatalogDiffItemBase<IFileCipherCatalogItemData>>
-    items: IFileCipherCatalogItemData[]
+    readonly diffItems: Array<IFileCipherCatalogDiffItemBase<IFileCipherCatalogItemData>>
+    readonly items: IFileCipherCatalogItemData[]
   }
 }
 
 export interface IGitCipherCommitIdData {
-  commitIdMap: Record<string, string>
+  readonly commitIdMap: Record<string, string>
 }
