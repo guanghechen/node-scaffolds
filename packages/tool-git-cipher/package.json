@@ -40,11 +40,11 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@guanghechen/byte": "^1.0.0-alpha.1",
+    "@guanghechen/byte": "^1.0.0-alpha.2",
     "@guanghechen/chalk-logger": "^5.0.9",
-    "@guanghechen/cipher": "^1.0.0-alpha.5",
+    "@guanghechen/cipher": "^1.0.0-alpha.6",
     "@guanghechen/event-bus": "^5.0.9",
-    "@guanghechen/file-split": "^1.0.0-alpha.5",
+    "@guanghechen/file-split": "^1.0.0-alpha.6",
     "@guanghechen/filetree": "^1.0.0-alpha.4",
     "@guanghechen/helper-cipher-file": "^5.0.10",
     "@guanghechen/helper-commander": "^5.0.10",
@@ -58,7 +58,7 @@
     "@guanghechen/helper-plop": "^5.0.10",
     "@guanghechen/helper-storage": "^5.0.9",
     "@guanghechen/invariant": "^5.0.9",
-    "@guanghechen/path": "^1.0.0-alpha.7",
+    "@guanghechen/path": "^1.0.0-alpha.8",
     "execa": "^8.0.1",
     "inquirer": "9.2.11",
     "micromatch": "^4.0.5",

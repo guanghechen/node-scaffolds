@@ -40,8 +40,8 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/byte": "^1.0.0-alpha.1",
-    "@guanghechen/cipher": "^1.0.0-alpha.5",
+    "@guanghechen/byte": "^1.0.0-alpha.2",
+    "@guanghechen/cipher": "^1.0.0-alpha.6",
     "@guanghechen/helper-cipher-file": "^5.0.10",
     "@guanghechen/helper-config": "^5.0.9",
     "@guanghechen/helper-fs": "^5.0.9",
@@ -55,6 +55,6 @@
   "devDependencies": {
     "@guanghechen/chalk-logger": "^5.0.9",
     "@guanghechen/helper-jest": "^5.0.9",
-    "@guanghechen/path": "^1.0.0-alpha.7"
+    "@guanghechen/path": "^1.0.0-alpha.8"
   }
 }
