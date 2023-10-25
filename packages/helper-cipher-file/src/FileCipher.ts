@@ -81,7 +81,9 @@ export class FileCipher implements IFileCipher {
     } finally {
       encipher.destroy()
     }
-    return { authTag }
+    return {
+      authTag: authTag ? Uint8Array.from(authTag) : undefined,
+    }
   }
 
   // @override
@@ -123,7 +125,9 @@ export class FileCipher implements IFileCipher {
     } finally {
       encipher.destroy()
     }
-    return { authTag }
+    return {
+      authTag: authTag ? Uint8Array.from(authTag) : undefined,
+    }
   }
 
   // override
