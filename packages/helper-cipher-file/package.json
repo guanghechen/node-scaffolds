@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@guanghechen/byte": "^1.0.0-alpha.2",
-    "@guanghechen/cipher": "^1.0.0-alpha.6",
+    "@guanghechen/cipher": "^1.0.0-alpha.7",
     "@guanghechen/file-split": "^1.0.0-alpha.6",
     "@guanghechen/helper-fs": "^5.0.9",
     "@guanghechen/helper-func": "^5.0.9",

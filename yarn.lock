@@ -533,13 +533,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher@npm:^1.0.0-alpha.6":
-  version: 1.0.0-alpha.6
-  resolution: "@guanghechen/cipher@npm:1.0.0-alpha.6"
+"@guanghechen/cipher@npm:^1.0.0-alpha.7":
+  version: 1.0.0-alpha.7
+  resolution: "@guanghechen/cipher@npm:1.0.0-alpha.7"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.2
     "@guanghechen/cipher.types": ^1.0.0-alpha.5
-  checksum: d0455fd2a02df4bf2b1e50a1e2d46650e3d39f96ea9031b9d3daf243659de7bd7e41b12b69eb1b13bdc9cf5497d005ff706052a351218a52662171b9408e54e7
+  checksum: f160629b3d29f3b2a9440a6de41c114b195da7c4a71438083fb39cab5565dc2cf9ddc35089eaf868c1d051b731a356e2ec5dabe61a7e96ef749264ba07441170
   languageName: node
   linkType: hard
 
@@ -628,7 +628,7 @@ __metadata:
   resolution: "@guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.2
-    "@guanghechen/cipher": ^1.0.0-alpha.6
+    "@guanghechen/cipher": ^1.0.0-alpha.7
     "@guanghechen/file-split": ^1.0.0-alpha.6
     "@guanghechen/helper-fs": ^5.0.9
     "@guanghechen/helper-func": ^5.0.9
@@ -697,7 +697,7 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.2
     "@guanghechen/chalk-logger": ^5.0.9
-    "@guanghechen/cipher": ^1.0.0-alpha.6
+    "@guanghechen/cipher": ^1.0.0-alpha.7
     "@guanghechen/helper-cipher-file": ^5.0.10
     "@guanghechen/helper-config": ^5.0.9
     "@guanghechen/helper-fs": ^5.0.9
@@ -982,7 +982,7 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.2
     "@guanghechen/chalk-logger": ^5.0.9
-    "@guanghechen/cipher": ^1.0.0-alpha.6
+    "@guanghechen/cipher": ^1.0.0-alpha.7
     "@guanghechen/event-bus": ^5.0.9
     "@guanghechen/file-split": ^1.0.0-alpha.6
     "@guanghechen/filetree": ^1.0.0-alpha.4
@@ -3515,9 +3515,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001541":
-  version: 1.0.30001553
-  resolution: "caniuse-lite@npm:1.0.30001553"
-  checksum: 45d6a2a3c3a098c8093a4c8883fceafb4bbf59d96f6fd5bb381ba4581d07eecbe0ede4f55383f0d49374154ff6a808bd90fbe32b17ccd1738034d2579787b33c
+  version: 1.0.30001554
+  resolution: "caniuse-lite@npm:1.0.30001554"
+  checksum: ccb557daa716b474a15f3a0a3a0e33f59393024a9fd1ccef6d8ee6f35c195fb5cca7f99f1ac88e3db5926b4f1bcd4ad6d7380a27e1d45d68468a837dd7e60106
   languageName: node
   linkType: hard
 
