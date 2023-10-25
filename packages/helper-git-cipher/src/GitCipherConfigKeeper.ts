@@ -78,9 +78,10 @@ export class GitCipherConfigKeeper
       }
     }
 
-    const commitMessage: string = cipher
-      .encrypt(Buffer.from(instance.commit.message))
-      .cryptBytes.toString('base64')
+    const commitMessage: string = bytes2text(
+      cipher.encrypt(text2bytes(instance.commit.message, 'utf8')).cryptBytes,
+      'base64',
+    )
 
     return {
       commit: {
@@ -125,8 +126,8 @@ export class GitCipherConfigKeeper
     const cipher = this.#cipher
 
     const deserializeItem = (item: IFileCipherCatalogItemData): IFileCipherCatalogItemInstance => {
-      const authTag: Buffer | undefined = item.authTag
-        ? cipher.decrypt(Buffer.from(item.authTag, 'hex'))
+      const authTag: Uint8Array | undefined = item.authTag
+        ? cipher.decrypt(text2bytes(item.authTag, 'hex'))
         : undefined
 
       if (item.keepPlain) {
@@ -140,11 +141,12 @@ export class GitCipherConfigKeeper
       }
 
       const plainFilepath: string = cipher
-        .decrypt(Buffer.from(item.plainFilepath, 'base64'))
+        .decrypt(text2bytes(item.plainFilepath, 'base64'))
         .toString()
-      const fingerprint: string = cipher
-        .decrypt(Buffer.from(item.fingerprint, 'hex'))
-        .toString('hex')
+      const fingerprint: string = bytes2text(
+        cipher.decrypt(text2bytes(item.fingerprint, 'hex')),
+        'hex',
+      )
       return {
         plainFilepath,
         fingerprint,
@@ -155,7 +157,7 @@ export class GitCipherConfigKeeper
     }
 
     const commitMessage: string = cipher
-      .decrypt(Buffer.from(data.commit.message, 'base64'))
+      .decrypt(text2bytes(data.commit.message, 'base64'))
       .toString()
 
     return {

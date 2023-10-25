@@ -1,3 +1,4 @@
+import { bytes2text } from '@guanghechen/byte'
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import { FileSplitter } from '@guanghechen/file-split'
@@ -122,7 +123,7 @@ describe('GitCipher', () => {
     cipherBatcher,
     configKeeper,
     logger,
-    getDynamicIv: (infos): Readonly<Buffer> => calcMac(infos, 'sha256').slice(0, ivSize),
+    getDynamicIv: (infos): Readonly<Uint8Array> => calcMac(infos, 'sha256').slice(0, ivSize),
   })
   const gitCipher = new GitCipher({ context })
 
@@ -137,14 +138,14 @@ describe('GitCipher', () => {
       configKeeper.data!.catalog.items.map(item => ({
         ...item,
         cryptFilepath: calcCryptFilepath(item.plainFilepath, context.catalogContext),
-        iv: context.getIv(item).toString('hex'),
-        authTag: item.authTag?.toString('hex'),
+        iv: bytes2text(context.getIv(item), 'hex'),
+        authTag: item.authTag ? bytes2text(item.authTag, 'hex') : undefined,
       })),
     ).toEqual(
       items.map(item => ({
         ...item,
-        iv: item.iv?.toString('hex'),
-        authTag: item.authTag?.toString('hex'),
+        iv: item.iv ? bytes2text(item.iv, 'hex') : undefined,
+        authTag: item.authTag ? bytes2text(item.authTag, 'hex') : undefined,
       })),
     )
 
@@ -155,8 +156,8 @@ describe('GitCipher', () => {
           fingerprint: item.fingerprint,
           cryptFilepathParts: item.cryptFilepathParts,
           keepPlain: item.keepPlain,
-          iv: context.getIv(item).toString('hex'),
-          authTag: item.authTag?.toString('hex'),
+          iv: bytes2text(context.getIv(item), 'hex'),
+          authTag: item.authTag ? bytes2text(item.authTag, 'hex') : undefined,
         })
 
         const result: any = { ...diffItem }

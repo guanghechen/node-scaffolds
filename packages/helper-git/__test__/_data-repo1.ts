@@ -307,7 +307,7 @@ export async function buildRepo1({
     authorEmail: 'example@gmail.com',
     gpgSign: false,
     eol: 'lf',
-    encoding: 'utf-8',
+    encoding: 'utf8',
   })
 
   // A: +a1,+b1 (a1,b1)

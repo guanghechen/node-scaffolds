@@ -82,7 +82,8 @@ export function inputSingleLine({
         if (chunkAcc) destroyBytes(chunkAcc)
         chunkAcc = new Uint8Array(pieceTot)
       }
-      piece.copy(chunkAcc, 0, 0, pieceTot)
+
+      for (let i = 0; i < pieceTot; ++i) chunkAcc[i] = piece[i]
       destroyBytes(piece)
     }
 

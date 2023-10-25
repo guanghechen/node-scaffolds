@@ -1,3 +1,4 @@
+import { text2bytes } from '@guanghechen/byte'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 
 export * from '@guanghechen/helper-git/__test__/_data-repo1'
@@ -37,7 +38,7 @@ export const itemTable = {
     cryptFilepathParts: [],
     fingerprint: '4e26698e6bebd87fc210bec49fea4da6210b5769dbff50b3479effa16799120f',
     keepPlain: true,
-    iv: Buffer.from('c187594c5ea799e7a2f035c8', 'hex'),
+    iv: text2bytes('c187594c5ea799e7a2f035c8', 'hex'),
     authTag: undefined,
   },
   A2: {
@@ -46,7 +47,7 @@ export const itemTable = {
     cryptFilepathParts: [],
     fingerprint: '4ec33c94039179da5febb8936428e80e7b0d3f42689a4adb38fc8e479634eeb8',
     keepPlain: true,
-    iv: Buffer.from('2f237981516b8c14dba4ebc1', 'hex'),
+    iv: text2bytes('2f237981516b8c14dba4ebc1', 'hex'),
     authTag: undefined,
   },
   B: {
@@ -55,8 +56,8 @@ export const itemTable = {
     cryptFilepathParts: [],
     fingerprint: '965bfea36969b0b94ab0665baedd328c37f200340b937c07fdb6885ea363993c',
     keepPlain: false,
-    iv: Buffer.from('78d4b1241450d0151830c2b7', 'hex'),
-    authTag: Buffer.from('d3c7c317aa627a4d7f9fe82b870e48ef', 'hex'),
+    iv: text2bytes('78d4b1241450d0151830c2b7', 'hex'),
+    authTag: text2bytes('d3c7c317aa627a4d7f9fe82b870e48ef', 'hex'),
   },
   B2: {
     plainFilepath: 'b.txt',
@@ -65,8 +66,8 @@ export const itemTable = {
     fingerprint: '88d03f260a5158dd23220ae24160320df2ec63840dac45ad4c99cc6d0208e248',
     keepPlain: false,
     size: 1650,
-    iv: Buffer.from('951619437ddaca2c541fc426', 'hex'),
-    authTag: Buffer.from('98d90ea1b70933470b489ec2d44e2c02', 'hex'),
+    iv: text2bytes('951619437ddaca2c541fc426', 'hex'),
+    authTag: text2bytes('98d90ea1b70933470b489ec2d44e2c02', 'hex'),
   },
   C: {
     plainFilepath: 'x/c.txt',
@@ -74,8 +75,8 @@ export const itemTable = {
     cryptFilepathParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3'],
     fingerprint: 'fd7dc434ab208f15cd61dcc39e8e67de75a1cc6e1c6c9268d653a01b819da054',
     keepPlain: false,
-    iv: Buffer.from('f5be427ea24681db4f08ec14', 'hex'),
-    authTag: Buffer.from('9003e392320bfa3581669d18d8d747cf', 'hex'),
+    iv: text2bytes('f5be427ea24681db4f08ec14', 'hex'),
+    authTag: text2bytes('9003e392320bfa3581669d18d8d747cf', 'hex'),
   },
   C2: {
     plainFilepath: 'x/c.txt',
@@ -83,8 +84,8 @@ export const itemTable = {
     cryptFilepathParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
     fingerprint: 'df91313a8fc51bce13227ad3b5e8eeea815fe149969c174b0f2da373dea473c1',
     keepPlain: false,
-    iv: Buffer.from('3c3a108f4a213e4b8fc1058f', 'hex'),
-    authTag: Buffer.from('028804f373b463785a87efc8830ed8b2', 'hex'),
+    iv: text2bytes('3c3a108f4a213e4b8fc1058f', 'hex'),
+    authTag: text2bytes('028804f373b463785a87efc8830ed8b2', 'hex'),
   },
   C3: {
     plainFilepath: 'x/c.txt',
@@ -92,8 +93,8 @@ export const itemTable = {
     cryptFilepathParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4', '.ghc-part5'],
     fingerprint: 'ce9d19d55a13973f3e1f970e8915df800a1a61bd2f38212b55db73b8669ddcaf',
     keepPlain: false,
-    iv: Buffer.from('5a93a535b8da6037cb0cc62a', 'hex'),
-    authTag: Buffer.from('20d560824461b1bc490e78e9d0dca65e', 'hex'),
+    iv: text2bytes('5a93a535b8da6037cb0cc62a', 'hex'),
+    authTag: text2bytes('20d560824461b1bc490e78e9d0dca65e', 'hex'),
   },
   D: {
     plainFilepath: 'x/d.txt',
@@ -101,8 +102,8 @@ export const itemTable = {
     cryptFilepathParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
     fingerprint: '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13',
     keepPlain: false,
-    iv: Buffer.from('68d8d715d8b03d583ad595a8', 'hex'),
-    authTag: Buffer.from('03fcf614c9c443d34ac6c01375406197', 'hex'),
+    iv: text2bytes('68d8d715d8b03d583ad595a8', 'hex'),
+    authTag: text2bytes('03fcf614c9c443d34ac6c01375406197', 'hex'),
   },
   E: {
     plainFilepath: 'y/z/e.txt',
@@ -110,8 +111,8 @@ export const itemTable = {
     cryptFilepathParts: ['.ghc-part1', '.ghc-part2', '.ghc-part3', '.ghc-part4'],
     fingerprint: '40cb73b4c02d34812f38a5ca3a3f95d377285e83d7bb499573b918e1862bcf13',
     keepPlain: false,
-    iv: Buffer.from('10b54292994a5316a47034ca', 'hex'),
-    authTag: Buffer.from('46457d180a528d3739550feea231e9cd', 'hex'),
+    iv: text2bytes('10b54292994a5316a47034ca', 'hex'),
+    authTag: text2bytes('46457d180a528d3739550feea231e9cd', 'hex'),
   },
 }
 

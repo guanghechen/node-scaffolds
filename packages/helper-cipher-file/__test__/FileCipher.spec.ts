@@ -57,7 +57,7 @@ describe('FileCipher', () => {
   test('encrypt from files', async () => {
     for (let i = 0; i < 3; ++i) {
       const { cryptBytes, authTag } = await fileCipher.encryptFromFiles(partFilepaths)
-      const plainBytes: Buffer = fileCipher.cipher.decrypt(cryptBytes, { authTag })
+      const plainBytes: Uint8Array = fileCipher.cipher.decrypt(cryptBytes, { authTag })
       expect(plainBytes).toEqual(originalBytes)
     }
   })
@@ -78,7 +78,7 @@ describe('FileCipher', () => {
         )
         expect(cipherPartFilepaths.length).toEqual(5)
 
-        const plainData: Buffer = await fileCipher.decryptFromFiles(cipherPartFilepaths, {
+        const plainData: Uint8Array = await fileCipher.decryptFromFiles(cipherPartFilepaths, {
           authTag,
         })
         expect(plainData).toEqual(originalBytes)

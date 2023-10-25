@@ -1,4 +1,4 @@
-import { randomBytes } from '@guanghechen/byte'
+import { bytes2text, randomBytes, text2bytes } from '@guanghechen/byte'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import { calcMac } from '@guanghechen/helper-mac'
 import type { IStorage } from '@guanghechen/helper-storage'
@@ -51,7 +51,7 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
 
   // Generate nonce.
   protected nonce(oldNonce: string | undefined): string | undefined {
-    return oldNonce ?? randomBytes(20).toString('hex')
+    return oldNonce ?? bytes2text(randomBytes(20), 'hex')
   }
 
   public get data(): Readonly<Instance> | undefined {
@@ -89,7 +89,7 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
 
     // Check if the config mac is matched.
     const content: string = this.stringify(data)
-    const mac = calcMac([Buffer.from(content, 'utf8')], this.hashAlgorithm).toString('hex')
+    const mac = bytes2text(calcMac([text2bytes(content, 'utf8')], this.hashAlgorithm), 'hex')
     invariant(mac === config.__mac__, () => `[${title}] Bad config, mac is not matched.`)
 
     const instance: Instance = await this.deserialize(data)
@@ -103,7 +103,10 @@ export abstract class BaseConfigKeeper<Instance, Data> implements IConfigKeeper<
 
     const data: Data = await this.serialize(this._instance)
     const content: string = this.stringify(data)
-    const __mac__: string = calcMac([Buffer.from(content)], this.hashAlgorithm).toString('hex')
+    const __mac__: string = bytes2text(
+      calcMac([text2bytes(content, 'utf8')], this.hashAlgorithm),
+      'hex',
+    )
     const __nonce__: string | undefined = this.nonce(this._nonce)
     const config: IConfig<Data> = {
       __version__: this.__version__,

@@ -1,3 +1,4 @@
+import { bytes2text, text2bytes } from '@guanghechen/byte'
 import { calcMac, calcMacFromFile } from '@guanghechen/helper-mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import { locateFixtures } from 'jest.helper'
@@ -42,7 +43,7 @@ describe('catalog', () => {
   test('isSameFileCipherItemDraft', () => {
     const basicItem: IFileCipherCatalogItemDraft = {
       plainFilepath: 'waw.txt',
-      cryptFilepath: calcMac([Buffer.from('waw.txt')], pathHashAlgorithm).toString('hex'),
+      cryptFilepath: bytes2text(calcMac([text2bytes('waw.txt', 'utf8')], pathHashAlgorithm), 'hex'),
       cryptFilepathParts: [],
       fingerprint: '',
       keepPlain: false,
@@ -71,11 +72,11 @@ describe('catalog', () => {
   test('isSameFileCipherItem', () => {
     const basicItem: IFileCipherCatalogItem = {
       plainFilepath: 'waw.txt',
-      cryptFilepath: calcMac([Buffer.from('waw.txt')], pathHashAlgorithm).toString('hex'),
+      cryptFilepath: bytes2text(calcMac([text2bytes('waw.txt', 'utf8')], pathHashAlgorithm), 'hex'),
       cryptFilepathParts: [],
       fingerprint: '',
       keepPlain: false,
-      iv: Buffer.from('dddef89d89c3fe3ca704d5fd', 'hex'),
+      iv: text2bytes('dddef89d89c3fe3ca704d5fd', 'hex'),
       authTag: undefined,
     }
 
@@ -100,7 +101,7 @@ describe('catalog', () => {
     expect(
       isSameFileCipherItem(basicItem, {
         ...basicItem,
-        iv: Buffer.from('00ca7b42b7a371351da9a287', 'hex'),
+        iv: text2bytes('00ca7b42b7a371351da9a287', 'hex'),
       }),
     ).toEqual(false)
   })

@@ -382,7 +382,7 @@ describe('FileCipherCatalog', () => {
       maxTargetFileSize,
       logger,
     })
-    const getIv = async (item: IFileCipherCatalogItemDraft): Promise<Buffer | undefined> =>
+    const getIv = async (item: IFileCipherCatalogItemDraft): Promise<Uint8Array | undefined> =>
       Object.values(itemTable).find(t => isSameFileCipherItemDraft(t, item))?.iv
 
     expect(Array.from(catalog.items)).toEqual([])

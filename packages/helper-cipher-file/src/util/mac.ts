@@ -1,8 +1,9 @@
+import { bytes2text } from '@guanghechen/byte'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import { calcMac, calcMacFromFile } from '@guanghechen/helper-mac'
 
-export function calcFingerprintFromMac(mac: Buffer): string {
-  return mac.toString('hex')
+export function calcFingerprintFromMac(mac: Uint8Array): string {
+  return bytes2text(mac, 'hex')
 }
 
 // Calc fingerprint from literal string.
@@ -12,7 +13,7 @@ export function calcFingerprintFromString(
   algorithm: IHashAlgorithm,
 ): string {
   const buffer: Buffer = Buffer.from(text, textEncoding)
-  const mac: Buffer = calcMac([buffer], algorithm)
+  const mac: Uint8Array = calcMac([buffer], algorithm)
   return calcFingerprintFromMac(mac)
 }
 

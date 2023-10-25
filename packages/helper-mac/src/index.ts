@@ -11,11 +11,11 @@ export type IHashAlgorithm = 'md5' | 'sha1' | 'sha256' | 'sha512'
 export function calcMac(
   chunks: ReadonlyArray<Readonly<Uint8Array>>,
   algorithm: IHashAlgorithm,
-): Buffer {
+): Uint8Array {
   const sha256 = createHash(algorithm)
   for (const chunk of chunks) sha256.update(chunk)
   const mac: Buffer = sha256.digest()
-  return mac
+  return Uint8Array.from(mac)
 }
 
 /**
@@ -27,7 +27,7 @@ export function calcMac(
 export async function calcMacFromFile(
   filepath: string,
   algorithm: IHashAlgorithm,
-): Promise<Buffer | never> {
+): Promise<Uint8Array | never> {
   if (!fs.existsSync(filepath)) {
     throw new Error(`[calcMacFromFile] filepath is not found. (${filepath})`)
   }
@@ -40,5 +40,5 @@ export async function calcMacFromFile(
   const stream = fs.createReadStream(filepath)
   for await (const chunk of stream) sha256.update(chunk)
   const mac: Buffer = sha256.digest()
-  return mac
+  return Uint8Array.from(mac)
 }

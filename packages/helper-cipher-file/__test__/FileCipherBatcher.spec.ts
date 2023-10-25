@@ -38,7 +38,7 @@ const getFingerprintOfEncryptedFile = async (filePartPaths: string | string[]): 
   const streams: ReadStream[] = [filePartPaths].flat().map(fp => createReadStream(fp))
   const stream = mergeStreams(streams)
   const buffer: Buffer = await stream2buffer(stream, false)
-  const mac: Buffer = calcMac([buffer], contentHashAlgorithm)
+  const mac: Uint8Array = calcMac([buffer], contentHashAlgorithm)
   return calcFingerprintFromMac(mac)
 }
 
@@ -86,7 +86,7 @@ describe('FileCipherBatcher', () => {
 
   const fileSplitter = new FileSplitter({ partCodePrefix })
   const cipherFactory = new AesGcmCipherFactoryBuilder().buildFromPassword(
-    Buffer.from('guanghechen', encoding),
+    Uint8Array.from(Buffer.from('guanghechen', encoding)),
     {
       salt: 'salt',
       iterations: 100000,
@@ -100,7 +100,7 @@ describe('FileCipherBatcher', () => {
     maxTargetFileSize,
     logger,
   })
-  const getIv = async (item: IFileCipherCatalogItemDraft): Promise<Buffer | undefined> =>
+  const getIv = async (item: IFileCipherCatalogItemDraft): Promise<Uint8Array | undefined> =>
     Object.values(itemTable).find(t => isSameFileCipherItemDraft(t, item))?.iv
 
   beforeEach(async () => {

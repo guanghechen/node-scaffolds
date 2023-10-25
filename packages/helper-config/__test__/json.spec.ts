@@ -1,3 +1,4 @@
+import { bytes2text, text2bytes } from '@guanghechen/byte'
 import { calcMac } from '@guanghechen/helper-mac'
 import { FileStorage } from '@guanghechen/helper-storage'
 import type { PromiseOr } from '@guanghechen/utility-types'
@@ -30,7 +31,7 @@ describe('JsonConfigKeeper', () => {
     interface IUser {
       name: string
       friends: Set<string>
-      password: Buffer
+      password: Uint8Array
     }
 
     interface IUserData {
@@ -42,13 +43,13 @@ describe('JsonConfigKeeper', () => {
     const alice: IUser = {
       name: 'Alice',
       friends: new Set(['bob', 'tom']),
-      password: Buffer.from('alice', 'utf8'),
+      password: text2bytes('alice', 'utf8'),
     }
 
     const bob: IUser = {
       name: 'Bob',
       friends: new Set(['tom']),
-      password: Buffer.from('bob', 'utf8'),
+      password: text2bytes('bob', 'utf8'),
     }
 
     const aliceData: IUserData = {
@@ -74,14 +75,14 @@ describe('JsonConfigKeeper', () => {
         return {
           name: instance.name,
           friends: Array.from(instance.friends).sort(),
-          password: instance.password.toString('hex'),
+          password: bytes2text(instance.password, 'hex'),
         }
       }
       protected deserialize(data: IUserData): PromiseOr<IUser> {
         return {
           name: data.name,
           friends: new Set<string>(data.friends),
-          password: Buffer.from(data.password, 'hex'),
+          password: text2bytes(data.password, 'hex'),
         }
       }
     }
@@ -168,7 +169,7 @@ function testJsonConfigKeeper<Instance, Data>(params: {
 
   const writeData = async (version: string, data: Data): Promise<void> => {
     const content: string = JSON.stringify(data)
-    const mac: string = calcMac([Buffer.from(content)], 'sha256').toString('hex')
+    const mac: string = bytes2text(calcMac([text2bytes(content, 'utf8')], 'sha256'), 'hex')
     await writeFile(
       configFilepath,
       JSON.stringify({ __version__: version, __mac__: mac, data }),

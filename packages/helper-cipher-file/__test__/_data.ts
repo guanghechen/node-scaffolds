@@ -1,3 +1,4 @@
+import { text2bytes } from '@guanghechen/byte'
 import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import type {
   IFileCipherCatalogDiffItem,
@@ -59,18 +60,18 @@ export const itemTable: Record<ISymbol, IFileCipherCatalogItem> = {
   },
   B: {
     ...itemDraftTable.B,
-    iv: Buffer.from('9f8a20cc7677722161d59714', 'hex'),
-    authTag: Buffer.from('5519968a852057854b7fea723e301fd6', 'hex'),
+    iv: text2bytes('9f8a20cc7677722161d59714', 'hex'),
+    authTag: text2bytes('5519968a852057854b7fea723e301fd6', 'hex'),
   },
   C: {
     ...itemDraftTable.C,
-    iv: Buffer.from('3933c49f3c2cbc8bd6dd3295', 'hex'),
-    authTag: Buffer.from('dd468a718f2aba0797b8c941159b292e', 'hex'),
+    iv: text2bytes('3933c49f3c2cbc8bd6dd3295', 'hex'),
+    authTag: text2bytes('dd468a718f2aba0797b8c941159b292e', 'hex'),
   },
   D: {
     ...itemDraftTable.D,
     iv: undefined,
-    authTag: Buffer.from('6d721d17fe9def40a17a05aa532d3648', 'hex'),
+    authTag: text2bytes('6d721d17fe9def40a17a05aa532d3648', 'hex'),
   },
 }
 

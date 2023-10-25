@@ -744,6 +744,8 @@ __metadata:
 "@guanghechen/helper-mac@^5.0.9, @guanghechen/helper-mac@workspace:packages/helper-mac":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-mac@workspace:packages/helper-mac"
+  dependencies:
+    "@guanghechen/byte": ^1.0.0-alpha.2
   languageName: unknown
   linkType: soft
 
