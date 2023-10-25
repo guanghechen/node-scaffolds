@@ -26,7 +26,7 @@ describe('FileCipher', () => {
 
   const fileSplitter = new FileSplitter()
   const sourceFilepath = locateFixtures('basic/big-file.md')
-  const originalBytes = readFileSync(sourceFilepath)
+  const originalBytes = Uint8Array.from(readFileSync(sourceFilepath))
   let partFilepaths: string[] = []
 
   beforeAll(async () => {
@@ -133,7 +133,7 @@ describe('FileCipher', () => {
 
         expect(existsSync(plainFilepath)).toBe(true)
         expect(existsSync(cipherFilepath)).toBe(true)
-        expect(readFileSync(plainFilepath)).toEqual(originalBytes)
+        expect(Uint8Array.from(readFileSync(plainFilepath))).toEqual(originalBytes)
       } finally {
         unlinkSync(plainFilepath, cipherFilepath)
       }
@@ -153,7 +153,7 @@ describe('FileCipher', () => {
 
         expect(existsSync(plainFilepath)).toBe(true)
         expect(existsSync(cipherFilepath)).toBe(true)
-        expect(readFileSync(plainFilepath)).toEqual(originalBytes)
+        expect(Uint8Array.from(readFileSync(plainFilepath))).toEqual(originalBytes)
       } finally {
         unlinkSync(plainFilepath, cipherFilepath)
       }
@@ -180,7 +180,7 @@ describe('FileCipher', () => {
 
         expect(existsSync(plainFilepath)).toBe(true)
         expect(existsSync(cipherFilepath)).toBe(true)
-        expect(readFileSync(plainFilepath)).toEqual(originalBytes)
+        expect(Uint8Array.from(readFileSync(plainFilepath))).toEqual(originalBytes)
       } finally {
         unlinkSync(plainFilepath, cipherFilepath)
       }
@@ -207,7 +207,7 @@ describe('FileCipher', () => {
 
         await fileCipher.decryptFile(cipherFilepath, plainFilepath, { authTag })
         expect(existsSync(plainFilepath)).toBe(true)
-        expect(readFileSync(plainFilepath)).toEqual(originalBytes)
+        expect(Uint8Array.from(readFileSync(plainFilepath))).toEqual(originalBytes)
 
         cipherPartFilepaths = await fileSplitter.split(
           cipherFilepath,
@@ -220,11 +220,11 @@ describe('FileCipher', () => {
 
         await fileCipher.decryptFile(cipherFilepath2, plainFilepath2, { authTag })
         expect(existsSync(plainFilepath2)).toBe(true)
-        expect(readFileSync(plainFilepath2)).toEqual(originalBytes)
+        expect(Uint8Array.from(readFileSync(plainFilepath2))).toEqual(originalBytes)
 
         await fileCipher.decryptFiles(cipherPartFilepaths, plainFilepath3, { authTag })
         expect(existsSync(plainFilepath3)).toBe(true)
-        expect(readFileSync(plainFilepath3)).toEqual(originalBytes)
+        expect(Uint8Array.from(readFileSync(plainFilepath3))).toEqual(originalBytes)
       } finally {
         unlinkSync(
           plainFilepath,
