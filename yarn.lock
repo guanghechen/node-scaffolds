@@ -633,8 +633,8 @@ __metadata:
     "@guanghechen/file-split": ^1.0.0-alpha.7
     "@guanghechen/helper-fs": ^5.0.9
     "@guanghechen/helper-func": ^5.0.9
-    "@guanghechen/helper-mac": ^5.0.9
     "@guanghechen/invariant": ^5.0.9
+    "@guanghechen/mac": ^1.0.0-alpha.1
     "@guanghechen/path": ^1.0.0-alpha.8
     "@guanghechen/path.types": ^1.0.0-alpha.5
     "@guanghechen/stream": ^1.0.0-alpha.6
@@ -668,9 +668,9 @@ __metadata:
   resolution: "@guanghechen/helper-config@workspace:packages/helper-config"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.2
-    "@guanghechen/helper-mac": ^5.0.9
     "@guanghechen/helper-storage": ^5.0.9
     "@guanghechen/invariant": ^5.0.9
+    "@guanghechen/mac": ^1.0.0-alpha.1
     "@guanghechen/utility-types": ^5.0.9
     "@types/semver": ^7.5.4
     semver: ^7.5.4
@@ -739,14 +739,6 @@ __metadata:
     "@guanghechen/helper-is": ^5.0.9
     "@jest/globals": ^29.7.0
     jest: ^29.7.0
-  languageName: unknown
-  linkType: soft
-
-"@guanghechen/helper-mac@^5.0.9, @guanghechen/helper-mac@workspace:packages/helper-mac":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/helper-mac@workspace:packages/helper-mac"
-  dependencies:
-    "@guanghechen/byte": ^1.0.0-alpha.2
   languageName: unknown
   linkType: soft
 
@@ -1001,11 +993,11 @@ __metadata:
     "@guanghechen/helper-git": ^5.0.9
     "@guanghechen/helper-git-cipher": ^5.0.10
     "@guanghechen/helper-is": ^5.0.9
-    "@guanghechen/helper-mac": ^5.0.9
     "@guanghechen/helper-option": ^5.0.9
     "@guanghechen/helper-plop": ^5.0.10
     "@guanghechen/helper-storage": ^5.0.9
     "@guanghechen/invariant": ^5.0.9
+    "@guanghechen/mac": ^1.0.0-alpha.1
     "@guanghechen/path": ^1.0.0-alpha.8
     "@guanghechen/rollup-config-cli": ^5.0.10
     "@types/micromatch": ^4.0.4

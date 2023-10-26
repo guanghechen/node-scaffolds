@@ -5,8 +5,8 @@ import type {
   IResolveDefaultOptionsParams,
 } from '@guanghechen/helper-commander'
 import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
-import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
+import type { IHashAlgorithm } from '@guanghechen/mac'
 import { pathResolver } from '@guanghechen/path'
 import { logger } from '../../core/logger'
 import type { IGlobalCommandOptions } from '../option'

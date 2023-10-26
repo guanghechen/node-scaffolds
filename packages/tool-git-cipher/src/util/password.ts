@@ -1,5 +1,5 @@
 import { destroyBytes } from '@guanghechen/byte'
-import { calcMac } from '@guanghechen/helper-mac'
+import { calcMac } from '@guanghechen/mac'
 import type { ICustomError } from '../core/error'
 import { ErrorCode } from '../core/error'
 import { inputAnswer } from './input'

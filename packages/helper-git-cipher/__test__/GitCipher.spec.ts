@@ -20,8 +20,8 @@ import {
 } from '@guanghechen/helper-git'
 import type { ILoggerMock } from '@guanghechen/helper-jest'
 import { createLoggerMock } from '@guanghechen/helper-jest'
-import { calcMac } from '@guanghechen/helper-mac'
 import { FileStorage } from '@guanghechen/helper-storage'
+import { calcMac } from '@guanghechen/mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import {
   assertPromiseNotThrow,

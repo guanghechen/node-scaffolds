@@ -1,6 +1,6 @@
 import { bytes2text, text2bytes } from '@guanghechen/byte'
-import { calcMac } from '@guanghechen/helper-mac'
 import { FileStorage } from '@guanghechen/helper-storage'
+import { calcMac } from '@guanghechen/mac'
 import type { PromiseOr } from '@guanghechen/utility-types'
 import {
   assertPromiseThrow,

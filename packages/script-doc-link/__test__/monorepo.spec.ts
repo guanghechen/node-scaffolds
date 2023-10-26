@@ -33,7 +33,6 @@ describe('context', () => {
         "packages/helper-git-cipher",
         "packages/helper-is",
         "packages/helper-jest",
-        "packages/helper-mac",
         "packages/helper-npm",
         "packages/helper-option",
         "packages/helper-plop",

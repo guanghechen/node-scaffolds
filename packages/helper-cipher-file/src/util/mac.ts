@@ -1,6 +1,6 @@
 import { bytes2text } from '@guanghechen/byte'
-import type { IHashAlgorithm } from '@guanghechen/helper-mac'
-import { calcMac, calcMacFromFile } from '@guanghechen/helper-mac'
+import type { IHashAlgorithm } from '@guanghechen/mac'
+import { calcMac, calcMacFromFile } from '@guanghechen/mac'
 
 export function calcFingerprintFromMac(mac: Uint8Array): string {
   return bytes2text(mac, 'hex')

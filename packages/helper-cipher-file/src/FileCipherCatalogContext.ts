@@ -1,5 +1,5 @@
-import type { IHashAlgorithm } from '@guanghechen/helper-mac'
 import invariant from '@guanghechen/invariant'
+import type { IHashAlgorithm } from '@guanghechen/mac'
 import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import path from 'node:path'
 import type { IFileCipherCatalogContext } from './types/IFileCipherCatalogContext'

@@ -43,9 +43,9 @@
   },
   "dependencies": {
     "@guanghechen/byte": "^1.0.0-alpha.2",
-    "@guanghechen/helper-mac": "^5.0.9",
     "@guanghechen/helper-storage": "^5.0.9",
     "@guanghechen/invariant": "^5.0.9",
+    "@guanghechen/mac": "^1.0.0-alpha.1",
     "@guanghechen/utility-types": "^5.0.9",
     "@types/semver": "^7.5.4",
     "semver": "^7.5.4"

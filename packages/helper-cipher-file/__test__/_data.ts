@@ -1,5 +1,5 @@
 import { text2bytes } from '@guanghechen/byte'
-import type { IHashAlgorithm } from '@guanghechen/helper-mac'
+import type { IHashAlgorithm } from '@guanghechen/mac'
 import type {
   IFileCipherCatalogDiffItem,
   IFileCipherCatalogItem,

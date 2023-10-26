@@ -1,7 +1,7 @@
 import ChalkLogger from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import { FileSplitter } from '@guanghechen/file-split'
-import { calcMac } from '@guanghechen/helper-mac'
+import { calcMac } from '@guanghechen/mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import { mergeStreams, stream2buffer } from '@guanghechen/stream'
 import {

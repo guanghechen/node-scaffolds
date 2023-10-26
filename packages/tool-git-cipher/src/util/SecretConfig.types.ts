@@ -1,5 +1,5 @@
 import type { IPBKDF2Options } from '@guanghechen/cipher'
-import type { IHashAlgorithm } from '@guanghechen/helper-mac'
+import type { IHashAlgorithm } from '@guanghechen/mac'
 
 export interface ISecretConfig {
   /**

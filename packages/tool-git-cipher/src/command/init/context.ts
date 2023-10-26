@@ -1,5 +1,5 @@
 import type { IPBKDF2Options } from '@guanghechen/cipher'
-import type { IHashAlgorithm } from '@guanghechen/helper-mac'
+import type { IHashAlgorithm } from '@guanghechen/mac'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import type { ISubCommandInitOptions } from './option'

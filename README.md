@@ -60,7 +60,6 @@ Package                               | Description
 [@guanghechen/helper-func]            | Helpful utility funcs.
 [@guanghechen/helper-is][]            | Utilities to detect data type.
 [@guanghechen/helper-jest][]          | A collection of utility functions for jest tests.
-[@guanghechen/helper-mac][]           | A collection of utility functions for generating MAC.
 [@guanghechen/helper-npm][]           | Utilities for handling npm repo and `package.json`.
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
 [@guanghechen/helper-plop][]          | A collection of utility functions for plop templates
@@ -101,7 +100,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/helper-func]: ./packages/helper-func
 [@guanghechen/helper-is]: ./packages/helper-is
 [@guanghechen/helper-jest]: ./packages/helper-jest
-[@guanghechen/helper-mac]: ./packages/helper-mac
 [@guanghechen/helper-npm]: ./packages/helper-npm
 [@guanghechen/helper-option]: ./packages/helper-option
 [@guanghechen/helper-plop]: ./packages/helper-plop

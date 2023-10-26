@@ -48,8 +48,8 @@
     "@guanghechen/file-split": "^1.0.0-alpha.7",
     "@guanghechen/helper-fs": "^5.0.9",
     "@guanghechen/helper-func": "^5.0.9",
-    "@guanghechen/helper-mac": "^5.0.9",
     "@guanghechen/invariant": "^5.0.9",
+    "@guanghechen/mac": "^1.0.0-alpha.1",
     "@guanghechen/path.types": "^1.0.0-alpha.5",
     "@guanghechen/stream": "^1.0.0-alpha.6",
     "@guanghechen/utility-types": "^5.0.9"

@@ -1,4 +1,4 @@
-import type { IHashAlgorithm } from '@guanghechen/helper-mac'
+import type { IHashAlgorithm } from '@guanghechen/mac'
 import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 
 export interface IFileCipherCatalogContext {

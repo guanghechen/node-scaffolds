@@ -1,5 +1,5 @@
 import { bytes2text, text2bytes } from '@guanghechen/byte'
-import { calcMac, calcMacFromFile } from '@guanghechen/helper-mac'
+import { calcMac, calcMacFromFile } from '@guanghechen/mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import { locateFixtures } from 'jest.helper'
 import type {
