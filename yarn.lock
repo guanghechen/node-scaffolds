@@ -533,13 +533,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher@npm:^1.0.0-alpha.7":
-  version: 1.0.0-alpha.7
-  resolution: "@guanghechen/cipher@npm:1.0.0-alpha.7"
+"@guanghechen/cipher@npm:^1.0.0-alpha.9":
+  version: 1.0.0-alpha.9
+  resolution: "@guanghechen/cipher@npm:1.0.0-alpha.9"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.2
     "@guanghechen/cipher.types": ^1.0.0-alpha.5
-  checksum: f160629b3d29f3b2a9440a6de41c114b195da7c4a71438083fb39cab5565dc2cf9ddc35089eaf868c1d051b731a356e2ec5dabe61a7e96ef749264ba07441170
+    "@guanghechen/mac": ^1.0.0-alpha.1
+  checksum: e924ada941224d97149b018461e94c331e48db2ef1e9c79048fe1dbc8183ef5d454bbb4265c29526e974d413e737af66b2f1bfd939602fd30ce353b1a4a55ca1
   languageName: node
   linkType: hard
 
@@ -598,12 +599,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/file-split@npm:^1.0.0-alpha.6":
-  version: 1.0.0-alpha.6
-  resolution: "@guanghechen/file-split@npm:1.0.0-alpha.6"
+"@guanghechen/file-split@npm:^1.0.0-alpha.7":
+  version: 1.0.0-alpha.7
+  resolution: "@guanghechen/file-split@npm:1.0.0-alpha.7"
   dependencies:
     "@guanghechen/stream": ^1.0.0-alpha.6
-  checksum: f4141ad401713b91ea562084dabfb9a949ea570a47c0114687675192dfdb106ab362d99349f7b00d028a0c54c390de404bf7b0e62b4efe8bfa901a581ed02829
+  checksum: d4f53b8477870c1e8ea41f1eea89257ee68763fba9aa7b35b9d2bbe74627d40f8b28432bb584a9fb4ebb94e0050a654ef86ad2d152d014a1431a2cb7a5932912
   languageName: node
   linkType: hard
 
@@ -628,8 +629,8 @@ __metadata:
   resolution: "@guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.2
-    "@guanghechen/cipher": ^1.0.0-alpha.7
-    "@guanghechen/file-split": ^1.0.0-alpha.6
+    "@guanghechen/cipher": ^1.0.0-alpha.9
+    "@guanghechen/file-split": ^1.0.0-alpha.7
     "@guanghechen/helper-fs": ^5.0.9
     "@guanghechen/helper-func": ^5.0.9
     "@guanghechen/helper-mac": ^5.0.9
@@ -697,7 +698,7 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.2
     "@guanghechen/chalk-logger": ^5.0.9
-    "@guanghechen/cipher": ^1.0.0-alpha.7
+    "@guanghechen/cipher": ^1.0.0-alpha.9
     "@guanghechen/helper-cipher-file": ^5.0.10
     "@guanghechen/helper-config": ^5.0.9
     "@guanghechen/helper-fs": ^5.0.9
@@ -808,6 +809,13 @@ __metadata:
     json5: ^2.2.3
   languageName: unknown
   linkType: soft
+
+"@guanghechen/mac@npm:^1.0.0-alpha.1":
+  version: 1.0.0-alpha.1
+  resolution: "@guanghechen/mac@npm:1.0.0-alpha.1"
+  checksum: 4292acde94e44ee68772a1fd925d61769ddfcd3f45c004fee4b89cd262deba615c043bf38f632db82850715c0109922d371c692036e1475dec9476f6b36e623a
+  languageName: node
+  linkType: hard
 
 "@guanghechen/mini-copy@^5.0.9, @guanghechen/mini-copy@workspace:packages/mini-copy":
   version: 0.0.0-use.local
@@ -962,7 +970,7 @@ __metadata:
   resolution: "@guanghechen/tool-file@workspace:packages/tool-file"
   dependencies:
     "@guanghechen/chalk-logger": ^5.0.9
-    "@guanghechen/file-split": ^1.0.0-alpha.6
+    "@guanghechen/file-split": ^1.0.0-alpha.7
     "@guanghechen/helper-commander": ^5.0.10
     "@guanghechen/helper-fs": ^5.0.9
     "@guanghechen/helper-func": ^5.0.9
@@ -982,9 +990,9 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.2
     "@guanghechen/chalk-logger": ^5.0.9
-    "@guanghechen/cipher": ^1.0.0-alpha.7
+    "@guanghechen/cipher": ^1.0.0-alpha.9
     "@guanghechen/event-bus": ^5.0.9
-    "@guanghechen/file-split": ^1.0.0-alpha.6
+    "@guanghechen/file-split": ^1.0.0-alpha.7
     "@guanghechen/filetree": ^1.0.0-alpha.4
     "@guanghechen/helper-cipher-file": ^5.0.10
     "@guanghechen/helper-commander": ^5.0.10

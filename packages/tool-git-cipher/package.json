@@ -42,9 +42,9 @@
   "dependencies": {
     "@guanghechen/byte": "^1.0.0-alpha.2",
     "@guanghechen/chalk-logger": "^5.0.9",
-    "@guanghechen/cipher": "^1.0.0-alpha.7",
+    "@guanghechen/cipher": "^1.0.0-alpha.9",
     "@guanghechen/event-bus": "^5.0.9",
-    "@guanghechen/file-split": "^1.0.0-alpha.6",
+    "@guanghechen/file-split": "^1.0.0-alpha.7",
     "@guanghechen/filetree": "^1.0.0-alpha.4",
     "@guanghechen/helper-cipher-file": "^5.0.10",
     "@guanghechen/helper-commander": "^5.0.10",
