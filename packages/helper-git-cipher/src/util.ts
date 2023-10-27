@@ -1,3 +1,4 @@
+import { bytes2text } from '@guanghechen/byte'
 import type { IFileCipherCatalogItemBase } from '@guanghechen/helper-cipher-file'
 import type { IGitCommandBaseParams, IGitCommitWithMessage } from '@guanghechen/helper-git'
 import { getAllLocalBranches, getCommitWithMessageList, isGitRepo } from '@guanghechen/helper-git'
@@ -57,7 +58,8 @@ export const generateCommitHash = (items: IFileCipherCatalogItemBase[]): string 
     sha256.update(item.plainFilepath)
     sha256.update(item.fingerprint)
   }
-  return sha256.digest().toString('hex')
+  const mac: Uint8Array = sha256.digest()
+  return bytes2text(mac, 'hex')
 }
 
 export const getCryptCommitId = (

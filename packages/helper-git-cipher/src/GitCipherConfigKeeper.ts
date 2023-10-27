@@ -140,9 +140,10 @@ export class GitCipherConfigKeeper
         }
       }
 
-      const plainFilepath: string = cipher
-        .decrypt(text2bytes(item.plainFilepath, 'base64'))
-        .toString()
+      const plainFilepath: string = bytes2text(
+        cipher.decrypt(text2bytes(item.plainFilepath, 'base64')),
+        'utf8',
+      )
       const fingerprint: string = bytes2text(
         cipher.decrypt(text2bytes(item.fingerprint, 'hex')),
         'hex',
@@ -156,9 +157,10 @@ export class GitCipherConfigKeeper
       }
     }
 
-    const commitMessage: string = cipher
-      .decrypt(text2bytes(data.commit.message, 'base64'))
-      .toString()
+    const commitMessage: string = bytes2text(
+      cipher.decrypt(text2bytes(data.commit.message, 'base64')),
+      'utf8',
+    )
 
     return {
       commit: {
