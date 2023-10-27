@@ -558,7 +558,7 @@ __metadata:
   dependencies:
     "@babel/eslint-parser": ^7.22.15
     "@babel/plugin-syntax-import-assertions": ^7.22.5
-    "@guanghechen/eslint-config": ^5.0.2
+    "@guanghechen/eslint-config": ^5.0.3
     eslint-plugin-import: ^2.29.0
     eslint-plugin-jsx-a11y: ^6.7.1
     eslint-plugin-react: ^7.33.2
@@ -573,7 +573,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/eslint-config-ts@workspace:packages/eslint-config-ts"
   dependencies:
-    "@guanghechen/eslint-config": ^5.0.2
+    "@guanghechen/eslint-config": ^5.0.3
     "@typescript-eslint/eslint-plugin": ^6.9.0
     "@typescript-eslint/parser": ^6.9.0
   peerDependencies:
@@ -581,7 +581,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/eslint-config@^5.0.2, @guanghechen/eslint-config@workspace:packages/eslint-config":
+"@guanghechen/eslint-config@^5.0.3, @guanghechen/eslint-config@workspace:packages/eslint-config":
   version: 0.0.0-use.local
   resolution: "@guanghechen/eslint-config@workspace:packages/eslint-config"
   dependencies:
@@ -624,7 +624,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/helper-cipher-file@^5.0.10, @guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file":
+"@guanghechen/helper-cipher-file@^5.0.11, @guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file"
   dependencies:
@@ -642,7 +642,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-commander@^5.0.10, @guanghechen/helper-commander@workspace:packages/helper-commander":
+"@guanghechen/helper-commander@^5.0.11, @guanghechen/helper-commander@workspace:packages/helper-commander":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-commander@workspace:packages/helper-commander"
   dependencies:
@@ -663,7 +663,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-config@^5.0.9, @guanghechen/helper-config@workspace:packages/helper-config":
+"@guanghechen/helper-config@^5.0.10, @guanghechen/helper-config@workspace:packages/helper-config":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-config@workspace:packages/helper-config"
   dependencies:
@@ -692,15 +692,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-git-cipher@^5.0.10, @guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher":
+"@guanghechen/helper-git-cipher@^5.0.11, @guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.2
     "@guanghechen/chalk-logger": ^5.0.9
     "@guanghechen/cipher": ^1.0.0-alpha.9
-    "@guanghechen/helper-cipher-file": ^5.0.10
-    "@guanghechen/helper-config": ^5.0.9
+    "@guanghechen/helper-cipher-file": ^5.0.11
+    "@guanghechen/helper-config": ^5.0.10
     "@guanghechen/helper-fs": ^5.0.9
     "@guanghechen/helper-func": ^5.0.9
     "@guanghechen/helper-git": ^5.0.9
@@ -882,13 +882,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/rollup-config-cli@^5.0.10, @guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
+"@guanghechen/rollup-config-cli@^5.0.11, @guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli"
   dependencies:
     "@guanghechen/invariant": ^5.0.9
     "@guanghechen/rollup-config": ^5.3.2
-    "@guanghechen/rollup-plugin-copy": ^5.0.9
+    "@guanghechen/rollup-plugin-copy": ^5.0.10
   peerDependencies:
     rollup: ^3.0.0
     typescript: ">=3.7.0"
@@ -912,7 +912,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/rollup-plugin-copy@^5.0.9, @guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy":
+"@guanghechen/rollup-plugin-copy@^5.0.10, @guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy"
   dependencies:
@@ -939,7 +939,7 @@ __metadata:
     "@guanghechen/helper-func": ^5.0.9
     "@guanghechen/helper-is": ^5.0.9
     "@guanghechen/invariant": ^5.0.9
-    "@guanghechen/rollup-config-cli": ^5.0.10
+    "@guanghechen/rollup-config-cli": ^5.0.11
     "@guanghechen/utility-types": ^5.0.9
     globby: ^13.2.2
     minimist: ^1.2.8
@@ -963,14 +963,14 @@ __metadata:
   dependencies:
     "@guanghechen/chalk-logger": ^5.0.9
     "@guanghechen/file-split": ^1.0.0-alpha.7
-    "@guanghechen/helper-commander": ^5.0.10
+    "@guanghechen/helper-commander": ^5.0.11
     "@guanghechen/helper-fs": ^5.0.9
     "@guanghechen/helper-func": ^5.0.9
     "@guanghechen/helper-is": ^5.0.9
     "@guanghechen/helper-option": ^5.0.9
     "@guanghechen/invariant": ^5.0.9
     "@guanghechen/path": ^1.0.0-alpha.8
-    "@guanghechen/rollup-config-cli": ^5.0.10
+    "@guanghechen/rollup-config-cli": ^5.0.11
   bin:
     ghc-file: ./lib/esm/cli.mjs
   languageName: unknown
@@ -986,12 +986,12 @@ __metadata:
     "@guanghechen/event-bus": ^5.0.9
     "@guanghechen/file-split": ^1.0.0-alpha.7
     "@guanghechen/filetree": ^1.0.0-alpha.4
-    "@guanghechen/helper-cipher-file": ^5.0.10
-    "@guanghechen/helper-commander": ^5.0.10
-    "@guanghechen/helper-config": ^5.0.9
+    "@guanghechen/helper-cipher-file": ^5.0.11
+    "@guanghechen/helper-commander": ^5.0.11
+    "@guanghechen/helper-config": ^5.0.10
     "@guanghechen/helper-fs": ^5.0.9
     "@guanghechen/helper-git": ^5.0.9
-    "@guanghechen/helper-git-cipher": ^5.0.10
+    "@guanghechen/helper-git-cipher": ^5.0.11
     "@guanghechen/helper-is": ^5.0.9
     "@guanghechen/helper-option": ^5.0.9
     "@guanghechen/helper-plop": ^5.0.10
@@ -999,7 +999,7 @@ __metadata:
     "@guanghechen/invariant": ^5.0.9
     "@guanghechen/mac": ^1.0.0-alpha.1
     "@guanghechen/path": ^1.0.0-alpha.8
-    "@guanghechen/rollup-config-cli": ^5.0.10
+    "@guanghechen/rollup-config-cli": ^5.0.11
     "@types/micromatch": ^4.0.4
     execa: ^8.0.1
     inquirer: 9.2.11
@@ -1015,14 +1015,14 @@ __metadata:
   resolution: "@guanghechen/tool-mini-copy@workspace:packages/tool-mini-copy"
   dependencies:
     "@guanghechen/chalk-logger": ^5.0.9
-    "@guanghechen/helper-commander": ^5.0.10
+    "@guanghechen/helper-commander": ^5.0.11
     "@guanghechen/helper-fs": ^5.0.9
     "@guanghechen/helper-is": ^5.0.9
     "@guanghechen/helper-option": ^5.0.9
     "@guanghechen/invariant": ^5.0.9
     "@guanghechen/mini-copy": ^5.0.9
     "@guanghechen/path": ^1.0.0-alpha.8
-    "@guanghechen/rollup-config-cli": ^5.0.10
+    "@guanghechen/rollup-config-cli": ^5.0.11
     inquirer: 9.2.11
   bin:
     mcp: ./lib/esm/cli.mjs

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.12](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@5.0.11...@guanghechen/script-doc-link@5.0.12) (2023-10-27)
+
+
+### Performance Improvements
+
+* remove @guanghechen/helper-buffer, use @guanghechen/byte instead ([7c5f120](https://github.com/guanghechen/node-scaffolds/commit/7c5f120ede0649b5ecf81a2eb008d31b2a9558c8))
+* ⚰️ remove @guanghechen/helper-mac, please use @guanghechen/mac instead ([c2b72c9](https://github.com/guanghechen/node-scaffolds/commit/c2b72c925bb636462f896c1aac9c402ff64d68f3))
+
+
+
+
+
 ## [5.0.11](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@5.0.10...@guanghechen/script-doc-link@5.0.11) (2023-10-18)
 
 

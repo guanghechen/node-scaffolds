@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/eslint-config-ts",
-  "version": "5.0.9",
+  "version": "5.0.10",
   "description": "eslint config for ts project",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-ts@5.0.9",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-ts@5.0.10",
     "directory": "packages/eslint-config-ts"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@5.0.2/packages/eslint-config-ts#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@5.0.3/packages/eslint-config-ts#readme",
   "keywords": [
     "eslint",
     "eslint config",
@@ -44,7 +44,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@guanghechen/eslint-config": "^5.0.2",
+    "@guanghechen/eslint-config": "^5.0.3",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0"
   },
