@@ -889,13 +889,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/rollup-config-cli@^5.0.11, @guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
+"@guanghechen/rollup-config-cli@^5.0.12, @guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli"
   dependencies:
     "@guanghechen/invariant": ^5.0.9
     "@guanghechen/rollup-config": ^5.3.2
-    "@guanghechen/rollup-plugin-copy": ^5.0.10
+    "@guanghechen/rollup-plugin-copy": ^5.0.11
   peerDependencies:
     rollup: ^3.0.0
     typescript: ">=3.7.0"
@@ -919,7 +919,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/rollup-plugin-copy@^5.0.10, @guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy":
+"@guanghechen/rollup-plugin-copy@^5.0.11, @guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy"
   dependencies:
@@ -946,7 +946,7 @@ __metadata:
     "@guanghechen/helper-func": ^5.0.9
     "@guanghechen/helper-is": ^5.0.9
     "@guanghechen/invariant": ^5.0.9
-    "@guanghechen/rollup-config-cli": ^5.0.11
+    "@guanghechen/rollup-config-cli": ^5.0.12
     "@guanghechen/utility-types": ^5.0.9
     globby: ^13.2.2
     minimist: ^1.2.8
@@ -977,7 +977,7 @@ __metadata:
     "@guanghechen/helper-option": ^5.0.9
     "@guanghechen/invariant": ^5.0.9
     "@guanghechen/path": ^1.0.0-alpha.8
-    "@guanghechen/rollup-config-cli": ^5.0.11
+    "@guanghechen/rollup-config-cli": ^5.0.12
   bin:
     ghc-file: ./lib/esm/cli.mjs
   languageName: unknown
@@ -1006,7 +1006,7 @@ __metadata:
     "@guanghechen/invariant": ^5.0.9
     "@guanghechen/mac": ^1.0.0-alpha.1
     "@guanghechen/path": ^1.0.0-alpha.8
-    "@guanghechen/rollup-config-cli": ^5.0.11
+    "@guanghechen/rollup-config-cli": ^5.0.12
     "@types/micromatch": ^4.0.4
     execa: ^8.0.1
     inquirer: 9.2.11
@@ -1029,7 +1029,7 @@ __metadata:
     "@guanghechen/invariant": ^5.0.9
     "@guanghechen/mini-copy": ^5.0.9
     "@guanghechen/path": ^1.0.0-alpha.8
-    "@guanghechen/rollup-config-cli": ^5.0.11
+    "@guanghechen/rollup-config-cli": ^5.0.12
     inquirer: 9.2.11
   bin:
     mcp: ./lib/esm/cli.mjs

@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@5.0.11/packages/tool-mini-copy#readme">@guanghechen/tool-mini-copy</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@5.0.12/packages/tool-mini-copy#readme">@guanghechen/tool-mini-copy</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/tool-mini-copy">
@@ -131,7 +131,7 @@ Notice: Only text data worked, don't try to copy / paste binary data with this c
 * use fake clipboard([en][doc-fake-clipboard-en], [zh][doc-fake-clipboard-zh])
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@5.0.11/packages/tool-mini-copy#readme
-[doc-wsl]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@5.0.11/packages/tool-mini-copy/doc/wsl.md
-[doc-fake-clipboard-en]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@5.0.11/packages/tool-mini-copy/doc/fake-clipboard-en.md
-[doc-fake-clipboard-zh]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@5.0.11/packages/tool-mini-copy/doc/fake-clipboard-zh.md
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@5.0.12/packages/tool-mini-copy#readme
+[doc-wsl]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@5.0.12/packages/tool-mini-copy/doc/wsl.md
+[doc-fake-clipboard-en]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@5.0.12/packages/tool-mini-copy/doc/fake-clipboard-en.md
+[doc-fake-clipboard-zh]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@5.0.12/packages/tool-mini-copy/doc/fake-clipboard-zh.md
