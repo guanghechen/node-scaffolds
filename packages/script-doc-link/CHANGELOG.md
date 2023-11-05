@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.14](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@5.0.13...@guanghechen/script-doc-link@5.0.14) (2023-11-05)
+
+**Note:** Version bump only for package @guanghechen/script-doc-link
+
+
+
+
+
 ## [5.0.13](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@5.0.12...@guanghechen/script-doc-link@5.0.13) (2023-10-31)
 
 **Note:** Version bump only for package @guanghechen/script-doc-link

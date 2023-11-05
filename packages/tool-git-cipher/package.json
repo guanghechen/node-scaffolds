@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/tool-git-cipher",
-  "version": "5.0.12",
+  "version": "5.0.13",
   "description": "A cli tool to cipher git repository",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-git-cipher@5.0.12",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-git-cipher@5.0.13",
     "directory": "packages/tool-git-cipher"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-git-cipher@5.0.12/packages/tool-git-cipher#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-git-cipher@5.0.13/packages/tool-git-cipher#readme",
   "keywords": [],
   "type": "module",
   "module": "./lib/esm/index.mjs",
@@ -54,7 +54,7 @@
     "@guanghechen/helper-git-cipher": "^5.0.11",
     "@guanghechen/helper-is": "^5.0.9",
     "@guanghechen/helper-option": "^5.0.9",
-    "@guanghechen/helper-plop": "^5.0.10",
+    "@guanghechen/helper-plop": "^5.0.11",
     "@guanghechen/helper-storage": "^5.0.9",
     "@guanghechen/invariant": "^5.0.9",
     "@guanghechen/mac": "^1.0.0-alpha.1",
@@ -65,7 +65,7 @@
     "node-plop": "~0.32.0"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config-cli": "^5.0.12",
+    "@guanghechen/rollup-config-cli": "^5.0.13",
     "@types/micromatch": "^4.0.4"
   }
 }

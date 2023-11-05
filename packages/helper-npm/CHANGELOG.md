@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.11](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-npm@5.0.10...@guanghechen/helper-npm@5.0.11) (2023-11-05)
+
+
+### Performance Improvements
+
+* ⬆️ upgrade dependencies ([35bd827](https://github.com/guanghechen/node-scaffolds/commit/35bd827cc2bc5ed5ca898c6f58ba26a425bbe623))
+
+
+
+
+
 ## [5.0.10](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-npm@5.0.9...@guanghechen/helper-npm@5.0.10) (2023-10-18)
 
 

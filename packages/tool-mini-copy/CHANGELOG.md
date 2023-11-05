@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.13](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-mini-copy@5.0.12...@guanghechen/tool-mini-copy@5.0.13) (2023-11-05)
+
+**Note:** Version bump only for package @guanghechen/tool-mini-copy
+
+
+
+
+
 ## [5.0.12](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-mini-copy@5.0.11...@guanghechen/tool-mini-copy@5.0.12) (2023-10-31)
 
 **Note:** Version bump only for package @guanghechen/tool-mini-copy
