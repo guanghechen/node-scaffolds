@@ -1,4 +1,5 @@
 import { text2bytes } from '@guanghechen/byte'
+import type { IConfigKeeper } from '@guanghechen/config'
 import type {
   IFileCipherBatcher,
   IFileCipherCatalogContext,
@@ -6,7 +7,6 @@ import type {
   IFileCipherCatalogItemBase,
 } from '@guanghechen/helper-cipher-file'
 import { calcCryptFilepath } from '@guanghechen/helper-cipher-file'
-import type { IConfigKeeper } from '@guanghechen/helper-config'
 import type { ILogger } from '@guanghechen/utility-types'
 import type { IFileCipherCatalogItemInstance, IGitCipherConfig } from './types'
 

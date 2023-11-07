@@ -1,6 +1,6 @@
+import type { IConfigKeeper } from '@guanghechen/config'
 import type { IFileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import { calcCatalogItem, normalizePlainFilepath } from '@guanghechen/helper-cipher-file'
-import type { IConfigKeeper } from '@guanghechen/helper-config'
 import { iterable2map } from '@guanghechen/helper-func'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { checkBranch, getAllLocalBranches, isGitRepo, listAllFiles } from '@guanghechen/helper-git'

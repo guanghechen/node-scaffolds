@@ -47,7 +47,7 @@
     "@guanghechen/helper-option": "^5.0.9",
     "@guanghechen/invariant": "^5.0.9",
     "@guanghechen/mini-copy": "^5.0.9",
-    "@guanghechen/path": "^1.0.0-alpha.8",
+    "@guanghechen/path": "^1.0.0-alpha.9",
     "inquirer": "9.2.11"
   },
   "devDependencies": {

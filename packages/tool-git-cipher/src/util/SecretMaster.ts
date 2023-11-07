@@ -1,8 +1,8 @@
 import { destroyBytes } from '@guanghechen/byte'
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
-import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
+import { TextFileResource } from '@guanghechen/resource'
 import { createHash } from 'node:crypto'
 import { ErrorCode } from '../core/error'
 import { EventTypes, eventBus } from '../core/event'
@@ -167,7 +167,7 @@ export class SecretMaster {
           configKeeper = new SecretConfigKeeper({
             cipher: secretCipher,
             cryptRootDir,
-            storage: new FileStorage({ strict: true, filepath, encoding: 'utf8' }),
+            resource: new TextFileResource({ strict: true, filepath, encoding: 'utf8' }),
           })
 
           logger.debug('Updating secret config.')
@@ -202,9 +202,9 @@ export class SecretMaster {
 
     const title: string = this.constructor.name
     const { cryptRootDir, filepath } = params
-    const storage = new FileStorage({ strict: true, filepath, encoding: 'utf8' })
+    const resource = new TextFileResource({ strict: true, filepath, encoding: 'utf8' })
     const plainConfigKeeper = new CryptSecretConfigKeeper({
-      storage,
+      resource,
       hashAlgorithm: secretConfigHashAlgorithm,
     })
     await plainConfigKeeper.load()
@@ -245,7 +245,11 @@ export class SecretMaster {
       }).buildFromSecret(secret)
 
       const secretCipher = secretCipherFactory.cipher()
-      configKeeper = new SecretConfigKeeper({ cipher: secretCipher, cryptRootDir, storage })
+      configKeeper = new SecretConfigKeeper({
+        cipher: secretCipher,
+        cryptRootDir,
+        resource: resource,
+      })
       await configKeeper.load()
 
       this.#secretConfigKeeper = configKeeper

@@ -46,7 +46,7 @@
   "devDependencies": {
     "@babel/core": "7.23.2",
     "@rollup/plugin-replace": "^5.0.5",
-    "@types/command-exists": "^1.2.2",
+    "@types/command-exists": "^1.2.3",
     "@types/jest": "29.5.7",
     "@types/node": "^16.18.60",
     "ci-info": "^3.9.0",

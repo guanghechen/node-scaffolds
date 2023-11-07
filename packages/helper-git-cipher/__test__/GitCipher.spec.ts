@@ -20,9 +20,9 @@ import {
 } from '@guanghechen/helper-git'
 import type { ILoggerMock } from '@guanghechen/helper-jest'
 import { createLoggerMock } from '@guanghechen/helper-jest'
-import { FileStorage } from '@guanghechen/helper-storage'
 import { calcMac } from '@guanghechen/mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
+import { TextFileResource } from '@guanghechen/resource'
 import {
   assertPromiseNotThrow,
   assertPromiseThrow,
@@ -101,12 +101,12 @@ describe('GitCipher', () => {
     logger,
   })
 
-  const storage = new FileStorage({
+  const resource = new TextFileResource({
     strict: true,
     filepath: path.join(cryptRootDir, 'catalog.ghc.txt'),
     encoding: 'utf8',
   })
-  const configKeeper = new GitCipherConfigKeeper({ storage, cipher: cipherFactory.cipher() })
+  const configKeeper = new GitCipherConfigKeeper({ resource, cipher: cipherFactory.cipher() })
 
   const catalogContext = new FileCipherCatalogContext({
     cryptFilesDir,
@@ -192,7 +192,7 @@ describe('GitCipher', () => {
       await emptyDir(workspaceDir)
     })
     afterEach(async () => {
-      await configKeeper.remove()
+      await configKeeper.destroy()
       await rm(workspaceDir)
       logMock.restore()
     })
@@ -298,7 +298,7 @@ describe('GitCipher', () => {
           await assertPromiseNotThrow(() =>
             verifyCryptGitCommit({
               catalogContext,
-              catalogFilepath: storage.filepath,
+              catalogFilepath: resource.filepath,
               configKeeper,
               cryptCommitId: repo1CryptCommitIdTable[symbol],
               cryptPathResolver,
@@ -397,7 +397,7 @@ describe('GitCipher', () => {
     })
 
     afterAll(async () => {
-      await configKeeper.remove()
+      await configKeeper.destroy()
       await rm(workspaceDir)
       logMock.restore()
       crypt2plainIdMap.clear()
@@ -799,7 +799,7 @@ describe('GitCipher', () => {
       await gitCipher.encrypt({ cryptPathResolver, crypt2plainIdMap: new Map(), plainPathResolver })
     })
     afterAll(async () => {
-      await configKeeper.remove()
+      await configKeeper.destroy()
       await rm(workspaceDir)
       logMock.restore()
     })

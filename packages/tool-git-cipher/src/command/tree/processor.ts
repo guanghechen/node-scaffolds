@@ -65,10 +65,10 @@ export class GitCipherTreeProcessor {
 
     const configKeeper = new GitCipherConfigKeeper({
       cipher: secretMaster.catalogCipher,
-      storage: {
+      resource: {
         load: async () => catalogContent,
         save: async () => {},
-        remove: async () => {},
+        destroy: async () => {},
         exists: async () => true,
       },
     })

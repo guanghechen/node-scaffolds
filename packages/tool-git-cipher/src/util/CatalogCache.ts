@@ -1,6 +1,5 @@
-import type { IConfigKeeper } from '@guanghechen/helper-config'
-import { JsonConfigKeeper } from '@guanghechen/helper-config'
-import type { PromiseOr } from '@guanghechen/utility-types'
+import type { IConfigKeeper } from '@guanghechen/config'
+import { JsonConfigKeeper } from '@guanghechen/config'
 import { logger } from '../core/logger'
 
 export interface ICatalogCache {
@@ -19,7 +18,7 @@ export class CatalogCacheKeeper
   public override readonly __compatible_version__: string = '^1.0.0'
 
   public override async load(): Promise<void> {
-    if (await this._storage.exists()) {
+    if (await this._resource.exists()) {
       try {
         await super.load()
       } catch (error) {
@@ -28,13 +27,13 @@ export class CatalogCacheKeeper
     }
   }
 
-  protected override serialize(instance: ICatalogCache): PromiseOr<ICatalogCacheData> {
+  protected override async serialize(instance: ICatalogCache): Promise<ICatalogCacheData> {
     return {
       crypt2plainIdMap: Array.from(instance.crypt2plainIdMap),
     }
   }
 
-  protected override deserialize(data: ICatalogCacheData): PromiseOr<ICatalogCache> {
+  protected override async deserialize(data: ICatalogCacheData): Promise<ICatalogCache> {
     return {
       crypt2plainIdMap: new Map(data.crypt2plainIdMap),
     }

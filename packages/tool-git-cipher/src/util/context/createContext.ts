@@ -4,7 +4,7 @@ import type { IFileCipherCatalogContext, IFileCipherFactory } from '@guanghechen
 import { FileCipherBatcher, FileCipherFactory } from '@guanghechen/helper-cipher-file'
 import type { IGitCipherContext } from '@guanghechen/helper-git-cipher'
 import { GitCipherConfigKeeper, GitCipherContext } from '@guanghechen/helper-git-cipher'
-import { FileStorage } from '@guanghechen/helper-storage'
+import { TextFileResource } from '@guanghechen/resource'
 import { logger } from '../../core/logger'
 
 export interface ICreateGitCipherContextParams {
@@ -21,7 +21,7 @@ export function createContext(params: ICreateGitCipherContextParams): IGitCipher
   const fileSplitter = new FileSplitter({ partCodePrefix: catalogContext.partCodePrefix })
   const configKeeper = new GitCipherConfigKeeper({
     cipher: catalogCipher,
-    storage: new FileStorage({
+    resource: new TextFileResource({
       strict: true,
       filepath: catalogFilepath,
       encoding: 'utf8',

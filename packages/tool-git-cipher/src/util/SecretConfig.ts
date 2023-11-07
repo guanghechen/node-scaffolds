@@ -1,12 +1,11 @@
 import { bytes2text, text2bytes } from '@guanghechen/byte'
 import type { ICipher } from '@guanghechen/cipher'
+import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/config'
+import { JsonConfigKeeper, PlainJsonConfigKeeper } from '@guanghechen/config'
 import { FileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
-import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/helper-config'
-import { JsonConfigKeeper, PlainJsonConfigKeeper } from '@guanghechen/helper-config'
 import type { IHashAlgorithm } from '@guanghechen/mac'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { pathResolver } from '@guanghechen/path'
-import type { PromiseOr } from '@guanghechen/utility-types'
 import micromatch from 'micromatch'
 import type { ISecretConfig, ISecretConfigData } from './SecretConfig.types'
 
@@ -87,7 +86,7 @@ export class SecretConfigKeeper
     return undefined
   }
 
-  protected override serialize(instance: Instance): PromiseOr<Data> {
+  protected override async serialize(instance: Instance): Promise<Data> {
     const cipher = this.#cipher
 
     const eCryptFilepathSalt = cipher.encrypt(text2bytes(instance.cryptFilepathSalt, 'utf8'))
@@ -131,7 +130,7 @@ export class SecretConfigKeeper
     }
   }
 
-  protected override deserialize(data: Data): Instance {
+  protected override async deserialize(data: Data): Promise<Instance> {
     const cipher = this.#cipher
 
     const sCryptFilepathSalt = decodeCryptBytes(data.cryptFilepathSalt)

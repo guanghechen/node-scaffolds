@@ -1,9 +1,9 @@
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import { showCommitInfo } from '@guanghechen/helper-git'
 import type { GitCipher } from '@guanghechen/helper-git-cipher'
-import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
+import { TextFileResource } from '@guanghechen/resource'
 import { logger } from '../core/logger'
 import { CatalogCacheKeeper } from './CatalogCache'
 
@@ -46,7 +46,7 @@ export async function verifyRepoStrictly(params: IVerifyCryptRepoStrictlyParams)
   let plainCommitId = params.plainCommitId
   if (!plainCommitId) {
     const cacheKeeper = new CatalogCacheKeeper({
-      storage: new FileStorage({
+      resource: new TextFileResource({
         strict: true,
         filepath: catalogCacheFilepath,
         encoding: 'utf8',

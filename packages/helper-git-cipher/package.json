@@ -41,20 +41,20 @@
   },
   "dependencies": {
     "@guanghechen/byte": "^1.0.0-alpha.2",
-    "@guanghechen/cipher": "^1.0.0-alpha.9",
+    "@guanghechen/cipher": "^1.0.0-alpha.11",
+    "@guanghechen/config": "^1.0.0-alpha.1",
     "@guanghechen/helper-cipher-file": "^5.0.11",
-    "@guanghechen/helper-config": "^5.0.10",
     "@guanghechen/helper-fs": "^5.0.9",
     "@guanghechen/helper-func": "^5.0.9",
     "@guanghechen/helper-git": "^5.0.9",
-    "@guanghechen/helper-storage": "^5.0.9",
     "@guanghechen/invariant": "^5.0.9",
-    "@guanghechen/path.types": "^1.0.0-alpha.5",
+    "@guanghechen/path.types": "^1.0.0-alpha.6",
     "@guanghechen/utility-types": "^5.0.9"
   },
   "devDependencies": {
     "@guanghechen/chalk-logger": "^5.0.9",
     "@guanghechen/helper-jest": "^5.0.9",
-    "@guanghechen/path": "^1.0.0-alpha.8"
+    "@guanghechen/path": "^1.0.0-alpha.9",
+    "@guanghechen/resource": "^1.0.0-alpha.1"
   }
 }

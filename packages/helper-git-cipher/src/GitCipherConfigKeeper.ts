@@ -1,11 +1,10 @@
 import { bytes2text, text2bytes } from '@guanghechen/byte'
 import type { ICipher } from '@guanghechen/cipher'
+import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/config'
+import { JsonConfigKeeper } from '@guanghechen/config'
 import type { IFileCipherCatalogDiffItemBase } from '@guanghechen/helper-cipher-file'
 import { FileChangeType } from '@guanghechen/helper-cipher-file'
-import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/helper-config'
-import { JsonConfigKeeper } from '@guanghechen/helper-config'
 import invariant from '@guanghechen/invariant'
-import type { PromiseOr } from '@guanghechen/utility-types'
 import path from 'node:path'
 import type {
   IFileCipherCatalogItemData,
@@ -38,7 +37,7 @@ export class GitCipherConfigKeeper
     return undefined
   }
 
-  protected override serialize(instance: Instance): PromiseOr<Data> {
+  protected override async serialize(instance: Instance): Promise<Data> {
     const title = this.constructor.name
     const cipher = this.#cipher
 
@@ -121,7 +120,7 @@ export class GitCipherConfigKeeper
     }
   }
 
-  protected override deserialize(data: Data): PromiseOr<Instance> {
+  protected override async deserialize(data: Data): Promise<Instance> {
     const title = this.constructor.name
     const cipher = this.#cipher
 

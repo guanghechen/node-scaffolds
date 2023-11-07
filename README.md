@@ -54,7 +54,6 @@ Package                               | Description
 [@guanghechen/helper-cipher][]        | Utility functions for cipher contents.
 [@guanghechen/helper-cipher-file][]   | Utility functions for cipher files.
 [@guanghechen/helper-commander][]     | Utility functions for creating command line programs.
-[@guanghechen/helper-config][]        | Utilities for read / write config files.
 [@guanghechen/helper-file]            | Utilities for handling files, such as split big file or merge multiple small files.
 [@guanghechen/helper-fs]              | Provide some enhanced methods base on `node:fs`.
 [@guanghechen/helper-func]            | Helpful utility funcs.
@@ -63,7 +62,6 @@ Package                               | Description
 [@guanghechen/helper-npm][]           | Utilities for handling npm repo and `package.json`.
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
 [@guanghechen/helper-plop][]          | A collection of utility functions for plop templates
-[@guanghechen/helper-storage][]       | Utilities for read / write content.
 [@guanghechen/helper-stream][]        | Utilities for handing node streams.
 [@guanghechen/helper-string][]        | Utilities for processing strings or stringify other type data.
 [@guanghechen/invariant]              | An invariant function.
@@ -94,7 +92,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/helper-cipher]: ./packages/helper-cipher
 [@guanghechen/helper-cipher-file]: ./packages/helper-cipher-file
 [@guanghechen/helper-commander]: ./packages/helper-commander
-[@guanghechen/helper-config]: ./packages/helper-config
 [@guanghechen/helper-file]: ./packages/helper-file
 [@guanghechen/helper-fs]: ./packages/helper-fs
 [@guanghechen/helper-func]: ./packages/helper-func
@@ -103,7 +100,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/helper-npm]: ./packages/helper-npm
 [@guanghechen/helper-option]: ./packages/helper-option
 [@guanghechen/helper-plop]: ./packages/helper-plop
-[@guanghechen/helper-storage]: ./packages/helper-storage
 [@guanghechen/helper-stream]: ./packages/helper-stream
 [@guanghechen/helper-string]: ./packages/helper-string
 [@guanghechen/invariant]: ./packages/invariant

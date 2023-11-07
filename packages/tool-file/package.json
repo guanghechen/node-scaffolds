@@ -41,14 +41,14 @@
   },
   "dependencies": {
     "@guanghechen/chalk-logger": "^5.0.9",
-    "@guanghechen/file-split": "^1.0.0-alpha.7",
+    "@guanghechen/file-split": "^1.0.0-alpha.8",
     "@guanghechen/helper-commander": "^5.0.11",
     "@guanghechen/helper-fs": "^5.0.9",
     "@guanghechen/helper-func": "^5.0.9",
     "@guanghechen/helper-is": "^5.0.9",
     "@guanghechen/helper-option": "^5.0.9",
     "@guanghechen/invariant": "^5.0.9",
-    "@guanghechen/path": "^1.0.0-alpha.8"
+    "@guanghechen/path": "^1.0.0-alpha.9"
   },
   "devDependencies": {
     "@guanghechen/rollup-config-cli": "^5.0.13"

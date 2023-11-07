@@ -6,8 +6,8 @@ import { FileChangeType } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { GitCipher, encryptFilesOnly } from '@guanghechen/helper-git-cipher'
 import { isNonBlankString } from '@guanghechen/helper-is'
-import { FileStorage } from '@guanghechen/helper-storage'
 import invariant from '@guanghechen/invariant'
+import { TextFileResource } from '@guanghechen/resource'
 import inquirer from 'inquirer'
 import { logger } from '../../core/logger'
 import type { ICatalogCache } from '../../util/CatalogCache'
@@ -56,7 +56,7 @@ export class GitCipherEncryptProcessor {
     } else {
       // encrypt files
       const cacheKeeper = new CatalogCacheKeeper({
-        storage: new FileStorage({
+        resource: new TextFileResource({
           strict: true,
           filepath: context.catalogCacheFilepath,
           encoding: 'utf8',
