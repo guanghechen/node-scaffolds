@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.12](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@5.0.11...@guanghechen/helper-cipher-file@5.0.12) (2023-11-07)
+
+
+### Performance Improvements
+
+* 🚚 @guanghechen/helper-config -> @guanghechen/config, @guanghechen/helper-storage -> @guanghechen/resource ([f8c4d4d](https://github.com/guanghechen/node-scaffolds/commit/f8c4d4dc47b865b129f47703fd38e70d889b5815))
+
+
+
+
+
 ## [5.0.11](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@5.0.10...@guanghechen/helper-cipher-file@5.0.11) (2023-10-27)
 
 

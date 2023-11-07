@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/tool-file",
-  "version": "5.0.13",
+  "version": "5.0.14",
   "description": "A cli tool to split / merge big file.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@5.0.13",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@5.0.14",
     "directory": "packages/tool-file"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@5.0.13/packages/tool-file#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@5.0.14/packages/tool-file#readme",
   "keywords": [],
   "type": "module",
   "module": "./lib/esm/index.mjs",
@@ -42,7 +42,7 @@
   "dependencies": {
     "@guanghechen/chalk-logger": "^5.0.9",
     "@guanghechen/file-split": "^1.0.0-alpha.8",
-    "@guanghechen/helper-commander": "^5.0.11",
+    "@guanghechen/helper-commander": "^5.0.12",
     "@guanghechen/helper-fs": "^5.0.9",
     "@guanghechen/helper-func": "^5.0.9",
     "@guanghechen/helper-is": "^5.0.9",
@@ -51,6 +51,6 @@
     "@guanghechen/path": "^1.0.0-alpha.9"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config-cli": "^5.0.13"
+    "@guanghechen/rollup-config-cli": "^5.0.14"
   }
 }

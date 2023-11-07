@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.14](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-file@5.0.13...@guanghechen/tool-file@5.0.14) (2023-11-07)
+
+
+### Performance Improvements
+
+* 🚚 @guanghechen/helper-config -> @guanghechen/config, @guanghechen/helper-storage -> @guanghechen/resource ([f8c4d4d](https://github.com/guanghechen/node-scaffolds/commit/f8c4d4dc47b865b129f47703fd38e70d889b5815))
+
+
+
+
+
 ## [5.0.13](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-file@5.0.12...@guanghechen/tool-file@5.0.13) (2023-11-05)
 
 **Note:** Version bump only for package @guanghechen/tool-file
