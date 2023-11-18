@@ -1,4 +1,4 @@
-import ChalkLogger from '@guanghechen/chalk-logger'
+import { ChalkLogger } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import { FileSplitter } from '@guanghechen/file-split'
 import { calcMac } from '@guanghechen/mac'
@@ -50,7 +50,7 @@ describe('FileCipherBatcher', () => {
   const plainPathResolver = new WorkspacePathResolver(plainRootDir, pathResolver)
   const cryptPathResolver = new WorkspacePathResolver(cryptRootDir, pathResolver)
   const bakPlainPathResolver = new WorkspacePathResolver(bakPlainRootDir, pathResolver)
-  const logger = new ChalkLogger({ flights: { colorful: false, date: false } })
+  const reporter = new ChalkLogger({ flights: { colorful: false, date: false } })
 
   const filepathA: string = plainPathResolver.resolve(itemTable.A.plainFilepath)
   const filepathB: string = plainPathResolver.resolve(itemTable.B.plainFilepath)
@@ -93,12 +93,12 @@ describe('FileCipherBatcher', () => {
       digest: 'sha256',
     },
   )
-  const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
+  const fileCipherFactory = new FileCipherFactory({ cipherFactory, reporter })
   const cipherBatcher = new FileCipherBatcher({
     fileSplitter: fileSplitter,
     fileCipherFactory,
     maxTargetFileSize,
-    logger,
+    reporter,
   })
   const getIv = async (item: IFileCipherCatalogItemDraft): Promise<Uint8Array | undefined> =>
     Object.values(itemTable).find(t => isSameFileCipherItemDraft(t, item))?.iv

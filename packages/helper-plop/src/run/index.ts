@@ -71,7 +71,7 @@ export async function runGenerator(
  * Execute plop.
  *
  * @param plop
- * @param logger
+ * @param reporter
  */
 export async function runPlop(
   plop: NodePlopAPI,

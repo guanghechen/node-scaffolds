@@ -1,4 +1,4 @@
-import { createProgram, logger, mountSubCommandMerge, mountSubCommandSplit } from '.'
+import { createProgram, mountSubCommandMerge, mountSubCommandSplit, reporter } from '.'
 
 const program = createProgram()
 
@@ -8,4 +8,4 @@ mountSubCommandMerge(program)
 // mount sub-command:split
 mountSubCommandSplit(program)
 
-program.parseAsync(process.argv).catch(error => logger.error(error))
+program.parseAsync(process.argv).catch(error => reporter.error(error))

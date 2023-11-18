@@ -12,7 +12,7 @@ import nodePlop from 'node-plop'
 import { existsSync } from 'node:fs'
 import { resolveTemplateFilepath } from '../../core/config'
 import { COMMAND_VERSION } from '../../core/constant'
-import { logger } from '../../core/logger'
+import { reporter } from '../../core/reporter'
 import type { SecretConfigKeeper } from '../../util/SecretConfig'
 import type { IPresetSecretConfig } from '../../util/SecretConfig.types'
 import { SecretMaster } from '../../util/SecretMaster'
@@ -23,7 +23,7 @@ export class GitCipherInitProcessor {
   protected secretMaster: SecretMaster
 
   constructor(context: IGitCipherInitContext) {
-    logger.debug('context:', context)
+    reporter.debug('context:', context)
 
     this.context = context
     this.secretMaster = new SecretMaster({
@@ -72,12 +72,12 @@ export class GitCipherInitProcessor {
       // Init git repo.
       await initGitRepo({
         cwd: plainPathResolver.root,
-        logger,
+        reporter,
         eol: 'lf',
         encoding: 'utf8',
         gpgSign: context.gitGpgSign,
       })
-      await stageAll({ cwd: plainPathResolver.root, logger })
+      await stageAll({ cwd: plainPathResolver.root, reporter })
     }
 
     let shouldGenerateSecret = true
@@ -96,7 +96,7 @@ export class GitCipherInitProcessor {
         .then(md => md.shouldGenerateNewSecret)
     }
 
-    logger.verbose('Creating secret.')
+    reporter.verbose('Creating secret.')
     if (shouldGenerateSecret) {
       const {
         cryptFilepathSalt,
@@ -197,7 +197,7 @@ export class GitCipherInitProcessor {
         secretIvSize,
         secretKeySize,
       })
-      logger.info('Secret generated and stored.')
+      reporter.info('Secret generated and stored.')
     }
   }
 
@@ -223,7 +223,7 @@ export class GitCipherInitProcessor {
         plainRepoUrl = pathResolver.safeResolve(context.workspace, plainRepoUrl)
       }
     }
-    logger.debug('plainRepoUrl:', plainRepoUrl)
+    reporter.debug('plainRepoUrl:', plainRepoUrl)
 
     // clone plaintext repository
     if (isNonBlankString(plainRepoUrl)) {
@@ -251,7 +251,7 @@ export class GitCipherInitProcessor {
       cryptFilesDir: pathResolver.safeRelative(cryptPathResolver.root, context.cryptFilesDir, true),
       cryptRootDir: pathResolver.safeRelative(context.workspace, cryptPathResolver.root, true),
       encoding: context.encoding,
-      logLevel: logger.level,
+      logLevel: reporter.level,
       mainIvSize: context.mainIvSize,
       mainKeySize: context.mainKeySize,
       maxPasswordLength: context.maxPasswordLength,
@@ -270,7 +270,7 @@ export class GitCipherInitProcessor {
       workspace: context.workspace,
       plainRepoUrl,
     })
-    if (error) logger.error(error)
+    if (error) reporter.error(error)
   }
 
   // Create secret file
@@ -293,7 +293,7 @@ export class GitCipherInitProcessor {
   protected async _cloneFromRemote(plainRepoUrl: string): Promise<void> {
     const { context } = this
     const { plainPathResolver } = context
-    mkdirsIfNotExists(plainPathResolver.root, true, logger)
+    mkdirsIfNotExists(plainPathResolver.root, true, reporter)
     await execa('git', ['clone', plainRepoUrl, plainPathResolver.root], {
       stdio: 'inherit',
       cwd: plainPathResolver.root,

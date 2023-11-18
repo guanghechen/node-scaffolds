@@ -6,7 +6,7 @@ import { isGitRepo, showFileContent } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
-import { logger } from '../../core/logger'
+import { reporter } from '../../core/reporter'
 import { SecretMaster } from '../../util/SecretMaster'
 import type { IGitCipherTreeContext } from './context'
 
@@ -15,7 +15,7 @@ export class GitCipherTreeProcessor {
   protected readonly secretMaster: SecretMaster
 
   constructor(context: IGitCipherTreeContext) {
-    logger.debug('context:', context)
+    reporter.debug('context:', context)
 
     this.context = context
     this.secretMaster = new SecretMaster({
@@ -60,7 +60,7 @@ export class GitCipherTreeProcessor {
       filepath: cryptPathResolver.relative(catalogFilepath),
       commitHash: context.cryptCommitId,
       cwd: cryptPathResolver.root,
-      logger,
+      reporter,
     })
 
     const configKeeper = new GitCipherConfigKeeper({

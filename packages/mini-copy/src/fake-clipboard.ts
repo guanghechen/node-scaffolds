@@ -7,7 +7,7 @@ import fs from 'node:fs/promises'
 export interface IFakeClipboardProps {
   filepath: string
   encoding?: BufferEncoding
-  logger?: IReporter
+  reporter?: IReporter
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -19,12 +19,12 @@ export interface IFakeClipboardWriteOptions {}
 export class FakeClipboard {
   public readonly filepath: string
   public readonly encoding: BufferEncoding
-  public readonly logger: IReporter | null = null
+  public readonly reporter: IReporter | null = null
   private isInitialized = false
 
   constructor(props: IFakeClipboardProps) {
-    const { filepath, encoding, logger } = props
-    this.logger = logger ?? null
+    const { filepath, encoding, reporter } = props
+    this.reporter = reporter ?? null
     this.encoding = encoding ?? 'utf8'
     this.filepath = filepath
   }
@@ -43,12 +43,12 @@ export class FakeClipboard {
   protected async init(): Promise<void> {
     if (this.isInitialized) return
 
-    const { filepath, logger } = this
+    const { filepath, reporter } = this
     if (existsSync(filepath)) {
       invariant(statSync(filepath).isFile(), () => `[FakeClipboard] ${filepath} is not a file`)
       return
     }
-    logger?.verbose(`[FakeClipboard] init fake-clipboard (${filepath}).`)
+    reporter?.verbose(`[FakeClipboard] init fake-clipboard (${filepath}).`)
     mkdirsIfNotExists(filepath, false)
     await fs.writeFile(filepath, '', this.encoding)
 

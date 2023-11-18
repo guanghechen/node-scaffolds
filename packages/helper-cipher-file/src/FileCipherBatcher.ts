@@ -1,9 +1,9 @@
-import type { Logger } from '@guanghechen/chalk-logger'
 import type { FileSplitter, IFilePartItem } from '@guanghechen/file-split'
 import { calcFilePartItemsBySize } from '@guanghechen/file-split'
 import { isFileSync, mkdirsIfNotExists, rm } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path.types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import { existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import { calcCryptFilepaths } from './catalog/calcCryptFilepath'
@@ -25,26 +25,26 @@ export interface IFileCipherBatcherProps {
   fileSplitter: FileSplitter
   fileCipherFactory: IFileCipherFactory
   maxTargetFileSize: number
-  logger?: Logger
+  reporter?: IReporter
 }
 
 export class FileCipherBatcher implements IFileCipherBatcher {
   public readonly fileSplitter: FileSplitter
   public readonly fileCipherFactory: IFileCipherFactory
   public readonly maxTargetFileSize: number
-  public readonly logger: Logger | undefined
+  public readonly reporter: IReporter | undefined
 
   constructor(props: IFileCipherBatcherProps) {
     this.fileCipherFactory = props.fileCipherFactory
     this.fileSplitter = props.fileSplitter
     this.maxTargetFileSize = props.maxTargetFileSize
-    this.logger = props.logger
+    this.reporter = props.reporter
   }
 
   public async batchEncrypt(params: IBatchEncryptParams): Promise<IFileCipherCatalogDiffItem[]> {
     const title = 'batchEncrypt'
     const { strictCheck, plainPathResolver, cryptPathResolver, diffItems, getIv } = params
-    const { logger, fileCipherFactory, fileSplitter, maxTargetFileSize } = this
+    const { reporter, fileCipherFactory, fileSplitter, maxTargetFileSize } = this
 
     const results: IFileCipherCatalogDiffItem[] = []
     for (const diffItem of diffItems) {
@@ -106,7 +106,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       )
 
       const absoluteCryptFilepath = cryptPathResolver.resolve(cryptFilepath)
-      mkdirsIfNotExists(absoluteCryptFilepath, false, logger)
+      mkdirsIfNotExists(absoluteCryptFilepath, false, reporter)
 
       const nextItem: IFileCipherCatalogItem = { ...item, iv: undefined, authTag: undefined }
       if (item.keepPlain) {
@@ -170,7 +170,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
   public async batchDecrypt(params: IBatchDecryptParams): Promise<void> {
     const title = 'batchDecrypt'
     const { strictCheck, diffItems, plainPathResolver, cryptPathResolver } = params
-    const { logger, fileCipherFactory, fileSplitter } = this
+    const { reporter, fileCipherFactory, fileSplitter } = this
 
     // Plain filepath should always pointer to the plain contents,
     // while crypt files indicate those encrypted contents.
@@ -223,7 +223,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       }
 
       const absolutePlainFilepath = plainPathResolver.resolve(item.plainFilepath)
-      mkdirsIfNotExists(absolutePlainFilepath, false, logger)
+      mkdirsIfNotExists(absolutePlainFilepath, false, reporter)
 
       if (item.keepPlain) {
         await fileSplitter.merge(absoluteCryptFilepaths, absolutePlainFilepath)

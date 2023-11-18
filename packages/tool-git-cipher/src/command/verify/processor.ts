@@ -4,7 +4,7 @@ import { GitCipher } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { existsSync } from 'node:fs'
-import { logger } from '../../core/logger'
+import { reporter } from '../../core/reporter'
 import { loadGitCipherContext } from '../../util/context/loadGitCipherContext'
 import { SecretMaster } from '../../util/SecretMaster'
 import { verifyCryptRepo } from '../../util/verifyCryptRepo'
@@ -16,7 +16,7 @@ export class GitCipherVerifyProcessor {
   protected readonly secretMaster: SecretMaster
 
   constructor(context: IGitCipherVerifyContext) {
-    logger.debug('context:', context)
+    reporter.debug('context:', context)
 
     this.context = context
     this.secretMaster = new SecretMaster({

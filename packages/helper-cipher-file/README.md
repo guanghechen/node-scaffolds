@@ -102,7 +102,7 @@ Utility functions for encrypt / decrypt files.
 * `FileCipher`
 
   ```typescript
-  import ChalkLogger from '@guanghechen/chalk-logger'
+  import { ChalkLogger } from '@guanghechen/chalk-logger'
   import { AesCipherFactory } from '@guanghechen/helper-cipher'
   import { FileCipherFactory } from '@guanghechen/helper-cipher-file'
 

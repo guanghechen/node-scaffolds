@@ -55,6 +55,7 @@
     "@guanghechen/stream": "^1.0.0-alpha.6"
   },
   "devDependencies": {
+    "@guanghechen/chalk-logger": "^5.0.9",
     "@guanghechen/path": "^1.0.0-alpha.9"
   }
 }

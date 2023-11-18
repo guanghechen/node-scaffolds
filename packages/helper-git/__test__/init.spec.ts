@@ -1,20 +1,20 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import type { ILoggerMock } from '@guanghechen/helper-jest'
-import { createLoggerMock } from '@guanghechen/helper-jest'
+import type { IReporterMock } from '@guanghechen/helper-jest'
+import { createReporterMock } from '@guanghechen/helper-jest'
 import { emptyDir, locateFixtures, rm } from 'jest.helper'
 import { initGitRepo, isGitRepo } from '../src'
 
 describe('init', () => {
   const workspaceDir: string = locateFixtures('__fictitious__init')
-  const logger = new ChalkLogger({
+  const reporter = new ChalkLogger({
     name: 'init',
     level: Level.ERROR,
     flights: { inline: true, colorful: false },
   })
 
-  let logMock: ILoggerMock
+  let logMock: IReporterMock
   beforeEach(async () => {
-    logMock = createLoggerMock({ logger })
+    logMock = createReporterMock({ reporter })
     await emptyDir(workspaceDir)
   })
   afterEach(async () => {
@@ -30,7 +30,7 @@ describe('init', () => {
         authorName: 'guanghechen',
         authorEmail: 'example@gmail.com',
         gpgSign: false,
-        logger,
+        reporter,
       })
       expect(isGitRepo(workspaceDir)).toEqual(true)
     })
@@ -43,7 +43,7 @@ describe('init', () => {
         authorName: 'guanghechen',
         authorEmail: 'example@gmail.com',
         gpgSign: false,
-        logger,
+        reporter,
       })
       expect(isGitRepo(workspaceDir)).toEqual(true)
     })

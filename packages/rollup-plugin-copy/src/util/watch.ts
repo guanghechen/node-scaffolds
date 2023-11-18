@@ -3,8 +3,8 @@ import chokidar from 'chokidar'
 import type { IConfigTarget, ICopyTargetItem } from '../types'
 import { collectCopyTargets } from './common'
 import { copySingleItem } from './copy'
-import { logger } from './logger'
 import { resolvePath } from './path'
+import { reporter } from './reporter'
 
 export class CopyWatcher {
   protected readonly watchedPatterns: Set<string[]>
@@ -33,7 +33,7 @@ export class CopyWatcher {
       const items: ICopyTargetItem[] = collectCopyTargets(workspace, srcPath, this.targets)
       if (items.length > 0) {
         if (!this.copying) {
-          logger.verbose(chalk.green('copied:'))
+          reporter.verbose(chalk.green('copied:'))
         }
 
         this.copying = true

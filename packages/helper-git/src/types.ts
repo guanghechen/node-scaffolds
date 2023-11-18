@@ -24,6 +24,6 @@ export interface IGitCommitInfo {
 
 export interface IGitCommandBaseParams {
   readonly cwd: string
-  readonly logger: IReporter | undefined
+  readonly reporter: IReporter | undefined
   readonly execaOptions?: IExecaOptions
 }

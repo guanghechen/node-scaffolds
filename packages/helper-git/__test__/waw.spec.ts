@@ -8,12 +8,12 @@ import type { IGitCommandBaseParams } from '../src/types'
 
 describe('waw', () => {
   const workspaceDir: string = locateFixtures('__fictitious__waw')
-  const logger = new ChalkLogger({
+  const reporter = new ChalkLogger({
     name: 'waw',
     level: Level.ERROR,
     flights: { inline: true },
   })
-  const ctx: IGitCommandBaseParams = { cwd: workspaceDir, logger, execaOptions: {} }
+  const ctx: IGitCommandBaseParams = { cwd: workspaceDir, reporter, execaOptions: {} }
 
   const encoding: BufferEncoding = 'utf8'
   const filepathA: string = path.join(workspaceDir, 'a.txt')

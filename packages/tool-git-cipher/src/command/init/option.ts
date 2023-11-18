@@ -8,7 +8,7 @@ import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
 import type { IHashAlgorithm } from '@guanghechen/mac'
 import { pathResolver } from '@guanghechen/path'
-import { logger } from '../../core/logger'
+import { reporter } from '../../core/reporter'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
@@ -126,7 +126,7 @@ export function resolveSubCommandInitOptions(
     baseOptions.cryptRootDir,
     cover<string>(baseOptions.catalogFilepath, options.catalogFilepath, isNonBlankString),
   )
-  logger.debug('catalogFilepath:', catalogFilepath)
+  reporter.debug('catalogFilepath:', catalogFilepath)
 
   // Resolve contentHashAlgorithm
   const contentHashAlgorithm: IHashAlgorithm = cover<IHashAlgorithm>(
@@ -134,7 +134,7 @@ export function resolveSubCommandInitOptions(
     options.contentHashAlgorithm,
     isNonBlankString,
   )
-  logger.debug('contentHashAlgorithm:', contentHashAlgorithm)
+  reporter.debug('contentHashAlgorithm:', contentHashAlgorithm)
 
   // Resolve cryptFilepathSalt
   const cryptFilepathSalt: string = cover<string>(
@@ -142,7 +142,7 @@ export function resolveSubCommandInitOptions(
     options.cryptFilepathSalt,
     isNonBlankString,
   )
-  logger.debug('cryptFilepathSalt:', cryptFilepathSalt)
+  reporter.debug('cryptFilepathSalt:', cryptFilepathSalt)
 
   // Resolve cryptFilesDir
   const cryptFilesDir: string = cover<string>(
@@ -150,14 +150,14 @@ export function resolveSubCommandInitOptions(
     options.cryptFilesDir,
     isNonBlankString,
   )
-  logger.debug('cryptFilesDir:', cryptFilesDir)
+  reporter.debug('cryptFilesDir:', cryptFilesDir)
 
   // Resolve gitGpgSign
   const gitGpgSign: boolean | undefined = cover<boolean | undefined>(
     baseOptions.gitGpgSign,
     convertToBoolean(options.gitGpgSign),
   )
-  logger.debug('gitGpgSign:', gitGpgSign)
+  reporter.debug('gitGpgSign:', gitGpgSign)
 
   // Resolve keepPlainPatterns
   const keepPlainPatterns: string[] = cover<string[]>(
@@ -167,28 +167,28 @@ export function resolveSubCommandInitOptions(
   )
     .map(p => p.trim())
     .filter(Boolean)
-  logger.debug('keepPlainPatterns:', keepPlainPatterns)
+  reporter.debug('keepPlainPatterns:', keepPlainPatterns)
 
   // Resolve mainIvSize
   const mainIvSize: number = cover<number>(
     baseOptions.mainIvSize,
     convertToNumber(options.mainIvSize),
   )
-  logger.debug('mainIvSize:', mainIvSize)
+  reporter.debug('mainIvSize:', mainIvSize)
 
   // Resolve mainKeySize
   const mainKeySize: number = cover<number>(
     baseOptions.mainKeySize,
     convertToNumber(options.mainKeySize),
   )
-  logger.debug('mainKeySize:', mainKeySize)
+  reporter.debug('mainKeySize:', mainKeySize)
 
   // Resolve maxTargetFileSize
   const maxTargetFileSize: number | undefined = cover<number | undefined>(
     baseOptions.maxTargetFileSize,
     convertToNumber(options.maxTargetFileSize),
   )
-  logger.debug('maxTargetFileSize:', maxTargetFileSize)
+  reporter.debug('maxTargetFileSize:', maxTargetFileSize)
 
   // Resolve partCodePrefix
   const partCodePrefix: string = cover<string>(
@@ -196,7 +196,7 @@ export function resolveSubCommandInitOptions(
     options.partCodePrefix,
     isNonBlankString,
   )
-  logger.debug('partCodePrefix:', partCodePrefix)
+  reporter.debug('partCodePrefix:', partCodePrefix)
 
   // Resolve pathHashAlgorithm
   const pathHashAlgorithm: IHashAlgorithm = cover<IHashAlgorithm>(
@@ -204,7 +204,7 @@ export function resolveSubCommandInitOptions(
     options.pathHashAlgorithm,
     isNonBlankString,
   )
-  logger.debug('pathHashAlgorithm:', pathHashAlgorithm)
+  reporter.debug('pathHashAlgorithm:', pathHashAlgorithm)
 
   // Resolve pbkdf2Options
   const pbkdf2Options: IPBKDF2Options = {
@@ -223,21 +223,21 @@ export function resolveSubCommandInitOptions(
       isNonBlankString,
     ) as IPBKDF2Options['digest'],
   }
-  logger.debug('pbkdf2Options:', pbkdf2Options)
+  reporter.debug('pbkdf2Options:', pbkdf2Options)
 
   // Resolve secretIvSize
   const secretIvSize: number = cover<number>(
     baseOptions.secretIvSize,
     convertToNumber(options.secretIvSize),
   )
-  logger.debug('secretIvSize:', secretIvSize)
+  reporter.debug('secretIvSize:', secretIvSize)
 
   // Resolve secretKeySize
   const secretKeySize: number = cover<number>(
     baseOptions.secretKeySize,
     convertToNumber(options.secretKeySize),
   )
-  logger.debug('secretKeySize:', secretKeySize)
+  reporter.debug('secretKeySize:', secretKeySize)
 
   const resolvedOptions: ISubCommandOptions = {
     catalogFilepath,

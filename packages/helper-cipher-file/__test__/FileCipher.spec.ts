@@ -1,4 +1,4 @@
-import ChalkLogger from '@guanghechen/chalk-logger'
+import { ChalkLogger } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import {
   FileSplitter,
@@ -21,7 +21,7 @@ import { FileCipherFactory } from '../src'
 
 describe('FileCipher', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.FileCipher')
-  const logger = new ChalkLogger({ flights: { colorful: false, date: false } })
+  const reporter = new ChalkLogger({ flights: { colorful: false, date: false } })
   let fileCipher: IFileCipher
 
   const fileSplitter = new FileSplitter()
@@ -33,7 +33,7 @@ describe('FileCipher', () => {
     const cipherFactoryBuilder = new AesGcmCipherFactoryBuilder()
     const secret = cipherFactoryBuilder.createRandomSecret()
     const cipherFactory = cipherFactoryBuilder.buildFromSecret(secret)
-    const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
+    const fileCipherFactory = new FileCipherFactory({ cipherFactory, reporter })
 
     fileCipher = fileCipherFactory.fileCipher()
     partFilepaths = await fileSplitter.split(

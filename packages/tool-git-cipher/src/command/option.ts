@@ -8,7 +8,7 @@ import { isNonBlankString } from '@guanghechen/helper-is'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
 import { pathResolver } from '@guanghechen/path'
 import path from 'node:path'
-import { logger } from '../core/logger'
+import { reporter } from '../core/reporter'
 
 // Global command options
 export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
@@ -59,7 +59,7 @@ export const getDefaultGlobalCommandOptions = (
 ): IGlobalCommandOptions => {
   const repoName = path.basename(params.workspace)
   return {
-    logLevel: logger.level,
+    logLevel: reporter.level,
     configPath: ['.ghc-config.json'],
     cryptRootDir: `${repoName}-crypt`,
     encoding: 'utf8',
@@ -80,7 +80,7 @@ export function resolveBaseCommandOptions<O extends object>(
 ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
   const baseOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>({
-    logger,
+    reporter,
     commandName,
     subCommandName,
     workspace: undefined,
@@ -97,7 +97,7 @@ export function resolveBaseCommandOptions<O extends object>(
     workspace,
     cover<string>(baseOptions.cryptRootDir, options.cryptRootDir, isNonBlankString),
   )
-  logger.debug('cryptRootDir:', cryptRootDir)
+  reporter.debug('cryptRootDir:', cryptRootDir)
 
   // Resolve encoding
   const encoding: BufferEncoding = cover<BufferEncoding>(
@@ -105,49 +105,49 @@ export function resolveBaseCommandOptions<O extends object>(
     options.encoding,
     isNonBlankString,
   )
-  logger.debug('encoding:', encoding)
+  reporter.debug('encoding:', encoding)
 
   // Resolve maxPasswordLength
   const maxPasswordLength: number = cover<number>(
     baseOptions.maxPasswordLength,
     convertToNumber(options.maxPasswordLength),
   )
-  logger.debug('maxPasswordLength:', maxPasswordLength)
+  reporter.debug('maxPasswordLength:', maxPasswordLength)
 
   // Resolve maxRetryTimes
   const maxRetryTimes: number = cover<number>(
     baseOptions.maxRetryTimes,
     convertToNumber(options.maxRetryTimes),
   )
-  logger.debug('maxRetryTimes:', maxRetryTimes)
+  reporter.debug('maxRetryTimes:', maxRetryTimes)
 
   // Resolve minPasswordLength
   const minPasswordLength: number = cover<number>(
     baseOptions.minPasswordLength,
     convertToNumber(options.minPasswordLength),
   )
-  logger.debug('minPasswordLength:', minPasswordLength)
+  reporter.debug('minPasswordLength:', minPasswordLength)
 
   // Resolve plainRootDir
   const plainRootDir: string = pathResolver.safeResolve(
     workspace,
     cover<string>(baseOptions.plainRootDir, options.plainRootDir, isNonBlankString),
   )
-  logger.debug('plainRootDir:', plainRootDir)
+  reporter.debug('plainRootDir:', plainRootDir)
 
   // Resolve secretFilepath
   const secretFilepath: string = pathResolver.safeResolve(
     workspace,
     cover<string>(baseOptions.secretFilepath, options.secretFilepath, isNonBlankString),
   )
-  logger.debug('secretFilepath:', secretFilepath)
+  reporter.debug('secretFilepath:', secretFilepath)
 
   // Resolve showAsterisk
   const showAsterisk: boolean = cover<boolean>(
     baseOptions.showAsterisk,
     convertToBoolean(options.showAsterisk),
   )
-  logger.debug('showAsterisk:', showAsterisk)
+  reporter.debug('showAsterisk:', showAsterisk)
 
   const resolvedOptions: IGlobalCommandOptions = {
     cryptRootDir,

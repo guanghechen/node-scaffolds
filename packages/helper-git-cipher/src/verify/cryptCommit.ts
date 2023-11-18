@@ -15,14 +15,14 @@ export interface IVerifyCryptGitCommitParams {
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string
   cryptPathResolver: IWorkspacePathResolver
-  logger: IReporter | undefined
+  reporter: IReporter | undefined
 }
 
 export async function verifyCryptGitCommit(
   params: IVerifyCryptGitCommitParams,
 ): Promise<void | never> {
   const title = 'verifyCryptGitCommit'
-  const { catalogContext, configKeeper, cryptCommitId, cryptPathResolver, logger } = params
+  const { catalogContext, configKeeper, cryptCommitId, cryptPathResolver, reporter } = params
 
   invariant(
     existsSync(cryptPathResolver.root),
@@ -34,7 +34,7 @@ export async function verifyCryptGitCommit(
     `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.root}`,
   )
 
-  const cryptCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
+  const cryptCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
   const cryptCurrentBranches = await getAllLocalBranches(cryptCtx)
   invariant(!!cryptCurrentBranches.currentBranch, `[${title}] crypt repo does not at any branch.`)
@@ -77,7 +77,7 @@ export async function verifyCryptGitCommit(
           .join(''),
     )
 
-    logger?.info(`Everything looks good!`)
+    reporter?.info(`Everything looks good!`)
   } finally {
     await checkBranch({ ...cryptCtx, commitHash: cryptCurrentBranches.currentBranch })
   }

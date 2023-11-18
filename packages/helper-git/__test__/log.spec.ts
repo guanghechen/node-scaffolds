@@ -1,6 +1,6 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import type { ILoggerMock } from '@guanghechen/helper-jest'
-import { createLoggerMock } from '@guanghechen/helper-jest'
+import type { IReporterMock } from '@guanghechen/helper-jest'
+import { createReporterMock } from '@guanghechen/helper-jest'
 import { emptyDir, locateFixtures, rm } from 'jest.helper'
 import type { IGitCommandBaseParams, IGitCommitDagNode, IGitCommitWithMessage } from '../src'
 import { getCommitInTopology, getCommitWithMessageList, getParentCommitIdList } from '../src'
@@ -9,16 +9,16 @@ import { buildRepo1 } from './_data-repo1'
 
 describe('log', () => {
   const workspaceDir: string = locateFixtures('__fictitious__log')
-  const logger = new ChalkLogger({
+  const reporter = new ChalkLogger({
     name: 'log',
     level: Level.ERROR,
     flights: { inline: true, colorful: false },
   })
-  const ctx: IGitCommandBaseParams = { cwd: workspaceDir, logger, execaOptions: {} }
+  const ctx: IGitCommandBaseParams = { cwd: workspaceDir, reporter, execaOptions: {} }
 
-  let logMock: ILoggerMock
+  let logMock: IReporterMock
   beforeEach(async () => {
-    logMock = createLoggerMock({ logger })
+    logMock = createReporterMock({ reporter })
     await emptyDir(workspaceDir)
   })
   afterEach(async () => {
@@ -29,7 +29,7 @@ describe('log', () => {
   test('getCommitInTopology', async () => {
     const { commitTable } = await buildRepo1({
       repoDir: workspaceDir,
-      logger,
+      reporter,
       execaOptions: {},
     })
 
@@ -117,7 +117,7 @@ describe('log', () => {
   test('getCommitWithMessageList', async () => {
     const { commitTable } = await buildRepo1({
       repoDir: workspaceDir,
-      logger,
+      reporter,
       execaOptions: {},
     })
 
@@ -205,7 +205,7 @@ describe('log', () => {
   test('getParentCommitIdList', async () => {
     const { commitIdTable } = await buildRepo1({
       repoDir: workspaceDir,
-      logger,
+      reporter,
       execaOptions: {},
     })
 

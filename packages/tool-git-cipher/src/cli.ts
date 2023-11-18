@@ -1,12 +1,12 @@
 import {
   createProgram,
-  logger,
   mountSubCommandCat,
   mountSubCommandDecrypt,
   mountSubCommandEncrypt,
   mountSubCommandInit,
   mountSubCommandTree,
   mountSubCommandVerify,
+  reporter,
 } from '.'
 
 const program = createProgram()
@@ -29,4 +29,4 @@ mountSubCommandTree(program)
 // mount sub-command:verify
 mountSubCommandVerify(program)
 
-program.parseAsync(process.argv).catch(error => logger.error(error))
+program.parseAsync(process.argv).catch(error => reporter.error(error))

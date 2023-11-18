@@ -96,7 +96,7 @@ export class GitCipher {
       configKeeper: context.configKeeper,
       cryptCommitId,
       cryptPathResolver,
-      logger: context.logger,
+      reporter: context.reporter,
       plainCommitId,
       plainPathResolver,
     })

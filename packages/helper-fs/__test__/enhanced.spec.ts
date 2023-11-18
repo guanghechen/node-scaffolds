@@ -1,5 +1,5 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import { createLoggerMock } from '@guanghechen/helper-jest'
+import { createReporterMock } from '@guanghechen/helper-jest'
 import { desensitize, locateFixtures } from 'jest.helper'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
@@ -62,21 +62,21 @@ describe('empty', () => {
     expect(existsSync(filepathC)).toEqual(false)
   })
 
-  test('logger', async () => {
-    const logger = new ChalkLogger({
+  test('reporter', async () => {
+    const reporter = new ChalkLogger({
       level: Level.VERBOSE,
       flights: {
         colorful: false,
       },
     })
-    const loggerMock = createLoggerMock({ logger, desensitize })
+    const reporterMock = createReporterMock({ reporter, desensitize })
 
-    await emptyDir(fictitiousDir, undefined, logger)
-    await emptyDir(fictitiousDir, false, logger)
-    await emptyDir(fictitiousDir, true, logger)
+    await emptyDir(fictitiousDir, undefined, reporter)
+    await emptyDir(fictitiousDir, false, reporter)
+    await emptyDir(fictitiousDir, true, reporter)
 
-    expect(loggerMock.getIndiscriminateAll()).toMatchSnapshot()
-    loggerMock.restore()
+    expect(reporterMock.getIndiscriminateAll()).toMatchSnapshot()
+    reporterMock.restore()
   })
 })
 
@@ -130,23 +130,23 @@ describe('mkdirsIfNotExists', () => {
     await rm(dirpath)
   })
 
-  test('mkdirs logger', async () => {
-    const logger = new ChalkLogger({
+  test('mkdirs reporter', async () => {
+    const reporter = new ChalkLogger({
       level: Level.VERBOSE,
       flights: {
         colorful: false,
       },
     })
-    const loggerMock = createLoggerMock({ logger, desensitize })
+    const reporterMock = createReporterMock({ reporter, desensitize })
 
     const dirpath = locateFixtures('basic--non-existed--2')
     expect(existsSync(dirpath)).toBe(false)
-    mkdirsIfNotExists(dirpath, true, logger)
+    mkdirsIfNotExists(dirpath, true, reporter)
     expect(existsSync(dirpath)).toBe(true)
 
     await rm(dirpath)
 
-    expect(loggerMock.getIndiscriminateAll()).toMatchSnapshot()
-    loggerMock.restore()
+    expect(reporterMock.getIndiscriminateAll()).toMatchSnapshot()
+    reporterMock.restore()
   })
 })

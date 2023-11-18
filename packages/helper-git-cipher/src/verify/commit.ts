@@ -15,7 +15,7 @@ export interface IVerifyGitCommitParams {
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string
   cryptPathResolver: IWorkspacePathResolver
-  logger: IReporter | undefined
+  reporter: IReporter | undefined
   plainCommitId: string
   plainPathResolver: IWorkspacePathResolver
 }
@@ -27,7 +27,7 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
     configKeeper,
     cryptCommitId,
     cryptPathResolver,
-    logger,
+    reporter,
     plainCommitId,
     plainPathResolver,
   } = params
@@ -52,8 +52,8 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
     `[${title}] plainRootDir is not a git repo. ${plainPathResolver.root}`,
   )
 
-  const cryptCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
-  const plainCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, logger }
+  const cryptCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
+  const plainCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, reporter }
 
   const cryptCurrentBranches = await getAllLocalBranches(cryptCtx)
   invariant(!!cryptCurrentBranches.currentBranch, `[${title}] crypt repo does not at any branch.`)
@@ -88,7 +88,7 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
       })
       /* c8 ignore start */
       if (item.fingerprint !== expectedItem.fingerprint) {
-        logger?.error(`[${title}] Bad file content, fingerprint are not matched.`, {
+        reporter?.error(`[${title}] Bad file content, fingerprint are not matched.`, {
           plainFilepath,
           plainCommitId,
           cryptCommitId,
@@ -101,7 +101,7 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
       }
       /* c8 ignore end */
     }
-    logger?.info(`Everything looks good!`)
+    reporter?.info(`Everything looks good!`)
   } finally {
     await checkBranch({ ...cryptCtx, commitHash: cryptCurrentBranches.currentBranch })
     await checkBranch({ ...plainCtx, commitHash: plainCurrentBranches.currentBranch })

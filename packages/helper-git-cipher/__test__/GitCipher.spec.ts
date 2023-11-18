@@ -18,8 +18,8 @@ import {
   getCommitInTopology,
   getCommitWithMessageList,
 } from '@guanghechen/helper-git'
-import type { ILoggerMock } from '@guanghechen/helper-jest'
-import { createLoggerMock } from '@guanghechen/helper-jest'
+import type { IReporterMock } from '@guanghechen/helper-jest'
+import { createReporterMock } from '@guanghechen/helper-jest'
 import { calcMac } from '@guanghechen/mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import { TextFileResource } from '@guanghechen/resource'
@@ -73,15 +73,15 @@ describe('GitCipher', () => {
   const cryptPathResolver = new WorkspacePathResolver(cryptRootDir, pathResolver)
   const bakPlainPathResolver = new WorkspacePathResolver(bakPlainRootDir, pathResolver)
 
-  const logger = new ChalkLogger({
+  const reporter = new ChalkLogger({
     name: 'GitCipher',
     level: Level.ERROR,
     flights: { inline: true, colorful: false },
   })
 
-  const plainCtx: IGitCommandBaseParams = { cwd: plainRootDir, logger, execaOptions: {} }
-  const cryptCtx: IGitCommandBaseParams = { cwd: cryptRootDir, logger, execaOptions: {} }
-  const bakPlainCtx: IGitCommandBaseParams = { cwd: bakPlainRootDir, logger, execaOptions: {} }
+  const plainCtx: IGitCommandBaseParams = { cwd: plainRootDir, reporter, execaOptions: {} }
+  const cryptCtx: IGitCommandBaseParams = { cwd: cryptRootDir, reporter, execaOptions: {} }
+  const bakPlainCtx: IGitCommandBaseParams = { cwd: bakPlainRootDir, reporter, execaOptions: {} }
 
   const fileSplitter = new FileSplitter({ partCodePrefix })
   const ivSize = 12
@@ -93,12 +93,12 @@ describe('GitCipher', () => {
       digest: 'sha256',
     },
   )
-  const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
+  const fileCipherFactory = new FileCipherFactory({ cipherFactory, reporter })
   const cipherBatcher = new FileCipherBatcher({
     fileSplitter,
     fileCipherFactory,
     maxTargetFileSize,
-    logger,
+    reporter,
   })
 
   const resource = new TextFileResource({
@@ -123,7 +123,7 @@ describe('GitCipher', () => {
     catalogContext,
     cipherBatcher,
     configKeeper,
-    logger,
+    reporter,
     getDynamicIv: (infos): Readonly<Uint8Array> => calcMac(infos, 'sha256').slice(0, ivSize),
   })
   const gitCipher = new GitCipher({ context })
@@ -186,9 +186,9 @@ describe('GitCipher', () => {
   }
 
   describe('complex', () => {
-    let logMock: ILoggerMock
+    let logMock: IReporterMock
     beforeEach(async () => {
-      logMock = createLoggerMock({ logger, desensitize })
+      logMock = createReporterMock({ reporter, desensitize })
       await emptyDir(workspaceDir)
     })
     afterEach(async () => {
@@ -202,7 +202,7 @@ describe('GitCipher', () => {
       async () => {
         const { commitIdTable, commitTable } = await buildRepo1({
           repoDir: plainRootDir,
-          logger,
+          reporter,
           execaOptions: {},
         })
 
@@ -302,7 +302,7 @@ describe('GitCipher', () => {
               configKeeper,
               cryptCommitId: repo1CryptCommitIdTable[symbol],
               cryptPathResolver,
-              logger,
+              reporter,
             }),
           )
         }
@@ -377,19 +377,19 @@ describe('GitCipher', () => {
   })
 
   describe('incremental update', () => {
-    let logMock: ILoggerMock
+    let logMock: IReporterMock
     let crypt2plainIdMap: Map<string, string>
     let commitIdTable: Readonly<IBuildRepo1Result['commitIdTable']>
     let commitTable: Readonly<IBuildRepo1Result['commitTable']>
 
     beforeAll(async () => {
-      logMock = createLoggerMock({ logger, desensitize })
+      logMock = createReporterMock({ reporter, desensitize })
       crypt2plainIdMap = new Map()
       await emptyDir(workspaceDir)
 
       const buildRepo1Result: IBuildRepo1Result = await buildRepo1({
         repoDir: plainRootDir,
-        logger,
+        reporter,
         execaOptions: {},
       })
       commitIdTable = buildRepo1Result.commitIdTable
@@ -791,11 +791,11 @@ describe('GitCipher', () => {
     const bakFilepathD: string = bakPlainPathResolver.resolve(fpD)
     const bakFilepathE: string = bakPlainPathResolver.resolve(fpE)
 
-    let logMock: ILoggerMock
+    let logMock: IReporterMock
     beforeAll(async () => {
-      logMock = createLoggerMock({ logger })
+      logMock = createReporterMock({ reporter })
       await emptyDir(workspaceDir)
-      await buildRepo1({ repoDir: plainRootDir, logger, execaOptions: {} })
+      await buildRepo1({ repoDir: plainRootDir, reporter, execaOptions: {} })
       await gitCipher.encrypt({ cryptPathResolver, crypt2plainIdMap: new Map(), plainPathResolver })
     })
     afterAll(async () => {

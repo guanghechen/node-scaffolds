@@ -5,7 +5,7 @@ import type {
 import { isBoolean, isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
 import { pathResolver } from '@guanghechen/path'
-import { logger } from '../../core/logger'
+import { reporter } from '../../core/reporter'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
@@ -54,11 +54,11 @@ export function resolveSubCommandEncryptOptions(
     baseOptions.workspace,
     cover<string>(baseOptions.catalogCacheFilepath, options.catalogCacheFilepath, isNonBlankString),
   )
-  logger.debug('catalogCacheFilepath:', catalogCacheFilepath)
+  reporter.debug('catalogCacheFilepath:', catalogCacheFilepath)
 
   // Resolve filesOnly
   const filesOnly: boolean = cover<boolean>(baseOptions.filesOnly, options.filesOnly, isBoolean)
-  logger.debug('filesOnly:', filesOnly)
+  reporter.debug('filesOnly:', filesOnly)
 
   const resolvedOptions: ISubCommandOptions = {
     catalogCacheFilepath,

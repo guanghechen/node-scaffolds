@@ -8,13 +8,13 @@ export async function safeExeca(
   file: string,
   args: string[],
   options: IExecaOptions,
-  logger: IReporter | undefined,
+  reporter: IReporter | undefined,
 ): Promise<IExecaReturnValue | never> {
   try {
     const result: IExecaReturnValue = await execa(file, args, { ...options, encoding: 'utf8' })
     return result
   } catch (error) {
-    logger?.error?.(`[safeExeca] failed to run ${file}.`, '\nargs:', args, '\noptions:', {
+    reporter?.error?.(`[safeExeca] failed to run ${file}.`, '\nargs:', args, '\noptions:', {
       ...options,
       encoding: 'utf8',
     })

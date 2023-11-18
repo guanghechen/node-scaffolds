@@ -19,14 +19,14 @@ interface IMonorepoContextProps {
   readonly rootDir: string
   readonly packagePathMap: ReadonlyMap<string, IPackageItem>
   readonly isVersionIndependent: boolean
-  readonly logger?: IReporter | undefined
+  readonly reporter?: IReporter | undefined
 }
 
 interface IScanAndBuildOptions {
   rootDir: string
   username?: string
   repository?: string
-  logger?: IReporter | undefined
+  reporter?: IReporter | undefined
 }
 
 export class MonorepoContext {
@@ -35,7 +35,7 @@ export class MonorepoContext {
   public readonly rootDir: string
   public readonly packagePaths: ReadonlyArray<string>
   public readonly isVersionIndependent: boolean
-  public readonly logger: IReporter | undefined
+  public readonly reporter: IReporter | undefined
   protected readonly packagePathMap: ReadonlyMap<string, IPackageItem>
 
   constructor(props: IMonorepoContextProps) {
@@ -45,11 +45,11 @@ export class MonorepoContext {
     this.packagePaths = Array.from(props.packagePathMap.keys())
     this.packagePathMap = new Map(props.packagePathMap)
     this.isVersionIndependent = props.isVersionIndependent
-    this.logger = props.logger
+    this.reporter = props.reporter
   }
 
   public static async scanAndBuild(options: IScanAndBuildOptions): Promise<MonorepoContext> {
-    const { rootDir, logger } = options
+    const { rootDir, reporter } = options
     const topPackageJsonPath = path.join(rootDir, 'package.json')
     const topPackageJson = await loadJson<ITopPackageJson>(topPackageJsonPath)
     const username: string | undefined = isNonBlankString(options.username)
@@ -125,14 +125,14 @@ export class MonorepoContext {
       }
     }
 
-    logger?.debug('packagePathMap:', Array.from(packagePathMap.entries()))
+    reporter?.debug('packagePathMap:', Array.from(packagePathMap.entries()))
     return new MonorepoContext({
       username,
       repository,
       rootDir,
       packagePathMap,
       isVersionIndependent,
-      logger,
+      reporter,
     })
   }
 

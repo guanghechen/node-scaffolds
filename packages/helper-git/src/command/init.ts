@@ -13,7 +13,7 @@ export interface IInitGitRepoParams extends IGitCommandBaseParams {
 }
 
 export const initGitRepo = async (params: IInitGitRepoParams): Promise<void> => {
-  params?.logger?.debug(`[initGitRepo] cwd: {}`, params.cwd)
+  params?.reporter?.debug(`[initGitRepo] cwd: {}`, params.cwd)
   const {
     gpgSign,
     logDate = 'iso',

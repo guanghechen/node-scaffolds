@@ -1,7 +1,7 @@
 import { copy as realCopy, paste as realPaste } from '@guanghechen/mini-copy'
 import type { ICopyOptions, IPasteOptions } from '@guanghechen/mini-copy'
 import fs from 'node:fs'
-import { logger } from '../env/logger'
+import { reporter } from '../env/reporter'
 
 interface ICommandItem {
   path: string
@@ -27,7 +27,7 @@ export const copy = async (
     options.copyCommandPath = copyCommandItem.path
     options.copyCommandArgs = copyCommandItem.args || []
   }
-  options.logger = options.logger ?? logger
+  options.reporter = options.reporter ?? reporter
   await realCopy(content, options)
 }
 
@@ -48,7 +48,7 @@ export const paste = async (
     options.pasteCommandPath = pasteCommandItem.path
     options.pasteCommandArgs = pasteCommandItem.args || []
   }
-  options.logger = options.logger ?? logger
+  options.reporter = options.reporter ?? reporter
   return realPaste(pasteOptions)
 }
 

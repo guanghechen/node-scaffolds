@@ -6,7 +6,7 @@ import { TextFileResource } from '@guanghechen/resource'
 import { createHash } from 'node:crypto'
 import { ErrorCode } from '../core/error'
 import { EventTypes, eventBus } from '../core/event'
-import { logger } from '../core/logger'
+import { reporter } from '../core/reporter'
 import { confirmPassword, inputPassword } from './password'
 import {
   CryptSecretConfigKeeper,
@@ -94,7 +94,7 @@ export class SecretMaster {
     let configKeeper: SecretConfigKeeper
     try {
       const { showAsterisk, minPasswordLength, maxPasswordLength } = this
-      logger.debug('Asking input new password.')
+      reporter.debug('Asking input new password.')
 
       for (let i = 0; ; ++i) {
         password = await inputPassword({
@@ -112,10 +112,10 @@ export class SecretMaster {
         })
         if (isSame) break
 
-        logger.error(`Entered passwords diff, try again.`)
+        reporter.error(`Entered passwords diff, try again.`)
       }
 
-      logger.debug('Creating new secret.')
+      reporter.debug('Creating new secret.')
 
       // Use password to encrypt new secret.
       {
@@ -135,9 +135,9 @@ export class SecretMaster {
           })
           secret = secretCipherFactoryBuilder.createRandomSecret()
 
-          logger.debug('Testing the new created secret.')
+          reporter.debug('Testing the new created secret.')
           const secretCipherFactory = secretCipherFactoryBuilder.buildFromSecret(secret)
-          logger.debug('New create secret is fine.')
+          reporter.debug('New create secret is fine.')
 
           const secretNonce: Uint8Array = secretCipherFactoryBuilder.createRandomIv()
           const secretCatalogNonce: Uint8Array = secretCipherFactoryBuilder.createRandomIv()
@@ -170,10 +170,10 @@ export class SecretMaster {
             resource: new TextFileResource({ strict: true, filepath, encoding: 'utf8' }),
           })
 
-          logger.debug('Updating secret config.')
+          reporter.debug('Updating secret config.')
           await configKeeper.update(config)
           await configKeeper.save()
-          logger.debug('New secret config is saved.')
+          reporter.debug('New secret config is saved.')
 
           this.#secretConfigKeeper = configKeeper
           this.#secretCipherFactory?.destroy()
@@ -233,7 +233,7 @@ export class SecretMaster {
       passwordCipher = mainCipherFactory.cipher()
 
       // Decrypt secret.
-      logger.debug('Trying decrypt secret.')
+      reporter.debug('Trying decrypt secret.')
       const cryptSecretBytes: Uint8Array = decodeCryptBytes(cryptSecretConfig.secret)
       const authTag: Uint8Array | undefined = decodeAuthTag(cryptSecretConfig.secretAuthTag)
       secret = passwordCipher.decrypt(cryptSecretBytes, { authTag })

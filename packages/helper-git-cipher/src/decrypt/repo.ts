@@ -42,9 +42,9 @@ export async function decryptGitRepo(
 ): Promise<IDecryptGitRepoResult> {
   const title = 'decryptGitRepo'
   const { context, cryptPathResolver, plainPathResolver } = params
-  const { logger } = context
-  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, logger }
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
+  const { reporter } = context
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, reporter }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
   invariant(
     isGitRepo(cryptPathResolver.root),
@@ -74,13 +74,13 @@ export async function decryptGitRepo(
     plainRootDir: plainPathResolver.root,
     cryptRootDir: cryptPathResolver.root,
     crypt2plainIdMap: params.crypt2plainIdMap,
-    logger,
+    reporter,
   })
 
   // Initialize plain repo.
   if (!isPlainRepoInitialized) {
     mkdirsIfNotExists(plainPathResolver.root, true)
-    logger?.verbose?.(`[${title}] initialize plain repo.`)
+    reporter?.verbose?.(`[${title}] initialize plain repo.`)
     await initGitRepo({
       ...plainCmdCtx,
       defaultBranch: cryptLocalBranch.currentBranch,

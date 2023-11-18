@@ -1,19 +1,19 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
-import { createLoggerMock } from '@guanghechen/helper-jest'
+import { createReporterMock } from '@guanghechen/helper-jest'
 import { desensitize, locateFixtures } from 'jest.helper'
 
 describe('resolveCommandConfigurationOptions', () => {
-  const logger = new ChalkLogger({
+  const reporter = new ChalkLogger({
     level: Level.DEBUG,
     flights: {
       colorful: false,
     },
   })
-  const loggerMock = createLoggerMock({ logger, desensitize })
+  const reporterMock = createReporterMock({ reporter, desensitize })
 
-  beforeEach(() => loggerMock.reset())
-  afterAll(() => loggerMock.restore())
+  beforeEach(() => reporterMock.reset())
+  afterAll(() => reporterMock.restore())
 
   test('basic', () => {
     expect(
@@ -28,7 +28,7 @@ describe('resolveCommandConfigurationOptions', () => {
             date: false,
             a: [1, 2, 3],
           },
-          logger,
+          reporter,
           options: {
             color: false,
             date: true,
@@ -39,7 +39,7 @@ describe('resolveCommandConfigurationOptions', () => {
         }),
       ),
     ).toMatchSnapshot()
-    expect(loggerMock.getIndiscriminateAll()).toMatchSnapshot()
+    expect(reporterMock.getIndiscriminateAll()).toMatchSnapshot()
   })
 
   test('with config', () => {
@@ -54,7 +54,7 @@ describe('resolveCommandConfigurationOptions', () => {
             date: false,
             a: [1, 2, 3],
           },
-          logger,
+          reporter,
           options: {
             color: false,
             date: true,
@@ -65,7 +65,7 @@ describe('resolveCommandConfigurationOptions', () => {
         }),
       ),
     ).toMatchSnapshot()
-    expect(loggerMock.getIndiscriminateAll()).toMatchSnapshot()
+    expect(reporterMock.getIndiscriminateAll()).toMatchSnapshot()
   })
 
   test('no sub-command', () => {
@@ -80,7 +80,7 @@ describe('resolveCommandConfigurationOptions', () => {
             date: false,
             a: [1, 2, 3],
           },
-          logger,
+          reporter,
           options: {
             color: false,
             date: true,
@@ -91,6 +91,6 @@ describe('resolveCommandConfigurationOptions', () => {
         }),
       ),
     ).toMatchSnapshot()
-    expect(loggerMock.getIndiscriminateAll()).toMatchSnapshot()
+    expect(reporterMock.getIndiscriminateAll()).toMatchSnapshot()
   })
 })

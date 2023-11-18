@@ -1,6 +1,6 @@
 import type { IConfigKeeper } from '@guanghechen/config'
 import { JsonConfigKeeper } from '@guanghechen/config'
-import { logger } from '../core/logger'
+import { reporter } from '../core/reporter'
 
 export interface ICatalogCache {
   crypt2plainIdMap: Map<string, string>
@@ -22,7 +22,7 @@ export class CatalogCacheKeeper
       try {
         await super.load()
       } catch (error) {
-        logger.warn('Failed to load catalog cache (ignored).', error)
+        reporter.warn('Failed to load catalog cache (ignored).', error)
       }
     }
   }

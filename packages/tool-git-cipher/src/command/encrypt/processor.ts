@@ -9,7 +9,7 @@ import { isNonBlankString } from '@guanghechen/helper-is'
 import invariant from '@guanghechen/invariant'
 import { TextFileResource } from '@guanghechen/resource'
 import inquirer from 'inquirer'
-import { logger } from '../../core/logger'
+import { reporter } from '../../core/reporter'
 import type { ICatalogCache } from '../../util/CatalogCache'
 import { CatalogCacheKeeper } from '../../util/CatalogCache'
 import { loadGitCipherContext } from '../../util/context/loadGitCipherContext'
@@ -21,7 +21,7 @@ export class GitCipherEncryptProcessor {
   protected readonly secretMaster: SecretMaster
 
   constructor(context: IGitCipherEncryptContext) {
-    logger.debug('context:', context)
+    reporter.debug('context:', context)
 
     this.context = context
     this.secretMaster = new SecretMaster({
@@ -154,7 +154,7 @@ async function pickDiffItems(
       },
     ].filter(Boolean),
   )
-  logger.debug('answers:', answers)
+  reporter.debug('answers:', answers)
 
   const idSet: Set<number> = new Set<number>([
     ...(answers.added ?? []),

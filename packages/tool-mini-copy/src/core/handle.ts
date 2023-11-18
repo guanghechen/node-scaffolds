@@ -2,7 +2,7 @@ import { readFromStdin } from '@guanghechen/helper-commander'
 import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-fs'
 import { FakeClipboard } from '@guanghechen/mini-copy'
 import fs from 'node:fs'
-import { logger } from '../env/logger'
+import { reporter } from '../env/reporter'
 import type { ISafeCopyOptions } from '../util/copy-paste'
 import { pasteToFile, pasteToStdout, safeCopy } from '../util/copy-paste'
 import type { IGlobalCommandOptions } from './option'
@@ -21,7 +21,7 @@ export async function handleCommand(
     stripAnsi: shouldStripAnsi,
   } = options
   const fakeClipboard: FakeClipboard | undefined = fakeClipboardPath
-    ? new FakeClipboard({ filepath: fakeClipboardPath, logger })
+    ? new FakeClipboard({ filepath: fakeClipboardPath, reporter })
     : undefined
 
   let copied: 'argument' | 'stdin' | 'file' | false = false
@@ -60,7 +60,7 @@ export async function handleCommand(
   if (!pasted && outputFilepath != null) {
     // FIXME: resolve inquire.prompt when there are stdin pipeline content.
     if (copied !== 'stdin' || force) {
-      logger.debug(`paste to ${outputFilepath}.`)
+      reporter.debug(`paste to ${outputFilepath}.`)
       await pasteToFile({
         filepath: outputFilepath,
         encoding,
@@ -75,7 +75,7 @@ export async function handleCommand(
 
   // Paste to stdout.
   if (!copied && !pasted) {
-    logger.debug(`paste to stdout.`)
+    reporter.debug(`paste to stdout.`)
     await pasteToStdout({
       encoding,
       shouldStripAnsi,

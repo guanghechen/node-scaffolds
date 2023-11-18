@@ -13,7 +13,7 @@ export const stageAll = async (params: IStageAllParams): Promise<void> => {
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
   const args: string[] = ['add', '-A']
 
-  params?.logger?.debug(`[stageAll] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  params?.reporter?.debug(`[stageAll] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  await safeExeca('git', args, execaOptions, params.logger)
+  await safeExeca('git', args, execaOptions, params.reporter)
 }

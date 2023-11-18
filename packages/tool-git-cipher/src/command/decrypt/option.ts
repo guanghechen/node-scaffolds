@@ -5,7 +5,7 @@ import type {
 import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
 import { pathResolver } from '@guanghechen/path'
-import { logger } from '../../core/logger'
+import { reporter } from '../../core/reporter'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
@@ -64,7 +64,7 @@ export function resolveSubCommandDecryptOptions(
     baseOptions.workspace,
     cover<string>(baseOptions.catalogCacheFilepath, options.catalogCacheFilepath, isNonBlankString),
   )
-  logger.debug('catalogCacheFilepath:', catalogCacheFilepath)
+  reporter.debug('catalogCacheFilepath:', catalogCacheFilepath)
 
   // Resolve filesAt
   const filesAt: string | undefined = cover<string | undefined>(
@@ -72,7 +72,7 @@ export function resolveSubCommandDecryptOptions(
     options.filesAt,
     isNonBlankString,
   )
-  logger.debug('filesAt:', filesAt)
+  reporter.debug('filesAt:', filesAt)
 
   // Resolve filesOnly
   const filesOnly: string[] = cover<string[]>(
@@ -80,14 +80,14 @@ export function resolveSubCommandDecryptOptions(
     options.filesOnly,
     isNotEmptyArray,
   )
-  logger.debug('filesOnly:', filesOnly)
+  reporter.debug('filesOnly:', filesOnly)
 
   // Resolve gitGpgSign
   const gitGpgSign: boolean | undefined = cover<boolean | undefined>(
     baseOptions.gitGpgSign,
     convertToBoolean(options.gitGpgSign),
   )
-  logger.debug('gitGpgSign:', gitGpgSign)
+  reporter.debug('gitGpgSign:', gitGpgSign)
 
   const resolvedOptions: ISubCommandOptions = {
     catalogCacheFilepath,

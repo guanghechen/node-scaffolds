@@ -4,7 +4,7 @@ import type { GitCipher } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { TextFileResource } from '@guanghechen/resource'
-import { logger } from '../core/logger'
+import { reporter } from '../core/reporter'
 import { CatalogCacheKeeper } from './CatalogCache'
 
 export interface IVerifyCryptRepoStrictlyParams {
@@ -39,7 +39,7 @@ export async function verifyRepoStrictly(params: IVerifyCryptRepoStrictlyParams)
     await showCommitInfo({
       commitHash: params.cryptCommitId,
       cwd: cryptPathResolver.root,
-      logger,
+      reporter,
     })
   ).commitId
 
@@ -58,7 +58,7 @@ export async function verifyRepoStrictly(params: IVerifyCryptRepoStrictlyParams)
     plainCommitId = crypt2plainIdMap.get(cryptCommitId)
   }
 
-  logger.debug(`[${title}] cryptCommitId(${cryptCommitId}), plainCommitId(${plainCommitId}).`)
+  reporter.debug(`[${title}] cryptCommitId(${cryptCommitId}), plainCommitId(${plainCommitId}).`)
   invariant(!!plainCommitId, `[${title}] Missing plainCommitId.`)
 
   await gitCipher.verifyCommit({

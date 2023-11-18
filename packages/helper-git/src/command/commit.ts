@@ -37,9 +37,9 @@ export const commitStaged = async (params: ICommitStageParams): Promise<void> =>
   if (params.committerName) env.GIT_COMMITTER_NAME = params.committerName
   if (params.committerEmail) env.GIT_COMMITTER_EMAIL = params.committerEmail
 
-  params?.logger?.debug(`[commitStaged] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  params?.reporter?.debug(`[commitStaged] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  await safeExeca('git', args, execaOptions, params.logger)
+  await safeExeca('git', args, execaOptions, params.reporter)
 }
 
 export const commitAll = async (options: ICommitStageParams & IStageAllParams): Promise<void> => {

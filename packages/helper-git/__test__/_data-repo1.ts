@@ -23,7 +23,7 @@ export interface ICommitItem extends IGitCommandBaseParams, IGitCommitInfo {
 
 export interface IBuildRepo1Params {
   repoDir: string
-  logger?: IReporter
+  reporter?: IReporter
   execaOptions?: IExecaOptions
 }
 
@@ -182,7 +182,7 @@ export const getCommitArgTable = (): Record<IRepo1Symbol, Omit<IGitCommitInfo, '
  */
 export async function buildRepo1({
   repoDir,
-  logger,
+  reporter,
   execaOptions,
 }: IBuildRepo1Params): Promise<IBuildRepo1Result> {
   mkdirsIfNotExists(repoDir, true)
@@ -192,7 +192,7 @@ export async function buildRepo1({
   const filepathC: string = path.join(repoDir, fpC)
   const filepathD: string = path.join(repoDir, fpD)
   const filepathE: string = path.join(repoDir, fpE)
-  const ctx: IGitCommandBaseParams = { cwd: repoDir, logger, execaOptions }
+  const ctx: IGitCommandBaseParams = { cwd: repoDir, reporter, execaOptions }
 
   const commitArgTable = getCommitArgTable()
   const commitIdTable = {

@@ -9,6 +9,7 @@ import {
 } from '@guanghechen/helper-is'
 import { cover, coverString } from '@guanghechen/helper-option'
 import { locateNearestFilepath, pathResolver } from '@guanghechen/path'
+import type { IReporter } from '@guanghechen/reporter.types'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import type {
@@ -28,7 +29,7 @@ export interface IResolveDefaultOptionsParams {
 export interface IResolveCommandConfigurationOptionsParams<O extends ICommandConfigurationOptions> {
   commandName: string
   defaultOptions: O | ((params: IResolveDefaultOptionsParams) => O)
-  logger: ChalkLogger
+  reporter: IReporter
   options: Partial<O>
   strategyMap?: Partial<IMergeStrategyMap<O>>
   subCommandName: string | false
@@ -40,7 +41,7 @@ export function resolveCommandConfigurationOptions<O extends ICommandConfigurati
   params: IResolveCommandConfigurationOptionsParams<O>,
 ): O & ICommandConfigurationFlatOpts {
   const cwd: string = path.resolve()
-  const { commandName, defaultOptions, logger, options, strategyMap, subCommandName } = params
+  const { commandName, defaultOptions, reporter, options, strategyMap, subCommandName } = params
   const workspace = path.resolve(cwd, options.workspace || params.workspace || '.')
 
   const baseOptions: O = isFunction(defaultOptions)
@@ -77,13 +78,15 @@ export function resolveCommandConfigurationOptions<O extends ICommandConfigurati
   const setLoggerLevel = (defaultLogLevel: string | Level | undefined): Level | null => {
     const _logLevel = cover<string | Level | undefined>(defaultLogLevel, options.logLevel)
     const _level: Level | null = _logLevel ? resolveLevel(_logLevel) : null
-    if (_level) logger.setLevel(_level)
+    if (_level) {
+      ;(reporter as ChalkLogger).setLevel?.(_level)
+    }
     return _level
   }
 
   setLoggerLevel(undefined)
 
-  const resolvedConfig: ICommandConfiguration<O> = flatConfiguration<O>(logger, flatOpts)
+  const resolvedConfig: ICommandConfiguration<O> = flatConfiguration<O>(reporter, flatOpts)
   const resolvedOptions: O = flatOptions<O>(
     resolvedConfig,
     baseOptions,
@@ -92,21 +95,21 @@ export function resolveCommandConfigurationOptions<O extends ICommandConfigurati
   )
   const logLevel: Level | null = setLoggerLevel(resolvedOptions.logLevel)
 
-  logger.debug('cwd:', flatOpts.cwd)
-  logger.debug('workspace:', flatOpts.workspace)
-  logger.debug('configPath:', flatOpts.configPath)
-  logger.debug('parasticConfigPath:', flatOpts.parasticConfigPath)
-  logger.debug('parasticConfigEntry:', flatOpts.parasticConfigEntry)
-  logger.debug('logLevel:', logLevel)
-  logger.debug('resolvedConfig:', resolvedConfig)
-  logger.debug('resolvedOptions:', resolvedOptions)
+  reporter.debug('cwd:', flatOpts.cwd)
+  reporter.debug('workspace:', flatOpts.workspace)
+  reporter.debug('configPath:', flatOpts.configPath)
+  reporter.debug('parasticConfigPath:', flatOpts.parasticConfigPath)
+  reporter.debug('parasticConfigEntry:', flatOpts.parasticConfigEntry)
+  reporter.debug('logLevel:', logLevel)
+  reporter.debug('resolvedConfig:', resolvedConfig)
+  reporter.debug('resolvedOptions:', resolvedOptions)
 
   return { ...defaultOptions, ...resolvedOptions, ...flatOpts, logLevel }
 }
 
 // Flat defaultOptions with configs from package.json
 function flatConfiguration<O extends ICommandConfigurationOptions>(
-  logger: ChalkLogger,
+  reporter: IReporter,
   flatOpts: Readonly<ICommandConfigurationFlatOpts>,
 ): ICommandConfiguration<O> {
   // load configs
@@ -117,7 +120,7 @@ function flatConfiguration<O extends ICommandConfigurationOptions>(
         const config = loadConfig(filepath) as ICommandConfiguration<O>
         configs.push(config)
       } else {
-        logger.verbose(
+        reporter.verbose(
           `[flatOptionsFromConfiguration] Config file is not exist (ignored). ${filepath}`,
         )
       }

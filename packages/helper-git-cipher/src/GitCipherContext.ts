@@ -14,7 +14,7 @@ export interface IGitCipherContextProps {
   readonly catalogContext: IFileCipherCatalogContext
   readonly cipherBatcher: IFileCipherBatcher
   readonly configKeeper: IConfigKeeper<IGitCipherConfig>
-  readonly logger: IReporter | undefined
+  readonly reporter: IReporter | undefined
   getDynamicIv(infos: ReadonlyArray<Uint8Array>): Readonly<Uint8Array>
 }
 
@@ -22,7 +22,7 @@ export interface IGitCipherContext {
   readonly catalogContext: IFileCipherCatalogContext
   readonly configKeeper: IConfigKeeper<IGitCipherConfig>
   readonly cipherBatcher: IFileCipherBatcher
-  readonly logger: IReporter | undefined
+  readonly reporter: IReporter | undefined
   flatItem(item: IFileCipherCatalogItemInstance): IFileCipherCatalogItem
   getIv(item: IFileCipherCatalogItemBase): Uint8Array
 }
@@ -31,15 +31,15 @@ export class GitCipherContext implements IGitCipherContext {
   public readonly catalogContext: IFileCipherCatalogContext
   public readonly cipherBatcher: IFileCipherBatcher
   public readonly configKeeper: IConfigKeeper<IGitCipherConfig>
-  public readonly logger: IReporter | undefined
+  public readonly reporter: IReporter | undefined
   public readonly getIv: (item: IFileCipherCatalogItemBase) => Uint8Array
 
   constructor(props: IGitCipherContextProps) {
-    const { catalogContext, cipherBatcher, configKeeper, logger, getDynamicIv } = props
+    const { catalogContext, cipherBatcher, configKeeper, reporter, getDynamicIv } = props
     this.catalogContext = catalogContext
     this.cipherBatcher = cipherBatcher
     this.configKeeper = configKeeper
-    this.logger = logger
+    this.reporter = reporter
     this.getIv = (item: IFileCipherCatalogItemBase): Uint8Array =>
       getDynamicIv([text2bytes(item.plainFilepath, 'utf8'), text2bytes(item.fingerprint, 'hex')])
   }

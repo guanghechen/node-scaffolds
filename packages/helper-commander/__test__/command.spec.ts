@@ -1,6 +1,6 @@
 import { ChalkLogger } from '@guanghechen/chalk-logger'
 import { isNonBlankString } from '@guanghechen/helper-is'
-import { createLoggerMock } from '@guanghechen/helper-jest'
+import { createReporterMock } from '@guanghechen/helper-jest'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
 import { pathResolver } from '@guanghechen/path'
 import { desensitize } from 'jest.helper'
@@ -28,12 +28,12 @@ describe('command', () => {
         '--no-silence',
       ]
 
-      const logger = new ChalkLogger(
+      const reporter = new ChalkLogger(
         { name: 'ghc', flights: { colorful: false, date: false } },
         argv,
       )
-      const mock = createLoggerMock({ logger, desensitize })
-      const result0 = await getCommand(argv, logger)
+      const mock = createReporterMock({ reporter, desensitize })
+      const result0 = await getCommand(argv, reporter)
       expect(desensitize(result0.args)).toMatchSnapshot('args')
       expect(desensitize(result0.options)).toMatchSnapshot('options')
       expect(desensitize(result0.resolvedOptions)).toMatchSnapshot('resolvedOptions')
@@ -52,12 +52,12 @@ describe('command', () => {
         '--no-silence',
       ]
 
-      const logger = new ChalkLogger(
+      const reporter = new ChalkLogger(
         { name: 'ghc', flights: { colorful: false, date: false } },
         argv,
       )
-      const mock = createLoggerMock({ logger, desensitize })
-      const result0 = await getCommand(argv, logger)
+      const mock = createReporterMock({ reporter, desensitize })
+      const result0 = await getCommand(argv, reporter)
       expect(desensitize(result0.args)).toMatchSnapshot('args')
       expect(desensitize(result0.options)).toMatchSnapshot('options')
       expect(desensitize(result0.resolvedOptions)).toMatchSnapshot('resolvedOptions')
@@ -69,7 +69,7 @@ describe('command', () => {
 
 async function getCommand(
   argv: string[],
-  logger: ChalkLogger,
+  reporter: ChalkLogger,
 ): Promise<{
   args: string[]
   options: IGlobalCommandOptions
@@ -103,7 +103,7 @@ async function getCommand(
           const resolvedOptions = resolveGlobalCommandOptions<IGlobalCommandOptions>({
             commandName: '@guanghechen/helper-commander--demo',
             defaultOptions: __defaultGlobalCommandOptions,
-            logger,
+            reporter,
             options,
             subCommandName: '',
             workspace: path.resolve(),
@@ -131,11 +131,11 @@ function resolveGlobalCommandOptions<O extends ICommandConfigurationOptions>(
 ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
   const baseOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>(params)
-  const { logger, options } = params
+  const { reporter, options } = params
 
   // Resolve `encoding`.
   const encoding: string = cover<string>(baseOptions.encoding, options.encoding, isNonBlankString)
-  logger.debug('encoding:', encoding)
+  reporter.debug('encoding:', encoding)
 
   // Resolve `input`.
   const _input: string | undefined = cover<string | undefined>(
@@ -146,7 +146,7 @@ function resolveGlobalCommandOptions<O extends ICommandConfigurationOptions>(
   const input: string | undefined = _input
     ? pathResolver.safeResolve(baseOptions.workspace, _input)
     : undefined
-  logger.debug('input:', input)
+  reporter.debug('input:', input)
 
   // Resolve `output`.
   const _output: string | undefined = cover<string | undefined>(
@@ -157,15 +157,15 @@ function resolveGlobalCommandOptions<O extends ICommandConfigurationOptions>(
   const output: string | undefined = _output
     ? pathResolver.safeResolve(baseOptions.workspace, _output)
     : undefined
-  logger.debug('output:', output)
+  reporter.debug('output:', output)
 
   // Resolve `force`.
   const force: boolean = cover<boolean>(baseOptions.force, convertToBoolean(options.force))
-  logger.debug('force:', force)
+  reporter.debug('force:', force)
 
   // Resolve `silence`.
   const silence: boolean = cover<boolean>(baseOptions.silence, convertToBoolean(options.silence))
-  logger.debug('silence:', silence)
+  reporter.debug('silence:', silence)
 
   return {
     ...baseOptions,

@@ -38,9 +38,9 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
   const title = 'decryptGitCommit'
   const { context, cryptCommitNode, crypt2plainIdMap, cryptPathResolver, plainPathResolver } =
     params
-  const { cipherBatcher, configKeeper, logger } = context
-  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, logger }
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
+  const { cipherBatcher, configKeeper, reporter } = context
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, reporter }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
   // [crypt] Move the HEAD pointer to the current decrypting commit.
   await checkBranch({ ...cryptCmdCtx, commitHash: cryptCommitNode.id })

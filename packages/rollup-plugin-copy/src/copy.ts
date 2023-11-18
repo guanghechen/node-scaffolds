@@ -6,8 +6,8 @@ import {
   CopyWatcher,
   collectAndWatchingTargets,
   copySingleItem,
-  logger,
   normalizeOptions,
+  reporter,
 } from './util'
 
 export function copy(options: IOptions = {}): rollup.Plugin {
@@ -15,7 +15,7 @@ export function copy(options: IOptions = {}): rollup.Plugin {
   const config = normalizeOptions(options)
   const { targets, copyOnce, hook, watchHook } = config
 
-  logger.shouldBeVerbose = config.verbose
+  reporter.shouldBeVerbose = config.verbose
   let copied = false
   let copyTargets: ReadonlyArray<ICopyTargetItem> | undefined
 
@@ -25,10 +25,10 @@ export function copy(options: IOptions = {}): rollup.Plugin {
   async function fullCopy(): Promise<void> {
     if (copyTargets === undefined) copyTargets = await collectAndWatchingTargets(workspace, targets)
     if (copyTargets.length) {
-      logger.verbose(chalk.green('copied:'))
+      reporter.verbose(chalk.green('copied:'))
       for (const copyTarget of copyTargets) await copySingleItem(workspace, copyTarget)
     } else {
-      logger.verbose(chalk.yellow('no items to copy'))
+      reporter.verbose(chalk.yellow('no items to copy'))
     }
     copied = true
   }

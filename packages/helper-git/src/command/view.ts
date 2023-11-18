@@ -14,7 +14,7 @@ export const listAllFiles = async (params: IListAllFilesParams): Promise<string[
     'git',
     ['ls-tree', '--name-only', '-r', params.commitHash],
     execaOptions,
-    params.logger,
+    params.reporter,
   )
   const files: string[] = result.stdout.trim().split(/\s*\n+\s*/g)
   return files
@@ -31,7 +31,7 @@ export const listDiffFiles = async (params: IListDiffFiles): Promise<string[]> =
     'git',
     ['diff', '--name-status', '-z', params.olderCommitHash, params.newerCommitHash],
     execaOptions,
-    params.logger,
+    params.reporter,
   )
 
   // Some thing lik: `A^@a.txt^@R^@a b.txt^@a c.txt`
@@ -104,7 +104,7 @@ export const showCommitInfo = async (
     'git',
     ['log', '-1', '--format=fuller', '--date=iso', params.commitHash],
     execaOptions,
-    params.logger,
+    params.reporter,
   )
   const text: string = result.stdout
   const match = text.match(regex)
@@ -149,7 +149,7 @@ export const getHeadBranchOrCommitId = async (
   const headCommitInfo = await showCommitInfo({
     cwd: params.cwd,
     execaOptions: params.execaOptions,
-    logger: params.logger,
+    reporter: params.reporter,
     commitHash: 'HEAD',
   })
   return headCommitInfo.commitId
@@ -165,8 +165,8 @@ export const showFileContent = async (params: IShowFileContentParams): Promise<s
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
   const args: string[] = ['show', `${params.commitHash}:${params.filepath}`]
 
-  params?.logger?.debug(`[showFileContent] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  params?.reporter?.debug(`[showFileContent] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  const { stdout } = await safeExeca('git', args, execaOptions, params.logger)
+  const { stdout } = await safeExeca('git', args, execaOptions, params.reporter)
   return stdout
 }

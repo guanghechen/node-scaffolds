@@ -33,14 +33,14 @@ export async function encryptGitRepo(
 ): Promise<IEncryptGitRepoResult> {
   const title = 'encryptGitRepo'
   const { context, cryptPathResolver, plainPathResolver } = params
-  const { logger } = context
+  const { reporter } = context
   const catalog = new FileCipherCatalog({
     context: context.catalogContext,
     cryptPathResolver,
     plainPathResolver,
   })
-  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, logger }
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, reporter }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
   invariant(
     isGitRepo(plainPathResolver.root),
@@ -70,13 +70,13 @@ export async function encryptGitRepo(
     cryptRootDir: cryptPathResolver.root,
     plainRootDir: plainPathResolver.root,
     crypt2plainIdMap: params.crypt2plainIdMap,
-    logger,
+    reporter,
   })
 
   // Initialize crypt repo.
   if (!isCryptRepoInitialized) {
     mkdirsIfNotExists(cryptPathResolver.root, true)
-    logger?.verbose?.(`[${title}] initialize crypt repo.`)
+    reporter?.verbose?.(`[${title}] initialize crypt repo.`)
     await initGitRepo({
       ...cryptCmdCtx,
       defaultBranch: plainLocalBranch.currentBranch,

@@ -10,11 +10,11 @@ export const resolveIdMap = async (params: {
   cryptRootDir: string
   plainRootDir: string
   crypt2plainIdMap: ReadonlyMap<string, string>
-  logger?: IReporter
+  reporter?: IReporter
 }): Promise<{
   crypt2plainIdMap: Map<string, string>
 }> => {
-  const { plainRootDir, cryptRootDir, logger } = params
+  const { plainRootDir, cryptRootDir, reporter } = params
   if (!isGitRepo(plainRootDir) || !isGitRepo(cryptRootDir)) {
     return { crypt2plainIdMap: new Map() }
   }
@@ -23,7 +23,7 @@ export const resolveIdMap = async (params: {
 
   // Find & remove invalided records from plain repo.
   {
-    const plainCmdCtx: IGitCommandBaseParams = { cwd: plainRootDir, logger }
+    const plainCmdCtx: IGitCommandBaseParams = { cwd: plainRootDir, reporter }
     const plainLocalBranch = await getAllLocalBranches(plainCmdCtx)
     const plainCommitList: IGitCommitWithMessage[] = await getCommitWithMessageList({
       ...plainCmdCtx,
@@ -37,7 +37,7 @@ export const resolveIdMap = async (params: {
 
   // Find & remove invalided records from crypt repo.
   {
-    const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptRootDir, logger }
+    const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptRootDir, reporter }
     const cryptLocalBranch = await getAllLocalBranches(cryptCmdCtx)
     const cryptCommitList: IGitCommitWithMessage[] = await getCommitWithMessageList({
       ...cryptCmdCtx,

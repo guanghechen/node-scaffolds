@@ -6,7 +6,7 @@ import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { TextFileResource } from '@guanghechen/resource'
 import micromatch from 'micromatch'
-import { logger } from '../core/logger'
+import { reporter } from '../core/reporter'
 import type { ISecretConfig } from './SecretConfig.types'
 
 export interface IVerifyCryptRepoParams {
@@ -33,7 +33,7 @@ export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<v
     await showCommitInfo({
       commitHash: params.cryptCommitId,
       cwd: cryptPathResolver.root,
-      logger,
+      reporter,
     })
   ).commitId
 
@@ -77,6 +77,6 @@ export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<v
     configKeeper,
     cryptCommitId,
     cryptPathResolver,
-    logger,
+    reporter,
   })
 }

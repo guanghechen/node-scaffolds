@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty logger 1`] = `
+exports[`empty reporter 1`] = `
 [
   [
     "verb  [] empty: <$WORKSPACE$>/packages/helper-fs/__test__/fixtures/fictitiousDir_c4266163b919b
@@ -13,7 +13,7 @@ exports[`empty logger 1`] = `
 ]
 `;
 
-exports[`mkdirsIfNotExists mkdirs logger 1`] = `
+exports[`mkdirsIfNotExists mkdirs reporter 1`] = `
 [
   [
     "verb  [] mkdirs: <$WORKSPACE$>/packages/helper-fs/__test__/fixtures/basic--non-existed--2

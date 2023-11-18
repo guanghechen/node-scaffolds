@@ -4,7 +4,7 @@ import path from 'node:path'
 import { resolveMonorepoDocLinkRewrite } from '.'
 
 async function run(argv: string[]): Promise<void> {
-  const logger = new ChalkLogger(
+  const reporter = new ChalkLogger(
     {
       name: 'doc-link-rewrite',
       level: Level.INFO,
@@ -18,19 +18,19 @@ async function run(argv: string[]): Promise<void> {
 
   const args = minimist(argv)
   const repoType = (args.repoType ?? 'monorepo').toLowerCase()
-  logger.debug('repoType:', repoType)
+  reporter.debug('repoType:', repoType)
 
   switch (repoType) {
     case 'monorepo': {
       const rootDir: string = args.rootDir ?? path.resolve()
-      logger.debug('rootDir:', rootDir)
-      logger.debug('username:', args.username)
-      logger.debug('repository:', args.repository)
+      reporter.debug('rootDir:', rootDir)
+      reporter.debug('username:', args.username)
+      reporter.debug('repository:', args.repository)
       await resolveMonorepoDocLinkRewrite({
         rootDir: args.rootDir ?? path.resolve(),
         username: args.username,
         repository: args.repository,
-        logger,
+        reporter,
       })
       break
     }

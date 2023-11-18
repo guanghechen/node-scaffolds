@@ -4,14 +4,14 @@ import invariant from '@guanghechen/invariant'
 import { pathResolver } from '@guanghechen/path'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { logger } from '../../env/logger'
+import { reporter } from '../../env/reporter'
 import type { IFileMergeContext } from './context'
 
 export class FileMergeProcessor {
   protected readonly context: IFileMergeContext
 
   constructor(context: IFileMergeContext) {
-    logger.debug('context:', context)
+    reporter.debug('context:', context)
 
     this.context = context
   }
@@ -20,7 +20,7 @@ export class FileMergeProcessor {
     const title = 'processor.merge'
     const { workspace, partCodePrefix, output = filepath } = this.context
 
-    logger.debug('args: filepath:', filepath)
+    reporter.debug('args: filepath:', filepath)
 
     const { dir, base } = path.parse(pathResolver.safeResolve(workspace, filepath))
     invariant(isDirectorySync(dir), `[${title}] Cannot find ${dir}`)
@@ -38,7 +38,7 @@ export class FileMergeProcessor {
 
     const fileSplitter = new FileSplitter({ partCodePrefix })
     await fileSplitter.merge(absolutePartFilepaths, output)
-    logger.info(
+    reporter.info(
       `Merge done.`,
       partFilenames.map(text => `\n  - ${text}`).join('') + `\n==>${output}`,
     )

@@ -1,4 +1,4 @@
-import { createLoggerMock } from '@guanghechen/helper-jest'
+import { createReporterMock } from '@guanghechen/helper-jest'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { desensitize, locateFixtures } from 'jest.helper'
 import { appendFileSync, existsSync, readFileSync } from 'node:fs'
@@ -41,10 +41,7 @@ describe('Logger', () => {
               // eslint-disable-next-line jest/valid-title
               test(title, function (): void {
                 const logger = new Logger({ ...options, name: level })
-                const loggerMock = createLoggerMock({
-                  logger,
-                  desensitize,
-                })
+                const reporterMock = createReporterMock({ reporter: logger, desensitize })
 
                 for (const method of methods) {
                   const log = logger[method].bind(logger)
@@ -59,8 +56,8 @@ describe('Logger', () => {
                   })
                 }
 
-                expect(loggerMock.getIndiscriminateAll()).toMatchSnapshot()
-                loggerMock.restore()
+                expect(reporterMock.getIndiscriminateAll()).toMatchSnapshot()
+                reporterMock.restore()
               })
             }
           }
@@ -97,7 +94,7 @@ describe('customize', () => {
       },
       placeholderRegex: /(?<!\\)<>/g, // change placeholder of string format
     })
-    const loggerMock = createLoggerMock({ logger, desensitize })
+    const reporterMock = createReporterMock({ reporter: logger, desensitize })
 
     const log = logger.debug.bind(logger)
     log('{}, {}, {}, {}, {}, {}, {}', 1, 'ooo', null, true, false, undefined, () => 'a\nb\n')
@@ -113,8 +110,8 @@ describe('customize', () => {
 
     log('a: {}, b: {}', 1, 2, 3)
 
-    expect(loggerMock.getIndiscriminateAll()).toMatchSnapshot()
-    loggerMock.restore()
+    expect(reporterMock.getIndiscriminateAll()).toMatchSnapshot()
+    reporterMock.restore()
   })
 
   test('init', () => {
@@ -164,11 +161,11 @@ describe('customize', () => {
         date: true,
       },
     })
-    const loggerMock = createLoggerMock({ logger, desensitize })
+    const reporterMock = createReporterMock({ reporter: logger, desensitize })
 
     logger.error(new Error('waw!'))
-    expect(loggerMock.getIndiscriminateAll().length).toEqual(1)
-    expect(/Error: waw!/.test(loggerMock.getIndiscriminateAll()[0][0] as string)).toEqual(true)
+    expect(reporterMock.getIndiscriminateAll().length).toEqual(1)
+    expect(/Error: waw!/.test(reporterMock.getIndiscriminateAll()[0][0] as string)).toEqual(true)
   })
 
   test('out to file', async () => {

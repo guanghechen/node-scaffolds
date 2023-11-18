@@ -4,7 +4,7 @@ import type {
 } from '@guanghechen/helper-commander'
 import { parseBytesString } from '@guanghechen/helper-func'
 import { convertToNumber, cover } from '@guanghechen/helper-option'
-import { logger } from '../../env/logger'
+import { reporter } from '../../env/reporter'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
@@ -41,7 +41,7 @@ export function resolveSubCommandSplitOptions(
     parseBytesString((options.partSize as unknown as string) ?? ''),
     v => v !== undefined && v > 0,
   )
-  logger.debug('partSize:', partSize)
+  reporter.debug('partSize:', partSize)
 
   // Resolve partTotal.
   const partTotal: number | undefined = cover<number | undefined>(
@@ -49,7 +49,7 @@ export function resolveSubCommandSplitOptions(
     convertToNumber(options.partTotal),
     v => v !== undefined && v > 0,
   )
-  logger.debug('partTotal:', partTotal)
+  reporter.debug('partTotal:', partTotal)
 
   const resolvedOptions: ISubCommandOptions = {
     partSize,

@@ -19,7 +19,7 @@ export interface ICopyOptions {
   /**
    * Logger.
    */
-  logger?: IReporter
+  reporter?: IReporter
 }
 
 /**
@@ -28,29 +28,29 @@ export interface ICopyOptions {
  * @param options
  */
 export async function copy(content: string, options: ICopyOptions = {}): Promise<void | never> {
-  const { copyCommandPath, copyCommandArgs = [], fakeClipboard, logger } = options
+  const { copyCommandPath, copyCommandArgs = [], fakeClipboard, reporter } = options
 
   try {
-    logger?.debug('[copy] try: clipboardy')
+    reporter?.debug('[copy] try: clipboardy')
     await clipboardy.write(content)
     return
   } catch (error) {
-    logger?.debug(`[copy] Failed to write clipboard through clipboardy:`, error)
+    reporter?.debug(`[copy] Failed to write clipboard through clipboardy:`, error)
   }
 
   if (copyCommandPath != null) {
     // is windows or wsl, use clipboardy (as powershell Get-Clipboard will return messy code).
-    logger?.debug(`[copy] try: ${copyCommandPath} ${copyCommandArgs.join(' ')}`)
+    reporter?.debug(`[copy] try: ${copyCommandPath} ${copyCommandArgs.join(' ')}`)
     try {
       await execa(copyCommandPath, copyCommandArgs, { input: content })
       return
     } catch (error) {
-      logger?.debug(`[copy] Failed to call ${copyCommandPath}`, error)
+      reporter?.debug(`[copy] Failed to call ${copyCommandPath}`, error)
     }
   }
 
   if (fakeClipboard != null) {
-    logger?.debug('[copy] try: fake clipboard {}.', fakeClipboard.filepath)
+    reporter?.debug('[copy] try: fake clipboard {}.', fakeClipboard.filepath)
     await fakeClipboard.write(content)
     return
   }

@@ -14,4 +14,4 @@ export class Logger {
   }
 }
 
-export const logger = new Logger(false)
+export const reporter = new Logger(false)

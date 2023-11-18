@@ -20,9 +20,9 @@ export const getCommitInTopology = async (
     '--pretty=format:"%H %P"',
   ]
 
-  params?.logger?.debug(`[getCommitInTopology] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  params?.reporter?.debug(`[getCommitInTopology] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  const result = await safeExeca('git', args, execaOptions, params.logger)
+  const result = await safeExeca('git', args, execaOptions, params.reporter)
   const commits: IGitCommitDagNode[] = result.stdout
     .trim()
     .split(/\n+/g)
@@ -44,9 +44,9 @@ export const getCommitWithMessageList = async (
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
   const args: string[] = ['log', ...params.commitHashes, `--pretty=format:"%H %B"`]
 
-  params?.logger?.debug(`[getCommitWithMessageList] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  params?.reporter?.debug(`[getCommitWithMessageList] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  const result = await safeExeca('git', args, execaOptions, params.logger)
+  const result = await safeExeca('git', args, execaOptions, params.reporter)
 
   const results: IGitCommitWithMessage[] = []
   {
@@ -75,9 +75,9 @@ export const getParentCommitIdList = async (
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
   const args: string[] = ['log', params.commitHash, '-n 1', '--pretty=%P']
 
-  params?.logger?.debug(`[getParentCommitIdList] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  params?.reporter?.debug(`[getParentCommitIdList] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  const result = await safeExeca('git', args, execaOptions, params.logger)
+  const result = await safeExeca('git', args, execaOptions, params.reporter)
   return result.stdout
     .split(/\s+/g)
     .map(x => x.trim())

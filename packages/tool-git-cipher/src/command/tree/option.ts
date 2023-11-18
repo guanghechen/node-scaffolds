@@ -4,7 +4,7 @@ import type {
 } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
-import { logger } from '../../core/logger'
+import { reporter } from '../../core/reporter'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
@@ -37,7 +37,7 @@ export function resolveSubCommandTreeOptions(
 
   // Resolve filesAt
   const filesAt: string = cover<string>(baseOptions.filesAt, options.filesAt, isNonBlankString)
-  logger.debug('filesAt:', filesAt)
+  reporter.debug('filesAt:', filesAt)
 
   const resolvedOptions: ISubCommandOptions = { filesAt }
   return { ...baseOptions, ...resolvedOptions }

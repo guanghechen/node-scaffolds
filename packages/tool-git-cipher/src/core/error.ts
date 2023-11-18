@@ -1,5 +1,5 @@
 import { EventTypes, eventBus } from './event'
-import { logger } from './logger'
+import { reporter } from './reporter'
 
 // Status code of custom error.
 export enum ErrorCode {
@@ -26,12 +26,12 @@ export function wrapErrorHandler<T extends (...args: any[]) => void | Promise<vo
         case ErrorCode.BAD_PASSWORD:
         case ErrorCode.ENTERED_PASSWORD_DIFFER:
         case ErrorCode.WRONG_PASSWORD:
-          logger.debug(error)
-          logger.error(error.message ?? error.stack ?? error)
+          reporter.debug(error)
+          reporter.error(error.message ?? error.stack ?? error)
           eventBus.dispatch({ type: EventTypes.EXITING })
           break
         default:
-          logger.error(error)
+          reporter.error(error)
           eventBus.dispatch({ type: EventTypes.EXITING })
           break
       }

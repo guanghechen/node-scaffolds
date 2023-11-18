@@ -659,6 +659,7 @@ __metadata:
   resolution: "@guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.2
+    "@guanghechen/chalk-logger": ^5.0.9
     "@guanghechen/cipher": ^1.0.0-alpha.11
     "@guanghechen/file-split": ^1.0.0-alpha.8
     "@guanghechen/helper-fs": ^5.0.9

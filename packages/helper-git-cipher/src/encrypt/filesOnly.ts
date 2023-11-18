@@ -26,8 +26,8 @@ export interface IEncryptFilesOnlyParams {
 export async function encryptFilesOnly(params: IEncryptFilesOnlyParams): Promise<void> {
   const title = 'encryptFilesOnly'
   const { context, cryptPathResolver, plainPathResolver, confirm } = params
-  const { catalogContext, configKeeper, logger } = context
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
+  const { catalogContext, configKeeper, reporter } = context
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
   invariant(isGitRepo(cryptPathResolver.root), `[${title}] crypt repo is not a git repo.`)
 
@@ -38,7 +38,7 @@ export async function encryptFilesOnly(params: IEncryptFilesOnlyParams): Promise
 
   const plainFiles: string[] = (await collectAllFiles(plainPathResolver.root)).sort()
   if (plainFiles.length <= 0) {
-    logger?.info(`[${title}] No files to commit.`)
+    reporter?.info(`[${title}] No files to commit.`)
     return
   }
 
@@ -63,12 +63,12 @@ export async function encryptFilesOnly(params: IEncryptFilesOnlyParams): Promise
   const message = confirmResult.message.trim()
 
   if (draftDiffItems.length <= 0) {
-    logger?.info(`[${title}] No files to commit.`)
+    reporter?.info(`[${title}] No files to commit.`)
     return
   }
 
   if (!message) {
-    logger?.error(`[${title}] bad git commit message. (abort)`)
+    reporter?.error(`[${title}] bad git commit message. (abort)`)
     return
   }
 

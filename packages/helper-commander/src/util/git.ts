@@ -16,7 +16,7 @@ export async function createInitialCommit(params: ICreateInitGitRepoParams): Pro
   // If git is not installed yet, this operation will be skipped
   if (!hasGitInstalled()) return
 
-  const { plopBypass, cwd, logger, ...initGitRepoParams } = params
+  const { plopBypass, cwd, reporter, ...initGitRepoParams } = params
   let doInitialCommit: boolean
   if (plopBypass.length > 0) {
     const booleanString = toLowerCase(plopBypass.shift()!)
@@ -34,12 +34,12 @@ export async function createInitialCommit(params: ICreateInitGitRepoParams): Pro
     ).doInitialCommit
   }
 
-  logger?.debug?.('doInitialCommit:', doInitialCommit)
+  reporter?.debug?.('doInitialCommit:', doInitialCommit)
 
   // skip
   if (!doInitialCommit) return
 
   // create init commit
-  await initGitRepo({ cwd, logger, ...initGitRepoParams })
-  await commitAll({ cwd, logger, message: ':tada:  initialize.', amend: false })
+  await initGitRepo({ cwd, reporter, ...initGitRepoParams })
+  await commitAll({ cwd, reporter, message: ':tada:  initialize.', amend: false })
 }

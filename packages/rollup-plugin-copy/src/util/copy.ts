@@ -2,8 +2,8 @@ import { writeFile } from '@guanghechen/helper-fs'
 import chalk from 'chalk'
 import fs from 'node:fs/promises'
 import type { ICopyTargetItem } from '../types'
-import { logger } from './logger'
 import { relativePath } from './path'
+import { reporter } from './reporter'
 
 export async function copySingleItem(workspace: string, item: ICopyTargetItem): Promise<void> {
   if (item.copying) {
@@ -31,7 +31,7 @@ export async function copySingleItem(workspace: string, item: ICopyTargetItem): 
     })
   }
 
-  logger.verbose(() => {
+  reporter.verbose(() => {
     const flags: string[] = []
     if (item.renamed) flags.push('R')
     if (item.target.transform) flags.push('T')

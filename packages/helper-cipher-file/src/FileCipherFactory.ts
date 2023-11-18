@@ -6,18 +6,18 @@ import type { ICreateFileCipherOptions, IFileCipherFactory } from './types/IFile
 
 export interface IFileCipherFactoryProps {
   readonly cipherFactory: ICipherFactory
-  readonly logger?: IReporter
+  readonly reporter?: IReporter
 }
 
 export class FileCipherFactory implements IFileCipherFactory {
   public readonly cipherFactory: ICipherFactory
-  protected readonly logger: IReporter | undefined
+  protected readonly reporter: IReporter | undefined
   #cipher: ICipher | undefined
   #fileCipher: IFileCipher | undefined
 
   constructor(props: IFileCipherFactoryProps) {
     this.cipherFactory = props.cipherFactory
-    this.logger = props.logger
+    this.reporter = props.reporter
     this.#cipher = undefined
     this.#fileCipher = undefined
   }
@@ -28,7 +28,7 @@ export class FileCipherFactory implements IFileCipherFactory {
 
     if (cipher === this.#cipher && this.#fileCipher !== undefined) return this.#fileCipher
 
-    const fileCipher: IFileCipher = new FileCipher({ cipher, logger: this.logger })
+    const fileCipher: IFileCipher = new FileCipher({ cipher, reporter: this.reporter })
     if (cipher === this.#cipher) this.#fileCipher = fileCipher
     return fileCipher
   }

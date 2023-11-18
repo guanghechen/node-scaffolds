@@ -26,8 +26,8 @@ export interface IDecryptFilesOnlyParams {
 export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise<void> {
   const title = 'decryptFilesOnly'
   const { context, cryptCommitId, cryptPathResolver, filesOnly = [], plainPathResolver } = params
-  const { cipherBatcher, configKeeper, logger } = context
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
+  const { cipherBatcher, configKeeper, reporter } = context
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
   invariant(
     isGitRepo(cryptPathResolver.root),

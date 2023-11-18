@@ -20,7 +20,7 @@ export interface IPasteOptions {
   /**
    * Logger.
    */
-  logger?: IReporter
+  reporter?: IReporter
   /**
    * System line-ending symbol.
    */
@@ -36,21 +36,21 @@ export async function paste(options: IPasteOptions = {}): Promise<string | never
     pasteCommandPath,
     pasteCommandArgs = [],
     fakeClipboard,
-    logger,
+    reporter,
     lineEnd = DEFAULT_LINE_END,
   } = options
 
   try {
-    logger?.debug('[paste] try: clipboardy')
+    reporter?.debug('[paste] try: clipboardy')
     const content: string = await clipboardy.read()
     return normalizeOutput(content, lineEnd)
   } catch (error) {
-    logger?.debug(`[paste] Failed to read clipboard through clipboardy:`, error)
+    reporter?.debug(`[paste] Failed to read clipboard through clipboardy:`, error)
   }
 
   if (pasteCommandPath != null) {
     // is windows or wsl, use clipboardy (as powershell Get-Clipboard will return messy code).
-    logger?.debug(`[paste] try: ${pasteCommandPath} ${pasteCommandArgs.join(' ')}`)
+    reporter?.debug(`[paste] try: ${pasteCommandPath} ${pasteCommandArgs.join(' ')}`)
     try {
       const { stdout } = await execa(pasteCommandPath, pasteCommandArgs)
       let content = stdout.toString()
@@ -59,12 +59,12 @@ export async function paste(options: IPasteOptions = {}): Promise<string | never
       }
       return normalizeOutput(content, lineEnd)
     } catch (error) {
-      logger?.debug(`[paste] Failed to call ${pasteCommandPath}:`, error)
+      reporter?.debug(`[paste] Failed to call ${pasteCommandPath}:`, error)
     }
   }
 
   if (fakeClipboard != null) {
-    logger?.debug('[paste] try: fake clipboard {}.', fakeClipboard.filepath)
+    reporter?.debug('[paste] try: fake clipboard {}.', fakeClipboard.filepath)
     return await fakeClipboard.read()
   }
   throw `[paste] Cannot find available clipboard or fake-clipboard.`

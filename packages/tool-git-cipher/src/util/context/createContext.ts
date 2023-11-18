@@ -5,7 +5,7 @@ import { FileCipherBatcher, FileCipherFactory } from '@guanghechen/helper-cipher
 import type { IGitCipherContext } from '@guanghechen/helper-git-cipher'
 import { GitCipherConfigKeeper, GitCipherContext } from '@guanghechen/helper-git-cipher'
 import { TextFileResource } from '@guanghechen/resource'
-import { logger } from '../../core/logger'
+import { reporter } from '../../core/reporter'
 
 export interface ICreateGitCipherContextParams {
   catalogCipher: ICipher
@@ -17,7 +17,7 @@ export interface ICreateGitCipherContextParams {
 
 export function createContext(params: ICreateGitCipherContextParams): IGitCipherContext {
   const { catalogCipher, catalogContext, catalogFilepath, cipherFactory, getDynamicIv } = params
-  const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
+  const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, reporter })
   const fileSplitter = new FileSplitter({ partCodePrefix: catalogContext.partCodePrefix })
   const configKeeper = new GitCipherConfigKeeper({
     cipher: catalogCipher,
@@ -31,13 +31,13 @@ export function createContext(params: ICreateGitCipherContextParams): IGitCipher
     fileCipherFactory,
     fileSplitter,
     maxTargetFileSize: catalogContext.maxTargetFileSize,
-    logger,
+    reporter,
   })
   const context = new GitCipherContext({
     catalogContext,
     cipherBatcher,
     configKeeper,
-    logger,
+    reporter,
     getDynamicIv,
   })
   return context

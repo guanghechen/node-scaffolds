@@ -4,7 +4,7 @@ import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
-import { logger } from '../../core/logger'
+import { reporter } from '../../core/reporter'
 import { loadGitCipherContext } from '../../util/context/loadGitCipherContext'
 import { SecretMaster } from '../../util/SecretMaster'
 import type { IGitCipherCatContext } from './context'
@@ -14,7 +14,7 @@ export class GitCipherCatProcessor {
   protected readonly secretMaster: SecretMaster
 
   constructor(context: IGitCipherCatContext) {
-    logger.debug('context:', context)
+    reporter.debug('context:', context)
 
     this.context = context
     this.secretMaster = new SecretMaster({
@@ -84,7 +84,7 @@ export class GitCipherCatProcessor {
     )
     const fileCipher = new FileCipher({
       cipher: cipherFactory.cipher({ iv: getIv(item) }),
-      logger,
+      reporter,
     })
     const plainContentBuffer: Uint8Array = await fileCipher.decryptFromFiles(cryptFilepaths, {
       authTag: item.authTag,

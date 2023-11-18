@@ -4,7 +4,7 @@ import invariant from '@guanghechen/invariant'
 import type { FakeClipboard } from '@guanghechen/mini-copy'
 import inquirer from 'inquirer'
 import fs from 'node:fs'
-import { logger } from '../env/logger'
+import { reporter } from '../env/reporter'
 import { copy, paste } from './mini-copy'
 
 export interface ISafeCopyOptions {
@@ -22,13 +22,13 @@ export async function safeCopy(content: string, options: ISafeCopyOptions): Prom
     : `Copied into system clipboard.`
 
   try {
-    logger.debug(startMessage)
+    reporter.debug(startMessage)
     const value = shouldStripAnsi ? stripAnsi(content) : content
     await copy(value, { fakeClipboard })
-    if (silence) logger.debug(succeedMessage)
-    else logger.info(succeedMessage)
+    if (silence) reporter.debug(succeedMessage)
+    else reporter.info(succeedMessage)
   } catch (error) {
-    if (typeof error === 'string') logger.error(error)
+    if (typeof error === 'string') reporter.error(error)
     else throw error
   }
 }
@@ -51,14 +51,14 @@ export async function safePaste(
   const succeedMessage = `Pasted into ${to}.`
 
   try {
-    logger.debug(startMessage)
+    reporter.debug(startMessage)
     const content: string = await paste({ fakeClipboard })
     const value = shouldStripAnsi ? stripAnsi(content) : content
     await write(value)
-    if (silence) logger.debug(succeedMessage)
-    else logger.info(succeedMessage)
+    if (silence) reporter.debug(succeedMessage)
+    else reporter.info(succeedMessage)
   } catch (error) {
-    if (typeof error === 'string') logger.error(error)
+    if (typeof error === 'string') reporter.error(error)
     else throw error
   }
 }

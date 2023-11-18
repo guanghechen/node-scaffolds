@@ -5,7 +5,7 @@ import type {
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
 import { pathResolver } from '@guanghechen/path'
-import { logger } from '../../core/logger'
+import { reporter } from '../../core/reporter'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
@@ -52,7 +52,7 @@ export function resolveSubCommandVerifyOptions(
     baseOptions.workspace,
     cover<string>(baseOptions.catalogCacheFilepath, options.catalogCacheFilepath, isNonBlankString),
   )
-  logger.debug('catalogCacheFilepath:', catalogCacheFilepath)
+  reporter.debug('catalogCacheFilepath:', catalogCacheFilepath)
 
   // Resolve cryptCommitId
   const cryptCommitId: string = cover<string>(
@@ -60,7 +60,7 @@ export function resolveSubCommandVerifyOptions(
     options.cryptCommitId,
     isNonBlankString,
   )
-  logger.debug('cryptCommitId:', cryptCommitId)
+  reporter.debug('cryptCommitId:', cryptCommitId)
 
   // Resolve plainCommitId
   const plainCommitId: string | undefined = cover<string | undefined>(
@@ -68,7 +68,7 @@ export function resolveSubCommandVerifyOptions(
     options.plainCommitId,
     isNonBlankString,
   )
-  logger.debug('plainCommitId:', plainCommitId)
+  reporter.debug('plainCommitId:', plainCommitId)
 
   const resolvedOptions: ISubCommandOptions = {
     catalogCacheFilepath,

@@ -47,9 +47,9 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     plain2cryptIdMap,
     plainPathResolver,
   } = params
-  const { configKeeper, logger } = context
-  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, logger }
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
+  const { configKeeper, reporter } = context
+  const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, reporter }
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
   // [plain] Move the HEAD pointer to the current encrypting commit.
   await checkBranch({ ...plainCmdCtx, commitHash: plainCommitNode.id })

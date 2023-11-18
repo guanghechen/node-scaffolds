@@ -44,7 +44,7 @@ describe('FileCipherCatalog', () => {
   const cryptRootDir: string = path.join(workspaceDir, 'src_encrypted')
   const plainPathResolver = new WorkspacePathResolver(plainRootDir, pathResolver)
   const cryptPathResolver = new WorkspacePathResolver(cryptRootDir, pathResolver)
-  const logger = new ChalkLogger({ name: 'FileCipherCatalog' })
+  const reporter = new ChalkLogger({ name: 'FileCipherCatalog' })
 
   const filepathA: string = plainPathResolver.resolve(itemTable.A.plainFilepath)
   const filepathB: string = plainPathResolver.resolve(itemTable.B.plainFilepath)
@@ -375,12 +375,12 @@ describe('FileCipherCatalog', () => {
         digest: 'sha256',
       },
     )
-    const fileCipherFactory = new FileCipherFactory({ cipherFactory, logger })
+    const fileCipherFactory = new FileCipherFactory({ cipherFactory, reporter })
     const cipherBatcher = new FileCipherBatcher({
       fileSplitter,
       fileCipherFactory,
       maxTargetFileSize,
-      logger,
+      reporter,
     })
     const getIv = async (item: IFileCipherCatalogItemDraft): Promise<Uint8Array | undefined> =>
       Object.values(itemTable).find(t => isSameFileCipherItemDraft(t, item))?.iv

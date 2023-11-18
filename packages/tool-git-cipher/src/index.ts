@@ -31,7 +31,7 @@ export * from './command/verify/run'
 
 export * from './core/error'
 export * from './core/event'
-export * from './core/logger'
+export * from './core/reporter'
 export * from './command/command'
 export * from './command/option'
 export * from './core/config'

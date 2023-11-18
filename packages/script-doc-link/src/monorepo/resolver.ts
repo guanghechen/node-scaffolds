@@ -10,16 +10,16 @@ interface IParams {
   encoding?: BufferEncoding
   username?: string
   repository?: string
-  logger?: IReporter | undefined
+  reporter?: IReporter | undefined
 }
 
 export async function resolveMonorepoDocLinkRewrite(params: IParams): Promise<void> {
-  const { rootDir, username, repository, logger, encoding = 'utf8' } = params
-  const context = await MonorepoContext.scanAndBuild({ rootDir, username, repository, logger })
+  const { rootDir, username, repository, reporter, encoding = 'utf8' } = params
+  const context = await MonorepoContext.scanAndBuild({ rootDir, username, repository, reporter })
   const scanner = new MonorepoDocScanner({ context })
   const rewriter = new MonorepoDocLinkRewriter({ context })
   const items: IMonorepoRewriteAbleItem[] = await scanner.scan()
-  logger?.debug(
+  reporter?.debug(
     'filepaths:',
     items.map(item => item.filepath),
   )
@@ -27,7 +27,7 @@ export async function resolveMonorepoDocLinkRewrite(params: IParams): Promise<vo
     const content: string = await fs.readFile(item.filepath, encoding)
     const resolvedContent: string = rewriter.rewrite(content, item.packagePath)
     if (content !== resolvedContent) {
-      logger?.verbose('rewrite:', item.filepath)
+      reporter?.verbose('rewrite:', item.filepath)
     }
     await fs.writeFile(item.filepath, resolvedContent, encoding)
   }

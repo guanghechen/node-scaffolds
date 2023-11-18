@@ -36,8 +36,8 @@ export async function internalEncryptDiffItems(
     shouldAmend,
     signature,
   } = params
-  const { cipherBatcher, configKeeper, logger, getIv } = context
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, logger }
+  const { cipherBatcher, configKeeper, reporter, getIv } = context
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
   // [crypt] Clean untracked filepaths to avoid unexpected errors.
   const cryptFiles: string[] = collectAffectedCryptFilepaths(draftDiffItems)

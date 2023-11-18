@@ -16,8 +16,8 @@ export const hasUncommittedContent = async (
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
   const args: string[] = ['status', '-s', '-uall']
 
-  params?.logger?.debug(`[hasUncommittedContent] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  params?.reporter?.debug(`[hasUncommittedContent] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  const result = await safeExeca('git', args, execaOptions, params.logger)
+  const result = await safeExeca('git', args, execaOptions, params.reporter)
   return Boolean(result.stdout.trim())
 }

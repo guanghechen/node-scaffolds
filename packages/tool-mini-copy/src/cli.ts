@@ -4,7 +4,7 @@ import {
   __defaultGlobalCommandOptions,
   createProgram,
   handleCommand,
-  logger,
+  reporter,
   resolveGlobalCommandOptions,
 } from '.'
 
@@ -23,5 +23,5 @@ program
   })
   .parseAsync(process.argv)
   .catch(error => {
-    logger.error(error)
+    reporter.error(error)
   })

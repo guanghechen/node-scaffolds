@@ -4,7 +4,7 @@ import type {
 } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
-import { logger } from '../../core/logger'
+import { reporter } from '../../core/reporter'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
@@ -38,7 +38,7 @@ export function resolveSubCommandCatOptions(
     options.plainFilepath,
     isNonBlankString,
   )
-  logger.debug('plainFilepath:', plainFilepath)
+  reporter.debug('plainFilepath:', plainFilepath)
 
   const resolvedOptions: ISubCommandOptions = { plainFilepath }
   return { ...baseOptions, ...resolvedOptions }

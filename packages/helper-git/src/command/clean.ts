@@ -11,7 +11,7 @@ export const cleanUntrackedFilepaths = async (params: IGitCleanUntrackedParams):
   const env: NodeJS.ProcessEnv = { ...params.execaOptions?.env }
   const args: string[] = ['clean', '-df', ...params.filepaths]
 
-  params?.logger?.debug(`[cleanUntrackedFilepaths] cwd: {}, args: {}, env: {}`, cwd, args, env)
+  params?.reporter?.debug(`[cleanUntrackedFilepaths] cwd: {}, args: {}, env: {}`, cwd, args, env)
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd, env, extendEnv: true }
-  await safeExeca('git', args, execaOptions, params.logger)
+  await safeExeca('git', args, execaOptions, params.reporter)
 }

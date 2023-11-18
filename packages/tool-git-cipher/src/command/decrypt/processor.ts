@@ -2,7 +2,7 @@ import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { GitCipher } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import { TextFileResource } from '@guanghechen/resource'
-import { logger } from '../../core/logger'
+import { reporter } from '../../core/reporter'
 import type { ICatalogCache } from '../../util/CatalogCache'
 import { CatalogCacheKeeper } from '../../util/CatalogCache'
 import { loadGitCipherContext } from '../../util/context/loadGitCipherContext'
@@ -14,7 +14,7 @@ export class GitCipherDecryptProcessor {
   protected readonly secretMaster: SecretMaster
 
   constructor(context: IGitCipherDecryptContext) {
-    logger.debug('context:', context)
+    reporter.debug('context:', context)
 
     this.context = context
     this.secretMaster = new SecretMaster({
@@ -41,7 +41,7 @@ export class GitCipherDecryptProcessor {
 
     // decrypt files
     if (context.filesAt || context.filesOnly.length > 0) {
-      logger.debug('Trying decryptFilesOnly...')
+      reporter.debug('Trying decryptFilesOnly...')
       await gitCipher.decryptFilesOnly({
         cryptCommitId: context.filesAt ?? 'HEAD',
         cryptPathResolver,
@@ -49,7 +49,7 @@ export class GitCipherDecryptProcessor {
         filesOnly: context.filesOnly,
       })
     } else {
-      logger.debug('Trying decrypt entire repo...')
+      reporter.debug('Trying decrypt entire repo...')
 
       const cacheKeeper = new CatalogCacheKeeper({
         resource: new TextFileResource({

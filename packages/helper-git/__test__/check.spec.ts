@@ -1,6 +1,6 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import type { ILoggerMock } from '@guanghechen/helper-jest'
-import { createLoggerMock } from '@guanghechen/helper-jest'
+import type { IReporterMock } from '@guanghechen/helper-jest'
+import { createReporterMock } from '@guanghechen/helper-jest'
 import { emptyDir, locateFixtures, rm, writeFile } from 'jest.helper'
 import path from 'node:path'
 import type { IGitCommandBaseParams } from '../src'
@@ -9,16 +9,16 @@ import { getCommitArgTable } from './_data-repo1'
 
 describe('check', () => {
   const workspaceDir: string = locateFixtures('__fictitious__check')
-  const logger = new ChalkLogger({
+  const reporter = new ChalkLogger({
     name: 'check',
     level: Level.ERROR,
     flights: { inline: true, colorful: false },
   })
-  const ctx: IGitCommandBaseParams = { cwd: workspaceDir, logger, execaOptions: {} }
+  const ctx: IGitCommandBaseParams = { cwd: workspaceDir, reporter, execaOptions: {} }
 
-  let logMock: ILoggerMock
+  let logMock: IReporterMock
   beforeEach(async () => {
-    logMock = createLoggerMock({ logger })
+    logMock = createReporterMock({ reporter })
     await emptyDir(workspaceDir)
   })
   afterEach(async () => {
@@ -33,7 +33,7 @@ describe('check', () => {
       authorName: 'guanghechen',
       authorEmail: 'example@gmail.com',
       gpgSign: false,
-      logger,
+      reporter,
     })
 
     const commitArgTable = getCommitArgTable()

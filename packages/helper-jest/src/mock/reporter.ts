@@ -4,9 +4,9 @@ import type { MockInstance } from 'jest-mock'
 import type { IConsoleMethodField } from './console'
 
 /**
- * Shape of a logger.
+ * Shape of a reporter.
  */
-interface ILogger {
+interface IReporter {
   /**
    * Output something into stdout or files.
    * @param text
@@ -14,11 +14,11 @@ interface ILogger {
   write(text: string): void | Promise<void>
 }
 
-interface ICreateLoggerMockOptions {
+interface ICreateReporterMockOptions {
   /**
-   * The logger to be spied.
+   * The reporter to be spied.
    */
-  logger: ILogger
+  reporter: IReporter
   /**
    * Whether to also monitor global.console
    * @default true
@@ -40,9 +40,9 @@ interface ICreateLoggerMockOptions {
 /**
  * A object encapsulated some mock functions of console.
  */
-export interface ILoggerMock {
+export interface IReporterMock {
   /**
-   * Get all of passed args to logger and all spied methods of console.
+   * Get all of passed args to reporter and all spied methods of console.
    */
   getIndiscriminateAll(): ReadonlyArray<ReadonlyArray<unknown>>
   /**
@@ -60,9 +60,9 @@ export interface ILoggerMock {
  * @param options
  * @returns
  */
-export function createLoggerMock(options: ICreateLoggerMockOptions): ILoggerMock {
+export function createReporterMock(options: ICreateReporterMockOptions): IReporterMock {
   const {
-    logger,
+    reporter,
     consoleMethods = ['debug', 'log', 'info', 'warn', 'error'],
     spyOnGlobalConsole = true,
     desensitize = identity,
@@ -74,8 +74,8 @@ export function createLoggerMock(options: ICreateLoggerMockOptions): ILoggerMock
     logData.push(data)
   }
 
-  // mock logger
-  const writeMock: MockInstance<any> = jest.spyOn(logger, 'write').mockImplementation(collectLog)
+  // mock reporter
+  const writeMock: MockInstance<any> = jest.spyOn(reporter, 'write').mockImplementation(collectLog)
 
   const consoleMockFnMap: Record<IConsoleMethodField, MockInstance<any>> = {} as any
   if (spyOnGlobalConsole) {

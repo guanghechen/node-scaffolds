@@ -1,6 +1,6 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
-import type { ILoggerMock } from '@guanghechen/helper-jest'
-import { createLoggerMock } from '@guanghechen/helper-jest'
+import type { IReporterMock } from '@guanghechen/helper-jest'
+import { createReporterMock } from '@guanghechen/helper-jest'
 import { emptyDir, locateFixtures, rm } from 'jest.helper'
 import type { IGitCommandBaseParams } from '../src'
 import {
@@ -31,16 +31,16 @@ import {
 
 describe('view', () => {
   const workspaceDir: string = locateFixtures('__fictitious__view')
-  const logger = new ChalkLogger({
+  const reporter = new ChalkLogger({
     name: 'view',
     level: Level.ERROR,
     flights: { inline: true, colorful: false },
   })
-  const ctx: IGitCommandBaseParams = { cwd: workspaceDir, logger, execaOptions: {} }
+  const ctx: IGitCommandBaseParams = { cwd: workspaceDir, reporter, execaOptions: {} }
 
-  let logMock: ILoggerMock
+  let logMock: IReporterMock
   beforeEach(async () => {
-    logMock = createLoggerMock({ logger })
+    logMock = createReporterMock({ reporter })
     await emptyDir(workspaceDir)
   })
   afterEach(async () => {
@@ -51,7 +51,7 @@ describe('view', () => {
   test('listAllFiles', async () => {
     const { commitTable } = await buildRepo1({
       repoDir: workspaceDir,
-      logger,
+      reporter,
       execaOptions: {},
     })
 
@@ -74,7 +74,7 @@ describe('view', () => {
   test('listDiffFiles', async () => {
     const { commitTable } = await buildRepo1({
       repoDir: workspaceDir,
-      logger,
+      reporter,
       execaOptions: {},
     })
 
@@ -103,7 +103,7 @@ describe('view', () => {
   test('showCommitInfo', async () => {
     const { commitTable } = await buildRepo1({
       repoDir: workspaceDir,
-      logger,
+      reporter,
       execaOptions: {},
     })
 
@@ -137,7 +137,7 @@ describe('view', () => {
   test('getCurrentBranchOrHeadCommitId', async () => {
     const { commitIdTable } = await buildRepo1({
       repoDir: workspaceDir,
-      logger,
+      reporter,
       execaOptions: {},
     })
 
@@ -185,7 +185,7 @@ describe('view', () => {
   test('showFileContent', async () => {
     const { commitIdTable } = await buildRepo1({
       repoDir: workspaceDir,
-      logger,
+      reporter,
       execaOptions: {},
     })
 
