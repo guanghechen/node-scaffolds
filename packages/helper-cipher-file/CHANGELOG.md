@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.0](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@5.0.12...@guanghechen/helper-cipher-file@6.0.0-alpha.0) (2023-11-18)
+
+
+### Performance Improvements
+
+* 🎨 prefer @guanghechen/reporter.types ([594f811](https://github.com/guanghechen/node-scaffolds/commit/594f811392b786783fed84f3c1a5c9900cd53a3c))
+* 📝 update doc link from 5.x.x to 6.x.x ([6d13d32](https://github.com/guanghechen/node-scaffolds/commit/6d13d3259ddbc8e1d8332bffef2f3e8f041c023a))
+* ✅ update tests ([50e3c7b](https://github.com/guanghechen/node-scaffolds/commit/50e3c7bb7080a0513356d988d2bb4afb2ad0ca61))
+* 🔧 upgrade engine version requirement from '>= 16.0.0' to '>= 18.0.0' ([04e41e3](https://github.com/guanghechen/node-scaffolds/commit/04e41e3431fcd015117091c6ce2c4f37e9afcf2f))
+
+
+
+
+
 ## [5.0.12](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@5.0.11...@guanghechen/helper-cipher-file@5.0.12) (2023-11-07)
 
 

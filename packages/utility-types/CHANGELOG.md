@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.0](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/utility-types@5.0.9...@guanghechen/utility-types@6.0.0-alpha.0) (2023-11-18)
+
+
+### Performance Improvements
+
+* 🎨 prefer @guanghechen/reporter.types ([594f811](https://github.com/guanghechen/node-scaffolds/commit/594f811392b786783fed84f3c1a5c9900cd53a3c))
+
+
+
+
+
 ## [5.0.9](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/utility-types@5.0.8...@guanghechen/utility-types@5.0.9) (2023-10-18)
 
 

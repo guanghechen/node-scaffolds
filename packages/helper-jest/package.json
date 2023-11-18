@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-jest",
-  "version": "5.0.9",
+  "version": "6.0.0-alpha.0",
   "description": "A collection of utility functions for jest tests",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-jest@5.0.9",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-jest@6.0.0-alpha.0",
     "directory": "packages/helper-jest"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-jest@5.0.9/packages/helper-jest#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-jest@6.0.0-alpha.0/packages/helper-jest#readme",
   "keywords": [],
   "type": "module",
   "main": "./lib/cjs/index.cjs",
@@ -40,8 +40,8 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-func": "^5.0.9",
-    "@guanghechen/helper-is": "^5.0.9",
+    "@guanghechen/helper-func": "^6.0.0-alpha.0",
+    "@guanghechen/helper-is": "^6.0.0-alpha.0",
     "@jest/globals": "^29.7.0",
     "jest": "^29.7.0"
   }

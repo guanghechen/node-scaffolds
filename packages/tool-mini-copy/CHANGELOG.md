@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.0](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-mini-copy@5.0.14...@guanghechen/tool-mini-copy@6.0.0-alpha.0) (2023-11-18)
+
+
+### Performance Improvements
+
+* ✅ update tests ([50e3c7b](https://github.com/guanghechen/node-scaffolds/commit/50e3c7bb7080a0513356d988d2bb4afb2ad0ca61))
+* ⬆️ upgrade dependencies ([7a018f1](https://github.com/guanghechen/node-scaffolds/commit/7a018f1d60b1345274c133c08b0736eb5163d8e5))
+* 🔧 upgrade engine version requirement from '>= 16.0.0' to '>= 18.0.0' ([04e41e3](https://github.com/guanghechen/node-scaffolds/commit/04e41e3431fcd015117091c6ce2c4f37e9afcf2f))
+
+
+
+
+
 ## [5.0.14](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-mini-copy@5.0.13...@guanghechen/tool-mini-copy@5.0.14) (2023-11-07)
 
 

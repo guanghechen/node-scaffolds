@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-npm@5.0.11/packages/helper-npm#readme">@guanghechen/helper-npm</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-npm@6.0.0-alpha.0/packages/helper-npm#readme">@guanghechen/helper-npm</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-npm">
@@ -120,4 +120,4 @@ Utilities for handling npm repo and `package.json`.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-npm@5.0.11/packages/helper-npm#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-npm@6.0.0-alpha.0/packages/helper-npm#readme

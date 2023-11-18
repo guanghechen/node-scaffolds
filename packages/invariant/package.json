@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/invariant",
-  "version": "5.0.9",
+  "version": "6.0.0-alpha.0",
   "description": "Invariant function",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/invariant@5.0.9",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/invariant@6.0.0-alpha.0",
     "directory": "packages/invariant"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/invariant@5.0.9/packages/invariant#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/invariant@6.0.0-alpha.0/packages/invariant#readme",
   "type": "module",
   "main": "./lib/cjs/index.cjs",
   "module": "./lib/esm/index.mjs",

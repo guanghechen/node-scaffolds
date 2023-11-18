@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.0](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-npm@5.0.11...@guanghechen/helper-npm@6.0.0-alpha.0) (2023-11-18)
+
+
+### Performance Improvements
+
+* ⬆️ upgrade dependencies ([69c38b0](https://github.com/guanghechen/node-scaffolds/commit/69c38b0ee32c27d8eab0364f1dbe534143642659))
+* 🔧 upgrade engine version requirement from '>= 16.0.0' to '>= 18.0.0' ([04e41e3](https://github.com/guanghechen/node-scaffolds/commit/04e41e3431fcd015117091c6ce2c4f37e9afcf2f))
+
+
+
+
+
 ## [5.0.11](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-npm@5.0.10...@guanghechen/helper-npm@5.0.11) (2023-11-05)
 
 

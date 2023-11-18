@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/chalk-logger",
-  "version": "5.0.9",
+  "version": "6.0.0-alpha.0",
   "description": "A simple colorful logger",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/chalk-logger@5.0.9",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/chalk-logger@6.0.0-alpha.0",
     "directory": "packages/chalk-logger"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/chalk-logger@5.0.9/packages/chalk-logger#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/chalk-logger@6.0.0-alpha.0/packages/chalk-logger#readme",
   "keywords": [
     "logger",
     "colorful logger"
@@ -42,14 +42,14 @@
     "ts:run": "cross-env NODE_ENV=production node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm -r tsconfig-paths/register"
   },
   "dependencies": {
-    "@guanghechen/helper-is": "^5.0.9",
-    "@guanghechen/invariant": "^5.0.9",
+    "@guanghechen/helper-is": "^6.0.0-alpha.0",
+    "@guanghechen/invariant": "^6.0.0-alpha.0",
     "@guanghechen/reporter.types": "1.0.0-alpha.5",
     "chalk": "^5.3.0",
     "dayjs": "^1.11.10",
     "json5": "^2.2.3"
   },
   "devDependencies": {
-    "@guanghechen/utility-types": "^5.0.9"
+    "@guanghechen/utility-types": "^6.0.0-alpha.0"
   }
 }

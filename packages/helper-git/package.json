@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-git",
-  "version": "5.0.9",
+  "version": "6.0.0-alpha.0",
   "description": "Utility functions for executing git commands.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@5.0.9",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@6.0.0-alpha.0",
     "directory": "packages/helper-git"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@5.0.9/packages/helper-git#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@6.0.0-alpha.0/packages/helper-git#readme",
   "keywords": [
     "commander"
   ],
@@ -40,12 +40,12 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/invariant": "^5.0.9",
+    "@guanghechen/invariant": "^6.0.0-alpha.0",
     "@guanghechen/reporter.types": "^1.0.0-alpha.5",
     "execa": "^8.0.1"
   },
   "devDependencies": {
-    "@guanghechen/chalk-logger": "^5.0.9",
-    "@guanghechen/helper-jest": "^5.0.9"
+    "@guanghechen/chalk-logger": "^6.0.0-alpha.0",
+    "@guanghechen/helper-jest": "^6.0.0-alpha.0"
   }
 }

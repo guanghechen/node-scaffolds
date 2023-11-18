@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.0](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/rollup-config@5.3.3...@guanghechen/rollup-config@6.0.0-alpha.0) (2023-11-18)
+
+
+### Performance Improvements
+
+* 🔧 upgrade engine version requirement from '>= 16.0.0' to '>= 18.0.0' ([04e41e3](https://github.com/guanghechen/node-scaffolds/commit/04e41e3431fcd015117091c6ce2c4f37e9afcf2f))
+
+
+
+
+
 ## [5.3.3](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/rollup-config@5.3.2...@guanghechen/rollup-config@5.3.3) (2023-11-05)
 
 

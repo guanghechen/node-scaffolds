@@ -520,14 +520,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/chalk-logger@^5.0.9, @guanghechen/chalk-logger@workspace:packages/chalk-logger":
+"@guanghechen/chalk-logger@^6.0.0-alpha.0, @guanghechen/chalk-logger@workspace:packages/chalk-logger":
   version: 0.0.0-use.local
   resolution: "@guanghechen/chalk-logger@workspace:packages/chalk-logger"
   dependencies:
-    "@guanghechen/helper-is": ^5.0.9
-    "@guanghechen/invariant": ^5.0.9
+    "@guanghechen/helper-is": ^6.0.0-alpha.0
+    "@guanghechen/invariant": ^6.0.0-alpha.0
     "@guanghechen/reporter.types": 1.0.0-alpha.5
-    "@guanghechen/utility-types": ^5.0.9
+    "@guanghechen/utility-types": ^6.0.0-alpha.0
     chalk: ^5.3.0
     dayjs: ^1.11.10
     json5: ^2.2.3
@@ -588,7 +588,7 @@ __metadata:
   dependencies:
     "@babel/eslint-parser": ^7.23.3
     "@babel/plugin-syntax-import-assertions": ^7.23.3
-    "@guanghechen/eslint-config": ^5.0.3
+    "@guanghechen/eslint-config": ^6.0.0-alpha.0
     eslint-plugin-import: ^2.29.0
     eslint-plugin-jsx-a11y: ^6.8.0
     eslint-plugin-react: ^7.33.2
@@ -603,7 +603,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/eslint-config-ts@workspace:packages/eslint-config-ts"
   dependencies:
-    "@guanghechen/eslint-config": ^5.0.3
+    "@guanghechen/eslint-config": ^6.0.0-alpha.0
     "@typescript-eslint/eslint-plugin": ^6.11.0
     "@typescript-eslint/parser": ^6.11.0
   peerDependencies:
@@ -611,7 +611,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/eslint-config@^5.0.3, @guanghechen/eslint-config@workspace:packages/eslint-config":
+"@guanghechen/eslint-config@^6.0.0-alpha.0, @guanghechen/eslint-config@workspace:packages/eslint-config":
   version: 0.0.0-use.local
   resolution: "@guanghechen/eslint-config@workspace:packages/eslint-config"
   dependencies:
@@ -621,11 +621,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/event-bus@^5.0.9, @guanghechen/event-bus@workspace:packages/event-bus":
+"@guanghechen/event-bus@^6.0.0-alpha.0, @guanghechen/event-bus@workspace:packages/event-bus":
   version: 0.0.0-use.local
   resolution: "@guanghechen/event-bus@workspace:packages/event-bus"
   dependencies:
-    "@guanghechen/helper-func": ^5.0.9
+    "@guanghechen/helper-func": ^6.0.0-alpha.0
   languageName: unknown
   linkType: soft
 
@@ -654,17 +654,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/helper-cipher-file@^5.0.12, @guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file":
+"@guanghechen/helper-cipher-file@^6.0.0-alpha.0, @guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.2
-    "@guanghechen/chalk-logger": ^5.0.9
+    "@guanghechen/chalk-logger": ^6.0.0-alpha.0
     "@guanghechen/cipher": ^1.0.0-alpha.11
     "@guanghechen/file-split": ^1.0.0-alpha.8
-    "@guanghechen/helper-fs": ^5.0.9
-    "@guanghechen/helper-func": ^5.0.9
-    "@guanghechen/invariant": ^5.0.9
+    "@guanghechen/helper-fs": ^6.0.0-alpha.0
+    "@guanghechen/helper-func": ^6.0.0-alpha.0
+    "@guanghechen/invariant": ^6.0.0-alpha.0
     "@guanghechen/mac": ^1.0.0-alpha.2
     "@guanghechen/path": ^1.0.0-alpha.9
     "@guanghechen/path.types": ^1.0.0-alpha.6
@@ -673,17 +673,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-commander@^5.0.12, @guanghechen/helper-commander@workspace:packages/helper-commander":
+"@guanghechen/helper-commander@^6.0.0-alpha.0, @guanghechen/helper-commander@workspace:packages/helper-commander":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-commander@workspace:packages/helper-commander"
   dependencies:
-    "@guanghechen/chalk-logger": ^5.0.9
-    "@guanghechen/helper-fs": ^5.0.9
-    "@guanghechen/helper-git": ^5.0.9
-    "@guanghechen/helper-is": ^5.0.9
-    "@guanghechen/helper-option": ^5.0.9
-    "@guanghechen/helper-string": ^5.0.9
-    "@guanghechen/invariant": ^5.0.9
+    "@guanghechen/chalk-logger": ^6.0.0-alpha.0
+    "@guanghechen/helper-fs": ^6.0.0-alpha.0
+    "@guanghechen/helper-git": ^6.0.0-alpha.0
+    "@guanghechen/helper-is": ^6.0.0-alpha.0
+    "@guanghechen/helper-option": ^6.0.0-alpha.0
+    "@guanghechen/helper-string": ^6.0.0-alpha.0
+    "@guanghechen/invariant": ^6.0.0-alpha.0
     "@guanghechen/path": ^1.0.0-alpha.9
     "@guanghechen/reporter.types": ^1.0.0-alpha.5
     "@types/js-yaml": ^4.0.9
@@ -695,35 +695,35 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-fs@^5.0.9, @guanghechen/helper-fs@workspace:packages/helper-fs":
+"@guanghechen/helper-fs@^6.0.0-alpha.0, @guanghechen/helper-fs@workspace:packages/helper-fs":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-fs@workspace:packages/helper-fs"
   dependencies:
-    "@guanghechen/invariant": ^5.0.9
+    "@guanghechen/invariant": ^6.0.0-alpha.0
     "@guanghechen/reporter.types": ^1.0.0-alpha.5
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-func@^5.0.9, @guanghechen/helper-func@workspace:packages/helper-func":
+"@guanghechen/helper-func@^6.0.0-alpha.0, @guanghechen/helper-func@workspace:packages/helper-func":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-func@workspace:packages/helper-func"
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-git-cipher@^5.0.12, @guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher":
+"@guanghechen/helper-git-cipher@^6.0.0-alpha.0, @guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.2
-    "@guanghechen/chalk-logger": ^5.0.9
+    "@guanghechen/chalk-logger": ^6.0.0-alpha.0
     "@guanghechen/cipher": ^1.0.0-alpha.11
     "@guanghechen/config": ^1.0.0-alpha.1
-    "@guanghechen/helper-cipher-file": ^5.0.12
-    "@guanghechen/helper-fs": ^5.0.9
-    "@guanghechen/helper-func": ^5.0.9
-    "@guanghechen/helper-git": ^5.0.9
-    "@guanghechen/helper-jest": ^5.0.9
-    "@guanghechen/invariant": ^5.0.9
+    "@guanghechen/helper-cipher-file": ^6.0.0-alpha.0
+    "@guanghechen/helper-fs": ^6.0.0-alpha.0
+    "@guanghechen/helper-func": ^6.0.0-alpha.0
+    "@guanghechen/helper-git": ^6.0.0-alpha.0
+    "@guanghechen/helper-jest": ^6.0.0-alpha.0
+    "@guanghechen/invariant": ^6.0.0-alpha.0
     "@guanghechen/path": ^1.0.0-alpha.9
     "@guanghechen/path.types": ^1.0.0-alpha.6
     "@guanghechen/reporter.types": ^1.0.0-alpha.5
@@ -731,36 +731,36 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-git@^5.0.9, @guanghechen/helper-git@workspace:packages/helper-git":
+"@guanghechen/helper-git@^6.0.0-alpha.0, @guanghechen/helper-git@workspace:packages/helper-git":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-git@workspace:packages/helper-git"
   dependencies:
-    "@guanghechen/chalk-logger": ^5.0.9
-    "@guanghechen/helper-jest": ^5.0.9
-    "@guanghechen/invariant": ^5.0.9
+    "@guanghechen/chalk-logger": ^6.0.0-alpha.0
+    "@guanghechen/helper-jest": ^6.0.0-alpha.0
+    "@guanghechen/invariant": ^6.0.0-alpha.0
     "@guanghechen/reporter.types": ^1.0.0-alpha.5
     execa: ^8.0.1
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-is@^5.0.9, @guanghechen/helper-is@workspace:packages/helper-is":
+"@guanghechen/helper-is@^6.0.0-alpha.0, @guanghechen/helper-is@workspace:packages/helper-is":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-is@workspace:packages/helper-is"
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-jest@^5.0.9, @guanghechen/helper-jest@workspace:packages/helper-jest":
+"@guanghechen/helper-jest@^6.0.0-alpha.0, @guanghechen/helper-jest@workspace:packages/helper-jest":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-jest@workspace:packages/helper-jest"
   dependencies:
-    "@guanghechen/helper-func": ^5.0.9
-    "@guanghechen/helper-is": ^5.0.9
+    "@guanghechen/helper-func": ^6.0.0-alpha.0
+    "@guanghechen/helper-is": ^6.0.0-alpha.0
     "@jest/globals": ^29.7.0
     jest: ^29.7.0
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-npm@^5.0.11, @guanghechen/helper-npm@workspace:packages/helper-npm":
+"@guanghechen/helper-npm@^6.0.0-alpha.0, @guanghechen/helper-npm@workspace:packages/helper-npm":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-npm@workspace:packages/helper-npm"
   dependencies:
@@ -768,23 +768,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-option@^5.0.9, @guanghechen/helper-option@workspace:packages/helper-option":
+"@guanghechen/helper-option@^6.0.0-alpha.0, @guanghechen/helper-option@workspace:packages/helper-option":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-option@workspace:packages/helper-option"
   dependencies:
-    "@guanghechen/helper-is": ^5.0.9
+    "@guanghechen/helper-is": ^6.0.0-alpha.0
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-plop@^5.0.11, @guanghechen/helper-plop@workspace:packages/helper-plop":
+"@guanghechen/helper-plop@^6.0.0-alpha.0, @guanghechen/helper-plop@workspace:packages/helper-plop":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-plop@workspace:packages/helper-plop"
   dependencies:
-    "@guanghechen/helper-is": ^5.0.9
-    "@guanghechen/helper-npm": ^5.0.11
-    "@guanghechen/helper-option": ^5.0.9
-    "@guanghechen/helper-string": ^5.0.9
-    "@guanghechen/invariant": ^5.0.9
+    "@guanghechen/helper-is": ^6.0.0-alpha.0
+    "@guanghechen/helper-npm": ^6.0.0-alpha.0
+    "@guanghechen/helper-option": ^6.0.0-alpha.0
+    "@guanghechen/helper-string": ^6.0.0-alpha.0
+    "@guanghechen/invariant": ^6.0.0-alpha.0
     chalk: ^5.3.0
     minimist: ^1.2.8
     mock-stdin: ^1.0.0
@@ -794,13 +794,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-string@^5.0.9, @guanghechen/helper-string@workspace:packages/helper-string":
+"@guanghechen/helper-string@^6.0.0-alpha.0, @guanghechen/helper-string@workspace:packages/helper-string":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-string@workspace:packages/helper-string"
   languageName: unknown
   linkType: soft
 
-"@guanghechen/invariant@^5.0.9, @guanghechen/invariant@workspace:packages/invariant":
+"@guanghechen/invariant@^6.0.0-alpha.0, @guanghechen/invariant@workspace:packages/invariant":
   version: 0.0.0-use.local
   resolution: "@guanghechen/invariant@workspace:packages/invariant"
   languageName: unknown
@@ -821,12 +821,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/mini-copy@^5.0.9, @guanghechen/mini-copy@workspace:packages/mini-copy":
+"@guanghechen/mini-copy@^6.0.0-alpha.0, @guanghechen/mini-copy@workspace:packages/mini-copy":
   version: 0.0.0-use.local
   resolution: "@guanghechen/mini-copy@workspace:packages/mini-copy"
   dependencies:
-    "@guanghechen/helper-fs": ^5.0.9
-    "@guanghechen/invariant": ^5.0.9
+    "@guanghechen/helper-fs": ^6.0.0-alpha.0
+    "@guanghechen/invariant": ^6.0.0-alpha.0
     "@guanghechen/reporter.types": ^1.0.0-alpha.5
     clipboardy: ^4.0.0
     execa: ^8.0.1
@@ -888,7 +888,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/postcss-modules-dts@workspace:packages/postcss-modules-dts"
   dependencies:
-    "@guanghechen/helper-option": ^5.0.9
+    "@guanghechen/helper-option": ^6.0.0-alpha.0
     "@types/reserved-words": 0.1.4
     reserved-words: 0.1.2
   languageName: unknown
@@ -917,24 +917,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/rollup-config-cli@^5.0.14, @guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
+"@guanghechen/rollup-config-cli@^6.0.0-alpha.0, @guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli"
   dependencies:
-    "@guanghechen/invariant": ^5.0.9
-    "@guanghechen/rollup-config": ^5.3.3
-    "@guanghechen/rollup-plugin-copy": ^5.0.12
+    "@guanghechen/invariant": ^6.0.0-alpha.0
+    "@guanghechen/rollup-config": ^6.0.0-alpha.0
+    "@guanghechen/rollup-plugin-copy": ^6.0.0-alpha.0
   peerDependencies:
     rollup: ^3.0.0
     typescript: ">=3.7.0"
   languageName: unknown
   linkType: soft
 
-"@guanghechen/rollup-config@^5.3.3, @guanghechen/rollup-config@workspace:packages/rollup-config":
+"@guanghechen/rollup-config@^6.0.0-alpha.0, @guanghechen/rollup-config@workspace:packages/rollup-config":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config@workspace:packages/rollup-config"
   dependencies:
-    "@guanghechen/helper-npm": ^5.0.11
+    "@guanghechen/helper-npm": ^6.0.0-alpha.0
     "@rollup/plugin-commonjs": 25.0.7
     "@rollup/plugin-json": 6.0.1
     "@rollup/plugin-node-resolve": 15.2.3
@@ -946,12 +946,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/rollup-plugin-copy@^5.0.12, @guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy":
+"@guanghechen/rollup-plugin-copy@^6.0.0-alpha.0, @guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy"
   dependencies:
-    "@guanghechen/helper-fs": ^5.0.9
-    "@guanghechen/helper-is": ^5.0.9
+    "@guanghechen/helper-fs": ^6.0.0-alpha.0
+    "@guanghechen/helper-is": ^6.0.0-alpha.0
     "@types/dir-glob": ^2.0.3
     "@types/micromatch": ^4.0.5
     chalk: ^5.3.0
@@ -968,13 +968,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/script-doc-link@workspace:packages/script-doc-link"
   dependencies:
-    "@guanghechen/chalk-logger": ^5.0.9
-    "@guanghechen/helper-fs": ^5.0.9
-    "@guanghechen/helper-func": ^5.0.9
-    "@guanghechen/helper-is": ^5.0.9
-    "@guanghechen/invariant": ^5.0.9
+    "@guanghechen/chalk-logger": ^6.0.0-alpha.0
+    "@guanghechen/helper-fs": ^6.0.0-alpha.0
+    "@guanghechen/helper-func": ^6.0.0-alpha.0
+    "@guanghechen/helper-is": ^6.0.0-alpha.0
+    "@guanghechen/invariant": ^6.0.0-alpha.0
     "@guanghechen/reporter.types": ^1.0.0-alpha.5
-    "@guanghechen/rollup-config-cli": ^5.0.14
+    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.0
     globby: ^14.0.0
     minimist: ^1.2.8
   bin:
@@ -995,16 +995,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/tool-file@workspace:packages/tool-file"
   dependencies:
-    "@guanghechen/chalk-logger": ^5.0.9
+    "@guanghechen/chalk-logger": ^6.0.0-alpha.0
     "@guanghechen/file-split": ^1.0.0-alpha.8
-    "@guanghechen/helper-commander": ^5.0.12
-    "@guanghechen/helper-fs": ^5.0.9
-    "@guanghechen/helper-func": ^5.0.9
-    "@guanghechen/helper-is": ^5.0.9
-    "@guanghechen/helper-option": ^5.0.9
-    "@guanghechen/invariant": ^5.0.9
+    "@guanghechen/helper-commander": ^6.0.0-alpha.0
+    "@guanghechen/helper-fs": ^6.0.0-alpha.0
+    "@guanghechen/helper-func": ^6.0.0-alpha.0
+    "@guanghechen/helper-is": ^6.0.0-alpha.0
+    "@guanghechen/helper-option": ^6.0.0-alpha.0
+    "@guanghechen/invariant": ^6.0.0-alpha.0
     "@guanghechen/path": ^1.0.0-alpha.9
-    "@guanghechen/rollup-config-cli": ^5.0.14
+    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.0
   bin:
     ghc-file: ./lib/esm/cli.mjs
   languageName: unknown
@@ -1015,25 +1015,25 @@ __metadata:
   resolution: "@guanghechen/tool-git-cipher@workspace:packages/tool-git-cipher"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.2
-    "@guanghechen/chalk-logger": ^5.0.9
+    "@guanghechen/chalk-logger": ^6.0.0-alpha.0
     "@guanghechen/cipher": ^1.0.0-alpha.11
     "@guanghechen/config": ^1.0.0-alpha.1
-    "@guanghechen/event-bus": ^5.0.9
+    "@guanghechen/event-bus": ^6.0.0-alpha.0
     "@guanghechen/file-split": ^1.0.0-alpha.8
     "@guanghechen/filetree": ^1.0.0-alpha.5
-    "@guanghechen/helper-cipher-file": ^5.0.12
-    "@guanghechen/helper-commander": ^5.0.12
-    "@guanghechen/helper-fs": ^5.0.9
-    "@guanghechen/helper-git": ^5.0.9
-    "@guanghechen/helper-git-cipher": ^5.0.12
-    "@guanghechen/helper-is": ^5.0.9
-    "@guanghechen/helper-option": ^5.0.9
-    "@guanghechen/helper-plop": ^5.0.11
-    "@guanghechen/invariant": ^5.0.9
+    "@guanghechen/helper-cipher-file": ^6.0.0-alpha.0
+    "@guanghechen/helper-commander": ^6.0.0-alpha.0
+    "@guanghechen/helper-fs": ^6.0.0-alpha.0
+    "@guanghechen/helper-git": ^6.0.0-alpha.0
+    "@guanghechen/helper-git-cipher": ^6.0.0-alpha.0
+    "@guanghechen/helper-is": ^6.0.0-alpha.0
+    "@guanghechen/helper-option": ^6.0.0-alpha.0
+    "@guanghechen/helper-plop": ^6.0.0-alpha.0
+    "@guanghechen/invariant": ^6.0.0-alpha.0
     "@guanghechen/mac": ^1.0.0-alpha.2
     "@guanghechen/path": ^1.0.0-alpha.9
     "@guanghechen/resource": ^1.0.0-alpha.1
-    "@guanghechen/rollup-config-cli": ^5.0.14
+    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.0
     "@types/micromatch": ^4.0.5
     execa: ^8.0.1
     inquirer: 9.2.12
@@ -1048,22 +1048,22 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/tool-mini-copy@workspace:packages/tool-mini-copy"
   dependencies:
-    "@guanghechen/chalk-logger": ^5.0.9
-    "@guanghechen/helper-commander": ^5.0.12
-    "@guanghechen/helper-fs": ^5.0.9
-    "@guanghechen/helper-is": ^5.0.9
-    "@guanghechen/helper-option": ^5.0.9
-    "@guanghechen/invariant": ^5.0.9
-    "@guanghechen/mini-copy": ^5.0.9
+    "@guanghechen/chalk-logger": ^6.0.0-alpha.0
+    "@guanghechen/helper-commander": ^6.0.0-alpha.0
+    "@guanghechen/helper-fs": ^6.0.0-alpha.0
+    "@guanghechen/helper-is": ^6.0.0-alpha.0
+    "@guanghechen/helper-option": ^6.0.0-alpha.0
+    "@guanghechen/invariant": ^6.0.0-alpha.0
+    "@guanghechen/mini-copy": ^6.0.0-alpha.0
     "@guanghechen/path": ^1.0.0-alpha.9
-    "@guanghechen/rollup-config-cli": ^5.0.14
+    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.0
     inquirer: 9.2.12
   bin:
     mcp: ./lib/esm/cli.mjs
   languageName: unknown
   linkType: soft
 
-"@guanghechen/utility-types@^5.0.9, @guanghechen/utility-types@workspace:packages/utility-types":
+"@guanghechen/utility-types@^6.0.0-alpha.0, @guanghechen/utility-types@workspace:packages/utility-types":
   version: 0.0.0-use.local
   resolution: "@guanghechen/utility-types@workspace:packages/utility-types"
   languageName: unknown

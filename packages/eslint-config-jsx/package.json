@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/eslint-config-jsx",
-  "version": "5.0.8",
+  "version": "6.0.0-alpha.0",
   "description": "eslint config for jsx",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-jsx@5.0.8",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-jsx@6.0.0-alpha.0",
     "directory": "packages/eslint-config-jsx"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@5.0.3/packages/eslint-config-jsx#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@6.0.0-alpha.0/packages/eslint-config-jsx#readme",
   "keywords": [
     "eslint",
     "eslint config",
@@ -46,7 +46,7 @@
   "dependencies": {
     "@babel/eslint-parser": "^7.23.3",
     "@babel/plugin-syntax-import-assertions": "^7.23.3",
-    "@guanghechen/eslint-config": "^5.0.3",
+    "@guanghechen/eslint-config": "^6.0.0-alpha.0",
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-react": "^7.33.2",

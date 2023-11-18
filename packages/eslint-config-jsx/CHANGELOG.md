@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.0](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/eslint-config-jsx@5.0.8...@guanghechen/eslint-config-jsx@6.0.0-alpha.0) (2023-11-18)
+
+
+### Performance Improvements
+
+* 📝 update doc link from 5.x.x to 6.x.x ([6d13d32](https://github.com/guanghechen/node-scaffolds/commit/6d13d3259ddbc8e1d8332bffef2f3e8f041c023a))
+* ⬆️ upgrade dependencies ([7a018f1](https://github.com/guanghechen/node-scaffolds/commit/7a018f1d60b1345274c133c08b0736eb5163d8e5))
+* 🔧 upgrade engine version requirement from '>= 16.0.0' to '>= 18.0.0' ([04e41e3](https://github.com/guanghechen/node-scaffolds/commit/04e41e3431fcd015117091c6ce2c4f37e9afcf2f))
+
+
+
+
+
 ## [5.0.8](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/eslint-config-jsx@5.0.7...@guanghechen/eslint-config-jsx@5.0.8) (2023-11-05)
 
 

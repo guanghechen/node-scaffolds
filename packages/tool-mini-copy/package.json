@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/tool-mini-copy",
-  "version": "5.0.14",
+  "version": "6.0.0-alpha.0",
   "description": "A cli tool to copy / paste with system clipboard or customized fake clipboard (file).",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@5.0.14",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@6.0.0-alpha.0",
     "directory": "packages/tool-mini-copy"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@5.0.14/packages/tool-mini-copy#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@6.0.0-alpha.0/packages/tool-mini-copy#readme",
   "keywords": [],
   "type": "module",
   "module": "./lib/esm/index.mjs",
@@ -40,17 +40,17 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@guanghechen/chalk-logger": "^5.0.9",
-    "@guanghechen/helper-commander": "^5.0.12",
-    "@guanghechen/helper-fs": "^5.0.9",
-    "@guanghechen/helper-is": "^5.0.9",
-    "@guanghechen/helper-option": "^5.0.9",
-    "@guanghechen/invariant": "^5.0.9",
-    "@guanghechen/mini-copy": "^5.0.9",
+    "@guanghechen/chalk-logger": "^6.0.0-alpha.0",
+    "@guanghechen/helper-commander": "^6.0.0-alpha.0",
+    "@guanghechen/helper-fs": "^6.0.0-alpha.0",
+    "@guanghechen/helper-is": "^6.0.0-alpha.0",
+    "@guanghechen/helper-option": "^6.0.0-alpha.0",
+    "@guanghechen/invariant": "^6.0.0-alpha.0",
+    "@guanghechen/mini-copy": "^6.0.0-alpha.0",
     "@guanghechen/path": "^1.0.0-alpha.9",
     "inquirer": "9.2.12"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config-cli": "^5.0.14"
+    "@guanghechen/rollup-config-cli": "^6.0.0-alpha.0"
   }
 }
