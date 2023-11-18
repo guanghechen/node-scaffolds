@@ -1,5 +1,5 @@
 import { toLowerCase } from '@guanghechen/helper-string'
-import type { ILogger } from '@guanghechen/utility-types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import commandExists from 'command-exists'
 import type { Options as IExecaOptions } from 'execa'
 import { execa } from 'execa'
@@ -9,12 +9,12 @@ import inquirer from 'inquirer'
  * Run `npm/yarn install` to Install node.js dependencies
  * @param execaOptions
  * @param plopBypass
- * @param logger
+ * @param reporter
  */
 export async function installDependencies(
   execaOptions: IExecaOptions,
   plopBypass: string[],
-  logger?: ILogger,
+  reporter?: IReporter,
 ): Promise<void> {
   const hasYarnInstalled: boolean = commandExists.sync('yarn')
 
@@ -45,7 +45,7 @@ export async function installDependencies(
     ).npmScript
   }
 
-  logger?.debug?.('npmScript:', npmScript)
+  reporter?.debug?.('npmScript:', npmScript)
 
   // skip installing dependencies
   if (npmScript === 'skip') return

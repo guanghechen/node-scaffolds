@@ -1,4 +1,4 @@
-import type { ILogger } from '@guanghechen/utility-types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import clipboardy from 'clipboardy'
 import { execa } from 'execa'
 import type { FakeClipboard } from './fake-clipboard'
@@ -19,7 +19,7 @@ export interface ICopyOptions {
   /**
    * Logger.
    */
-  logger?: ILogger
+  logger?: IReporter
 }
 
 /**

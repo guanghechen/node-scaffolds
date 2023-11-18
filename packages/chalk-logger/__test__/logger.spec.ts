@@ -1,5 +1,5 @@
 import { createLoggerMock } from '@guanghechen/helper-jest'
-import type { ILogger } from '@guanghechen/utility-types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import { desensitize, locateFixtures } from 'jest.helper'
 import { appendFileSync, existsSync, readFileSync } from 'node:fs'
 import fs from 'node:fs/promises'
@@ -7,8 +7,12 @@ import path from 'node:path'
 import type { ILoggerOptions } from '../src'
 import { Level, Logger, resolveLevel } from '../src'
 
+type IReporterMethod = keyof Pick<
+  IReporter,
+  'debug' | 'verbose' | 'info' | 'warn' | 'error' | 'fatal'
+>
 const levels: string[] = ['debug', 'verbose', 'info', 'warn', 'error', 'fatal']
-const methods: Array<keyof ILogger> = ['debug', 'verbose', 'info', 'warn', 'error', 'fatal']
+const methods: IReporterMethod[] = ['debug', 'verbose', 'info', 'warn', 'error', 'fatal']
 
 describe('Logger', () => {
   for (const mode of ['normal', 'loose']) {

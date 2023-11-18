@@ -7,14 +7,14 @@ import type {
   IFileCipherCatalogItemBase,
 } from '@guanghechen/helper-cipher-file'
 import { calcCryptFilepath } from '@guanghechen/helper-cipher-file'
-import type { ILogger } from '@guanghechen/utility-types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import type { IFileCipherCatalogItemInstance, IGitCipherConfig } from './types'
 
 export interface IGitCipherContextProps {
   readonly catalogContext: IFileCipherCatalogContext
   readonly cipherBatcher: IFileCipherBatcher
   readonly configKeeper: IConfigKeeper<IGitCipherConfig>
-  readonly logger: ILogger | undefined
+  readonly logger: IReporter | undefined
   getDynamicIv(infos: ReadonlyArray<Uint8Array>): Readonly<Uint8Array>
 }
 
@@ -22,7 +22,7 @@ export interface IGitCipherContext {
   readonly catalogContext: IFileCipherCatalogContext
   readonly configKeeper: IConfigKeeper<IGitCipherConfig>
   readonly cipherBatcher: IFileCipherBatcher
-  readonly logger: ILogger | undefined
+  readonly logger: IReporter | undefined
   flatItem(item: IFileCipherCatalogItemInstance): IFileCipherCatalogItem
   getIv(item: IFileCipherCatalogItemBase): Uint8Array
 }
@@ -31,7 +31,7 @@ export class GitCipherContext implements IGitCipherContext {
   public readonly catalogContext: IFileCipherCatalogContext
   public readonly cipherBatcher: IFileCipherBatcher
   public readonly configKeeper: IConfigKeeper<IGitCipherConfig>
-  public readonly logger: ILogger | undefined
+  public readonly logger: IReporter | undefined
   public readonly getIv: (item: IFileCipherCatalogItemBase) => Uint8Array
 
   constructor(props: IGitCipherContextProps) {

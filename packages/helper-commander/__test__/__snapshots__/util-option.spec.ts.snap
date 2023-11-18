@@ -13,7 +13,7 @@ exports[`resolveCommandConfigurationOptions basic 1`] = `
   ],
   "cwd": "<$WORKSPACE$>/packages/helper-commander",
   "date": false,
-  "logLevel": "debug",
+  "logLevel": 1,
   "parasticConfigEntry": "@guanghechen/tool-demo",
   "parasticConfigPath": "<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json",
   "workspace": "<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2",
@@ -45,7 +45,7 @@ exports[`resolveCommandConfigurationOptions basic 2`] = `
 ",
   ],
   [
-    "debug [] logLevel: debug
+    "debug [] logLevel: 1
 ",
   ],
   [
@@ -103,7 +103,7 @@ exports[`resolveCommandConfigurationOptions no sub-command 1`] = `
     "color": true,
     "logLevel": "verbose",
   },
-  "logLevel": "warn",
+  "logLevel": 4,
   "parasticConfigEntry": "@guanghechen/tool-demo",
   "parasticConfigPath": "<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json",
   "workspace": "<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2",
@@ -123,7 +123,7 @@ exports[`resolveCommandConfigurationOptions with config 1`] = `
   "configPath": [],
   "cwd": "<$WORKSPACE$>/packages/helper-commander",
   "date": true,
-  "logLevel": "debug",
+  "logLevel": 1,
   "parasticConfigEntry": "@guanghechen/tool-demo",
   "parasticConfigPath": "<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/package.json",
   "workspace": "<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2",
@@ -153,7 +153,7 @@ exports[`resolveCommandConfigurationOptions with config 2`] = `
 ",
   ],
   [
-    "debug [] logLevel: debug
+    "debug [] logLevel: 1
 ",
   ],
   [

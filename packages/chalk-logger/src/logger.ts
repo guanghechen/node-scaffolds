@@ -1,9 +1,11 @@
 import { isString } from '@guanghechen/helper-is'
-import type { ILogger, Mutable } from '@guanghechen/utility-types'
+import { ReporterLevelEnum } from '@guanghechen/reporter.types'
+import type { IReporter } from '@guanghechen/reporter.types'
+import type { Mutable } from '@guanghechen/utility-types'
 import dayjs from 'dayjs'
 import { normalizeString } from './format'
 import type { ILevelStyleMap } from './level'
-import { Level, defaultLevelStyleMap, levelOrdinalMap } from './level'
+import { defaultLevelStyleMap } from './level'
 
 export interface ILoggerFlights {
   readonly date: boolean
@@ -15,17 +17,17 @@ export interface ILoggerFlights {
 export interface ILoggerOptions {
   name?: string
   mode?: 'normal' | 'loose'
-  level?: Level | null
+  level?: ReporterLevelEnum | null
   levelStyleMap?: ILevelStyleMap
   flights?: Partial<ILoggerFlights>
   placeholderRegex?: RegExp
   write?(text: string): void
 }
 
-export class Logger implements ILogger {
+export class Logger implements IReporter {
   public readonly name: string
   public readonly mode: 'normal' | 'loose' = 'normal'
-  public readonly level: Level
+  public readonly level: ReporterLevelEnum
   public readonly levelStyleMap: ILevelStyleMap
   public readonly flights: ILoggerFlights
   public readonly placeholderRegex: RegExp = /(?<!\\)\{\}/g
@@ -33,7 +35,7 @@ export class Logger implements ILogger {
 
   constructor(options?: ILoggerOptions) {
     this.name = ''
-    this.level = options?.level ?? Level.INFO
+    this.level = options?.level ?? ReporterLevelEnum.INFO
     this.levelStyleMap = options?.levelStyleMap ?? defaultLevelStyleMap
     this.write = text => {
       process.stdout.write(text)
@@ -83,13 +85,13 @@ export class Logger implements ILogger {
   }
 
   // format a log record.
-  public format(level: Level, header: string, message: string): string {
+  public format(level: ReporterLevelEnum, header: string, message: string): string {
     const content: string = this.formatContent(level, message)
     return header.length > 0 ? header + ' ' + content : content
   }
 
   // format a log record's header.
-  public formatHeader(level: Level, date: Date): string {
+  public formatHeader(level: ReporterLevelEnum, date: Date): string {
     const dateText: string = this.flights.date
       ? this.formatContent(level, dayjs(date).format('YYYY-MM-DD HH:mm:ss'))
       : ''
@@ -112,7 +114,7 @@ export class Logger implements ILogger {
     return result
   }
 
-  public formatContent(level: Level, message: string): string {
+  public formatContent(level: ReporterLevelEnum, message: string): string {
     let text: string = message
     if (this.flights.colorful) {
       const levelStyle = this.levelStyleMap[level]
@@ -130,32 +132,36 @@ export class Logger implements ILogger {
   }
 
   public debug(messageFormat: string | unknown, ...messages: unknown[]): void {
-    this.log(Level.DEBUG, messageFormat, ...messages)
+    this.log(ReporterLevelEnum.DEBUG, messageFormat, ...messages)
   }
 
   public verbose(messageFormat: string | unknown, ...messages: unknown[]): void {
-    this.log(Level.VERBOSE, messageFormat, ...messages)
+    this.log(ReporterLevelEnum.VERBOSE, messageFormat, ...messages)
   }
 
   public info(messageFormat: string | unknown, ...messages: unknown[]): void {
-    this.log(Level.INFO, messageFormat, ...messages)
+    this.log(ReporterLevelEnum.INFO, messageFormat, ...messages)
   }
 
   public warn(messageFormat: string | unknown, ...messages: unknown[]): void {
-    this.log(Level.WARN, messageFormat, ...messages)
+    this.log(ReporterLevelEnum.WARN, messageFormat, ...messages)
   }
 
   public error(messageFormat: string | unknown, ...messages: unknown[]): void {
-    this.log(Level.ERROR, messageFormat, ...messages)
+    this.log(ReporterLevelEnum.ERROR, messageFormat, ...messages)
   }
 
   public fatal(messageFormat: string | unknown, ...messages: unknown[]): void {
-    this.log(Level.FATAL, messageFormat, ...messages)
+    this.log(ReporterLevelEnum.FATAL, messageFormat, ...messages)
   }
 
   // write a log record.
-  public log(level: Level, messageFormat: string | unknown, ...messages: unknown[]): void {
-    if (!level || levelOrdinalMap[level] < levelOrdinalMap[this.level]) return
+  public log(
+    level: ReporterLevelEnum,
+    messageFormat: string | unknown,
+    ...messages: unknown[]
+  ): void {
+    if (!level || level < this.level) return
     const header = this.formatHeader(level, new Date())
 
     let newline = false

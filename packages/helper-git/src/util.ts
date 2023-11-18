@@ -1,4 +1,4 @@
-import type { ILogger } from '@guanghechen/utility-types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import type { Options as IExecaOptions, ExecaReturnValue as IExecaReturnValue } from 'execa'
 import { execa } from 'execa'
 import { existsSync, statSync } from 'node:fs'
@@ -8,7 +8,7 @@ export async function safeExeca(
   file: string,
   args: string[],
   options: IExecaOptions,
-  logger: ILogger | undefined,
+  logger: IReporter | undefined,
 ): Promise<IExecaReturnValue | never> {
   try {
     const result: IExecaReturnValue = await execa(file, args, { ...options, encoding: 'utf8' })

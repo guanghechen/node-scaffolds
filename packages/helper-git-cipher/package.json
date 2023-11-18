@@ -49,7 +49,7 @@
     "@guanghechen/helper-git": "^5.0.9",
     "@guanghechen/invariant": "^5.0.9",
     "@guanghechen/path.types": "^1.0.0-alpha.6",
-    "@guanghechen/utility-types": "^5.0.9"
+    "@guanghechen/reporter.types": "^1.0.0-alpha.5"
   },
   "devDependencies": {
     "@guanghechen/chalk-logger": "^5.0.9",

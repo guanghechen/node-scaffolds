@@ -1,4 +1,4 @@
-import type { ILogger } from '@guanghechen/utility-types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import type { Options as IExecaOptions } from 'execa'
 import { assertPromiseThrow, mkdirsIfNotExists, rm, writeFile } from 'jest.helper'
 import { readFileSync } from 'node:fs'
@@ -23,7 +23,7 @@ export interface ICommitItem extends IGitCommandBaseParams, IGitCommitInfo {
 
 export interface IBuildRepo1Params {
   repoDir: string
-  logger?: ILogger
+  logger?: IReporter
   execaOptions?: IExecaOptions
 }
 

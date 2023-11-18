@@ -3,14 +3,14 @@ import type { IFileCipherCatalogItemBase } from '@guanghechen/helper-cipher-file
 import type { IGitCommandBaseParams, IGitCommitWithMessage } from '@guanghechen/helper-git'
 import { getAllLocalBranches, getCommitWithMessageList, isGitRepo } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
-import type { ILogger } from '@guanghechen/utility-types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import { createHash } from 'node:crypto'
 
 export const resolveIdMap = async (params: {
   cryptRootDir: string
   plainRootDir: string
   crypt2plainIdMap: ReadonlyMap<string, string>
-  logger?: ILogger
+  logger?: IReporter
 }): Promise<{
   crypt2plainIdMap: Map<string, string>
 }> => {

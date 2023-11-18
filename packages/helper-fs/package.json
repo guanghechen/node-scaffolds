@@ -44,6 +44,6 @@
   },
   "dependencies": {
     "@guanghechen/invariant": "^5.0.9",
-    "@guanghechen/utility-types": "^5.0.9"
+    "@guanghechen/reporter.types": "^1.0.0-alpha.5"
   }
 }

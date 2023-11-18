@@ -2,19 +2,19 @@ import { destroyBytesList, mergeBytes } from '@guanghechen/byte'
 import type { ICipher, IDecipherOptions, IEncryptResult } from '@guanghechen/cipher'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
+import type { IReporter } from '@guanghechen/reporter.types'
 import { consumeStream, consumeStreams } from '@guanghechen/stream'
-import type { ILogger } from '@guanghechen/utility-types'
 import fs from 'node:fs'
 import type { IFileCipher } from './types/IFileCipher'
 
 export interface IFileCipherProps {
   readonly cipher: ICipher
-  readonly logger?: ILogger
+  readonly logger?: IReporter
 }
 
 export class FileCipher implements IFileCipher {
   public readonly cipher: ICipher
-  protected readonly logger?: ILogger
+  protected readonly logger?: IReporter
 
   constructor(props: IFileCipherProps) {
     this.cipher = props.cipher

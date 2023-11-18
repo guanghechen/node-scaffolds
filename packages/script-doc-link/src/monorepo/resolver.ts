@@ -1,4 +1,4 @@
-import type { ILogger } from '@guanghechen/utility-types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import fs from 'node:fs/promises'
 import type { IMonorepoRewriteAbleItem } from '../types'
 import { MonorepoContext } from './context'
@@ -10,7 +10,7 @@ interface IParams {
   encoding?: BufferEncoding
   username?: string
   repository?: string
-  logger?: ILogger | undefined
+  logger?: IReporter | undefined
 }
 
 export async function resolveMonorepoDocLinkRewrite(params: IParams): Promise<void> {

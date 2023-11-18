@@ -74,8 +74,8 @@ export function resolveCommandConfigurationOptions<O extends ICommandConfigurati
     parasticConfigEntry,
   }
 
-  const setLoggerLevel = (defaultLogLevel: string | undefined): Level | null => {
-    const _logLevel = cover<string | undefined>(defaultLogLevel, options.logLevel)
+  const setLoggerLevel = (defaultLogLevel: string | Level | undefined): Level | null => {
+    const _logLevel = cover<string | Level | undefined>(defaultLogLevel, options.logLevel)
     const _level: Level | null = _logLevel ? resolveLevel(_logLevel) : null
     if (_level) logger.setLevel(_level)
     return _level

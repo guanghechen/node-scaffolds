@@ -6,7 +6,7 @@ import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { checkBranch, getAllLocalBranches, isGitRepo, listAllFiles } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
-import type { ILogger } from '@guanghechen/utility-types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import { existsSync } from 'node:fs'
 import type { IFileCipherCatalogItemInstance, IGitCipherConfig } from '../types'
 
@@ -15,7 +15,7 @@ export interface IVerifyGitCommitParams {
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string
   cryptPathResolver: IWorkspacePathResolver
-  logger: ILogger | undefined
+  logger: IReporter | undefined
   plainCommitId: string
   plainPathResolver: IWorkspacePathResolver
 }

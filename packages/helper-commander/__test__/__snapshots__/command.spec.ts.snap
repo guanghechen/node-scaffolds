@@ -29,7 +29,7 @@ exports[`command no sub-command with arguments: logs 1`] = `
 ",
   ],
   [
-    "debug [ghc] logLevel: debug
+    "debug [ghc] logLevel: 1
 ",
   ],
   [
@@ -87,7 +87,7 @@ exports[`command no sub-command with arguments: resolvedOptions 1`] = `
   "encoding": "utf8",
   "force": true,
   "input": undefined,
-  "logLevel": "debug",
+  "logLevel": 1,
   "output": undefined,
   "parasticConfigEntry": "@guanghechen/helper-commander--demo",
   "parasticConfigPath": "<$WORKSPACE$>/packages/helper-commander/package.json",
@@ -125,7 +125,7 @@ exports[`command no sub-command without arguments: logs 1`] = `
 ",
   ],
   [
-    "debug [ghc] logLevel: debug
+    "debug [ghc] logLevel: 1
 ",
   ],
   [
@@ -183,7 +183,7 @@ exports[`command no sub-command without arguments: resolvedOptions 1`] = `
   "encoding": "utf8",
   "force": true,
   "input": undefined,
-  "logLevel": "debug",
+  "logLevel": 1,
   "output": undefined,
   "parasticConfigEntry": "@guanghechen/helper-commander--demo",
   "parasticConfigPath": "<$WORKSPACE$>/packages/helper-commander/package.json",

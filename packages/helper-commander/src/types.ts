@@ -1,3 +1,5 @@
+import type { ReporterLevelEnum } from '@guanghechen/reporter.types'
+
 export interface ICommandConfigurationFlatOpts {
   /**
    * Path of currently executing command.
@@ -29,7 +31,7 @@ export interface ICommandConfigurationOptions {
    * Log level.
    * @default undefined
    */
-  readonly logLevel?: 'debug' | 'verbose' | 'info' | 'warn' | 'error' | string
+  readonly logLevel?: 'debug' | 'verbose' | 'info' | 'warn' | 'error' | ReporterLevelEnum | string
   /**
    * Filepath of configs, only *.yml, *.yaml and *.json are supported.
    * Each configuration file can specify the same options, the configuration

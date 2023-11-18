@@ -1,5 +1,5 @@
 import invariant from '@guanghechen/invariant'
-import type { ILogger } from '@guanghechen/utility-types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import type { WriteFileOptions } from 'node:fs'
 import { existsSync, mkdirSync, statSync } from 'node:fs'
 import fs from 'node:fs/promises'
@@ -9,17 +9,18 @@ import path from 'node:path'
  * Remove all files under the given directory path.
  * @param dirpath
  * @param createIfNotExist
+ * @param reporter
  */
 export async function emptyDir(
   dirpath: string,
   createIfNotExist = true,
-  logger?: ILogger,
+  reporter?: IReporter,
 ): Promise<void> {
   if (existsSync(dirpath)) {
     invariant(statSync(dirpath).isDirectory(), `[emptyDir] not a directory. (${dirpath})`)
 
     // Print verbose log.
-    logger?.verbose?.(`empty: ${dirpath}`)
+    reporter?.verbose?.(`empty: ${dirpath}`)
 
     await rm(dirpath)
     await fs.mkdir(dirpath, { recursive: true })
@@ -52,13 +53,14 @@ export function ensureCriticalFilepathExistsSync(filepath: string | null): void 
  *
  * @param filepath  the give file path
  * @param isDir     Whether the given path is a directory
+ * @param reporter
  */
-export function mkdirsIfNotExists(filepath: string, isDir: boolean, logger?: ILogger): void {
+export function mkdirsIfNotExists(filepath: string, isDir: boolean, reporter?: IReporter): void {
   const dirpath = isDir ? filepath : path.dirname(filepath)
   if (existsSync(dirpath)) return
 
   // Print verbose log.
-  logger?.verbose?.(`mkdirs: ${dirpath}`)
+  reporter?.verbose?.(`mkdirs: ${dirpath}`)
 
   mkdirSync(dirpath, { recursive: true })
 }

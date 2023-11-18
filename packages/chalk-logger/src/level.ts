@@ -1,34 +1,10 @@
+import { ReporterLevelEnum } from '@guanghechen/reporter.types'
 import chalk from 'chalk'
 import type { ChalkInstance } from 'chalk'
-
-export enum Level {
-  DEBUG = 'debug',
-  VERBOSE = 'verbose',
-  INFO = 'info',
-  WARN = 'warn',
-  ERROR = 'error',
-  FATAL = 'fatal',
-}
-
-export const DEBUG = Level.DEBUG
-export const VERBOSE = Level.VERBOSE
-export const INFO = Level.INFO
-export const WARN = Level.WARN
-export const ERROR = Level.ERROR
-export const FATAL = Level.FATAL
 
 export interface ColorfulChalk {
   readonly fg: ChalkInstance
   readonly bg: ChalkInstance | null
-}
-
-export const levelOrdinalMap: Record<Level, number> = {
-  [Level.DEBUG]: 1,
-  [Level.VERBOSE]: 2,
-  [Level.INFO]: 3,
-  [Level.WARN]: 4,
-  [Level.ERROR]: 5,
-  [Level.FATAL]: 6,
 }
 
 export interface ILevelStyle {
@@ -37,58 +13,72 @@ export interface ILevelStyle {
   contentChalk: ColorfulChalk
 }
 
-export type ILevelStyleMap = Record<Level, ILevelStyle>
+export type ILevelStyleMap = Record<ReporterLevelEnum, ILevelStyle>
 
 export const defaultLevelStyleMap: ILevelStyleMap = Object.freeze({
-  [Level.DEBUG]: {
+  [ReporterLevelEnum.DEBUG]: {
     title: 'debug',
     labelChalk: { fg: chalk.grey, bg: null },
     contentChalk: { fg: chalk.grey, bg: null },
   },
-  [Level.VERBOSE]: {
+  [ReporterLevelEnum.VERBOSE]: {
     title: 'verb ',
     labelChalk: { fg: chalk.cyan, bg: null },
     contentChalk: { fg: chalk.cyan, bg: null },
   },
-  [Level.INFO]: {
+  [ReporterLevelEnum.INFO]: {
     title: 'info ',
     labelChalk: { fg: chalk.green, bg: null },
     contentChalk: { fg: chalk.green, bg: null },
   },
-  [Level.WARN]: {
+  [ReporterLevelEnum.WARN]: {
     title: 'warn ',
     labelChalk: { fg: chalk.yellow, bg: null },
     contentChalk: { fg: chalk.yellow, bg: null },
   },
-  [Level.ERROR]: {
+  [ReporterLevelEnum.ERROR]: {
     title: 'error',
     labelChalk: { fg: chalk.red, bg: null },
     contentChalk: { fg: chalk.red, bg: null },
   },
-  [Level.FATAL]: {
+  [ReporterLevelEnum.FATAL]: {
     title: 'fatal',
     labelChalk: { fg: chalk.black, bg: chalk.bgRed },
     contentChalk: { fg: chalk.redBright, bg: null },
   },
 })
 
-export const resolveLevel = (level: string): Level | null => {
+const levelSet: Set<ReporterLevelEnum> = new Set<ReporterLevelEnum>([
+  ReporterLevelEnum.DEBUG,
+  ReporterLevelEnum.VERBOSE,
+  ReporterLevelEnum.INFO,
+  ReporterLevelEnum.WARN,
+  ReporterLevelEnum.ERROR,
+  ReporterLevelEnum.FATAL,
+])
+
+export const resolveLevel = (level: string | ReporterLevelEnum): ReporterLevelEnum | null => {
+  if (typeof level === 'number') {
+    if (levelSet.has(level)) return level
+    return null
+  }
+
   switch (level.toLowerCase()) {
     case 'debug':
-      return Level.DEBUG
+      return ReporterLevelEnum.DEBUG
     case 'verb':
     case 'verbose':
-      return Level.VERBOSE
+      return ReporterLevelEnum.VERBOSE
     case 'info':
     case 'information':
-      return Level.INFO
+      return ReporterLevelEnum.INFO
     case 'warn':
     case 'warning':
-      return Level.WARN
+      return ReporterLevelEnum.WARN
     case 'error':
-      return Level.ERROR
+      return ReporterLevelEnum.ERROR
     case 'fatal':
-      return Level.FATAL
+      return ReporterLevelEnum.FATAL
     /* c8 ignore start */
     default:
       return null

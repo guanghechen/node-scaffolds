@@ -2,7 +2,7 @@ import { isFileSync } from '@guanghechen/helper-fs'
 import { escapeRegexSpecialChars } from '@guanghechen/helper-func'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import invariant from '@guanghechen/invariant'
-import type { ILogger } from '@guanghechen/utility-types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import { globby } from 'globby'
 import path from 'node:path'
 import type { ILernaJson, IPackageJson, ITopPackageJson } from '../types'
@@ -19,14 +19,14 @@ interface IMonorepoContextProps {
   readonly rootDir: string
   readonly packagePathMap: ReadonlyMap<string, IPackageItem>
   readonly isVersionIndependent: boolean
-  readonly logger?: ILogger | undefined
+  readonly logger?: IReporter | undefined
 }
 
 interface IScanAndBuildOptions {
   rootDir: string
   username?: string
   repository?: string
-  logger?: ILogger | undefined
+  logger?: IReporter | undefined
 }
 
 export class MonorepoContext {
@@ -35,7 +35,7 @@ export class MonorepoContext {
   public readonly rootDir: string
   public readonly packagePaths: ReadonlyArray<string>
   public readonly isVersionIndependent: boolean
-  public readonly logger: ILogger | undefined
+  public readonly logger: IReporter | undefined
   protected readonly packagePathMap: ReadonlyMap<string, IPackageItem>
 
   constructor(props: IMonorepoContextProps) {

@@ -1,4 +1,4 @@
-import type { ILogger } from '@guanghechen/utility-types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import clipboardy from 'clipboardy'
 import { execa } from 'execa'
 import { DEFAULT_LINE_END } from './constant'
@@ -20,7 +20,7 @@ export interface IPasteOptions {
   /**
    * Logger.
    */
-  logger?: ILogger
+  logger?: IReporter
   /**
    * System line-ending symbol.
    */

@@ -1,17 +1,17 @@
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
-import type { ILogger } from '@guanghechen/utility-types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import { FileCipher } from './FileCipher'
 import type { IFileCipher } from './types/IFileCipher'
 import type { ICreateFileCipherOptions, IFileCipherFactory } from './types/IFileCipherFactory'
 
 export interface IFileCipherFactoryProps {
   readonly cipherFactory: ICipherFactory
-  readonly logger?: ILogger
+  readonly logger?: IReporter
 }
 
 export class FileCipherFactory implements IFileCipherFactory {
   public readonly cipherFactory: ICipherFactory
-  protected readonly logger: ILogger | undefined
+  protected readonly logger: IReporter | undefined
   #cipher: ICipher | undefined
   #fileCipher: IFileCipher | undefined
 

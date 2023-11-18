@@ -1,4 +1,4 @@
-import type { ILogger } from '@guanghechen/utility-types'
+import type { IReporter } from '@guanghechen/reporter.types'
 import type { Options as IExecaOptions } from 'execa'
 
 export interface IGitCommitDagNode {
@@ -24,6 +24,6 @@ export interface IGitCommitInfo {
 
 export interface IGitCommandBaseParams {
   readonly cwd: string
-  readonly logger: ILogger | undefined
+  readonly logger: IReporter | undefined
   readonly execaOptions?: IExecaOptions
 }
