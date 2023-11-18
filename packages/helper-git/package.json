@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@guanghechen/invariant": "^6.0.0-alpha.0",
-    "@guanghechen/reporter.types": "^1.0.0-alpha.6",
+    "@guanghechen/reporter.types": "^1.0.0-alpha.7",
     "execa": "^8.0.1"
   },
   "devDependencies": {

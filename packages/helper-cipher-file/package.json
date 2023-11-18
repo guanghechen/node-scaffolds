@@ -44,14 +44,14 @@
   },
   "dependencies": {
     "@guanghechen/byte": "^1.0.0-alpha.3",
-    "@guanghechen/cipher": "^1.0.0-alpha.12",
-    "@guanghechen/file-split": "^1.0.0-alpha.9",
+    "@guanghechen/cipher": "^1.0.0-alpha.13",
+    "@guanghechen/file-split": "^1.0.0-alpha.10",
     "@guanghechen/helper-fs": "^6.0.0-alpha.0",
     "@guanghechen/helper-func": "^6.0.0-alpha.0",
     "@guanghechen/invariant": "^6.0.0-alpha.0",
     "@guanghechen/mac": "^1.0.0-alpha.3",
     "@guanghechen/path.types": "^1.0.0-alpha.7",
-    "@guanghechen/reporter.types": "^1.0.0-alpha.6",
+    "@guanghechen/reporter.types": "^1.0.0-alpha.7",
     "@guanghechen/stream": "^1.0.0-alpha.7"
   },
   "devDependencies": {

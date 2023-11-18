@@ -44,7 +44,7 @@
   "dependencies": {
     "@guanghechen/helper-is": "^6.0.0-alpha.0",
     "@guanghechen/invariant": "^6.0.0-alpha.0",
-    "@guanghechen/reporter.types": "1.0.0-alpha.6",
+    "@guanghechen/reporter.types": "1.0.0-alpha.7",
     "@guanghechen/types": "^1.0.0-alpha.8",
     "chalk": "^5.3.0",
     "dayjs": "^1.11.10",
