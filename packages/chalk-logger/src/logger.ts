@@ -84,6 +84,16 @@ export class Logger implements IReporter {
     self.write = options.write ?? self.write
   }
 
+  /**
+   * update logger's level
+   * @param level
+   */
+  public setLevel(level: ReporterLevelEnum | null | undefined): void {
+    if (level == null) return
+    const self = this as Mutable<this>
+    self.level = level
+  }
+
   // format a log record.
   public format(level: ReporterLevelEnum, header: string, message: string): string {
     const content: string = this.formatContent(level, message)

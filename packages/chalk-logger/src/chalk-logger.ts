@@ -1,4 +1,3 @@
-import type { ReporterLevelEnum } from '@guanghechen/reporter.types'
 import type { Mutable } from '@guanghechen/types'
 import { parseOptionsFromArgs } from './commander'
 import type { ILoggerOptions } from './logger'
@@ -25,16 +24,6 @@ export class ChalkLogger extends Logger {
     super(resolvedOptions)
     const basename = resolvedOptions?.name ?? ''
     this.setBaseName(basename)
-  }
-
-  /**
-   * update logger's level
-   * @param level
-   */
-  public setLevel(level: ReporterLevelEnum | null | undefined): void {
-    if (level == null) return
-    const self = this as Mutable<this>
-    self.level = level
   }
 
   /**
