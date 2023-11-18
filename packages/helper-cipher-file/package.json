@@ -43,19 +43,19 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/byte": "^1.0.0-alpha.2",
-    "@guanghechen/cipher": "^1.0.0-alpha.11",
-    "@guanghechen/file-split": "^1.0.0-alpha.8",
+    "@guanghechen/byte": "^1.0.0-alpha.3",
+    "@guanghechen/cipher": "^1.0.0-alpha.12",
+    "@guanghechen/file-split": "^1.0.0-alpha.9",
     "@guanghechen/helper-fs": "^6.0.0-alpha.0",
     "@guanghechen/helper-func": "^6.0.0-alpha.0",
     "@guanghechen/invariant": "^6.0.0-alpha.0",
-    "@guanghechen/mac": "^1.0.0-alpha.2",
-    "@guanghechen/path.types": "^1.0.0-alpha.6",
-    "@guanghechen/reporter.types": "^1.0.0-alpha.5",
-    "@guanghechen/stream": "^1.0.0-alpha.6"
+    "@guanghechen/mac": "^1.0.0-alpha.3",
+    "@guanghechen/path.types": "^1.0.0-alpha.7",
+    "@guanghechen/reporter.types": "^1.0.0-alpha.6",
+    "@guanghechen/stream": "^1.0.0-alpha.7"
   },
   "devDependencies": {
     "@guanghechen/chalk-logger": "^6.0.0-alpha.0",
-    "@guanghechen/path": "^1.0.0-alpha.9"
+    "@guanghechen/path": "^1.0.0-alpha.10"
   }
 }
