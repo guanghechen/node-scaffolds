@@ -55,8 +55,8 @@ export class MonorepoContext {
     const username: string | undefined = isNonBlankString(options.username)
       ? options.username
       : typeof topPackageJson.author === 'string'
-      ? topPackageJson.author
-      : topPackageJson.author?.name
+        ? topPackageJson.author
+        : topPackageJson.author?.name
     invariant(
       isNonBlankString(username),
       `[${this.name}] Not found valid username in ${topPackageJsonPath}`,
