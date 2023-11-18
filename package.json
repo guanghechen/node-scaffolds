@@ -8,9 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x"
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x/#readme",
   "engines": {
     "node": ">= 18.0.0"
   },

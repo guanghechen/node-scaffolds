@@ -32,7 +32,7 @@ export class MonorepoDocLinkRewriter {
     return transforms.reduce((acc, transform) => transform(acc), text)
   }
 
-  // "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x"
+  // "url": "https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x"
   protected getRepoUrlTransform = (packagePath: string): ITextTransformer => {
     const { context, usernamePattern, repositoryPattern } = this
     const regex = new RegExp(
@@ -48,7 +48,7 @@ export class MonorepoDocLinkRewriter {
       })
   }
 
-  // https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/packages/rollup-plugin-copy#readme
+  // https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x/packages/rollup-plugin-copy#readme
   protected getRepoLinkTransform = (): ITextTransformer => {
     const { context, usernamePattern, repositoryPattern, packagePathPattern } = this
     const regex = new RegExp(
@@ -64,7 +64,7 @@ export class MonorepoDocLinkRewriter {
       })
   }
 
-  // https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-5.x.x/packages/chalk-logger/screenshots/demo1.1.png
+  // https://raw.githubusercontent.com/guanghechen/node-scaffolds/release-6.x.x/packages/chalk-logger/screenshots/demo1.1.png
   protected getRawContentLinkTransform = (): ITextTransformer => {
     const { context, usernamePattern, repositoryPattern, packagePathPattern } = this
     const regex = new RegExp(

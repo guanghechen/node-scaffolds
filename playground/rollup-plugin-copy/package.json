@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x",
     "directory": "playground/rollup-plugin-copy"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/playground/rollup-plugin-copy#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x/playground/rollup-plugin-copy#readme",
   "license": "MIT",
   "engines": {
     "node": ">= 18.0.0"

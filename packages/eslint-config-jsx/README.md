@@ -73,7 +73,7 @@ Eslint config for jsx.
 
 ## Example
 
-See [.eslintrc](https://github.com/guanghechen/node-scaffolds/tree/release-5.x.x/.eslintrc)
+See [.eslintrc](https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x/.eslintrc)
 
 ```json {5,29}
 {
