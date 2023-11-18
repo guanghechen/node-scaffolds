@@ -42,7 +42,7 @@ export class MonorepoContext {
     this.rootDir = props.rootDir
     this.username = props.username
     this.repository = props.repository
-    this.packagePaths = Array.from(props.packagePathMap.keys())
+    this.packagePaths = Array.from(props.packagePathMap.keys()).sort().reverse()
     this.packagePathMap = new Map(props.packagePathMap)
     this.isVersionIndependent = props.isVersionIndependent
     this.reporter = props.reporter

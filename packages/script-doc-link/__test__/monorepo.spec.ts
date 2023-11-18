@@ -18,35 +18,35 @@ describe('context', () => {
     expect(context.isVersionIndependent).toEqual(true)
     expect(context.packagePaths).toMatchInlineSnapshot(`
       [
-        "packages/chalk-logger",
-        "packages/conventional-changelog",
-        "packages/eslint-config",
-        "packages/eslint-config-jsx",
-        "packages/eslint-config-ts",
-        "packages/event-bus",
-        "packages/helper-cipher-file",
-        "packages/helper-commander",
-        "packages/helper-fs",
-        "packages/helper-func",
-        "packages/helper-git",
-        "packages/helper-git-cipher",
-        "packages/helper-is",
-        "packages/helper-jest",
-        "packages/helper-npm",
-        "packages/helper-option",
-        "packages/helper-plop",
-        "packages/helper-string",
-        "packages/invariant",
-        "packages/jest-config",
-        "packages/mini-copy",
-        "packages/postcss-modules-dts",
-        "packages/rollup-config",
-        "packages/rollup-config-cli",
-        "packages/rollup-plugin-copy",
-        "packages/script-doc-link",
-        "packages/tool-file",
-        "packages/tool-git-cipher",
         "packages/tool-mini-copy",
+        "packages/tool-git-cipher",
+        "packages/tool-file",
+        "packages/script-doc-link",
+        "packages/rollup-plugin-copy",
+        "packages/rollup-config-cli",
+        "packages/rollup-config",
+        "packages/postcss-modules-dts",
+        "packages/mini-copy",
+        "packages/jest-config",
+        "packages/invariant",
+        "packages/helper-string",
+        "packages/helper-plop",
+        "packages/helper-option",
+        "packages/helper-npm",
+        "packages/helper-jest",
+        "packages/helper-is",
+        "packages/helper-git-cipher",
+        "packages/helper-git",
+        "packages/helper-func",
+        "packages/helper-fs",
+        "packages/helper-commander",
+        "packages/helper-cipher-file",
+        "packages/event-bus",
+        "packages/eslint-config-ts",
+        "packages/eslint-config-jsx",
+        "packages/eslint-config",
+        "packages/conventional-changelog",
+        "packages/chalk-logger",
       ]
     `)
   })
@@ -78,6 +78,11 @@ describe('rewriter', () => {
           version: '2.0.0',
           private: 'false',
         })
+        .set('packages/script-doc-link.types', {
+          name: '@guanghechen/script-doc-link.types',
+          version: '3.0.0',
+          private: 'false',
+        })
         .set('packages/chalk-logger', {
           name: '@guanghechen/chalk-logger',
           version: '4.2.3',
@@ -103,6 +108,24 @@ describe('rewriter', () => {
       https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x/packages/fake-script-doc-link#readme
       "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@2.0.0",
       "directory": "packages/script-doc-link""
+    `)
+
+    expect(
+      rewriter.rewrite(
+        'https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x/packages/script-doc-link.types#readme' +
+          '\n' +
+          'https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x/packages/fake-script-doc-link.types#readme' +
+          '\n' +
+          '"url": "https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x",' +
+          '\n' +
+          '"directory": "packages/script-doc-link.types"',
+        'packages/script-doc-link.types',
+      ),
+    ).toMatchInlineSnapshot(`
+      "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link.types@3.0.0/packages/script-doc-link.types#readme
+      https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x/packages/fake-script-doc-link.types#readme
+      "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link.types@3.0.0",
+      "directory": "packages/script-doc-link.types""
     `)
 
     expect(
