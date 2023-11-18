@@ -1,7 +1,7 @@
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import { paste } from '@guanghechen/mini-copy'
 
-const logger = new ChalkLogger({
+const reporter = new ChalkLogger({
   name: 'mini-copy',
   level: Level.DEBUG,
   flights: {
@@ -12,7 +12,7 @@ const logger = new ChalkLogger({
 })
 
 async function f(): Promise<void> {
-  const p = await paste({ logger })
+  const p = await paste({ reporter })
   console.log(`#${p}#`)
 }
 
