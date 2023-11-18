@@ -17,6 +17,7 @@
   "type": "module",
   "scripts": {
     ":publish": "yarn test:coverage && yarn prebuild && lerna publish",
+    ":publish:recover": "git stash && lerna publish from-package",
     ":upgrade": "yarn upgrade-interactive && run-s clean format build test",
     "build": "yarn prebuild && lerna run build --concurrency 1",
     "depcheck": "lerna exec --no-bail --stream -- depcheck",
