@@ -1,4 +1,4 @@
-import type { Mutable } from '@guanghechen/utility-types'
+import type { Mutable } from '@guanghechen/types'
 import { writeFileSync } from 'node:fs'
 import { resolveLevel } from './level'
 import type { ILoggerFlights, ILoggerOptions } from './logger'

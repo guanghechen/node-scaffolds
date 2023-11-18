@@ -47,7 +47,6 @@ describe('context', () => {
         "packages/tool-file",
         "packages/tool-git-cipher",
         "packages/tool-mini-copy",
-        "packages/utility-types",
       ]
     `)
   })

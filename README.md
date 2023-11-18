@@ -75,7 +75,6 @@ Package                               | Description
 [@guanghechen/tool-file][]            | A cli tool to split / merge big file.
 [@guanghechen/tool-git-cipher][]      | A cli tool for encrypting a entire git repository.
 [@guanghechen/tool-mini-copy][]       | "A cli tool to copy / paste with system clipboard or customized fake clipboard (file).
-[@guanghechen/utility-types][]        | Collection of typescript utility types
 
 
 ## License
@@ -113,4 +112,3 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/tool-file]: ./packages/tool-file
 [@guanghechen/tool-git-cipher]: ./packages/tool-git-cipher
 [@guanghechen/tool-mini-copy]: ./packages/tool-mini-copy
-[@guanghechen/utility-types]: ./packages/utility-types

@@ -1,7 +1,7 @@
 import { isString } from '@guanghechen/helper-is'
 import { ReporterLevelEnum } from '@guanghechen/reporter.types'
 import type { IReporter } from '@guanghechen/reporter.types'
-import type { Mutable } from '@guanghechen/utility-types'
+import type { Mutable } from '@guanghechen/types'
 import dayjs from 'dayjs'
 import { normalizeString } from './format'
 import type { ILevelStyleMap } from './level'

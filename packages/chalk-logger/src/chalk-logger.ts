@@ -1,5 +1,5 @@
 import type { ReporterLevelEnum } from '@guanghechen/reporter.types'
-import type { Mutable } from '@guanghechen/utility-types'
+import type { Mutable } from '@guanghechen/types'
 import { parseOptionsFromArgs } from './commander'
 import type { ILoggerOptions } from './logger'
 import { Logger } from './logger'

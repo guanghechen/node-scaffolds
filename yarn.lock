@@ -527,7 +527,7 @@ __metadata:
     "@guanghechen/helper-is": ^6.0.0-alpha.0
     "@guanghechen/invariant": ^6.0.0-alpha.0
     "@guanghechen/reporter.types": 1.0.0-alpha.5
-    "@guanghechen/utility-types": ^6.0.0-alpha.0
+    "@guanghechen/types": ^1.0.0-alpha.8
     chalk: ^5.3.0
     dayjs: ^1.11.10
     json5: ^2.2.3
@@ -1063,11 +1063,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/utility-types@^6.0.0-alpha.0, @guanghechen/utility-types@workspace:packages/utility-types":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/utility-types@workspace:packages/utility-types"
-  languageName: unknown
-  linkType: soft
+"@guanghechen/types@npm:^1.0.0-alpha.8":
+  version: 1.0.0-alpha.8
+  resolution: "@guanghechen/types@npm:1.0.0-alpha.8"
+  checksum: 47de19979b249dc42436a11ff5bd44df707b525e63a2a82aec846ab22c30e0f424e942b6383b4a8f0a494595fee1bd91e51657e6b3394b5441f25aaa390ae4f1
+  languageName: node
+  linkType: hard
 
 "@humanwhocodes/config-array@npm:^0.11.13":
   version: 0.11.13
