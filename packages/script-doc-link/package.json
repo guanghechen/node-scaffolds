@@ -48,7 +48,7 @@
     "@guanghechen/helper-is": "^5.0.9",
     "@guanghechen/invariant": "^5.0.9",
     "@guanghechen/utility-types": "^5.0.9",
-    "globby": "^13.2.2",
+    "globby": "^14.0.0",
     "minimist": "^1.2.8"
   },
   "devDependencies": {

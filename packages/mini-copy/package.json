@@ -43,7 +43,7 @@
     "@guanghechen/helper-fs": "^5.0.9",
     "@guanghechen/invariant": "^5.0.9",
     "@guanghechen/utility-types": "^5.0.9",
-    "clipboardy": "^3.0.0",
+    "clipboardy": "^4.0.0",
     "execa": "^8.0.1"
   }
 }
