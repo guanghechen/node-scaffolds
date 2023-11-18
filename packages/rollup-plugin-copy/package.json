@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-plugin-copy",
-  "version": "6.0.0-alpha.0",
+  "version": "6.0.0-alpha.1",
   "description": "Rollup plugins to copy files and folds (glob supported)",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-plugin-copy@6.0.0-alpha.0",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-plugin-copy@6.0.0-alpha.1",
     "directory": "packages/rollup-plugin-copy"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-plugin-copy@6.0.0-alpha.0/packages/rollup-plugin-copy#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-plugin-copy@6.0.0-alpha.1/packages/rollup-plugin-copy#readme",
   "keywords": [
     "rollup",
     "rollup plugin",
@@ -43,7 +43,7 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-fs": "^6.0.0-alpha.0",
+    "@guanghechen/helper-fs": "^6.0.0-alpha.1",
     "@guanghechen/helper-is": "^6.0.0-alpha.0",
     "chalk": "^5.3.0",
     "chokidar": "^3.5.3",

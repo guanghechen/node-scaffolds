@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.1](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/chalk-logger@6.0.0-alpha.0...@guanghechen/chalk-logger@6.0.0-alpha.1) (2023-11-18)
+
+
+### Performance Improvements
+
+* :bug:  fix build error ([2bf9d2f](https://github.com/guanghechen/node-scaffolds/commit/2bf9d2f4cc44db0c27882a388bdfcdfe6ed76b91))
+* ⚰️ remove @guanghechen/utility-types, use @guanghechen/types instead ([c69c000](https://github.com/guanghechen/node-scaffolds/commit/c69c00067bd3fff5b3f848c9c052ba45384c1c92))
+* ⬆️ upgrade dependencies ([7d32802](https://github.com/guanghechen/node-scaffolds/commit/7d3280243289ade47876e8b1459ee315b8e8c038))
+* ⬆️ upgrade dependencies ([d38f88a](https://github.com/guanghechen/node-scaffolds/commit/d38f88ae0f272785a03ff167c03c2200cdffad07))
+
+
+
+
+
 # [6.0.0-alpha.0](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/chalk-logger@5.0.9...@guanghechen/chalk-logger@6.0.0-alpha.0) (2023-11-18)
 
 
