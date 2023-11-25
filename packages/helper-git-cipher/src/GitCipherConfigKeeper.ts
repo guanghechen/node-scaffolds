@@ -1,17 +1,17 @@
 import { bytes2text, text2bytes } from '@guanghechen/byte'
 import type { ICipher } from '@guanghechen/cipher'
+import type {
+  IDeserializedCatalogDiffItem,
+  IDeserializedCatalogItem,
+  ISerializedCatalogDiffItem,
+  ISerializedCatalogItem,
+} from '@guanghechen/cipher-workspace.types'
+import { FileChangeType } from '@guanghechen/cipher-workspace.types'
 import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/config'
 import { JsonConfigKeeper } from '@guanghechen/config'
-import type { IFileCipherCatalogDiffItemBase } from '@guanghechen/helper-cipher-file'
-import { FileChangeType } from '@guanghechen/helper-cipher-file'
 import invariant from '@guanghechen/invariant'
 import path from 'node:path'
-import type {
-  IFileCipherCatalogItemData,
-  IFileCipherCatalogItemInstance,
-  IGitCipherConfig,
-  IGitCipherConfigData,
-} from './types'
+import type { IGitCipherConfig, IGitCipherConfigData } from './types'
 
 type Instance = IGitCipherConfig
 type Data = IGitCipherConfigData
@@ -41,7 +41,7 @@ export class GitCipherConfigKeeper
     const title = this.constructor.name
     const cipher = this.#cipher
 
-    const serializeItem = (item: IFileCipherCatalogItemInstance): IFileCipherCatalogItemData => {
+    const serializeItem = (item: IDeserializedCatalogItem): ISerializedCatalogItem => {
       invariant(
         !path.isAbsolute(item.plainFilepath),
         `[${title}] bad catalog, contains absolute filepaths. plainFilepath:(${item.plainFilepath})`,
@@ -87,32 +87,30 @@ export class GitCipherConfigKeeper
         message: commitMessage,
       },
       catalog: {
-        diffItems: instance.catalog.diffItems.map(
-          (diffItem): IFileCipherCatalogDiffItemBase<IFileCipherCatalogItemData> => {
-            switch (diffItem.changeType) {
-              case FileChangeType.ADDED:
-                return {
-                  changeType: diffItem.changeType,
-                  newItem: serializeItem(diffItem.newItem),
-                }
-              case FileChangeType.MODIFIED:
-                return {
-                  changeType: diffItem.changeType,
-                  oldItem: serializeItem(diffItem.oldItem),
-                  newItem: serializeItem(diffItem.newItem),
-                }
-              case FileChangeType.REMOVED:
-                return {
-                  changeType: diffItem.changeType,
-                  oldItem: serializeItem(diffItem.oldItem),
-                }
-              /* c8 ignore start */
-              default:
-                throw new Error(`[${title} unknown changeType`)
-              /* c8 ignore end */
-            }
-          },
-        ),
+        diffItems: instance.catalog.diffItems.map((diffItem): ISerializedCatalogDiffItem => {
+          switch (diffItem.changeType) {
+            case FileChangeType.ADDED:
+              return {
+                changeType: diffItem.changeType,
+                newItem: serializeItem(diffItem.newItem),
+              }
+            case FileChangeType.MODIFIED:
+              return {
+                changeType: diffItem.changeType,
+                oldItem: serializeItem(diffItem.oldItem),
+                newItem: serializeItem(diffItem.newItem),
+              }
+            case FileChangeType.REMOVED:
+              return {
+                changeType: diffItem.changeType,
+                oldItem: serializeItem(diffItem.oldItem),
+              }
+            /* c8 ignore start */
+            default:
+              throw new Error(`[${title} unknown changeType`)
+            /* c8 ignore end */
+          }
+        }),
         items: instance.catalog.items
           .sort((x, y) => x.plainFilepath.localeCompare(y.plainFilepath))
           .map(serializeItem),
@@ -124,7 +122,7 @@ export class GitCipherConfigKeeper
     const title = this.constructor.name
     const cipher = this.#cipher
 
-    const deserializeItem = (item: IFileCipherCatalogItemData): IFileCipherCatalogItemInstance => {
+    const deserializeItem = (item: ISerializedCatalogItem): IDeserializedCatalogItem => {
       const authTag: Uint8Array | undefined = item.authTag
         ? cipher.decrypt(text2bytes(item.authTag, 'hex'))
         : undefined
@@ -166,32 +164,30 @@ export class GitCipherConfigKeeper
         message: commitMessage,
       },
       catalog: {
-        diffItems: data.catalog.diffItems.map(
-          (diffItem): IFileCipherCatalogDiffItemBase<IFileCipherCatalogItemInstance> => {
-            switch (diffItem.changeType) {
-              case FileChangeType.ADDED:
-                return {
-                  changeType: diffItem.changeType,
-                  newItem: deserializeItem(diffItem.newItem),
-                }
-              case FileChangeType.MODIFIED:
-                return {
-                  changeType: diffItem.changeType,
-                  oldItem: deserializeItem(diffItem.oldItem),
-                  newItem: deserializeItem(diffItem.newItem),
-                }
-              case FileChangeType.REMOVED:
-                return {
-                  changeType: diffItem.changeType,
-                  oldItem: deserializeItem(diffItem.oldItem),
-                }
-              /* c8 ignore start */
-              default:
-                throw new Error(`[${title} unknown changeType`)
-              /* c8 ignore end */
-            }
-          },
-        ),
+        diffItems: data.catalog.diffItems.map((diffItem): IDeserializedCatalogDiffItem => {
+          switch (diffItem.changeType) {
+            case FileChangeType.ADDED:
+              return {
+                changeType: diffItem.changeType,
+                newItem: deserializeItem(diffItem.newItem),
+              }
+            case FileChangeType.MODIFIED:
+              return {
+                changeType: diffItem.changeType,
+                oldItem: deserializeItem(diffItem.oldItem),
+                newItem: deserializeItem(diffItem.newItem),
+              }
+            case FileChangeType.REMOVED:
+              return {
+                changeType: diffItem.changeType,
+                oldItem: deserializeItem(diffItem.oldItem),
+              }
+            /* c8 ignore start */
+            default:
+              throw new Error(`[${title} unknown changeType`)
+            /* c8 ignore end */
+          }
+        }),
         items: data.catalog.items.map(deserializeItem),
       },
     }

@@ -1,8 +1,8 @@
 import type {
-  IFileCipherCatalog,
-  IFileCipherCatalogDiffItem,
-  IFileCipherCatalogDiffItemDraft,
-} from '@guanghechen/helper-cipher-file'
+  ICatalogDiffItem,
+  ICipherCatalog,
+  IDraftCatalogDiffItem,
+} from '@guanghechen/cipher-workspace.types'
 import { collectAffectedCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import { cleanUntrackedFilepaths, commitAll } from '@guanghechen/helper-git'
 import type { IGitCommandBaseParams, IGitCommitInfo } from '@guanghechen/helper-git'
@@ -12,10 +12,10 @@ import type { IGitCipherConfig } from '../types'
 import { generateCommitHash } from '../util'
 
 export interface IInternalEncryptDiffItemsParams {
-  catalog: IFileCipherCatalog
+  catalog: ICipherCatalog
   context: IGitCipherContext
   cryptPathResolver: IWorkspacePathResolver
-  draftDiffItems: IFileCipherCatalogDiffItemDraft[]
+  draftDiffItems: IDraftCatalogDiffItem[]
   plainPathResolver: IWorkspacePathResolver
   shouldAmend: boolean
   signature: Partial<IGitCommitInfo> & Pick<IGitCommitInfo, 'message'>
@@ -44,7 +44,7 @@ export async function internalEncryptDiffItems(
   await cleanUntrackedFilepaths({ ...cryptCmdCtx, filepaths: cryptFiles })
 
   // Update catalog.
-  const diffItems: IFileCipherCatalogDiffItem[] = await cipherBatcher.batchEncrypt({
+  const diffItems: ICatalogDiffItem[] = await cipherBatcher.batchEncrypt({
     diffItems: draftDiffItems,
     plainPathResolver,
     cryptPathResolver,

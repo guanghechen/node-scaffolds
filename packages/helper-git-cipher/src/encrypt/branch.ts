@@ -1,4 +1,4 @@
-import type { IFileCipherCatalog } from '@guanghechen/helper-cipher-file'
+import type { ICipherCatalog } from '@guanghechen/cipher-workspace.types'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { getCommitInTopology, showCommitInfo } from '@guanghechen/helper-git'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
@@ -7,7 +7,7 @@ import { encryptGitCommit } from './commit'
 
 export interface IEncryptGitBranchParams {
   branchName: string
-  catalog: IFileCipherCatalog
+  catalog: ICipherCatalog
   context: IGitCipherContext
   cryptPathResolver: IWorkspacePathResolver
   plainPathResolver: IWorkspacePathResolver

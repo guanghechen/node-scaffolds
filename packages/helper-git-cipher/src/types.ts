@@ -1,15 +1,9 @@
 import type {
-  IFileCipherCatalogDiffItemBase,
-  IFileCipherCatalogItemBase,
-} from '@guanghechen/helper-cipher-file'
-
-export interface IFileCipherCatalogItemInstance extends IFileCipherCatalogItemBase {
-  readonly authTag: Readonly<Uint8Array> | undefined
-}
-
-export interface IFileCipherCatalogItemData extends IFileCipherCatalogItemBase {
-  readonly authTag: string | undefined
-}
+  IDeserializedCatalogDiffItem,
+  IDeserializedCatalogItem,
+  ISerializedCatalogDiffItem,
+  ISerializedCatalogItem,
+} from '@guanghechen/cipher-workspace.types'
 
 export interface IGitCipherConfig {
   readonly commit: {
@@ -17,8 +11,8 @@ export interface IGitCipherConfig {
   }
   readonly catalog: {
     // Diff from the first parent commit.
-    readonly diffItems: Array<IFileCipherCatalogDiffItemBase<IFileCipherCatalogItemInstance>>
-    readonly items: IFileCipherCatalogItemInstance[]
+    readonly diffItems: IDeserializedCatalogDiffItem[]
+    readonly items: IDeserializedCatalogItem[]
   }
 }
 
@@ -28,8 +22,8 @@ export interface IGitCipherConfigData {
   }
   readonly catalog: {
     // Diff from the first parent commit.
-    readonly diffItems: Array<IFileCipherCatalogDiffItemBase<IFileCipherCatalogItemData>>
-    readonly items: IFileCipherCatalogItemData[]
+    readonly diffItems: ISerializedCatalogDiffItem[]
+    readonly items: ISerializedCatalogItem[]
   }
 }
 

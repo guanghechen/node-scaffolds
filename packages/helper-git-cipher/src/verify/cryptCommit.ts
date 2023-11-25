@@ -1,5 +1,5 @@
+import type { ICipherCatalogContext } from '@guanghechen/cipher-workspace.types'
 import type { IConfigKeeper } from '@guanghechen/config'
-import type { IFileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import { calcCryptFilepath, calcCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { checkBranch, getAllLocalBranches, isGitRepo, listAllFiles } from '@guanghechen/helper-git'
@@ -10,7 +10,7 @@ import { existsSync } from 'node:fs'
 import type { IGitCipherConfig } from '../types'
 
 export interface IVerifyCryptGitCommitParams {
-  catalogContext: IFileCipherCatalogContext
+  catalogContext: ICipherCatalogContext
   catalogFilepath: string
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string

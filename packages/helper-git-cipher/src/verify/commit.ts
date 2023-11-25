@@ -1,5 +1,8 @@
+import type {
+  ICipherCatalogContext,
+  IDeserializedCatalogItem,
+} from '@guanghechen/cipher-workspace.types'
 import type { IConfigKeeper } from '@guanghechen/config'
-import type { IFileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import { calcCatalogItem, normalizePlainFilepath } from '@guanghechen/helper-cipher-file'
 import { iterable2map } from '@guanghechen/helper-func'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
@@ -8,10 +11,10 @@ import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { existsSync } from 'node:fs'
-import type { IFileCipherCatalogItemInstance, IGitCipherConfig } from '../types'
+import type { IGitCipherConfig } from '../types'
 
 export interface IVerifyGitCommitParams {
-  catalogContext: IFileCipherCatalogContext
+  catalogContext: ICipherCatalogContext
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string
   cryptPathResolver: IWorkspacePathResolver
@@ -67,7 +70,7 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
     await configKeeper.load()
     const allPlainFiles: string[] = await listAllFiles({ ...plainCtx, commitHash: plainCommitId })
 
-    const catalogItemMap: Map<string, IFileCipherCatalogItemInstance> = iterable2map(
+    const catalogItemMap: Map<string, IDeserializedCatalogItem> = iterable2map(
       configKeeper.data?.catalog.items ?? [],
       item => normalizePlainFilepath(item.plainFilepath, plainPathResolver),
     )
@@ -78,7 +81,7 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
 
     for (const plainFilepath of allPlainFiles) {
       const key: string = normalizePlainFilepath(plainFilepath, plainPathResolver)
-      const item: IFileCipherCatalogItemInstance | undefined = catalogItemMap.get(key)
+      const item: IDeserializedCatalogItem | undefined = catalogItemMap.get(key)
       invariant(item !== undefined, `[${title}] Missing file. plainFilepath(${plainFilepath})`)
 
       const expectedItem = await calcCatalogItem({

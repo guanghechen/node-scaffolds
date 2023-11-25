@@ -1,7 +1,4 @@
-import type {
-  IFileCipherCatalogDiffItemDraft,
-  IFileCipherCatalogItem,
-} from '@guanghechen/helper-cipher-file'
+import type { ICatalogItem, IDraftCatalogDiffItem } from '@guanghechen/cipher-workspace.types'
 import { FileCipherCatalog } from '@guanghechen/helper-cipher-file'
 import { collectAllFiles } from '@guanghechen/helper-fs'
 import { hasUncommittedContent, isGitRepo } from '@guanghechen/helper-git'
@@ -16,8 +13,8 @@ export interface IEncryptFilesOnlyParams {
   cryptPathResolver: IWorkspacePathResolver
   plainPathResolver: IWorkspacePathResolver
   confirm(
-    candidateDiffItems: ReadonlyArray<IFileCipherCatalogDiffItemDraft>,
-  ): Promise<{ diffItems: IFileCipherCatalogDiffItemDraft[]; message: string }>
+    candidateDiffItems: ReadonlyArray<IDraftCatalogDiffItem>,
+  ): Promise<{ diffItems: IDraftCatalogDiffItem[]; message: string }>
 }
 
 /**
@@ -46,9 +43,7 @@ export async function encryptFilesOnly(params: IEncryptFilesOnlyParams): Promise
   const configData = configKeeper.data
   invariant(!!configData, `[${title}] cannot load config.`)
 
-  const items: IFileCipherCatalogItem[] = configData.catalog.items.map(item =>
-    context.flatItem(item),
-  )
+  const items: ICatalogItem[] = configData.catalog.items.map(item => context.flatItem(item))
   const catalog = new FileCipherCatalog({
     context: catalogContext,
     cryptPathResolver,
@@ -56,8 +51,10 @@ export async function encryptFilesOnly(params: IEncryptFilesOnlyParams): Promise
   })
   catalog.reset(items)
 
-  const candidateDraftDiffItems: IFileCipherCatalogDiffItemDraft[] =
-    await catalog.diffFromPlainFiles({ plainFilepaths: plainFiles.sort(), strickCheck: false })
+  const candidateDraftDiffItems: IDraftCatalogDiffItem[] = await catalog.diffFromPlainFiles(
+    plainFiles.sort(),
+    false,
+  )
   const confirmResult = await confirm(candidateDraftDiffItems)
   const draftDiffItems = confirmResult.diffItems
   const message = confirmResult.message.trim()

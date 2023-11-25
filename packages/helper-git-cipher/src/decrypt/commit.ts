@@ -1,5 +1,5 @@
-import { FileChangeType, collectAffectedPlainFilepaths } from '@guanghechen/helper-cipher-file'
-import type { IFileCipherCatalogDiffItem } from '@guanghechen/helper-cipher-file'
+import { FileChangeType, type ICatalogDiffItem } from '@guanghechen/cipher-workspace.types'
+import { collectAffectedPlainFilepaths } from '@guanghechen/helper-cipher-file'
 import type {
   IGitCommandBaseParams,
   IGitCommitDagNode,
@@ -79,7 +79,7 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
   }
 
   // [pain] Clean untracked filepaths to avoid unexpected errors.
-  const diffItems = configData.catalog.diffItems.map((diffItem): IFileCipherCatalogDiffItem => {
+  const diffItems = configData.catalog.diffItems.map((diffItem): ICatalogDiffItem => {
     switch (diffItem.changeType) {
       case FileChangeType.ADDED:
         return {

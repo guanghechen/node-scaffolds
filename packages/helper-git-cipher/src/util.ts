@@ -1,5 +1,8 @@
 import { bytes2text } from '@guanghechen/byte'
-import type { IFileCipherCatalogItemBase } from '@guanghechen/helper-cipher-file'
+import type {
+  IDeserializedCatalogItem,
+  IDraftCatalogItem,
+} from '@guanghechen/cipher-workspace.types'
 import type { IGitCommandBaseParams, IGitCommitWithMessage } from '@guanghechen/helper-git'
 import { getAllLocalBranches, getCommitWithMessageList, isGitRepo } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
@@ -52,7 +55,9 @@ export const resolveIdMap = async (params: {
   return { crypt2plainIdMap }
 }
 
-export const generateCommitHash = (items: IFileCipherCatalogItemBase[]): string => {
+export const generateCommitHash = (
+  items: Array<IDeserializedCatalogItem | IDraftCatalogItem>,
+): string => {
   const sha256 = createHash('sha256')
   for (const item of items) {
     sha256.update(item.plainFilepath)

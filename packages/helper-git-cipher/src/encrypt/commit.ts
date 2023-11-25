@@ -1,8 +1,8 @@
 import type {
-  IFileCipherCatalog,
-  IFileCipherCatalogDiffItemDraft,
-  IFileCipherCatalogItem,
-} from '@guanghechen/helper-cipher-file'
+  ICatalogItem,
+  ICipherCatalog,
+  IDraftCatalogDiffItem,
+} from '@guanghechen/cipher-workspace.types'
 import type {
   IGitCommandBaseParams,
   IGitCommitDagNode,
@@ -22,7 +22,7 @@ import { getCryptCommitId } from '../util'
 import { internalEncryptDiffItems } from './_internal'
 
 export interface IEncryptGitCommitParams {
-  catalog: IFileCipherCatalog
+  catalog: ICipherCatalog
   context: IGitCipherContext
   cryptPathResolver: IWorkspacePathResolver
   plainCommitNode: IGitCommitDagNode
@@ -65,9 +65,7 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     const configData = configKeeper.data
     invariant(!!configData, `[${title}] cannot load config. crypt(${cryptParentId})`)
 
-    const items: IFileCipherCatalogItem[] = configData.catalog.items.map(item =>
-      context.flatItem(item),
-    )
+    const items: ICatalogItem[] = configData.catalog.items.map(item => context.flatItem(item))
     catalog.reset(items)
   } else {
     catalog.reset()
@@ -85,10 +83,10 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
           newerCommitHash: plainCommitNode.id,
         })
       : await listAllFiles({ ...plainCmdCtx, commitHash: plainCommitNode.id })
-  const draftDiffItems: IFileCipherCatalogDiffItemDraft[] = await catalog.diffFromPlainFiles({
-    plainFilepaths: plainFiles.sort(),
-    strickCheck: false,
-  })
+  const draftDiffItems: IDraftCatalogDiffItem[] = await catalog.diffFromPlainFiles(
+    plainFiles.sort(),
+    false,
+  )
   const cryptParentCommitIds: string[] = plainCommitNode.parents.map(plainParentId =>
     getCryptCommitId(plainParentId, plain2cryptIdMap),
   )

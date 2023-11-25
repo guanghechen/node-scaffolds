@@ -1,5 +1,8 @@
-import type { IFileCipherCatalogDiffItem } from '@guanghechen/helper-cipher-file'
-import { FileChangeType } from '@guanghechen/helper-cipher-file'
+import { FileChangeType } from '@guanghechen/cipher-workspace.types'
+import type {
+  ICatalogDiffItem,
+  IDeserializedCatalogItem,
+} from '@guanghechen/cipher-workspace.types'
 import {
   checkBranch,
   getHeadBranchOrCommitId,
@@ -10,7 +13,6 @@ import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IGitCipherContext } from '../GitCipherContext'
-import type { IFileCipherCatalogItemInstance } from '../types'
 
 export interface IDecryptFilesOnlyParams {
   context: IGitCipherContext
@@ -49,7 +51,7 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
     const configData = configKeeper.data
     invariant(!!configData, `[${title}] cannot load config. cryptCommitId(${cryptCommitId})`)
 
-    let preparedItems: IFileCipherCatalogItemInstance[] = configData.catalog.items
+    let preparedItems: IDeserializedCatalogItem[] = configData.catalog.items
     if (filesOnly.length > 0) {
       const plainFilepathSet: Set<string> = new Set<string>(
         filesOnly.map(f => plainPathResolver.relative(f)),
@@ -64,7 +66,7 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
     }
 
     // Decrypt files.
-    const diffItems: IFileCipherCatalogDiffItem[] = preparedItems.map(item => ({
+    const diffItems: ICatalogDiffItem[] = preparedItems.map(item => ({
       changeType: FileChangeType.ADDED,
       newItem: context.flatItem(item),
     }))

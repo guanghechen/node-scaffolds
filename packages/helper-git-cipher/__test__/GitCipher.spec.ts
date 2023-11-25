@@ -1,11 +1,11 @@
 import { bytes2text } from '@guanghechen/byte'
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
+import type { ICatalogItem } from '@guanghechen/cipher-workspace.types'
 import { FileSplitter } from '@guanghechen/file-split'
-import type { IFileCipherCatalogItem } from '@guanghechen/helper-cipher-file'
 import {
+  CipherCatalogContext,
   FileCipherBatcher,
-  FileCipherCatalogContext,
   FileCipherFactory,
   calcCryptFilepath,
 } from '@guanghechen/helper-cipher-file'
@@ -108,7 +108,7 @@ describe('GitCipher', () => {
   })
   const configKeeper = new GitCipherConfigKeeper({ resource, cipher: cipherFactory.cipher() })
 
-  const catalogContext = new FileCipherCatalogContext({
+  const catalogContext = new CipherCatalogContext({
     cryptFilesDir,
     cryptFilepathSalt: 'guanghechen_git_cipher',
     maxTargetFileSize,
@@ -131,7 +131,7 @@ describe('GitCipher', () => {
   const testCatalog = async (
     commit: { message: string; cryptParents: string[] },
     diffItems: unknown[],
-    items: IFileCipherCatalogItem[],
+    items: ICatalogItem[],
   ): Promise<void> => {
     await configKeeper.load()
     expect(configKeeper.data!.commit).toEqual({ message: commit.message })
