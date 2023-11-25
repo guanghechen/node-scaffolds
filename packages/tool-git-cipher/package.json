@@ -43,6 +43,7 @@
     "@guanghechen/byte": "^1.0.0-alpha.3",
     "@guanghechen/chalk-logger": "^6.0.0-alpha.1",
     "@guanghechen/cipher": "^1.0.0-alpha.13",
+    "@guanghechen/cipher-workspace.types": "^1.0.0-alpha.0",
     "@guanghechen/config": "^1.0.0-alpha.3",
     "@guanghechen/event-bus": "^6.0.0-alpha.0",
     "@guanghechen/file-split": "^1.0.0-alpha.10",

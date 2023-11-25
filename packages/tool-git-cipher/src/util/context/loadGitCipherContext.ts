@@ -1,5 +1,5 @@
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
-import type { FileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
+import type { CipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import type { IGitCipherContext } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
@@ -30,7 +30,7 @@ export async function loadGitCipherContext(
     '[loadGitCipherContext] Secret master is not available!',
   )
 
-  const catalogContext: FileCipherCatalogContext | undefined = secretKeeper.createCatalogContext({
+  const catalogContext: CipherCatalogContext | undefined = secretKeeper.createCatalogContext({
     cryptPathResolver,
     plainPathResolver,
   })

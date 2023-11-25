@@ -1,5 +1,5 @@
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
-import { FileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
+import { CipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import { showCommitInfo } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper, verifyCryptGitCommit } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
@@ -57,7 +57,7 @@ export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<v
     }),
   })
 
-  const catalogContext = new FileCipherCatalogContext({
+  const catalogContext = new CipherCatalogContext({
     contentHashAlgorithm,
     cryptFilepathSalt,
     cryptFilesDir,

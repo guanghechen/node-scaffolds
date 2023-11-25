@@ -2,7 +2,7 @@ import { bytes2text, text2bytes } from '@guanghechen/byte'
 import type { ICipher } from '@guanghechen/cipher'
 import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/config'
 import { JsonConfigKeeper, PlainJsonConfigKeeper } from '@guanghechen/config'
-import { FileCipherCatalogContext } from '@guanghechen/helper-cipher-file'
+import { CipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import type { IHashAlgorithm } from '@guanghechen/mac'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { pathResolver } from '@guanghechen/path'
@@ -55,7 +55,7 @@ export class SecretConfigKeeper
   public createCatalogContext(params: {
     cryptPathResolver: IWorkspacePathResolver
     plainPathResolver: IWorkspacePathResolver
-  }): FileCipherCatalogContext | undefined {
+  }): CipherCatalogContext | undefined {
     if (this.data) {
       const { cryptPathResolver, plainPathResolver } = params
       const {
@@ -67,7 +67,7 @@ export class SecretConfigKeeper
         partCodePrefix,
         pathHashAlgorithm,
       } = this.data
-      const catalogContext = new FileCipherCatalogContext({
+      const catalogContext = new CipherCatalogContext({
         contentHashAlgorithm,
         cryptFilepathSalt,
         cryptFilesDir,

@@ -1,8 +1,5 @@
-import type {
-  IFileCipherCatalogDiffItemDraft,
-  IFileCipherCatalogItemDraft,
-} from '@guanghechen/helper-cipher-file'
-import { FileChangeType } from '@guanghechen/helper-cipher-file'
+import type { IDraftCatalogDiffItem, IDraftCatalogItem } from '@guanghechen/cipher-workspace.types'
+import { FileChangeType } from '@guanghechen/cipher-workspace.types'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { GitCipher, encryptFilesOnly } from '@guanghechen/helper-git-cipher'
 import { isNonBlankString } from '@guanghechen/helper-is'
@@ -76,14 +73,14 @@ export class GitCipherEncryptProcessor {
 }
 
 async function pickDiffItems(
-  candidateDiffItems: ReadonlyArray<IFileCipherCatalogDiffItemDraft>,
-): Promise<{ diffItems: IFileCipherCatalogDiffItemDraft[]; message: string }> {
-  const added: Array<{ index: number; newItem: IFileCipherCatalogItemDraft }> = []
-  const removed: Array<{ index: number; oldItem: IFileCipherCatalogItemDraft }> = []
+  candidateDiffItems: ReadonlyArray<IDraftCatalogDiffItem>,
+): Promise<{ diffItems: IDraftCatalogDiffItem[]; message: string }> {
+  const added: Array<{ index: number; newItem: IDraftCatalogItem }> = []
+  const removed: Array<{ index: number; oldItem: IDraftCatalogItem }> = []
   const modified: Array<{
     index: number
-    oldItem: IFileCipherCatalogItemDraft
-    newItem: IFileCipherCatalogItemDraft
+    oldItem: IDraftCatalogItem
+    newItem: IDraftCatalogItem
   }> = []
 
   for (let i = 0; i < candidateDiffItems.length; ++i) {
