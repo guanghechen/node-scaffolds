@@ -1,0 +1,47 @@
+{
+  "name": "@guanghechen/cipher-workspace.types",
+  "version": "1.0.0-alpha.0",
+  "description": "types of @guanghechen/cipher-workspace",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/sora/tree/@guanghechen/cipher-workspace.types@1.0.0-alpha.0",
+    "directory": "packages/cipher-workspace.types"
+  },
+  "homepage": "https://github.com/guanghechen/sora/tree/@guanghechen/cipher-workspace.types@1.0.0-alpha.0/packages/cipher-workspace.types#readme",
+  "type": "module",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "import": "./lib/esm/index.mjs",
+      "require": "./lib/cjs/index.cjs",
+      "types": "./lib/types/index.d.ts"
+    }
+  },
+  "source": "./src/index.ts",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/esm/index.mjs",
+  "types": "./lib/types/index.d.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 18.0.0"
+  },
+  "files": [
+    "lib/",
+    "!lib/**/*.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "../../node_modules/.bin/rimraf lib/ && ../../node_modules/.bin/cross-env NODE_ENV=production ../../node_modules/.bin/rollup -c ../../rollup.config.mjs",
+    "prepublishOnly": "yarn build"
+  },
+  "dependencies": {
+    "@guanghechen/path.types": "^1.0.0-alpha.8"
+  }
+}

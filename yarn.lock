@@ -534,6 +534,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@guanghechen/cipher-workspace.types@workspace:packages/cipher-workspace.types":
+  version: 0.0.0-use.local
+  resolution: "@guanghechen/cipher-workspace.types@workspace:packages/cipher-workspace.types"
+  dependencies:
+    "@guanghechen/path.types": ^1.0.0-alpha.8
+  languageName: unknown
+  linkType: soft
+
 "@guanghechen/cipher.types@npm:^1.0.0-alpha.7":
   version: 1.0.0-alpha.7
   resolution: "@guanghechen/cipher.types@npm:1.0.0-alpha.7"
@@ -872,6 +880,13 @@ __metadata:
   version: 1.0.0-alpha.7
   resolution: "@guanghechen/path.types@npm:1.0.0-alpha.7"
   checksum: aacf63d5a89bfc516e4ad9968ffa4c24a38bb436eef1d2a1dfc0b2bc2b6fd33d767eea65eeccbf631e0a53ee19730fae3da248d3adeb6fb17cd006bc1dbeeae0
+  languageName: node
+  linkType: hard
+
+"@guanghechen/path.types@npm:^1.0.0-alpha.8":
+  version: 1.0.0-alpha.8
+  resolution: "@guanghechen/path.types@npm:1.0.0-alpha.8"
+  checksum: 85cb90574da96e690027fe451bed2bbe38ecd0efae15dee80740dafe11a1299463a0811cc04eec2e029d923675e03828e9f0d39cbb2c2c307c738f3fa58ccead
   languageName: node
   linkType: hard
 
