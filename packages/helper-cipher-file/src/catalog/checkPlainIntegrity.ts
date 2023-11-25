@@ -1,10 +1,10 @@
+import type { IDraftCatalogItem } from '@guanghechen/cipher-workspace.types'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path.types'
-import type { IFileCipherCatalogItemDraft } from '../types/IFileCipherCatalogItem'
 
 export interface ICheckPlainIntegrityParams {
-  items: Iterable<IFileCipherCatalogItemDraft>
+  items: Iterable<IDraftCatalogItem>
   plainFilepaths: string[]
   plainPathResolver: IWorkspacePathResolver
 }

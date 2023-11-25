@@ -1,11 +1,8 @@
-import type {
-  IFileCipherCatalogItem,
-  IFileCipherCatalogItemDraft,
-} from '../types/IFileCipherCatalogItem'
+import type { ICatalogItem, IDraftCatalogItem } from '@guanghechen/cipher-workspace.types'
 
 export function isSameFileCipherItemDraft(
-  oldItem: Readonly<IFileCipherCatalogItemDraft>,
-  newItem: Readonly<IFileCipherCatalogItemDraft>,
+  oldItem: Readonly<IDraftCatalogItem>,
+  newItem: Readonly<IDraftCatalogItem>,
 ): boolean {
   if (oldItem === newItem) return true
   return (
@@ -19,8 +16,8 @@ export function isSameFileCipherItemDraft(
 }
 
 export function isSameFileCipherItem(
-  oldItem: Readonly<IFileCipherCatalogItem>,
-  newItem: Readonly<IFileCipherCatalogItem>,
+  oldItem: Readonly<ICatalogItem>,
+  newItem: Readonly<ICatalogItem>,
 ): boolean {
   if (oldItem === newItem) return true
   return (

@@ -1,15 +1,15 @@
 import { text2bytes } from '@guanghechen/byte'
-import type { IHashAlgorithm } from '@guanghechen/mac'
+import { FileChangeType } from '@guanghechen/cipher-workspace.types'
 import type {
-  IFileCipherCatalogDiffItem,
-  IFileCipherCatalogItem,
-  IFileCipherCatalogItemDraft,
-} from '../src'
-import { FileChangeType } from '../src'
+  ICatalogDiffItem,
+  ICatalogItem,
+  IDraftCatalogItem,
+} from '@guanghechen/cipher-workspace.types'
+import type { IHashAlgorithm } from '@guanghechen/mac'
 
 type ISymbol = 'A' | 'A2' | 'B' | 'C' | 'D'
 
-export const itemDraftTable: Record<ISymbol, IFileCipherCatalogItemDraft> = {
+export const itemDraftTable: Record<ISymbol, IDraftCatalogItem> = {
   A: {
     plainFilepath: 'a.txt',
     cryptFilepath: 'a.txt',
@@ -47,7 +47,7 @@ export const itemDraftTable: Record<ISymbol, IFileCipherCatalogItemDraft> = {
   },
 }
 
-export const itemTable: Record<ISymbol, IFileCipherCatalogItem> = {
+export const itemTable: Record<ISymbol, ICatalogItem> = {
   A: {
     ...itemDraftTable.A,
     iv: undefined,
@@ -75,7 +75,7 @@ export const itemTable: Record<ISymbol, IFileCipherCatalogItem> = {
   },
 }
 
-export const diffItemsTable: Record<string, IFileCipherCatalogDiffItem[]> = {
+export const diffItemsTable: Record<string, ICatalogDiffItem[]> = {
   step1: [
     { changeType: FileChangeType.ADDED, newItem: itemTable.A },
     { changeType: FileChangeType.ADDED, newItem: itemTable.B },

@@ -1,19 +1,19 @@
 import type {
-  IFileCipherCatalogDiffItemCombine,
-  IFileCipherCatalogDiffItemDraft,
-} from '../types/IFileCipherCatalogDiffItem'
-import type { IFileCipherCatalogItem } from '../types/IFileCipherCatalogItem'
+  ICatalogDiffItemCombine,
+  ICatalogItem,
+  IDraftCatalogDiffItem,
+} from '@guanghechen/cipher-workspace.types'
 
 export function collectAffectedPlainFilepaths(
-  diffItems: ReadonlyArray<IFileCipherCatalogDiffItemDraft>,
+  diffItems: ReadonlyArray<IDraftCatalogDiffItem>,
 ): string[] {
   const files: Set<string> = new Set()
-  const collect = (item: IFileCipherCatalogItem): void => {
+  const collect = (item: ICatalogItem): void => {
     files.add(item.plainFilepath)
   }
 
   for (let i = 0; i < diffItems.length; ++i) {
-    const item = diffItems[i] as IFileCipherCatalogDiffItemCombine
+    const item = diffItems[i] as ICatalogDiffItemCombine
     if (item.oldItem) collect(item.oldItem)
     if (item.newItem) collect(item.newItem)
   }

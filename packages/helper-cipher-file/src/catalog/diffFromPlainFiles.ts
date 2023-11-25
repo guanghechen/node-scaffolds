@@ -1,20 +1,20 @@
+import {
+  FileChangeType,
+  type ICatalogItem,
+  type ICipherCatalogContext,
+  type IDraftCatalogDiffItem,
+  type IDraftCatalogItem,
+} from '@guanghechen/cipher-workspace.types'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path.types'
-import type { IFileCipherCatalogContext } from '../types/IFileCipherCatalogContext'
-import type { IFileCipherCatalogDiffItemDraft } from '../types/IFileCipherCatalogDiffItem'
-import { FileChangeType } from '../types/IFileCipherCatalogDiffItem'
-import type {
-  IFileCipherCatalogItem,
-  IFileCipherCatalogItemDraft,
-} from '../types/IFileCipherCatalogItem'
 import { calcCatalogItem } from './calcCatalogItem'
 import { isSameFileCipherItemDraft } from './isSameFileCipherItem'
 import { normalizePlainFilepath } from './normalizePlainFilepath'
 
 export interface IDiffFromPlainFiles {
-  context: IFileCipherCatalogContext
-  oldItemMap: ReadonlyMap<string, IFileCipherCatalogItem>
+  context: ICipherCatalogContext
+  oldItemMap: ReadonlyMap<string, ICatalogItem>
   plainPathResolver: IWorkspacePathResolver
   plainFilepaths: string[]
   // Check some edge cases that shouldn't affect the final result, just for higher integrity check.
@@ -23,11 +23,11 @@ export interface IDiffFromPlainFiles {
 
 export async function diffFromPlainFiles(
   params: IDiffFromPlainFiles,
-): Promise<IFileCipherCatalogDiffItemDraft[]> {
+): Promise<IDraftCatalogDiffItem[]> {
   const { context, oldItemMap, plainFilepaths, plainPathResolver, strickCheck } = params
-  const addedItems: IFileCipherCatalogDiffItemDraft[] = []
-  const modifiedItems: IFileCipherCatalogDiffItemDraft[] = []
-  const removedItems: IFileCipherCatalogDiffItemDraft[] = []
+  const addedItems: IDraftCatalogDiffItem[] = []
+  const modifiedItems: IDraftCatalogDiffItem[] = []
+  const removedItems: IDraftCatalogDiffItem[] = []
 
   for (const plainFilepath of plainFilepaths) {
     const key = normalizePlainFilepath(plainFilepath, plainPathResolver)
@@ -36,7 +36,7 @@ export async function diffFromPlainFiles(
     const isSrcFileExists = isFileSync(absolutePlainFilepath)
 
     if (isSrcFileExists) {
-      const newItem: IFileCipherCatalogItemDraft = await calcCatalogItem({
+      const newItem: IDraftCatalogItem = await calcCatalogItem({
         context,
         plainFilepath,
         plainPathResolver,

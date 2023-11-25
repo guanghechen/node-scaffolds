@@ -1,14 +1,14 @@
 import { bytes2text, text2bytes } from '@guanghechen/byte'
+import type {
+  ICatalogItem,
+  IDraftCatalogDiffItem,
+  IDraftCatalogItem,
+} from '@guanghechen/cipher-workspace.types'
+import { FileChangeType } from '@guanghechen/cipher-workspace.types'
 import { calcMac, calcMacFromFile } from '@guanghechen/mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import { locateFixtures } from 'jest.helper'
-import type {
-  IFileCipherCatalogDiffItemDraft,
-  IFileCipherCatalogItem,
-  IFileCipherCatalogItemDraft,
-} from '../src'
 import {
-  FileChangeType,
   calcFingerprintFromFile,
   calcFingerprintFromMac,
   calcFingerprintFromString,
@@ -41,7 +41,7 @@ describe('catalog', () => {
   })
 
   test('isSameFileCipherItemDraft', () => {
-    const basicItem: IFileCipherCatalogItemDraft = {
+    const basicItem: IDraftCatalogItem = {
       plainFilepath: 'waw.txt',
       cryptFilepath: bytes2text(calcMac([text2bytes('waw.txt', 'utf8')], pathHashAlgorithm), 'hex'),
       cryptFilepathParts: [],
@@ -70,7 +70,7 @@ describe('catalog', () => {
   })
 
   test('isSameFileCipherItem', () => {
-    const basicItem: IFileCipherCatalogItem = {
+    const basicItem: ICatalogItem = {
       plainFilepath: 'waw.txt',
       cryptFilepath: bytes2text(calcMac([text2bytes('waw.txt', 'utf8')], pathHashAlgorithm), 'hex'),
       cryptFilepathParts: [],
@@ -107,7 +107,7 @@ describe('catalog', () => {
   })
 
   test('collectAffectedPlainFilepaths / collectAffectedCryptFilepaths', () => {
-    const diffItems: IFileCipherCatalogDiffItemDraft[] = [
+    const diffItems: IDraftCatalogDiffItem[] = [
       {
         changeType: FileChangeType.ADDED,
         newItem: itemTable.A,

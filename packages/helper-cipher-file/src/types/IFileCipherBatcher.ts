@@ -1,15 +1,16 @@
-import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import type {
-  IFileCipherCatalogDiffItem,
-  IFileCipherCatalogDiffItemDraft,
-} from './IFileCipherCatalogDiffItem'
-import type { IFileCipherCatalogItemDraft } from './IFileCipherCatalogItem'
+  ICatalogDiffItem,
+  IDeserializedCatalogItem,
+  IDraftCatalogDiffItem,
+  IDraftCatalogItem,
+} from '@guanghechen/cipher-workspace.types'
+import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 
 export interface IFileCipherBatcher {
   /**
    * Update the encrypted data based on the catalog items diff.
    */
-  batchEncrypt(params: IBatchEncryptParams): Promise<IFileCipherCatalogDiffItem[]>
+  batchEncrypt(params: IBatchEncryptParams): Promise<ICatalogDiffItem[]>
 
   /**
    * Update the plain data based on the catalog items diff.
@@ -19,17 +20,17 @@ export interface IFileCipherBatcher {
 
 export interface IBatchEncryptParams {
   cryptPathResolver: IWorkspacePathResolver
-  diffItems: Iterable<Readonly<IFileCipherCatalogDiffItemDraft>>
+  diffItems: Iterable<Readonly<IDraftCatalogDiffItem>>
   plainPathResolver: IWorkspacePathResolver
   strictCheck: boolean
   getIv(
-    item: IFileCipherCatalogItemDraft,
+    item: IDeserializedCatalogItem | IDraftCatalogItem,
   ): Promise<Readonly<Uint8Array> | undefined> | Readonly<Uint8Array> | undefined
 }
 
 export interface IBatchDecryptParams {
   cryptPathResolver: IWorkspacePathResolver
-  diffItems: Iterable<Readonly<IFileCipherCatalogDiffItem>>
+  diffItems: Iterable<Readonly<ICatalogDiffItem>>
   plainPathResolver: IWorkspacePathResolver
   strictCheck: boolean
 }

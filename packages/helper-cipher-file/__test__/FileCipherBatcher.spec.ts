@@ -1,5 +1,6 @@
 import { ChalkLogger } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
+import type { ICatalogDiffItem, IDraftCatalogItem } from '@guanghechen/cipher-workspace.types'
 import { FileSplitter } from '@guanghechen/file-split'
 import { calcMac } from '@guanghechen/mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
@@ -17,7 +18,6 @@ import type { ReadStream } from 'node:fs'
 import { createReadStream, existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import type { IFileCipherCatalogDiffItem, IFileCipherCatalogItemDraft } from '../src'
 import {
   FileCipherBatcher,
   FileCipherFactory,
@@ -100,7 +100,7 @@ describe('FileCipherBatcher', () => {
     maxTargetFileSize,
     reporter,
   })
-  const getIv = async (item: IFileCipherCatalogItemDraft): Promise<Uint8Array | undefined> =>
+  const getIv = async (item: IDraftCatalogItem): Promise<Uint8Array | undefined> =>
     Object.values(itemTable).find(t => isSameFileCipherItemDraft(t, item))?.iv
 
   beforeEach(async () => {
@@ -119,7 +119,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItem1
     {
-      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step1
+      const diffItems: ICatalogDiffItem[] = diffItemsTable.step1
 
       await writeFile(filepathA, contentA, encoding)
       await writeFile(filepathB, contentB, encoding)
@@ -160,7 +160,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems2
     {
-      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step2
+      const diffItems: ICatalogDiffItem[] = diffItemsTable.step2
 
       await writeFile(filepathC, contentC, encoding)
       await assertPromiseThrow(
@@ -196,7 +196,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems3
     {
-      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step3
+      const diffItems: ICatalogDiffItem[] = diffItemsTable.step3
 
       await rm(filepathB)
       await writeFile(filepathA, contentA, encoding)
@@ -217,7 +217,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems4
     {
-      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step4
+      const diffItems: ICatalogDiffItem[] = diffItemsTable.step4
 
       await rm(filepathC)
       await writeFile(filepathD, contentD, encoding)
@@ -239,7 +239,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems5
     {
-      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step5
+      const diffItems: ICatalogDiffItem[] = diffItemsTable.step5
 
       await rm(filepathA)
       await rm(filepathD)
@@ -261,7 +261,7 @@ describe('FileCipherBatcher', () => {
   test('batchDecrypt', async () => {
     // diffItems1
     {
-      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step1
+      const diffItems: ICatalogDiffItem[] = diffItemsTable.step1
 
       await writeFile(filepathA, contentA, encoding)
       await writeFile(filepathB, contentB, encoding)
@@ -301,7 +301,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems2
     {
-      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step2
+      const diffItems: ICatalogDiffItem[] = diffItemsTable.step2
 
       await assertPromiseThrow(
         () =>
@@ -358,7 +358,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems3
     {
-      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step3
+      const diffItems: ICatalogDiffItem[] = diffItemsTable.step3
 
       await rm(filepathB)
       await writeFile(filepathA, contentA, encoding)
@@ -385,7 +385,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems4
     {
-      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step4
+      const diffItems: ICatalogDiffItem[] = diffItemsTable.step4
 
       await rm(filepathC)
       await writeFile(filepathD, contentD, encoding)
@@ -414,7 +414,7 @@ describe('FileCipherBatcher', () => {
 
     // diffItems5
     {
-      const diffItems: IFileCipherCatalogDiffItem[] = diffItemsTable.step5
+      const diffItems: ICatalogDiffItem[] = diffItemsTable.step5
 
       await rm(filepathA)
       await rm(filepathD)

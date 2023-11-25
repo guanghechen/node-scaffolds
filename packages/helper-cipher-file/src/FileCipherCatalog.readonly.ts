@@ -1,23 +1,23 @@
+import type {
+  ICatalogItem,
+  ICipherCatalogContext,
+  IDraftCatalogItem,
+  IReadonlyCipherCatalog,
+} from '@guanghechen/cipher-workspace.types'
 import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import { calcCatalogItem } from './catalog/calcCatalogItem'
 import { calcCryptFilepath } from './catalog/calcCryptFilepath'
 import { checkCryptIntegrity } from './catalog/checkCryptIntegrity'
 import { checkPlainIntegrity } from './catalog/checkPlainIntegrity'
-import type { IReadonlyFileCipherCatalog } from './types/IFileCipherCatalog'
-import type { IFileCipherCatalogContext } from './types/IFileCipherCatalogContext'
-import type {
-  IFileCipherCatalogItem,
-  IFileCipherCatalogItemDraft,
-} from './types/IFileCipherCatalogItem'
 
 export interface IReadonlyFileCipherCatalogProps {
-  readonly context: IFileCipherCatalogContext
+  readonly context: ICipherCatalogContext
   readonly cryptPathResolver: IWorkspacePathResolver
   readonly plainPathResolver: IWorkspacePathResolver
 }
 
-export abstract class ReadonlyFileCipherCatalog implements IReadonlyFileCipherCatalog {
-  public readonly context: IFileCipherCatalogContext
+export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalog {
+  public readonly context: ICipherCatalogContext
   public readonly cryptPathResolver: IWorkspacePathResolver
   public readonly plainPathResolver: IWorkspacePathResolver
 
@@ -28,12 +28,10 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyFileCipherCa
   }
 
   // @override
-  public abstract get items(): Iterable<IFileCipherCatalogItem>
+  public abstract get items(): Iterable<ICatalogItem>
 
   // @override
-  public async calcCatalogItem(
-    plainFilepath: string,
-  ): Promise<IFileCipherCatalogItemDraft | never> {
+  public async calcCatalogItem(plainFilepath: string): Promise<IDraftCatalogItem | never> {
     return calcCatalogItem({
       context: this.context,
       plainFilepath,

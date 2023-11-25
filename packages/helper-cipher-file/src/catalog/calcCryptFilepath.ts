@@ -1,12 +1,12 @@
+import type { ICipherCatalogContext } from '@guanghechen/cipher-workspace.types'
 import invariant from '@guanghechen/invariant'
 import path from 'node:path'
-import type { IFileCipherCatalogContext } from '../types/IFileCipherCatalogContext'
 import { calcFingerprintFromString } from '../util/mac'
 import { normalizePlainFilepath } from './normalizePlainFilepath'
 
 export function calcCryptFilepath(
   relativePlainFilepath: string,
-  context: IFileCipherCatalogContext,
+  context: ICipherCatalogContext,
 ): string {
   invariant(
     !path.isAbsolute(relativePlainFilepath),

@@ -1,3 +1,9 @@
+import { FileChangeType } from '@guanghechen/cipher-workspace.types'
+import type {
+  ICatalogDiffItem,
+  ICatalogItem,
+  IDraftCatalogItem,
+} from '@guanghechen/cipher-workspace.types'
 import type { FileSplitter, IFilePartItem } from '@guanghechen/file-split'
 import { calcFilePartItemsBySize } from '@guanghechen/file-split'
 import { isFileSync, mkdirsIfNotExists, rm } from '@guanghechen/helper-fs'
@@ -13,12 +19,6 @@ import type {
   IBatchEncryptParams,
   IFileCipherBatcher,
 } from './types/IFileCipherBatcher'
-import type { IFileCipherCatalogDiffItem } from './types/IFileCipherCatalogDiffItem'
-import { FileChangeType } from './types/IFileCipherCatalogDiffItem'
-import type {
-  IFileCipherCatalogItem,
-  IFileCipherCatalogItemDraft,
-} from './types/IFileCipherCatalogItem'
 import type { IFileCipherFactory } from './types/IFileCipherFactory'
 
 export interface IFileCipherBatcherProps {
@@ -41,12 +41,12 @@ export class FileCipherBatcher implements IFileCipherBatcher {
     this.reporter = props.reporter
   }
 
-  public async batchEncrypt(params: IBatchEncryptParams): Promise<IFileCipherCatalogDiffItem[]> {
+  public async batchEncrypt(params: IBatchEncryptParams): Promise<ICatalogDiffItem[]> {
     const title = 'batchEncrypt'
     const { strictCheck, plainPathResolver, cryptPathResolver, diffItems, getIv } = params
     const { reporter, fileCipherFactory, fileSplitter, maxTargetFileSize } = this
 
-    const results: IFileCipherCatalogDiffItem[] = []
+    const results: ICatalogDiffItem[] = []
     for (const diffItem of diffItems) {
       const { changeType } = diffItem
       switch (changeType) {
@@ -94,10 +94,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
     }
     return results
 
-    async function add(
-      item: IFileCipherCatalogItemDraft,
-      changeType: FileChangeType,
-    ): Promise<IFileCipherCatalogItem> {
+    async function add(item: IDraftCatalogItem, changeType: FileChangeType): Promise<ICatalogItem> {
       const { plainFilepath, cryptFilepath } = item
       const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
       invariant(
@@ -108,7 +105,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       const absoluteCryptFilepath = cryptPathResolver.resolve(cryptFilepath)
       mkdirsIfNotExists(absoluteCryptFilepath, false, reporter)
 
-      const nextItem: IFileCipherCatalogItem = { ...item, iv: undefined, authTag: undefined }
+      const nextItem: ICatalogItem = { ...item, iv: undefined, authTag: undefined }
       if (item.keepPlain) {
         await fs.copyFile(absolutePlainFilepath, absoluteCryptFilepath)
       } else {
@@ -145,10 +142,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       return nextItem
     }
 
-    async function remove(
-      item: IFileCipherCatalogItemDraft,
-      changeType: FileChangeType,
-    ): Promise<void> {
+    async function remove(item: IDraftCatalogItem, changeType: FileChangeType): Promise<void> {
       const cryptFilepaths = calcCryptFilepaths(item.cryptFilepath, item.cryptFilepathParts)
 
       // pre-check
@@ -207,7 +201,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       }
     }
 
-    async function add(item: IFileCipherCatalogItem, changeType: FileChangeType): Promise<void> {
+    async function add(item: ICatalogItem, changeType: FileChangeType): Promise<void> {
       const cryptFilepaths = calcCryptFilepaths(item.cryptFilepath, item.cryptFilepathParts)
       const absoluteCryptFilepaths: string[] = []
 
@@ -235,7 +229,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       }
     }
 
-    async function remove(item: IFileCipherCatalogItem, changeType: FileChangeType): Promise<void> {
+    async function remove(item: ICatalogItem, changeType: FileChangeType): Promise<void> {
       const { plainFilepath } = item
       const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
 
@@ -253,7 +247,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
 
   // @overridable
   protected async _ensurePlainPathNotExist(
-    item: Readonly<IFileCipherCatalogItem>,
+    item: Readonly<ICatalogItem>,
     strictCheck: boolean,
     plainPathResolver: IWorkspacePathResolver,
     getErrorMsg: (plainFilepath: string) => string,
@@ -269,7 +263,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
 
   // @overridable
   protected async _ensureCryptPathNotExist(
-    item: Readonly<IFileCipherCatalogItemDraft>,
+    item: Readonly<IDraftCatalogItem>,
     strictCheck: boolean,
     cryptPathResolver: IWorkspacePathResolver,
     getErrorMsg: (cryptFilepath: string) => string,

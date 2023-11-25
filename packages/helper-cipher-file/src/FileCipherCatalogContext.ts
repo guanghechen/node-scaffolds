@@ -1,10 +1,10 @@
+import type { ICipherCatalogContext } from '@guanghechen/cipher-workspace.types'
 import invariant from '@guanghechen/invariant'
 import type { IHashAlgorithm } from '@guanghechen/mac'
 import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import path from 'node:path'
-import type { IFileCipherCatalogContext } from './types/IFileCipherCatalogContext'
 
-export interface IFileCipherCatalogContextProps {
+export interface ICipherCatalogContextProps {
   readonly contentHashAlgorithm: IHashAlgorithm
   readonly cryptFilepathSalt: string
   readonly cryptFilesDir: string
@@ -16,7 +16,7 @@ export interface IFileCipherCatalogContextProps {
   isKeepPlain(relativePlainFilepath: string): boolean
 }
 
-export class FileCipherCatalogContext implements IFileCipherCatalogContext {
+export class CipherCatalogContext implements ICipherCatalogContext {
   public readonly contentHashAlgorithm: IHashAlgorithm
   public readonly cryptFilepathSalt: string
   public readonly cryptFilesDir: string
@@ -27,7 +27,7 @@ export class FileCipherCatalogContext implements IFileCipherCatalogContext {
   public readonly plainPathResolver: IWorkspacePathResolver
   public readonly isKeepPlain: (relativePlainFilepath: string) => boolean
 
-  constructor(props: IFileCipherCatalogContextProps) {
+  constructor(props: ICipherCatalogContextProps) {
     invariant(
       !path.isAbsolute(props.cryptFilesDir),
       `[ReadonlyFileCipherCatalog.constructor] cryptFilesDir should be a relative path. received(${props.cryptFilesDir})`,

@@ -1,22 +1,19 @@
+import type { ICipherCatalogContext, IDraftCatalogItem } from '@guanghechen/cipher-workspace.types'
 import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/file-split'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import fs from 'node:fs/promises'
-import type { IFileCipherCatalogContext } from '../types/IFileCipherCatalogContext'
-import type { IFileCipherCatalogItemDraft } from '../types/IFileCipherCatalogItem'
 import { calcFingerprintFromFile } from '../util/mac'
 import { calcCryptFilepath } from './calcCryptFilepath'
 
 export interface ICalcCatalogItemParams {
-  context: IFileCipherCatalogContext
-  plainFilepath: string
-  plainPathResolver: IWorkspacePathResolver
+  readonly context: ICipherCatalogContext
+  readonly plainFilepath: string
+  readonly plainPathResolver: IWorkspacePathResolver
 }
 
-export async function calcCatalogItem(
-  params: ICalcCatalogItemParams,
-): Promise<IFileCipherCatalogItemDraft> {
+export async function calcCatalogItem(params: ICalcCatalogItemParams): Promise<IDraftCatalogItem> {
   const title = 'calcCatalogItem'
 
   const { context, plainFilepath, plainPathResolver } = params

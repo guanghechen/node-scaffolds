@@ -1,13 +1,15 @@
+import {
+  FileChangeType,
+  type ICatalogDiffItem,
+  type ICatalogItem,
+} from '@guanghechen/cipher-workspace.types'
 import { mapIterable } from '@guanghechen/helper-func'
-import type { IFileCipherCatalogDiffItem } from '../types/IFileCipherCatalogDiffItem'
-import { FileChangeType } from '../types/IFileCipherCatalogDiffItem'
-import type { IFileCipherCatalogItem } from '../types/IFileCipherCatalogItem'
 import { isSameFileCipherItem } from './isSameFileCipherItem'
 
 export function diffFromCatalogItems(
-  oldItemMap: ReadonlyMap<string, IFileCipherCatalogItem>,
-  newItemMap: ReadonlyMap<string, IFileCipherCatalogItem>,
-): IFileCipherCatalogDiffItem[] {
+  oldItemMap: ReadonlyMap<string, ICatalogItem>,
+  newItemMap: ReadonlyMap<string, ICatalogItem>,
+): ICatalogDiffItem[] {
   if (oldItemMap.size < 1) {
     return mapIterable(newItemMap.values(), newItem => ({
       changeType: FileChangeType.ADDED,
@@ -22,9 +24,9 @@ export function diffFromCatalogItems(
     }))
   }
 
-  const addedItems: IFileCipherCatalogDiffItem[] = []
-  const modifiedItems: IFileCipherCatalogDiffItem[] = []
-  const removedItems: IFileCipherCatalogDiffItem[] = []
+  const addedItems: ICatalogDiffItem[] = []
+  const modifiedItems: ICatalogDiffItem[] = []
+  const removedItems: ICatalogDiffItem[] = []
 
   // Collect removed and modified items.
   for (const oldItem of oldItemMap.values()) {

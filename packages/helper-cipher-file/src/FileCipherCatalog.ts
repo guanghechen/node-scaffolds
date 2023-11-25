@@ -1,31 +1,27 @@
+import { FileChangeType } from '@guanghechen/cipher-workspace.types'
+import type {
+  ICatalogDiffItem,
+  ICatalogDiffItemCombine,
+  ICatalogItem,
+  ICipherCatalog,
+  ICipherCatalogContext,
+  IDraftCatalogDiffItem,
+} from '@guanghechen/cipher-workspace.types'
 import { iterable2map, mapIterable } from '@guanghechen/helper-func'
 import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import { diffFromCatalogItems } from './catalog/diffFromCatalogItems'
 import { diffFromPlainFiles } from './catalog/diffFromPlainFiles'
 import { normalizePlainFilepath } from './catalog/normalizePlainFilepath'
 import { ReadonlyFileCipherCatalog } from './FileCipherCatalog.readonly'
-import type {
-  ICatalogDiffFromCatalogItemsParams,
-  ICatalogDiffFromPlainFiles,
-  IFileCipherCatalog,
-} from './types/IFileCipherCatalog'
-import type { IFileCipherCatalogContext } from './types/IFileCipherCatalogContext'
-import type {
-  IFileCipherCatalogDiffItem,
-  IFileCipherCatalogDiffItemCombine,
-  IFileCipherCatalogDiffItemDraft,
-} from './types/IFileCipherCatalogDiffItem'
-import { FileChangeType } from './types/IFileCipherCatalogDiffItem'
-import type { IFileCipherCatalogItem } from './types/IFileCipherCatalogItem'
 
 export interface IFileCipherCatalogProps {
-  readonly context: IFileCipherCatalogContext
+  readonly context: ICipherCatalogContext
   readonly cryptPathResolver: IWorkspacePathResolver
   readonly plainPathResolver: IWorkspacePathResolver
 }
 
-export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFileCipherCatalog {
-  readonly #itemMap: Map<string, IFileCipherCatalogItem>
+export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements ICipherCatalog {
+  readonly #itemMap: Map<string, ICatalogItem>
 
   constructor(props: IFileCipherCatalogProps) {
     super(props)
@@ -33,12 +29,12 @@ export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFil
   }
 
   // @override
-  public override get items(): Iterable<IFileCipherCatalogItem> {
+  public override get items(): Iterable<ICatalogItem> {
     return this.#itemMap.values()
   }
 
   // @override
-  public reset(items?: Iterable<IFileCipherCatalogItem>): void {
+  public reset(items?: Iterable<ICatalogItem>): void {
     const itemMap = this.#itemMap
     itemMap.clear()
 
@@ -51,10 +47,10 @@ export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFil
   }
 
   // @override
-  public applyDiff(diffItems: Iterable<IFileCipherCatalogDiffItem>): void {
+  public applyDiff(diffItems: Iterable<ICatalogDiffItem>): void {
     const itemMap = this.#itemMap
     for (const diffItem of diffItems) {
-      const { oldItem, newItem } = diffItem as IFileCipherCatalogDiffItemCombine
+      const { oldItem, newItem } = diffItem as ICatalogDiffItemCombine
       if (oldItem) {
         const key: string = normalizePlainFilepath(oldItem.plainFilepath, this.plainPathResolver)
         itemMap.delete(key)
@@ -75,31 +71,27 @@ export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements IFil
   }
 
   // @override
-  public diffFromCatalogItems({
-    newItems,
-  }: ICatalogDiffFromCatalogItemsParams): IFileCipherCatalogDiffItem[] {
-    const oldItemMap = this.#itemMap as ReadonlyMap<string, IFileCipherCatalogItem>
+  public diffFromCatalogItems(newItems: Iterable<ICatalogItem>): ICatalogDiffItem[] {
+    const oldItemMap = this.#itemMap as ReadonlyMap<string, ICatalogItem>
     if (oldItemMap.size < 1) {
       return mapIterable(newItems, newItem => ({ changeType: FileChangeType.ADDED, newItem }))
     }
 
-    const newItemMap: Map<string, IFileCipherCatalogItem> = iterable2map(
-      newItems,
-      item => item.plainFilepath,
-    )
+    const newItemMap: Map<string, ICatalogItem> = iterable2map(newItems, item => item.plainFilepath)
     return diffFromCatalogItems(oldItemMap, newItemMap)
   }
 
   // @override
   public async diffFromPlainFiles(
-    params: ICatalogDiffFromPlainFiles,
-  ): Promise<IFileCipherCatalogDiffItemDraft[]> {
+    plainFilepaths: string[],
+    strickCheck: boolean,
+  ): Promise<IDraftCatalogDiffItem[]> {
     return diffFromPlainFiles({
       context: this.context,
       oldItemMap: this.#itemMap,
-      plainFilepaths: params.plainFilepaths,
+      plainFilepaths,
       plainPathResolver: this.plainPathResolver,
-      strickCheck: params.strickCheck,
+      strickCheck,
     })
   }
 }
