@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-ts@6.0.0-alpha.0/packages/eslint-config-ts#readme">@guanghechen/eslint-config-ts</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-ts@6.0.0-alpha.1/packages/eslint-config-ts#readme">@guanghechen/eslint-config-ts</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/eslint-config-ts">
@@ -119,7 +119,7 @@ See [.eslintrc](https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x
 * [@guanghechen/eslint-config-jsx][]
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-ts@6.0.0-alpha.0/packages/eslint-config-ts#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-ts@6.0.0-alpha.1/packages/eslint-config-ts#readme
 [@guanghechen/eslint-config]: https://www.npmjs.com/package/@guanghechen/eslint-config
 [@guanghechen/eslint-config-jsx]: https://www.npmjs.com/package/@guanghechen/eslint-config-jsx
 [@guanghechen/eslint-config-ts]: https://www.npmjs.com/package/@guanghechen/eslint-config-ts

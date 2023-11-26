@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@6.0.0-alpha.1/packages/helper-git#readme">@guanghechen/helper-git</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@6.0.0-alpha.2/packages/helper-git#readme">@guanghechen/helper-git</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-git">
@@ -76,4 +76,4 @@ Utility functions for executing git commands.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@6.0.0-alpha.1/packages/helper-git#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@6.0.0-alpha.2/packages/helper-git#readme

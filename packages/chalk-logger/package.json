@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/chalk-logger",
-  "version": "6.0.0-alpha.1",
+  "version": "6.0.0-alpha.2",
   "description": "A simple colorful logger",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/chalk-logger@6.0.0-alpha.1",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/chalk-logger@6.0.0-alpha.2",
     "directory": "packages/chalk-logger"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/chalk-logger@6.0.0-alpha.1/packages/chalk-logger#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/chalk-logger@6.0.0-alpha.2/packages/chalk-logger#readme",
   "keywords": [
     "logger",
     "colorful logger"
