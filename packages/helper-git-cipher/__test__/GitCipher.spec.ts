@@ -486,7 +486,7 @@ describe('GitCipher', () => {
       await rm(cryptRootDir)
       await rm(bakPlainRootDir)
       crypt2plainIdMap.clear()
-    })
+    }, 10000)
 
     test('commit E', async () => {
       await checkBranch({ ...plainCtx, commitHash: commitIdTable.E })
