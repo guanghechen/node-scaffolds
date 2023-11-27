@@ -9,33 +9,27 @@ import { TextFileResource } from '@guanghechen/resource'
 import inquirer from 'inquirer'
 import type { ICatalogCache } from '../../shared/CatalogCache'
 import { CatalogCacheKeeper } from '../../shared/CatalogCache'
-import { SecretMaster } from '../../shared/SecretMaster'
 import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
+import type { IGitCipherSubCommandProcessor } from '../_base'
+import { GitCipherSubCommandProcessor } from '../_base'
 import type { IGitCipherEncryptContext } from './context'
+import type { IGitCipherEncryptOptions } from './option'
 
-export class GitCipherEncryptProcessor {
-  protected readonly context: IGitCipherEncryptContext
-  protected readonly secretMaster: SecretMaster
+type O = IGitCipherEncryptOptions
+type C = IGitCipherEncryptContext
 
-  constructor(context: IGitCipherEncryptContext) {
-    context.reporter.debug('context:', context)
+const clazz = 'GitCipherEncrypt'
 
-    this.context = context
-    this.secretMaster = new SecretMaster({
-      showAsterisk: context.showAsterisk,
-      maxRetryTimes: context.maxRetryTimes,
-      minPasswordLength: context.minPasswordLength,
-      maxPasswordLength: context.maxPasswordLength,
-      reporter: context.reporter,
-    })
-  }
-
-  public async encrypt(): Promise<void> {
-    const title = 'processor.encrypt'
+export class GitCipherEncrypt
+  extends GitCipherSubCommandProcessor<O, C>
+  implements IGitCipherSubCommandProcessor<O, C>
+{
+  public override async process(): Promise<void> {
+    const title = `${clazz}.process`
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
-    const { context } = this
-    const { cryptPathResolver, plainPathResolver, reporter } = context
+    const { context, reporter } = this
+    const { cryptPathResolver, plainPathResolver } = context
     const { context: gitCipherContext } = await loadGitCipherContext({
       secretFilepath: context.secretFilepath,
       secretMaster: this.secretMaster,

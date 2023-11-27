@@ -4,33 +4,27 @@ import invariant from '@guanghechen/invariant'
 import { TextFileResource } from '@guanghechen/resource'
 import type { ICatalogCache } from '../../shared/CatalogCache'
 import { CatalogCacheKeeper } from '../../shared/CatalogCache'
-import { SecretMaster } from '../../shared/SecretMaster'
 import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
+import type { IGitCipherSubCommandProcessor } from '../_base'
+import { GitCipherSubCommandProcessor } from '../_base'
 import type { IGitCipherDecryptContext } from './context'
+import type { IGitCipherDecryptOption } from './option'
 
-export class GitCipherDecryptProcessor {
-  protected readonly context: IGitCipherDecryptContext
-  protected readonly secretMaster: SecretMaster
+type O = IGitCipherDecryptOption
+type C = IGitCipherDecryptContext
 
-  constructor(context: IGitCipherDecryptContext) {
-    context.reporter.debug('context:', context)
+const clazz = 'GitCipherDecrypt'
 
-    this.context = context
-    this.secretMaster = new SecretMaster({
-      showAsterisk: context.showAsterisk,
-      maxRetryTimes: context.maxRetryTimes,
-      minPasswordLength: context.minPasswordLength,
-      maxPasswordLength: context.maxPasswordLength,
-      reporter: context.reporter,
-    })
-  }
-
-  public async decrypt(): Promise<void> {
-    const title = 'processor.decrypt'
+export class GitCipherDecrypt
+  extends GitCipherSubCommandProcessor<O, C>
+  implements IGitCipherSubCommandProcessor<O, C>
+{
+  public override async process(): Promise<void> {
+    const title = `${clazz}.process`
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
-    const { context } = this
-    const { cryptPathResolver, plainPathResolver, reporter } = context
+    const { context, reporter } = this
+    const { cryptPathResolver, plainPathResolver } = context
     const { context: gitCipherContext } = await loadGitCipherContext({
       secretFilepath: context.secretFilepath,
       secretMaster: this.secretMaster,

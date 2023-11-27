@@ -4,11 +4,11 @@ import type {
 } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
-import { reporter } from '../../shared/core/reporter'
+import type { IGitCipherSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
-interface ISubCommandOptions {
+interface ISubCommandOptions extends IGitCipherSubCommandOption {
   /**
    * Crypt repo branch or commit id.
    */
@@ -16,7 +16,7 @@ interface ISubCommandOptions {
 }
 
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
-export type ISubCommandTreeOptions = ICommandOptions & ICommandConfigurationFlatOpts
+export type IGitCipherTreeOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
 const getDefaultCommandTreeOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(params),
@@ -26,14 +26,15 @@ const getDefaultCommandTreeOptions = (params: IResolveDefaultOptionsParams): ICo
 export function resolveSubCommandTreeOptions(
   commandName: string,
   subCommandName: string,
-  options: ISubCommandTreeOptions,
-): ISubCommandTreeOptions {
-  const baseOptions: ISubCommandTreeOptions = resolveBaseCommandOptions<ICommandOptions>(
+  options: IGitCipherTreeOptions,
+): IGitCipherTreeOptions {
+  const baseOptions: IGitCipherTreeOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
     getDefaultCommandTreeOptions,
     options,
   )
+  const { reporter } = baseOptions
 
   // Resolve filesAt
   const filesAt: string = cover<string>(baseOptions.filesAt, options.filesAt, isNonBlankString)

@@ -3,31 +3,25 @@ import { isGitRepo } from '@guanghechen/helper-git'
 import { GitCipher } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
-import { SecretMaster } from '../../shared/SecretMaster'
 import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
 import { verifyCryptRepo } from '../../shared/util/verifyCryptRepo'
 import { verifyRepoStrictly } from '../../shared/util/verifyRepoStrictly'
+import type { IGitCipherSubCommandProcessor } from '../_base'
+import { GitCipherSubCommandProcessor } from '../_base'
 import type { IGitCipherVerifyContext } from './context'
+import type { IGitCipherVerifyOptions } from './option'
 
-export class GitCipherVerifyProcessor {
-  protected readonly context: IGitCipherVerifyContext
-  protected readonly secretMaster: SecretMaster
+type O = IGitCipherVerifyOptions
+type C = IGitCipherVerifyContext
 
-  constructor(context: IGitCipherVerifyContext) {
-    context.reporter.debug('context:', context)
+const clazz = 'GitCipherVerify'
 
-    this.context = context
-    this.secretMaster = new SecretMaster({
-      showAsterisk: context.showAsterisk,
-      maxRetryTimes: context.maxRetryTimes,
-      minPasswordLength: context.minPasswordLength,
-      maxPasswordLength: context.maxPasswordLength,
-      reporter: context.reporter,
-    })
-  }
-
-  public async verify(): Promise<void> {
-    const title = 'processor.verify'
+export class GitCipherVerify
+  extends GitCipherSubCommandProcessor<O, C>
+  implements IGitCipherSubCommandProcessor<O, C>
+{
+  public override async process(): Promise<void> {
+    const title = `${clazz}.process`
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
     const { cryptPathResolver, plainPathResolver } = this.context
@@ -49,8 +43,8 @@ export class GitCipherVerifyProcessor {
   }
 
   protected async _verifyStrict(): Promise<void> {
-    const { context, secretMaster } = this
-    const { cryptPathResolver, plainPathResolver, reporter } = context
+    const { context, secretMaster, reporter } = this
+    const { cryptPathResolver, plainPathResolver } = context
     const { context: gitCipherContext } = await loadGitCipherContext({
       secretFilepath: context.secretFilepath,
       secretMaster: this.secretMaster,
@@ -74,14 +68,13 @@ export class GitCipherVerifyProcessor {
   }
 
   protected async _verifyCryptRepo(): Promise<void> {
-    const title = 'processor.verify'
-    const { context, secretMaster } = this
+    const title = `${clazz}.process`
+    const { context, secretMaster, reporter } = this
     const {
       secretFilepath, //
       cryptCommitId,
       cryptPathResolver,
       plainPathResolver,
-      reporter,
     } = context
 
     const secretKeeper = await secretMaster.load({

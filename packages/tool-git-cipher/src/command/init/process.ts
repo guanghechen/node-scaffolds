@@ -14,31 +14,29 @@ import { resolveBoilerplateFilepath } from '../../shared/core/config'
 import { COMMAND_VERSION } from '../../shared/core/constant'
 import type { SecretConfigKeeper } from '../../shared/SecretConfig'
 import type { IPresetSecretConfig } from '../../shared/SecretConfig.types'
-import { SecretMaster } from '../../shared/SecretMaster'
+import type { IGitCipherSubCommandProcessor } from '../_base'
+import { GitCipherSubCommandProcessor } from '../_base'
 import type { IGitCipherInitContext } from './context'
+import type { IGitCipherInitOptions } from './option'
 
-export class GitCipherInitProcessor {
-  protected readonly context: IGitCipherInitContext
-  protected secretMaster: SecretMaster
+type O = IGitCipherInitOptions
+type C = IGitCipherInitContext
 
-  constructor(context: IGitCipherInitContext) {
-    context.reporter.debug('context:', context)
+const clazz = 'GitCipherInit'
 
-    this.context = context
-    this.secretMaster = new SecretMaster({
-      showAsterisk: context.showAsterisk,
-      maxRetryTimes: context.maxRetryTimes,
-      minPasswordLength: context.minPasswordLength,
-      maxPasswordLength: context.maxPasswordLength,
-      reporter: context.reporter,
-    })
-  }
+export class GitCipherInit
+  extends GitCipherSubCommandProcessor<O, C>
+  implements IGitCipherSubCommandProcessor<O, C>
+{
+  public override async process(): Promise<void> {
+    const title = `${clazz}.process`
+    invariant(
+      hasGitInstalled(),
+      `[${title}] Cannot find 'git', please install it before continuing.`,
+    )
 
-  public async init(): Promise<void> {
-    invariant(hasGitInstalled(), `Cannot find 'git', please install it before continuing.`)
-
-    const { context } = this
-    const { plainPathResolver, reporter } = context
+    const { context, reporter } = this
+    const { plainPathResolver } = context
     const presetSecretData: IPresetSecretConfig = {
       catalogFilepath: context.catalogFilepath,
       contentHashAlgorithm: context.contentHashAlgorithm,
@@ -203,8 +201,8 @@ export class GitCipherInitProcessor {
 
   // Render boilerplates.
   protected async _renderBoilerplates(data: { configFilepath: string }): Promise<void> {
-    const { context } = this
-    const { cryptPathResolver, plainPathResolver, reporter } = context
+    const { context, reporter } = this
+    const { cryptPathResolver, plainPathResolver } = context
 
     // request repository url
     let { plainRepoUrl } = await inquirer.prompt([
@@ -291,8 +289,8 @@ export class GitCipherInitProcessor {
    * @param plainRepoUrl  url of remote source repository
    */
   protected async _cloneFromRemote(plainRepoUrl: string): Promise<void> {
-    const { context } = this
-    const { plainPathResolver, reporter } = context
+    const { context, reporter } = this
+    const { plainPathResolver } = context
     mkdirsIfNotExists(plainPathResolver.root, true, reporter)
     await execa('git', ['clone', plainRepoUrl, plainPathResolver.root], {
       stdio: 'inherit',

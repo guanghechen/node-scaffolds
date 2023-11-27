@@ -1,7 +1,10 @@
 import { destroyBytes } from '@guanghechen/byte'
+import type { IEventBus } from '@guanghechen/event-bus'
+import type { EventTypes } from '../../core/constant'
 import { inputPassword } from './input'
 
 interface IParams {
+  eventBus: IEventBus<EventTypes>
   /**
    * The password entered earlier
    */
@@ -26,6 +29,7 @@ interface IParams {
 
 export async function confirmPassword(params: IParams): Promise<boolean | never> {
   const {
+    eventBus,
     password,
     showAsterisk = true,
     question = 'Repeat Password: ',
@@ -38,6 +42,7 @@ export async function confirmPassword(params: IParams): Promise<boolean | never>
 
   try {
     repeatedPassword = await inputPassword({
+      eventBus,
       question,
       showAsterisk,
       maxInputRetryTimes: 1,

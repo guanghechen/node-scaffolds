@@ -7,8 +7,8 @@ import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commande
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
 import { pathResolver } from '@guanghechen/path'
+import type { IReporter } from '@guanghechen/reporter.types'
 import path from 'node:path'
-import { reporter } from '../shared/core/reporter'
 
 // Global command options
 export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
@@ -42,6 +42,10 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
    */
   readonly plainRootDir: string
   /**
+   * Reporter to log debug/verbose/info/warn/error messages.
+   */
+  readonly reporter: IReporter
+  /**
    * The path of secret file. (relative of workspace)
    * @default '.ghc-secret'
    */
@@ -57,6 +61,7 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
 export const getDefaultGlobalCommandOptions = (
   params: IResolveDefaultOptionsParams,
 ): IGlobalCommandOptions => {
+  const { reporter } = params
   const repoName = path.basename(params.workspace)
   return {
     logLevel: reporter.level,
@@ -67,6 +72,7 @@ export const getDefaultGlobalCommandOptions = (
     maxRetryTimes: 3,
     minPasswordLength: 6,
     plainRootDir: `${repoName}-plain`,
+    reporter,
     secretFilepath: '.ghc-secret.json',
     showAsterisk: true,
   }
@@ -79,6 +85,7 @@ export function resolveBaseCommandOptions<O extends object>(
   options: O & IGlobalCommandOptions,
 ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
+  const { reporter } = options
   const baseOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>({
     reporter,
     commandName,
@@ -156,6 +163,7 @@ export function resolveBaseCommandOptions<O extends object>(
     maxRetryTimes,
     minPasswordLength,
     plainRootDir,
+    reporter,
     secretFilepath,
     showAsterisk,
   }

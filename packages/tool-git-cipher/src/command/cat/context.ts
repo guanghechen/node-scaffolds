@@ -1,58 +1,33 @@
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
-import type { IReporter } from '@guanghechen/reporter.types'
-import { reporter } from '../../shared/core/reporter'
-import type { ISubCommandCatOptions } from './option'
+import type { IGitCipherSubCommandContext } from '../_base'
+import type { IGitCipherCatOptions } from './option'
 
-export interface IGitCipherCatContext {
-  /**
-   * Default encoding of files in the workspace.
-   */
-  readonly encoding: string
-  /**
-   * The maximum size required of password.
-   */
-  readonly maxPasswordLength: number
-  /**
-   * max wrong password retry times
-   */
-  readonly maxRetryTimes: number
-  /**
-   * The minimum size required of password.
-   */
-  readonly minPasswordLength: number
-  /**
-   * Relative plain filepath.
-   */
-  readonly plainFilepath: string | undefined
-  /**
-   * The path of secret file. (absolute path)
-   */
-  readonly secretFilepath: string
-  /**
-   * Whether to print password asterisks.
-   */
-  readonly showAsterisk: boolean
-  /**
-   * Working directory. (absolute path)
-   */
-  readonly workspace: string
+export interface IGitCipherCatContext extends IGitCipherSubCommandContext {
   /**
    * Crypt workspace path resolver.
    */
   readonly cryptPathResolver: IWorkspacePathResolver
   /**
+   * Default encoding of files in the workspace.
+   */
+  readonly encoding: string
+  /**
+   * Relative plain filepath.
+   */
+  readonly plainFilepath: string | undefined
+  /**
    * Plain workspace path resolver.
    */
   readonly plainPathResolver: IWorkspacePathResolver
   /**
-   * Reporter to log debug/verbose/info/warn/error messages.
+   * The path of secret file. (absolute path)
    */
-  readonly reporter: IReporter
+  readonly secretFilepath: string
 }
 
 export async function createCatContextFromOptions(
-  options: ISubCommandCatOptions,
+  options: IGitCipherCatOptions,
 ): Promise<IGitCipherCatContext> {
   const cryptRootDir: string = options.cryptRootDir
   const plainRootDir: string = options.plainRootDir
@@ -66,17 +41,16 @@ export async function createCatContextFromOptions(
   )
 
   const context: IGitCipherCatContext = {
+    cryptPathResolver,
     encoding: options.encoding,
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
     plainFilepath: options.plainFilepath,
+    plainPathResolver,
     secretFilepath: options.secretFilepath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
-    cryptPathResolver,
-    plainPathResolver,
-    reporter,
   }
   return context
 }

@@ -1,48 +1,48 @@
-import type {
-  ISubCommandExecutor,
-  ISubCommandMounter,
-  ISubCommandProcessor,
-} from '@guanghechen/helper-commander'
-import {
-  Command,
-  createSubCommandExecutor,
-  createSubCommandMounter,
-} from '@guanghechen/helper-commander'
+import type { ISubCommand } from '@guanghechen/helper-commander'
+import { Command } from '@guanghechen/helper-commander'
 import { COMMAND_NAME } from '../../shared/core/constant'
-import { wrapErrorHandler } from '../../shared/core/error'
-import type { ISubCommandTreeOptions } from './option'
+import type { IGitCipherSubCommandProcessor } from '../_base'
+import { GitCipherSubCommand } from '../_base'
+import { type IGitCipherTreeContext, createTreeContextFromOptions } from './context'
+import type { IGitCipherTreeOptions } from './option'
 import { resolveSubCommandTreeOptions } from './option'
-import { tree } from './run'
+import { GitCipherTree } from './process'
 
-// Mount Sub-command: tree
-export const mountSubCommandTree: ISubCommandMounter =
-  createSubCommandMounter<ISubCommandTreeOptions>(commandTree, wrapErrorHandler(tree))
+type O = IGitCipherTreeOptions
+type C = IGitCipherTreeContext
 
-// Execute sub-command: tree
-export const execSubCommandTree: ISubCommandExecutor =
-  createSubCommandExecutor<ISubCommandTreeOptions>(commandTree, wrapErrorHandler(tree))
+export class GitCipherSubCommandTree extends GitCipherSubCommand<O, C> implements ISubCommand<O> {
+  public override readonly subCommandName: string = 'tree'
+  public override readonly aliases: string[] = ['t']
 
-// Create Sub-command: tree
-function commandTree(
-  handle?: ISubCommandProcessor<ISubCommandTreeOptions>,
-  subCommandName = 'tree',
-  aliases: string[] = [],
-): Command {
-  const command = new Command()
+  public override command(processor: IGitCipherSubCommandProcessor<O, C>): Command {
+    const { subCommandName, aliases } = this
+    const command = new Command()
 
-  command
-    .name(subCommandName)
-    .aliases(aliases)
-    .description('Preview staged files in plainRootDir with tree style')
-    .option('--files-at, --filesAt <commitHash>', 'Crypt repo branch or commit id.')
-    .action(async function (args: string[], options: ISubCommandTreeOptions) {
-      const resolvedOptions: ISubCommandTreeOptions = resolveSubCommandTreeOptions(
-        COMMAND_NAME,
-        subCommandName,
-        options,
-      )
-      await handle?.(resolvedOptions, args)
+    command
+      .name(subCommandName)
+      .aliases(aliases)
+      .description('Preview staged files in plainRootDir with tree style')
+      .option('--files-at, --filesAt <commitHash>', 'Crypt repo branch or commit id.')
+      .action(async function (args: string[], options: IGitCipherTreeOptions) {
+        await processor.process(args, options)
+      })
+
+    return command
+  }
+
+  public override async resolve(
+    _args: string[],
+    options: O,
+  ): Promise<IGitCipherSubCommandProcessor<O, C>> {
+    const { subCommandName, eventBus, reporter } = this
+    const resolvedOptions: O = resolveSubCommandTreeOptions(COMMAND_NAME, subCommandName, options)
+    const context: C = await createTreeContextFromOptions(resolvedOptions)
+    const processor: IGitCipherSubCommandProcessor<O, C> = new GitCipherTree({
+      context,
+      eventBus,
+      reporter,
     })
-
-  return command
+    return processor
+  }
 }

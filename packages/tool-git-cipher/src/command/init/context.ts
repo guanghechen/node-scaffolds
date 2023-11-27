@@ -2,11 +2,10 @@ import type { IPBKDF2Options } from '@guanghechen/cipher'
 import type { IHashAlgorithm } from '@guanghechen/mac'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
-import type { IReporter } from '@guanghechen/reporter.types'
-import { reporter } from '../../shared/core/reporter'
-import type { ISubCommandInitOptions } from './option'
+import type { IGitCipherSubCommandContext } from '../_base'
+import type { IGitCipherInitOptions } from './option'
 
-export interface IGitCipherInitContext {
+export interface IGitCipherInitContext extends IGitCipherSubCommandContext {
   /**
    * The path of catalog file of crypt repo. (absolute path)
    */
@@ -27,6 +26,10 @@ export interface IGitCipherInitContext {
    * The path of not-plain files located. (relative of cryptRootDir)
    */
   readonly cryptFilesDir: string
+  /**
+   * Crypt workspace path resolver.
+   */
+  readonly cryptPathResolver: IWorkspacePathResolver
   /**
    * Default encoding of files in the workspace.
    */
@@ -49,18 +52,6 @@ export interface IGitCipherInitContext {
    */
   readonly mainKeySize: number
   /**
-   * The maximum size required of password.
-   */
-  readonly maxPasswordLength: number
-  /**
-   * Max wrong password retry times.
-   */
-  readonly maxRetryTimes: number
-  /**
-   * The minimum size required of password.
-   */
-  readonly minPasswordLength: number
-  /**
    * Max size (byte) of target file, once the file size exceeds this value,
    * the target file is split into multiple files.
    */
@@ -78,6 +69,10 @@ export interface IGitCipherInitContext {
    */
   readonly pbkdf2Options: IPBKDF2Options
   /**
+   * Plain workspace path resolver.
+   */
+  readonly plainPathResolver: IWorkspacePathResolver
+  /**
    * The path of secret file. (absolute path)
    */
   readonly secretFilepath: string
@@ -89,30 +84,10 @@ export interface IGitCipherInitContext {
    * Key size of the secret cipherFactory.
    */
   readonly secretKeySize: number
-  /**
-   * Whether to print password asterisks.
-   */
-  readonly showAsterisk: boolean
-  /**
-   * Working directory. (absolute path)
-   */
-  readonly workspace: string
-  /**
-   * Crypt workspace path resolver.
-   */
-  readonly cryptPathResolver: IWorkspacePathResolver
-  /**
-   * Plain workspace path resolver.
-   */
-  readonly plainPathResolver: IWorkspacePathResolver
-  /**
-   * Reporter to log debug/verbose/info/warn/error messages.
-   */
-  readonly reporter: IReporter
 }
 
 export async function createInitContextFromOptions(
-  options: ISubCommandInitOptions,
+  options: IGitCipherInitOptions,
 ): Promise<IGitCipherInitContext> {
   const cryptRootDir: string = options.cryptRootDir
   const plainRootDir: string = options.plainRootDir
@@ -131,6 +106,7 @@ export async function createInitContextFromOptions(
     contentHashAlgorithm: options.contentHashAlgorithm,
     cryptFilepathSalt: options.cryptFilepathSalt,
     cryptFilesDir: options.cryptFilesDir,
+    cryptPathResolver,
     encoding: options.encoding,
     gitGpgSign: options.gitGpgSign,
     keepPlainPatterns: options.keepPlainPatterns,
@@ -143,14 +119,12 @@ export async function createInitContextFromOptions(
     partCodePrefix: options.partCodePrefix,
     pathHashAlgorithm: options.pathHashAlgorithm,
     pbkdf2Options: options.pbkdf2Options,
+    plainPathResolver,
     secretFilepath: options.secretFilepath,
     secretIvSize: options.secretIvSize,
     secretKeySize: options.secretKeySize,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
-    cryptPathResolver,
-    plainPathResolver,
-    reporter,
   }
   return context
 }

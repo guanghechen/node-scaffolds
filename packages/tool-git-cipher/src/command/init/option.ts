@@ -8,11 +8,11 @@ import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
 import type { IHashAlgorithm } from '@guanghechen/mac'
 import { pathResolver } from '@guanghechen/path'
-import { reporter } from '../../shared/core/reporter'
+import type { IGitCipherSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
-interface ISubCommandOptions {
+interface ISubCommandOptions extends IGitCipherSubCommandOption {
   /**
    * The path of catalog file of crypt repo. (relative of cryptRootDir)
    * @default '.ghc-catalog'
@@ -84,7 +84,7 @@ interface ISubCommandOptions {
 }
 
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
-export type ISubCommandInitOptions = ICommandOptions & ICommandConfigurationFlatOpts
+export type IGitCipherInitOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
 const getDefaultCommandInitOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(params),
@@ -111,15 +111,16 @@ const getDefaultCommandInitOptions = (params: IResolveDefaultOptionsParams): ICo
 export function resolveSubCommandInitOptions(
   commandName: string,
   subCommandName: string,
-  options: ISubCommandInitOptions,
+  options: IGitCipherInitOptions,
   [workspace]: string[],
-): ISubCommandInitOptions {
-  const baseOptions: ISubCommandInitOptions = resolveBaseCommandOptions<ICommandOptions>(
+): IGitCipherInitOptions {
+  const baseOptions: IGitCipherInitOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
     getDefaultCommandInitOptions,
     { ...options, workspace },
   )
+  const { reporter } = baseOptions
 
   // Resolve catalogFilepath
   const catalogFilepath: string = pathResolver.safeResolve(

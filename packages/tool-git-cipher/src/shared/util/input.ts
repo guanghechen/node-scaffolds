@@ -1,15 +1,17 @@
 import { destroyBytes, mergeBytes } from '@guanghechen/byte'
+import type { IEventBus } from '@guanghechen/event-bus'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { EventTypes } from '../core/constant'
-import { eventBus } from '../core/event'
 
 export interface IInputSingleLineParams {
+  eventBus: IEventBus<EventTypes>
   question?: string
   showAsterisk?: boolean
   isValidCharacter?(c: number): boolean
 }
 
 export function inputSingleLine({
+  eventBus,
   question,
   isValidCharacter,
   showAsterisk = true,
@@ -101,6 +103,7 @@ export function inputSingleLine({
 }
 
 export interface IInputAnswerParams {
+  eventBus: IEventBus<EventTypes>
   question: string
   maxRetryTimes?: number
   showAsterisk?: boolean
@@ -109,6 +112,7 @@ export interface IInputAnswerParams {
   hintOnInvalidAnswer?(answer: Uint8Array | null): string
 }
 export async function inputAnswer({
+  eventBus,
   question,
   maxRetryTimes = 3,
   showAsterisk = true,
@@ -130,6 +134,7 @@ export async function inputAnswer({
     if (answer) destroyBytes(answer)
 
     answer = await inputSingleLine({
+      eventBus,
       question: questionWithHint,
       isValidCharacter,
       showAsterisk,

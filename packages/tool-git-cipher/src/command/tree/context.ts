@@ -1,54 +1,29 @@
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
-import type { IReporter } from '@guanghechen/reporter.types'
-import { reporter } from '../../shared/core/reporter'
-import type { ISubCommandTreeOptions } from './option'
+import type { IGitCipherSubCommandContext } from '../_base'
+import type { IGitCipherTreeOptions } from './option'
 
-export interface IGitCipherTreeContext {
+export interface IGitCipherTreeContext extends IGitCipherSubCommandContext {
   /**
    * Crypt repo branch or commit id.
    */
   readonly cryptCommitId: string
   /**
-   * Default encoding of files in the workspace.
-   */
-  readonly encoding: string
-  /**
-   * The maximum size required of password.
-   */
-  readonly maxPasswordLength: number
-  /**
-   * max wrong password retry times
-   */
-  readonly maxRetryTimes: number
-  /**
-   * The minimum size required of password.
-   */
-  readonly minPasswordLength: number
-  /**
-   * The path of secret file. (absolute path)
-   */
-  readonly secretFilepath: string
-  /**
-   * Whether to print password asterisks.
-   */
-  readonly showAsterisk: boolean
-  /**
-   * Working directory. (absolute path)
-   */
-  readonly workspace: string
-  /**
    * Crypt workspace path resolver.
    */
   readonly cryptPathResolver: IWorkspacePathResolver
   /**
-   * Reporter to log debug/verbose/info/warn/error messages.
+   * Default encoding of files in the workspace.
    */
-  readonly reporter: IReporter
+  readonly encoding: string
+  /**
+   * The path of secret file. (absolute path)
+   */
+  readonly secretFilepath: string
 }
 
 export async function createTreeContextFromOptions(
-  options: ISubCommandTreeOptions,
+  options: IGitCipherTreeOptions,
 ): Promise<IGitCipherTreeContext> {
   const cryptRootDir: string = options.cryptRootDir
   const cryptPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(
@@ -58,6 +33,7 @@ export async function createTreeContextFromOptions(
 
   const context: IGitCipherTreeContext = {
     cryptCommitId: options.filesAt,
+    cryptPathResolver,
     encoding: options.encoding,
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
@@ -65,8 +41,6 @@ export async function createTreeContextFromOptions(
     secretFilepath: options.secretFilepath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
-    cryptPathResolver,
-    reporter,
   }
   return context
 }

@@ -2,69 +2,101 @@ import type { CommandOptions } from 'commander'
 import type { ICommandConfigurationOptions } from '../types'
 import type { Command } from './command'
 
-// Process sub-command
-export type ISubCommandProcessor<O extends ICommandConfigurationOptions> = (
-  options: O,
-  args: string[],
-) => void | Promise<void>
-
-// Create sub-command
-export type ISubCommandCreator<O extends ICommandConfigurationOptions> = (
-  handle: ISubCommandProcessor<O>,
-  commandName?: string,
-  aliases?: string[],
-) => Command
-
-// Mount sub-command
-export type ISubCommandMounter = (parentCommand: Command, opts?: CommandOptions) => void
-
-// Execute sub-command
-export type ISubCommandExecutor<V = void> = (parentCommand: Command, args: string[]) => Promise<V>
-
-/**
- * Create sub-command mounter
- *
- * @param create  sub command creator
- * @param handle  sub command processor
- */
-export function createSubCommandMounter<O extends ICommandConfigurationOptions>(
-  create: ISubCommandCreator<O>,
-  handle: ISubCommandProcessor<O>,
-): ISubCommandMounter {
-  return (program: Command, opts?: CommandOptions): void => {
-    const command = create(handle)
-    program.addCommand(command, opts)
-  }
+export interface ISubCommandOptions extends ICommandConfigurationOptions {
+  // nothing yet.
 }
 
-/**
- * Create sub-command executor
- *
- * @param create        sub-command creator
- * @param handle        sub-command processor
- * @param commandName   sub-command name
- * @param aliases       sub-command aliases
- */
-export function createSubCommandExecutor<O extends ICommandConfigurationOptions>(
-  create: ISubCommandCreator<O>,
-  handle: ISubCommandProcessor<O>,
-  commandName?: string,
-  aliases?: string[],
-): ISubCommandExecutor {
-  return (parentCommand: Command, rawArgs: string[]): Promise<void> => {
+export interface ISubCommandProcessor<O extends ISubCommandOptions> {
+  /**
+   * Process the command arguments and options.
+   * @param args      Command arguments.
+   * @param options   Command options.
+   */
+  process(args: string[], options: O): Promise<void>
+}
+
+export interface ISubCommand<O extends ISubCommandOptions> extends ISubCommandProcessor<O> {
+  /**
+   * Sub command name.
+   */
+  readonly subCommandName: string
+
+  /**
+   * Sub command alias.
+   */
+  readonly aliases: string[]
+
+  /**
+   * Create an commander instance.
+   * @param processor
+   */
+  command(processor: ISubCommandProcessor<O>): Command
+
+  /**
+   * Create a sub-command instance and execute it immediately.
+   * @param args      Command arguments.
+   * @param options   Command options.
+   */
+  execute(parentCommand: Command, rawArgs: string[]): Promise<void>
+
+  /**
+   * Create a sub-command instance and mount it to the parentCommand.
+   * @param parentCommand
+   * @param opts
+   */
+  mount(parentCommand: Command, opts: CommandOptions | undefined): void
+
+  /**
+   * Process the command options and rawArgs.
+   * @param args      Command arguments.
+   * @param options   Command options.
+   */
+  process(args: string[], options: O): Promise<void>
+
+  /**
+   * Resolve a processor for process the command.
+   * @param args
+   * @param options
+   */
+  resolve(args: string[], options: O): Promise<ISubCommandProcessor<O>>
+}
+
+export abstract class SubCommand<O extends ISubCommandOptions> implements ISubCommand<O> {
+  public abstract subCommandName: string
+  public abstract aliases: string[]
+
+  public abstract command(processor: ISubCommandProcessor<O>): Command
+
+  public mount(parentCommand: Command, opts: CommandOptions | undefined): void {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const processor: ISubCommandProcessor<O> = this
+    const command: Command = this.command(processor)
+    parentCommand.addCommand(command, opts)
+  }
+
+  public execute(parentCommand: Command, rawArgs: string[]): Promise<void> {
     return new Promise((resolve, reject) => {
-      const wrappedHandler = async (options: O, args: string[]): Promise<void> => {
-        try {
-          await handle(options, args)
-          resolve()
-        } catch (error) {
-          reject(error)
-        }
+      const processor: ISubCommandProcessor<O> = {
+        process: async (args: string[], options: O): Promise<void> => {
+          try {
+            await this.process(args, options)
+            resolve()
+          } catch (error) {
+            reject(error)
+          }
+        },
       }
 
-      const command = create(wrappedHandler, commandName, aliases)
+      const command = this.command(processor)
       parentCommand.addCommand(command)
       parentCommand.parse(rawArgs)
     })
   }
+
+  public async process(args: string[], options: O): Promise<void> {
+    const processor: ISubCommandProcessor<O> = await this.resolve(args, options)
+    await processor.process(args, options)
+  }
+
+  public abstract resolve(args: string[], options: O): Promise<ISubCommandProcessor<O>>
 }

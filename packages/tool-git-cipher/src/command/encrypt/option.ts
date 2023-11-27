@@ -5,12 +5,12 @@ import type {
 import { isBoolean, isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
 import { pathResolver } from '@guanghechen/path'
-import { reporter } from '../../shared/core/reporter'
+import type { IGitCipherSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface ISubCommandOptions {
+interface ISubCommandOptions extends IGitCipherSubCommandOption {
   /**
    * The path of catalog cache file of crypt repo. (relative of workspace)
    * @default '.ghc-cache-catalog.encrypt.json'
@@ -27,7 +27,7 @@ interface ISubCommandOptions {
 }
 
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
-export type ISubCommandEncryptOptions = ICommandOptions & ICommandConfigurationFlatOpts
+export type IGitCipherEncryptOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
 const getDefaultCommandEncryptOptions = (
   params: IResolveDefaultOptionsParams,
@@ -40,14 +40,15 @@ const getDefaultCommandEncryptOptions = (
 export function resolveSubCommandEncryptOptions(
   commandName: string,
   subCommandName: string,
-  options: ISubCommandEncryptOptions,
-): ISubCommandEncryptOptions {
-  const baseOptions: ISubCommandEncryptOptions = resolveBaseCommandOptions<ICommandOptions>(
+  options: IGitCipherEncryptOptions,
+): IGitCipherEncryptOptions {
+  const baseOptions: IGitCipherEncryptOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
     getDefaultCommandEncryptOptions,
     options,
   )
+  const { reporter } = baseOptions
 
   // Resolve catalogCacheFilepath
   const catalogCacheFilepath: string = pathResolver.safeResolve(

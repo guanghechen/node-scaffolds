@@ -23,6 +23,7 @@ import { merge } from './merge'
 export interface IResolveDefaultOptionsParams {
   cwd: string
   workspace: string
+  reporter: IReporter
 }
 
 export interface IResolveCommandConfigurationOptionsParams<O extends ICommandConfigurationOptions> {
@@ -44,7 +45,7 @@ export function resolveCommandConfigurationOptions<O extends ICommandConfigurati
   const workspace = path.resolve(cwd, options.workspace || params.workspace || '.')
 
   const baseOptions: O = isFunction(defaultOptions)
-    ? defaultOptions({ cwd, workspace })
+    ? defaultOptions({ cwd, workspace, reporter })
     : defaultOptions
 
   // Resolve configPath

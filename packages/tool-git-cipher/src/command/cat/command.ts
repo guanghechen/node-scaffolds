@@ -1,51 +1,52 @@
-import {
-  Command,
-  createSubCommandExecutor,
-  createSubCommandMounter,
-} from '@guanghechen/helper-commander'
-import type {
-  ISubCommandExecutor,
-  ISubCommandMounter,
-  ISubCommandProcessor,
-} from '@guanghechen/helper-commander'
+import { Command } from '@guanghechen/helper-commander'
 import { COMMAND_NAME } from '../../shared/core/constant'
-import { wrapErrorHandler } from '../../shared/core/error'
+import type { IGitCipherSubCommand, IGitCipherSubCommandProcessor } from '../_base'
+import { GitCipherSubCommand } from '../_base'
+import { type IGitCipherCatContext, createCatContextFromOptions } from './context'
 import { resolveSubCommandCatOptions } from './option'
-import type { ISubCommandCatOptions } from './option'
-import { cat } from './run'
+import type { IGitCipherCatOptions } from './option'
+import { GitCipherCat } from './process'
 
-// Mount Sub-command: cat
-export const mountSubCommandCat: ISubCommandMounter =
-  createSubCommandMounter<ISubCommandCatOptions>(commandCat, wrapErrorHandler(cat))
+type O = IGitCipherCatOptions
+type C = IGitCipherCatContext
 
-// Execute sub-command: cat
-export const execSubCommandCat: ISubCommandExecutor =
-  createSubCommandExecutor<ISubCommandCatOptions>(commandCat, wrapErrorHandler(cat))
+export class GitCipherSubCommandCat
+  extends GitCipherSubCommand<O, C>
+  implements IGitCipherSubCommand<O, C>
+{
+  public override readonly subCommandName: string = 'cat'
+  public override readonly aliases: string[] = ['c']
 
-// Create Sub-command: cat (c)
-function commandCat(
-  handle: ISubCommandProcessor<ISubCommandCatOptions>,
-  subCommandName = 'cat',
-  aliases: string[] = ['c'],
-): Command {
-  const command = new Command()
+  public override command(processor: IGitCipherSubCommandProcessor<O, C>): Command {
+    const { subCommandName, aliases } = this
+    const command = new Command()
 
-  command
-    .name(subCommandName)
-    .aliases(aliases)
-    .description('Show plain content of a specified crypt file on a branch/commit.')
-    .option(
-      '--plain-filepath, --plainFilepath <plainFilepath>',
-      'The file you want to check the plain content.',
-    )
-    .action(async function (args: string[], options: ISubCommandCatOptions) {
-      const resolvedOptions: ISubCommandCatOptions = resolveSubCommandCatOptions(
-        COMMAND_NAME,
-        subCommandName,
-        options,
+    command
+      .name(subCommandName)
+      .aliases(aliases)
+      .description('Show plain content of a specified crypt file on a branch/commit.')
+      .option(
+        '--plain-filepath, --plainFilepath <plainFilepath>',
+        'The file you want to check the plain content.',
       )
-      await handle(resolvedOptions, args)
-    })
+      .action(async function (args: string[], options: O) {
+        await processor.process(args, options)
+      })
+    return command
+  }
 
-  return command
+  public override async resolve(
+    _args: string[],
+    options: O,
+  ): Promise<IGitCipherSubCommandProcessor<O, C>> {
+    const { subCommandName, eventBus, reporter } = this
+    const resolvedOptions: O = resolveSubCommandCatOptions(COMMAND_NAME, subCommandName, options)
+    const context: C = await createCatContextFromOptions(resolvedOptions)
+    const processor: IGitCipherSubCommandProcessor<O, C> = new GitCipherCat({
+      context,
+      eventBus,
+      reporter,
+    })
+    return processor
+  }
 }

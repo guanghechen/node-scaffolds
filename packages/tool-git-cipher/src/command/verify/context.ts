@@ -1,10 +1,9 @@
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
-import type { IReporter } from '@guanghechen/reporter.types'
-import { reporter } from '../../shared/core/reporter'
-import type { ISubCommandVerifyOptions } from './option'
+import type { IGitCipherSubCommandContext } from '../_base'
+import type { IGitCipherVerifyOptions } from './option'
 
-export interface IGitCipherVerifyContext {
+export interface IGitCipherVerifyContext extends IGitCipherSubCommandContext {
   /**
    * The path of catalog cache file of crypt repo. (absolute path)
    */
@@ -14,53 +13,29 @@ export interface IGitCipherVerifyContext {
    */
   readonly cryptCommitId: string
   /**
+   * Crypt workspace path resolver.
+   */
+  readonly cryptPathResolver: IWorkspacePathResolver
+  /**
    * Default encoding of files in the workspace.
    */
   readonly encoding: string
-  /**
-   * The maximum size required of password.
-   */
-  readonly maxPasswordLength: number
-  /**
-   * max wrong password retry times
-   */
-  readonly maxRetryTimes: number
-  /**
-   * The minimum size required of password.
-   */
-  readonly minPasswordLength: number
   /**
    * Plain repo branch or commit id.
    */
   readonly plainCommitId: string | undefined
   /**
-   * The path of secret file. (absolute path)
-   */
-  readonly secretFilepath: string
-  /**
-   * Whether to print password asterisks.
-   */
-  readonly showAsterisk: boolean
-  /**
-   * Working directory. (absolute path)
-   */
-  readonly workspace: string
-  /**
-   * Crypt workspace path resolver.
-   */
-  readonly cryptPathResolver: IWorkspacePathResolver
-  /**
    * Plain workspace path resolver.
    */
   readonly plainPathResolver: IWorkspacePathResolver
   /**
-   * Reporter to log debug/verbose/info/warn/error messages.
+   * The path of secret file. (absolute path)
    */
-  readonly reporter: IReporter
+  readonly secretFilepath: string
 }
 
 export async function createVerifyContextFromOptions(
-  options: ISubCommandVerifyOptions,
+  options: IGitCipherVerifyOptions,
 ): Promise<IGitCipherVerifyContext> {
   const cryptRootDir: string = options.cryptRootDir
   const plainRootDir: string = options.plainRootDir
@@ -76,17 +51,16 @@ export async function createVerifyContextFromOptions(
   const context: IGitCipherVerifyContext = {
     catalogCacheFilepath: options.catalogCacheFilepath,
     cryptCommitId: options.cryptCommitId,
+    cryptPathResolver,
     encoding: options.encoding,
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
     plainCommitId: options.plainCommitId,
+    plainPathResolver,
     secretFilepath: options.secretFilepath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
-    cryptPathResolver,
-    plainPathResolver,
-    reporter,
   }
   return context
 }

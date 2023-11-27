@@ -4,16 +4,16 @@ import type {
 } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
-import { reporter } from '../../shared/core/reporter'
+import type { IGitCipherSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
-interface ISubCommandOptions {
+interface ISubCommandOptions extends IGitCipherSubCommandOption {
   plainFilepath: string | undefined
 }
 
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
-export type ISubCommandCatOptions = ICommandOptions & ICommandConfigurationFlatOpts
+export type IGitCipherCatOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
 const getDefaultCommandCatOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(params),
@@ -23,14 +23,15 @@ const getDefaultCommandCatOptions = (params: IResolveDefaultOptionsParams): ICom
 export function resolveSubCommandCatOptions(
   commandName: string,
   subCommandName: string,
-  options: ISubCommandCatOptions,
-): ISubCommandCatOptions {
-  const baseOptions: ISubCommandCatOptions = resolveBaseCommandOptions<ICommandOptions>(
+  options: IGitCipherCatOptions,
+): IGitCipherCatOptions {
+  const baseOptions: IGitCipherCatOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
     getDefaultCommandCatOptions,
     options,
   )
+  const { reporter } = baseOptions
 
   // Resolve plainFilepath
   const plainFilepath: string | undefined = cover<string | undefined>(

@@ -4,33 +4,27 @@ import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
-import { SecretMaster } from '../../shared/SecretMaster'
 import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
+import type { IGitCipherSubCommandProcessor } from '../_base'
+import { GitCipherSubCommandProcessor } from '../_base'
 import type { IGitCipherCatContext } from './context'
+import type { IGitCipherCatOptions } from './option'
 
-export class GitCipherCatProcessor {
-  protected readonly context: IGitCipherCatContext
-  protected readonly secretMaster: SecretMaster
+type O = IGitCipherCatOptions
+type C = IGitCipherCatContext
 
-  constructor(context: IGitCipherCatContext) {
-    context.reporter.debug('context:', context)
+const clazz = 'GitCipherCat'
 
-    this.context = context
-    this.secretMaster = new SecretMaster({
-      showAsterisk: context.showAsterisk,
-      maxRetryTimes: context.maxRetryTimes,
-      minPasswordLength: context.minPasswordLength,
-      maxPasswordLength: context.maxPasswordLength,
-      reporter: context.reporter,
-    })
-  }
-
-  public async cat(): Promise<void> {
-    const title = 'processor.cat'
+export class GitCipherCat
+  extends GitCipherSubCommandProcessor<O, C>
+  implements IGitCipherSubCommandProcessor<O, C>
+{
+  public override async process(): Promise<void> {
+    const title = `${clazz}.process`
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
-    const { context } = this
-    const { cryptPathResolver, plainPathResolver, reporter } = context
+    const { context, reporter } = this
+    const { cryptPathResolver, plainPathResolver } = context
 
     invariant(
       existsSync(cryptPathResolver.root),

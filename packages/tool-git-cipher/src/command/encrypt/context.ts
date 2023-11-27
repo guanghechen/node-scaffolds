@@ -1,14 +1,17 @@
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
-import type { IReporter } from '@guanghechen/reporter.types'
-import { reporter } from '../../shared/core/reporter'
-import type { ISubCommandEncryptOptions } from './option'
+import type { IGitCipherSubCommandContext } from '../_base'
+import type { IGitCipherEncryptOptions } from './option'
 
-export interface IGitCipherEncryptContext {
+export interface IGitCipherEncryptContext extends IGitCipherSubCommandContext {
   /**
    * The path of catalog cache file of crypt repo. (absolute path)
    */
   readonly catalogCacheFilepath: string
+  /**
+   * Crypt workspace path resolver.
+   */
+  readonly cryptPathResolver: IWorkspacePathResolver
   /**
    * Default encoding of files in the workspace.
    */
@@ -22,45 +25,17 @@ export interface IGitCipherEncryptContext {
    */
   readonly filesOnly: boolean
   /**
-   * The maximum size required of password.
-   */
-  readonly maxPasswordLength: number
-  /**
-   * max wrong password retry times
-   */
-  readonly maxRetryTimes: number
-  /**
-   * The minimum size required of password.
-   */
-  readonly minPasswordLength: number
-  /**
-   * The path of secret file. (absolute path)
-   */
-  readonly secretFilepath: string
-  /**
-   * Whether to print password asterisks.
-   */
-  readonly showAsterisk: boolean
-  /**
-   * Working directory. (absolute path)
-   */
-  readonly workspace: string
-  /**
-   * Crypt workspace path resolver.
-   */
-  readonly cryptPathResolver: IWorkspacePathResolver
-  /**
    * Plain workspace path resolver.
    */
   readonly plainPathResolver: IWorkspacePathResolver
   /**
-   * Reporter to log debug/verbose/info/warn/error messages.
+   * The path of secret file. (absolute path)
    */
-  readonly reporter: IReporter
+  readonly secretFilepath: string
 }
 
 export async function createEncryptContextFromOptions(
-  options: ISubCommandEncryptOptions,
+  options: IGitCipherEncryptOptions,
 ): Promise<IGitCipherEncryptContext> {
   const cryptRootDir: string = options.cryptRootDir
   const plainRootDir: string = options.plainRootDir
@@ -75,17 +50,16 @@ export async function createEncryptContextFromOptions(
 
   const context: IGitCipherEncryptContext = {
     catalogCacheFilepath: options.catalogCacheFilepath,
+    cryptPathResolver,
     encoding: options.encoding,
     filesOnly: options.filesOnly,
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
+    plainPathResolver,
     secretFilepath: options.secretFilepath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
-    cryptPathResolver,
-    plainPathResolver,
-    reporter,
   }
   return context
 }

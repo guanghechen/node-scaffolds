@@ -1,10 +1,13 @@
 import { destroyBytes } from '@guanghechen/byte'
+import type { IEventBus } from '@guanghechen/event-bus'
 import { calcMac } from '@guanghechen/mac'
+import type { EventTypes } from '../../core/constant'
 import { ErrorCode } from '../../core/constant'
 import type { ICustomError } from '../../core/error'
 import { inputAnswer } from '../input'
 
 interface IParams {
+  eventBus: IEventBus<EventTypes>
   /**
    * Question to ask for input password.
    */
@@ -28,6 +31,7 @@ interface IParams {
 }
 
 export async function inputPassword({
+  eventBus,
   question,
   showAsterisk,
   maxInputRetryTimes = 3,
@@ -59,6 +63,7 @@ export async function inputPassword({
   }
 
   const password: Uint8Array | null = await inputAnswer({
+    eventBus,
     question: question.padStart(20),
     maxRetryTimes: maxInputRetryTimes,
     showAsterisk,

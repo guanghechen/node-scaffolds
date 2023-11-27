@@ -6,30 +6,24 @@ import { isGitRepo, showFileContent } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
-import { SecretMaster } from '../../shared/SecretMaster'
+import type { IGitCipherSubCommandProcessor } from '../_base'
+import { GitCipherSubCommandProcessor } from '../_base'
 import type { IGitCipherTreeContext } from './context'
+import type { IGitCipherTreeOptions } from './option'
 
-export class GitCipherTreeProcessor {
-  protected readonly context: IGitCipherTreeContext
-  protected readonly secretMaster: SecretMaster
+type O = IGitCipherTreeOptions
+type C = IGitCipherTreeContext
 
-  constructor(context: IGitCipherTreeContext) {
-    context.reporter.debug('context:', context)
+const clazz = 'GitCipherTree'
 
-    this.context = context
-    this.secretMaster = new SecretMaster({
-      showAsterisk: context.showAsterisk,
-      maxRetryTimes: context.maxRetryTimes,
-      minPasswordLength: context.minPasswordLength,
-      maxPasswordLength: context.maxPasswordLength,
-      reporter: context.reporter,
-    })
-  }
-
-  public async tree(): Promise<void> {
-    const title = 'processor.tree'
-    const { context, secretMaster } = this
-    const { cryptPathResolver, reporter } = context
+export class GitCipherTree
+  extends GitCipherSubCommandProcessor<O, C>
+  implements IGitCipherSubCommandProcessor<O, C>
+{
+  public override async process(): Promise<void> {
+    const title = `${clazz}.process`
+    const { context, secretMaster, reporter } = this
+    const { cryptPathResolver } = context
 
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
