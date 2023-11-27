@@ -6,22 +6,27 @@ import type {
 import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { cover, coverString } from '@guanghechen/helper-option'
-import { reporter } from '../env/reporter'
+import type { IReporter } from '@guanghechen/reporter.types'
 
 // Global command options
 export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
   readonly output: string | undefined
   readonly partCodePrefix: string
+  readonly reporter: IReporter
 }
 
 // Default value of global options
 export const getDefaultGlobalCommandOptions = (
-  _params: IResolveDefaultOptionsParams,
-): IGlobalCommandOptions => ({
-  logLevel: reporter.level,
-  partCodePrefix: '.ghc-part',
-  output: undefined,
-})
+  params: IResolveDefaultOptionsParams,
+): IGlobalCommandOptions => {
+  const { reporter } = params
+  return {
+    logLevel: reporter.level,
+    partCodePrefix: '.ghc-part',
+    output: undefined,
+    reporter,
+  }
+}
 
 export function resolveBaseCommandOptions<O extends object>(
   commandName: string,
@@ -30,6 +35,7 @@ export function resolveBaseCommandOptions<O extends object>(
   options: O & IGlobalCommandOptions,
 ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
+  const { reporter } = options
   const baseOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>({
     reporter,
     commandName,
@@ -61,6 +67,7 @@ export function resolveBaseCommandOptions<O extends object>(
   const resolvedOptions: IGlobalCommandOptions = {
     output,
     partCodePrefix,
+    reporter,
   }
   return { ...baseOptions, ...resolvedOptions }
 }

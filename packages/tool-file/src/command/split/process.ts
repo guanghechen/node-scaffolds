@@ -8,21 +8,24 @@ import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import { pathResolver } from '@guanghechen/path'
 import fs from 'node:fs/promises'
-import { reporter } from '../../env/reporter'
-import type { IFileSplitContext } from './context'
+import type { IToolFileSubCommandProcessor } from '../_base'
+import { ToolFileSubCommandProcessor } from '../_base'
+import type { IToolFileSplitContext } from './context'
+import type { IToolFileSplitOptions } from './option'
 
-export class FileSplitProcessor {
-  protected readonly context: IFileSplitContext
+type O = IToolFileSplitOptions
+type C = IToolFileSplitContext
 
-  constructor(context: IFileSplitContext) {
-    reporter.debug('context:', context)
+const clazz = 'ToolFileSplit'
 
-    this.context = context
-  }
-
-  public async split([filepath]: string[]): Promise<void> {
-    const title = 'processor.split'
-    const { workspace, partCodePrefix, partSize = 0, partTotal = 1, output } = this.context
+export class ToolFileSplit
+  extends ToolFileSubCommandProcessor<O, C>
+  implements IToolFileSubCommandProcessor<O, C>
+{
+  public override async process([filepath]: string[]): Promise<void> {
+    const title = `${clazz}.process`
+    const { context, reporter } = this
+    const { workspace, partCodePrefix, partSize = 0, partTotal = 1, output } = context
 
     reporter.debug('args: filepath:', filepath)
 

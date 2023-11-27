@@ -4,21 +4,24 @@ import invariant from '@guanghechen/invariant'
 import { pathResolver } from '@guanghechen/path'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { reporter } from '../../env/reporter'
-import type { IFileMergeContext } from './context'
+import type { IToolFileSubCommandProcessor } from '../_base'
+import { ToolFileSubCommandProcessor } from '../_base'
+import type { IToolFileMergeContext } from './context'
+import type { IToolFileMergeOptions } from './option'
 
-export class FileMergeProcessor {
-  protected readonly context: IFileMergeContext
+type O = IToolFileMergeOptions
+type C = IToolFileMergeContext
 
-  constructor(context: IFileMergeContext) {
-    reporter.debug('context:', context)
+const clazz = 'ToolFileMerge'
 
-    this.context = context
-  }
-
-  public async merge([filepath]: string[]): Promise<void> {
-    const title = 'processor.merge'
-    const { workspace, partCodePrefix, output = filepath } = this.context
+export class ToolFileMerge
+  extends ToolFileSubCommandProcessor<O, C>
+  implements IToolFileSubCommandProcessor<O, C>
+{
+  public override async process([filepath]: string[]): Promise<void> {
+    const title = `${clazz}.process`
+    const { context, reporter } = this
+    const { workspace, partCodePrefix, output = filepath } = context
 
     reporter.debug('args: filepath:', filepath)
 

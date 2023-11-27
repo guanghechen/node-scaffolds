@@ -4,18 +4,17 @@ import type {
 } from '@guanghechen/helper-commander'
 import { parseBytesString } from '@guanghechen/helper-func'
 import { convertToNumber, cover } from '@guanghechen/helper-option'
-import { reporter } from '../../env/reporter'
+import type { IToolFileSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface ISubCommandOptions {
+interface ISubCommandOptions extends IToolFileSubCommandOption {
   readonly partSize: number | undefined
   readonly partTotal: number | undefined
 }
 
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
-export type ISubCommandSplitOptions = ICommandOptions & ICommandConfigurationFlatOpts
+export type IToolFileSplitOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
 const getDefaultCommandSplitOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(params),
@@ -26,14 +25,15 @@ const getDefaultCommandSplitOptions = (params: IResolveDefaultOptionsParams): IC
 export function resolveSubCommandSplitOptions(
   commandName: string,
   subCommandName: string,
-  options: ISubCommandSplitOptions,
-): ISubCommandSplitOptions {
-  const baseOptions: ISubCommandSplitOptions = resolveBaseCommandOptions<ICommandOptions>(
+  options: IToolFileSplitOptions,
+): IToolFileSplitOptions {
+  const baseOptions: IToolFileSplitOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
     getDefaultCommandSplitOptions,
     options,
   )
+  const { reporter } = baseOptions
 
   // Resolve partSize.
   const partSize: number | undefined = cover<number | undefined>(

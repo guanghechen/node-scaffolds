@@ -1,6 +1,7 @@
-import type { ISubCommandSplitOptions } from './option'
+import type { IToolFileSubCommandContext } from '../_base'
+import type { IToolFileSplitOptions } from './option'
 
-export interface IFileSplitContext {
+export interface IToolFileSplitContext extends IToolFileSubCommandContext {
   readonly output: string | undefined
   readonly partCodePrefix: string
   readonly partSize: number | undefined
@@ -9,9 +10,9 @@ export interface IFileSplitContext {
 }
 
 export async function createFileSplitContextFromOptions(
-  options: ISubCommandSplitOptions,
-): Promise<IFileSplitContext> {
-  const context: IFileSplitContext = {
+  options: IToolFileSplitOptions,
+): Promise<IToolFileSplitContext> {
+  const context: IToolFileSplitContext = {
     output: options.output,
     partCodePrefix: options.partCodePrefix,
     partSize: options.partSize,

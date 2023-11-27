@@ -2,14 +2,15 @@ import type {
   ICommandConfigurationFlatOpts,
   IResolveDefaultOptionsParams,
 } from '@guanghechen/helper-commander'
+import type { IToolFileSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface ISubCommandOptions {}
+interface ISubCommandOptions extends IToolFileSubCommandOption {}
 
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
-export type ISubCommandMergeOptions = ICommandOptions & ICommandConfigurationFlatOpts
+export type IToolFileMergeOptions = ICommandOptions & ICommandConfigurationFlatOpts
 
 const getDefaultCommandMergeOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(params),
@@ -18,9 +19,9 @@ const getDefaultCommandMergeOptions = (params: IResolveDefaultOptionsParams): IC
 export function resolveSubCommandMergeOptions(
   commandName: string,
   subCommandName: string,
-  options: ISubCommandMergeOptions,
-): ISubCommandMergeOptions {
-  const baseOptions: ISubCommandMergeOptions = resolveBaseCommandOptions<ICommandOptions>(
+  options: IToolFileMergeOptions,
+): IToolFileMergeOptions {
+  const baseOptions: IToolFileMergeOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
     getDefaultCommandMergeOptions,
