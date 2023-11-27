@@ -7,7 +7,9 @@ import { createHash } from 'node:crypto'
 import { ErrorCode } from '../core/error'
 import { EventTypes, eventBus } from '../core/event'
 import { reporter } from '../core/reporter'
-import { confirmPassword, inputPassword } from './password'
+import { confirmPassword } from './password/confirm'
+import { inputPassword } from './password/input'
+import { verifyWorkspacePassword } from './password/verify'
 import {
   CryptSecretConfigKeeper,
   SecretConfigKeeper,
@@ -287,45 +289,10 @@ export class SecretMaster {
         minimumSize: minPasswordLength,
         maximumSize: maxPasswordLength,
       })
-      if (await this._verifyPassword(cryptSecretConfig, password)) break
+      if (await verifyWorkspacePassword(cryptSecretConfig, password)) break
       destroyBytes(password)
       password = null
     }
     return password
-  }
-
-  // Test whether the password is correct.
-  protected async _verifyPassword(
-    cryptSecretConfig: Readonly<ISecretConfigData>,
-    password: Readonly<Uint8Array>,
-  ): Promise<boolean> {
-    let mainCipherFactory: ICipherFactory | null = null
-    let verified = false
-    let secret: Uint8Array | null = null
-    let passwordCipher: ICipher | null = null
-    try {
-      const cryptSecretBytes: Uint8Array = decodeCryptBytes(cryptSecretConfig.secret)
-      const authTag: Uint8Array | undefined = decodeAuthTag(cryptSecretConfig.secretAuthTag)
-
-      mainCipherFactory = new AesGcmCipherFactoryBuilder({
-        keySize: cryptSecretConfig.mainKeySize,
-        ivSize: cryptSecretConfig.mainIvSize,
-      }).buildFromPassword(password, cryptSecretConfig.pbkdf2Options)
-      passwordCipher = mainCipherFactory.cipher()
-      secret = passwordCipher.decrypt(cryptSecretBytes, { authTag })
-      verified = true
-    } catch (error: any) {
-      if (/Unsupported state or unable to authenticate data/.test(error?.message ?? '')) {
-        verified = false
-      } else {
-        throw error
-      }
-    } finally {
-      mainCipherFactory?.destroy()
-      passwordCipher?.destroy()
-      if (secret) destroyBytes(secret)
-      secret = null
-    }
-    return verified
   }
 }

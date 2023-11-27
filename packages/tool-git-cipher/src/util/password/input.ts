@@ -1,10 +1,9 @@
 import { destroyBytes } from '@guanghechen/byte'
 import { calcMac } from '@guanghechen/mac'
-import type { ICustomError } from '../core/error'
-import { ErrorCode } from '../core/error'
-import { inputAnswer } from './input'
+import { ErrorCode, type ICustomError } from '../../core/error'
+import { inputAnswer } from '../input'
 
-interface IInputPasswordParams {
+interface IParams {
   /**
    * Question to ask for input password.
    */
@@ -33,7 +32,7 @@ export async function inputPassword({
   maxInputRetryTimes = 3,
   minimumSize = -1,
   maximumSize = -1,
-}: IInputPasswordParams): Promise<Readonly<Uint8Array>> {
+}: IParams): Promise<Readonly<Uint8Array>> {
   let hint: string
   const isValidPassword = (password: Readonly<Uint8Array> | null): boolean => {
     if (password == null || (minimumSize > 0 && password.length < minimumSize)) {
@@ -81,54 +80,4 @@ export async function inputPassword({
   const hashedPassword: Uint8Array = calcMac([password], 'sha256')
   destroyBytes(password)
   return hashedPassword
-}
-
-export interface IConfirmPasswordParams {
-  /**
-   * The password entered earlier
-   */
-  password: Readonly<Uint8Array>
-  /**
-   * Question to ask for input password
-   */
-  question?: string
-  /**
-   * Whether to print asterisks when entering a password
-   */
-  showAsterisk?: boolean
-  /**
-   * Minimum length of password
-   */
-  minimumSize?: number
-  /**
-   * Maximum length of password
-   */
-  maximumSize?: number
-}
-
-export async function confirmPassword({
-  password,
-  showAsterisk = true,
-  question = 'Repeat Password: ',
-  minimumSize = -1,
-  maximumSize = -1,
-}: IConfirmPasswordParams): Promise<boolean | never> {
-  const repeatedPassword: Uint8Array = await inputPassword({
-    question,
-    showAsterisk,
-    maxInputRetryTimes: 1,
-    minimumSize,
-    maximumSize,
-  })
-  const isSame = (): boolean => {
-    if (repeatedPassword.length !== password.length) return false
-    for (let i = 0; i < password.length; ++i) {
-      if (password[i] !== repeatedPassword[i]) return false
-    }
-    return true
-  }
-
-  const result = isSame()
-  destroyBytes(repeatedPassword)
-  return result
 }
