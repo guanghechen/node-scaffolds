@@ -131,11 +131,9 @@
         "showAsterisk": true
       },
       "encrypt": {
-        "updateBeforeEncrypt": true
+        "catalogCacheFilepath": ".ghc-cache-catalog.json"
       },
-      "decrypt": {
-        "outDir": ".-bak"
-      }
+      "decrypt": {}
     }
   }
   ```
