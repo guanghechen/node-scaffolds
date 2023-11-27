@@ -52,7 +52,7 @@ export class GitCipherSubCommandDecrypt
     args: string[],
     options: O,
   ): Promise<IGitCipherSubCommandProcessor<O, C>> {
-    const { subCommandName, eventBus, reporter } = this
+    const { subCommandName, eventBus, reporter, inputAnswer } = this
     const resolvedOptions: O = resolveSubCommandDecryptOptions(
       COMMAND_NAME,
       subCommandName,
@@ -65,6 +65,7 @@ export class GitCipherSubCommandDecrypt
       context,
       eventBus,
       reporter,
+      inputAnswer,
     })
     return processor
   }

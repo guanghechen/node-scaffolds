@@ -1,21 +1,17 @@
 import { destroyBytes, mergeBytes } from '@guanghechen/byte'
 import type { IEventBus } from '@guanghechen/event-bus'
 import { isNonBlankString } from '@guanghechen/helper-is'
-import { EventTypes } from '../core/constant'
+import { EventTypes } from '../../core/constant'
 
-export interface IInputSingleLineParams {
+export interface IParams {
   eventBus: IEventBus<EventTypes>
   question?: string
   showAsterisk?: boolean
-  isValidCharacter?(c: number): boolean
+  isValidChar?(c: number): boolean
 }
+export async function inputLineFromTerminal(params: IParams): Promise<Uint8Array> {
+  const { eventBus, question, showAsterisk = true, isValidChar } = params
 
-export function inputSingleLine({
-  eventBus,
-  question,
-  isValidCharacter,
-  showAsterisk = true,
-}: IInputSingleLineParams): Promise<Uint8Array> {
   return new Promise<Uint8Array>((resolve, reject) => {
     const stdin = process.stdin
     const stdout = process.stdout
@@ -64,7 +60,7 @@ export function inputSingleLine({
             return
           default:
             // ignore other invalid characters
-            if (isValidCharacter != null && !isValidCharacter(chunk[i])) break
+            if (isValidChar != null && !isValidChar(chunk[i])) break
 
             piece[pieceTot] = chunk[i]
             pieceTot += 1
@@ -100,46 +96,4 @@ export function inputSingleLine({
     stdin.on('end', onResolved)
     stdin.on('error', onRejected)
   })
-}
-
-export interface IInputAnswerParams {
-  eventBus: IEventBus<EventTypes>
-  question: string
-  maxRetryTimes?: number
-  showAsterisk?: boolean
-  isValidAnswer?(answer: Uint8Array | null): boolean
-  isValidCharacter?(c: number): boolean
-  hintOnInvalidAnswer?(answer: Uint8Array | null): string
-}
-export async function inputAnswer({
-  eventBus,
-  question,
-  maxRetryTimes = 3,
-  showAsterisk = true,
-  isValidAnswer,
-  isValidCharacter,
-  hintOnInvalidAnswer,
-}: IInputAnswerParams): Promise<Uint8Array | null> {
-  let answer: Uint8Array | null = null
-  for (let i = 0, end = Math.max(0, maxRetryTimes) + 1; i < end; ++i) {
-    let questionWithHint: string = question
-    if (i > 0 && hintOnInvalidAnswer != null) {
-      const hint = hintOnInvalidAnswer(answer)
-      if (isNonBlankString(hint)) {
-        questionWithHint = hint
-      }
-    }
-
-    // destroy previous answer before read new answer
-    if (answer) destroyBytes(answer)
-
-    answer = await inputSingleLine({
-      eventBus,
-      question: questionWithHint,
-      isValidCharacter,
-      showAsterisk,
-    })
-    if (!isValidAnswer || isValidAnswer(answer)) break
-  }
-  return answer
 }

@@ -3,7 +3,7 @@ import { SubCommand } from '@guanghechen/helper-commander'
 import type { Command, ISubCommand } from '@guanghechen/helper-commander'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { ErrorCode, EventTypes } from '../../shared/core/constant'
-import { ICustomError } from '../../shared/core/error'
+import type { IInputAnswer } from '../../shared/util/input/answer'
 import type { IGitCipherSubCommandContext } from './context'
 import type { IGitCipherSubCommandOption } from './option'
 import type { IGitCipherSubCommandProcessor } from './process'
@@ -17,6 +17,10 @@ export interface IGitCipherSubCommandProps {
    * Reporter to log debug/verbose/info/warn/error messages.
    */
   readonly reporter: IReporter
+  /**
+   * Ask to input answer.
+   */
+  inputAnswer: IInputAnswer
 }
 
 export interface IGitCipherSubCommand<
@@ -35,12 +39,14 @@ export abstract class GitCipherSubCommand<
 {
   public readonly eventBus: IEventBus<EventTypes>
   public readonly reporter: IReporter
+  public readonly inputAnswer: IInputAnswer
 
   constructor(props: IGitCipherSubCommandProps) {
     super()
-    const { eventBus, reporter } = props
+    const { eventBus, reporter, inputAnswer } = props
     this.eventBus = eventBus
     this.reporter = reporter
+    this.inputAnswer = inputAnswer
   }
 
   public abstract override command(processor: IGitCipherSubCommandProcessor<O, C>): Command
@@ -53,7 +59,7 @@ export abstract class GitCipherSubCommand<
     const { eventBus, reporter } = this
     try {
       await processor.process(args, options)
-    } catch (error: Error | ICustomError | any) {
+    } catch (error: Error | any) {
       const code = error.code || -1
       switch (code) {
         case ErrorCode.BAD_PASSWORD:

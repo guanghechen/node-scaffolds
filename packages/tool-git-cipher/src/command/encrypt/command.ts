@@ -45,7 +45,7 @@ export class GitCipherSubCommandEncrypt
     args: string[],
     options: O,
   ): Promise<IGitCipherSubCommandProcessor<O, C>> {
-    const { subCommandName, eventBus, reporter } = this
+    const { subCommandName, eventBus, reporter, inputAnswer } = this
     const resolvedOptions: O = resolveSubCommandEncryptOptions(
       COMMAND_NAME,
       subCommandName,
@@ -58,6 +58,7 @@ export class GitCipherSubCommandEncrypt
       context,
       eventBus,
       reporter,
+      inputAnswer,
     })
     return processor
   }

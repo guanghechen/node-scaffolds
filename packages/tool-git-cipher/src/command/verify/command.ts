@@ -40,7 +40,7 @@ export class GitCipherSubCommandVerify extends GitCipherSubCommand<O, C> impleme
     args: string[],
     options: O,
   ): Promise<IGitCipherSubCommandProcessor<O, C>> {
-    const { subCommandName, eventBus, reporter } = this
+    const { subCommandName, eventBus, reporter, inputAnswer } = this
     const resolvedOptions: O = resolveSubCommandVerifyOptions(
       COMMAND_NAME,
       subCommandName,
@@ -53,6 +53,7 @@ export class GitCipherSubCommandVerify extends GitCipherSubCommand<O, C> impleme
       context,
       eventBus,
       reporter,
+      inputAnswer,
     })
     return processor
   }

@@ -3,11 +3,12 @@ import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
 import type { IReporter } from '@guanghechen/reporter.types'
 import type { EventTypes } from '../../shared/core/constant'
 import { SecretMaster } from '../../shared/SecretMaster'
+import type { IInputAnswer } from '../../shared/util/input/answer'
 import type { IGitCipherSubCommandContext } from './context'
 import type { IGitCipherSubCommandOption } from './option'
 
 export interface IGitCipherSubCommandProcessorProps<C extends IGitCipherSubCommandContext> {
-  context: C
+  readonly context: C
   /**
    * Event bus.
    */
@@ -16,6 +17,10 @@ export interface IGitCipherSubCommandProcessorProps<C extends IGitCipherSubComma
    * Reporter to log debug/verbose/info/warn/error messages.
    */
   readonly reporter: IReporter
+  /**
+   * Ask to input answer.
+   */
+  inputAnswer: IInputAnswer
 }
 
 export interface IGitCipherSubCommandProcessor<
@@ -37,7 +42,7 @@ export abstract class GitCipherSubCommandProcessor<
   public readonly secretMaster: SecretMaster
 
   constructor(props: IGitCipherSubCommandProcessorProps<C>) {
-    const { context, eventBus, reporter } = props
+    const { context, eventBus, reporter, inputAnswer } = props
     reporter.debug('context:', context)
 
     this.context = context
@@ -50,6 +55,7 @@ export abstract class GitCipherSubCommandProcessor<
       maxPasswordLength: context.maxPasswordLength,
       reporter,
       showAsterisk: context.showAsterisk,
+      inputAnswer,
     })
   }
 

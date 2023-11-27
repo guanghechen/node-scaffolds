@@ -15,6 +15,7 @@ import {
   secretConfigHashAlgorithm,
 } from './SecretConfig'
 import type { IPresetSecretConfig, ISecretConfig, ISecretConfigData } from './SecretConfig.types'
+import type { IInputAnswer } from './util/input/answer'
 import { confirmPassword } from './util/password/confirm'
 import { inputPassword } from './util/password/input'
 import { verifyWorkspacePassword } from './util/password/verify'
@@ -46,6 +47,8 @@ export interface ISecretMasterProps {
    * Reporter to log debug/verbose/info/warn/error messages.
    */
   reporter: IReporter
+
+  inputAnswer: IInputAnswer
 }
 
 export class SecretMaster {
@@ -55,6 +58,7 @@ export class SecretMaster {
   protected readonly showAsterisk: boolean
   protected readonly reporter: IReporter
   protected readonly eventBus: IEventBus<EventTypes>
+  protected readonly inputAnswer: IInputAnswer
   #secretCipherFactory: ICipherFactory | undefined
   #secretConfigKeeper: SecretConfigKeeper | undefined
 
@@ -65,6 +69,7 @@ export class SecretMaster {
     this.showAsterisk = props.showAsterisk
     this.reporter = props.reporter
     this.eventBus = props.eventBus
+    this.inputAnswer = props.inputAnswer
 
     this.#secretCipherFactory = undefined
     this.#secretConfigKeeper = undefined
@@ -107,7 +112,14 @@ export class SecretMaster {
     let password: Uint8Array | null = null
     let configKeeper: SecretConfigKeeper
     try {
-      const { eventBus, showAsterisk, minPasswordLength, maxPasswordLength, reporter } = this
+      const {
+        eventBus,
+        showAsterisk,
+        minPasswordLength,
+        maxPasswordLength,
+        reporter,
+        inputAnswer,
+      } = this
       reporter.debug('Asking input new password.')
 
       for (let i = 0; ; ++i) {
@@ -118,6 +130,7 @@ export class SecretMaster {
           maxInputRetryTimes: 2,
           minimumSize: minPasswordLength,
           maximumSize: maxPasswordLength,
+          inputAnswer,
         })
         const isSame = await confirmPassword({
           eventBus,
@@ -125,6 +138,7 @@ export class SecretMaster {
           showAsterisk,
           minimumSize: minPasswordLength,
           maximumSize: maxPasswordLength,
+          inputAnswer,
         })
         if (isSame) break
 
@@ -293,7 +307,14 @@ export class SecretMaster {
   protected async _askPassword(
     cryptSecretConfig: Readonly<ISecretConfigData>,
   ): Promise<Uint8Array | null> {
-    const { eventBus, maxRetryTimes, showAsterisk, minPasswordLength, maxPasswordLength } = this
+    const {
+      eventBus,
+      maxRetryTimes,
+      showAsterisk,
+      minPasswordLength,
+      maxPasswordLength,
+      inputAnswer,
+    } = this
     let password: Uint8Array | null = null
     for (let i = 0; i <= maxRetryTimes; ++i) {
       const question = i > 0 ? '(Retry) Password: ' : 'Password: '
@@ -304,6 +325,7 @@ export class SecretMaster {
         maxInputRetryTimes: 1,
         minimumSize: minPasswordLength,
         maximumSize: maxPasswordLength,
+        inputAnswer,
       })
       if (await verifyWorkspacePassword(cryptSecretConfig, password)) break
       destroyBytes(password)

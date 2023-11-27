@@ -12,6 +12,7 @@ import {
   GitCipherSubCommandTree,
   GitCipherSubCommandVerify,
   createProgram,
+  inputAnswerFromTerminal,
 } from '.'
 
 const reporter = new ChalkLogger(
@@ -38,7 +39,11 @@ export const eventBus = new EventBus<EventTypes>()
 
 const program = createProgram()
 
-const commandProps: IGitCipherSubCommandProps = { eventBus, reporter }
+const commandProps: IGitCipherSubCommandProps = {
+  eventBus,
+  reporter,
+  inputAnswer: inputAnswerFromTerminal,
+}
 const commands: Array<ISubCommand<ISubCommandOptions>> = [
   new GitCipherSubCommandCat(commandProps),
   new GitCipherSubCommandDecrypt(commandProps),

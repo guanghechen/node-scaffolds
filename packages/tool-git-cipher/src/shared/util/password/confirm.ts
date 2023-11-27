@@ -1,6 +1,7 @@
 import { destroyBytes } from '@guanghechen/byte'
 import type { IEventBus } from '@guanghechen/event-bus'
 import type { EventTypes } from '../../core/constant'
+import type { IInputAnswer } from '../input/answer'
 import { inputPassword } from './input'
 
 interface IParams {
@@ -25,6 +26,7 @@ interface IParams {
    * Maximum length of password
    */
   maximumSize?: number
+  inputAnswer: IInputAnswer
 }
 
 export async function confirmPassword(params: IParams): Promise<boolean | never> {
@@ -35,6 +37,7 @@ export async function confirmPassword(params: IParams): Promise<boolean | never>
     question = 'Repeat Password: ',
     minimumSize = -1,
     maximumSize = -1,
+    inputAnswer,
   } = params
 
   let valid: boolean = false
@@ -48,6 +51,7 @@ export async function confirmPassword(params: IParams): Promise<boolean | never>
       maxInputRetryTimes: 1,
       minimumSize,
       maximumSize,
+      inputAnswer,
     })
     const isSame = (): boolean => {
       if (repeatedPassword === undefined) return false

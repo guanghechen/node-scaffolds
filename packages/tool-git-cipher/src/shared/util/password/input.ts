@@ -4,7 +4,7 @@ import { calcMac } from '@guanghechen/mac'
 import type { EventTypes } from '../../core/constant'
 import { ErrorCode } from '../../core/constant'
 import type { ICustomError } from '../../core/error'
-import { inputAnswer } from '../input'
+import type { IInputAnswer } from '../input/answer'
 
 interface IParams {
   eventBus: IEventBus<EventTypes>
@@ -28,16 +28,20 @@ interface IParams {
    * Maximum length of password.
    */
   maximumSize?: number
+  inputAnswer: IInputAnswer
 }
 
-export async function inputPassword({
-  eventBus,
-  question,
-  showAsterisk,
-  maxInputRetryTimes = 3,
-  minimumSize = -1,
-  maximumSize = -1,
-}: IParams): Promise<Readonly<Uint8Array>> {
+export async function inputPassword(params: IParams): Promise<Readonly<Uint8Array>> {
+  const {
+    eventBus,
+    question,
+    showAsterisk,
+    maxInputRetryTimes = 3,
+    minimumSize = -1,
+    maximumSize = -1,
+    inputAnswer,
+  } = params
+
   let hint: string
   const isValidPassword = (password: Readonly<Uint8Array> | null): boolean => {
     if (password == null || (minimumSize > 0 && password.length < minimumSize)) {
@@ -68,7 +72,7 @@ export async function inputPassword({
     maxRetryTimes: maxInputRetryTimes,
     showAsterisk,
     isValidAnswer: isValidPassword,
-    isValidCharacter,
+    isValidChar: isValidCharacter,
     hintOnInvalidAnswer: () => `(${hint}) ${question}`,
   })
 
