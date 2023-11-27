@@ -8,6 +8,7 @@ export * from './logger'
 
 // For compatible.
 export type Level = ReporterLevelEnum
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 export const Level = ReporterLevelEnum
 export const DEBUG = Level.DEBUG
 export const VERBOSE = Level.VERBOSE
