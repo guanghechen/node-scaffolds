@@ -209,7 +209,7 @@ export class SecretMaster {
     force: boolean
   }): Promise<SecretConfigKeeper> {
     const { cryptRootDir, filepath, force } = params
-    if (!params.force && this.#secretConfigKeeper) return this.#secretConfigKeeper
+    if (!force && this.#secretConfigKeeper) return this.#secretConfigKeeper
 
     const { reporter } = this
     const title: string = this.constructor.name
