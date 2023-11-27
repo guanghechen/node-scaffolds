@@ -33,7 +33,7 @@ export class ToolFileSubCommandMerge
     return command
   }
 
-  public override async resolve(
+  public override async resolveProcessor(
     args: string[],
     options: O,
   ): Promise<IToolFileSubCommandProcessor<O, C>> {

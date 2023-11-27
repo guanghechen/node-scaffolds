@@ -38,7 +38,7 @@ export class ToolFileSubCommandSplit
     return command
   }
 
-  public override async resolve(
+  public override async resolveProcessor(
     args: string[],
     options: O,
   ): Promise<IToolFileSubCommandProcessor<O, C>> {

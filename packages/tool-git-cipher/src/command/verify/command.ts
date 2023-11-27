@@ -36,7 +36,7 @@ export class GitCipherSubCommandVerify extends GitCipherSubCommand<O, C> impleme
     return command
   }
 
-  public override async resolve(
+  public override async resolveProcessor(
     args: string[],
     options: O,
   ): Promise<IGitCipherSubCommandProcessor<O, C>> {

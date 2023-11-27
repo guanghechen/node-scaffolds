@@ -23,7 +23,7 @@ export interface IGitCipherSubCommand<
   O extends IGitCipherSubCommandOption,
   C extends IGitCipherSubCommandContext,
 > extends ISubCommand<O> {
-  resolve(args: string[], options: O): Promise<IGitCipherSubCommandProcessor<O, C>>
+  resolveProcessor(args: string[], options: O): Promise<IGitCipherSubCommandProcessor<O, C>>
 }
 
 export abstract class GitCipherSubCommand<
@@ -46,7 +46,10 @@ export abstract class GitCipherSubCommand<
   public abstract override command(processor: IGitCipherSubCommandProcessor<O, C>): Command
 
   public override async process(args: string[], options: O): Promise<void> {
-    const processor: IGitCipherSubCommandProcessor<O, C> = await this.resolve(args, options)
+    const processor: IGitCipherSubCommandProcessor<O, C> = await this.resolveProcessor(
+      args,
+      options,
+    )
     const { eventBus, reporter } = this
     try {
       await processor.process(args, options)
@@ -68,7 +71,7 @@ export abstract class GitCipherSubCommand<
     }
   }
 
-  public abstract override resolve(
+  public abstract override resolveProcessor(
     args: string[],
     options: O,
   ): Promise<IGitCipherSubCommandProcessor<O, C>>

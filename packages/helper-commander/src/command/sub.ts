@@ -58,7 +58,7 @@ export interface ISubCommand<O extends ISubCommandOptions> extends ISubCommandPr
    * @param args
    * @param options
    */
-  resolve(args: string[], options: O): Promise<ISubCommandProcessor<O>>
+  resolveProcessor(args: string[], options: O): Promise<ISubCommandProcessor<O>>
 }
 
 export abstract class SubCommand<O extends ISubCommandOptions> implements ISubCommand<O> {
@@ -94,9 +94,9 @@ export abstract class SubCommand<O extends ISubCommandOptions> implements ISubCo
   }
 
   public async process(args: string[], options: O): Promise<void> {
-    const processor: ISubCommandProcessor<O> = await this.resolve(args, options)
+    const processor: ISubCommandProcessor<O> = await this.resolveProcessor(args, options)
     await processor.process(args, options)
   }
 
-  public abstract resolve(args: string[], options: O): Promise<ISubCommandProcessor<O>>
+  public abstract resolveProcessor(args: string[], options: O): Promise<ISubCommandProcessor<O>>
 }

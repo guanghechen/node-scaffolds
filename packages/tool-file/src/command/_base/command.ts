@@ -16,7 +16,7 @@ export interface IToolFileSubCommand<
   O extends IToolFileSubCommandOption,
   C extends IToolFileSubCommandContext,
 > extends ISubCommand<O> {
-  resolve(args: string[], options: O): Promise<IToolFileSubCommandProcessor<O, C>>
+  resolveProcessor(args: string[], options: O): Promise<IToolFileSubCommandProcessor<O, C>>
 }
 
 export abstract class ToolFileSubCommand<
@@ -37,11 +37,11 @@ export abstract class ToolFileSubCommand<
   public abstract override command(processor: IToolFileSubCommandProcessor<O, C>): Command
 
   public override async process(args: string[], options: O): Promise<void> {
-    const processor: IToolFileSubCommandProcessor<O, C> = await this.resolve(args, options)
+    const processor: IToolFileSubCommandProcessor<O, C> = await this.resolveProcessor(args, options)
     await processor.process(args, options)
   }
 
-  public abstract override resolve(
+  public abstract override resolveProcessor(
     args: string[],
     options: O,
   ): Promise<IToolFileSubCommandProcessor<O, C>>

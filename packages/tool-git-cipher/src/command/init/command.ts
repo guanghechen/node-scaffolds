@@ -74,7 +74,7 @@ export class GitCipherSubCommandInit extends GitCipherSubCommand<O, C> implement
     return command
   }
 
-  public override async resolve(
+  public override async resolveProcessor(
     args: string[],
     options: O,
   ): Promise<IGitCipherSubCommandProcessor<O, C>> {
