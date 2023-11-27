@@ -4,7 +4,6 @@ import invariant from '@guanghechen/invariant'
 import { TextFileResource } from '@guanghechen/resource'
 import type { ICatalogCache } from '../../shared/CatalogCache'
 import { CatalogCacheKeeper } from '../../shared/CatalogCache'
-import { reporter } from '../../shared/core/reporter'
 import { SecretMaster } from '../../shared/SecretMaster'
 import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
 import type { IGitCipherDecryptContext } from './context'
@@ -14,7 +13,7 @@ export class GitCipherDecryptProcessor {
   protected readonly secretMaster: SecretMaster
 
   constructor(context: IGitCipherDecryptContext) {
-    reporter.debug('context:', context)
+    context.reporter.debug('context:', context)
 
     this.context = context
     this.secretMaster = new SecretMaster({
@@ -22,6 +21,7 @@ export class GitCipherDecryptProcessor {
       maxRetryTimes: context.maxRetryTimes,
       minPasswordLength: context.minPasswordLength,
       maxPasswordLength: context.maxPasswordLength,
+      reporter: context.reporter,
     })
   }
 
@@ -30,12 +30,13 @@ export class GitCipherDecryptProcessor {
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
     const { context } = this
-    const { cryptPathResolver, plainPathResolver } = context
+    const { cryptPathResolver, plainPathResolver, reporter } = context
     const { context: gitCipherContext } = await loadGitCipherContext({
       secretFilepath: context.secretFilepath,
       secretMaster: this.secretMaster,
       cryptPathResolver,
       plainPathResolver,
+      reporter,
     })
     const gitCipher = new GitCipher({ context: gitCipherContext })
 
@@ -57,6 +58,7 @@ export class GitCipherDecryptProcessor {
           filepath: context.catalogCacheFilepath,
           encoding: 'utf8',
         }),
+        reporter,
       })
       await cacheKeeper.load()
       const data: ICatalogCache = cacheKeeper.data ?? { crypt2plainIdMap: new Map() }

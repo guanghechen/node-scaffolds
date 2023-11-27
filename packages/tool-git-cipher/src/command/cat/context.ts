@@ -1,5 +1,7 @@
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
+import type { IReporter } from '@guanghechen/reporter.types'
+import { reporter } from '../../shared/core/reporter'
 import type { ISubCommandCatOptions } from './option'
 
 export interface IGitCipherCatContext {
@@ -43,6 +45,10 @@ export interface IGitCipherCatContext {
    * Plain workspace path resolver.
    */
   readonly plainPathResolver: IWorkspacePathResolver
+  /**
+   * Reporter to log debug/verbose/info/warn/error messages.
+   */
+  readonly reporter: IReporter
 }
 
 export async function createCatContextFromOptions(
@@ -70,6 +76,7 @@ export async function createCatContextFromOptions(
     workspace: options.workspace,
     cryptPathResolver,
     plainPathResolver,
+    reporter,
   }
   return context
 }

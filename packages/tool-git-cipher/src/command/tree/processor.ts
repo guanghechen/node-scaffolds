@@ -6,7 +6,6 @@ import { isGitRepo, showFileContent } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
-import { reporter } from '../../shared/core/reporter'
 import { SecretMaster } from '../../shared/SecretMaster'
 import type { IGitCipherTreeContext } from './context'
 
@@ -15,7 +14,7 @@ export class GitCipherTreeProcessor {
   protected readonly secretMaster: SecretMaster
 
   constructor(context: IGitCipherTreeContext) {
-    reporter.debug('context:', context)
+    context.reporter.debug('context:', context)
 
     this.context = context
     this.secretMaster = new SecretMaster({
@@ -23,13 +22,14 @@ export class GitCipherTreeProcessor {
       maxRetryTimes: context.maxRetryTimes,
       minPasswordLength: context.minPasswordLength,
       maxPasswordLength: context.maxPasswordLength,
+      reporter: context.reporter,
     })
   }
 
   public async tree(): Promise<void> {
     const title = 'processor.tree'
     const { context, secretMaster } = this
-    const { cryptPathResolver } = context
+    const { cryptPathResolver, reporter } = context
 
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 

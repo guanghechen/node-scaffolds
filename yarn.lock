@@ -1043,6 +1043,7 @@ __metadata:
     "@guanghechen/invariant": ^6.0.0-alpha.0
     "@guanghechen/mac": ^1.0.0-alpha.3
     "@guanghechen/path": ^1.0.0-alpha.11
+    "@guanghechen/reporter.types": ^1.0.0-alpha.8
     "@guanghechen/resource": ^1.0.0-alpha.4
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.2
     "@types/micromatch": ^4.0.6

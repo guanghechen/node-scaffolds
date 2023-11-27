@@ -2,9 +2,7 @@ import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
 import { GitCipher } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
-import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { existsSync } from 'node:fs'
-import { reporter } from '../../shared/core/reporter'
 import { SecretMaster } from '../../shared/SecretMaster'
 import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
 import { verifyCryptRepo } from '../../shared/util/verifyCryptRepo'
@@ -16,7 +14,7 @@ export class GitCipherVerifyProcessor {
   protected readonly secretMaster: SecretMaster
 
   constructor(context: IGitCipherVerifyContext) {
-    reporter.debug('context:', context)
+    context.reporter.debug('context:', context)
 
     this.context = context
     this.secretMaster = new SecretMaster({
@@ -24,6 +22,7 @@ export class GitCipherVerifyProcessor {
       maxRetryTimes: context.maxRetryTimes,
       minPasswordLength: context.minPasswordLength,
       maxPasswordLength: context.maxPasswordLength,
+      reporter: context.reporter,
     })
   }
 
@@ -45,18 +44,19 @@ export class GitCipherVerifyProcessor {
     if (existsSync(plainPathResolver.root) && isGitRepo(plainPathResolver.root)) {
       await this._verifyStrict()
     } else {
-      await this._verifyCryptRepo(cryptPathResolver, plainPathResolver)
+      await this._verifyCryptRepo()
     }
   }
 
   protected async _verifyStrict(): Promise<void> {
     const { context, secretMaster } = this
-    const { cryptPathResolver, plainPathResolver } = context
+    const { cryptPathResolver, plainPathResolver, reporter } = context
     const { context: gitCipherContext } = await loadGitCipherContext({
       secretFilepath: context.secretFilepath,
       secretMaster: this.secretMaster,
       cryptPathResolver,
       plainPathResolver,
+      reporter,
     })
     const gitCipher = new GitCipher({ context: gitCipherContext })
 
@@ -69,19 +69,24 @@ export class GitCipherVerifyProcessor {
       gitCipher,
       plainCommitId: context.plainCommitId,
       plainPathResolver,
+      reporter,
     })
   }
 
-  protected async _verifyCryptRepo(
-    cryptPathResolver: IWorkspacePathResolver,
-    plainPathResolver: IWorkspacePathResolver,
-  ): Promise<void> {
+  protected async _verifyCryptRepo(): Promise<void> {
     const title = 'processor.verify'
     const { context, secretMaster } = this
+    const {
+      secretFilepath, //
+      cryptCommitId,
+      cryptPathResolver,
+      plainPathResolver,
+      reporter,
+    } = context
 
     const secretKeeper = await secretMaster.load({
-      filepath: context.secretFilepath,
-      cryptRootDir: context.cryptPathResolver.root,
+      filepath: secretFilepath,
+      cryptRootDir: cryptPathResolver.root,
       force: true,
     })
     invariant(!!secretKeeper.data, `[${title}] secret is not available.`)
@@ -89,10 +94,11 @@ export class GitCipherVerifyProcessor {
     await verifyCryptRepo({
       catalogCipher: secretMaster.catalogCipher,
       cipherFactory: secretMaster.cipherFactory,
-      cryptCommitId: context.cryptCommitId,
+      cryptCommitId,
       cryptPathResolver,
       plainPathResolver,
       secretConfig: secretKeeper.data,
+      reporter,
     })
   }
 }

@@ -1,5 +1,7 @@
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
+import type { IReporter } from '@guanghechen/reporter.types'
+import { reporter } from '../../shared/core/reporter'
 import type { ISubCommandTreeOptions } from './option'
 
 export interface IGitCipherTreeContext {
@@ -39,6 +41,10 @@ export interface IGitCipherTreeContext {
    * Crypt workspace path resolver.
    */
   readonly cryptPathResolver: IWorkspacePathResolver
+  /**
+   * Reporter to log debug/verbose/info/warn/error messages.
+   */
+  readonly reporter: IReporter
 }
 
 export async function createTreeContextFromOptions(
@@ -60,6 +66,7 @@ export async function createTreeContextFromOptions(
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
     cryptPathResolver,
+    reporter,
   }
   return context
 }

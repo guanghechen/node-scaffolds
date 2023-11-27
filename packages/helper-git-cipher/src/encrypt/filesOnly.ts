@@ -5,6 +5,7 @@ import { hasUncommittedContent, isGitRepo } from '@guanghechen/helper-git'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
+import type { IReporter } from '@guanghechen/reporter.types'
 import type { IGitCipherContext } from '../GitCipherContext'
 import { internalEncryptDiffItems } from './_internal'
 
@@ -14,6 +15,7 @@ export interface IEncryptFilesOnlyParams {
   plainPathResolver: IWorkspacePathResolver
   confirm(
     candidateDiffItems: ReadonlyArray<IDraftCatalogDiffItem>,
+    reporter: IReporter,
   ): Promise<{ diffItems: IDraftCatalogDiffItem[]; message: string }>
 }
 
@@ -55,7 +57,7 @@ export async function encryptFilesOnly(params: IEncryptFilesOnlyParams): Promise
     plainFiles.sort(),
     false,
   )
-  const confirmResult = await confirm(candidateDraftDiffItems)
+  const confirmResult = await confirm(candidateDraftDiffItems, reporter)
   const draftDiffItems = confirmResult.diffItems
   const message = confirmResult.message.trim()
 

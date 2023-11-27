@@ -3,6 +3,7 @@ import type { CipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import type { IGitCipherContext } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
+import type { IReporter } from '@guanghechen/reporter.types'
 import type { SecretMaster } from '../../SecretMaster'
 import { createContext } from './createContext'
 
@@ -11,12 +12,13 @@ export interface ILoadGitCipherContextParams {
   secretMaster: SecretMaster
   cryptPathResolver: IWorkspacePathResolver
   plainPathResolver: IWorkspacePathResolver
+  reporter: IReporter
 }
 
 export async function loadGitCipherContext(
   params: ILoadGitCipherContextParams,
 ): Promise<{ cipherFactory: ICipherFactory; context: IGitCipherContext }> {
-  const { secretFilepath, secretMaster, cryptPathResolver, plainPathResolver } = params
+  const { secretFilepath, secretMaster, cryptPathResolver, plainPathResolver, reporter } = params
   const secretKeeper = await secretMaster.load({
     filepath: secretFilepath,
     cryptRootDir: cryptPathResolver.root,
@@ -45,6 +47,7 @@ export async function loadGitCipherContext(
     catalogContext,
     catalogFilepath,
     cipherFactory,
+    reporter,
     getDynamicIv: secretMaster.getDynamicIv,
   })
   return { cipherFactory, context }

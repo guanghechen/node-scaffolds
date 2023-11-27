@@ -2,11 +2,11 @@ import { destroyBytes } from '@guanghechen/byte'
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import invariant from '@guanghechen/invariant'
+import type { IReporter } from '@guanghechen/reporter.types'
 import { TextFileResource } from '@guanghechen/resource'
 import { createHash } from 'node:crypto'
 import { ErrorCode, EventTypes } from './core/constant'
 import { eventBus } from './core/event'
-import { reporter } from './core/reporter'
 import {
   CryptSecretConfigKeeper,
   SecretConfigKeeper,
@@ -39,21 +39,29 @@ export interface ISecretMasterProps {
    * Maximum length of password
    */
   maxPasswordLength: number
+
+  /**
+   * Reporter to log debug/verbose/info/warn/error messages.
+   */
+  reporter: IReporter
 }
 
 export class SecretMaster {
-  protected readonly showAsterisk: boolean
-  protected readonly maxRetryTimes: number
   protected readonly minPasswordLength: number
   protected readonly maxPasswordLength: number
+  protected readonly maxRetryTimes: number
+  protected readonly showAsterisk: boolean
+  protected readonly reporter: IReporter
   #secretCipherFactory: ICipherFactory | undefined
   #secretConfigKeeper: SecretConfigKeeper | undefined
 
   constructor(props: ISecretMasterProps) {
-    this.showAsterisk = props.showAsterisk
-    this.maxRetryTimes = props.maxRetryTimes
     this.minPasswordLength = props.minPasswordLength
     this.maxPasswordLength = props.maxPasswordLength
+    this.maxRetryTimes = props.maxRetryTimes
+    this.showAsterisk = props.showAsterisk
+    this.reporter = props.reporter
+
     this.#secretCipherFactory = undefined
     this.#secretConfigKeeper = undefined
     eventBus.on(EventTypes.EXITING, () => this.destroy())
@@ -95,7 +103,7 @@ export class SecretMaster {
     let password: Uint8Array | null = null
     let configKeeper: SecretConfigKeeper
     try {
-      const { showAsterisk, minPasswordLength, maxPasswordLength } = this
+      const { showAsterisk, minPasswordLength, maxPasswordLength, reporter } = this
       reporter.debug('Asking input new password.')
 
       for (let i = 0; ; ++i) {
@@ -200,10 +208,11 @@ export class SecretMaster {
     filepath: string
     force: boolean
   }): Promise<SecretConfigKeeper> {
+    const { cryptRootDir, filepath, force } = params
     if (!params.force && this.#secretConfigKeeper) return this.#secretConfigKeeper
 
+    const { reporter } = this
     const title: string = this.constructor.name
-    const { cryptRootDir, filepath } = params
     const resource = new TextFileResource({ strict: true, filepath, encoding: 'utf8' })
     const plainConfigKeeper = new CryptSecretConfigKeeper({
       resource,

@@ -2,6 +2,8 @@ import type { IPBKDF2Options } from '@guanghechen/cipher'
 import type { IHashAlgorithm } from '@guanghechen/mac'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
+import type { IReporter } from '@guanghechen/reporter.types'
+import { reporter } from '../../shared/core/reporter'
 import type { ISubCommandInitOptions } from './option'
 
 export interface IGitCipherInitContext {
@@ -103,6 +105,10 @@ export interface IGitCipherInitContext {
    * Plain workspace path resolver.
    */
   readonly plainPathResolver: IWorkspacePathResolver
+  /**
+   * Reporter to log debug/verbose/info/warn/error messages.
+   */
+  readonly reporter: IReporter
 }
 
 export async function createInitContextFromOptions(
@@ -144,6 +150,7 @@ export async function createInitContextFromOptions(
     workspace: options.workspace,
     cryptPathResolver,
     plainPathResolver,
+    reporter,
   }
   return context
 }

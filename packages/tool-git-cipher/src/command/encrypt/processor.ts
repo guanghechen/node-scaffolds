@@ -4,11 +4,11 @@ import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { GitCipher, encryptFilesOnly } from '@guanghechen/helper-git-cipher'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import invariant from '@guanghechen/invariant'
+import type { IReporter } from '@guanghechen/reporter.types'
 import { TextFileResource } from '@guanghechen/resource'
 import inquirer from 'inquirer'
 import type { ICatalogCache } from '../../shared/CatalogCache'
 import { CatalogCacheKeeper } from '../../shared/CatalogCache'
-import { reporter } from '../../shared/core/reporter'
 import { SecretMaster } from '../../shared/SecretMaster'
 import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
 import type { IGitCipherEncryptContext } from './context'
@@ -18,7 +18,7 @@ export class GitCipherEncryptProcessor {
   protected readonly secretMaster: SecretMaster
 
   constructor(context: IGitCipherEncryptContext) {
-    reporter.debug('context:', context)
+    context.reporter.debug('context:', context)
 
     this.context = context
     this.secretMaster = new SecretMaster({
@@ -26,6 +26,7 @@ export class GitCipherEncryptProcessor {
       maxRetryTimes: context.maxRetryTimes,
       minPasswordLength: context.minPasswordLength,
       maxPasswordLength: context.maxPasswordLength,
+      reporter: context.reporter,
     })
   }
 
@@ -34,12 +35,13 @@ export class GitCipherEncryptProcessor {
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
     const { context } = this
-    const { cryptPathResolver, plainPathResolver } = context
+    const { cryptPathResolver, plainPathResolver, reporter } = context
     const { context: gitCipherContext } = await loadGitCipherContext({
       secretFilepath: context.secretFilepath,
       secretMaster: this.secretMaster,
       cryptPathResolver,
       plainPathResolver,
+      reporter,
     })
     const gitCipher = new GitCipher({ context: gitCipherContext })
 
@@ -58,6 +60,7 @@ export class GitCipherEncryptProcessor {
           filepath: context.catalogCacheFilepath,
           encoding: 'utf8',
         }),
+        reporter,
       })
       await cacheKeeper.load()
       const data: ICatalogCache = cacheKeeper.data ?? { crypt2plainIdMap: new Map() }
@@ -74,6 +77,7 @@ export class GitCipherEncryptProcessor {
 
 async function pickDiffItems(
   candidateDiffItems: ReadonlyArray<IDraftCatalogDiffItem>,
+  reporter: IReporter,
 ): Promise<{ diffItems: IDraftCatalogDiffItem[]; message: string }> {
   const added: Array<{ index: number; newItem: IDraftCatalogItem }> = []
   const removed: Array<{ index: number; oldItem: IDraftCatalogItem }> = []

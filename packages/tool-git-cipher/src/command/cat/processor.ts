@@ -4,7 +4,6 @@ import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
-import { reporter } from '../../shared/core/reporter'
 import { SecretMaster } from '../../shared/SecretMaster'
 import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
 import type { IGitCipherCatContext } from './context'
@@ -14,7 +13,7 @@ export class GitCipherCatProcessor {
   protected readonly secretMaster: SecretMaster
 
   constructor(context: IGitCipherCatContext) {
-    reporter.debug('context:', context)
+    context.reporter.debug('context:', context)
 
     this.context = context
     this.secretMaster = new SecretMaster({
@@ -22,6 +21,7 @@ export class GitCipherCatProcessor {
       maxRetryTimes: context.maxRetryTimes,
       minPasswordLength: context.minPasswordLength,
       maxPasswordLength: context.maxPasswordLength,
+      reporter: context.reporter,
     })
   }
 
@@ -30,7 +30,7 @@ export class GitCipherCatProcessor {
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
     const { context } = this
-    const { cryptPathResolver, plainPathResolver } = context
+    const { cryptPathResolver, plainPathResolver, reporter } = context
 
     invariant(
       existsSync(cryptPathResolver.root),
@@ -46,6 +46,7 @@ export class GitCipherCatProcessor {
       secretMaster: this.secretMaster,
       cryptPathResolver,
       plainPathResolver,
+      reporter,
     })
 
     const { catalogContext, configKeeper, getIv } = gitCipherContext

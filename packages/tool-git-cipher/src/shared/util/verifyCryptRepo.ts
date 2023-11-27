@@ -4,9 +4,9 @@ import { showCommitInfo } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper, verifyCryptGitCommit } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
+import type { IReporter } from '@guanghechen/reporter.types'
 import { TextFileResource } from '@guanghechen/resource'
 import micromatch from 'micromatch'
-import { reporter } from '../core/reporter'
 import type { ISecretConfig } from '../SecretConfig.types'
 
 export interface IVerifyCryptRepoParams {
@@ -15,13 +15,20 @@ export interface IVerifyCryptRepoParams {
   readonly cryptCommitId: string
   readonly cryptPathResolver: IWorkspacePathResolver
   readonly plainPathResolver: IWorkspacePathResolver
+  readonly reporter: IReporter
   readonly secretConfig: Readonly<ISecretConfig>
 }
 
 export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<void> {
   const title = 'verifyCryptRepo'
-  const { catalogCipher, cipherFactory, plainPathResolver, cryptPathResolver, secretConfig } =
-    params
+  const {
+    catalogCipher,
+    cipherFactory,
+    plainPathResolver,
+    cryptPathResolver,
+    reporter,
+    secretConfig,
+  } = params
 
   invariant(
     !!cipherFactory && !!catalogCipher,

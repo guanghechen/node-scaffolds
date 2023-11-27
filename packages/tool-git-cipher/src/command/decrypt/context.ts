@@ -1,5 +1,7 @@
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
+import type { IReporter } from '@guanghechen/reporter.types'
+import { reporter } from '../../shared/core/reporter'
 import type { ISubCommandDecryptOptions } from './option'
 
 export interface IGitCipherDecryptContext {
@@ -59,6 +61,10 @@ export interface IGitCipherDecryptContext {
    * Plain workspace path resolver.
    */
   readonly plainPathResolver: IWorkspacePathResolver
+  /**
+   * Reporter to log debug/verbose/info/warn/error messages.
+   */
+  readonly reporter: IReporter
 }
 
 export async function createDecryptContextFromOptions(
@@ -89,6 +95,7 @@ export async function createDecryptContextFromOptions(
     workspace: options.workspace,
     cryptPathResolver,
     plainPathResolver,
+    reporter,
   }
   return context
 }

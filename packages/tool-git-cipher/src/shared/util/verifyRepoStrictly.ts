@@ -3,9 +3,9 @@ import { showCommitInfo } from '@guanghechen/helper-git'
 import type { GitCipher } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
+import type { IReporter } from '@guanghechen/reporter.types'
 import { TextFileResource } from '@guanghechen/resource'
 import { CatalogCacheKeeper } from '../CatalogCache'
-import { reporter } from '../core/reporter'
 
 export interface IVerifyCryptRepoStrictlyParams {
   readonly catalogCacheFilepath: string
@@ -16,6 +16,7 @@ export interface IVerifyCryptRepoStrictlyParams {
   readonly gitCipher: GitCipher
   readonly plainCommitId: string | undefined
   readonly plainPathResolver: IWorkspacePathResolver
+  readonly reporter: IReporter
 }
 
 export async function verifyRepoStrictly(params: IVerifyCryptRepoStrictlyParams): Promise<void> {
@@ -27,6 +28,7 @@ export async function verifyRepoStrictly(params: IVerifyCryptRepoStrictlyParams)
     cryptPathResolver,
     gitCipher,
     plainPathResolver,
+    reporter,
   } = params
 
   invariant(
@@ -51,6 +53,7 @@ export async function verifyRepoStrictly(params: IVerifyCryptRepoStrictlyParams)
         filepath: catalogCacheFilepath,
         encoding: 'utf8',
       }),
+      reporter,
     })
 
     await cacheKeeper.load()

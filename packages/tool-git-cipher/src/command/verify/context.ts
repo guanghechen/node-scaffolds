@@ -1,5 +1,7 @@
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
+import type { IReporter } from '@guanghechen/reporter.types'
+import { reporter } from '../../shared/core/reporter'
 import type { ISubCommandVerifyOptions } from './option'
 
 export interface IGitCipherVerifyContext {
@@ -51,6 +53,10 @@ export interface IGitCipherVerifyContext {
    * Plain workspace path resolver.
    */
   readonly plainPathResolver: IWorkspacePathResolver
+  /**
+   * Reporter to log debug/verbose/info/warn/error messages.
+   */
+  readonly reporter: IReporter
 }
 
 export async function createVerifyContextFromOptions(
@@ -80,6 +86,7 @@ export async function createVerifyContextFromOptions(
     workspace: options.workspace,
     cryptPathResolver,
     plainPathResolver,
+    reporter,
   }
   return context
 }

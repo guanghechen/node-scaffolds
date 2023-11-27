@@ -12,7 +12,6 @@ import nodePlop from 'node-plop'
 import { existsSync } from 'node:fs'
 import { resolveBoilerplateFilepath } from '../../shared/core/config'
 import { COMMAND_VERSION } from '../../shared/core/constant'
-import { reporter } from '../../shared/core/reporter'
 import type { SecretConfigKeeper } from '../../shared/SecretConfig'
 import type { IPresetSecretConfig } from '../../shared/SecretConfig.types'
 import { SecretMaster } from '../../shared/SecretMaster'
@@ -23,7 +22,7 @@ export class GitCipherInitProcessor {
   protected secretMaster: SecretMaster
 
   constructor(context: IGitCipherInitContext) {
-    reporter.debug('context:', context)
+    context.reporter.debug('context:', context)
 
     this.context = context
     this.secretMaster = new SecretMaster({
@@ -31,6 +30,7 @@ export class GitCipherInitProcessor {
       maxRetryTimes: context.maxRetryTimes,
       minPasswordLength: context.minPasswordLength,
       maxPasswordLength: context.maxPasswordLength,
+      reporter: context.reporter,
     })
   }
 
@@ -38,7 +38,7 @@ export class GitCipherInitProcessor {
     invariant(hasGitInstalled(), `Cannot find 'git', please install it before continuing.`)
 
     const { context } = this
-    const { plainPathResolver } = context
+    const { plainPathResolver, reporter } = context
     const presetSecretData: IPresetSecretConfig = {
       catalogFilepath: context.catalogFilepath,
       contentHashAlgorithm: context.contentHashAlgorithm,
@@ -204,7 +204,7 @@ export class GitCipherInitProcessor {
   // Render boilerplates.
   protected async _renderBoilerplates(data: { configFilepath: string }): Promise<void> {
     const { context } = this
-    const { cryptPathResolver, plainPathResolver } = context
+    const { cryptPathResolver, plainPathResolver, reporter } = context
 
     // request repository url
     let { plainRepoUrl } = await inquirer.prompt([
@@ -292,7 +292,7 @@ export class GitCipherInitProcessor {
    */
   protected async _cloneFromRemote(plainRepoUrl: string): Promise<void> {
     const { context } = this
-    const { plainPathResolver } = context
+    const { plainPathResolver, reporter } = context
     mkdirsIfNotExists(plainPathResolver.root, true, reporter)
     await execa('git', ['clone', plainRepoUrl, plainPathResolver.root], {
       stdio: 'inherit',
