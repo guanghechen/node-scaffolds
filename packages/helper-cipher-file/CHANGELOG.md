@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.3](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@6.0.0-alpha.2...@guanghechen/helper-cipher-file@6.0.0-alpha.3) (2023-11-27)
+
+**Note:** Version bump only for package @guanghechen/helper-cipher-file
+
+
+
+
+
 # [6.0.0-alpha.2](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@6.0.0-alpha.1...@guanghechen/helper-cipher-file@6.0.0-alpha.2) (2023-11-26)
 
 

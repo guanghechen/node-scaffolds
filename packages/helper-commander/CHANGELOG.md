@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.3](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-commander@6.0.0-alpha.2...@guanghechen/helper-commander@6.0.0-alpha.3) (2023-11-27)
+
+
+### Performance Improvements
+
+* rename sub-command resolve to resolveProcessor ([da1cedd](https://github.com/guanghechen/node-scaffolds/commit/da1cedd29f0254dc35fb94c049c3c5df0957d5f2))
+* 🎨 refactor commands ([5e40f28](https://github.com/guanghechen/node-scaffolds/commit/5e40f284f4140fb44dc64d77dcf096ba64386a0e))
+
+
+
+
+
 # [6.0.0-alpha.2](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-commander@6.0.0-alpha.1...@guanghechen/helper-commander@6.0.0-alpha.2) (2023-11-26)
 
 

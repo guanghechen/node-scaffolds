@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.3](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-git-cipher@6.0.0-alpha.2...@guanghechen/helper-git-cipher@6.0.0-alpha.3) (2023-11-27)
+
+
+### Performance Improvements
+
+* ✅ fix test ([3cd12cb](https://github.com/guanghechen/node-scaffolds/commit/3cd12cb049a09304baaaa5b92066f0b076029238))
+* 🎨 pass reporter from outer ([f70c672](https://github.com/guanghechen/node-scaffolds/commit/f70c672b09dac09721e7935d4d6bb6ea3fcc61ba))
+
+
+
+
+
 # [6.0.0-alpha.2](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-git-cipher@6.0.0-alpha.1...@guanghechen/helper-git-cipher@6.0.0-alpha.2) (2023-11-26)
 
 

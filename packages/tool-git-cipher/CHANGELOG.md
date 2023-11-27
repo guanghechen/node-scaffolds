@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.3](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-git-cipher@6.0.0-alpha.2...@guanghechen/tool-git-cipher@6.0.0-alpha.3) (2023-11-27)
+
+
+### Performance Improvements
+
+* rename sub-command resolve to resolveProcessor ([da1cedd](https://github.com/guanghechen/node-scaffolds/commit/da1cedd29f0254dc35fb94c049c3c5df0957d5f2))
+* :bug:  fix options ([ddf2f12](https://github.com/guanghechen/node-scaffolds/commit/ddf2f12d841b96ebdf61b8c91f972d338d956a8f))
+* fix lint ([6e15859](https://github.com/guanghechen/node-scaffolds/commit/6e158599e580afdffcbe54e103cc7b7db67e75a1))
+* update entry ([6aa280a](https://github.com/guanghechen/node-scaffolds/commit/6aa280aa1451ba67227f2bc3e16abea62287768a))
+* 🚚 move config/boilerplates/ -> boilerplates/ ([90651de](https://github.com/guanghechen/node-scaffolds/commit/90651de549ec7ab32230d9476562b0cc79d72fa8))
+* 🎨 move password related utils together ([09cfad1](https://github.com/guanghechen/node-scaffolds/commit/09cfad11c5e5e12c48dd338b7d8df6b455ceccde))
+* 🎨 pass 'inputAnswer' from outer ([652d60c](https://github.com/guanghechen/node-scaffolds/commit/652d60c1113aab7453a187bbe84bfbae46617d1d))
+* 🎨 pass reporter from outer ([f70c672](https://github.com/guanghechen/node-scaffolds/commit/f70c672b09dac09721e7935d4d6bb6ea3fcc61ba))
+* 🎨 refactor commands ([5e40f28](https://github.com/guanghechen/node-scaffolds/commit/5e40f284f4140fb44dc64d77dcf096ba64386a0e))
+* 🎨 reorgnize files ([bf4c335](https://github.com/guanghechen/node-scaffolds/commit/bf4c3352fc9638e32d7e6e1280d1e1dc9ac8d9c5))
+* 📝 update READMEs and boilerplates ([1a5e41b](https://github.com/guanghechen/node-scaffolds/commit/1a5e41b10e5d0cdc1a205521b3179b4fc7d1bf58))
+
+
+
+
+
 # [6.0.0-alpha.2](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-git-cipher@6.0.0-alpha.1...@guanghechen/tool-git-cipher@6.0.0-alpha.2) (2023-11-26)
 
 
