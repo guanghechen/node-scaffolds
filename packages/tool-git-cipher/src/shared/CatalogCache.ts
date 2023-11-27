@@ -1,6 +1,6 @@
 import type { IConfigKeeper } from '@guanghechen/config'
 import { JsonConfigKeeper } from '@guanghechen/config'
-import { reporter } from '../core/reporter'
+import { reporter } from './core/reporter'
 
 export interface ICatalogCache {
   crypt2plainIdMap: Map<string, string>

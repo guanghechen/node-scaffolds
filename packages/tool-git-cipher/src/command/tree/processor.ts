@@ -6,8 +6,8 @@ import { isGitRepo, showFileContent } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
-import { reporter } from '../../core/reporter'
-import { SecretMaster } from '../../util/SecretMaster'
+import { reporter } from '../../shared/core/reporter'
+import { SecretMaster } from '../../shared/SecretMaster'
 import type { IGitCipherTreeContext } from './context'
 
 export class GitCipherTreeProcessor {

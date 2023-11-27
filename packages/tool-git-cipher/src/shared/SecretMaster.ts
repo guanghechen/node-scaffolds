@@ -4,12 +4,9 @@ import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import invariant from '@guanghechen/invariant'
 import { TextFileResource } from '@guanghechen/resource'
 import { createHash } from 'node:crypto'
-import { ErrorCode } from '../core/error'
-import { EventTypes, eventBus } from '../core/event'
-import { reporter } from '../core/reporter'
-import { confirmPassword } from './password/confirm'
-import { inputPassword } from './password/input'
-import { verifyWorkspacePassword } from './password/verify'
+import { ErrorCode, EventTypes } from './core/constant'
+import { eventBus } from './core/event'
+import { reporter } from './core/reporter'
 import {
   CryptSecretConfigKeeper,
   SecretConfigKeeper,
@@ -18,6 +15,9 @@ import {
   secretConfigHashAlgorithm,
 } from './SecretConfig'
 import type { IPresetSecretConfig, ISecretConfig, ISecretConfigData } from './SecretConfig.types'
+import { confirmPassword } from './util/password/confirm'
+import { inputPassword } from './util/password/input'
+import { verifyWorkspacePassword } from './util/password/verify'
 
 export interface ISecretMasterProps {
   /**

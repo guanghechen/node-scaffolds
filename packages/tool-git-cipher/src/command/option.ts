@@ -8,7 +8,7 @@ import { isNonBlankString } from '@guanghechen/helper-is'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
 import { pathResolver } from '@guanghechen/path'
 import path from 'node:path'
-import { reporter } from '../core/reporter'
+import { reporter } from '../shared/core/reporter'
 
 // Global command options
 export interface IGlobalCommandOptions extends ICommandConfigurationOptions {

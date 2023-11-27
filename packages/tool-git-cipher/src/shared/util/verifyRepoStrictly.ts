@@ -4,8 +4,8 @@ import type { GitCipher } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { TextFileResource } from '@guanghechen/resource'
+import { CatalogCacheKeeper } from '../CatalogCache'
 import { reporter } from '../core/reporter'
-import { CatalogCacheKeeper } from './CatalogCache'
 
 export interface IVerifyCryptRepoStrictlyParams {
   readonly catalogCacheFilepath: string

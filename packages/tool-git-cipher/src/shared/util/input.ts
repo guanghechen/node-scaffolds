@@ -1,6 +1,7 @@
 import { destroyBytes, mergeBytes } from '@guanghechen/byte'
 import { isNonBlankString } from '@guanghechen/helper-is'
-import { EventTypes, eventBus } from '../core/event'
+import { EventTypes } from '../core/constant'
+import { eventBus } from '../core/event'
 
 export interface IInputSingleLineParams {
   question?: string

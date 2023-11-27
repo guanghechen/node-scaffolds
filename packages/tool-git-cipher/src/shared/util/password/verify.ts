@@ -1,8 +1,8 @@
 import { destroyBytes } from '@guanghechen/byte'
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
-import { decodeAuthTag, decodeCryptBytes } from '../SecretConfig'
-import type { ISecretConfigData } from '../SecretConfig.types'
+import { decodeAuthTag, decodeCryptBytes } from '../../SecretConfig'
+import type { ISecretConfigData } from '../../SecretConfig.types'
 
 export async function verifyWorkspacePassword(
   cryptSecretConfig: Readonly<ISecretConfigData>,

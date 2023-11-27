@@ -1,6 +1,7 @@
 import { destroyBytes } from '@guanghechen/byte'
 import { calcMac } from '@guanghechen/mac'
-import { ErrorCode, type ICustomError } from '../../core/error'
+import { ErrorCode } from '../../core/constant'
+import type { ICustomError } from '../../core/error'
 import { inputAnswer } from '../input'
 
 interface IParams {

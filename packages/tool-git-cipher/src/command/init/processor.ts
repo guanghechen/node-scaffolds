@@ -10,12 +10,12 @@ import { execa } from 'execa'
 import inquirer from 'inquirer'
 import nodePlop from 'node-plop'
 import { existsSync } from 'node:fs'
-import { resolveTemplateFilepath } from '../../core/config'
-import { COMMAND_VERSION } from '../../core/constant'
-import { reporter } from '../../core/reporter'
-import type { SecretConfigKeeper } from '../../util/SecretConfig'
-import type { IPresetSecretConfig } from '../../util/SecretConfig.types'
-import { SecretMaster } from '../../util/SecretMaster'
+import { resolveBoilerplateFilepath } from '../../shared/core/config'
+import { COMMAND_VERSION } from '../../shared/core/constant'
+import { reporter } from '../../shared/core/reporter'
+import type { SecretConfigKeeper } from '../../shared/SecretConfig'
+import type { IPresetSecretConfig } from '../../shared/SecretConfig.types'
+import { SecretMaster } from '../../shared/SecretMaster'
 import type { IGitCipherInitContext } from './context'
 
 export class GitCipherInitProcessor {
@@ -231,7 +231,7 @@ export class GitCipherInitProcessor {
       return
     }
 
-    const boilerplate = resolveTemplateFilepath('plop.mjs')
+    const boilerplate = resolveBoilerplateFilepath('plop.mjs')
     const plop = await nodePlop(boilerplate, {
       force: false,
       destBasePath: context.workspace,

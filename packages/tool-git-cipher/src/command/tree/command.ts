@@ -8,8 +8,8 @@ import {
   createSubCommandExecutor,
   createSubCommandMounter,
 } from '@guanghechen/helper-commander'
-import { COMMAND_NAME } from '../../core/constant'
-import { wrapErrorHandler } from '../../core/error'
+import { COMMAND_NAME } from '../../shared/core/constant'
+import { wrapErrorHandler } from '../../shared/core/error'
 import type { ISubCommandTreeOptions } from './option'
 import { resolveSubCommandTreeOptions } from './option'
 import { tree } from './run'

@@ -7,7 +7,7 @@ import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { TextFileResource } from '@guanghechen/resource'
 import micromatch from 'micromatch'
 import { reporter } from '../core/reporter'
-import type { ISecretConfig } from './SecretConfig.types'
+import type { ISecretConfig } from '../SecretConfig.types'
 
 export interface IVerifyCryptRepoParams {
   readonly catalogCipher: ICipher | undefined

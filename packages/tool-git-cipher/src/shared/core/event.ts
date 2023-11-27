@@ -1,17 +1,6 @@
 import { EventBus } from '@guanghechen/event-bus'
+import { EventTypes } from './constant'
 import { reporter } from './reporter'
-
-// Types of the event dispatched in the event bus.
-export enum EventTypes {
-  /**
-   * Cancelled, exit program.
-   */
-  CANCELED = 'CANCELED',
-  /**
-   * Exiting, exiting program.
-   */
-  EXITING = 'EXITING',
-}
 
 export const eventBus = new EventBus<EventTypes>()
   .on(EventTypes.CANCELED, (_evt, eb) => {

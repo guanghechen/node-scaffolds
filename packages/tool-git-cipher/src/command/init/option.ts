@@ -8,7 +8,7 @@ import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
 import type { IHashAlgorithm } from '@guanghechen/mac'
 import { pathResolver } from '@guanghechen/path'
-import { reporter } from '../../core/reporter'
+import { reporter } from '../../shared/core/reporter'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 

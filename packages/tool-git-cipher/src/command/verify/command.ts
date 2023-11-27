@@ -8,8 +8,8 @@ import type {
   ISubCommandMounter,
   ISubCommandProcessor,
 } from '@guanghechen/helper-commander'
-import { COMMAND_NAME } from '../../core/constant'
-import { wrapErrorHandler } from '../../core/error'
+import { COMMAND_NAME } from '../../shared/core/constant'
+import { wrapErrorHandler } from '../../shared/core/error'
 import type { ISubCommandVerifyOptions } from './option'
 import { resolveSubCommandVerifyOptions } from './option'
 import { verify } from './run'

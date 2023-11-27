@@ -4,9 +4,9 @@ import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
-import { reporter } from '../../core/reporter'
-import { loadGitCipherContext } from '../../util/context/loadGitCipherContext'
-import { SecretMaster } from '../../util/SecretMaster'
+import { reporter } from '../../shared/core/reporter'
+import { SecretMaster } from '../../shared/SecretMaster'
+import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
 import type { IGitCipherCatContext } from './context'
 
 export class GitCipherCatProcessor {

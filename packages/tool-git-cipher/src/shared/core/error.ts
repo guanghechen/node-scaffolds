@@ -1,15 +1,6 @@
-import { EventTypes, eventBus } from './event'
+import { ErrorCode, EventTypes } from './constant'
+import { eventBus } from './event'
 import { reporter } from './reporter'
-
-// Status code of custom error.
-export enum ErrorCode {
-  // Invalid password.
-  BAD_PASSWORD = 'BAD_PASSWORD',
-  // Entered passwords differ.
-  ENTERED_PASSWORD_DIFFER = 'ENTERED_PASSWORD_DIFFER',
-  // Incorrect password entered.
-  WRONG_PASSWORD = 'WRONG_PASSWORD',
-}
 
 export interface ICustomError {
   code: ErrorCode

@@ -3,7 +3,7 @@ import type { CipherCatalogContext } from '@guanghechen/helper-cipher-file'
 import type { IGitCipherContext } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
-import type { SecretMaster } from '../SecretMaster'
+import type { SecretMaster } from '../../SecretMaster'
 import { createContext } from './createContext'
 
 export interface ILoadGitCipherContextParams {
