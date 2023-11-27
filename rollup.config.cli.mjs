@@ -49,8 +49,8 @@ export default async function () {
       verbose: true,
       targets: [
         {
-          src: 'src/config/*',
-          dest: 'lib/config',
+          src: 'src/boilerplates/*',
+          dest: 'lib/boilerplates',
         },
       ],
     },
