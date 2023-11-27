@@ -4,6 +4,7 @@ import type {
 } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
+import type { IReporter } from '@guanghechen/reporter.types'
 import type { IGitCipherSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
@@ -26,15 +27,18 @@ const getDefaultCommandTreeOptions = (params: IResolveDefaultOptionsParams): ICo
 export function resolveSubCommandTreeOptions(
   commandName: string,
   subCommandName: string,
+  args: string[],
   options: IGitCipherTreeOptions,
+  reporter: IReporter,
 ): IGitCipherTreeOptions {
   const baseOptions: IGitCipherTreeOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
-    getDefaultCommandTreeOptions,
+    args,
     options,
+    reporter,
+    getDefaultCommandTreeOptions,
   )
-  const { reporter } = baseOptions
 
   // Resolve filesAt
   const filesAt: string = cover<string>(baseOptions.filesAt, options.filesAt, isNonBlankString)

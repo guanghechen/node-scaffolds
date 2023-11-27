@@ -31,11 +31,12 @@ export const getDefaultGlobalCommandOptions = (
 export function resolveBaseCommandOptions<O extends object>(
   commandName: string,
   subCommandName: string | false,
-  getDefaultOptions: (params: IResolveDefaultOptionsParams) => O,
+  _args: string[],
   options: O & IGlobalCommandOptions,
+  reporter: IReporter,
+  getDefaultOptions: (params: IResolveDefaultOptionsParams) => O,
 ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
-  const { reporter } = options
   const baseOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>({
     reporter,
     commandName,

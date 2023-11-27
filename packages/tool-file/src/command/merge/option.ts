@@ -2,6 +2,7 @@ import type {
   ICommandConfigurationFlatOpts,
   IResolveDefaultOptionsParams,
 } from '@guanghechen/helper-commander'
+import type { IReporter } from '@guanghechen/reporter.types'
 import type { IToolFileSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
@@ -19,13 +20,17 @@ const getDefaultCommandMergeOptions = (params: IResolveDefaultOptionsParams): IC
 export function resolveSubCommandMergeOptions(
   commandName: string,
   subCommandName: string,
+  args: string[],
   options: IToolFileMergeOptions,
+  reporter: IReporter,
 ): IToolFileMergeOptions {
   const baseOptions: IToolFileMergeOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
-    getDefaultCommandMergeOptions,
+    args,
     options,
+    reporter,
+    getDefaultCommandMergeOptions,
   )
 
   const resolvedOptions: ISubCommandOptions = {}

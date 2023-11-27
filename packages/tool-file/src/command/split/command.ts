@@ -39,11 +39,17 @@ export class ToolFileSubCommandSplit
   }
 
   public override async resolve(
-    _args: string[],
+    args: string[],
     options: O,
   ): Promise<IToolFileSubCommandProcessor<O, C>> {
     const { subCommandName, reporter } = this
-    const resolvedOptions: O = resolveSubCommandSplitOptions(COMMAND_NAME, subCommandName, options)
+    const resolvedOptions: O = resolveSubCommandSplitOptions(
+      COMMAND_NAME,
+      subCommandName,
+      args,
+      options,
+      reporter,
+    )
     const context: C = await createFileSplitContextFromOptions(resolvedOptions)
     const processor: IToolFileSubCommandProcessor<O, C> = new ToolFileSplit({ context, reporter })
     return processor

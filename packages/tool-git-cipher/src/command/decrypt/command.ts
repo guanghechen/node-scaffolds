@@ -49,14 +49,16 @@ export class GitCipherSubCommandDecrypt
   }
 
   public override async resolve(
-    _args: string[],
+    args: string[],
     options: O,
   ): Promise<IGitCipherSubCommandProcessor<O, C>> {
     const { subCommandName, eventBus, reporter } = this
     const resolvedOptions: O = resolveSubCommandDecryptOptions(
       COMMAND_NAME,
       subCommandName,
+      args,
       options,
+      reporter,
     )
     const context: C = await createDecryptContextFromOptions(resolvedOptions)
     const processor: IGitCipherSubCommandProcessor<O, C> = new GitCipherDecrypt({

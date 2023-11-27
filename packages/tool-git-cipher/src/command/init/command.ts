@@ -82,8 +82,9 @@ export class GitCipherSubCommandInit extends GitCipherSubCommand<O, C> implement
     const resolvedOptions: O = resolveSubCommandInitOptions(
       COMMAND_NAME,
       subCommandName,
-      options,
       args,
+      options,
+      reporter,
     )
     const context: C = await createInitContextFromOptions(resolvedOptions)
     const processor: IGitCipherSubCommandProcessor<O, C> = new GitCipherInit({

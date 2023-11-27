@@ -8,6 +8,7 @@ import { isNonBlankString, isNotEmptyArray } from '@guanghechen/helper-is'
 import { convertToBoolean, convertToNumber, cover } from '@guanghechen/helper-option'
 import type { IHashAlgorithm } from '@guanghechen/mac'
 import { pathResolver } from '@guanghechen/path'
+import type { IReporter } from '@guanghechen/reporter.types'
 import type { IGitCipherSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
@@ -111,16 +112,19 @@ const getDefaultCommandInitOptions = (params: IResolveDefaultOptionsParams): ICo
 export function resolveSubCommandInitOptions(
   commandName: string,
   subCommandName: string,
+  args: string[],
   options: IGitCipherInitOptions,
-  [workspace]: string[],
+  reporter: IReporter,
 ): IGitCipherInitOptions {
+  const [workspace] = args
   const baseOptions: IGitCipherInitOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
-    getDefaultCommandInitOptions,
+    args,
     { ...options, workspace },
+    reporter,
+    getDefaultCommandInitOptions,
   )
-  const { reporter } = baseOptions
 
   // Resolve catalogFilepath
   const catalogFilepath: string = pathResolver.safeResolve(

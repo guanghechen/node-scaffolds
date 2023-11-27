@@ -37,11 +37,17 @@ export class GitCipherSubCommandVerify extends GitCipherSubCommand<O, C> impleme
   }
 
   public override async resolve(
-    _args: string[],
+    args: string[],
     options: O,
   ): Promise<IGitCipherSubCommandProcessor<O, C>> {
     const { subCommandName, eventBus, reporter } = this
-    const resolvedOptions: O = resolveSubCommandVerifyOptions(COMMAND_NAME, subCommandName, options)
+    const resolvedOptions: O = resolveSubCommandVerifyOptions(
+      COMMAND_NAME,
+      subCommandName,
+      args,
+      options,
+      reporter,
+    )
     const context: C = await createVerifyContextFromOptions(resolvedOptions)
     const processor: IGitCipherSubCommandProcessor<O, C> = new GitCipherVerify({
       context,

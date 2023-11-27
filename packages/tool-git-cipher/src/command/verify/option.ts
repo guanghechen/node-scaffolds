@@ -5,6 +5,7 @@ import type {
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { cover } from '@guanghechen/helper-option'
 import { pathResolver } from '@guanghechen/path'
+import type { IReporter } from '@guanghechen/reporter.types'
 import type { IGitCipherSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
@@ -38,15 +39,18 @@ const getDefaultCommandVerifyOptions = (params: IResolveDefaultOptionsParams): I
 export function resolveSubCommandVerifyOptions(
   commandName: string,
   subCommandName: string,
+  args: string[],
   options: IGitCipherVerifyOptions,
+  reporter: IReporter,
 ): IGitCipherVerifyOptions {
   const baseOptions: IGitCipherVerifyOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
-    getDefaultCommandVerifyOptions,
+    args,
     options,
+    reporter,
+    getDefaultCommandVerifyOptions,
   )
-  const { reporter } = baseOptions
 
   // Resolve catalogCacheFilepath
   const catalogCacheFilepath: string = pathResolver.safeResolve(

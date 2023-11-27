@@ -34,11 +34,17 @@ export class ToolFileSubCommandMerge
   }
 
   public override async resolve(
-    _args: string[],
+    args: string[],
     options: O,
   ): Promise<IToolFileSubCommandProcessor<O, C>> {
     const { subCommandName, reporter } = this
-    const resolvedOptions: O = resolveSubCommandMergeOptions(COMMAND_NAME, subCommandName, options)
+    const resolvedOptions: O = resolveSubCommandMergeOptions(
+      COMMAND_NAME,
+      subCommandName,
+      args,
+      options,
+      reporter,
+    )
     const context: C = await createFileMergeContextFromOptions(resolvedOptions)
     const processor: IToolFileSubCommandProcessor<O, C> = new ToolFileMerge({ context, reporter })
     return processor

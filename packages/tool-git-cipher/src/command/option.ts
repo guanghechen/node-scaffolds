@@ -42,10 +42,6 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
    */
   readonly plainRootDir: string
   /**
-   * Reporter to log debug/verbose/info/warn/error messages.
-   */
-  readonly reporter: IReporter
-  /**
    * The path of secret file. (relative of workspace)
    * @default '.ghc-secret'
    */
@@ -72,7 +68,6 @@ export const getDefaultGlobalCommandOptions = (
     maxRetryTimes: 3,
     minPasswordLength: 6,
     plainRootDir: `${repoName}-plain`,
-    reporter,
     secretFilepath: '.ghc-secret.json',
     showAsterisk: true,
   }
@@ -81,11 +76,12 @@ export const getDefaultGlobalCommandOptions = (
 export function resolveBaseCommandOptions<O extends object>(
   commandName: string,
   subCommandName: string | false,
-  getDefaultOptions: (params: IResolveDefaultOptionsParams) => O,
+  _args: string[],
   options: O & IGlobalCommandOptions,
+  reporter: IReporter,
+  getDefaultOptions: (params: IResolveDefaultOptionsParams) => O,
 ): O & IGlobalCommandOptions & ICommandConfigurationFlatOpts {
   type R = O & IGlobalCommandOptions & ICommandConfigurationFlatOpts
-  const { reporter } = options
   const baseOptions: R = resolveCommandConfigurationOptions<O & IGlobalCommandOptions>({
     reporter,
     commandName,
@@ -163,7 +159,6 @@ export function resolveBaseCommandOptions<O extends object>(
     maxRetryTimes,
     minPasswordLength,
     plainRootDir,
-    reporter,
     secretFilepath,
     showAsterisk,
   }

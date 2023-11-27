@@ -36,11 +36,17 @@ export class GitCipherSubCommandCat
   }
 
   public override async resolve(
-    _args: string[],
+    args: string[],
     options: O,
   ): Promise<IGitCipherSubCommandProcessor<O, C>> {
     const { subCommandName, eventBus, reporter } = this
-    const resolvedOptions: O = resolveSubCommandCatOptions(COMMAND_NAME, subCommandName, options)
+    const resolvedOptions: O = resolveSubCommandCatOptions(
+      COMMAND_NAME,
+      subCommandName,
+      args,
+      options,
+      reporter,
+    )
     const context: C = await createCatContextFromOptions(resolvedOptions)
     const processor: IGitCipherSubCommandProcessor<O, C> = new GitCipherCat({
       context,

@@ -4,6 +4,7 @@ import type {
 } from '@guanghechen/helper-commander'
 import { parseBytesString } from '@guanghechen/helper-func'
 import { convertToNumber, cover } from '@guanghechen/helper-option'
+import type { IReporter } from '@guanghechen/reporter.types'
 import type { IToolFileSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
@@ -25,15 +26,18 @@ const getDefaultCommandSplitOptions = (params: IResolveDefaultOptionsParams): IC
 export function resolveSubCommandSplitOptions(
   commandName: string,
   subCommandName: string,
+  args: string[],
   options: IToolFileSplitOptions,
+  reporter: IReporter,
 ): IToolFileSplitOptions {
   const baseOptions: IToolFileSplitOptions = resolveBaseCommandOptions<ICommandOptions>(
     commandName,
     subCommandName,
-    getDefaultCommandSplitOptions,
+    args,
     options,
+    reporter,
+    getDefaultCommandSplitOptions,
   )
-  const { reporter } = baseOptions
 
   // Resolve partSize.
   const partSize: number | undefined = cover<number | undefined>(

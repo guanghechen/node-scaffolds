@@ -32,11 +32,17 @@ export class GitCipherSubCommandTree extends GitCipherSubCommand<O, C> implement
   }
 
   public override async resolve(
-    _args: string[],
+    args: string[],
     options: O,
   ): Promise<IGitCipherSubCommandProcessor<O, C>> {
     const { subCommandName, eventBus, reporter } = this
-    const resolvedOptions: O = resolveSubCommandTreeOptions(COMMAND_NAME, subCommandName, options)
+    const resolvedOptions: O = resolveSubCommandTreeOptions(
+      COMMAND_NAME,
+      subCommandName,
+      args,
+      options,
+      reporter,
+    )
     const context: C = await createTreeContextFromOptions(resolvedOptions)
     const processor: IGitCipherSubCommandProcessor<O, C> = new GitCipherTree({
       context,
