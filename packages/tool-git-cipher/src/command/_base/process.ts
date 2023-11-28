@@ -10,10 +10,6 @@ import type { IGitCipherSubCommandOption } from './option'
 export interface IGitCipherSubCommandProcessorProps<C extends IGitCipherSubCommandContext> {
   readonly context: C
   /**
-   * Event bus.
-   */
-  readonly eventBus: IEventBus<EventTypes>
-  /**
    * Reporter to log debug/verbose/info/warn/error messages.
    */
   readonly reporter: IReporter
@@ -29,6 +25,12 @@ export interface IGitCipherSubCommandProcessor<
 > extends ISubCommandProcessor<O> {
   readonly context: C
   readonly secretMaster: SecretMaster
+  readonly destroyed: boolean
+
+  /**
+   * Destroy the processor.
+   */
+  destroy(): Promise<void>
 }
 
 export abstract class GitCipherSubCommandProcessor<
@@ -37,19 +39,18 @@ export abstract class GitCipherSubCommandProcessor<
 > implements IGitCipherSubCommandProcessor<O, C>
 {
   public readonly context: C
-  public readonly eventBus: IEventBus<EventTypes>
   public readonly reporter: IReporter
   public readonly secretMaster: SecretMaster
+  private _destroyed: boolean
 
   constructor(props: IGitCipherSubCommandProcessorProps<C>) {
-    const { context, eventBus, reporter, inputAnswer } = props
+    const { context, reporter, inputAnswer } = props
     reporter.debug('context:', context)
 
     this.context = context
-    this.eventBus = eventBus
     this.reporter = reporter
+    this._destroyed = false
     this.secretMaster = new SecretMaster({
-      eventBus,
       maxRetryTimes: context.maxRetryTimes,
       minPasswordLength: context.minPasswordLength,
       maxPasswordLength: context.maxPasswordLength,
@@ -59,5 +60,16 @@ export abstract class GitCipherSubCommandProcessor<
     })
   }
 
+  public get destroyed(): boolean {
+    return this._destroyed
+  }
+
   public abstract process(args: string[], options: O): Promise<void>
+
+  public async destroy(): Promise<void> {
+    if (this._destroyed) return
+
+    this._destroyed = true
+    this.secretMaster.destroy()
+  }
 }

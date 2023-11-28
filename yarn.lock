@@ -630,7 +630,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/event-bus@^6.0.0-alpha.0, @guanghechen/event-bus@workspace:packages/event-bus":
+"@guanghechen/event-bus@workspace:packages/event-bus":
   version: 0.0.0-use.local
   resolution: "@guanghechen/event-bus@workspace:packages/event-bus"
   dependencies:
@@ -1030,7 +1030,6 @@ __metadata:
     "@guanghechen/cipher": ^1.0.0-alpha.14
     "@guanghechen/cipher-workspace.types": ^1.0.0-alpha.1
     "@guanghechen/config": ^1.0.0-alpha.5
-    "@guanghechen/event-bus": ^6.0.0-alpha.0
     "@guanghechen/file-split": ^1.0.0-alpha.11
     "@guanghechen/filetree": ^1.0.0-alpha.7
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.3

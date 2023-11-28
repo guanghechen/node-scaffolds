@@ -1,12 +1,11 @@
 import { destroyBytes } from '@guanghechen/byte'
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
-import type { IEventBus } from '@guanghechen/event-bus'
 import invariant from '@guanghechen/invariant'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { TextFileResource } from '@guanghechen/resource'
 import { createHash } from 'node:crypto'
-import { ErrorCode, EventTypes } from './core/constant'
+import { CustomErrorCode } from './core/constant'
 import {
   CryptSecretConfigKeeper,
   SecretConfigKeeper,
@@ -21,8 +20,6 @@ import { inputPassword } from './util/password/input'
 import { verifyWorkspacePassword } from './util/password/verify'
 
 export interface ISecretMasterProps {
-  eventBus: IEventBus<EventTypes>
-
   /**
    * Whether to print asterisks when entering a password
    */
@@ -57,7 +54,6 @@ export class SecretMaster {
   protected readonly maxRetryTimes: number
   protected readonly showAsterisk: boolean
   protected readonly reporter: IReporter
-  protected readonly eventBus: IEventBus<EventTypes>
   protected readonly inputAnswer: IInputAnswer
   #secretCipherFactory: ICipherFactory | undefined
   #secretConfigKeeper: SecretConfigKeeper | undefined
@@ -68,12 +64,10 @@ export class SecretMaster {
     this.maxRetryTimes = props.maxRetryTimes
     this.showAsterisk = props.showAsterisk
     this.reporter = props.reporter
-    this.eventBus = props.eventBus
     this.inputAnswer = props.inputAnswer
 
     this.#secretCipherFactory = undefined
     this.#secretConfigKeeper = undefined
-    this.eventBus.on(EventTypes.EXITING, () => this.destroy())
   }
 
   public get cipherFactory(): ICipherFactory | undefined {
@@ -112,19 +106,11 @@ export class SecretMaster {
     let password: Uint8Array | null = null
     let configKeeper: SecretConfigKeeper
     try {
-      const {
-        eventBus,
-        showAsterisk,
-        minPasswordLength,
-        maxPasswordLength,
-        reporter,
-        inputAnswer,
-      } = this
+      const { showAsterisk, minPasswordLength, maxPasswordLength, reporter, inputAnswer } = this
       reporter.debug('Asking input new password.')
 
       for (let i = 0; ; ++i) {
         password = await inputPassword({
-          eventBus,
           question: 'Password: ',
           showAsterisk,
           maxInputRetryTimes: 2,
@@ -133,7 +119,6 @@ export class SecretMaster {
           inputAnswer,
         })
         const isSame = await confirmPassword({
-          eventBus,
           password,
           showAsterisk,
           minimumSize: minPasswordLength,
@@ -253,7 +238,7 @@ export class SecretMaster {
       password = await this._askPassword(cryptSecretConfig)
       if (password == null) {
         throw {
-          code: ErrorCode.WRONG_PASSWORD,
+          code: CustomErrorCode.WRONG_PASSWORD,
           message: 'Password incorrect',
         }
       }
@@ -307,19 +292,11 @@ export class SecretMaster {
   protected async _askPassword(
     cryptSecretConfig: Readonly<ISecretConfigData>,
   ): Promise<Uint8Array | null> {
-    const {
-      eventBus,
-      maxRetryTimes,
-      showAsterisk,
-      minPasswordLength,
-      maxPasswordLength,
-      inputAnswer,
-    } = this
+    const { maxRetryTimes, showAsterisk, minPasswordLength, maxPasswordLength, inputAnswer } = this
     let password: Uint8Array | null = null
     for (let i = 0; i <= maxRetryTimes; ++i) {
       const question = i > 0 ? '(Retry) Password: ' : 'Password: '
       password = await inputPassword({
-        eventBus,
         question,
         showAsterisk,
         maxInputRetryTimes: 1,

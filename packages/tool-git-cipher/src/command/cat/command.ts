@@ -39,7 +39,7 @@ export class GitCipherSubCommandCat
     args: string[],
     options: O,
   ): Promise<IGitCipherSubCommandProcessor<O, C>> {
-    const { subCommandName, eventBus, reporter, inputAnswer } = this
+    const { subCommandName, reporter, inputAnswer } = this
     const resolvedOptions: O = resolveSubCommandCatOptions(
       COMMAND_NAME,
       subCommandName,
@@ -50,7 +50,6 @@ export class GitCipherSubCommandCat
     const context: C = await createCatContextFromOptions(resolvedOptions)
     const processor: IGitCipherSubCommandProcessor<O, C> = new GitCipherCat({
       context,
-      eventBus,
       reporter,
       inputAnswer,
     })

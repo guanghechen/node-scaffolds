@@ -1,10 +1,9 @@
 import { ChalkLogger } from '@guanghechen/chalk-logger'
-import { EventBus } from '@guanghechen/event-bus'
 import type { ISubCommand, ISubCommandOptions } from '@guanghechen/helper-commander'
 import type { IGitCipherSubCommandProps } from '.'
 import {
   COMMAND_NAME,
-  EventTypes,
+  CustomErrorCode,
   GitCipherSubCommandCat,
   GitCipherSubCommandDecrypt,
   GitCipherSubCommandEncrypt,
@@ -13,6 +12,7 @@ import {
   GitCipherSubCommandVerify,
   createProgram,
   inputAnswerFromTerminal,
+  isCustomError,
 } from '.'
 
 const reporter = new ChalkLogger(
@@ -28,19 +28,9 @@ const reporter = new ChalkLogger(
   process.argv,
 )
 
-export const eventBus = new EventBus<EventTypes>()
-  .on(EventTypes.CANCELED, (_evt, eb) => {
-    reporter.info('canceled')
-    eb.dispatch({ type: EventTypes.EXITING })
-  })
-  .on(EventTypes.EXITING, () => {
-    process.exit(0)
-  })
-
 const program = createProgram()
 
 const commandProps: IGitCipherSubCommandProps = {
-  eventBus,
   reporter,
   inputAnswer: inputAnswerFromTerminal,
 }
@@ -59,4 +49,9 @@ for (const subCommand of commands) {
 
 program
   .parseAsync(process.argv) //
-  .catch(error => reporter.error(error))
+  .catch(error => {
+    if (isCustomError(error) && error.code === CustomErrorCode.SOFT_EXITING) {
+      process.exit(0)
+    }
+    reporter.error(error)
+  })

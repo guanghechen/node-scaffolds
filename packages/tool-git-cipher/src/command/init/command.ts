@@ -78,7 +78,7 @@ export class GitCipherSubCommandInit extends GitCipherSubCommand<O, C> implement
     args: string[],
     options: O,
   ): Promise<IGitCipherSubCommandProcessor<O, C>> {
-    const { subCommandName, eventBus, reporter, inputAnswer } = this
+    const { subCommandName, reporter, inputAnswer } = this
     const resolvedOptions: O = resolveSubCommandInitOptions(
       COMMAND_NAME,
       subCommandName,
@@ -89,7 +89,6 @@ export class GitCipherSubCommandInit extends GitCipherSubCommand<O, C> implement
     const context: C = await createInitContextFromOptions(resolvedOptions)
     const processor: IGitCipherSubCommandProcessor<O, C> = new GitCipherInit({
       context,
-      eventBus,
       reporter,
       inputAnswer,
     })

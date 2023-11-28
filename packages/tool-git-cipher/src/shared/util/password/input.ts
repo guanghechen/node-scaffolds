@@ -1,13 +1,10 @@
 import { destroyBytes } from '@guanghechen/byte'
-import type { IEventBus } from '@guanghechen/event-bus'
 import { calcMac } from '@guanghechen/mac'
-import type { EventTypes } from '../../core/constant'
-import { ErrorCode } from '../../core/constant'
+import { CustomErrorCode } from '../../core/constant'
 import type { ICustomError } from '../../core/error'
 import type { IInputAnswer } from '../input/answer'
 
 interface IParams {
-  eventBus: IEventBus<EventTypes>
   /**
    * Question to ask for input password.
    */
@@ -33,7 +30,6 @@ interface IParams {
 
 export async function inputPassword(params: IParams): Promise<Readonly<Uint8Array>> {
   const {
-    eventBus,
     question,
     showAsterisk,
     maxInputRetryTimes = 3,
@@ -67,7 +63,6 @@ export async function inputPassword(params: IParams): Promise<Readonly<Uint8Arra
   }
 
   const password: Uint8Array | null = await inputAnswer({
-    eventBus,
     question: question.padStart(20),
     maxRetryTimes: maxInputRetryTimes,
     showAsterisk,
@@ -78,7 +73,7 @@ export async function inputPassword(params: IParams): Promise<Readonly<Uint8Arra
 
   if (password == null) {
     const error: ICustomError = {
-      code: ErrorCode.BAD_PASSWORD,
+      code: CustomErrorCode.BAD_PASSWORD,
       message:
         'too many times failed to get answer of ' +
         `'${question.replace(/^[\s:]*([\s\S]+?)[\s:]*$/, '$1')}'`,

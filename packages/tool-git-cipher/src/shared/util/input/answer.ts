@@ -5,7 +5,6 @@ import type { EventTypes } from '../../core/constant'
 import { inputLineFromTerminal } from './line'
 
 export interface IInputAnswerParams {
-  eventBus: IEventBus<EventTypes>
   question: string
   maxRetryTimes?: number
   showAsterisk?: boolean
@@ -18,7 +17,6 @@ export type IInputAnswer = (params: IInputAnswerParams) => Promise<Uint8Array | 
 
 export const inputAnswerFromTerminal: IInputAnswer = async params => {
   const {
-    eventBus,
     question,
     maxRetryTimes = 3,
     showAsterisk = true,
@@ -41,7 +39,6 @@ export const inputAnswerFromTerminal: IInputAnswer = async params => {
     if (answer) destroyBytes(answer)
 
     answer = await inputLineFromTerminal({
-      eventBus,
       question: questionWithHint,
       isValidChar: isValidChar,
       showAsterisk,

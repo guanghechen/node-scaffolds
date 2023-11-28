@@ -1,16 +1,15 @@
 import { destroyBytes, mergeBytes } from '@guanghechen/byte'
-import type { IEventBus } from '@guanghechen/event-bus'
 import { isNonBlankString } from '@guanghechen/helper-is'
-import { EventTypes } from '../../core/constant'
+import { CustomErrorCode } from '../../core/constant'
+import { CustomError } from '../../core/error'
 
 export interface IParams {
-  eventBus: IEventBus<EventTypes>
   question?: string
   showAsterisk?: boolean
   isValidChar?(c: number): boolean
 }
 export async function inputLineFromTerminal(params: IParams): Promise<Uint8Array> {
-  const { eventBus, question, showAsterisk = true, isValidChar } = params
+  const { question, showAsterisk = true, isValidChar } = params
 
   return new Promise<Uint8Array>((resolve, reject) => {
     const stdin = process.stdin
@@ -41,8 +40,7 @@ export async function inputLineFromTerminal(params: IParams): Promise<Uint8Array
       for (let i = 0; i < chunk.length; ++i) {
         switch (chunk[i]) {
           case 0x03: // Ctrl-c
-            eventBus.dispatch({ type: EventTypes.CANCELED })
-            return
+            throw new CustomError(CustomErrorCode.CANCELLED, 'cancelled.')
           case 0x7f: // Backspace
             if (pieceTot > 0) {
               pieceTot -= 1
