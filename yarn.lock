@@ -22,43 +22,43 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.22.13, @babel/code-frame@npm:^7.23.4":
-  version: 7.23.4
-  resolution: "@babel/code-frame@npm:7.23.4"
+"@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.22.13, @babel/code-frame@npm:^7.23.5":
+  version: 7.23.5
+  resolution: "@babel/code-frame@npm:7.23.5"
   dependencies:
     "@babel/highlight": ^7.23.4
     chalk: ^2.4.2
-  checksum: 29999d08c3dbd803f3c296dae7f4f40af1f9e381d6bbc76e5a75327c4b8b023bcb2e209843d292f5d71c3b5c845df1da959d415ed862d6a68e0ad6c5c9622d37
+  checksum: d90981fdf56a2824a9b14d19a4c0e8db93633fd488c772624b4e83e0ceac6039a27cd298a247c3214faa952bf803ba23696172ae7e7235f3b97f43ba278c569a
   languageName: node
   linkType: hard
 
 "@babel/compat-data@npm:^7.22.9":
-  version: 7.23.3
-  resolution: "@babel/compat-data@npm:7.23.3"
-  checksum: 52fff649d4e25b10e29e8a9b1c9ef117f44d354273c17b5ef056555f8e5db2429b35df4c38bdfb6865d23133e0fba92e558d31be87bb8457db4ac688646fdbf1
+  version: 7.23.5
+  resolution: "@babel/compat-data@npm:7.23.5"
+  checksum: 06ce244cda5763295a0ea924728c09bae57d35713b675175227278896946f922a63edf803c322f855a3878323d48d0255a2a3023409d2a123483c8a69ebb4744
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.23.3, @babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3":
-  version: 7.23.3
-  resolution: "@babel/core@npm:7.23.3"
+"@babel/core@npm:7.23.5, @babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3":
+  version: 7.23.5
+  resolution: "@babel/core@npm:7.23.5"
   dependencies:
     "@ampproject/remapping": ^2.2.0
-    "@babel/code-frame": ^7.22.13
-    "@babel/generator": ^7.23.3
+    "@babel/code-frame": ^7.23.5
+    "@babel/generator": ^7.23.5
     "@babel/helper-compilation-targets": ^7.22.15
     "@babel/helper-module-transforms": ^7.23.3
-    "@babel/helpers": ^7.23.2
-    "@babel/parser": ^7.23.3
+    "@babel/helpers": ^7.23.5
+    "@babel/parser": ^7.23.5
     "@babel/template": ^7.22.15
-    "@babel/traverse": ^7.23.3
-    "@babel/types": ^7.23.3
+    "@babel/traverse": ^7.23.5
+    "@babel/types": ^7.23.5
     convert-source-map: ^2.0.0
     debug: ^4.1.0
     gensync: ^1.0.0-beta.2
     json5: ^2.2.3
     semver: ^6.3.1
-  checksum: d306c1fa68972f4e085e9e7ad165aee80eb801ef331f6f07808c86309f03534d638b82ad00a3bc08f4d3de4860ccd38512b2790a39e6acc2caf9ea21e526afe7
+  checksum: 5e5dfb1e61f298676f1fca18c646dbf6fb164ca1056b0169b8d42b7f5c35e026d81823582ccb2358e93a61b035e22b3ad37e2abaae4bf43f1ffb93b6ce19466e
   languageName: node
   linkType: hard
 
@@ -76,15 +76,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:^7.23.3, @babel/generator@npm:^7.23.4, @babel/generator@npm:^7.7.2":
-  version: 7.23.4
-  resolution: "@babel/generator@npm:7.23.4"
+"@babel/generator@npm:^7.23.5, @babel/generator@npm:^7.7.2":
+  version: 7.23.5
+  resolution: "@babel/generator@npm:7.23.5"
   dependencies:
-    "@babel/types": ^7.23.4
+    "@babel/types": ^7.23.5
     "@jridgewell/gen-mapping": ^0.3.2
     "@jridgewell/trace-mapping": ^0.3.17
     jsesc: ^2.5.1
-  checksum: 7403717002584eaeb58559f4d0de19b79e924ef2735711278f7cb5206d081428bf3960578566d6fa4102b7b30800d44f70acffea5ecef83f0cb62361c2a23062
+  checksum: 845ddda7cf38a3edf4be221cc8a439dee9ea6031355146a1a74047aa8007bc030305b27d8c68ec9e311722c910610bde38c0e13a9ce55225251e7cb7e7f3edc8
   languageName: node
   linkType: hard
 
@@ -191,20 +191,20 @@ __metadata:
   linkType: hard
 
 "@babel/helper-validator-option@npm:^7.22.15":
-  version: 7.22.15
-  resolution: "@babel/helper-validator-option@npm:7.22.15"
-  checksum: 68da52b1e10002a543161494c4bc0f4d0398c8fdf361d5f7f4272e95c45d5b32d974896d44f6a0ea7378c9204988879d73613ca683e13bd1304e46d25ff67a8d
+  version: 7.23.5
+  resolution: "@babel/helper-validator-option@npm:7.23.5"
+  checksum: 537cde2330a8aede223552510e8a13e9c1c8798afee3757995a7d4acae564124fe2bf7e7c3d90d62d3657434a74340a274b3b3b1c6f17e9a2be1f48af29cb09e
   languageName: node
   linkType: hard
 
-"@babel/helpers@npm:^7.23.2":
-  version: 7.23.4
-  resolution: "@babel/helpers@npm:7.23.4"
+"@babel/helpers@npm:^7.23.5":
+  version: 7.23.5
+  resolution: "@babel/helpers@npm:7.23.5"
   dependencies:
     "@babel/template": ^7.22.15
-    "@babel/traverse": ^7.23.4
-    "@babel/types": ^7.23.4
-  checksum: 85677834f2698d0a468db59c062b011ebdd65fc12bab96eeaae64084d3ce3268427ce2dbc23c2db2ddb8a305c79ea223c2c9f7bbd1fb3f6d2fa5e978c0eb1cea
+    "@babel/traverse": ^7.23.5
+    "@babel/types": ^7.23.5
+  checksum: c16dc8a3bb3d0e02c7ee1222d9d0865ed4b92de44fb8db43ff5afd37a0fc9ea5e2906efa31542c95b30c1a3a9540d66314663c9a23b5bb9b5ec76e8ebc896064
   languageName: node
   linkType: hard
 
@@ -219,12 +219,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.22.15, @babel/parser@npm:^7.23.0, @babel/parser@npm:^7.23.3, @babel/parser@npm:^7.23.4":
-  version: 7.23.4
-  resolution: "@babel/parser@npm:7.23.4"
+"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.22.15, @babel/parser@npm:^7.23.0, @babel/parser@npm:^7.23.3, @babel/parser@npm:^7.23.5":
+  version: 7.23.5
+  resolution: "@babel/parser@npm:7.23.5"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: 1d90e17d966085b8ea12f357ffcc76568969364481254f0ae3e7ed579e9421d31c7fd3876ccb3b215a5b2ada48251b0c2d0f21ba225ee194f0e18295b49085f2
+  checksum: ea763629310f71580c4a3ea9d3705195b7ba994ada2cc98f9a584ebfdacf54e92b2735d351672824c2c2b03c7f19206899f4d95650d85ce514a822b19a8734c7
   languageName: node
   linkType: hard
 
@@ -394,11 +394,11 @@ __metadata:
   linkType: hard
 
 "@babel/runtime@npm:^7.23.2":
-  version: 7.23.4
-  resolution: "@babel/runtime@npm:7.23.4"
+  version: 7.23.5
+  resolution: "@babel/runtime@npm:7.23.5"
   dependencies:
     regenerator-runtime: ^0.14.0
-  checksum: 8eb6a6b2367f7d60e7f7dd83f477cc2e2fdb169e5460694d7614ce5c730e83324bcf29251b70940068e757ad1ee56ff8073a372260d90cad55f18a825caf97cd
+  checksum: 164d9802424f06908e62d29b8fd3a87db55accf82f46f964ac481dcead11ff7df8391e3696e5fa91a8ca10ea8845bf650acd730fa88cf13f8026cd8d5eec6936
   languageName: node
   linkType: hard
 
@@ -413,32 +413,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/traverse@npm:^7.23.2, @babel/traverse@npm:^7.23.3, @babel/traverse@npm:^7.23.4":
-  version: 7.23.4
-  resolution: "@babel/traverse@npm:7.23.4"
+"@babel/traverse@npm:^7.23.2, @babel/traverse@npm:^7.23.5":
+  version: 7.23.5
+  resolution: "@babel/traverse@npm:7.23.5"
   dependencies:
-    "@babel/code-frame": ^7.23.4
-    "@babel/generator": ^7.23.4
+    "@babel/code-frame": ^7.23.5
+    "@babel/generator": ^7.23.5
     "@babel/helper-environment-visitor": ^7.22.20
     "@babel/helper-function-name": ^7.23.0
     "@babel/helper-hoist-variables": ^7.22.5
     "@babel/helper-split-export-declaration": ^7.22.6
-    "@babel/parser": ^7.23.4
-    "@babel/types": ^7.23.4
+    "@babel/parser": ^7.23.5
+    "@babel/types": ^7.23.5
     debug: ^4.1.0
     globals: ^11.1.0
-  checksum: e8c9cd92cfd6fec9cf3969604edea5a58c2d55275b88b9de06f0d94de43b64b04d57168554b617159d62c840a8700e6d4c7954d2e6ed69cfb918202ac01561e9
+  checksum: 0558b05360850c3ad6384e85bd55092126a8d5f93e29a8e227dd58fa1f9e1a4c25fd337c07c7ae509f0983e7a2b1e761ffdcfaa77a1e1bedbc867058e1de5a7d
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.15, @babel/types@npm:^7.22.5, @babel/types@npm:^7.23.0, @babel/types@npm:^7.23.3, @babel/types@npm:^7.23.4, @babel/types@npm:^7.3.3, @babel/types@npm:^7.8.3":
-  version: 7.23.4
-  resolution: "@babel/types@npm:7.23.4"
+"@babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.15, @babel/types@npm:^7.22.5, @babel/types@npm:^7.23.0, @babel/types@npm:^7.23.5, @babel/types@npm:^7.3.3, @babel/types@npm:^7.8.3":
+  version: 7.23.5
+  resolution: "@babel/types@npm:7.23.5"
   dependencies:
     "@babel/helper-string-parser": ^7.23.4
     "@babel/helper-validator-identifier": ^7.22.20
     to-fast-properties: ^2.0.0
-  checksum: 8a1ab20da663d202b1c090fdef4b157d3c7d8cb1cf60ea548f887d7b674935371409804d6cba52f870c22ced7685fcb41b0578d3edde720990de00cbb328da54
+  checksum: 3d21774480a459ef13b41c2e32700d927af649e04b70c5d164814d8e04ab584af66a93330602c2925e1a6925c2b829cc153418a613a4e7d79d011be1f29ad4b2
   languageName: node
   linkType: hard
 
@@ -513,10 +513,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/byte@npm:^1.0.0-alpha.3":
-  version: 1.0.0-alpha.3
-  resolution: "@guanghechen/byte@npm:1.0.0-alpha.3"
-  checksum: 8ccdfeb53c00f28ffbdfdc6c5f054648c977c7e1a56e71bc22cc2630b2c10910db0a902a7e2d128fe6a6288df2858e8eeae5d8125f28b0da4b7d2c39dad6900f
+"@guanghechen/byte@npm:^1.0.0-alpha.4":
+  version: 1.0.0-alpha.4
+  resolution: "@guanghechen/byte@npm:1.0.0-alpha.4"
+  checksum: c611f242ba5d61e848781c1fb989510dee2de73321b034b72b9c7ec970b27ee7e8b5ddbe823704bb10225a32b8785779c10539b9d1981b23bacd89581bedde27
   languageName: node
   linkType: hard
 
@@ -526,60 +526,60 @@ __metadata:
   dependencies:
     "@guanghechen/helper-is": ^6.0.0-alpha.0
     "@guanghechen/invariant": ^6.0.0-alpha.0
-    "@guanghechen/reporter.types": 1.0.0-alpha.8
-    "@guanghechen/types": ^1.0.0-alpha.8
+    "@guanghechen/reporter.types": 1.0.0-alpha.9
+    "@guanghechen/types": ^1.0.0-alpha.9
     chalk: ^5.3.0
     dayjs: ^1.11.10
     json5: ^2.2.3
   languageName: unknown
   linkType: soft
 
-"@guanghechen/cipher-workspace.types@npm:^1.0.0-alpha.1":
-  version: 1.0.0-alpha.1
-  resolution: "@guanghechen/cipher-workspace.types@npm:1.0.0-alpha.1"
+"@guanghechen/cipher-workspace.types@npm:^1.0.0-alpha.2":
+  version: 1.0.0-alpha.2
+  resolution: "@guanghechen/cipher-workspace.types@npm:1.0.0-alpha.2"
   dependencies:
-    "@guanghechen/path.types": ^1.0.0-alpha.8
-  checksum: b4f89766e57c937eb8211438a59a861eb5762662a1b50ab27ce30fd4274efe432e1aeee37054cf0487d924c24479eb45aac326d699a14e687f90707d7c7b80bc
+    "@guanghechen/path.types": ^1.0.0-alpha.9
+  checksum: 7d4bf2368cbfb5255df89cc8532cfda75e0503642c1aa4bd11f78a1540e0cf4b599e3f854afe9e236fb10f3a7c18745d19c57b3e0300b3ad457c9001e266746f
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher.types@npm:^1.0.0-alpha.8":
-  version: 1.0.0-alpha.8
-  resolution: "@guanghechen/cipher.types@npm:1.0.0-alpha.8"
-  checksum: 381be807f11b7e512902a6a8e93264ce734ffd412a33fbd0fb9486038f94a2a5b838cc879cf7f26f843186d68213bd9a2054d4d2e2fc6e757fce02c17a4f3f6b
+"@guanghechen/cipher.types@npm:^1.0.0-alpha.9":
+  version: 1.0.0-alpha.9
+  resolution: "@guanghechen/cipher.types@npm:1.0.0-alpha.9"
+  checksum: fe9b7c87415ba433c0f9d4bca661471d5bd3d4b0e07fe0cc46f10cf4e8e24a516e503ee32829c9436d094139a1acf5505b011668e41a8ccee3096e2d390031f6
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher@npm:^1.0.0-alpha.14":
-  version: 1.0.0-alpha.14
-  resolution: "@guanghechen/cipher@npm:1.0.0-alpha.14"
+"@guanghechen/cipher@npm:^1.0.0-alpha.15":
+  version: 1.0.0-alpha.15
+  resolution: "@guanghechen/cipher@npm:1.0.0-alpha.15"
   dependencies:
-    "@guanghechen/byte": ^1.0.0-alpha.3
-    "@guanghechen/cipher.types": ^1.0.0-alpha.8
-    "@guanghechen/mac": ^1.0.0-alpha.3
-  checksum: 4631f1f77cde02dca28d3d6e1b2a57659f9f405e464d8f8393fd68c7fa3fdef8974c9512c5d0168ad85bd261e836227071ecc6f05c23880c7c93103f9ae7b12c
+    "@guanghechen/byte": ^1.0.0-alpha.4
+    "@guanghechen/cipher.types": ^1.0.0-alpha.9
+    "@guanghechen/mac": ^1.0.0-alpha.4
+  checksum: a264fe30741c11b6d89718c1b7922e92056ce31b1d50507588bf8e1df28d126bd38aa8e2e4d1f0103ce7ee3d4df2a76b357311203637af88d5602274e2accbee
   languageName: node
   linkType: hard
 
-"@guanghechen/config.types@npm:^1.0.0-alpha.3":
-  version: 1.0.0-alpha.3
-  resolution: "@guanghechen/config.types@npm:1.0.0-alpha.3"
+"@guanghechen/config.types@npm:^1.0.0-alpha.4":
+  version: 1.0.0-alpha.4
+  resolution: "@guanghechen/config.types@npm:1.0.0-alpha.4"
   dependencies:
-    "@guanghechen/resource.types": ^1.0.0-alpha.3
-  checksum: bac6a95ce55e86f0e91cf72db90042c8b1e0f458fccf3c50c8c8474ee76b06868fb0d28b898d461154d16f21011476fd5a7b7300269a79dc6e798a871f3d10f0
+    "@guanghechen/resource.types": ^1.0.0-alpha.4
+  checksum: 9c8657157b28d8800196025f844fb48bc7d4e0912628a4e7118b488a121323b94784785d6889caf1ee9fb60fbb9328235731b3bd7f28695bb81bdd63db055680
   languageName: node
   linkType: hard
 
-"@guanghechen/config@npm:^1.0.0-alpha.5":
-  version: 1.0.0-alpha.5
-  resolution: "@guanghechen/config@npm:1.0.0-alpha.5"
+"@guanghechen/config@npm:^1.0.0-alpha.6":
+  version: 1.0.0-alpha.6
+  resolution: "@guanghechen/config@npm:1.0.0-alpha.6"
   dependencies:
-    "@guanghechen/byte": ^1.0.0-alpha.3
-    "@guanghechen/config.types": ^1.0.0-alpha.3
-    "@guanghechen/mac": ^1.0.0-alpha.3
-    "@guanghechen/resource.types": ^1.0.0-alpha.3
+    "@guanghechen/byte": ^1.0.0-alpha.4
+    "@guanghechen/config.types": ^1.0.0-alpha.4
+    "@guanghechen/mac": ^1.0.0-alpha.4
+    "@guanghechen/resource.types": ^1.0.0-alpha.4
     semver: ^7.5.4
-  checksum: ca10881b355691ea1c3faa9f02b270b4a889319af7f5d2288933ad00649a80d479cdf4fc6914c791df39cf81620ec8724951abb249310119b58db9fde49f7c1a
+  checksum: 940114f95c0388cea883bbc805da5ded9fba4d6063e6df064bbe254967ea835741f7361e12f755f66daa1a7e3fa30247a30859b180f3c157e12f304a8f63f06a
   languageName: node
   linkType: hard
 
@@ -613,8 +613,8 @@ __metadata:
   resolution: "@guanghechen/eslint-config-ts@workspace:packages/eslint-config-ts"
   dependencies:
     "@guanghechen/eslint-config": ^6.0.0-alpha.0
-    "@typescript-eslint/eslint-plugin": ^6.12.0
-    "@typescript-eslint/parser": ^6.12.0
+    "@typescript-eslint/eslint-plugin": ^6.13.1
+    "@typescript-eslint/parser": ^6.13.1
   peerDependencies:
     eslint: ^8.0.0
   languageName: unknown
@@ -638,28 +638,28 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/file-split@npm:^1.0.0-alpha.11":
-  version: 1.0.0-alpha.11
-  resolution: "@guanghechen/file-split@npm:1.0.0-alpha.11"
+"@guanghechen/file-split@npm:^1.0.0-alpha.12":
+  version: 1.0.0-alpha.12
+  resolution: "@guanghechen/file-split@npm:1.0.0-alpha.12"
   dependencies:
-    "@guanghechen/stream": ^1.0.0-alpha.7
-  checksum: 5e40409eb3c79d21df105b238784fdd5b66adc0ebaf1c9ff168c1f3cdd82aa03151b7648cd6c0239f2c17daa5b53470ba4fc73994812a9debd4ec367bc8f5169
+    "@guanghechen/stream": ^1.0.0-alpha.8
+  checksum: 46c68d2be914059d6f52b3cf5315a9e7cc61c2b7398eb1599d0acdf5ebe3850edc87901a69174af35a496716fba62679d636c05c5083ffbfbf5086091cecb387
   languageName: node
   linkType: hard
 
-"@guanghechen/filetree.types@npm:^1.0.0-alpha.7":
-  version: 1.0.0-alpha.7
-  resolution: "@guanghechen/filetree.types@npm:1.0.0-alpha.7"
-  checksum: f63e13ab21e41f655288681f2e65249f65eaa6f1de30b292c7020ed5a2f3b01d6a307122215f361123ea4d218f541cea677e1d8c31d99604dae5d23287de86e4
+"@guanghechen/filetree.types@npm:^1.0.0-alpha.8":
+  version: 1.0.0-alpha.8
+  resolution: "@guanghechen/filetree.types@npm:1.0.0-alpha.8"
+  checksum: c0c22c3c409daf486a0c3849578141f52893c638e11f30fcd706c58314b224df09f0c555e3c7e45f2519f2a516925f11892b9f61c81db2211e83e13f94f3b25d
   languageName: node
   linkType: hard
 
-"@guanghechen/filetree@npm:^1.0.0-alpha.7":
-  version: 1.0.0-alpha.7
-  resolution: "@guanghechen/filetree@npm:1.0.0-alpha.7"
+"@guanghechen/filetree@npm:^1.0.0-alpha.8":
+  version: 1.0.0-alpha.8
+  resolution: "@guanghechen/filetree@npm:1.0.0-alpha.8"
   dependencies:
-    "@guanghechen/filetree.types": ^1.0.0-alpha.7
-  checksum: 959abd2fc16ad14765464725be64898d284cf81dab627ad788044b89c48738949fe538344d788acfcf4f176f9440ec99bac31be34cf1fcb75c5f7c79aad5d077
+    "@guanghechen/filetree.types": ^1.0.0-alpha.8
+  checksum: a7bfa4a2b555f28114b22912602759a1abb5b24f77b2a126e46663c5facb812dbbe021fe224b164ce3187cc8bb9fcaeff27d50e37f3a31a5a27f8c8a89c18026
   languageName: node
   linkType: hard
 
@@ -667,19 +667,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file"
   dependencies:
-    "@guanghechen/byte": ^1.0.0-alpha.3
+    "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/chalk-logger": ^6.0.0-alpha.3
-    "@guanghechen/cipher": ^1.0.0-alpha.14
-    "@guanghechen/cipher-workspace.types": ^1.0.0-alpha.1
-    "@guanghechen/file-split": ^1.0.0-alpha.11
+    "@guanghechen/cipher": ^1.0.0-alpha.15
+    "@guanghechen/cipher-workspace.types": ^1.0.0-alpha.2
+    "@guanghechen/file-split": ^1.0.0-alpha.12
     "@guanghechen/helper-fs": ^6.0.0-alpha.2
     "@guanghechen/helper-func": ^6.0.0-alpha.0
     "@guanghechen/invariant": ^6.0.0-alpha.0
-    "@guanghechen/mac": ^1.0.0-alpha.3
-    "@guanghechen/path": ^1.0.0-alpha.11
-    "@guanghechen/path.types": ^1.0.0-alpha.8
-    "@guanghechen/reporter.types": ^1.0.0-alpha.8
-    "@guanghechen/stream": ^1.0.0-alpha.7
+    "@guanghechen/mac": ^1.0.0-alpha.4
+    "@guanghechen/path": ^1.0.0-alpha.12
+    "@guanghechen/path.types": ^1.0.0-alpha.9
+    "@guanghechen/reporter.types": ^1.0.0-alpha.9
+    "@guanghechen/stream": ^1.0.0-alpha.8
   languageName: unknown
   linkType: soft
 
@@ -694,8 +694,8 @@ __metadata:
     "@guanghechen/helper-option": ^6.0.0-alpha.0
     "@guanghechen/helper-string": ^6.0.0-alpha.0
     "@guanghechen/invariant": ^6.0.0-alpha.0
-    "@guanghechen/path": ^1.0.0-alpha.11
-    "@guanghechen/reporter.types": ^1.0.0-alpha.8
+    "@guanghechen/path": ^1.0.0-alpha.12
+    "@guanghechen/reporter.types": ^1.0.0-alpha.9
     "@types/js-yaml": ^4.0.9
     command-exists: ^1.2.9
     commander: ^11.1.0
@@ -710,7 +710,7 @@ __metadata:
   resolution: "@guanghechen/helper-fs@workspace:packages/helper-fs"
   dependencies:
     "@guanghechen/invariant": ^6.0.0-alpha.0
-    "@guanghechen/reporter.types": ^1.0.0-alpha.8
+    "@guanghechen/reporter.types": ^1.0.0-alpha.9
   languageName: unknown
   linkType: soft
 
@@ -724,21 +724,21 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher"
   dependencies:
-    "@guanghechen/byte": ^1.0.0-alpha.3
+    "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/chalk-logger": ^6.0.0-alpha.3
-    "@guanghechen/cipher": ^1.0.0-alpha.14
-    "@guanghechen/cipher-workspace.types": ^1.0.0-alpha.1
-    "@guanghechen/config": ^1.0.0-alpha.5
+    "@guanghechen/cipher": ^1.0.0-alpha.15
+    "@guanghechen/cipher-workspace.types": ^1.0.0-alpha.2
+    "@guanghechen/config": ^1.0.0-alpha.6
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.3
     "@guanghechen/helper-fs": ^6.0.0-alpha.2
     "@guanghechen/helper-func": ^6.0.0-alpha.0
     "@guanghechen/helper-git": ^6.0.0-alpha.3
     "@guanghechen/helper-jest": ^6.0.0-alpha.0
     "@guanghechen/invariant": ^6.0.0-alpha.0
-    "@guanghechen/path": ^1.0.0-alpha.11
-    "@guanghechen/path.types": ^1.0.0-alpha.8
-    "@guanghechen/reporter.types": ^1.0.0-alpha.8
-    "@guanghechen/resource": ^1.0.0-alpha.4
+    "@guanghechen/path": ^1.0.0-alpha.12
+    "@guanghechen/path.types": ^1.0.0-alpha.9
+    "@guanghechen/reporter.types": ^1.0.0-alpha.9
+    "@guanghechen/resource": ^1.0.0-alpha.5
   languageName: unknown
   linkType: soft
 
@@ -749,7 +749,7 @@ __metadata:
     "@guanghechen/chalk-logger": ^6.0.0-alpha.3
     "@guanghechen/helper-jest": ^6.0.0-alpha.0
     "@guanghechen/invariant": ^6.0.0-alpha.0
-    "@guanghechen/reporter.types": ^1.0.0-alpha.8
+    "@guanghechen/reporter.types": ^1.0.0-alpha.9
     execa: ^8.0.1
   languageName: unknown
   linkType: soft
@@ -825,10 +825,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/mac@npm:^1.0.0-alpha.3":
-  version: 1.0.0-alpha.3
-  resolution: "@guanghechen/mac@npm:1.0.0-alpha.3"
-  checksum: eaea9ee9be10b0da9776e6445096d14715f57579342896e95412567d925b76d0f73b77fda45cd73e29984a19b4f88d18b436de22e2581ed4cf0d4b33e0753968
+"@guanghechen/mac@npm:^1.0.0-alpha.4":
+  version: 1.0.0-alpha.4
+  resolution: "@guanghechen/mac@npm:1.0.0-alpha.4"
+  checksum: a6ca90e5666be0c802cd65aa5642d78b363f750d4b537d9fabfe2573fb9b11199a51dd8624c9cc98ad80c943f10c3c47be0eb6fbcb57fea4f40695f26395ac85
   languageName: node
   linkType: hard
 
@@ -838,7 +838,7 @@ __metadata:
   dependencies:
     "@guanghechen/helper-fs": ^6.0.0-alpha.2
     "@guanghechen/invariant": ^6.0.0-alpha.0
-    "@guanghechen/reporter.types": ^1.0.0-alpha.8
+    "@guanghechen/reporter.types": ^1.0.0-alpha.9
     clipboardy: ^4.0.0
     execa: ^8.0.1
   languageName: unknown
@@ -848,7 +848,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/node-scaffolds@workspace:."
   dependencies:
-    "@babel/core": 7.23.3
+    "@babel/core": 7.23.5
     "@rollup/plugin-replace": ^5.0.5
     "@types/command-exists": ^1.2.3
     "@types/jest": 29.5.10
@@ -878,19 +878,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/path.types@npm:^1.0.0-alpha.8":
-  version: 1.0.0-alpha.8
-  resolution: "@guanghechen/path.types@npm:1.0.0-alpha.8"
-  checksum: 85cb90574da96e690027fe451bed2bbe38ecd0efae15dee80740dafe11a1299463a0811cc04eec2e029d923675e03828e9f0d39cbb2c2c307c738f3fa58ccead
+"@guanghechen/path.types@npm:^1.0.0-alpha.9":
+  version: 1.0.0-alpha.9
+  resolution: "@guanghechen/path.types@npm:1.0.0-alpha.9"
+  checksum: 35fcb93d758edc009501ae277c0d4568599bf7ef582d825de703a48b9b505ffed2b99fd0f3c91b2dd414923e0bb133baeff2a8e3b0950775933371165b2355a0
   languageName: node
   linkType: hard
 
-"@guanghechen/path@npm:^1.0.0-alpha.11":
-  version: 1.0.0-alpha.11
-  resolution: "@guanghechen/path@npm:1.0.0-alpha.11"
+"@guanghechen/path@npm:^1.0.0-alpha.12":
+  version: 1.0.0-alpha.12
+  resolution: "@guanghechen/path@npm:1.0.0-alpha.12"
   dependencies:
-    "@guanghechen/path.types": ^1.0.0-alpha.8
-  checksum: 03a321d610fe6de6aa6d4ad8347b7b50374d52ea1537290084878ee75e145dfe5228ef2ff34fa8495ab451dcffe82256b379363fc7e5b9088788f3426d2a28ac
+    "@guanghechen/path.types": ^1.0.0-alpha.9
+  checksum: 5064741c6a45f7736e23c50dcebe0b78298624de57f93abd770972405d255e3fa1612378939298a9773d66cd59f43bf3d36d7079c1c678786005b96eecaf9fed
   languageName: node
   linkType: hard
 
@@ -904,26 +904,26 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/reporter.types@npm:1.0.0-alpha.8, @guanghechen/reporter.types@npm:^1.0.0-alpha.8":
-  version: 1.0.0-alpha.8
-  resolution: "@guanghechen/reporter.types@npm:1.0.0-alpha.8"
-  checksum: 8dc6d53d1879213bf7a0f37da726ea094b9ab79a49bb352bfa0f2ca898a52397ad7ca8aefd251c81edd2269420cec140b99ee27758c34c6d899e6efee1c23292
+"@guanghechen/reporter.types@npm:1.0.0-alpha.9, @guanghechen/reporter.types@npm:^1.0.0-alpha.9":
+  version: 1.0.0-alpha.9
+  resolution: "@guanghechen/reporter.types@npm:1.0.0-alpha.9"
+  checksum: 170c3c92eac5ab0d4579433c51889ca1a11a2be047e68bdd783d678dbf8c0cb195174a8c92d15598573ebeea1ea9745bc9da6dcf33d854d96cb80df00b3e9f7a
   languageName: node
   linkType: hard
 
-"@guanghechen/resource.types@npm:^1.0.0-alpha.3":
-  version: 1.0.0-alpha.3
-  resolution: "@guanghechen/resource.types@npm:1.0.0-alpha.3"
-  checksum: c55906865d03887fcbce0ec84a52f3d6657ec46e5c2b6408a479788ce68031499257d75658ed9b5fe88074f77bf1b00ed6815b488a0bd2835d7fcf4bb52063c9
-  languageName: node
-  linkType: hard
-
-"@guanghechen/resource@npm:^1.0.0-alpha.4":
+"@guanghechen/resource.types@npm:^1.0.0-alpha.4":
   version: 1.0.0-alpha.4
-  resolution: "@guanghechen/resource@npm:1.0.0-alpha.4"
+  resolution: "@guanghechen/resource.types@npm:1.0.0-alpha.4"
+  checksum: b2b6fa72471f0dd48f15270834f7ad23f1d6630e718a32ac88a1a24d4bf1ffc101b7c2e12d6287eac1f266d74088b02b440763e869448b13342ccdd4f4c55fdb
+  languageName: node
+  linkType: hard
+
+"@guanghechen/resource@npm:^1.0.0-alpha.5":
+  version: 1.0.0-alpha.5
+  resolution: "@guanghechen/resource@npm:1.0.0-alpha.5"
   dependencies:
-    "@guanghechen/resource.types": ^1.0.0-alpha.3
-  checksum: 64bb5c8acf9a577f1bb77c92cda114aef77354f4d499a0dd17b16cb584351327fb5c8b28070652789709e9fc86a8832261d4ef387f7aea289f2f806a0beea79b
+    "@guanghechen/resource.types": ^1.0.0-alpha.4
+  checksum: 3332852ea5302b0746989b5bab820c837b160c51d931ce3fac2b090d185e00fb67543ce03826063f73470f0653f2b59c83bfe91bcf177754d08972b58038b30a
   languageName: node
   linkType: hard
 
@@ -983,7 +983,7 @@ __metadata:
     "@guanghechen/helper-func": ^6.0.0-alpha.0
     "@guanghechen/helper-is": ^6.0.0-alpha.0
     "@guanghechen/invariant": ^6.0.0-alpha.0
-    "@guanghechen/reporter.types": ^1.0.0-alpha.8
+    "@guanghechen/reporter.types": ^1.0.0-alpha.9
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.2
     globby: ^14.0.0
     minimist: ^1.2.8
@@ -992,12 +992,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/stream@npm:^1.0.0-alpha.7":
-  version: 1.0.0-alpha.7
-  resolution: "@guanghechen/stream@npm:1.0.0-alpha.7"
+"@guanghechen/stream@npm:^1.0.0-alpha.8":
+  version: 1.0.0-alpha.8
+  resolution: "@guanghechen/stream@npm:1.0.0-alpha.8"
   dependencies:
-    "@guanghechen/byte": ^1.0.0-alpha.3
-  checksum: 5d9c044b8f73dd4104f76fad30ff261de2c9526cfd6936f6f5367f3e6644af1757111cb6162b756b1469513e4eb5e298fc89285e6a4fc609b563d76684370041
+    "@guanghechen/byte": ^1.0.0-alpha.4
+  checksum: 73996cff64dd3b08b397803ac03f3a4ceac263b68f113463d41bd766e715d233d1d1c966aa574b983467cd2274d67e303a8795c7bf0119001598021c506aa96c
   languageName: node
   linkType: hard
 
@@ -1006,15 +1006,15 @@ __metadata:
   resolution: "@guanghechen/tool-file@workspace:packages/tool-file"
   dependencies:
     "@guanghechen/chalk-logger": ^6.0.0-alpha.3
-    "@guanghechen/file-split": ^1.0.0-alpha.11
+    "@guanghechen/file-split": ^1.0.0-alpha.12
     "@guanghechen/helper-commander": ^6.0.0-alpha.3
     "@guanghechen/helper-fs": ^6.0.0-alpha.2
     "@guanghechen/helper-func": ^6.0.0-alpha.0
     "@guanghechen/helper-is": ^6.0.0-alpha.0
     "@guanghechen/helper-option": ^6.0.0-alpha.0
     "@guanghechen/invariant": ^6.0.0-alpha.0
-    "@guanghechen/path": ^1.0.0-alpha.11
-    "@guanghechen/reporter.types": ^1.0.0-alpha.8
+    "@guanghechen/path": ^1.0.0-alpha.12
+    "@guanghechen/reporter.types": ^1.0.0-alpha.9
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.2
   bin:
     ghc-file: ./lib/esm/cli.mjs
@@ -1025,13 +1025,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/tool-git-cipher@workspace:packages/tool-git-cipher"
   dependencies:
-    "@guanghechen/byte": ^1.0.0-alpha.3
+    "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/chalk-logger": ^6.0.0-alpha.3
-    "@guanghechen/cipher": ^1.0.0-alpha.14
-    "@guanghechen/cipher-workspace.types": ^1.0.0-alpha.1
-    "@guanghechen/config": ^1.0.0-alpha.5
-    "@guanghechen/file-split": ^1.0.0-alpha.11
-    "@guanghechen/filetree": ^1.0.0-alpha.7
+    "@guanghechen/cipher": ^1.0.0-alpha.15
+    "@guanghechen/cipher-workspace.types": ^1.0.0-alpha.2
+    "@guanghechen/config": ^1.0.0-alpha.6
+    "@guanghechen/file-split": ^1.0.0-alpha.12
+    "@guanghechen/filetree": ^1.0.0-alpha.8
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.3
     "@guanghechen/helper-commander": ^6.0.0-alpha.3
     "@guanghechen/helper-fs": ^6.0.0-alpha.2
@@ -1041,10 +1041,10 @@ __metadata:
     "@guanghechen/helper-option": ^6.0.0-alpha.0
     "@guanghechen/helper-plop": ^6.0.0-alpha.0
     "@guanghechen/invariant": ^6.0.0-alpha.0
-    "@guanghechen/mac": ^1.0.0-alpha.3
-    "@guanghechen/path": ^1.0.0-alpha.11
-    "@guanghechen/reporter.types": ^1.0.0-alpha.8
-    "@guanghechen/resource": ^1.0.0-alpha.4
+    "@guanghechen/mac": ^1.0.0-alpha.4
+    "@guanghechen/path": ^1.0.0-alpha.12
+    "@guanghechen/reporter.types": ^1.0.0-alpha.9
+    "@guanghechen/resource": ^1.0.0-alpha.5
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.2
     "@types/micromatch": ^4.0.6
     execa: ^8.0.1
@@ -1067,7 +1067,7 @@ __metadata:
     "@guanghechen/helper-option": ^6.0.0-alpha.0
     "@guanghechen/invariant": ^6.0.0-alpha.0
     "@guanghechen/mini-copy": ^6.0.0-alpha.2
-    "@guanghechen/path": ^1.0.0-alpha.11
+    "@guanghechen/path": ^1.0.0-alpha.12
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.2
     inquirer: 9.2.12
   bin:
@@ -1075,10 +1075,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/types@npm:^1.0.0-alpha.8":
-  version: 1.0.0-alpha.8
-  resolution: "@guanghechen/types@npm:1.0.0-alpha.8"
-  checksum: 47de19979b249dc42436a11ff5bd44df707b525e63a2a82aec846ab22c30e0f424e942b6383b4a8f0a494595fee1bd91e51657e6b3394b5441f25aaa390ae4f1
+"@guanghechen/types@npm:^1.0.0-alpha.9":
+  version: 1.0.0-alpha.9
+  resolution: "@guanghechen/types@npm:1.0.0-alpha.9"
+  checksum: c60453aa7d53c257d2547c97281d368f3ee658a59aa34d462a143e21414334b45ff0ffbd7b31c74ff0b3ddc50e51eced30d0ff0e87b19581036a0af3301f8fdd
   languageName: node
   linkType: hard
 
@@ -2014,8 +2014,8 @@ __metadata:
   linkType: hard
 
 "@rollup/pluginutils@npm:^5.0.1":
-  version: 5.0.5
-  resolution: "@rollup/pluginutils@npm:5.0.5"
+  version: 5.1.0
+  resolution: "@rollup/pluginutils@npm:5.1.0"
   dependencies:
     "@types/estree": ^1.0.0
     estree-walker: ^2.0.2
@@ -2025,7 +2025,7 @@ __metadata:
   peerDependenciesMeta:
     rollup:
       optional: true
-  checksum: dcd4d6e3cb6047f18c465a5f2bcd29995c565f083fb6ca5505bcf2018ae0c16634fd38d99538fbb7dcef4e1b491cf4b4465f8845b5666778a925a27e9202dbab
+  checksum: 3cc5a6d91452a6eabbfd1ae79b4dd1f1e809d2eecda6e175deb784e75b0911f47e9ecce73f8dd315d6a8b3f362582c91d3c0f66908b6ced69345b3cbe28f8ce8
   languageName: node
   linkType: hard
 
@@ -2503,15 +2503,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^6.12.0":
-  version: 6.12.0
-  resolution: "@typescript-eslint/eslint-plugin@npm:6.12.0"
+"@typescript-eslint/eslint-plugin@npm:^6.13.1":
+  version: 6.13.1
+  resolution: "@typescript-eslint/eslint-plugin@npm:6.13.1"
   dependencies:
     "@eslint-community/regexpp": ^4.5.1
-    "@typescript-eslint/scope-manager": 6.12.0
-    "@typescript-eslint/type-utils": 6.12.0
-    "@typescript-eslint/utils": 6.12.0
-    "@typescript-eslint/visitor-keys": 6.12.0
+    "@typescript-eslint/scope-manager": 6.13.1
+    "@typescript-eslint/type-utils": 6.13.1
+    "@typescript-eslint/utils": 6.13.1
+    "@typescript-eslint/visitor-keys": 6.13.1
     debug: ^4.3.4
     graphemer: ^1.4.0
     ignore: ^5.2.4
@@ -2524,25 +2524,25 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: a791ebe432a6cac50a15c9e98502b62e874de0c7e35fd320b9bdca21afd4ae88c88cff45ee50a95362da14e98965d946e57b15965f5522f1153568a3fe45db8a
+  checksum: 568093d76c200a8502047d74f29300110a59b9f2a5cbf995a6cbe419c803a7ec22220e9592a884401d2dde72c79346b4cc0ee393e7b422924ad4a8a2040af3b0
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^6.12.0":
-  version: 6.12.0
-  resolution: "@typescript-eslint/parser@npm:6.12.0"
+"@typescript-eslint/parser@npm:^6.13.1":
+  version: 6.13.1
+  resolution: "@typescript-eslint/parser@npm:6.13.1"
   dependencies:
-    "@typescript-eslint/scope-manager": 6.12.0
-    "@typescript-eslint/types": 6.12.0
-    "@typescript-eslint/typescript-estree": 6.12.0
-    "@typescript-eslint/visitor-keys": 6.12.0
+    "@typescript-eslint/scope-manager": 6.13.1
+    "@typescript-eslint/types": 6.13.1
+    "@typescript-eslint/typescript-estree": 6.13.1
+    "@typescript-eslint/visitor-keys": 6.13.1
     debug: ^4.3.4
   peerDependencies:
     eslint: ^7.0.0 || ^8.0.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 92923b7ee61f52d6b74f515640fe6bbb6b0a922d20dabeb6b59bc73f3c132bf750a2b706bb40fbe6d233c6ecc1abe905c99aa062280bb78e5724334f5b6c4ac5
+  checksum: 58b7fef6f2d02c8f4737f9908a8d335a20bee20dba648233a69f28e7b39237791d2b9fbb818e628dcc053ddf16507b161ace7f1139e093d72365f1270c426de3
   languageName: node
   linkType: hard
 
@@ -2556,22 +2556,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/scope-manager@npm:6.12.0":
-  version: 6.12.0
-  resolution: "@typescript-eslint/scope-manager@npm:6.12.0"
+"@typescript-eslint/scope-manager@npm:6.13.1":
+  version: 6.13.1
+  resolution: "@typescript-eslint/scope-manager@npm:6.13.1"
   dependencies:
-    "@typescript-eslint/types": 6.12.0
-    "@typescript-eslint/visitor-keys": 6.12.0
-  checksum: 4cc4eb1bcd04ba7b0a1de4284521cde5f3f25f2530f78dfcb3f098396b142fd30a45f615a87dc7a3adddbd131a6255cb12b1df19aacff71a3f766992ddef183f
+    "@typescript-eslint/types": 6.13.1
+    "@typescript-eslint/visitor-keys": 6.13.1
+  checksum: 109a213f82719e10f8c6a0168f2e105dc1369c7e0c075c1f30af137030fc866a3a585a77ff78a9a3538afc213061c8aedbb4462a91f26cbd90eefbab8b89ea10
   languageName: node
   linkType: hard
 
-"@typescript-eslint/type-utils@npm:6.12.0":
-  version: 6.12.0
-  resolution: "@typescript-eslint/type-utils@npm:6.12.0"
+"@typescript-eslint/type-utils@npm:6.13.1":
+  version: 6.13.1
+  resolution: "@typescript-eslint/type-utils@npm:6.13.1"
   dependencies:
-    "@typescript-eslint/typescript-estree": 6.12.0
-    "@typescript-eslint/utils": 6.12.0
+    "@typescript-eslint/typescript-estree": 6.13.1
+    "@typescript-eslint/utils": 6.13.1
     debug: ^4.3.4
     ts-api-utils: ^1.0.1
   peerDependencies:
@@ -2579,7 +2579,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: c345c45f1262eee4b9f6960a59b3aba960643d0004094a3d8fb9682ab79af2fae864695029246dc9e0d4fdb2f3d017a56b7dc034e551d263deba75c2ef048d39
+  checksum: e39d28dd2f3b47a26b4f6aa2c7a301bdd769ce9148d734be93441a813c3d1111eba1d655677355bba5519f3d4dbe93e4ff4e46830216b0302df0070bf7a80057
   languageName: node
   linkType: hard
 
@@ -2590,10 +2590,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:6.12.0":
-  version: 6.12.0
-  resolution: "@typescript-eslint/types@npm:6.12.0"
-  checksum: d3b40f9d400f6455ce5ae610651597c9e9ec85d46ca6d3c1025597a76305c557ebc5b88340ec6db0e694c9c79f1299d375b87a1a5b9314b22231dbbb5ce54695
+"@typescript-eslint/types@npm:6.13.1":
+  version: 6.13.1
+  resolution: "@typescript-eslint/types@npm:6.13.1"
+  checksum: bb1d52f1646bab9acd3ec874567ffbaaaf7fe4a5f79845bdacbfea46d15698e58d45797da05b08c23f9496a17229b7f2c1363d000fd89ce4e79874fd57ba1d4a
   languageName: node
   linkType: hard
 
@@ -2615,12 +2615,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/typescript-estree@npm:6.12.0":
-  version: 6.12.0
-  resolution: "@typescript-eslint/typescript-estree@npm:6.12.0"
+"@typescript-eslint/typescript-estree@npm:6.13.1":
+  version: 6.13.1
+  resolution: "@typescript-eslint/typescript-estree@npm:6.13.1"
   dependencies:
-    "@typescript-eslint/types": 6.12.0
-    "@typescript-eslint/visitor-keys": 6.12.0
+    "@typescript-eslint/types": 6.13.1
+    "@typescript-eslint/visitor-keys": 6.13.1
     debug: ^4.3.4
     globby: ^11.1.0
     is-glob: ^4.0.3
@@ -2629,24 +2629,24 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 943f7ff2e164d812f6ae0a2d5096836aff00b1fda39937b03f126f266f03f3655794f5fc4643b49b71c312126d9422dfd764744bd1ba41ee6821a5bac1511aa2
+  checksum: 09aa0f5cbd60e84df4f58f3d479be352549600b24dbefe75c686ea89252526c52c1c06ce1ae56c0405dd7337002e741c2ba02b71fb1caa3b94a740a70fcc8699
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:6.12.0":
-  version: 6.12.0
-  resolution: "@typescript-eslint/utils@npm:6.12.0"
+"@typescript-eslint/utils@npm:6.13.1":
+  version: 6.13.1
+  resolution: "@typescript-eslint/utils@npm:6.13.1"
   dependencies:
     "@eslint-community/eslint-utils": ^4.4.0
     "@types/json-schema": ^7.0.12
     "@types/semver": ^7.5.0
-    "@typescript-eslint/scope-manager": 6.12.0
-    "@typescript-eslint/types": 6.12.0
-    "@typescript-eslint/typescript-estree": 6.12.0
+    "@typescript-eslint/scope-manager": 6.13.1
+    "@typescript-eslint/types": 6.13.1
+    "@typescript-eslint/typescript-estree": 6.13.1
     semver: ^7.5.4
   peerDependencies:
     eslint: ^7.0.0 || ^8.0.0
-  checksum: dad05bd0e4db7a88c2716f9ee83c7c28c30d71e57392e58dc0db66b5f5c4c86b9db14142c6a1a82cf1650da294d31980c56a118015d3a2a645acb8b8a5ebc315
+  checksum: 14f64840869c8755af4d287cfc74abc424dc139559e87ca1a8b0e850f4fa56311d99dfb61a43dd4433eae5914be12b4b3390e55de1f236dce6701830d17e31c9
   languageName: node
   linkType: hard
 
@@ -2678,13 +2678,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/visitor-keys@npm:6.12.0":
-  version: 6.12.0
-  resolution: "@typescript-eslint/visitor-keys@npm:6.12.0"
+"@typescript-eslint/visitor-keys@npm:6.13.1":
+  version: 6.13.1
+  resolution: "@typescript-eslint/visitor-keys@npm:6.13.1"
   dependencies:
-    "@typescript-eslint/types": 6.12.0
+    "@typescript-eslint/types": 6.13.1
     eslint-visitor-keys: ^3.4.1
-  checksum: 3d8dc74ae748a95fe60b48dbaecca8d9c0c8df344d8034e3843057251fba24f06a3d29dbb9f525c9540b538d8c24221d3cf119ac483e9de38149a978051c72f3
+  checksum: d15d362203a2fe995ea62a59d5b44c15c8fb1fb30ff59dd1542a980f75b3b62035303dfb781d83709921613f6ac8cc5bf57b70f6e20d820aec8b7911f07152e9
   languageName: node
   linkType: hard
 
@@ -3556,22 +3556,22 @@ __metadata:
   linkType: hard
 
 "cacache@npm:^18.0.0":
-  version: 18.0.0
-  resolution: "cacache@npm:18.0.0"
+  version: 18.0.1
+  resolution: "cacache@npm:18.0.1"
   dependencies:
     "@npmcli/fs": ^3.1.0
     fs-minipass: ^3.0.0
     glob: ^10.2.2
     lru-cache: ^10.0.1
     minipass: ^7.0.3
-    minipass-collect: ^1.0.2
+    minipass-collect: ^2.0.1
     minipass-flush: ^1.0.5
     minipass-pipeline: ^1.2.4
     p-map: ^4.0.0
     ssri: ^10.0.0
     tar: ^6.1.11
     unique-filename: ^3.0.0
-  checksum: 2cd6bf15551abd4165acb3a4d1ef0593b3aa2fd6853ae16b5bb62199c2faecf27d36555a9545c0e07dd03347ec052e782923bdcece724a24611986aafb53e152
+  checksum: 5a0b3b2ea451a0379814dc1d3c81af48c7c6db15cd8f7d72e028501ae0036a599a99bbac9687bfec307afb2760808d1c7708e9477c8c70d2b166e7d80b162a23
   languageName: node
   linkType: hard
 
@@ -3636,9 +3636,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001541":
-  version: 1.0.30001564
-  resolution: "caniuse-lite@npm:1.0.30001564"
-  checksum: 5b53749a2e9057e74c5a129fc214fa4434d3f0c3faadbec176efa03b44e40f9c1ef8ceec979f0dd186f7a142476713129df9263e012a178351ba7807217f157a
+  version: 1.0.30001565
+  resolution: "caniuse-lite@npm:1.0.30001565"
+  checksum: 7621f358d0e1158557430a111ca5506008ae0b2c796039ef53aeebf4e2ba15e5241cb89def21ea3a633b6a609273085835b44a522165d871fa44067cdf29cccd
   languageName: node
   linkType: hard
 
@@ -4619,9 +4619,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.535":
-  version: 1.4.594
-  resolution: "electron-to-chromium@npm:1.4.594"
-  checksum: 7bda826be726f789489538d2e5b0355d84ceeb7f5e600d43edfae25ecca13e10b9cd566e4accfa2eb9919bdc410ba6c0a772174f1cbbc4b31b1f5cbb99e01eaf
+  version: 1.4.596
+  resolution: "electron-to-chromium@npm:1.4.596"
+  checksum: 87634f4a2d8a8a611a6fc970923b09d6873379077c3433470d88d4297ee5379315f58cc084a356caecedaa7e98a7905c34cc986508663fbab3981d25e50a3822
   languageName: node
   linkType: hard
 
@@ -5548,13 +5548,13 @@ __metadata:
   linkType: hard
 
 "fs-extra@npm:^11.1.0, fs-extra@npm:^11.1.1":
-  version: 11.1.1
-  resolution: "fs-extra@npm:11.1.1"
+  version: 11.2.0
+  resolution: "fs-extra@npm:11.2.0"
   dependencies:
     graceful-fs: ^4.2.0
     jsonfile: ^6.0.1
     universalify: ^2.0.0
-  checksum: fb883c68245b2d777fbc1f2082c9efb084eaa2bbf9fddaa366130d196c03608eebef7fb490541276429ee1ca99f317e2d73e96f5ca0999eefedf5a624ae1edfd
+  checksum: b12e42fa40ba47104202f57b8480dd098aa931c2724565e5e70779ab87605665594e76ee5fb00545f772ab9ace167fe06d2ab009c416dc8c842c5ae6df7aa7e8
   languageName: node
   linkType: hard
 
@@ -7599,9 +7599,9 @@ __metadata:
   linkType: hard
 
 "json-parse-even-better-errors@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "json-parse-even-better-errors@npm:3.0.0"
-  checksum: f1970b5220c7fa23d888565510752c3d5e863f93668a202fcaa719739fa41485dfc6a1db212f702ebd3c873851cc067aebc2917e3f79763cae2fdb95046f38f3
+  version: 3.0.1
+  resolution: "json-parse-even-better-errors@npm:3.0.1"
+  checksum: bf74fa3f715e56699ccd68b80a7d20908de432a3fae2d5aa2ed530a148e9d9ccdf8e6983b93d9966a553aa70dcf003ce3a7ffec2c0ce74d2a6173e3691a426f0
   languageName: node
   linkType: hard
 
@@ -8399,6 +8399,15 @@ __metadata:
   dependencies:
     minipass: ^3.0.0
   checksum: 14df761028f3e47293aee72888f2657695ec66bd7d09cae7ad558da30415fdc4752bbfee66287dcc6fd5e6a2fa3466d6c484dc1cbd986525d9393b9523d97f10
+  languageName: node
+  linkType: hard
+
+"minipass-collect@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "minipass-collect@npm:2.0.1"
+  dependencies:
+    minipass: ^7.0.3
+  checksum: b251bceea62090f67a6cced7a446a36f4cd61ee2d5cea9aee7fff79ba8030e416327a1c5aa2908dc22629d06214b46d88fdab8c51ac76bacbf5703851b5ad342
   languageName: node
   linkType: hard
 

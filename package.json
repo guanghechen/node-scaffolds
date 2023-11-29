@@ -45,7 +45,7 @@
     "node-plop/inquirer": "^9.1.4"
   },
   "devDependencies": {
-    "@babel/core": "7.23.3",
+    "@babel/core": "7.23.5",
     "@rollup/plugin-replace": "^5.0.5",
     "@types/command-exists": "^1.2.3",
     "@types/jest": "29.5.10",
