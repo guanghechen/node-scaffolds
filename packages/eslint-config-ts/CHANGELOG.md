@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.2](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/eslint-config-ts@6.0.0-alpha.1...@guanghechen/eslint-config-ts@6.0.0-alpha.2) (2023-11-29)
+
+
+### Performance Improvements
+
+* ⬆️ upgrade dependencies ([a376ef0](https://github.com/guanghechen/node-scaffolds/commit/a376ef077450d1909e4173179404c693138bd4e4))
+
+
+
+
+
 # [6.0.0-alpha.1](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/eslint-config-ts@6.0.0-alpha.0...@guanghechen/eslint-config-ts@6.0.0-alpha.1) (2023-11-26)
 
 
