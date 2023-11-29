@@ -14,16 +14,13 @@ import {
   showCommitInfo,
 } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
-import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IGitCipherContext } from '../GitCipherContext'
 import { getPlainCommitId } from '../util'
 
 export interface IDecryptGitCommitParams {
   context: IGitCipherContext
   cryptCommitNode: IGitCommitDagNode
-  cryptPathResolver: IWorkspacePathResolver
   crypt2plainIdMap: Map<string, string>
-  plainPathResolver: IWorkspacePathResolver
 }
 
 /**
@@ -36,9 +33,9 @@ export interface IDecryptGitCommitParams {
  */
 export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise<void> {
   const title = 'decryptGitCommit'
-  const { context, cryptCommitNode, crypt2plainIdMap, cryptPathResolver, plainPathResolver } =
-    params
-  const { cipherBatcher, configKeeper, reporter } = context
+  const { context, cryptCommitNode, crypt2plainIdMap } = params
+  const { catalog, cipherBatcher, configKeeper, reporter } = context
+  const { cryptPathResolver, plainPathResolver } = catalog.context
   const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, reporter }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 

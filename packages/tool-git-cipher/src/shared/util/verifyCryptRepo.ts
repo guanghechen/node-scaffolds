@@ -1,5 +1,6 @@
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
-import { CipherCatalogContext } from '@guanghechen/helper-cipher-file'
+import type { IReadonlyCipherCatalog } from '@guanghechen/cipher-workspace.types'
+import { CipherCatalogContext, FileCipherCatalog } from '@guanghechen/helper-cipher-file'
 import { showCommitInfo } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper, verifyCryptGitCommit } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
@@ -78,12 +79,12 @@ export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<v
         ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
         : () => false,
   })
+  const catalog: IReadonlyCipherCatalog = new FileCipherCatalog(catalogContext)
   await verifyCryptGitCommit({
-    catalogContext,
+    catalog,
     catalogFilepath,
     configKeeper,
     cryptCommitId,
-    cryptPathResolver,
     reporter,
   })
 }

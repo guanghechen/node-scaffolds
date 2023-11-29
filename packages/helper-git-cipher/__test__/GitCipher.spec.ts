@@ -7,7 +7,6 @@ import {
   CipherCatalogContext,
   FileCipherBatcher,
   FileCipherFactory,
-  calcCryptFilepath,
 } from '@guanghechen/helper-cipher-file'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import {
@@ -69,9 +68,6 @@ describe('GitCipher', () => {
   const plainRootDir: string = path.join(workspaceDir, 'plain')
   const cryptRootDir: string = path.join(workspaceDir, 'crypt')
   const bakPlainRootDir: string = path.join(workspaceDir, 'plain_bak')
-  const plainPathResolver = new WorkspacePathResolver(plainRootDir, pathResolver)
-  const cryptPathResolver = new WorkspacePathResolver(cryptRootDir, pathResolver)
-  const bakPlainPathResolver = new WorkspacePathResolver(bakPlainRootDir, pathResolver)
 
   const reporter = new ChalkLogger({
     name: 'GitCipher',
@@ -79,66 +75,103 @@ describe('GitCipher', () => {
     flights: { inline: true, colorful: false },
   })
 
+  const plainPathResolver = new WorkspacePathResolver(plainRootDir, pathResolver)
+  const cryptPathResolver = new WorkspacePathResolver(cryptRootDir, pathResolver)
+  const bakPlainPathResolver = new WorkspacePathResolver(bakPlainRootDir, pathResolver)
   const plainCtx: IGitCommandBaseParams = { cwd: plainRootDir, reporter, execaOptions: {} }
   const cryptCtx: IGitCommandBaseParams = { cwd: cryptRootDir, reporter, execaOptions: {} }
   const bakPlainCtx: IGitCommandBaseParams = { cwd: bakPlainRootDir, reporter, execaOptions: {} }
 
-  const fileSplitter = new FileSplitter({ partCodePrefix })
-  const ivSize = 12
-  const cipherFactory = new AesGcmCipherFactoryBuilder({ ivSize }).buildFromPassword(
-    Buffer.from('guanghechen', encoding),
+  let resource: TextFileResource
+  let configKeeper: GitCipherConfigKeeper
+  let gitCipher: GitCipher
+  let bakGitCipher: GitCipher
+
+  beforeAll(() => {
+    const ivSize = 12
+    const cipherFactory = new AesGcmCipherFactoryBuilder({ ivSize }).buildFromPassword(
+      Buffer.from('guanghechen', encoding),
+      {
+        salt: 'salt',
+        iterations: 100000,
+        digest: 'sha256',
+      },
+    )
+    resource = new TextFileResource({
+      strict: true,
+      filepath: path.join(cryptRootDir, 'catalog.ghc.txt'),
+      encoding: 'utf8',
+    })
+    configKeeper = new GitCipherConfigKeeper({ resource, cipher: cipherFactory.cipher() })
+
+    const fileCipherFactory = new FileCipherFactory({ cipherFactory, reporter })
+    const fileSplitter = new FileSplitter({ partCodePrefix })
+    const cipherBatcher = new FileCipherBatcher({
+      fileCipherFactory,
+      fileSplitter,
+      maxTargetFileSize,
+      reporter,
+    })
+
     {
-      salt: 'salt',
-      iterations: 100000,
-      digest: 'sha256',
-    },
-  )
-  const fileCipherFactory = new FileCipherFactory({ cipherFactory, reporter })
-  const cipherBatcher = new FileCipherBatcher({
-    fileSplitter,
-    fileCipherFactory,
-    maxTargetFileSize,
-    reporter,
-  })
+      // build gitCipher
+      const catalogContext = new CipherCatalogContext({
+        contentHashAlgorithm,
+        cryptFilesDir,
+        cryptFilepathSalt: 'guanghechen_git_cipher',
+        cryptPathResolver,
+        maxTargetFileSize,
+        partCodePrefix,
+        pathHashAlgorithm,
+        plainPathResolver,
+        isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
+      })
+      const context = new GitCipherContext({
+        catalogContext,
+        cipherBatcher,
+        configKeeper,
+        reporter,
+        getDynamicIv: (infos): Readonly<Uint8Array> => calcMac(infos, 'sha256').slice(0, ivSize),
+      })
+      gitCipher = new GitCipher({ context })
+    }
 
-  const resource = new TextFileResource({
-    strict: true,
-    filepath: path.join(cryptRootDir, 'catalog.ghc.txt'),
-    encoding: 'utf8',
+    {
+      // build bakGitCipher
+      const catalogContext = new CipherCatalogContext({
+        contentHashAlgorithm,
+        cryptFilesDir,
+        cryptFilepathSalt: 'guanghechen_git_cipher',
+        cryptPathResolver,
+        maxTargetFileSize,
+        partCodePrefix,
+        pathHashAlgorithm,
+        plainPathResolver: bakPlainPathResolver,
+        isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
+      })
+      const context = new GitCipherContext({
+        catalogContext,
+        cipherBatcher,
+        configKeeper,
+        reporter,
+        getDynamicIv: (infos): Readonly<Uint8Array> => calcMac(infos, 'sha256').slice(0, ivSize),
+      })
+      bakGitCipher = new GitCipher({ context })
+    }
   })
-  const configKeeper = new GitCipherConfigKeeper({ resource, cipher: cipherFactory.cipher() })
-
-  const catalogContext = new CipherCatalogContext({
-    cryptFilesDir,
-    cryptFilepathSalt: 'guanghechen_git_cipher',
-    maxTargetFileSize,
-    partCodePrefix,
-    pathHashAlgorithm,
-    contentHashAlgorithm,
-    plainPathResolver,
-    cryptPathResolver,
-    isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
-  })
-  const context = new GitCipherContext({
-    catalogContext,
-    cipherBatcher,
-    configKeeper,
-    reporter,
-    getDynamicIv: (infos): Readonly<Uint8Array> => calcMac(infos, 'sha256').slice(0, ivSize),
-  })
-  const gitCipher = new GitCipher({ context })
 
   const testCatalog = async (
     commit: { message: string; cryptParents: string[] },
     diffItems: unknown[],
     items: ICatalogItem[],
   ): Promise<void> => {
+    const { context } = gitCipher
     await configKeeper.load()
     expect(configKeeper.data!.commit).toEqual({ message: commit.message })
     expect(
       configKeeper.data!.catalog.items.map(item => ({
         ...item,
-        cryptFilepath: calcCryptFilepath(item.plainFilepath, context.catalogContext),
+        cryptFilepath: context.catalog.calcCryptFilepath(item.plainFilepath),
         iv: bytes2text(context.getIv(item), 'hex'),
         authTag: item.authTag ? bytes2text(item.authTag, 'hex') : undefined,
       })),
@@ -207,11 +240,7 @@ describe('GitCipher', () => {
         })
 
         // Test encrypt.
-        let { crypt2plainIdMap } = await gitCipher.encrypt({
-          cryptPathResolver,
-          crypt2plainIdMap: new Map(),
-          plainPathResolver,
-        })
+        let { crypt2plainIdMap } = await gitCipher.encrypt({ crypt2plainIdMap: new Map() })
         expect(crypt2plainIdMap).toEqual(
           new Map([
             [repo1CryptCommitIdTable.A, commitIdTable.A],
@@ -289,33 +318,25 @@ describe('GitCipher', () => {
           await assertPromiseNotThrow(() =>
             gitCipher.verifyCommit({
               cryptCommitId: repo1CryptCommitIdTable[symbol],
-              cryptPathResolver,
               plainCommitId: commitIdTable[symbol],
-              plainPathResolver,
             }),
           )
 
           await assertPromiseNotThrow(() =>
             verifyCryptGitCommit({
-              catalogContext,
+              catalog: gitCipher.context.catalog,
               catalogFilepath: resource.filepath,
               configKeeper,
               cryptCommitId: repo1CryptCommitIdTable[symbol],
-              cryptPathResolver,
               reporter,
             }),
           )
         }
 
         // Test decrypt.
-        crypt2plainIdMap = (
-          await gitCipher.decrypt({
-            cryptPathResolver,
-            crypt2plainIdMap,
-            gpgSign: false,
-            plainPathResolver: bakPlainPathResolver,
-          })
-        ).crypt2plainIdMap
+        crypt2plainIdMap = await bakGitCipher
+          .decrypt({ crypt2plainIdMap, gpgSign: false })
+          .then(md => md.crypt2plainIdMap)
         expect(crypt2plainIdMap).toEqual(
           new Map([
             [repo1CryptCommitIdTable.A, commitIdTable.A],
@@ -410,7 +431,7 @@ describe('GitCipher', () => {
 
       // Test encrypt.
       crypt2plainIdMap = await gitCipher
-        .encrypt({ cryptPathResolver, crypt2plainIdMap, plainPathResolver })
+        .encrypt({ crypt2plainIdMap })
         .then(md => md.crypt2plainIdMap)
       expect(await getAllLocalBranches({ ...cryptCtx })).toEqual({
         currentBranch: 'A',
@@ -446,13 +467,8 @@ describe('GitCipher', () => {
       )
 
       // Test Decrypt
-      crypt2plainIdMap = await gitCipher
-        .decrypt({
-          cryptPathResolver,
-          crypt2plainIdMap,
-          gpgSign: false,
-          plainPathResolver: bakPlainPathResolver,
-        })
+      crypt2plainIdMap = await bakGitCipher
+        .decrypt({ crypt2plainIdMap, gpgSign: false })
         .then(md => md.crypt2plainIdMap)
       expect(await getAllLocalBranches({ ...bakPlainCtx })).toEqual({
         currentBranch: 'A',
@@ -496,7 +512,7 @@ describe('GitCipher', () => {
 
       // Test encrypt.
       crypt2plainIdMap = await gitCipher
-        .encrypt({ cryptPathResolver, crypt2plainIdMap, plainPathResolver })
+        .encrypt({ crypt2plainIdMap })
         .then(md => md.crypt2plainIdMap)
       expect(await getAllLocalBranches({ ...cryptCtx })).toEqual({
         currentBranch: 'E',
@@ -531,13 +547,8 @@ describe('GitCipher', () => {
       )
 
       // Test Decrypt
-      crypt2plainIdMap = await gitCipher
-        .decrypt({
-          cryptPathResolver,
-          crypt2plainIdMap,
-          gpgSign: false,
-          plainPathResolver: bakPlainPathResolver,
-        })
+      crypt2plainIdMap = await bakGitCipher
+        .decrypt({ crypt2plainIdMap, gpgSign: false })
         .then(md => md.crypt2plainIdMap)
       expect(await getAllLocalBranches({ ...bakPlainCtx })).toEqual({
         currentBranch: 'E',
@@ -570,7 +581,7 @@ describe('GitCipher', () => {
 
       // Test encrypt.
       crypt2plainIdMap = await gitCipher
-        .encrypt({ cryptPathResolver, crypt2plainIdMap, plainPathResolver })
+        .encrypt({ crypt2plainIdMap })
         .then(md => md.crypt2plainIdMap)
       expect(await getAllLocalBranches({ ...cryptCtx })).toEqual({
         currentBranch: 'E',
@@ -609,13 +620,8 @@ describe('GitCipher', () => {
       await checkBranch({ ...cryptCtx, commitHash: 'E' })
 
       // Test Decrypt
-      crypt2plainIdMap = await gitCipher
-        .decrypt({
-          cryptPathResolver,
-          crypt2plainIdMap,
-          gpgSign: false,
-          plainPathResolver: bakPlainPathResolver,
-        })
+      crypt2plainIdMap = await bakGitCipher
+        .decrypt({ crypt2plainIdMap, gpgSign: false })
         .then(md => md.crypt2plainIdMap)
       expect(await getAllLocalBranches({ ...bakPlainCtx })).toEqual({
         currentBranch: 'E',
@@ -651,7 +657,7 @@ describe('GitCipher', () => {
 
       // Test encrypt.
       crypt2plainIdMap = await gitCipher
-        .encrypt({ cryptPathResolver, crypt2plainIdMap, plainPathResolver })
+        .encrypt({ crypt2plainIdMap })
         .then(md => md.crypt2plainIdMap)
       expect(await getAllLocalBranches({ ...cryptCtx })).toEqual({
         currentBranch: 'K',
@@ -720,13 +726,8 @@ describe('GitCipher', () => {
       )
 
       // Test Decrypt
-      crypt2plainIdMap = await gitCipher
-        .decrypt({
-          cryptPathResolver,
-          crypt2plainIdMap,
-          gpgSign: false,
-          plainPathResolver: bakPlainPathResolver,
-        })
+      crypt2plainIdMap = await bakGitCipher
+        .decrypt({ crypt2plainIdMap, gpgSign: false })
         .then(md => md.crypt2plainIdMap)
       expect(await getAllLocalBranches({ ...bakPlainCtx })).toEqual({
         currentBranch: 'K',
@@ -796,7 +797,7 @@ describe('GitCipher', () => {
       logMock = createReporterMock({ reporter })
       await emptyDir(workspaceDir)
       await buildRepo1({ repoDir: plainRootDir, reporter, execaOptions: {} })
-      await gitCipher.encrypt({ cryptPathResolver, crypt2plainIdMap: new Map(), plainPathResolver })
+      await gitCipher.encrypt({ crypt2plainIdMap: new Map() })
     })
     afterAll(async () => {
       await configKeeper.destroy()
@@ -808,12 +809,7 @@ describe('GitCipher', () => {
     })
 
     const decryptAt = (cryptCommitId: string, filesOnly?: string[]): Promise<void> =>
-      gitCipher.decryptFilesOnly({
-        cryptCommitId,
-        cryptPathResolver,
-        plainPathResolver: bakPlainPathResolver,
-        filesOnly,
-      })
+      bakGitCipher.decryptFilesOnly({ cryptCommitId, filesOnly })
     const allBakFilepaths = (): string[] => collectAllFilesSync(bakPlainRootDir, () => true).sort()
 
     test('A', async () => {

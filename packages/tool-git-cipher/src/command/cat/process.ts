@@ -1,5 +1,5 @@
 import { bytes2text } from '@guanghechen/byte'
-import { FileCipher, calcCryptFilepath, calcCryptFilepaths } from '@guanghechen/helper-cipher-file'
+import { FileCipher, calcCryptFilepathsWithParts } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
@@ -43,7 +43,7 @@ export class GitCipherCat
       reporter,
     })
 
-    const { catalogContext, configKeeper, getIv } = gitCipherContext
+    const { catalog, configKeeper, getIv } = gitCipherContext
     await configKeeper.load()
 
     // Print catalog config.
@@ -69,11 +69,10 @@ export class GitCipherCat
     const item = configKeeper.data?.catalog.items.find(item => item.plainFilepath === plainFilepath)
     invariant(!!item, `[${title}] Cannot find plainFilepath ${context.plainFilepath}.`)
 
-    const cryptFilepath: string = calcCryptFilepath(
+    const cryptFilepath: string = catalog.calcCryptFilepath(
       plainPathResolver.relative(plainFilepath),
-      catalogContext,
     )
-    const cryptFilepaths: string[] = calcCryptFilepaths(
+    const cryptFilepaths: string[] = calcCryptFilepathsWithParts(
       cryptPathResolver.resolve(cryptFilepath),
       item.cryptFilepathParts,
     )

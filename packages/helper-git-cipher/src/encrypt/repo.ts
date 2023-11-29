@@ -1,4 +1,3 @@
-import { FileCipherCatalog } from '@guanghechen/helper-cipher-file'
 import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import {
@@ -12,16 +11,13 @@ import {
   showCommitInfo,
 } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
-import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IGitCipherContext } from '../GitCipherContext'
 import { resolveIdMap } from '../util'
 import { encryptGitBranch } from './branch'
 
 export interface IEncryptGitRepoParams {
   context: IGitCipherContext
-  cryptPathResolver: IWorkspacePathResolver
   crypt2plainIdMap: ReadonlyMap<string, string>
-  plainPathResolver: IWorkspacePathResolver
 }
 
 export interface IEncryptGitRepoResult {
@@ -32,13 +28,10 @@ export async function encryptGitRepo(
   params: IEncryptGitRepoParams,
 ): Promise<IEncryptGitRepoResult> {
   const title = 'encryptGitRepo'
-  const { context, cryptPathResolver, plainPathResolver } = params
-  const { reporter } = context
-  const catalog = new FileCipherCatalog({
-    context: context.catalogContext,
-    cryptPathResolver,
-    plainPathResolver,
-  })
+  const { context } = params
+  const { catalog, reporter } = context
+  const { cryptPathResolver, plainPathResolver } = catalog.context
+
   const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, reporter }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
@@ -101,14 +94,7 @@ export async function encryptGitRepo(
     for (const [key, value] of crypt2plainIdMap.entries()) plain2cryptIdMap.set(value, key)
 
     for (const branchName of plainLocalBranch.branches) {
-      await encryptGitBranch({
-        branchName,
-        catalog,
-        context,
-        cryptPathResolver,
-        plain2cryptIdMap,
-        plainPathResolver,
-      })
+      await encryptGitBranch({ branchName, context, plain2cryptIdMap })
       const { commitId: cryptHeadCommitId } = await showCommitInfo({
         ...cryptCmdCtx,
         commitHash: 'HEAD',

@@ -1,7 +1,5 @@
 import { destroyBytes } from '@guanghechen/byte'
-import type { IEventBus } from '@guanghechen/event-bus'
 import { isNonBlankString } from '@guanghechen/helper-is'
-import type { EventTypes } from '../../core/constant'
 import { inputLineFromTerminal } from './line'
 
 export interface IInputAnswerParams {

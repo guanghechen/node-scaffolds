@@ -59,10 +59,9 @@ export class GitCipherVerify
       catalogCipher: secretMaster.catalogCipher,
       cipherFactory: secretMaster.cipherFactory,
       cryptCommitId: context.cryptCommitId,
-      cryptPathResolver,
+      cryptRootDir: cryptPathResolver.root,
       gitCipher,
       plainCommitId: context.plainCommitId,
-      plainPathResolver,
       reporter,
     })
   }

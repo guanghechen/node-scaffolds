@@ -2,7 +2,6 @@ import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import { showCommitInfo } from '@guanghechen/helper-git'
 import type { GitCipher } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
-import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { TextFileResource } from '@guanghechen/resource'
 import { CatalogCacheKeeper } from '../CatalogCache'
@@ -12,24 +11,16 @@ export interface IVerifyCryptRepoStrictlyParams {
   readonly catalogCipher: ICipher | undefined
   readonly cipherFactory: ICipherFactory | undefined
   readonly cryptCommitId: string
-  readonly cryptPathResolver: IWorkspacePathResolver
+  readonly cryptRootDir: string
   readonly gitCipher: GitCipher
   readonly plainCommitId: string | undefined
-  readonly plainPathResolver: IWorkspacePathResolver
   readonly reporter: IReporter
 }
 
 export async function verifyRepoStrictly(params: IVerifyCryptRepoStrictlyParams): Promise<void> {
   const title = 'verifyRepoStrictly'
-  const {
-    catalogCacheFilepath,
-    catalogCipher,
-    cipherFactory,
-    cryptPathResolver,
-    gitCipher,
-    plainPathResolver,
-    reporter,
-  } = params
+  const { catalogCacheFilepath, catalogCipher, cipherFactory, cryptRootDir, gitCipher, reporter } =
+    params
 
   invariant(
     !!cipherFactory && !!catalogCipher,
@@ -40,7 +31,7 @@ export async function verifyRepoStrictly(params: IVerifyCryptRepoStrictlyParams)
   const cryptCommitId: string = (
     await showCommitInfo({
       commitHash: params.cryptCommitId,
-      cwd: cryptPathResolver.root,
+      cwd: cryptRootDir,
       reporter,
     })
   ).commitId
@@ -64,10 +55,5 @@ export async function verifyRepoStrictly(params: IVerifyCryptRepoStrictlyParams)
   reporter.debug(`[${title}] cryptCommitId(${cryptCommitId}), plainCommitId(${plainCommitId}).`)
   invariant(!!plainCommitId, `[${title}] Missing plainCommitId.`)
 
-  await gitCipher.verifyCommit({
-    cryptCommitId,
-    cryptPathResolver,
-    plainCommitId,
-    plainPathResolver,
-  })
+  await gitCipher.verifyCommit({ cryptCommitId, plainCommitId })
 }

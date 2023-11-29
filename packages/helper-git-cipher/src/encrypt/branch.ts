@@ -1,16 +1,11 @@
-import type { ICipherCatalog } from '@guanghechen/cipher-workspace.types'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { getCommitInTopology, showCommitInfo } from '@guanghechen/helper-git'
-import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IGitCipherContext } from '../GitCipherContext'
 import { encryptGitCommit } from './commit'
 
 export interface IEncryptGitBranchParams {
   branchName: string
-  catalog: ICipherCatalog
   context: IGitCipherContext
-  cryptPathResolver: IWorkspacePathResolver
-  plainPathResolver: IWorkspacePathResolver
   plain2cryptIdMap: Map<string, string>
 }
 
@@ -25,9 +20,9 @@ export interface IEncryptGitBranchParams {
  * @param params
  */
 export async function encryptGitBranch(params: IEncryptGitBranchParams): Promise<void> {
-  const { branchName, catalog, context, cryptPathResolver, plain2cryptIdMap, plainPathResolver } =
-    params
-  const { reporter } = context
+  const { branchName, context, plain2cryptIdMap } = params
+  const { catalog, reporter } = context
+  const { cryptPathResolver, plainPathResolver } = catalog.context
   const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, reporter }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
@@ -39,14 +34,7 @@ export async function encryptGitBranch(params: IEncryptGitBranchParams): Promise
   for (const plainCommitNode of plainCommitNodes) {
     const plainCommitId: string = plainCommitNode.id
     if (!plain2cryptIdMap.has(plainCommitId)) {
-      await encryptGitCommit({
-        catalog,
-        context,
-        cryptPathResolver,
-        plainCommitNode,
-        plain2cryptIdMap,
-        plainPathResolver,
-      })
+      await encryptGitCommit({ context, plainCommitNode, plain2cryptIdMap })
       const { commitId: cryptCommitId } = await showCommitInfo({
         ...cryptCmdCtx,
         commitHash: 'HEAD',

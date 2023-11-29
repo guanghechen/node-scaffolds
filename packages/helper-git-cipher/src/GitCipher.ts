@@ -1,4 +1,3 @@
-import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { decryptFilesOnly } from './decrypt/filesOnly'
 import { decryptGitRepo } from './decrypt/repo'
 import { encryptGitRepo } from './encrypt/repo'
@@ -11,29 +10,21 @@ export interface IGitCipherProps {
 
 export interface IGitCipherEncryptParams {
   readonly crypt2plainIdMap: ReadonlyMap<string, string>
-  readonly cryptPathResolver: IWorkspacePathResolver
-  readonly plainPathResolver: IWorkspacePathResolver
 }
 
 export interface IGitCipherDecryptFilesOnlyParams {
   readonly cryptCommitId: string
-  readonly cryptPathResolver: IWorkspacePathResolver
   readonly filesOnly: string[] | undefined // If empty or undefined, then decrypt all files.
-  readonly plainPathResolver: IWorkspacePathResolver
 }
 
 export interface IGitCipherDecryptParams {
   readonly crypt2plainIdMap: ReadonlyMap<string, string>
-  readonly cryptPathResolver: IWorkspacePathResolver
   readonly gpgSign: boolean | undefined
-  readonly plainPathResolver: IWorkspacePathResolver
 }
 
 export interface IGitCipherVerifyParams {
   readonly cryptCommitId: string
-  readonly cryptPathResolver: IWorkspacePathResolver
   readonly plainCommitId: string
-  readonly plainPathResolver: IWorkspacePathResolver
 }
 
 export interface IGitCipherEncryptRepoResult {
@@ -53,52 +44,33 @@ export class GitCipher {
 
   public async encrypt(params: IGitCipherEncryptParams): Promise<IGitCipherEncryptRepoResult> {
     const { context } = this
-    const { cryptPathResolver, crypt2plainIdMap, plainPathResolver } = params
-    const result = await encryptGitRepo({
-      context,
-      crypt2plainIdMap,
-      cryptPathResolver,
-      plainPathResolver,
-    })
+    const { crypt2plainIdMap } = params
+    const result = await encryptGitRepo({ context, crypt2plainIdMap })
     return { crypt2plainIdMap: result.crypt2plainIdMap }
   }
 
   public async decrypt(params: IGitCipherDecryptParams): Promise<IGitCipherDecryptRepoResult> {
     const { context } = this
-    const { cryptPathResolver, crypt2plainIdMap, gpgSign, plainPathResolver } = params
-    const result = await decryptGitRepo({
-      context,
-      crypt2plainIdMap,
-      cryptPathResolver,
-      gpgSign,
-      plainPathResolver,
-    })
+    const { crypt2plainIdMap, gpgSign } = params
+    const result = await decryptGitRepo({ context, crypt2plainIdMap, gpgSign })
     return { crypt2plainIdMap: result.crypt2plainIdMap }
   }
 
   public async decryptFilesOnly(params: IGitCipherDecryptFilesOnlyParams): Promise<void> {
     const { context } = this
-    const { cryptCommitId, cryptPathResolver, plainPathResolver, filesOnly } = params
-    await decryptFilesOnly({
-      context,
-      cryptCommitId,
-      cryptPathResolver,
-      filesOnly,
-      plainPathResolver,
-    })
+    const { cryptCommitId, filesOnly } = params
+    await decryptFilesOnly({ context, cryptCommitId, filesOnly })
   }
 
   public async verifyCommit(params: IGitCipherVerifyParams): Promise<void | never> {
     const { context } = this
-    const { cryptCommitId, cryptPathResolver, plainCommitId, plainPathResolver } = params
+    const { cryptCommitId, plainCommitId } = params
     await verifyGitCommit({
-      catalogContext: context.catalogContext,
+      catalog: context.catalog,
       configKeeper: context.configKeeper,
       cryptCommitId,
-      cryptPathResolver,
       reporter: context.reporter,
       plainCommitId,
-      plainPathResolver,
     })
   }
 }

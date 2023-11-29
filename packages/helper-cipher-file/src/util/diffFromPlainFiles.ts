@@ -1,47 +1,42 @@
-import {
-  FileChangeType,
-  type ICatalogItem,
-  type ICipherCatalogContext,
-  type IDraftCatalogDiffItem,
-  type IDraftCatalogItem,
+import type {
+  ICatalogItem,
+  IDraftCatalogDiffItem,
+  IDraftCatalogItem,
+  IReadonlyCipherCatalog,
 } from '@guanghechen/cipher-workspace.types'
+import { FileChangeType } from '@guanghechen/cipher-workspace.types'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
-import type { IWorkspacePathResolver } from '@guanghechen/path.types'
-import { calcCatalogItem } from './calcCatalogItem'
-import { isSameFileCipherItemDraft } from './isSameFileCipherItem'
-import { normalizePlainFilepath } from './normalizePlainFilepath'
+import { isSameFileCipherItemDraft } from './isSameFileCipherItemDraft'
 
-export interface IDiffFromPlainFiles {
-  context: ICipherCatalogContext
-  oldItemMap: ReadonlyMap<string, ICatalogItem>
-  plainPathResolver: IWorkspacePathResolver
-  plainFilepaths: string[]
-  // Check some edge cases that shouldn't affect the final result, just for higher integrity check.
-  strickCheck: boolean
-}
-
+/**
+ * Calculate diff items.
+ * @param oldItemMap
+ * @param plainFilepaths
+ * @param strickCheck     Wether if to check some edge cases that shouldn't affect the final result,
+ *                        just for higher integrity check.
+ */
 export async function diffFromPlainFiles(
-  params: IDiffFromPlainFiles,
+  catalog: IReadonlyCipherCatalog,
+  oldItemMap: ReadonlyMap<string, ICatalogItem>,
+  plainFilepaths: string[],
+  strickCheck: boolean,
 ): Promise<IDraftCatalogDiffItem[]> {
-  const { context, oldItemMap, plainFilepaths, plainPathResolver, strickCheck } = params
+  const title = `diffFromPlainFiles`
+  const { plainPathResolver } = catalog.context
+
   const addedItems: IDraftCatalogDiffItem[] = []
   const modifiedItems: IDraftCatalogDiffItem[] = []
   const removedItems: IDraftCatalogDiffItem[] = []
 
   for (const plainFilepath of plainFilepaths) {
-    const key = normalizePlainFilepath(plainFilepath, plainPathResolver)
+    const key = catalog.normalizePlainFilepath(plainFilepath)
     const oldItem = oldItemMap.get(key)
     const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
     const isSrcFileExists = isFileSync(absolutePlainFilepath)
 
     if (isSrcFileExists) {
-      const newItem: IDraftCatalogItem = await calcCatalogItem({
-        context,
-        plainFilepath,
-        plainPathResolver,
-      })
-
+      const newItem: IDraftCatalogItem = await catalog.calcCatalogItem(plainFilepath)
       if (oldItem) {
         if (!isSameFileCipherItemDraft(oldItem, newItem)) {
           modifiedItems.push({ changeType: FileChangeType.MODIFIED, oldItem, newItem })
@@ -57,7 +52,7 @@ export async function diffFromPlainFiles(
       if (strickCheck) {
         invariant(
           !!oldItem,
-          `[diffFromPlainFiles] plainFilepath(${plainFilepath}) is removed but it's not in the catalog before.`,
+          `[${title}] plainFilepath(${plainFilepath}) is removed but it's not in the catalog before.`,
         )
       }
     }

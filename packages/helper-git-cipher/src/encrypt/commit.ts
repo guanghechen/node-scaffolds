@@ -1,8 +1,4 @@
-import type {
-  ICatalogItem,
-  ICipherCatalog,
-  IDraftCatalogDiffItem,
-} from '@guanghechen/cipher-workspace.types'
+import type { ICatalogItem, IDraftCatalogDiffItem } from '@guanghechen/cipher-workspace.types'
 import type {
   IGitCommandBaseParams,
   IGitCommitDagNode,
@@ -16,17 +12,13 @@ import {
   showCommitInfo,
 } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
-import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IGitCipherContext } from '../GitCipherContext'
 import { getCryptCommitId } from '../util'
 import { internalEncryptDiffItems } from './_internal'
 
 export interface IEncryptGitCommitParams {
-  catalog: ICipherCatalog
   context: IGitCipherContext
-  cryptPathResolver: IWorkspacePathResolver
   plainCommitNode: IGitCommitDagNode
-  plainPathResolver: IWorkspacePathResolver
   plain2cryptIdMap: ReadonlyMap<string, string>
 }
 
@@ -39,15 +31,9 @@ export interface IEncryptGitCommitParams {
  */
 export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise<void> {
   const title = 'encryptGitCommit'
-  const {
-    catalog,
-    context,
-    cryptPathResolver,
-    plainCommitNode,
-    plain2cryptIdMap,
-    plainPathResolver,
-  } = params
-  const { configKeeper, reporter } = context
+  const { context, plainCommitNode, plain2cryptIdMap } = params
+  const { catalog, configKeeper, reporter } = context
+  const { cryptPathResolver, plainPathResolver } = catalog.context
   const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, reporter }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
@@ -102,13 +88,5 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     shouldAmend = true
   }
 
-  await internalEncryptDiffItems({
-    catalog,
-    context,
-    cryptPathResolver,
-    draftDiffItems,
-    plainPathResolver,
-    shouldAmend,
-    signature,
-  })
+  await internalEncryptDiffItems({ context, draftDiffItems, shouldAmend, signature })
 }

@@ -1,20 +1,18 @@
-import type { ICipherCatalogContext } from '@guanghechen/cipher-workspace.types'
+import type { IReadonlyCipherCatalog } from '@guanghechen/cipher-workspace.types'
 import type { IConfigKeeper } from '@guanghechen/config'
-import { calcCryptFilepath, calcCryptFilepaths } from '@guanghechen/helper-cipher-file'
+import { calcCryptFilepathsWithParts } from '@guanghechen/helper-cipher-file'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { checkBranch, getAllLocalBranches, isGitRepo, listAllFiles } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
-import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { existsSync } from 'node:fs'
 import type { IGitCipherConfig } from '../types'
 
 export interface IVerifyCryptGitCommitParams {
-  catalogContext: ICipherCatalogContext
+  catalog: IReadonlyCipherCatalog
   catalogFilepath: string
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string
-  cryptPathResolver: IWorkspacePathResolver
   reporter: IReporter | undefined
 }
 
@@ -22,7 +20,8 @@ export async function verifyCryptGitCommit(
   params: IVerifyCryptGitCommitParams,
 ): Promise<void | never> {
   const title = 'verifyCryptGitCommit'
-  const { catalogContext, configKeeper, cryptCommitId, cryptPathResolver, reporter } = params
+  const { catalog, configKeeper, cryptCommitId, reporter } = params
+  const { cryptPathResolver } = catalog.context
 
   invariant(
     existsSync(cryptPathResolver.root),
@@ -46,8 +45,8 @@ export async function verifyCryptGitCommit(
 
     const expectedCryptFilepaths: string[] = (configKeeper.data?.catalog.items ?? [])
       .map(item => {
-        const cryptFilepath: string = calcCryptFilepath(item.plainFilepath, catalogContext)
-        return calcCryptFilepaths(cryptFilepath, item.cryptFilepathParts)
+        const cryptFilepath: string = catalog.calcCryptFilepath(item.plainFilepath)
+        return calcCryptFilepathsWithParts(cryptFilepath, item.cryptFilepathParts)
       })
       .flat()
     const expectedSet: Set<string> = new Set(expectedCryptFilepaths)

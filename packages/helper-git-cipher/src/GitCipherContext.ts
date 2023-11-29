@@ -1,13 +1,14 @@
 import { text2bytes } from '@guanghechen/byte'
 import type {
   ICatalogItem,
+  ICipherCatalog,
   ICipherCatalogContext,
   IDeserializedCatalogItem,
   IDraftCatalogItem,
 } from '@guanghechen/cipher-workspace.types'
 import type { IConfigKeeper } from '@guanghechen/config'
 import type { IFileCipherBatcher } from '@guanghechen/helper-cipher-file'
-import { calcCryptFilepath } from '@guanghechen/helper-cipher-file'
+import { FileCipherCatalog } from '@guanghechen/helper-cipher-file'
 import type { IReporter } from '@guanghechen/reporter.types'
 import type { IGitCipherConfig } from './types'
 
@@ -20,7 +21,7 @@ export interface IGitCipherContextProps {
 }
 
 export interface IGitCipherContext {
-  readonly catalogContext: ICipherCatalogContext
+  readonly catalog: ICipherCatalog
   readonly configKeeper: IConfigKeeper<IGitCipherConfig>
   readonly cipherBatcher: IFileCipherBatcher
   readonly reporter: IReporter
@@ -29,7 +30,7 @@ export interface IGitCipherContext {
 }
 
 export class GitCipherContext implements IGitCipherContext {
-  public readonly catalogContext: ICipherCatalogContext
+  public readonly catalog: ICipherCatalog
   public readonly cipherBatcher: IFileCipherBatcher
   public readonly configKeeper: IConfigKeeper<IGitCipherConfig>
   public readonly reporter: IReporter
@@ -37,7 +38,7 @@ export class GitCipherContext implements IGitCipherContext {
 
   constructor(props: IGitCipherContextProps) {
     const { catalogContext, cipherBatcher, configKeeper, reporter, getDynamicIv } = props
-    this.catalogContext = catalogContext
+    this.catalog = new FileCipherCatalog(catalogContext)
     this.cipherBatcher = cipherBatcher
     this.configKeeper = configKeeper
     this.reporter = reporter
@@ -46,10 +47,11 @@ export class GitCipherContext implements IGitCipherContext {
   }
 
   public readonly flatItem = (item: IDeserializedCatalogItem): ICatalogItem => {
+    const { catalog, getIv } = this
     return {
       ...item,
-      cryptFilepath: calcCryptFilepath(item.plainFilepath, this.catalogContext),
-      iv: this.getIv(item),
+      cryptFilepath: catalog.calcCryptFilepath(item.plainFilepath),
+      iv: getIv(item),
       authTag: item.authTag,
     }
   }

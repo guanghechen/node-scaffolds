@@ -1,39 +1,29 @@
 import type {
-  ICipherCatalogContext,
   IDeserializedCatalogItem,
+  IReadonlyCipherCatalog,
 } from '@guanghechen/cipher-workspace.types'
 import type { IConfigKeeper } from '@guanghechen/config'
-import { calcCatalogItem, normalizePlainFilepath } from '@guanghechen/helper-cipher-file'
+import { normalizePlainFilepath } from '@guanghechen/helper-cipher-file'
 import { iterable2map } from '@guanghechen/helper-func'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { checkBranch, getAllLocalBranches, isGitRepo, listAllFiles } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
-import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { existsSync } from 'node:fs'
 import type { IGitCipherConfig } from '../types'
 
 export interface IVerifyGitCommitParams {
-  catalogContext: ICipherCatalogContext
+  catalog: IReadonlyCipherCatalog
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string
-  cryptPathResolver: IWorkspacePathResolver
   reporter: IReporter | undefined
   plainCommitId: string
-  plainPathResolver: IWorkspacePathResolver
 }
 
 export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<void | never> {
   const title = 'verifyGitCommit'
-  const {
-    catalogContext,
-    configKeeper,
-    cryptCommitId,
-    cryptPathResolver,
-    reporter,
-    plainCommitId,
-    plainPathResolver,
-  } = params
+  const { catalog, configKeeper, cryptCommitId, reporter, plainCommitId } = params
+  const { cryptPathResolver, plainPathResolver } = catalog.context
 
   invariant(
     existsSync(cryptPathResolver.root),
@@ -84,11 +74,7 @@ export async function verifyGitCommit(params: IVerifyGitCommitParams): Promise<v
       const item: IDeserializedCatalogItem | undefined = catalogItemMap.get(key)
       invariant(item !== undefined, `[${title}] Missing file. plainFilepath(${plainFilepath})`)
 
-      const expectedItem = await calcCatalogItem({
-        context: catalogContext,
-        plainFilepath,
-        plainPathResolver,
-      })
+      const expectedItem = await catalog.calcCatalogItem(plainFilepath)
       /* c8 ignore start */
       if (item.fingerprint !== expectedItem.fingerprint) {
         reporter?.error(`[${title}] Bad file content, fingerprint are not matched.`, {

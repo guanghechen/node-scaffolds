@@ -1,7 +1,5 @@
-import type { IEventBus } from '@guanghechen/event-bus'
 import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
 import type { IReporter } from '@guanghechen/reporter.types'
-import type { EventTypes } from '../../shared/core/constant'
 import { SecretMaster } from '../../shared/SecretMaster'
 import type { IInputAnswer } from '../../shared/util/input/answer'
 import type { IGitCipherSubCommandContext } from './context'

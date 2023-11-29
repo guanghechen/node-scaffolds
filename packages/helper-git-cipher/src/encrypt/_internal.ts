@@ -1,22 +1,14 @@
-import type {
-  ICatalogDiffItem,
-  ICipherCatalog,
-  IDraftCatalogDiffItem,
-} from '@guanghechen/cipher-workspace.types'
+import type { ICatalogDiffItem, IDraftCatalogDiffItem } from '@guanghechen/cipher-workspace.types'
 import { collectAffectedCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import { cleanUntrackedFilepaths, commitAll } from '@guanghechen/helper-git'
 import type { IGitCommandBaseParams, IGitCommitInfo } from '@guanghechen/helper-git'
-import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IGitCipherContext } from '../GitCipherContext'
 import type { IGitCipherConfig } from '../types'
 import { generateCommitHash } from '../util'
 
 export interface IInternalEncryptDiffItemsParams {
-  catalog: ICipherCatalog
   context: IGitCipherContext
-  cryptPathResolver: IWorkspacePathResolver
   draftDiffItems: IDraftCatalogDiffItem[]
-  plainPathResolver: IWorkspacePathResolver
   shouldAmend: boolean
   signature: Partial<IGitCommitInfo> & Pick<IGitCommitInfo, 'message'>
 }
@@ -27,16 +19,9 @@ export interface IInternalEncryptDiffItemsParams {
 export async function internalEncryptDiffItems(
   params: IInternalEncryptDiffItemsParams,
 ): Promise<void> {
-  const {
-    catalog,
-    context,
-    cryptPathResolver,
-    draftDiffItems,
-    plainPathResolver,
-    shouldAmend,
-    signature,
-  } = params
-  const { cipherBatcher, configKeeper, reporter, getIv } = context
+  const { context, draftDiffItems, shouldAmend, signature } = params
+  const { catalog, cipherBatcher, configKeeper, reporter, getIv } = context
+  const { cryptPathResolver, plainPathResolver } = catalog.context
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
   // [crypt] Clean untracked filepaths to avoid unexpected errors.

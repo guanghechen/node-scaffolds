@@ -39,8 +39,6 @@ export class GitCipherDecrypt
       reporter.debug('Trying decryptFilesOnly...')
       await gitCipher.decryptFilesOnly({
         cryptCommitId: context.filesAt ?? 'HEAD',
-        cryptPathResolver,
-        plainPathResolver,
         filesOnly: context.filesOnly,
       })
     } else {
@@ -57,10 +55,8 @@ export class GitCipherDecrypt
       await cacheKeeper.load()
       const data: ICatalogCache = cacheKeeper.data ?? { crypt2plainIdMap: new Map() }
       const { crypt2plainIdMap } = await gitCipher.decrypt({
-        cryptPathResolver,
         crypt2plainIdMap: new Map(data.crypt2plainIdMap),
         gpgSign: context.gitGpgSign,
-        plainPathResolver,
       })
       await cacheKeeper.update({ crypt2plainIdMap })
       await cacheKeeper.save()

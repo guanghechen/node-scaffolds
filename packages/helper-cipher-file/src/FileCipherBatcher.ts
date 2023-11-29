@@ -12,7 +12,6 @@ import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
-import { calcCryptFilepaths } from './catalog/calcCryptFilepath'
 import type { IFileCipher } from './types/IFileCipher'
 import type {
   IBatchDecryptParams,
@@ -20,6 +19,7 @@ import type {
   IFileCipherBatcher,
 } from './types/IFileCipherBatcher'
 import type { IFileCipherFactory } from './types/IFileCipherFactory'
+import { calcCryptFilepathsWithParts } from './util/calcCryptFilepathsWithParts'
 
 export interface IFileCipherBatcherProps {
   fileSplitter: FileSplitter
@@ -143,7 +143,10 @@ export class FileCipherBatcher implements IFileCipherBatcher {
     }
 
     async function remove(item: IDraftCatalogItem, changeType: FileChangeType): Promise<void> {
-      const cryptFilepaths = calcCryptFilepaths(item.cryptFilepath, item.cryptFilepathParts)
+      const cryptFilepaths: string[] = calcCryptFilepathsWithParts(
+        item.cryptFilepath,
+        item.cryptFilepathParts,
+      )
 
       // pre-check
       for (const cryptFilepath of cryptFilepaths) {
@@ -202,7 +205,10 @@ export class FileCipherBatcher implements IFileCipherBatcher {
     }
 
     async function add(item: ICatalogItem, changeType: FileChangeType): Promise<void> {
-      const cryptFilepaths = calcCryptFilepaths(item.cryptFilepath, item.cryptFilepathParts)
+      const cryptFilepaths: string[] = calcCryptFilepathsWithParts(
+        item.cryptFilepath,
+        item.cryptFilepathParts,
+      )
       const absoluteCryptFilepaths: string[] = []
 
       // pre-check
@@ -268,7 +274,10 @@ export class FileCipherBatcher implements IFileCipherBatcher {
     cryptPathResolver: IWorkspacePathResolver,
     getErrorMsg: (cryptFilepath: string) => string,
   ): Promise<void | never> {
-    const cryptFilepaths = calcCryptFilepaths(item.cryptFilepath, item.cryptFilepathParts)
+    const cryptFilepaths: string[] = calcCryptFilepathsWithParts(
+      item.cryptFilepath,
+      item.cryptFilepathParts,
+    )
     for (const cryptFilepath of cryptFilepaths) {
       const absoluteCryptFilepath = cryptPathResolver.resolve(cryptFilepath)
       if (strictCheck) {

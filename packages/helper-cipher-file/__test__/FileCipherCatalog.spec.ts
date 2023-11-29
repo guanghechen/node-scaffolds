@@ -6,7 +6,6 @@ import type {
   IDraftCatalogItem,
 } from '@guanghechen/cipher-workspace.types'
 import { FileSplitter } from '@guanghechen/file-split'
-import { iterable2map } from '@guanghechen/helper-func'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import {
   assertPromiseNotThrow,
@@ -22,7 +21,6 @@ import {
   FileCipherBatcher,
   FileCipherCatalog,
   FileCipherFactory,
-  diffFromCatalogItems,
   isSameFileCipherItemDraft,
 } from '../src'
 import {
@@ -68,11 +66,7 @@ describe('FileCipherCatalog', () => {
     cryptPathResolver,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
   })
-  const catalog = new FileCipherCatalog({
-    context: catalogContext,
-    cryptPathResolver,
-    plainPathResolver,
-  })
+  const catalog = new FileCipherCatalog(catalogContext)
 
   beforeEach(async () => {
     catalog.reset()
@@ -298,12 +292,7 @@ describe('FileCipherCatalog', () => {
 
   test('diffFromCatalogItems', async () => {
     expect(Array.from(catalog.items)).toEqual([])
-    expect(
-      diffFromCatalogItems(
-        new Map(),
-        iterable2map([itemTable.A, itemTable.B], item => item.plainFilepath),
-      ),
-    ).toEqual(diffItemsTable.step1)
+    expect(catalog.diffFromCatalogItems([itemTable.A, itemTable.B])).toEqual(diffItemsTable.step1)
 
     // diffItems1
     {

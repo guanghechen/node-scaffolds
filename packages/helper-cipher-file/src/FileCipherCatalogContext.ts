@@ -16,6 +16,8 @@ export interface ICipherCatalogContextProps {
   isKeepPlain(relativePlainFilepath: string): boolean
 }
 
+const clazz = 'CipherCatalogContext'
+
 export class CipherCatalogContext implements ICipherCatalogContext {
   public readonly contentHashAlgorithm: IHashAlgorithm
   public readonly cryptFilepathSalt: string
@@ -28,9 +30,10 @@ export class CipherCatalogContext implements ICipherCatalogContext {
   public readonly isKeepPlain: (relativePlainFilepath: string) => boolean
 
   constructor(props: ICipherCatalogContextProps) {
+    const title: string = clazz
     invariant(
       !path.isAbsolute(props.cryptFilesDir),
-      `[ReadonlyFileCipherCatalog.constructor] cryptFilesDir should be a relative path. received(${props.cryptFilesDir})`,
+      `[${title}] cryptFilesDir should be a relative path. received(${props.cryptFilesDir})`,
     )
 
     this.contentHashAlgorithm = props.contentHashAlgorithm

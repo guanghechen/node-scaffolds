@@ -11,15 +11,12 @@ import {
 } from '@guanghechen/helper-git'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
-import type { IWorkspacePathResolver } from '@guanghechen/path'
 import type { IGitCipherContext } from '../GitCipherContext'
 
 export interface IDecryptFilesOnlyParams {
   context: IGitCipherContext
   cryptCommitId: string
-  cryptPathResolver: IWorkspacePathResolver
   filesOnly: string[] | undefined // If empty or undefined, then decrypt all files.
-  plainPathResolver: IWorkspacePathResolver
 }
 
 /**
@@ -27,8 +24,10 @@ export interface IDecryptFilesOnlyParams {
  */
 export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise<void> {
   const title = 'decryptFilesOnly'
-  const { context, cryptCommitId, cryptPathResolver, filesOnly = [], plainPathResolver } = params
-  const { cipherBatcher, configKeeper, reporter } = context
+  const { context, cryptCommitId, filesOnly = [] } = params
+  const { catalog, cipherBatcher, configKeeper, reporter } = context
+  const { cryptPathResolver, plainPathResolver } = catalog.context
+
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
   invariant(

@@ -1,22 +1,22 @@
-import {
-  FileChangeType,
-  type ICatalogDiffItem,
-  type ICatalogItem,
-} from '@guanghechen/cipher-workspace.types'
-import { mapIterable } from '@guanghechen/helper-func'
+import type { ICatalogDiffItem, ICatalogItem } from '@guanghechen/cipher-workspace.types'
+import { FileChangeType } from '@guanghechen/cipher-workspace.types'
+import { iterable2map, mapIterable } from '@guanghechen/helper-func'
 import { isSameFileCipherItem } from './isSameFileCipherItem'
 
+/**
+ * Calculate diff items with the new catalog items.
+ * @param oldItemMap
+ * @param newItems
+ */
 export function diffFromCatalogItems(
   oldItemMap: ReadonlyMap<string, ICatalogItem>,
-  newItemMap: ReadonlyMap<string, ICatalogItem>,
+  newItems: Iterable<ICatalogItem>,
 ): ICatalogDiffItem[] {
   if (oldItemMap.size < 1) {
-    return mapIterable(newItemMap.values(), newItem => ({
-      changeType: FileChangeType.ADDED,
-      newItem,
-    }))
+    return mapIterable(newItems, newItem => ({ changeType: FileChangeType.ADDED, newItem }))
   }
 
+  const newItemMap: Map<string, ICatalogItem> = iterable2map(newItems, item => item.plainFilepath)
   if (newItemMap.size < 1) {
     return mapIterable(oldItemMap.values(), oldItem => ({
       changeType: FileChangeType.REMOVED,

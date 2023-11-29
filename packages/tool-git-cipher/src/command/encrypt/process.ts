@@ -40,12 +40,7 @@ export class GitCipherEncrypt
     const gitCipher = new GitCipher({ context: gitCipherContext })
 
     if (context.filesOnly) {
-      await encryptFilesOnly({
-        context: gitCipherContext,
-        cryptPathResolver,
-        plainPathResolver,
-        confirm: pickDiffItems,
-      })
+      await encryptFilesOnly({ context: gitCipherContext, confirm: pickDiffItems })
     } else {
       // encrypt files
       const cacheKeeper = new CatalogCacheKeeper({
@@ -59,9 +54,7 @@ export class GitCipherEncrypt
       await cacheKeeper.load()
       const data: ICatalogCache = cacheKeeper.data ?? { crypt2plainIdMap: new Map() }
       const { crypt2plainIdMap } = await gitCipher.encrypt({
-        cryptPathResolver,
         crypt2plainIdMap: new Map(data.crypt2plainIdMap),
-        plainPathResolver,
       })
       await cacheKeeper.update({ crypt2plainIdMap })
       await cacheKeeper.save()
