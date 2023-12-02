@@ -1,6 +1,0 @@
-export * from './catalog/catalog'
-export * from './catalog/catalog.readonly'
-export * from './catalog/context'
-export * from './catalog/diff-item'
-export * from './catalog/item'
-export * from './constant'
