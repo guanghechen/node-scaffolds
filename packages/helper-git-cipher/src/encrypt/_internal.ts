@@ -20,9 +20,9 @@ export async function internalEncryptDiffItems(
   params: IInternalEncryptDiffItemsParams,
 ): Promise<void> {
   const { context, draftDiffItems, shouldAmend, signature } = params
-  const { catalog, cipherBatcher, configKeeper, reporter, getIv } = context
-  const { cryptPathResolver, plainPathResolver } = catalog.context
-  const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
+  const { catalog, cipherBatcher, configKeeper, reporter } = context
+  const cwd: string = catalog.context.cryptPathResolver.root
+  const cryptCmdCtx: IGitCommandBaseParams = { cwd, reporter }
 
   // [crypt] Clean untracked filepaths to avoid unexpected errors.
   const cryptFiles: string[] = collectAffectedCryptFilepaths(draftDiffItems)
@@ -30,11 +30,9 @@ export async function internalEncryptDiffItems(
 
   // Update catalog.
   const diffItems: ICatalogDiffItem[] = await cipherBatcher.batchEncrypt({
+    catalog,
     diffItems: draftDiffItems,
-    plainPathResolver,
-    cryptPathResolver,
     strictCheck: false,
-    getIv,
   })
   catalog.applyDiff(diffItems)
 

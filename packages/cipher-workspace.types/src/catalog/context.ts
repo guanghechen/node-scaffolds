@@ -17,7 +17,7 @@ export interface ICipherCatalogContext {
    * Get the iv of the given item.
    * @param item
    */
-  getIv(item: IDeserializedCatalogItem | IDraftCatalogItem): Uint8Array
+  getIv(item: IDeserializedCatalogItem | IDraftCatalogItem): Promise<Uint8Array | undefined>
 
   /**
    * Check if the plain file should be kept plain.

@@ -55,7 +55,7 @@ export class SecretConfigKeeper
   public createCatalogContext(params: {
     cryptPathResolver: IWorkspacePathResolver
     plainPathResolver: IWorkspacePathResolver
-    calcIv: (infos: ReadonlyArray<Uint8Array>) => Readonly<Uint8Array>
+    calcIv: (infos: ReadonlyArray<Uint8Array>) => Promise<Readonly<Uint8Array> | undefined>
   }): CipherCatalogContext | undefined {
     if (this.data) {
       const { cryptPathResolver, plainPathResolver, calcIv } = params

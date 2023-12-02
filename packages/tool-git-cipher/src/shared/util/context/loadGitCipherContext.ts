@@ -49,7 +49,6 @@ export async function loadGitCipherContext(
     catalogFilepath,
     cipherFactory,
     reporter,
-    calcIv: secretMaster.calcIv,
   })
   return { cipherFactory, context }
 }

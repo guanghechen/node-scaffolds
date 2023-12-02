@@ -65,16 +65,15 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
     }
 
     // Decrypt files.
-    const diffItems: ICatalogDiffItem[] = preparedItems.map(item => ({
-      changeType: FileChangeType.ADDED,
-      newItem: context.flatItem(item),
-    }))
-    await cipherBatcher.batchDecrypt({
-      strictCheck: false,
-      plainPathResolver,
-      cryptPathResolver,
-      diffItems,
-    })
+    const diffItems: ICatalogDiffItem[] = await Promise.all(
+      preparedItems.map(
+        async (item): Promise<ICatalogDiffItem> => ({
+          changeType: FileChangeType.ADDED,
+          newItem: await context.flatItem(item),
+        }),
+      ),
+    )
+    await cipherBatcher.batchDecrypt({ catalog, diffItems, strictCheck: false })
   } finally {
     // Restore crypt repo HEAD point.
     await checkBranch({ ...cryptCmdCtx, commitHash: initialCommitHash })

@@ -81,7 +81,7 @@ export class SecretMaster {
       : undefined
   }
 
-  public calcIv = (infos: ReadonlyArray<Uint8Array>): Readonly<Uint8Array> => {
+  public calcIv = async (infos: ReadonlyArray<Uint8Array>): Promise<Readonly<Uint8Array>> => {
     const secretNonce = this.#secretConfigKeeper?.data?.secretNonce
     const secretIvSize = this.#secretConfigKeeper?.data?.secretIvSize
     invariant(

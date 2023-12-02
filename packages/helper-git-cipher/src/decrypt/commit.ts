@@ -76,39 +76,36 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
   }
 
   // [pain] Clean untracked filepaths to avoid unexpected errors.
-  const diffItems = configData.catalog.diffItems.map((diffItem): ICatalogDiffItem => {
-    switch (diffItem.changeType) {
-      case FileChangeType.ADDED:
-        return {
-          changeType: FileChangeType.ADDED,
-          newItem: context.flatItem(diffItem.newItem),
-        }
-      case FileChangeType.MODIFIED:
-        return {
-          changeType: FileChangeType.MODIFIED,
-          oldItem: context.flatItem(diffItem.oldItem),
-          newItem: context.flatItem(diffItem.newItem),
-        }
-      case FileChangeType.REMOVED:
-        return {
-          changeType: FileChangeType.REMOVED,
-          oldItem: context.flatItem(diffItem.oldItem),
-        }
-      /* c8 ignore start */
-      default:
-        throw new Error(`[${title}] unexpected changeType. ${diffItem['changeType']}`)
-      /* c8 ignore end */
-    }
-  })
+  const diffItems: ICatalogDiffItem[] = await Promise.all(
+    configData.catalog.diffItems.map(async (diffItem): Promise<ICatalogDiffItem> => {
+      switch (diffItem.changeType) {
+        case FileChangeType.ADDED:
+          return {
+            changeType: FileChangeType.ADDED,
+            newItem: await context.flatItem(diffItem.newItem),
+          }
+        case FileChangeType.MODIFIED:
+          return {
+            changeType: FileChangeType.MODIFIED,
+            oldItem: await context.flatItem(diffItem.oldItem),
+            newItem: await context.flatItem(diffItem.newItem),
+          }
+        case FileChangeType.REMOVED:
+          return {
+            changeType: FileChangeType.REMOVED,
+            oldItem: await context.flatItem(diffItem.oldItem),
+          }
+        /* c8 ignore start */
+        default:
+          throw new Error(`[${title}] unexpected changeType. ${diffItem['changeType']}`)
+        /* c8 ignore end */
+      }
+    }),
+  )
   const affectedPlainFiles: string[] = collectAffectedPlainFilepaths(diffItems)
   await cleanUntrackedFilepaths({ ...plainCmdCtx, filepaths: affectedPlainFiles })
 
   // Decrypt files.
-  await cipherBatcher.batchDecrypt({
-    strictCheck: false,
-    plainPathResolver,
-    cryptPathResolver,
-    diffItems,
-  })
+  await cipherBatcher.batchDecrypt({ catalog, diffItems, strictCheck: false })
   await commitAll({ ...plainCmdCtx, ...signature, message, amend: shouldAmend })
 }

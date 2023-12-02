@@ -14,7 +14,6 @@ export interface ICreateGitCipherContextParams {
   readonly catalogFilepath: string
   readonly cipherFactory: ICipherFactory
   readonly reporter: IReporter
-  readonly calcIv: (infos: ReadonlyArray<Uint8Array>) => Readonly<Uint8Array>
 }
 
 export function createContext(params: ICreateGitCipherContextParams): IGitCipherContext {
@@ -24,7 +23,6 @@ export function createContext(params: ICreateGitCipherContextParams): IGitCipher
     catalogFilepath,
     cipherFactory,
     reporter,
-    calcIv,
   } = params
   const fileCipherFactory: IFileCipherFactory = new FileCipherFactory({ cipherFactory, reporter })
   const fileSplitter = new FileSplitter({ partCodePrefix: catalogContext.partCodePrefix })
@@ -47,7 +45,6 @@ export function createContext(params: ICreateGitCipherContextParams): IGitCipher
     cipherBatcher,
     configKeeper,
     reporter,
-    calcIv,
   })
   return context
 }

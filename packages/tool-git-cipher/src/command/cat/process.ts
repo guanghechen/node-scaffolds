@@ -43,7 +43,7 @@ export class GitCipherCat
       reporter,
     })
 
-    const { catalog, configKeeper, getIv } = gitCipherContext
+    const { catalog, configKeeper } = gitCipherContext
     await configKeeper.load()
 
     // Print catalog config.
@@ -76,8 +76,10 @@ export class GitCipherCat
       cryptPathResolver.resolve(cryptFilepath),
       item.cryptFilepathParts,
     )
+
+    const iv: Readonly<Uint8Array | undefined> = await catalog.getIv(item)
     const fileCipher = new FileCipher({
-      cipher: cipherFactory.cipher({ iv: getIv(item) }),
+      cipher: cipherFactory.cipher({ iv }),
       reporter,
     })
     const plainContentBuffer: Uint8Array = await fileCipher.decryptFromFiles(cryptFilepaths, {

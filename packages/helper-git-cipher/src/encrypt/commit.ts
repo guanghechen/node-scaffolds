@@ -51,7 +51,9 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     const configData = configKeeper.data
     invariant(!!configData, `[${title}] cannot load config. crypt(${cryptParentId})`)
 
-    const items: ICatalogItem[] = configData.catalog.items.map(item => context.flatItem(item))
+    const items: ICatalogItem[] = await Promise.all(
+      configData.catalog.items.map(async (item): Promise<ICatalogItem> => context.flatItem(item)),
+    )
     catalog.reset(items)
   } else {
     catalog.reset()

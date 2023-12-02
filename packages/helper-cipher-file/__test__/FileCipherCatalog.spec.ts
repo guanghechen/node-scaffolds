@@ -15,7 +15,6 @@ import {
   rm,
   writeFile,
 } from 'jest.helper'
-import { createHash } from 'node:crypto'
 import path from 'node:path'
 import {
   CipherCatalogContext,
@@ -66,12 +65,10 @@ describe('FileCipherCatalog', () => {
     plainPathResolver,
     cryptPathResolver,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
-    calcIv: (infos: ReadonlyArray<Uint8Array>): Readonly<Uint8Array> => {
-      const sha256 = createHash('sha256')
-      for (const info of infos) sha256.update(info)
-      return sha256.digest().subarray(0, 32)
-    },
+    calcIv: async () => undefined,
   })
+  catalogContext.getIv = async (item: IDraftCatalogItem): Promise<Uint8Array | undefined> =>
+    Object.values(itemTable).find(t => isSameFileCipherItemDraft(t, item))?.iv
   const catalog = new FileCipherCatalog(catalogContext)
 
   beforeEach(async () => {
@@ -370,8 +367,6 @@ describe('FileCipherCatalog', () => {
       maxTargetFileSize,
       reporter,
     })
-    const getIv = async (item: IDraftCatalogItem): Promise<Uint8Array | undefined> =>
-      Object.values(itemTable).find(t => isSameFileCipherItemDraft(t, item))?.iv
 
     expect(Array.from(catalog.items)).toEqual([])
 
@@ -384,11 +379,9 @@ describe('FileCipherCatalog', () => {
         true,
       )
       const diffItems: ICatalogDiffItem[] = await cipherBatcher.batchEncrypt({
-        strictCheck: false,
-        plainPathResolver,
-        cryptPathResolver,
+        catalog,
         diffItems: draftDiffItems,
-        getIv,
+        strictCheck: false,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step1)
@@ -416,11 +409,9 @@ describe('FileCipherCatalog', () => {
         true,
       )
       const diffItems: ICatalogDiffItem[] = await cipherBatcher.batchEncrypt({
-        strictCheck: false,
-        plainPathResolver,
-        cryptPathResolver,
+        catalog,
         diffItems: draftDiffItems,
-        getIv,
+        strictCheck: false,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step2)
@@ -438,11 +429,9 @@ describe('FileCipherCatalog', () => {
         true,
       )
       const diffItems: ICatalogDiffItem[] = await cipherBatcher.batchEncrypt({
-        strictCheck: false,
-        plainPathResolver,
-        cryptPathResolver,
+        catalog,
         diffItems: draftDiffItems,
-        getIv,
+        strictCheck: false,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step3)
@@ -461,11 +450,9 @@ describe('FileCipherCatalog', () => {
         true,
       )
       const diffItems: ICatalogDiffItem[] = await cipherBatcher.batchEncrypt({
-        strictCheck: false,
-        plainPathResolver,
-        cryptPathResolver,
+        catalog,
         diffItems: draftDiffItems,
-        getIv,
+        strictCheck: false,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step4)
@@ -483,11 +470,9 @@ describe('FileCipherCatalog', () => {
         true,
       )
       const diffItems: ICatalogDiffItem[] = await cipherBatcher.batchEncrypt({
-        strictCheck: false,
-        plainPathResolver,
-        cryptPathResolver,
+        catalog,
         diffItems: draftDiffItems,
-        getIv,
+        strictCheck: false,
       })
 
       expect(diffItems).toEqual(diffItemsTable.step5)

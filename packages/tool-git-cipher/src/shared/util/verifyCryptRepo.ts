@@ -18,7 +18,7 @@ export interface IVerifyCryptRepoParams {
   readonly plainPathResolver: IWorkspacePathResolver
   readonly reporter: IReporter
   readonly secretConfig: Readonly<ISecretConfig>
-  readonly calcIv: (infos: ReadonlyArray<Uint8Array>) => Readonly<Uint8Array>
+  readonly calcIv: (infos: ReadonlyArray<Uint8Array>) => Promise<Readonly<Uint8Array> | undefined>
 }
 
 export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<void> {

@@ -147,7 +147,9 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
   }
 
   // @override
-  public getIv(item: IDeserializedCatalogItem | IDraftCatalogItem): Uint8Array {
+  public async getIv(
+    item: IDeserializedCatalogItem | IDraftCatalogItem,
+  ): Promise<Uint8Array | undefined> {
     const { context } = this
     return context.getIv(item)
   }

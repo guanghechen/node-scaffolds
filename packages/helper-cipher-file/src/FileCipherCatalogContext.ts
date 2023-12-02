@@ -16,7 +16,7 @@ export interface ICipherCatalogContextProps {
   readonly partCodePrefix: string
   readonly pathHashAlgorithm: IHashAlgorithm
   readonly plainPathResolver: IWorkspacePathResolver
-  readonly calcIv: (infos: ReadonlyArray<Uint8Array>) => Readonly<Uint8Array>
+  readonly calcIv: (infos: ReadonlyArray<Uint8Array>) => Promise<Readonly<Uint8Array> | undefined>
   readonly isKeepPlain: (relativePlainFilepath: string) => boolean
 }
 
@@ -30,7 +30,9 @@ export class CipherCatalogContext implements ICipherCatalogContext {
   public readonly pathHashAlgorithm: IHashAlgorithm
   public readonly plainPathResolver: IWorkspacePathResolver
   public readonly isKeepPlain: (relativePlainFilepath: string) => boolean
-  protected readonly _calcIv: (infos: ReadonlyArray<Uint8Array>) => Readonly<Uint8Array>
+  protected readonly _calcIv: (
+    infos: ReadonlyArray<Uint8Array>,
+  ) => Promise<Readonly<Uint8Array> | undefined>
 
   constructor(props: ICipherCatalogContextProps) {
     const {
@@ -57,7 +59,9 @@ export class CipherCatalogContext implements ICipherCatalogContext {
     this._calcIv = calcIv
   }
 
-  public getIv(item: IDeserializedCatalogItem | IDraftCatalogItem): Readonly<Uint8Array> {
+  public async getIv(
+    item: IDeserializedCatalogItem | IDraftCatalogItem,
+  ): Promise<Readonly<Uint8Array> | undefined> {
     return this._calcIv([
       text2bytes(item.plainFilepath, 'utf8'),
       text2bytes(item.fingerprint, 'hex'),

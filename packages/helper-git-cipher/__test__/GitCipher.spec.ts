@@ -1,7 +1,7 @@
 import { bytes2text } from '@guanghechen/byte'
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
-import type { ICatalogItem } from '@guanghechen/cipher-workspace.types'
+import type { ICatalogItem, ICipherCatalogContext } from '@guanghechen/cipher-workspace.types'
 import { FileSplitter } from '@guanghechen/file-split'
 import {
   CipherCatalogContext,
@@ -115,7 +115,7 @@ describe('GitCipher', () => {
 
     {
       // build gitCipher
-      const catalogContext = new CipherCatalogContext({
+      const catalogContext: ICipherCatalogContext = new CipherCatalogContext({
         contentHashAlgorithm,
         cryptFilesDir,
         cryptFilepathSalt: 'guanghechen_git_cipher',
@@ -125,21 +125,20 @@ describe('GitCipher', () => {
         pathHashAlgorithm,
         plainPathResolver,
         isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
-        calcIv: info => calcMac(info, 'sha256').slice(0, ivSize),
+        calcIv: async info => calcMac(info, 'sha256').slice(0, ivSize),
       })
       const context = new GitCipherContext({
         catalogContext,
         cipherBatcher,
         configKeeper,
         reporter,
-        calcIv: (infos): Readonly<Uint8Array> => calcMac(infos, 'sha256').slice(0, ivSize),
       })
       gitCipher = new GitCipher({ context })
     }
 
     {
       // build bakGitCipher
-      const catalogContext = new CipherCatalogContext({
+      const catalogContext: ICipherCatalogContext = new CipherCatalogContext({
         contentHashAlgorithm,
         cryptFilesDir,
         cryptFilepathSalt: 'guanghechen_git_cipher',
@@ -149,14 +148,13 @@ describe('GitCipher', () => {
         pathHashAlgorithm,
         plainPathResolver: bakPlainPathResolver,
         isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
-        calcIv: info => calcMac(info, 'sha256').slice(0, ivSize),
+        calcIv: async info => calcMac(info, 'sha256').slice(0, ivSize),
       })
       const context = new GitCipherContext({
         catalogContext,
         cipherBatcher,
         configKeeper,
         reporter,
-        calcIv: (infos): Readonly<Uint8Array> => calcMac(infos, 'sha256').slice(0, ivSize),
       })
       bakGitCipher = new GitCipher({ context })
     }
@@ -170,14 +168,19 @@ describe('GitCipher', () => {
     const { context } = gitCipher
     await configKeeper.load()
     expect(configKeeper.data!.commit).toEqual({ message: commit.message })
-    expect(
-      configKeeper.data!.catalog.items.map(item => ({
-        ...item,
-        cryptFilepath: context.catalog.calcCryptFilepath(item.plainFilepath),
-        iv: bytes2text(context.getIv(item), 'hex'),
-        authTag: item.authTag ? bytes2text(item.authTag, 'hex') : undefined,
-      })),
-    ).toEqual(
+
+    const results1: unknown[] = await Promise.all(
+      configKeeper.data!.catalog.items.map(async item => {
+        const iv: Uint8Array | undefined = await context.catalog.getIv(item)
+        return {
+          ...item,
+          cryptFilepath: context.catalog.calcCryptFilepath(item.plainFilepath),
+          iv: bytes2text(iv!, 'hex'),
+          authTag: item.authTag ? bytes2text(item.authTag, 'hex') : undefined,
+        }
+      }),
+    )
+    expect(results1).toEqual(
       items.map(item => ({
         ...item,
         iv: item.iv ? bytes2text(item.iv, 'hex') : undefined,
@@ -185,23 +188,27 @@ describe('GitCipher', () => {
       })),
     )
 
-    expect(
-      configKeeper.data!.catalog.diffItems.map(diffItem => {
-        const serializeItem = (item: any): any => ({
-          plainFilepath: item.plainFilepath,
-          fingerprint: item.fingerprint,
-          cryptFilepathParts: item.cryptFilepathParts,
-          keepPlain: item.keepPlain,
-          iv: bytes2text(context.getIv(item), 'hex'),
-          authTag: item.authTag ? bytes2text(item.authTag, 'hex') : undefined,
-        })
+    const results2: unknown[] = await Promise.all(
+      configKeeper.data!.catalog.diffItems.map(async diffItem => {
+        const serializeItem = async (item: any): Promise<unknown> => {
+          const iv: Uint8Array | undefined = await context.catalog.getIv(item)
+          return {
+            plainFilepath: item.plainFilepath,
+            fingerprint: item.fingerprint,
+            cryptFilepathParts: item.cryptFilepathParts,
+            keepPlain: item.keepPlain,
+            iv: bytes2text(iv!, 'hex'),
+            authTag: item.authTag ? bytes2text(item.authTag, 'hex') : undefined,
+          }
+        }
 
         const result: any = { ...diffItem }
-        if (result.oldItem) result.oldItem = serializeItem(result.oldItem)
-        if (result.newItem) result.newItem = serializeItem(result.newItem)
+        if (result.oldItem) result.oldItem = await serializeItem(result.oldItem)
+        if (result.newItem) result.newItem = await serializeItem(result.newItem)
         return result
       }),
-    ).toEqual(
+    )
+    expect(results2).toEqual(
       diffItems.map((diffItem: any): any => {
         const serializeItem = (item: any): any => ({
           plainFilepath: item.plainFilepath,

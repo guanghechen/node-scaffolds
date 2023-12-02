@@ -43,7 +43,8 @@ export class FileCipherBatcher implements IFileCipherBatcher {
 
   public async batchEncrypt(params: IBatchEncryptParams): Promise<ICatalogDiffItem[]> {
     const title = 'batchEncrypt'
-    const { strictCheck, plainPathResolver, cryptPathResolver, diffItems, getIv } = params
+    const { catalog, diffItems, strictCheck } = params
+    const { cryptPathResolver, plainPathResolver } = catalog.context
     const { reporter, fileCipherFactory, fileSplitter, maxTargetFileSize } = this
 
     const results: ICatalogDiffItem[] = []
@@ -109,7 +110,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       if (item.keepPlain) {
         await copyFile(absolutePlainFilepath, absoluteCryptFilepath)
       } else {
-        const iv = await getIv(item)
+        const iv: Uint8Array | undefined = await catalog.getIv(item)
         const fileCipher: IFileCipher = fileCipherFactory.fileCipher({ iv })
         const { authTag } = await fileCipher.encryptFile(
           absolutePlainFilepath,
@@ -166,7 +167,8 @@ export class FileCipherBatcher implements IFileCipherBatcher {
 
   public async batchDecrypt(params: IBatchDecryptParams): Promise<void> {
     const title = 'batchDecrypt'
-    const { strictCheck, diffItems, plainPathResolver, cryptPathResolver } = params
+    const { catalog, diffItems, strictCheck } = params
+    const { cryptPathResolver, plainPathResolver } = catalog.context
     const { reporter, fileCipherFactory, fileSplitter } = this
 
     // Plain filepath should always pointer to the plain contents,

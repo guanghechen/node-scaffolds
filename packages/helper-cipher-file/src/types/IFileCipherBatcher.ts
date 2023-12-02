@@ -1,10 +1,8 @@
 import type {
   ICatalogDiffItem,
-  IDeserializedCatalogItem,
+  ICipherCatalog,
   IDraftCatalogDiffItem,
-  IDraftCatalogItem,
 } from '@guanghechen/cipher-workspace.types'
-import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 
 export interface IFileCipherBatcher {
   /**
@@ -19,18 +17,13 @@ export interface IFileCipherBatcher {
 }
 
 export interface IBatchEncryptParams {
-  cryptPathResolver: IWorkspacePathResolver
-  diffItems: Iterable<Readonly<IDraftCatalogDiffItem>>
-  plainPathResolver: IWorkspacePathResolver
-  strictCheck: boolean
-  getIv(
-    item: IDeserializedCatalogItem | IDraftCatalogItem,
-  ): Promise<Readonly<Uint8Array> | undefined> | Readonly<Uint8Array> | undefined
+  readonly catalog: ICipherCatalog
+  readonly diffItems: Iterable<Readonly<IDraftCatalogDiffItem>>
+  readonly strictCheck: boolean
 }
 
 export interface IBatchDecryptParams {
-  cryptPathResolver: IWorkspacePathResolver
-  diffItems: Iterable<Readonly<ICatalogDiffItem>>
-  plainPathResolver: IWorkspacePathResolver
-  strictCheck: boolean
+  readonly catalog: ICipherCatalog
+  readonly diffItems: Iterable<Readonly<ICatalogDiffItem>>
+  readonly strictCheck: boolean
 }
