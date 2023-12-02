@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.5](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/chalk-logger@6.0.0-alpha.4...@guanghechen/chalk-logger@6.0.0-alpha.5) (2023-12-02)
+
+
+### Performance Improvements
+
+* 🔧 update scripts ([3ba43ef](https://github.com/guanghechen/node-scaffolds/commit/3ba43ef113b49a06d7293884773298a582967f8a))
+
+
+
+
+
 # [6.0.0-alpha.4](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/chalk-logger@6.0.0-alpha.3...@guanghechen/chalk-logger@6.0.0-alpha.4) (2023-11-29)
 
 
