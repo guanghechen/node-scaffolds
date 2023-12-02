@@ -1,14 +1,14 @@
 import type {
   ICatalogItem,
   ICipherCatalogContext,
+  IDeserializedCatalogItem,
   IDraftCatalogItem,
   IReadonlyCipherCatalog,
 } from '@guanghechen/cipher-workspace.types'
 import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/file-split'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
-import fs from 'node:fs/promises'
-import path from 'node:path'
+import { stat } from 'node:fs/promises'
 import { calcFingerprintFromFile, calcFingerprintFromString } from './util/mac'
 import { normalizePlainFilepath } from './util/normalizePlainFilepath'
 
@@ -33,7 +33,7 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
     const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
     invariant(isFileSync(absolutePlainFilepath), `[${title}] Not a file ${absolutePlainFilepath}.`)
 
-    const fileSize = await fs.stat(absolutePlainFilepath).then(md => md.size)
+    const fileSize = await stat(absolutePlainFilepath).then(md => md.size)
     const fingerprint = await calcFingerprintFromFile(absolutePlainFilepath, contentHashAlgorithm)
     const relativePlainFilepath = plainPathResolver.relative(absolutePlainFilepath)
     const keepPlain: boolean = context.isKeepPlain(relativePlainFilepath)
@@ -55,26 +55,19 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
 
   // @override
   public calcCryptFilepath(plainFilepath: string): string {
-    const title = `${clazz}.calcCryptFilepath`
     const { context } = this
-    const { cryptFilepathSalt, cryptFilesDir, pathHashAlgorithm, plainPathResolver } = context
+    const { plainPathResolver } = context
     const relativePlainFilepath = plainPathResolver.relative(plainFilepath)
-    invariant(
-      !path.isAbsolute(relativePlainFilepath),
-      `[${title}] relativePlainFilepath should be a relative path. received(${relativePlainFilepath})`,
-    )
+    if (context.isKeepPlain(relativePlainFilepath)) return relativePlainFilepath
 
+    const { cryptFilepathSalt, cryptFilesDir, cryptPathResolver, pathHashAlgorithm } = context
     const plainFilepathKey: string = this.normalizePlainFilepath(relativePlainFilepath)
-    const cryptFilepath: string = context.isKeepPlain(relativePlainFilepath)
-      ? relativePlainFilepath
-      : path.join(
-          cryptFilesDir,
-          calcFingerprintFromString(
-            cryptFilepathSalt + plainFilepathKey,
-            'utf8',
-            pathHashAlgorithm,
-          ),
-        )
+    const filepathHash: string = calcFingerprintFromString(
+      cryptFilepathSalt + plainFilepathKey,
+      'utf8',
+      pathHashAlgorithm,
+    )
+    const cryptFilepath: string = cryptPathResolver.relative(cryptFilesDir + '/' + filepathHash)
     return cryptFilepath
   }
 
@@ -151,6 +144,12 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
       filepathSet.size === count,
       `[${title}] Count of plain filepaths are not match. expect(${filepathSet.size}), received(${count})`,
     )
+  }
+
+  // @override
+  public getIv(item: IDeserializedCatalogItem | IDraftCatalogItem): Uint8Array {
+    const { context } = this
+    return context.getIv(item)
   }
 
   // @override

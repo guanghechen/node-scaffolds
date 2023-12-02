@@ -17,7 +17,7 @@ export interface IGitCipherContextProps {
   readonly cipherBatcher: IFileCipherBatcher
   readonly configKeeper: IConfigKeeper<IGitCipherConfig>
   readonly reporter: IReporter
-  getDynamicIv(infos: ReadonlyArray<Uint8Array>): Readonly<Uint8Array>
+  readonly calcIv: (infos: ReadonlyArray<Uint8Array>) => Readonly<Uint8Array>
 }
 
 export interface IGitCipherContext {
@@ -37,13 +37,13 @@ export class GitCipherContext implements IGitCipherContext {
   public readonly getIv: (item: IDeserializedCatalogItem) => Uint8Array
 
   constructor(props: IGitCipherContextProps) {
-    const { catalogContext, cipherBatcher, configKeeper, reporter, getDynamicIv } = props
+    const { catalogContext, cipherBatcher, configKeeper, reporter, calcIv } = props
     this.catalog = new FileCipherCatalog(catalogContext)
     this.cipherBatcher = cipherBatcher
     this.configKeeper = configKeeper
     this.reporter = reporter
     this.getIv = (item: IDeserializedCatalogItem | IDraftCatalogItem): Uint8Array =>
-      getDynamicIv([text2bytes(item.plainFilepath, 'utf8'), text2bytes(item.fingerprint, 'hex')])
+      calcIv([text2bytes(item.plainFilepath, 'utf8'), text2bytes(item.fingerprint, 'hex')])
   }
 
   public readonly flatItem = (item: IDeserializedCatalogItem): ICatalogItem => {

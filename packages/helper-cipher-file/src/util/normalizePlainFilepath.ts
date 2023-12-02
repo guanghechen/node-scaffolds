@@ -4,6 +4,6 @@ export function normalizePlainFilepath(
   plainFilepath: string,
   plainPathResolver: IWorkspacePathResolver,
 ): string {
-  const relativePlainFilepath = plainPathResolver.relative(plainFilepath)
-  return relativePlainFilepath.replace(/[/\\]+/g, '/')
+  const relativePlainFilepath = plainPathResolver.relative(plainFilepath, true)
+  return relativePlainFilepath
 }

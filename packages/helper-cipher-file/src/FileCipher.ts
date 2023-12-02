@@ -4,7 +4,7 @@ import { mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { consumeStream, consumeStreams } from '@guanghechen/stream'
-import fs from 'node:fs'
+import { createReadStream, createWriteStream } from 'node:fs'
 import type { IFileCipher } from './types/IFileCipher'
 
 export interface IFileCipherProps {
@@ -24,7 +24,7 @@ export class FileCipher implements IFileCipher {
   // override
   public async encryptFromFiles(plainFilepaths: string[]): Promise<IEncryptResult> {
     for (const fp of plainFilepaths) mkdirsIfNotExists(fp, false, this.reporter)
-    const readers: NodeJS.ReadableStream[] = plainFilepaths.map(fp => fs.createReadStream(fp))
+    const readers: NodeJS.ReadableStream[] = plainFilepaths.map(fp => createReadStream(fp))
     const encipher = this.cipher.encipher()
     const pieces: Uint8Array[] = []
 
@@ -48,7 +48,7 @@ export class FileCipher implements IFileCipher {
     options: IDecipherOptions,
   ): Promise<Uint8Array> {
     for (const fp of cryptFilepaths) mkdirsIfNotExists(fp, false, this.reporter)
-    const readers: NodeJS.ReadableStream[] = cryptFilepaths.map(fp => fs.createReadStream(fp))
+    const readers: NodeJS.ReadableStream[] = cryptFilepaths.map(fp => createReadStream(fp))
     const decipher = this.cipher.decipher(options)
     const plainBytesList: Uint8Array[] = []
 
@@ -70,8 +70,8 @@ export class FileCipher implements IFileCipher {
     cryptFilepath: string,
   ): Promise<Omit<IEncryptResult, 'cryptBytes'>> {
     mkdirsIfNotExists(cryptFilepath, false, this.reporter)
-    const reader: NodeJS.ReadableStream = fs.createReadStream(plainFilepath)
-    const writer: NodeJS.WritableStream = fs.createWriteStream(cryptFilepath)
+    const reader: NodeJS.ReadableStream = createReadStream(plainFilepath)
+    const writer: NodeJS.WritableStream = createWriteStream(cryptFilepath)
     const encipher = this.cipher.encipher()
 
     let authTag: Uint8Array | undefined
@@ -93,8 +93,8 @@ export class FileCipher implements IFileCipher {
     options: IDecipherOptions,
   ): Promise<void> {
     mkdirsIfNotExists(plainFilepath, false, this.reporter)
-    const reader: NodeJS.ReadableStream = fs.createReadStream(cryptFilepath)
-    const writer: NodeJS.WritableStream = fs.createWriteStream(plainFilepath)
+    const reader: NodeJS.ReadableStream = createReadStream(cryptFilepath)
+    const writer: NodeJS.WritableStream = createWriteStream(plainFilepath)
     const decipher = this.cipher.decipher(options)
 
     try {
@@ -114,8 +114,8 @@ export class FileCipher implements IFileCipher {
     if (plainFilepaths.length === 1) return this.encryptFile(plainFilepaths[0], cryptFilepath)
 
     mkdirsIfNotExists(cryptFilepath, false, this.reporter)
-    const readers: NodeJS.ReadableStream[] = plainFilepaths.map(fp => fs.createReadStream(fp))
-    const writer: NodeJS.WritableStream = fs.createWriteStream(cryptFilepath)
+    const readers: NodeJS.ReadableStream[] = plainFilepaths.map(fp => createReadStream(fp))
+    const writer: NodeJS.WritableStream = createWriteStream(cryptFilepath)
     const encipher = this.cipher.encipher()
 
     let authTag: Uint8Array | undefined
@@ -143,8 +143,8 @@ export class FileCipher implements IFileCipher {
     }
 
     mkdirsIfNotExists(plainFilepath, false, this.reporter)
-    const readers: NodeJS.ReadableStream[] = cryptFIlepaths.map(fp => fs.createReadStream(fp))
-    const writer: NodeJS.WritableStream = fs.createWriteStream(plainFilepath)
+    const readers: NodeJS.ReadableStream[] = cryptFIlepaths.map(fp => createReadStream(fp))
+    const writer: NodeJS.WritableStream = createWriteStream(plainFilepath)
     const decipher = this.cipher.decipher(options)
 
     try {

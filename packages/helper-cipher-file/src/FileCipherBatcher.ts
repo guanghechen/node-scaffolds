@@ -11,7 +11,7 @@ import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { existsSync } from 'node:fs'
-import fs from 'node:fs/promises'
+import { copyFile, stat, unlink } from 'node:fs/promises'
 import type { IFileCipher } from './types/IFileCipher'
 import type {
   IBatchDecryptParams,
@@ -107,7 +107,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
 
       const nextItem: ICatalogItem = { ...item, iv: undefined, authTag: undefined }
       if (item.keepPlain) {
-        await fs.copyFile(absolutePlainFilepath, absoluteCryptFilepath)
+        await copyFile(absolutePlainFilepath, absoluteCryptFilepath)
       } else {
         const iv = await getIv(item)
         const fileCipher: IFileCipher = fileCipherFactory.fileCipher({ iv })
@@ -123,7 +123,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       // Split encrypted file.
       {
         const parts: IFilePartItem[] = calcFilePartItemsBySize(
-          await fs.stat(absoluteCryptFilepath).then(md => md.size),
+          await stat(absoluteCryptFilepath).then(md => md.size),
           maxTargetFileSize,
         )
         if (parts.length > 1) {
@@ -136,7 +136,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
           nextItem.cryptFilepathParts = cryptFilepathParts
 
           // Remove the original big crypt file.
-          await fs.unlink(absoluteCryptFilepath)
+          await unlink(absoluteCryptFilepath)
         }
       }
       return nextItem
@@ -156,7 +156,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
             isFileSync(absoluteCryptFilepath),
             `[${title}.remove] Bad diff item (${changeType}), crypt file does not exist or it is not a file. (${cryptFilepath})`,
           )
-          await fs.unlink(absoluteCryptFilepath)
+          await unlink(absoluteCryptFilepath)
         } else {
           await rm(absoluteCryptFilepath)
         }
@@ -244,7 +244,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
           isFileSync(absolutePlainFilepath),
           `[${title}.remove] Bad diff item (${changeType}), plain file does not exist or it is not a file. (${plainFilepath})`,
         )
-        await fs.unlink(absolutePlainFilepath)
+        await unlink(absolutePlainFilepath)
       } else {
         await rm(absolutePlainFilepath)
       }

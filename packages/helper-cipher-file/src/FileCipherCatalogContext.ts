@@ -1,8 +1,11 @@
-import type { ICipherCatalogContext } from '@guanghechen/cipher-workspace.types'
-import invariant from '@guanghechen/invariant'
+import { text2bytes } from '@guanghechen/byte'
+import type {
+  ICipherCatalogContext,
+  IDeserializedCatalogItem,
+  IDraftCatalogItem,
+} from '@guanghechen/cipher-workspace.types'
 import type { IHashAlgorithm } from '@guanghechen/mac'
 import type { IWorkspacePathResolver } from '@guanghechen/path.types'
-import path from 'node:path'
 
 export interface ICipherCatalogContextProps {
   readonly contentHashAlgorithm: IHashAlgorithm
@@ -13,10 +16,9 @@ export interface ICipherCatalogContextProps {
   readonly partCodePrefix: string
   readonly pathHashAlgorithm: IHashAlgorithm
   readonly plainPathResolver: IWorkspacePathResolver
-  isKeepPlain(relativePlainFilepath: string): boolean
+  readonly calcIv: (infos: ReadonlyArray<Uint8Array>) => Readonly<Uint8Array>
+  readonly isKeepPlain: (relativePlainFilepath: string) => boolean
 }
-
-const clazz = 'CipherCatalogContext'
 
 export class CipherCatalogContext implements ICipherCatalogContext {
   public readonly contentHashAlgorithm: IHashAlgorithm
@@ -28,22 +30,37 @@ export class CipherCatalogContext implements ICipherCatalogContext {
   public readonly pathHashAlgorithm: IHashAlgorithm
   public readonly plainPathResolver: IWorkspacePathResolver
   public readonly isKeepPlain: (relativePlainFilepath: string) => boolean
+  protected readonly _calcIv: (infos: ReadonlyArray<Uint8Array>) => Readonly<Uint8Array>
 
   constructor(props: ICipherCatalogContextProps) {
-    const title: string = clazz
-    invariant(
-      !path.isAbsolute(props.cryptFilesDir),
-      `[${title}] cryptFilesDir should be a relative path. received(${props.cryptFilesDir})`,
-    )
+    const {
+      contentHashAlgorithm,
+      cryptFilepathSalt,
+      maxTargetFileSize,
+      partCodePrefix,
+      pathHashAlgorithm,
+      isKeepPlain,
+      calcIv,
+    } = props
+    const { cryptPathResolver, plainPathResolver } = props
+    const cryptFilesDir = cryptPathResolver.relative(props.cryptFilesDir)
 
-    this.contentHashAlgorithm = props.contentHashAlgorithm
-    this.cryptFilesDir = props.cryptFilesDir
-    this.cryptFilepathSalt = props.cryptFilepathSalt
-    this.cryptPathResolver = props.cryptPathResolver
-    this.maxTargetFileSize = props.maxTargetFileSize
-    this.partCodePrefix = props.partCodePrefix
-    this.pathHashAlgorithm = props.pathHashAlgorithm
-    this.plainPathResolver = props.plainPathResolver
-    this.isKeepPlain = props.isKeepPlain
+    this.contentHashAlgorithm = contentHashAlgorithm
+    this.cryptFilesDir = cryptFilesDir
+    this.cryptFilepathSalt = cryptFilepathSalt
+    this.cryptPathResolver = cryptPathResolver
+    this.maxTargetFileSize = maxTargetFileSize
+    this.partCodePrefix = partCodePrefix
+    this.pathHashAlgorithm = pathHashAlgorithm
+    this.plainPathResolver = plainPathResolver
+    this.isKeepPlain = isKeepPlain
+    this._calcIv = calcIv
+  }
+
+  public getIv(item: IDeserializedCatalogItem | IDraftCatalogItem): Readonly<Uint8Array> {
+    return this._calcIv([
+      text2bytes(item.plainFilepath, 'utf8'),
+      text2bytes(item.fingerprint, 'hex'),
+    ])
   }
 }

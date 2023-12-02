@@ -125,13 +125,14 @@ describe('GitCipher', () => {
         pathHashAlgorithm,
         plainPathResolver,
         isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
+        calcIv: info => calcMac(info, 'sha256').slice(0, ivSize),
       })
       const context = new GitCipherContext({
         catalogContext,
         cipherBatcher,
         configKeeper,
         reporter,
-        getDynamicIv: (infos): Readonly<Uint8Array> => calcMac(infos, 'sha256').slice(0, ivSize),
+        calcIv: (infos): Readonly<Uint8Array> => calcMac(infos, 'sha256').slice(0, ivSize),
       })
       gitCipher = new GitCipher({ context })
     }
@@ -148,13 +149,14 @@ describe('GitCipher', () => {
         pathHashAlgorithm,
         plainPathResolver: bakPlainPathResolver,
         isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
+        calcIv: info => calcMac(info, 'sha256').slice(0, ivSize),
       })
       const context = new GitCipherContext({
         catalogContext,
         cipherBatcher,
         configKeeper,
         reporter,
-        getDynamicIv: (infos): Readonly<Uint8Array> => calcMac(infos, 'sha256').slice(0, ivSize),
+        calcIv: (infos): Readonly<Uint8Array> => calcMac(infos, 'sha256').slice(0, ivSize),
       })
       bakGitCipher = new GitCipher({ context })
     }

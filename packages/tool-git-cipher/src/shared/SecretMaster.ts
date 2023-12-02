@@ -81,18 +81,18 @@ export class SecretMaster {
       : undefined
   }
 
-  public getDynamicIv = (infos: ReadonlyArray<Uint8Array>): Readonly<Uint8Array> => {
+  public calcIv = (infos: ReadonlyArray<Uint8Array>): Readonly<Uint8Array> => {
     const secretNonce = this.#secretConfigKeeper?.data?.secretNonce
     const secretIvSize = this.#secretConfigKeeper?.data?.secretIvSize
     invariant(
       !!secretNonce && !!secretIvSize && !!this.#secretCipherFactory,
-      '[SecretMaster.getDynamicIv] secretCipherFactory is not available.',
+      '[SecretMaster.calcIv] secretCipherFactory is not available.',
     )
 
     const sha256 = createHash('sha256')
     sha256.update(secretNonce)
     for (const info of infos) sha256.update(info)
-    return sha256.digest().slice(0, secretIvSize)
+    return sha256.digest().subarray(0, secretIvSize)
   }
 
   // create a new secret key

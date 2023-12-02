@@ -55,9 +55,10 @@ export class SecretConfigKeeper
   public createCatalogContext(params: {
     cryptPathResolver: IWorkspacePathResolver
     plainPathResolver: IWorkspacePathResolver
+    calcIv: (infos: ReadonlyArray<Uint8Array>) => Readonly<Uint8Array>
   }): CipherCatalogContext | undefined {
     if (this.data) {
-      const { cryptPathResolver, plainPathResolver } = params
+      const { cryptPathResolver, plainPathResolver, calcIv } = params
       const {
         contentHashAlgorithm,
         cryptFilepathSalt,
@@ -80,6 +81,7 @@ export class SecretConfigKeeper
           keepPlainPatterns.length > 0
             ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
             : () => false,
+        calcIv,
       })
       return catalogContext
     }

@@ -15,6 +15,7 @@ import {
   rm,
   writeFile,
 } from 'jest.helper'
+import { createHash } from 'node:crypto'
 import path from 'node:path'
 import {
   CipherCatalogContext,
@@ -65,6 +66,11 @@ describe('FileCipherCatalog', () => {
     plainPathResolver,
     cryptPathResolver,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
+    calcIv: (infos: ReadonlyArray<Uint8Array>): Readonly<Uint8Array> => {
+      const sha256 = createHash('sha256')
+      for (const info of infos) sha256.update(info)
+      return sha256.digest().subarray(0, 32)
+    },
   })
   const catalog = new FileCipherCatalog(catalogContext)
 
