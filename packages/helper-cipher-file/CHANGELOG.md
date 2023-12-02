@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.6](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@6.0.0-alpha.5...@guanghechen/helper-cipher-file@6.0.0-alpha.6) (2023-12-02)
+
+
+### Performance Improvements
+
+* :art:  refactor due to the change of guanghechen/cipher-workspace.types ([6232ce5](https://github.com/guanghechen/node-scaffolds/commit/6232ce58aeb4b7c15037d2357148346de24515d1))
+* make getIv return Promise ([e34016f](https://github.com/guanghechen/node-scaffolds/commit/e34016f6c01b2b4739bfe6c4855c4c7f22062f0d))
+* 🎨 migrate flatItem to CipherCatalog ([c78b024](https://github.com/guanghechen/node-scaffolds/commit/c78b024af5f3c123166a388202b0e98c48f23395))
+* 🔧 use @guanghechen/cipher-workspace.types from npm ([fa2b4a1](https://github.com/guanghechen/node-scaffolds/commit/fa2b4a1ce060ff8a5748b4e98cf94ac5658727c6))
+
+
+
+
+
 # [6.0.0-alpha.5](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@6.0.0-alpha.4...@guanghechen/helper-cipher-file@6.0.0-alpha.5) (2023-12-02)
 
 
