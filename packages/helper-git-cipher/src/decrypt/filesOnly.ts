@@ -69,7 +69,7 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
       preparedItems.map(
         async (item): Promise<ICatalogDiffItem> => ({
           changeType: FileChangeType.ADDED,
-          newItem: await context.flatItem(item),
+          newItem: await context.catalog.flatItem(item),
         }),
       ),
     )

@@ -82,18 +82,18 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
         case FileChangeType.ADDED:
           return {
             changeType: FileChangeType.ADDED,
-            newItem: await context.flatItem(diffItem.newItem),
+            newItem: await context.catalog.flatItem(diffItem.newItem),
           }
         case FileChangeType.MODIFIED:
           return {
             changeType: FileChangeType.MODIFIED,
-            oldItem: await context.flatItem(diffItem.oldItem),
-            newItem: await context.flatItem(diffItem.newItem),
+            oldItem: await context.catalog.flatItem(diffItem.oldItem),
+            newItem: await context.catalog.flatItem(diffItem.newItem),
           }
         case FileChangeType.REMOVED:
           return {
             changeType: FileChangeType.REMOVED,
-            oldItem: await context.flatItem(diffItem.oldItem),
+            oldItem: await context.catalog.flatItem(diffItem.oldItem),
           }
         /* c8 ignore start */
         default:

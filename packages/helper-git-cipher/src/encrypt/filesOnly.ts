@@ -43,7 +43,9 @@ export async function encryptFilesOnly(params: IEncryptFilesOnlyParams): Promise
   invariant(!!configData, `[${title}] cannot load config.`)
 
   const items: ICatalogItem[] = await Promise.all(
-    configData.catalog.items.map(async (item): Promise<ICatalogItem> => context.flatItem(item)),
+    configData.catalog.items.map(
+      async (item): Promise<ICatalogItem> => context.catalog.flatItem(item),
+    ),
   )
   catalog.reset(items)
   const candidateDraftDiffItems: IDraftCatalogDiffItem[] = await catalog.diffFromPlainFiles(

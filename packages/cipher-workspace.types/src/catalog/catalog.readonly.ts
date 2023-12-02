@@ -37,6 +37,12 @@ export interface IReadonlyCipherCatalog {
   checkPlainIntegrity(plainFilepaths: string[]): Promise<void | never>
 
   /**
+   * Flat the deserialized catalog item.
+   * @param item
+   */
+  flatItem(item: IDeserializedCatalogItem): Promise<ICatalogItem>
+
+  /**
    * Get the iv of the given item.
    * @param item
    */

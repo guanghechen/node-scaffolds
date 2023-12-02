@@ -1,9 +1,4 @@
-import type {
-  ICatalogItem,
-  ICipherCatalog,
-  ICipherCatalogContext,
-  IDeserializedCatalogItem,
-} from '@guanghechen/cipher-workspace.types'
+import type { ICipherCatalog, ICipherCatalogContext } from '@guanghechen/cipher-workspace.types'
 import type { IConfigKeeper } from '@guanghechen/config'
 import type { IFileCipherBatcher } from '@guanghechen/helper-cipher-file'
 import { FileCipherCatalog } from '@guanghechen/helper-cipher-file'
@@ -22,7 +17,6 @@ export interface IGitCipherContext {
   readonly configKeeper: IConfigKeeper<IGitCipherConfig>
   readonly cipherBatcher: IFileCipherBatcher
   readonly reporter: IReporter
-  flatItem(item: IDeserializedCatalogItem): Promise<ICatalogItem>
 }
 
 export class GitCipherContext implements IGitCipherContext {
@@ -37,15 +31,5 @@ export class GitCipherContext implements IGitCipherContext {
     this.cipherBatcher = cipherBatcher
     this.configKeeper = configKeeper
     this.reporter = reporter
-  }
-
-  public readonly flatItem = async (item: IDeserializedCatalogItem): Promise<ICatalogItem> => {
-    const { catalog } = this
-    return {
-      ...item,
-      cryptFilepath: catalog.calcCryptFilepath(item.plainFilepath),
-      iv: await catalog.getIv(item),
-      authTag: item.authTag,
-    }
   }
 }

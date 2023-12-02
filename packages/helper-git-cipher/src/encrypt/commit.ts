@@ -52,7 +52,9 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     invariant(!!configData, `[${title}] cannot load config. crypt(${cryptParentId})`)
 
     const items: ICatalogItem[] = await Promise.all(
-      configData.catalog.items.map(async (item): Promise<ICatalogItem> => context.flatItem(item)),
+      configData.catalog.items.map(
+        async (item): Promise<ICatalogItem> => context.catalog.flatItem(item),
+      ),
     )
     catalog.reset(items)
   } else {

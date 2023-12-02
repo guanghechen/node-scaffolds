@@ -147,6 +147,13 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
   }
 
   // @override
+  public async flatItem(item: IDeserializedCatalogItem): Promise<ICatalogItem> {
+    const cryptFilepath: string = this.calcCryptFilepath(item.plainFilepath)
+    const iv: Uint8Array | undefined = await this.getIv(item)
+    return { ...item, cryptFilepath, iv }
+  }
+
+  // @override
   public async getIv(
     item: IDeserializedCatalogItem | IDraftCatalogItem,
   ): Promise<Uint8Array | undefined> {
