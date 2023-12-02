@@ -4,7 +4,7 @@ import { hasUncommittedContent, isGitRepo } from '@guanghechen/helper-git'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
 import type { IReporter } from '@guanghechen/reporter.types'
-import type { IGitCipherContext } from '../GitCipherContext'
+import type { IGitCipherContext } from '../types'
 import { internalEncryptDiffItems } from './_internal'
 
 export interface IEncryptFilesOnlyParams {

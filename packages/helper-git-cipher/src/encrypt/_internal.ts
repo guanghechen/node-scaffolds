@@ -2,8 +2,7 @@ import type { ICatalogDiffItem, IDraftCatalogDiffItem } from '@guanghechen/ciphe
 import { collectAffectedCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import { cleanUntrackedFilepaths, commitAll } from '@guanghechen/helper-git'
 import type { IGitCommandBaseParams, IGitCommitInfo } from '@guanghechen/helper-git'
-import type { IGitCipherContext } from '../GitCipherContext'
-import type { IGitCipherConfig } from '../types'
+import type { IGitCipherConfig, IGitCipherContext } from '../types'
 import { generateCommitHash } from '../util'
 
 export interface IInternalEncryptDiffItemsParams {

@@ -1,6 +1,6 @@
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { getCommitInTopology, showCommitInfo } from '@guanghechen/helper-git'
-import type { IGitCipherContext } from '../GitCipherContext'
+import type { IGitCipherContext } from '../types'
 import { encryptGitCommit } from './commit'
 
 export interface IEncryptGitBranchParams {

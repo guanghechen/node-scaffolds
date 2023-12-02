@@ -11,7 +11,7 @@ import {
 } from '@guanghechen/helper-git'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
-import type { IGitCipherContext } from '../GitCipherContext'
+import type { IGitCipherContext } from '../types'
 
 export interface IDecryptFilesOnlyParams {
   context: IGitCipherContext

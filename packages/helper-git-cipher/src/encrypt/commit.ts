@@ -12,7 +12,7 @@ import {
   showCommitInfo,
 } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
-import type { IGitCipherContext } from '../GitCipherContext'
+import type { IGitCipherContext } from '../types'
 import { getCryptCommitId } from '../util'
 import { internalEncryptDiffItems } from './_internal'
 

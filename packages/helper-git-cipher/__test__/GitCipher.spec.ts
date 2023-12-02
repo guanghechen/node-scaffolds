@@ -1,11 +1,16 @@
 import { bytes2text } from '@guanghechen/byte'
 import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
-import type { ICatalogItem, ICipherCatalogContext } from '@guanghechen/cipher-workspace.types'
+import type {
+  ICatalogItem,
+  ICipherCatalog,
+  ICipherCatalogContext,
+} from '@guanghechen/cipher-workspace.types'
 import { FileSplitter } from '@guanghechen/file-split'
 import {
   CipherCatalogContext,
   FileCipherBatcher,
+  FileCipherCatalog,
   FileCipherFactory,
 } from '@guanghechen/helper-cipher-file'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
@@ -33,8 +38,8 @@ import {
 } from 'jest.helper'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import type { IGitCipherContext } from '../src'
 import { GitCipher, GitCipherConfigKeeper, verifyCryptGitCommit } from '../src'
-import { GitCipherContext } from '../src/GitCipherContext'
 import type { IBuildRepo1Result } from './_data-repo1'
 import {
   buildRepo1,
@@ -127,12 +132,8 @@ describe('GitCipher', () => {
         isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
         calcIv: async info => calcMac(info, 'sha256').slice(0, ivSize),
       })
-      const context = new GitCipherContext({
-        catalogContext,
-        cipherBatcher,
-        configKeeper,
-        reporter,
-      })
+      const catalog: ICipherCatalog = new FileCipherCatalog(catalogContext)
+      const context: IGitCipherContext = { catalog, cipherBatcher, configKeeper, reporter }
       gitCipher = new GitCipher({ context })
     }
 
@@ -150,12 +151,8 @@ describe('GitCipher', () => {
         isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
         calcIv: async info => calcMac(info, 'sha256').slice(0, ivSize),
       })
-      const context = new GitCipherContext({
-        catalogContext,
-        cipherBatcher,
-        configKeeper,
-        reporter,
-      })
+      const catalog: ICipherCatalog = new FileCipherCatalog(catalogContext)
+      const context: IGitCipherContext = { catalog, cipherBatcher, configKeeper, reporter }
       bakGitCipher = new GitCipher({ context })
     }
   })

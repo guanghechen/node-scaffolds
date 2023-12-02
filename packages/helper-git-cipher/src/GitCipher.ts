@@ -1,7 +1,7 @@
 import { decryptFilesOnly } from './decrypt/filesOnly'
 import { decryptGitRepo } from './decrypt/repo'
 import { encryptGitRepo } from './encrypt/repo'
-import type { IGitCipherContext } from './GitCipherContext'
+import type { IGitCipherContext } from './types'
 import { verifyGitCommit } from './verify/commit'
 
 export interface IGitCipherProps {
