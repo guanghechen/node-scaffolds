@@ -5,6 +5,7 @@
     "outDir": "lib",
     "paths": {
       "@guanghechen/chalk-logger": ["packages/chalk-logger/src"],
+      "@guanghechen/cipher-workspace.types": ["packages/cipher-workspace.types/src"],
       "@guanghechen/event-bus": ["packages/event-bus/src"],
       "@guanghechen/helper-cipher-file": ["packages/helper-cipher-file/src"],
       "@guanghechen/helper-commander": ["packages/helper-commander/src"],
