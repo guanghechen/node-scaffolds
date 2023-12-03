@@ -2,7 +2,7 @@ import type {
   ICatalogDiffItemCombine,
   ICatalogItem,
   IDraftCatalogDiffItem,
-} from '@guanghechen/cipher-workspace.types'
+} from '@guanghechen/cipher-catalog.types'
 
 export function collectAffectedPlainFilepaths(
   diffItems: ReadonlyArray<IDraftCatalogDiffItem>,

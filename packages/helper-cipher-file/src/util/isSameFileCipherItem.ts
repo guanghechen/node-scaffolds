@@ -1,4 +1,4 @@
-import type { ICatalogItem } from '@guanghechen/cipher-workspace.types'
+import type { ICatalogItem } from '@guanghechen/cipher-catalog.types'
 import { isSameFileCipherItemDraft } from './isSameFileCipherItemDraft'
 
 export function isSameFileCipherItem(

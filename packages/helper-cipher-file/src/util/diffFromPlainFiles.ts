@@ -3,8 +3,8 @@ import type {
   IDraftCatalogDiffItem,
   IDraftCatalogItem,
   IReadonlyCipherCatalog,
-} from '@guanghechen/cipher-workspace.types'
-import { FileChangeType } from '@guanghechen/cipher-workspace.types'
+} from '@guanghechen/cipher-catalog.types'
+import { FileChangeType } from '@guanghechen/cipher-catalog.types'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import { isSameFileCipherItemDraft } from './isSameFileCipherItemDraft'

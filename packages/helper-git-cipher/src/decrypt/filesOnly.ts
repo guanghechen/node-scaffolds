@@ -1,8 +1,5 @@
-import { FileChangeType } from '@guanghechen/cipher-workspace.types'
-import type {
-  ICatalogDiffItem,
-  IDeserializedCatalogItem,
-} from '@guanghechen/cipher-workspace.types'
+import { FileChangeType } from '@guanghechen/cipher-catalog.types'
+import type { ICatalogDiffItem, IDeserializedCatalogItem } from '@guanghechen/cipher-catalog.types'
 import {
   checkBranch,
   getHeadBranchOrCommitId,

@@ -5,7 +5,7 @@ import type {
   ICipherCatalog,
   ICipherCatalogContext,
   IDraftCatalogItem,
-} from '@guanghechen/cipher-workspace.types'
+} from '@guanghechen/cipher-catalog.types'
 import { FileSplitter } from '@guanghechen/file-split'
 import { calcMac } from '@guanghechen/mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'

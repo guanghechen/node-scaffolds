@@ -1,4 +1,4 @@
-import type { IReadonlyCipherCatalog } from '@guanghechen/cipher-workspace.types'
+import type { IReadonlyCipherCatalog } from '@guanghechen/cipher-catalog.types'
 import type { IConfigKeeper } from '@guanghechen/config'
 import { calcCryptFilepathsWithParts } from '@guanghechen/helper-cipher-file'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'

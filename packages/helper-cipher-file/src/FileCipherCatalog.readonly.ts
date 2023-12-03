@@ -4,7 +4,7 @@ import type {
   IDeserializedCatalogItem,
   IDraftCatalogItem,
   IReadonlyCipherCatalog,
-} from '@guanghechen/cipher-workspace.types'
+} from '@guanghechen/cipher-catalog.types'
 import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/file-split'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'

@@ -1,4 +1,4 @@
-import type { IDraftCatalogItem } from '@guanghechen/cipher-workspace.types'
+import type { IDraftCatalogItem } from '@guanghechen/cipher-catalog.types'
 
 export function isSameFileCipherItemDraft(
   oldItem: Readonly<IDraftCatalogItem>,

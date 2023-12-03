@@ -1,7 +1,7 @@
 import type {
   IDeserializedCatalogItem,
   IReadonlyCipherCatalog,
-} from '@guanghechen/cipher-workspace.types'
+} from '@guanghechen/cipher-catalog.types'
 import type { IConfigKeeper } from '@guanghechen/config'
 import { normalizePlainFilepath } from '@guanghechen/helper-cipher-file'
 import { iterable2map } from '@guanghechen/helper-func'

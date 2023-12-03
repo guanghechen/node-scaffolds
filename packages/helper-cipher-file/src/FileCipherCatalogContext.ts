@@ -3,7 +3,7 @@ import type {
   ICipherCatalogContext,
   IDeserializedCatalogItem,
   IDraftCatalogItem,
-} from '@guanghechen/cipher-workspace.types'
+} from '@guanghechen/cipher-catalog.types'
 import type { IHashAlgorithm } from '@guanghechen/mac'
 import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 

@@ -5,7 +5,7 @@ import type {
   ICatalogItem,
   ICipherCatalog,
   ICipherCatalogContext,
-} from '@guanghechen/cipher-workspace.types'
+} from '@guanghechen/cipher-catalog.types'
 import { FileSplitter } from '@guanghechen/file-split'
 import {
   CipherCatalogContext,

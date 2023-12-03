@@ -1,5 +1,5 @@
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
-import type { ICipherCatalog, ICipherCatalogContext } from '@guanghechen/cipher-workspace.types'
+import type { ICipherCatalog, ICipherCatalogContext } from '@guanghechen/cipher-catalog.types'
 import { FileSplitter } from '@guanghechen/file-split'
 import type { IFileCipherFactory } from '@guanghechen/helper-cipher-file'
 import {

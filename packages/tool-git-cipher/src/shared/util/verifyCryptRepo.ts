@@ -1,5 +1,5 @@
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
-import type { IReadonlyCipherCatalog } from '@guanghechen/cipher-workspace.types'
+import type { IReadonlyCipherCatalog } from '@guanghechen/cipher-catalog.types'
 import { CipherCatalogContext, FileCipherCatalog } from '@guanghechen/helper-cipher-file'
 import { showCommitInfo } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper, verifyCryptGitCommit } from '@guanghechen/helper-git-cipher'

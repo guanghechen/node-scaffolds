@@ -1,4 +1,4 @@
-import type { ICatalogDiffItem, IDraftCatalogDiffItem } from '@guanghechen/cipher-workspace.types'
+import type { ICatalogDiffItem, IDraftCatalogDiffItem } from '@guanghechen/cipher-catalog.types'
 import { collectAffectedCryptFilepaths } from '@guanghechen/helper-cipher-file'
 import { cleanUntrackedFilepaths, commitAll } from '@guanghechen/helper-git'
 import type { IGitCommandBaseParams, IGitCommitInfo } from '@guanghechen/helper-git'

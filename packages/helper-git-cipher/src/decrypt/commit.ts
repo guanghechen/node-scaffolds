@@ -1,4 +1,4 @@
-import { FileChangeType, type ICatalogDiffItem } from '@guanghechen/cipher-workspace.types'
+import { FileChangeType, type ICatalogDiffItem } from '@guanghechen/cipher-catalog.types'
 import { collectAffectedPlainFilepaths } from '@guanghechen/helper-cipher-file'
 import type {
   IGitCommandBaseParams,

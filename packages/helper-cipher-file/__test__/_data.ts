@@ -1,10 +1,10 @@
 import { text2bytes } from '@guanghechen/byte'
-import { FileChangeType } from '@guanghechen/cipher-workspace.types'
+import { FileChangeType } from '@guanghechen/cipher-catalog.types'
 import type {
   ICatalogDiffItem,
   ICatalogItem,
   IDraftCatalogItem,
-} from '@guanghechen/cipher-workspace.types'
+} from '@guanghechen/cipher-catalog.types'
 import type { IHashAlgorithm } from '@guanghechen/mac'
 
 type ISymbol = 'A' | 'A2' | 'B' | 'C' | 'D'

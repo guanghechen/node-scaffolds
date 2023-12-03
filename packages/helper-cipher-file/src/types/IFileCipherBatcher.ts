@@ -2,7 +2,7 @@ import type {
   ICatalogDiffItem,
   ICipherCatalog,
   IDraftCatalogDiffItem,
-} from '@guanghechen/cipher-workspace.types'
+} from '@guanghechen/cipher-catalog.types'
 
 export interface IFileCipherBatcher {
   /**

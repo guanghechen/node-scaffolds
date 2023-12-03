@@ -1,5 +1,5 @@
-import type { ICatalogDiffItem, ICatalogItem } from '@guanghechen/cipher-workspace.types'
-import { FileChangeType } from '@guanghechen/cipher-workspace.types'
+import type { ICatalogDiffItem, ICatalogItem } from '@guanghechen/cipher-catalog.types'
+import { FileChangeType } from '@guanghechen/cipher-catalog.types'
 import { iterable2map, mapIterable } from '@guanghechen/helper-func'
 import { isSameFileCipherItem } from './isSameFileCipherItem'
 

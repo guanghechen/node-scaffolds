@@ -1,8 +1,5 @@
 import { bytes2text } from '@guanghechen/byte'
-import type {
-  IDeserializedCatalogItem,
-  IDraftCatalogItem,
-} from '@guanghechen/cipher-workspace.types'
+import type { IDeserializedCatalogItem, IDraftCatalogItem } from '@guanghechen/cipher-catalog.types'
 import type { IGitCommandBaseParams, IGitCommitWithMessage } from '@guanghechen/helper-git'
 import { getAllLocalBranches, getCommitWithMessageList, isGitRepo } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'

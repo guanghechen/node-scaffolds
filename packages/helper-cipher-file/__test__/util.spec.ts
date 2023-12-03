@@ -3,8 +3,8 @@ import type {
   ICatalogItem,
   IDraftCatalogDiffItem,
   IDraftCatalogItem,
-} from '@guanghechen/cipher-workspace.types'
-import { FileChangeType } from '@guanghechen/cipher-workspace.types'
+} from '@guanghechen/cipher-catalog.types'
+import { FileChangeType } from '@guanghechen/cipher-catalog.types'
 import { calcMac, calcMacFromFile } from '@guanghechen/mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import { locateFixtures } from 'jest.helper'

@@ -1,9 +1,9 @@
-import { FileChangeType } from '@guanghechen/cipher-workspace.types'
+import { FileChangeType } from '@guanghechen/cipher-catalog.types'
 import type {
   ICatalogDiffItem,
   ICatalogItem,
   IDraftCatalogItem,
-} from '@guanghechen/cipher-workspace.types'
+} from '@guanghechen/cipher-catalog.types'
 import type { FileSplitter, IFilePartItem } from '@guanghechen/file-split'
 import { calcFilePartItemsBySize } from '@guanghechen/file-split'
 import { isFileSync, mkdirsIfNotExists, rm } from '@guanghechen/helper-fs'

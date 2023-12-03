@@ -534,12 +534,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/cipher-workspace.types@npm:^1.0.0-alpha.4":
-  version: 1.0.0-alpha.4
-  resolution: "@guanghechen/cipher-workspace.types@npm:1.0.0-alpha.4"
+"@guanghechen/cipher-catalog.types@npm:^1.0.0-alpha.1":
+  version: 1.0.0-alpha.1
+  resolution: "@guanghechen/cipher-catalog.types@npm:1.0.0-alpha.1"
   dependencies:
     "@guanghechen/path.types": ^1.0.0-alpha.10
-  checksum: b5a0bc373167a84f77692db558a7ca98ae07472d0aa1a9ffdda2a646c6999d805a93216a738be4e6a592d0d9474b4395e6e82f8be249373292dc5232844755ac
+  checksum: 09107a3b52c610d92a45464d53cb21a7d7614da5f7f36d04c1a0278557389176c7664c1da7eebca72acbbd037e4dacc0af0ad2053afb64038ea9f755c0fad003
   languageName: node
   linkType: hard
 
@@ -670,7 +670,7 @@ __metadata:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/chalk-logger": ^6.0.0-alpha.5
     "@guanghechen/cipher": ^1.0.0-alpha.16
-    "@guanghechen/cipher-workspace.types": ^1.0.0-alpha.4
+    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.1
     "@guanghechen/file-split": ^1.0.0-alpha.13
     "@guanghechen/helper-fs": ^6.0.0-alpha.3
     "@guanghechen/helper-func": ^6.0.0-alpha.0
@@ -727,7 +727,7 @@ __metadata:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/chalk-logger": ^6.0.0-alpha.5
     "@guanghechen/cipher": ^1.0.0-alpha.16
-    "@guanghechen/cipher-workspace.types": ^1.0.0-alpha.4
+    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.1
     "@guanghechen/config": ^1.0.0-alpha.7
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.6
     "@guanghechen/helper-fs": ^6.0.0-alpha.3
@@ -1028,7 +1028,7 @@ __metadata:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/chalk-logger": ^6.0.0-alpha.5
     "@guanghechen/cipher": ^1.0.0-alpha.16
-    "@guanghechen/cipher-workspace.types": ^1.0.0-alpha.4
+    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.1
     "@guanghechen/config": ^1.0.0-alpha.7
     "@guanghechen/file-split": ^1.0.0-alpha.13
     "@guanghechen/filetree": ^1.0.0-alpha.8

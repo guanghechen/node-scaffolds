@@ -4,7 +4,7 @@ import type {
   IDeserializedCatalogItem,
   ISerializedCatalogDiffItem,
   ISerializedCatalogItem,
-} from '@guanghechen/cipher-workspace.types'
+} from '@guanghechen/cipher-catalog.types'
 import type { IConfigKeeper } from '@guanghechen/config'
 import type { IFileCipherBatcher } from '@guanghechen/helper-cipher-file'
 import type { IReporter } from '@guanghechen/reporter.types'

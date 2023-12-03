@@ -5,7 +5,7 @@ import type {
   ICipherCatalog,
   ICipherCatalogContext,
   IDraftCatalogDiffItem,
-} from '@guanghechen/cipher-workspace.types'
+} from '@guanghechen/cipher-catalog.types'
 import { ReadonlyFileCipherCatalog } from './FileCipherCatalog.readonly'
 import { diffFromCatalogItems } from './util/diffFromCatalogItems'
 import { diffFromPlainFiles } from './util/diffFromPlainFiles'
