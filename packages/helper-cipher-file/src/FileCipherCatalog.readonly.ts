@@ -9,7 +9,7 @@ import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/file-sp
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import { stat } from 'node:fs/promises'
-import { calcFingerprintFromFile, calcFingerprintFromString } from './util/mac'
+import { calcFingerprintFromFile, calcFingerprintFromString } from './util/fingerprint'
 import { normalizePlainFilepath } from './util/normalizePlainFilepath'
 
 const clazz = 'ReadonlyFileCipherCatalog'
