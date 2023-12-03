@@ -550,14 +550,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher@npm:^1.0.0-alpha.16":
-  version: 1.0.0-alpha.16
-  resolution: "@guanghechen/cipher@npm:1.0.0-alpha.16"
+"@guanghechen/cipher@npm:^1.0.0-alpha.17":
+  version: 1.0.0-alpha.17
+  resolution: "@guanghechen/cipher@npm:1.0.0-alpha.17"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/cipher.types": ^1.0.0-alpha.10
     "@guanghechen/mac": ^1.0.0-alpha.4
-  checksum: 648bbe400ad0eb9a7904613c6c969b3a7e980cea78811013d409ea5f2b6af6086a02e027410707b3320de6fce569ad926645a1480037af34e5e80df4631579fd
+  checksum: 63344912e3ad7d0a82a9bf3be29d5de77afda9818082004d9c952218f85e1a8067c85b1fbcecefb6cf7a1493f37b9da179f1fbad688738dba0b64912c8795f11
   languageName: node
   linkType: hard
 
@@ -570,16 +570,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/config@npm:^1.0.0-alpha.7":
-  version: 1.0.0-alpha.7
-  resolution: "@guanghechen/config@npm:1.0.0-alpha.7"
+"@guanghechen/config@npm:^1.0.0-alpha.8":
+  version: 1.0.0-alpha.8
+  resolution: "@guanghechen/config@npm:1.0.0-alpha.8"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/config.types": ^1.0.0-alpha.4
     "@guanghechen/mac": ^1.0.0-alpha.4
     "@guanghechen/resource.types": ^1.0.0-alpha.4
     semver: ^7.5.4
-  checksum: 946631625f0bc09bbb9738c7a1d9985d5f92281ff82d8945afbe878886f2ffa574781584c20c71371ae51f084eaa7977b22eda5017f030a46fce6a8a16f3db95
+  checksum: f6fc8f98b03882d69ef3b439f0b1f7f3ce8e19d129df968369ccab4666f38f9a83eef9ec3bb4f0f482eeaa5b113073b1ca439daa651013eefa5fe65c016dd2a2
   languageName: node
   linkType: hard
 
@@ -645,12 +645,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/file-split@npm:^1.0.0-alpha.13":
-  version: 1.0.0-alpha.13
-  resolution: "@guanghechen/file-split@npm:1.0.0-alpha.13"
+"@guanghechen/file-split@npm:^1.0.0-alpha.14":
+  version: 1.0.0-alpha.14
+  resolution: "@guanghechen/file-split@npm:1.0.0-alpha.14"
   dependencies:
     "@guanghechen/stream": ^1.0.0-alpha.8
-  checksum: 6ee6c4fe788177f6deab9bcd66692a08630bddb7b8c9d077eec47d373da02326db0f7a85d4e27a285887e36d8ec5d7aa7858a231e4d0091c003a116fb53ee917
+  checksum: d3b6d818e74ab6a5849dbbcd25d71423d66c40d53c5420cdb0ab4d3d61fce18f8be9c3762374eaec98f1924486e55cc41a2692a004e8054736be37263ad8936d
   languageName: node
   linkType: hard
 
@@ -661,12 +661,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/filetree@npm:^1.0.0-alpha.8":
-  version: 1.0.0-alpha.8
-  resolution: "@guanghechen/filetree@npm:1.0.0-alpha.8"
+"@guanghechen/filetree@npm:^1.0.0-alpha.9":
+  version: 1.0.0-alpha.9
+  resolution: "@guanghechen/filetree@npm:1.0.0-alpha.9"
   dependencies:
     "@guanghechen/filetree.types": ^1.0.0-alpha.8
-  checksum: a7bfa4a2b555f28114b22912602759a1abb5b24f77b2a126e46663c5facb812dbbe021fe224b164ce3187cc8bb9fcaeff27d50e37f3a31a5a27f8c8a89c18026
+  checksum: 29afd64d683e828bb9f8713faf1e3b86dcd15661ec9b6f4d7e1c632921bdffe46ea1d38b8526e3d129ad92ba3309ba9b5056d07d90b3c3a27e240f198a93753e
   languageName: node
   linkType: hard
 
@@ -676,9 +676,9 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/chalk-logger": ^6.0.0-alpha.5
-    "@guanghechen/cipher": ^1.0.0-alpha.16
+    "@guanghechen/cipher": ^1.0.0-alpha.17
     "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.1
-    "@guanghechen/file-split": ^1.0.0-alpha.13
+    "@guanghechen/file-split": ^1.0.0-alpha.14
     "@guanghechen/helper-fs": ^6.0.0-alpha.3
     "@guanghechen/helper-func": ^6.0.0-alpha.0
     "@guanghechen/invariant": ^6.0.0-alpha.0
@@ -687,7 +687,7 @@ __metadata:
     "@guanghechen/path.types": ^1.0.0-alpha.10
     "@guanghechen/reporter.types": ^1.0.0-alpha.9
     "@guanghechen/stream": ^1.0.0-alpha.8
-    "@guanghechen/vfs.types": ^1.0.0-alpha.1
+    "@guanghechen/vfs.types": ^1.0.0-alpha.2
   languageName: unknown
   linkType: soft
 
@@ -734,9 +734,9 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/chalk-logger": ^6.0.0-alpha.5
-    "@guanghechen/cipher": ^1.0.0-alpha.16
+    "@guanghechen/cipher": ^1.0.0-alpha.17
     "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.1
-    "@guanghechen/config": ^1.0.0-alpha.7
+    "@guanghechen/config": ^1.0.0-alpha.8
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.6
     "@guanghechen/helper-fs": ^6.0.0-alpha.3
     "@guanghechen/helper-func": ^6.0.0-alpha.0
@@ -746,7 +746,7 @@ __metadata:
     "@guanghechen/path": ^1.0.0-alpha.13
     "@guanghechen/path.types": ^1.0.0-alpha.10
     "@guanghechen/reporter.types": ^1.0.0-alpha.9
-    "@guanghechen/resource": ^1.0.0-alpha.6
+    "@guanghechen/resource": ^1.0.0-alpha.7
   languageName: unknown
   linkType: soft
 
@@ -926,12 +926,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/resource@npm:^1.0.0-alpha.6":
-  version: 1.0.0-alpha.6
-  resolution: "@guanghechen/resource@npm:1.0.0-alpha.6"
+"@guanghechen/resource@npm:^1.0.0-alpha.7":
+  version: 1.0.0-alpha.7
+  resolution: "@guanghechen/resource@npm:1.0.0-alpha.7"
   dependencies:
     "@guanghechen/resource.types": ^1.0.0-alpha.4
-  checksum: aea0e3420be0bbdbcf0132ad5b16a981bd67126041fd307a4ae2d91bde28c464dbf1e6fbda4379f9cf0cdf652ea430d249cc6a242b54b25a7b55d86fe75df522
+  checksum: ca6ef5f380a13fbdd96becaf913d8c2149d2383c05efec344d706b9bcc850430d648b49c42480822ad0091d367b1ccad8065e60dc5b0751c2c7f7310e31a2cd7
   languageName: node
   linkType: hard
 
@@ -1014,7 +1014,7 @@ __metadata:
   resolution: "@guanghechen/tool-file@workspace:packages/tool-file"
   dependencies:
     "@guanghechen/chalk-logger": ^6.0.0-alpha.5
-    "@guanghechen/file-split": ^1.0.0-alpha.13
+    "@guanghechen/file-split": ^1.0.0-alpha.14
     "@guanghechen/helper-commander": ^6.0.0-alpha.5
     "@guanghechen/helper-fs": ^6.0.0-alpha.3
     "@guanghechen/helper-func": ^6.0.0-alpha.0
@@ -1035,11 +1035,11 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/chalk-logger": ^6.0.0-alpha.5
-    "@guanghechen/cipher": ^1.0.0-alpha.16
+    "@guanghechen/cipher": ^1.0.0-alpha.17
     "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.1
-    "@guanghechen/config": ^1.0.0-alpha.7
-    "@guanghechen/file-split": ^1.0.0-alpha.13
-    "@guanghechen/filetree": ^1.0.0-alpha.8
+    "@guanghechen/config": ^1.0.0-alpha.8
+    "@guanghechen/file-split": ^1.0.0-alpha.14
+    "@guanghechen/filetree": ^1.0.0-alpha.9
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.6
     "@guanghechen/helper-commander": ^6.0.0-alpha.5
     "@guanghechen/helper-fs": ^6.0.0-alpha.3
@@ -1052,7 +1052,7 @@ __metadata:
     "@guanghechen/mac": ^1.0.0-alpha.4
     "@guanghechen/path": ^1.0.0-alpha.13
     "@guanghechen/reporter.types": ^1.0.0-alpha.9
-    "@guanghechen/resource": ^1.0.0-alpha.6
+    "@guanghechen/resource": ^1.0.0-alpha.7
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.3
     "@types/micromatch": ^4.0.6
     execa: ^8.0.1
@@ -1090,13 +1090,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/vfs.types@npm:^1.0.0-alpha.1":
-  version: 1.0.0-alpha.1
-  resolution: "@guanghechen/vfs.types@npm:1.0.0-alpha.1"
+"@guanghechen/vfs.types@npm:^1.0.0-alpha.2":
+  version: 1.0.0-alpha.2
+  resolution: "@guanghechen/vfs.types@npm:1.0.0-alpha.2"
   dependencies:
     "@guanghechen/disposable.types": ^1.0.0-alpha.1
     "@guanghechen/path.types": ^1.0.0-alpha.10
-  checksum: 82cd1b2e46da8ae0b29483e9f7a82ec182125e987794d2a356944d0e12bd7bc48583dc2109f76c3d78969866762ee64c3b8993da876d769a78deaf32eb46b250
+  checksum: a7685533b4004c08e051d22fec55d14869a5236ffd149e9b926ae84868e965dbe9847d82f4dd241a387709d0d2e1c88fc4561bdbb0296085b81a1311c63c766b
   languageName: node
   linkType: hard
 
@@ -3430,16 +3430,16 @@ __metadata:
   linkType: hard
 
 "browserslist@npm:^4.21.9":
-  version: 4.22.1
-  resolution: "browserslist@npm:4.22.1"
+  version: 4.22.2
+  resolution: "browserslist@npm:4.22.2"
   dependencies:
-    caniuse-lite: ^1.0.30001541
-    electron-to-chromium: ^1.4.535
-    node-releases: ^2.0.13
+    caniuse-lite: ^1.0.30001565
+    electron-to-chromium: ^1.4.601
+    node-releases: ^2.0.14
     update-browserslist-db: ^1.0.13
   bin:
     browserslist: cli.js
-  checksum: 7e6b10c53f7dd5d83fd2b95b00518889096382539fed6403829d447e05df4744088de46a571071afb447046abc3c66ad06fbc790e70234ec2517452e32ffd862
+  checksum: 33ddfcd9145220099a7a1ac533cecfe5b7548ffeb29b313e1b57be6459000a1f8fa67e781cf4abee97268ac594d44134fcc4a6b2b4750ceddc9796e3a22076d9
   languageName: node
   linkType: hard
 
@@ -3653,7 +3653,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30001541":
+"caniuse-lite@npm:^1.0.30001565":
   version: 1.0.30001565
   resolution: "caniuse-lite@npm:1.0.30001565"
   checksum: 7621f358d0e1158557430a111ca5506008ae0b2c796039ef53aeebf4e2ba15e5241cb89def21ea3a633b6a609273085835b44a522165d871fa44067cdf29cccd
@@ -4636,7 +4636,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron-to-chromium@npm:^1.4.535":
+"electron-to-chromium@npm:^1.4.601":
   version: 1.4.601
   resolution: "electron-to-chromium@npm:1.4.601"
   checksum: 6c6d090afaab83f49fe413c2558a3294e7dfce6a9d8afda3496a80ba59377901279ea7903122558399d5f5dbbdcca8562e3e826b7b78e7ec0b561fcc02c45f73
@@ -8760,7 +8760,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-releases@npm:^2.0.13":
+"node-releases@npm:^2.0.14":
   version: 2.0.14
   resolution: "node-releases@npm:2.0.14"
   checksum: 59443a2f77acac854c42d321bf1b43dea0aef55cd544c6a686e9816a697300458d4e82239e2d794ea05f7bbbc8a94500332e2d3ac3f11f52e4b16cbe638b3c41
