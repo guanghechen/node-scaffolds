@@ -1,7 +1,7 @@
 import type { ICatalogDiffItem, ICatalogItem } from '@guanghechen/cipher-catalog.types'
 import { FileChangeType } from '@guanghechen/cipher-catalog.types'
 import { iterable2map, mapIterable } from '@guanghechen/helper-func'
-import { isSameFileCipherItem } from './isSameFileCipherItem'
+import { areSameCatalogItem } from './areSameCatalogItem'
 
 /**
  * Calculate diff items with the new catalog items.
@@ -37,7 +37,7 @@ export function diffFromCatalogItems(
         oldItem,
       })
     } else {
-      if (!isSameFileCipherItem(oldItem, newItem)) {
+      if (!areSameCatalogItem(oldItem, newItem)) {
         modifiedItems.push({
           changeType: FileChangeType.MODIFIED,
           oldItem,

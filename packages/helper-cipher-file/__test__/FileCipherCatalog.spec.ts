@@ -21,7 +21,7 @@ import {
   FileCipherBatcher,
   FileCipherCatalog,
   FileCipherFactory,
-  isSameFileCipherItemDraft,
+  areSameDraftCatalogItem,
 } from '../src'
 import {
   contentHashAlgorithm,
@@ -68,7 +68,7 @@ describe('FileCipherCatalog', () => {
     calcIv: async () => undefined,
   })
   catalogContext.getIv = async (item: IDraftCatalogItem): Promise<Uint8Array | undefined> =>
-    Object.values(itemTable).find(t => isSameFileCipherItemDraft(t, item))?.iv
+    Object.values(itemTable).find(t => areSameDraftCatalogItem(t, item))?.iv
   const catalog = new FileCipherCatalog(catalogContext)
 
   beforeEach(async () => {

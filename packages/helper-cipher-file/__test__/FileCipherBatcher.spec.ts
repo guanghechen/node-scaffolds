@@ -27,8 +27,8 @@ import {
   FileCipherBatcher,
   FileCipherCatalog,
   FileCipherFactory,
+  areSameDraftCatalogItem,
   calcFingerprintFromMac,
-  isSameFileCipherItemDraft,
 } from '../src'
 import {
   contentHashAlgorithm,
@@ -126,7 +126,7 @@ describe('FileCipherBatcher', () => {
         cryptPathResolver,
         isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
         getIv: async (item: IDraftCatalogItem): Promise<Uint8Array | undefined> =>
-          Object.values(itemTable).find(t => isSameFileCipherItemDraft(t, item))?.iv,
+          Object.values(itemTable).find(t => areSameDraftCatalogItem(t, item))?.iv,
       }
       catalog = new FileCipherCatalog(catalogContext)
     }
@@ -144,7 +144,7 @@ describe('FileCipherBatcher', () => {
         cryptPathResolver,
         isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
         getIv: async (item: IDraftCatalogItem): Promise<Uint8Array | undefined> =>
-          Object.values(itemTable).find(t => isSameFileCipherItemDraft(t, item))?.iv,
+          Object.values(itemTable).find(t => areSameDraftCatalogItem(t, item))?.iv,
       }
       bakCatalog = new FileCipherCatalog(bakCatalogContext)
     }

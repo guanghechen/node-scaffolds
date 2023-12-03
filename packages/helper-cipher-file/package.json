@@ -53,7 +53,8 @@
     "@guanghechen/mac": "^1.0.0-alpha.4",
     "@guanghechen/path.types": "^1.0.0-alpha.10",
     "@guanghechen/reporter.types": "^1.0.0-alpha.9",
-    "@guanghechen/stream": "^1.0.0-alpha.8"
+    "@guanghechen/stream": "^1.0.0-alpha.8",
+    "@guanghechen/vfs.types": "^1.0.0-alpha.1"
   },
   "devDependencies": {
     "@guanghechen/chalk-logger": "^6.0.0-alpha.5",

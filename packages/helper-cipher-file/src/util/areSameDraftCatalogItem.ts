@@ -1,6 +1,6 @@
 import type { IDraftCatalogItem } from '@guanghechen/cipher-catalog.types'
 
-export function isSameFileCipherItemDraft(
+export function areSameDraftCatalogItem(
   oldItem: Readonly<IDraftCatalogItem>,
   newItem: Readonly<IDraftCatalogItem>,
 ): boolean {

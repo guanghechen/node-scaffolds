@@ -140,7 +140,7 @@ FileCipherCatalog         | Encrypt / Decrypt files with catalog./home/lemon/ws/
 FileCipherPathResolver    | Resolve the relative / absolute filepaths.
 calcFileCipherCatalogItem |
 diffFileCipherItems       |
-isSameFileCipherItem      |
+areSameCatalogItem      |
 normalizeSourceFilepath   |
 calcMacFromFile           | Calc mac (Message Authentication Code) from fle.
 calcFingerprintFromMac    | Calc fingerprint from mac.

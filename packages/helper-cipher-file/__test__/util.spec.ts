@@ -9,13 +9,13 @@ import { calcMac, calcMacFromFile } from '@guanghechen/mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import { locateFixtures } from 'jest.helper'
 import {
+  areSameCatalogItem,
+  areSameDraftCatalogItem,
   calcFingerprintFromFile,
   calcFingerprintFromMac,
   calcFingerprintFromString,
   collectAffectedCryptFilepaths,
   collectAffectedPlainFilepaths,
-  isSameFileCipherItem,
-  isSameFileCipherItemDraft,
   normalizePlainFilepath,
 } from '../src'
 import { contentHashAlgorithm, itemTable, pathHashAlgorithm } from './_data'
@@ -40,7 +40,7 @@ describe('catalog', () => {
     )
   })
 
-  test('isSameFileCipherItemDraft', () => {
+  test('areSameDraftCatalogItem', () => {
     const basicItem: IDraftCatalogItem = {
       plainFilepath: 'waw.txt',
       cryptFilepath: bytes2text(calcMac([text2bytes('waw.txt', 'utf8')], pathHashAlgorithm), 'hex'),
@@ -49,27 +49,27 @@ describe('catalog', () => {
       keepPlain: false,
     }
 
-    expect(isSameFileCipherItemDraft(basicItem, basicItem)).toEqual(true)
-    expect(isSameFileCipherItemDraft(basicItem, { ...basicItem })).toEqual(true)
+    expect(areSameDraftCatalogItem(basicItem, basicItem)).toEqual(true)
+    expect(areSameDraftCatalogItem(basicItem, { ...basicItem })).toEqual(true)
+    expect(areSameDraftCatalogItem(basicItem, { ...basicItem, plainFilepath: 'waw2.txt' })).toEqual(
+      false,
+    )
+    expect(areSameDraftCatalogItem(basicItem, { ...basicItem, cryptFilepath: 'waw2.txt' })).toEqual(
+      false,
+    )
     expect(
-      isSameFileCipherItemDraft(basicItem, { ...basicItem, plainFilepath: 'waw2.txt' }),
+      areSameDraftCatalogItem(basicItem, { ...basicItem, cryptFilepathParts: ['waw2.txt'] }),
     ).toEqual(false)
     expect(
-      isSameFileCipherItemDraft(basicItem, { ...basicItem, cryptFilepath: 'waw2.txt' }),
-    ).toEqual(false)
-    expect(
-      isSameFileCipherItemDraft(basicItem, { ...basicItem, cryptFilepathParts: ['waw2.txt'] }),
-    ).toEqual(false)
-    expect(
-      isSameFileCipherItemDraft(basicItem, {
+      areSameDraftCatalogItem(basicItem, {
         ...basicItem,
         cryptFilepathParts: ['waw2.txt', 'waw3.txt'],
       }),
     ).toEqual(false)
-    expect(isSameFileCipherItemDraft(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
+    expect(areSameDraftCatalogItem(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
   })
 
-  test('isSameFileCipherItem', () => {
+  test('areSameCatalogItem', () => {
     const basicItem: ICatalogItem = {
       plainFilepath: 'waw.txt',
       cryptFilepath: bytes2text(calcMac([text2bytes('waw.txt', 'utf8')], pathHashAlgorithm), 'hex'),
@@ -80,26 +80,26 @@ describe('catalog', () => {
       authTag: undefined,
     }
 
-    expect(isSameFileCipherItem(basicItem, basicItem)).toEqual(true)
-    expect(isSameFileCipherItem(basicItem, { ...basicItem })).toEqual(true)
-    expect(isSameFileCipherItem(basicItem, { ...basicItem, plainFilepath: 'waw2.txt' })).toEqual(
+    expect(areSameCatalogItem(basicItem, basicItem)).toEqual(true)
+    expect(areSameCatalogItem(basicItem, { ...basicItem })).toEqual(true)
+    expect(areSameCatalogItem(basicItem, { ...basicItem, plainFilepath: 'waw2.txt' })).toEqual(
       false,
     )
-    expect(isSameFileCipherItem(basicItem, { ...basicItem, cryptFilepath: 'waw2.txt' })).toEqual(
+    expect(areSameCatalogItem(basicItem, { ...basicItem, cryptFilepath: 'waw2.txt' })).toEqual(
       false,
     )
     expect(
-      isSameFileCipherItem(basicItem, { ...basicItem, cryptFilepathParts: ['waw2.txt'] }),
+      areSameCatalogItem(basicItem, { ...basicItem, cryptFilepathParts: ['waw2.txt'] }),
     ).toEqual(false)
     expect(
-      isSameFileCipherItem(basicItem, {
+      areSameCatalogItem(basicItem, {
         ...basicItem,
         cryptFilepathParts: ['waw2.txt', 'waw3.txt'],
       }),
     ).toEqual(false)
-    expect(isSameFileCipherItem(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
+    expect(areSameCatalogItem(basicItem, { ...basicItem, keepPlain: true })).toEqual(false)
     expect(
-      isSameFileCipherItem(basicItem, {
+      areSameCatalogItem(basicItem, {
         ...basicItem,
         iv: text2bytes('00ca7b42b7a371351da9a287', 'hex'),
       }),

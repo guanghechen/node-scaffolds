@@ -1,13 +1,13 @@
 import type { ICatalogItem } from '@guanghechen/cipher-catalog.types'
-import { isSameFileCipherItemDraft } from './isSameFileCipherItemDraft'
+import { areSameDraftCatalogItem } from './areSameDraftCatalogItem'
 
-export function isSameFileCipherItem(
+export function areSameCatalogItem(
   oldItem: Readonly<ICatalogItem>,
   newItem: Readonly<ICatalogItem>,
 ): boolean {
   if (oldItem === newItem) return true
   return (
-    isSameFileCipherItemDraft(oldItem, newItem) &&
+    areSameDraftCatalogItem(oldItem, newItem) &&
     oldItem.iv === newItem.iv &&
     oldItem.authTag === newItem.authTag
   )

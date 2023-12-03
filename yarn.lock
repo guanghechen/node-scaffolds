@@ -591,6 +591,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@guanghechen/disposable.types@npm:^1.0.0-alpha.1":
+  version: 1.0.0-alpha.1
+  resolution: "@guanghechen/disposable.types@npm:1.0.0-alpha.1"
+  checksum: a30054eb0c8fb49aad39394240e5c70d89ca87fcde5b09d1106616c6b4c176fee14a3d18bdbeeee4167515071301403bcb8dabce6f39a22e7b9a632f84d242f2
+  languageName: node
+  linkType: hard
+
 "@guanghechen/eslint-config-jsx@workspace:packages/eslint-config-jsx":
   version: 0.0.0-use.local
   resolution: "@guanghechen/eslint-config-jsx@workspace:packages/eslint-config-jsx"
@@ -680,6 +687,7 @@ __metadata:
     "@guanghechen/path.types": ^1.0.0-alpha.10
     "@guanghechen/reporter.types": ^1.0.0-alpha.9
     "@guanghechen/stream": ^1.0.0-alpha.8
+    "@guanghechen/vfs.types": ^1.0.0-alpha.1
   languageName: unknown
   linkType: soft
 
@@ -1079,6 +1087,16 @@ __metadata:
   version: 1.0.0-alpha.9
   resolution: "@guanghechen/types@npm:1.0.0-alpha.9"
   checksum: c60453aa7d53c257d2547c97281d368f3ee658a59aa34d462a143e21414334b45ff0ffbd7b31c74ff0b3ddc50e51eced30d0ff0e87b19581036a0af3301f8fdd
+  languageName: node
+  linkType: hard
+
+"@guanghechen/vfs.types@npm:^1.0.0-alpha.1":
+  version: 1.0.0-alpha.1
+  resolution: "@guanghechen/vfs.types@npm:1.0.0-alpha.1"
+  dependencies:
+    "@guanghechen/disposable.types": ^1.0.0-alpha.1
+    "@guanghechen/path.types": ^1.0.0-alpha.10
+  checksum: 82cd1b2e46da8ae0b29483e9f7a82ec182125e987794d2a356944d0e12bd7bc48583dc2109f76c3d78969866762ee64c3b8993da876d769a78deaf32eb46b250
   languageName: node
   linkType: hard
 

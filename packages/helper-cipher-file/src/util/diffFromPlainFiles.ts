@@ -7,7 +7,7 @@ import type {
 import { FileChangeType } from '@guanghechen/cipher-catalog.types'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
-import { isSameFileCipherItemDraft } from './isSameFileCipherItemDraft'
+import { areSameDraftCatalogItem } from './areSameDraftCatalogItem'
 
 /**
  * Calculate diff items.
@@ -38,7 +38,7 @@ export async function diffFromPlainFiles(
     if (isSrcFileExists) {
       const newItem: IDraftCatalogItem = await catalog.calcCatalogItem(plainFilepath)
       if (oldItem) {
-        if (!isSameFileCipherItemDraft(oldItem, newItem)) {
+        if (!areSameDraftCatalogItem(oldItem, newItem)) {
           modifiedItems.push({ changeType: FileChangeType.MODIFIED, oldItem, newItem })
         }
       } else {
