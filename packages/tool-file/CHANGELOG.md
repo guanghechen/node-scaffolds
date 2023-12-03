@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.6](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-file@6.0.0-alpha.5...@guanghechen/tool-file@6.0.0-alpha.6) (2023-12-03)
+
+
+### Performance Improvements
+
+* ⬆️ upgrade dependencies ([cdb360c](https://github.com/guanghechen/node-scaffolds/commit/cdb360c95ef470994814405e72e1248fe0af96b2))
+
+
+
+
+
 # [6.0.0-alpha.5](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-file@6.0.0-alpha.4...@guanghechen/tool-file@6.0.0-alpha.5) (2023-12-02)
 
 

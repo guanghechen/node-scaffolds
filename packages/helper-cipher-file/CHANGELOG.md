@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.7](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@6.0.0-alpha.6...@guanghechen/helper-cipher-file@6.0.0-alpha.7) (2023-12-03)
+
+
+### Performance Improvements
+
+* 🎨  rename mac.ts to fingerprint.ts ([8ba8ade](https://github.com/guanghechen/node-scaffolds/commit/8ba8ade5673ca6430b1fae19bf70baef65bdb3cc))
+* 🎨 rename utility methods ([7443732](https://github.com/guanghechen/node-scaffolds/commit/7443732ec55b53e7e1c71ca4c5d6451aefcd10d9))
+* ⬆️ upgrade dependencies ([cdb360c](https://github.com/guanghechen/node-scaffolds/commit/cdb360c95ef470994814405e72e1248fe0af96b2))
+* 🎨 use @guanghechen/cipher-catalog.types ([390abca](https://github.com/guanghechen/node-scaffolds/commit/390abcab3d114e564814a3f20dab582f6b94ac26))
+
+
+
+
+
 # [6.0.0-alpha.6](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@6.0.0-alpha.5...@guanghechen/helper-cipher-file@6.0.0-alpha.6) (2023-12-02)
 
 
