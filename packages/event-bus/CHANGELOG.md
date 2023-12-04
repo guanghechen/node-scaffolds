@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.1](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/event-bus@6.0.0-alpha.0...@guanghechen/event-bus@6.0.0-alpha.1) (2023-12-04)
+
+
+### Performance Improvements
+
+* 🔧 remove unnecessary devDependencies and make code export commonjs entry as possible ([568093d](https://github.com/guanghechen/node-scaffolds/commit/568093d22fb9c0e3dc868429aef4dd80fd2b3bb8))
+* 📝 update README ([f0aba5f](https://github.com/guanghechen/node-scaffolds/commit/f0aba5f29d1defd1b8c569b19b4604970e87982f))
+
+
+
+
+
 # [6.0.0-alpha.0](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/event-bus@5.0.9...@guanghechen/event-bus@6.0.0-alpha.0) (2023-11-18)
 
 

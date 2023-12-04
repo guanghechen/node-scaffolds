@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.8](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@6.0.0-alpha.7...@guanghechen/helper-cipher-file@6.0.0-alpha.8) (2023-12-04)
+
+
+### Performance Improvements
+
+* 🔧 remove unnecessary devDependencies and make code export commonjs entry as possible ([568093d](https://github.com/guanghechen/node-scaffolds/commit/568093d22fb9c0e3dc868429aef4dd80fd2b3bb8))
+* ⬆️ upgrade dependencies ([b8f04bb](https://github.com/guanghechen/node-scaffolds/commit/b8f04bb7daae15e3f5025ae02b65261211341314))
+
+
+
+
+
 # [6.0.0-alpha.7](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@6.0.0-alpha.6...@guanghechen/helper-cipher-file@6.0.0-alpha.7) (2023-12-03)
 
 

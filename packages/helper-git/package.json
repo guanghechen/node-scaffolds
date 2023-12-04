@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-git",
-  "version": "6.0.0-alpha.5",
+  "version": "6.0.0-alpha.6",
   "description": "Utility functions for executing git commands.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@6.0.0-alpha.5",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@6.0.0-alpha.6",
     "directory": "packages/helper-git"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@6.0.0-alpha.5/packages/helper-git#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@6.0.0-alpha.6/packages/helper-git#readme",
   "keywords": [
     "commander"
   ],
@@ -46,7 +46,7 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/invariant": "^6.0.0-alpha.0",
+    "@guanghechen/invariant": "^6.0.0-alpha.1",
     "@guanghechen/reporter.types": "^1.0.0-alpha.9",
     "execa": "^8.0.1"
   }
