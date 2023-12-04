@@ -47,7 +47,7 @@
     "@guanghechen/helper-option": "^6.0.0-alpha.0",
     "@guanghechen/helper-string": "^6.0.0-alpha.0",
     "@guanghechen/invariant": "^6.0.0-alpha.0",
-    "@guanghechen/path": "^1.0.0-alpha.13",
+    "@guanghechen/path": "^1.0.0-alpha.14",
     "@guanghechen/reporter.types": "^1.0.0-alpha.9",
     "command-exists": "^1.2.9",
     "commander": "^11.1.0",
