@@ -673,7 +673,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * 🔧 modify build script ([4234bc0](https://github.com/guanghechen/node-scaffolds/commit/4234bc058bd9ade25778cb43ee5db939d8e630a9))
 * 🔖 publish v2.0.0-alpha.0 ([fe24ebd](https://github.com/guanghechen/node-scaffolds/commit/fe24ebdb066667fadbea415d33f564f9823b51d9))
 * 💥 refactor event-bus ([3d41ccd](https://github.com/guanghechen/node-scaffolds/commit/3d41ccdf5e1773508869f988a7e02aafb1167a4e))
-* 💥 rename @guanghechen/cipher-helper to @guanghechen/helper-cipher ([bdec66d](https://github.com/guanghechen/node-scaffolds/commit/bdec66d9863fd688b696b01210bbd178feb91c9f))
 
 
 

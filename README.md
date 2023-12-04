@@ -51,7 +51,6 @@ Package                               | Description
 [@guanghechen/eslint-config-jsx][]    | Eslint config for `Jsx` project
 [@guanghechen/eslint-config-ts][]     | Eslint config for `Typescript` project
 [@guanghechen/event-bus]              | A simple event bus.
-[@guanghechen/helper-cipher][]        | Utility functions for cipher contents.
 [@guanghechen/helper-cipher-file][]   | Utility functions for cipher files.
 [@guanghechen/helper-commander][]     | Utility functions for creating command line programs.
 [@guanghechen/helper-file]            | Utilities for handling files, such as split big file or merge multiple small files.
@@ -62,12 +61,10 @@ Package                               | Description
 [@guanghechen/helper-npm][]           | Utilities for handling npm repo and `package.json`.
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
 [@guanghechen/helper-plop][]          | A collection of utility functions for plop templates
-[@guanghechen/helper-stream][]        | Utilities for handing node streams.
 [@guanghechen/helper-string][]        | Utilities for processing strings or stringify other type data.
 [@guanghechen/invariant]              | An invariant function.
 [@guanghechen/jest-config][]          | Basic jest configs for typescript monorepo
 [@guanghechen/mini-copy][]            | Access system clipboard (also support to share clipboard in wsl with windows).
-[@guanghechen/observable][]           | A simple observable for subscript/notification pattern.
 [@guanghechen/postcss-modules-dts][]  | Generate `*.d.ts` files for style files (such as css, stylus and etc)
 [@guanghechen/rollup-config][]        | Rollup config for bundle typescript project.
 [@guanghechen/rollup-config-cli][]    | Rollup configs for bundle typescript cli project.
@@ -88,7 +85,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/eslint-config-jsx]: ./packages/eslint-config-jsx
 [@guanghechen/eslint-config-ts]: ./packages/eslint-config-ts
 [@guanghechen/event-bus]: ./packages/event-bus
-[@guanghechen/helper-cipher]: ./packages/helper-cipher
 [@guanghechen/helper-cipher-file]: ./packages/helper-cipher-file
 [@guanghechen/helper-commander]: ./packages/helper-commander
 [@guanghechen/helper-file]: ./packages/helper-file
@@ -99,12 +95,10 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/helper-npm]: ./packages/helper-npm
 [@guanghechen/helper-option]: ./packages/helper-option
 [@guanghechen/helper-plop]: ./packages/helper-plop
-[@guanghechen/helper-stream]: ./packages/helper-stream
 [@guanghechen/helper-string]: ./packages/helper-string
 [@guanghechen/invariant]: ./packages/invariant
 [@guanghechen/jest-config]: ./packages/jest-config
 [@guanghechen/mini-copy]: ./packages/mini-copy
-[@guanghechen/observable]: ./packages/observable
 [@guanghechen/postcss-modules-dts]: ./packages/postcss-modules-dts
 [@guanghechen/rollup-config]: ./packages/rollup-config
 [@guanghechen/rollup-config-cli]: ./packages/rollup-config-cli
