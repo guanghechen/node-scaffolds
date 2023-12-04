@@ -1,6 +1,5 @@
 import type { IReporter } from '@guanghechen/reporter.types'
 import type { Options as IExecaOptions, ExecaReturnValue as IExecaReturnValue } from 'execa'
-import { execa } from 'execa'
 import { existsSync, statSync } from 'node:fs'
 import path from 'node:path'
 
@@ -11,6 +10,7 @@ export async function safeExeca(
   reporter: IReporter | undefined,
 ): Promise<IExecaReturnValue | never> {
   try {
+    const { execa } = await import('execa')
     const result: IExecaReturnValue = await execa(file, args, { ...options, encoding: 'utf8' })
     return result
   } catch (error) {

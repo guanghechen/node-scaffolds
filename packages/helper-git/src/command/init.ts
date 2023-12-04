@@ -1,6 +1,6 @@
 import type { Options as IExecaOptions } from 'execa'
-import { execa } from 'execa'
 import type { IGitCommandBaseParams } from '../types'
+import { safeExeca } from '../util'
 
 export interface IInitGitRepoParams extends IGitCommandBaseParams {
   defaultBranch?: string
@@ -13,7 +13,8 @@ export interface IInitGitRepoParams extends IGitCommandBaseParams {
 }
 
 export const initGitRepo = async (params: IInitGitRepoParams): Promise<void> => {
-  params?.reporter?.debug(`[initGitRepo] cwd: {}`, params.cwd)
+  const { reporter } = params
+  reporter?.debug(`[initGitRepo] cwd: {}`, params.cwd)
   const {
     gpgSign,
     logDate = 'iso',
@@ -24,20 +25,25 @@ export const initGitRepo = async (params: IInitGitRepoParams): Promise<void> => 
 
   // create init commit
   const execaOptions: IExecaOptions = { ...params.execaOptions, cwd: params.cwd }
-  await execa('git', ['init', '--initial-branch', defaultBranch], execaOptions)
+  await safeExeca('git', ['init', '--initial-branch', defaultBranch], execaOptions, reporter)
   if (gpgSign !== undefined) {
-    await execa('git', ['config', 'commit.gpgSign', gpgSign ? 'true' : 'false'], execaOptions)
+    await safeExeca(
+      'git',
+      ['config', 'commit.gpgSign', gpgSign ? 'true' : 'false'],
+      execaOptions,
+      reporter,
+    )
   }
-  await execa('git', ['config', 'log.date', logDate], execaOptions)
-  await execa('git', ['config', 'core.eol', eol], execaOptions)
-  await execa('git', ['config', 'i18n.commitEncoding', encoding], execaOptions)
-  await execa('git', ['config', 'i18n.logOutputEncoding', encoding], execaOptions)
+  await safeExeca('git', ['config', 'log.date', logDate], execaOptions, reporter)
+  await safeExeca('git', ['config', 'core.eol', eol], execaOptions, reporter)
+  await safeExeca('git', ['config', 'i18n.commitEncoding', encoding], execaOptions, reporter)
+  await safeExeca('git', ['config', 'i18n.logOutputEncoding', encoding], execaOptions, reporter)
 
   if (params.authorName) {
-    await execa('git', ['config', 'user.name', params.authorName], execaOptions)
+    await safeExeca('git', ['config', 'user.name', params.authorName], execaOptions, reporter)
   }
 
   if (params.authorEmail) {
-    await execa('git', ['config', 'user.email', params.authorEmail], execaOptions)
+    await safeExeca('git', ['config', 'user.email', params.authorEmail], execaOptions, reporter)
   }
 }
