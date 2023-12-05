@@ -1,8 +1,7 @@
 import { toLowerCase } from '@guanghechen/helper-string'
-import type { IReporter } from '@guanghechen/reporter.types'
+import type { IReporter } from '@guanghechen/reporter'
 import commandExists from 'command-exists'
 import type { Options as IExecaOptions } from 'execa'
-import { execa } from 'execa'
 import inquirer from 'inquirer'
 
 /**
@@ -51,5 +50,6 @@ export async function installDependencies(
   if (npmScript === 'skip') return
 
   // install dependencies
+  const { execa } = await import('execa')
   await execa(npmScript, ['install'], execaOptions)
 }

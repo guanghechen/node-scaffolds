@@ -1,14 +1,15 @@
-import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
 import { createReporterMock } from '@guanghechen/helper-jest'
+import { Reporter, ReporterLevelEnum } from '@guanghechen/reporter'
 import { desensitize, locateFixtures } from 'jest.helper'
 
 describe('resolveCommandConfigurationOptions', () => {
-  const reporter = new ChalkLogger({
-    level: Level.DEBUG,
-    flights: {
-      colorful: false,
-    },
+  const reporter = new Reporter(chalk, {
+    level: ReporterLevelEnum.DEBUG,
+    flights: { colorful: false },
   })
   const reporterMock = createReporterMock({ reporter, desensitize })
 

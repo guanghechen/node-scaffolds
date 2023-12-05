@@ -1,4 +1,3 @@
-import { resolveLevel } from '@guanghechen/chalk-logger'
 import {
   isFunction,
   isNonBlankString,
@@ -8,7 +7,8 @@ import {
 } from '@guanghechen/helper-is'
 import { cover, coverString } from '@guanghechen/helper-option'
 import { locateNearestFilepath, pathResolver } from '@guanghechen/path'
-import type { IReporter, ReporterLevelEnum } from '@guanghechen/reporter.types'
+import { resolveLevel } from '@guanghechen/reporter'
+import type { IReporter, ReporterLevelEnum } from '@guanghechen/reporter'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import type {
@@ -77,12 +77,12 @@ export function resolveCommandConfigurationOptions<O extends ICommandConfigurati
 
   const setLoggerLevel = (
     defaultLogLevel: string | ReporterLevelEnum | undefined,
-  ): ReporterLevelEnum | null => {
+  ): ReporterLevelEnum | undefined => {
     const _logLevel = cover<string | ReporterLevelEnum | undefined>(
       defaultLogLevel,
       options.logLevel,
     )
-    const _level: ReporterLevelEnum | null = _logLevel ? resolveLevel(_logLevel) : null
+    const _level: ReporterLevelEnum | undefined = _logLevel ? resolveLevel(_logLevel) : undefined
     if (_level) {
       reporter.setLevel(_level)
     }
@@ -98,7 +98,7 @@ export function resolveCommandConfigurationOptions<O extends ICommandConfigurati
     subCommandName,
     strategyMap,
   )
-  const logLevel: ReporterLevelEnum | null = setLoggerLevel(resolvedOptions.logLevel)
+  const logLevel: ReporterLevelEnum | undefined = setLoggerLevel(resolvedOptions.logLevel)
 
   reporter.debug('cwd:', flatOpts.cwd)
   reporter.debug('workspace:', flatOpts.workspace)

@@ -31,9 +31,7 @@ exports[`resolveCommandConfigurationOptions basic 2`] = `
 ",
   ],
   [
-    "debug [] configPath: [
-  '<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/demo.config.yml',
-]
+    "debug [] configPath: ['<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/demo.config.yml']
 ",
   ],
   [
@@ -49,36 +47,11 @@ exports[`resolveCommandConfigurationOptions basic 2`] = `
 ",
   ],
   [
-    "debug [] resolvedConfig: {
-  __globalOptions__: {
-    logLevel: 'info',
-  },
-  init: {
-    logLevel: 'debug',
-    color: false,
-  },
-  generate: {
-    logLevel: 'debug',
-    date: true,
-  },
-}
+    "debug [] resolvedConfig: {__globalOptions__:{logLevel:'info'},init:{logLevel:'debug',color:false},generate:{logLevel:'debug',date:true}}
 ",
   ],
   [
-    "debug [] resolvedOptions: {
-  logLevel: 'debug',
-  workspace: '<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2',
-  configPath: [
-    '<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/demo.config.yml',
-  ],
-  color: false,
-  date: false,
-  a: [
-    1,
-    2,
-    3,
-  ],
-}
+    "debug [] resolvedOptions: {logLevel:'debug',workspace:'<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2',configPath:['<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2/demo.config.yml'],color:false,date:false,a:[1,2,3]}
 ",
   ],
 ]
@@ -157,30 +130,11 @@ exports[`resolveCommandConfigurationOptions with config 2`] = `
 ",
   ],
   [
-    "debug [] resolvedConfig: {
-  init: {
-    logLevel: 'verbose',
-    color: true,
-  },
-  generate: {
-    logLevel: 'debug',
-    date: true,
-  },
-}
+    "debug [] resolvedConfig: {init:{logLevel:'verbose',color:true},generate:{logLevel:'debug',date:true}}
 ",
   ],
   [
-    "debug [] resolvedOptions: {
-  logLevel: 'debug',
-  workspace: '<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2',
-  color: true,
-  date: true,
-  a: [
-    1,
-    2,
-    3,
-  ],
-}
+    "debug [] resolvedOptions: {logLevel:'debug',workspace:'<$WORKSPACE$>/packages/helper-commander/__test__/fixtures/basic2',color:true,date:true,a:[1,2,3]}
 ",
   ],
 ]

@@ -52,6 +52,6 @@
   },
   "devDependencies": {
     "@guanghechen/chalk": "^1.0.0-alpha.11",
-    "@guanghechen/reporter": "^1.0.0-alpha.22"
+    "@guanghechen/reporter": "^1.0.0-alpha.23"
   }
 }

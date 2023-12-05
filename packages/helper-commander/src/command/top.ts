@@ -1,4 +1,3 @@
-import { registerCommanderOptions } from '@guanghechen/chalk-logger'
 import { Command } from './command'
 
 /**
@@ -14,9 +13,20 @@ export function createTopCommand(commandName: string, version: string): Command 
     .version(version)
     .name(commandName)
 
-  registerCommanderOptions(program)
+    // Register logger (reporter) related options.
+    .option('--log-encoding <encoding>', 'Encoding of log file.')
+    .option('--log-filepath <filepath>', 'Path which the log file is located.')
+    .option('--log-level <level>', 'Log level.')
+    .option('--log-name <name>', 'Logger name.')
+    .option('--log-mode <normal|loose>', 'Log format mode.')
+    .option(
+      '--log-flight <[[no-]<date|title|colorful|inline>]>',
+      'Enable / disable logger flights.',
+      (val: string, acc: string[]) => acc.concat(val),
+      [],
+    )
 
-  program
+    // Other builtin options.
     .option(
       '-c, --config-path, --configPath <configPath>',
       'config filepaths',

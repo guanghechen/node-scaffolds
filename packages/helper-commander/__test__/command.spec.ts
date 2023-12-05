@@ -1,8 +1,12 @@
-import { ChalkLogger } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { createReporterMock } from '@guanghechen/helper-jest'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
 import { pathResolver } from '@guanghechen/path'
+import type { IReporter } from '@guanghechen/reporter'
+import { Reporter } from '@guanghechen/reporter'
 import { desensitize } from 'jest.helper'
 import path from 'node:path'
 import type {
@@ -28,8 +32,12 @@ describe('command', () => {
         '--no-silence',
       ]
 
-      const reporter = new ChalkLogger(
-        { name: 'ghc', flights: { colorful: false, date: false } },
+      const reporter = new Reporter(
+        chalk,
+        {
+          baseName: 'ghc',
+          flights: { colorful: false, date: false },
+        },
         argv,
       )
       const mock = createReporterMock({ reporter, desensitize })
@@ -52,8 +60,12 @@ describe('command', () => {
         '--no-silence',
       ]
 
-      const reporter = new ChalkLogger(
-        { name: 'ghc', flights: { colorful: false, date: false } },
+      const reporter = new Reporter(
+        chalk,
+        {
+          baseName: 'ghc',
+          flights: { colorful: false, date: false },
+        },
         argv,
       )
       const mock = createReporterMock({ reporter, desensitize })
@@ -69,7 +81,7 @@ describe('command', () => {
 
 async function getCommand(
   argv: string[],
-  reporter: ChalkLogger,
+  reporter: IReporter,
 ): Promise<{
   args: string[]
   options: IGlobalCommandOptions
