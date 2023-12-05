@@ -1,5 +1,8 @@
-import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import { createReporterMock } from '@guanghechen/helper-jest'
+import { Reporter, ReporterLevelEnum } from '@guanghechen/reporter'
 import { desensitize, locateFixtures } from 'jest.helper'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
@@ -63,11 +66,9 @@ describe('empty', () => {
   })
 
   test('reporter', async () => {
-    const reporter = new ChalkLogger({
-      level: Level.VERBOSE,
-      flights: {
-        colorful: false,
-      },
+    const reporter = new Reporter(chalk, {
+      level: ReporterLevelEnum.VERBOSE,
+      flights: { colorful: false },
     })
     const reporterMock = createReporterMock({ reporter, desensitize })
 
@@ -131,11 +132,9 @@ describe('mkdirsIfNotExists', () => {
   })
 
   test('mkdirs reporter', async () => {
-    const reporter = new ChalkLogger({
-      level: Level.VERBOSE,
-      flights: {
-        colorful: false,
-      },
+    const reporter = new Reporter(chalk, {
+      level: ReporterLevelEnum.VERBOSE,
+      flights: { colorful: false },
     })
     const reporterMock = createReporterMock({ reporter, desensitize })
 

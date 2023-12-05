@@ -49,5 +49,9 @@
   "dependencies": {
     "@guanghechen/invariant": "^6.0.0-alpha.1",
     "@guanghechen/reporter.types": "^1.0.0-alpha.9"
+  },
+  "devDependencies": {
+    "@guanghechen/chalk": "^1.0.0-alpha.11",
+    "@guanghechen/reporter": "^1.0.0-alpha.22"
   }
 }
