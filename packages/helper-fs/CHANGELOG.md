@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.5](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-fs@6.0.0-alpha.4...@guanghechen/helper-fs@6.0.0-alpha.5) (2023-12-05)
+
+
+### Performance Improvements
+
+* 🎨 refactor to support commonjs bundle ([67f60e0](https://github.com/guanghechen/node-scaffolds/commit/67f60e008c5eb526b7ceb849842d884ac39b7763))
+* ✅ use @guanghechen/reporter instead of @guanghechen/chalk-logger to test ([43379bc](https://github.com/guanghechen/node-scaffolds/commit/43379bc76be27fc04eeafd1399fdb4841df3d22a))
+
+
+
+
+
 # [6.0.0-alpha.4](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-fs@6.0.0-alpha.3...@guanghechen/helper-fs@6.0.0-alpha.4) (2023-12-04)
 
 

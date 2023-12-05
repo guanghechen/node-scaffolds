@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.3](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/eslint-config-ts@6.0.0-alpha.2...@guanghechen/eslint-config-ts@6.0.0-alpha.3) (2023-12-05)
+
+
+### Performance Improvements
+
+* 🎨 refactor to support commonjs bundle ([67f60e0](https://github.com/guanghechen/node-scaffolds/commit/67f60e008c5eb526b7ceb849842d884ac39b7763))
+
+
+
+
+
 # [6.0.0-alpha.2](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/eslint-config-ts@6.0.0-alpha.1...@guanghechen/eslint-config-ts@6.0.0-alpha.2) (2023-11-29)
 
 
