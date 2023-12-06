@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.8](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@6.0.0-alpha.7...@guanghechen/script-doc-link@6.0.0-alpha.8) (2023-12-06)
+
+
+### Performance Improvements
+
+* ⚰️ remove @guanghechen/chalk-logger, please use @guanghechen/reporter instead ([2fa45c6](https://github.com/guanghechen/node-scaffolds/commit/2fa45c6a93447f7387360f54db9487e4c387054a))
+* 🎨 remove the dependent on @guanghechen/chalk-logger ([c7b13bb](https://github.com/guanghechen/node-scaffolds/commit/c7b13bb4739810f27698acd6718e7d8a655ba44d))
+
+
+
+
+
 # [6.0.0-alpha.7](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@6.0.0-alpha.6...@guanghechen/script-doc-link@6.0.0-alpha.7) (2023-12-05)
 
 **Note:** Version bump only for package @guanghechen/script-doc-link

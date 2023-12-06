@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-plop",
-  "version": "6.0.0-alpha.1",
+  "version": "6.0.0-alpha.2",
   "description": "A collection of utility functions for plop templates",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@6.0.0-alpha.1",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@6.0.0-alpha.2",
     "directory": "packages/helper-plop"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@6.0.0-alpha.1/packages/helper-plop#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@6.0.0-alpha.2/packages/helper-plop#readme",
   "keywords": [
     "plop"
   ],
