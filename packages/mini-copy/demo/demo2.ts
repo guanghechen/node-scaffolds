@@ -1,10 +1,14 @@
-import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import { FakeClipboard, copy, paste } from '@guanghechen/mini-copy'
+import { Reporter, ReporterLevelEnum } from '@guanghechen/reporter'
 import path from 'node:path'
+import url from 'node:url'
 
-const reporter = new ChalkLogger({
-  name: 'mini-copy',
-  level: Level.DEBUG,
+const reporter = new Reporter(chalk, {
+  baseName: 'mini-copy',
+  level: ReporterLevelEnum.DEBUG,
   flights: {
     colorful: true,
     date: true,
@@ -12,6 +16,7 @@ const reporter = new ChalkLogger({
   },
 })
 
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 const fakeClipboard = new FakeClipboard({
   filepath: path.resolve(__dirname, 'fake-clipboard.txt'),
   encoding: 'utf8',

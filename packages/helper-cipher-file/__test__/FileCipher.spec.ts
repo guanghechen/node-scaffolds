@@ -1,10 +1,13 @@
-import { ChalkLogger } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import {
   FileSplitter,
   calcFilePartItemsByCount,
   calcFilePartItemsBySize,
 } from '@guanghechen/file-split'
+import { Reporter } from '@guanghechen/reporter'
 import {
   assertPromiseThrow,
   emptyDir,
@@ -21,7 +24,7 @@ import { FileCipherFactory } from '../src'
 
 describe('FileCipher', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.FileCipher')
-  const reporter = new ChalkLogger({ flights: { colorful: false, date: false } })
+  const reporter = new Reporter(chalk, { flights: { colorful: false, date: false } })
   let fileCipher: IFileCipher
 
   const fileSplitter = new FileSplitter()

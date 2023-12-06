@@ -1,9 +1,13 @@
-import { ChalkLogger } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
+import { type IReporter, Reporter } from '@guanghechen/reporter'
 import { COMMAND_NAME } from './constant'
 
-export const reporter = new ChalkLogger(
+export const reporter: IReporter = new Reporter(
+  chalk,
   {
-    name: COMMAND_NAME,
+    baseName: COMMAND_NAME,
     flights: {
       date: true,
     },

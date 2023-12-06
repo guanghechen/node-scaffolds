@@ -6,7 +6,7 @@ import type {
 import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import { cover, coverString } from '@guanghechen/helper-option'
-import type { IReporter } from '@guanghechen/reporter.types'
+import type { IReporter } from '@guanghechen/reporter'
 
 // Global command options
 export interface IGlobalCommandOptions extends ICommandConfigurationOptions {

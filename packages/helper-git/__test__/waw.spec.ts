@@ -1,4 +1,7 @@
-import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
+import { Reporter, ReporterLevelEnum } from '@guanghechen/reporter'
 import { emptyDir, locateFixtures, rm, writeFile } from 'jest.helper'
 import path from 'node:path'
 import { commitAll } from '../src/command/commit'
@@ -8,9 +11,9 @@ import type { IGitCommandBaseParams } from '../src/types'
 
 describe('waw', () => {
   const workspaceDir: string = locateFixtures('__fictitious__waw')
-  const reporter = new ChalkLogger({
-    name: 'waw',
-    level: Level.ERROR,
+  const reporter = new Reporter(chalk, {
+    baseName: 'waw',
+    level: ReporterLevelEnum.ERROR,
     flights: { inline: true },
   })
   const ctx: IGitCommandBaseParams = { cwd: workspaceDir, reporter, execaOptions: {} }

@@ -1,5 +1,5 @@
 import type { ISubCommandProcessor } from '@guanghechen/helper-commander'
-import type { IReporter } from '@guanghechen/reporter.types'
+import type { IReporter } from '@guanghechen/reporter'
 import type { IToolFileSubCommandContext } from './context'
 import type { IToolFileSubCommandOption } from './option'
 

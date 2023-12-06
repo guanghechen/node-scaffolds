@@ -1,9 +1,12 @@
-import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import { copy, paste } from '@guanghechen/mini-copy'
+import { Reporter, ReporterLevelEnum } from '@guanghechen/reporter'
 
-const reporter = new ChalkLogger({
-  name: 'mini-copy',
-  level: Level.DEBUG,
+const reporter = new Reporter(chalk, {
+  baseName: 'mini-copy',
+  level: ReporterLevelEnum.DEBUG,
   flights: {
     colorful: true,
     date: true,

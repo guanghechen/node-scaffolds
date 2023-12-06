@@ -4,7 +4,7 @@ import type {
 } from '@guanghechen/helper-commander'
 import { parseBytesString } from '@guanghechen/helper-func'
 import { convertToNumber, cover } from '@guanghechen/helper-option'
-import type { IReporter } from '@guanghechen/reporter.types'
+import type { IReporter } from '@guanghechen/reporter'
 import type { IToolFileSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'

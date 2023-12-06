@@ -1,6 +1,4 @@
 import type { IReporter } from '@guanghechen/reporter.types'
-import clipboardy from 'clipboardy'
-import { execa } from 'execa'
 import { DEFAULT_LINE_END } from './constant'
 import type { FakeClipboard } from './fake-clipboard'
 
@@ -42,6 +40,8 @@ export async function paste(options: IPasteOptions = {}): Promise<string | never
 
   try {
     reporter?.debug('[paste] try: clipboardy')
+
+    const clipboardy = await import('clipboardy').then(md => md.default)
     const content: string = await clipboardy.read()
     return normalizeOutput(content, lineEnd)
   } catch (error) {
@@ -52,6 +52,7 @@ export async function paste(options: IPasteOptions = {}): Promise<string | never
     // is windows or wsl, use clipboardy (as powershell Get-Clipboard will return messy code).
     reporter?.debug(`[paste] try: ${pasteCommandPath} ${pasteCommandArgs.join(' ')}`)
     try {
+      const { execa } = await import('execa')
       const { stdout } = await execa(pasteCommandPath, pasteCommandArgs)
       let content = stdout.toString()
       if (/powershell/.test(pasteCommandPath)) {

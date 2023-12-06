@@ -1,6 +1,4 @@
 import type { IReporter } from '@guanghechen/reporter.types'
-import clipboardy from 'clipboardy'
-import { execa } from 'execa'
 import type { FakeClipboard } from './fake-clipboard'
 
 export interface ICopyOptions {
@@ -32,6 +30,7 @@ export async function copy(content: string, options: ICopyOptions = {}): Promise
 
   try {
     reporter?.debug('[copy] try: clipboardy')
+    const clipboardy = await import('clipboardy').then(md => md.default)
     await clipboardy.write(content)
     return
   } catch (error) {
@@ -42,6 +41,7 @@ export async function copy(content: string, options: ICopyOptions = {}): Promise
     // is windows or wsl, use clipboardy (as powershell Get-Clipboard will return messy code).
     reporter?.debug(`[copy] try: ${copyCommandPath} ${copyCommandArgs.join(' ')}`)
     try {
+      const { execa } = await import('execa')
       await execa(copyCommandPath, copyCommandArgs, { input: content })
       return
     } catch (error) {

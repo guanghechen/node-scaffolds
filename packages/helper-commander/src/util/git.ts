@@ -2,7 +2,6 @@ import type { IInitGitRepoParams } from '@guanghechen/helper-git'
 import { commitAll, initGitRepo } from '@guanghechen/helper-git'
 import { toLowerCase } from '@guanghechen/helper-string'
 import commandExists from 'command-exists'
-import inquirer from 'inquirer'
 
 // Check if the git installed.
 export const hasGitInstalled = (): boolean => commandExists.sync('git')
@@ -22,6 +21,7 @@ export async function createInitialCommit(params: ICreateInitGitRepoParams): Pro
     const booleanString = toLowerCase(plopBypass.shift()!)
     doInitialCommit = booleanString === 'true' || booleanString === 'yes' || booleanString === 'y'
   } else {
+    const inquirer = await import('inquirer').then(md => md.default)
     doInitialCommit = (
       await inquirer.prompt([
         {

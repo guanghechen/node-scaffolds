@@ -61,7 +61,6 @@
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
-    "@guanghechen/chalk": "^1.0.0-alpha.11",
     "@types/js-yaml": "^4.0.9"
   }
 }

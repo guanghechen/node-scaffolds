@@ -1,13 +1,17 @@
-import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
+import { Reporter, ReporterLevelEnum } from '@guanghechen/reporter'
 import minimist from 'minimist'
 import path from 'node:path'
 import { resolveMonorepoDocLinkRewrite } from '.'
 
 async function run(argv: string[]): Promise<void> {
-  const reporter = new ChalkLogger(
+  const reporter = new Reporter(
+    chalk,
     {
-      name: 'doc-link-rewrite',
-      level: Level.INFO,
+      baseName: 'doc-link-rewrite',
+      level: ReporterLevelEnum.INFO,
       flights: {
         date: false,
         colorful: true,

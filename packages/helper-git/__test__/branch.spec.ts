@@ -1,6 +1,9 @@
-import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import type { IReporterMock } from '@guanghechen/helper-jest'
 import { createReporterMock } from '@guanghechen/helper-jest'
+import { Reporter, ReporterLevelEnum } from '@guanghechen/reporter'
 import { assertPromiseThrow, emptyDir, locateFixtures, rm } from 'jest.helper'
 import type { IGitCommandBaseParams } from '../src'
 import { checkBranch, createBranch, deleteBranch, getAllLocalBranches } from '../src'
@@ -10,9 +13,9 @@ import { assertAtCommit } from './_util'
 
 describe('branch', () => {
   const workspaceDir: string = locateFixtures('__fictitious__branch')
-  const reporter = new ChalkLogger({
-    name: 'branch',
-    level: Level.ERROR,
+  const reporter = new Reporter(chalk, {
+    baseName: 'branch',
+    level: ReporterLevelEnum.ERROR,
     flights: { inline: true, colorful: false },
   })
   const ctx: IGitCommandBaseParams = { cwd: workspaceDir, reporter, execaOptions: {} }

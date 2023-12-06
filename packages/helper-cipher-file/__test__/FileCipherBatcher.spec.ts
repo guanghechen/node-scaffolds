@@ -1,4 +1,6 @@
-import { ChalkLogger } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import type {
   ICatalogDiffItem,
@@ -9,6 +11,7 @@ import type {
 import { FileSplitter } from '@guanghechen/file-split'
 import { calcMac } from '@guanghechen/mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
+import { Reporter } from '@guanghechen/reporter'
 import { mergeStreams, stream2buffer } from '@guanghechen/stream'
 import {
   assertPromiseNotThrow,
@@ -58,7 +61,7 @@ describe('FileCipherBatcher', () => {
   const plainPathResolver = new WorkspacePathResolver(plainRootDir, pathResolver)
   const cryptPathResolver = new WorkspacePathResolver(cryptRootDir, pathResolver)
   const bakPlainPathResolver = new WorkspacePathResolver(bakPlainRootDir, pathResolver)
-  const reporter = new ChalkLogger({ flights: { colorful: false, date: false } })
+  const reporter = new Reporter(chalk, { flights: { colorful: false, date: false } })
 
   const filepathA: string = plainPathResolver.resolve(itemTable.A.plainFilepath)
   const filepathB: string = plainPathResolver.resolve(itemTable.B.plainFilepath)

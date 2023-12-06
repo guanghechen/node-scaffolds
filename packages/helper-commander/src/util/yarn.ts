@@ -2,7 +2,6 @@ import { toLowerCase } from '@guanghechen/helper-string'
 import type { IReporter } from '@guanghechen/reporter'
 import commandExists from 'command-exists'
 import type { Options as IExecaOptions } from 'execa'
-import inquirer from 'inquirer'
 
 /**
  * Run `npm/yarn install` to Install node.js dependencies
@@ -29,6 +28,7 @@ export async function installDependencies(
   if (plopBypass.length > 0) {
     npmScript = plopBypass.shift()!
   } else {
+    const inquirer = await import('inquirer').then(md => md.default)
     npmScript = (
       await inquirer.prompt([
         {

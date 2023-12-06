@@ -1,5 +1,7 @@
 import { bytes2text } from '@guanghechen/byte'
-import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import type {
   ICatalogItem,
@@ -26,6 +28,7 @@ import type { IReporterMock } from '@guanghechen/helper-jest'
 import { createReporterMock } from '@guanghechen/helper-jest'
 import { calcMac } from '@guanghechen/mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
+import { Reporter, ReporterLevelEnum } from '@guanghechen/reporter'
 import { TextFileResource } from '@guanghechen/resource'
 import {
   assertPromiseNotThrow,
@@ -74,9 +77,9 @@ describe('GitCipher', () => {
   const cryptRootDir: string = path.join(workspaceDir, 'crypt')
   const bakPlainRootDir: string = path.join(workspaceDir, 'plain_bak')
 
-  const reporter = new ChalkLogger({
-    name: 'GitCipher',
-    level: Level.ERROR,
+  const reporter = new Reporter(chalk, {
+    baseName: 'GitCipher',
+    level: ReporterLevelEnum.ERROR,
     flights: { inline: true, colorful: false },
   })
 

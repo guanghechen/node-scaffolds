@@ -3,7 +3,6 @@ import { escapeRegexSpecialChars } from '@guanghechen/helper-func'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import invariant from '@guanghechen/invariant'
 import type { IReporter } from '@guanghechen/reporter.types'
-import { globby } from 'globby'
 import path from 'node:path'
 import type { ILernaJson, IPackageJson, ITopPackageJson } from '../types'
 import { loadJson } from '../util'
@@ -86,6 +85,8 @@ export class MonorepoContext {
         workspacesPattern.every(isNonBlankString),
       `[${this.name}] Not found valid workspaces`,
     )
+
+    const { globby } = await import('globby')
     const packagePaths = (
       await globby(workspacesPattern, {
         onlyDirectories: true,

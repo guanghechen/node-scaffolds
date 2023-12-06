@@ -1,6 +1,9 @@
-import { ChalkLogger, Level } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import type { IReporterMock } from '@guanghechen/helper-jest'
 import { createReporterMock } from '@guanghechen/helper-jest'
+import { Reporter, ReporterLevelEnum } from '@guanghechen/reporter'
 import { emptyDir, locateFixtures, rm } from 'jest.helper'
 import type { IGitCommandBaseParams, IGitCommitDagNode, IGitCommitWithMessage } from '../src'
 import { getCommitInTopology, getCommitWithMessageList, getParentCommitIdList } from '../src'
@@ -9,9 +12,9 @@ import { buildRepo1 } from './_data-repo1'
 
 describe('log', () => {
   const workspaceDir: string = locateFixtures('__fictitious__log')
-  const reporter = new ChalkLogger({
-    name: 'log',
-    level: Level.ERROR,
+  const reporter = new Reporter(chalk, {
+    baseName: 'log',
+    level: ReporterLevelEnum.ERROR,
     flights: { inline: true, colorful: false },
   })
   const ctx: IGitCommandBaseParams = { cwd: workspaceDir, reporter, execaOptions: {} }

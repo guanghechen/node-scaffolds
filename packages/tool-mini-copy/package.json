@@ -40,7 +40,7 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@guanghechen/chalk-logger": "^6.0.0-alpha.6",
+    "@guanghechen/chalk": "^1.0.0-alpha.11",
     "@guanghechen/helper-commander": "^6.0.0-alpha.7",
     "@guanghechen/helper-fs": "^6.0.0-alpha.5",
     "@guanghechen/helper-is": "^6.0.0-alpha.1",
@@ -48,6 +48,7 @@
     "@guanghechen/invariant": "^6.0.0-alpha.1",
     "@guanghechen/mini-copy": "^6.0.0-alpha.5",
     "@guanghechen/path": "^1.0.0-alpha.14",
+    "@guanghechen/reporter": "^1.0.0-alpha.23",
     "inquirer": "9.2.12"
   },
   "devDependencies": {

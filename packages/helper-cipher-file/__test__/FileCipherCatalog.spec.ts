@@ -1,4 +1,6 @@
-import { ChalkLogger } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import type {
   ICatalogDiffItem,
@@ -7,6 +9,7 @@ import type {
 } from '@guanghechen/cipher-catalog.types'
 import { FileSplitter } from '@guanghechen/file-split'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
+import { Reporter } from '@guanghechen/reporter'
 import {
   assertPromiseNotThrow,
   assertPromiseThrow,
@@ -42,7 +45,7 @@ describe('FileCipherCatalog', () => {
   const cryptRootDir: string = path.join(workspaceDir, 'src_encrypted')
   const plainPathResolver = new WorkspacePathResolver(plainRootDir, pathResolver)
   const cryptPathResolver = new WorkspacePathResolver(cryptRootDir, pathResolver)
-  const reporter = new ChalkLogger({ name: 'FileCipherCatalog' })
+  const reporter = new Reporter(chalk, { baseName: 'FileCipherCatalog' })
 
   const filepathA: string = plainPathResolver.resolve(itemTable.A.plainFilepath)
   const filepathB: string = plainPathResolver.resolve(itemTable.B.plainFilepath)

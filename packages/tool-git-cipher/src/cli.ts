@@ -1,5 +1,8 @@
-import { ChalkLogger } from '@guanghechen/chalk-logger'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import type { ISubCommand, ISubCommandOptions } from '@guanghechen/helper-commander'
+import { type IReporter, Reporter } from '@guanghechen/reporter'
 import type { IGitCipherSubCommandProps } from '.'
 import {
   COMMAND_NAME,
@@ -15,9 +18,10 @@ import {
   isCustomError,
 } from '.'
 
-const reporter = new ChalkLogger(
+export const reporter: IReporter = new Reporter(
+  chalk,
   {
-    name: COMMAND_NAME,
+    baseName: COMMAND_NAME,
     flights: {
       colorful: true,
       date: false,
