@@ -1,6 +1,6 @@
-import type { IReadonlyCipherCatalog } from '@guanghechen/cipher-catalog.types'
+import { calcCryptFilepathsWithParts } from '@guanghechen/cipher-catalog'
+import type { IReadonlyCipherCatalog } from '@guanghechen/cipher-catalog'
 import type { IConfigKeeper } from '@guanghechen/config'
-import { calcCryptFilepathsWithParts } from '@guanghechen/helper-cipher-file'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { checkBranch, getAllLocalBranches, isGitRepo, listAllFiles } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'

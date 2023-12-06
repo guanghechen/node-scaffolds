@@ -3,11 +3,10 @@ import type {
   IDraftCatalogDiffItem,
   IDraftCatalogItem,
   IReadonlyCipherCatalog,
-} from '@guanghechen/cipher-catalog.types'
-import { FileChangeType } from '@guanghechen/cipher-catalog.types'
+} from '@guanghechen/cipher-catalog'
+import { FileChangeType, areSameDraftCatalogItem } from '@guanghechen/cipher-catalog'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
-import { areSameDraftCatalogItem } from './areSameDraftCatalogItem'
 
 /**
  * Calculate diff items.

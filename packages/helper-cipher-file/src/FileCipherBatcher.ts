@@ -1,9 +1,5 @@
-import { FileChangeType } from '@guanghechen/cipher-catalog.types'
-import type {
-  ICatalogDiffItem,
-  ICatalogItem,
-  IDraftCatalogItem,
-} from '@guanghechen/cipher-catalog.types'
+import { FileChangeType, calcCryptFilepathsWithParts } from '@guanghechen/cipher-catalog'
+import type { ICatalogDiffItem, ICatalogItem, IDraftCatalogItem } from '@guanghechen/cipher-catalog'
 import type { FileSplitter, IFilePartItem } from '@guanghechen/file-split'
 import { calcFilePartItemsBySize } from '@guanghechen/file-split'
 import { isFileSync, mkdirsIfNotExists, rm } from '@guanghechen/helper-fs'
@@ -19,7 +15,6 @@ import type {
   IFileCipherBatcher,
 } from './types/IFileCipherBatcher'
 import type { IFileCipherFactory } from './types/IFileCipherFactory'
-import { calcCryptFilepathsWithParts } from './util/calcCryptFilepathsWithParts'
 
 export interface IFileCipherBatcherProps {
   fileSplitter: FileSplitter

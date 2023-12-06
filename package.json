@@ -52,7 +52,7 @@
     "@guanghechen/resource": "^1.0.0-alpha.8",
     "@rollup/plugin-replace": "^5.0.5",
     "@types/command-exists": "^1.2.3",
-    "@types/jest": "29.5.10",
+    "@types/jest": "29.5.11",
     "@types/node": "^18.19.2",
     "ci-info": "^4.0.0",
     "commander": "^11.1.0",

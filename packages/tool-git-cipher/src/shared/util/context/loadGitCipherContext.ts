@@ -1,5 +1,5 @@
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
-import type { CipherCatalogContext } from '@guanghechen/helper-cipher-file'
+import type { CipherCatalogContext } from '@guanghechen/cipher-catalog'
 import type { IGitCipherContext } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path'

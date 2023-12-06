@@ -1,4 +1,4 @@
-import type { ICatalogItem, IDraftCatalogDiffItem } from '@guanghechen/cipher-catalog.types'
+import type { ICatalogItem, IDraftCatalogDiffItem } from '@guanghechen/cipher-catalog'
 import type {
   IGitCommandBaseParams,
   IGitCommitDagNode,

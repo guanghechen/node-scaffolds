@@ -545,6 +545,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@guanghechen/cipher-catalog@npm:^1.0.0-alpha.3":
+  version: 1.0.0-alpha.3
+  resolution: "@guanghechen/cipher-catalog@npm:1.0.0-alpha.3"
+  dependencies:
+    "@guanghechen/byte": ^1.0.0-alpha.4
+    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.2
+  checksum: a76e43a46689e37fc8455366f708882831d87e17521fab9881acd3b4cf70e6ee4aa7465306472d633643e2be0ea68e46783d251ef9ee12d7408044e04dcb845c
+  languageName: node
+  linkType: hard
+
 "@guanghechen/cipher.types@npm:^1.0.0-alpha.10":
   version: 1.0.0-alpha.10
   resolution: "@guanghechen/cipher.types@npm:1.0.0-alpha.10"
@@ -678,7 +688,7 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/cipher": ^1.0.0-alpha.18
-    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.2
+    "@guanghechen/cipher-catalog": ^1.0.0-alpha.3
     "@guanghechen/file-split": ^1.0.0-alpha.15
     "@guanghechen/helper-fs": ^6.0.0-alpha.5
     "@guanghechen/helper-func": ^6.0.0-alpha.1
@@ -733,7 +743,7 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/cipher": ^1.0.0-alpha.18
-    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.2
+    "@guanghechen/cipher-catalog": ^1.0.0-alpha.3
     "@guanghechen/config": ^1.0.0-alpha.9
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.9
     "@guanghechen/helper-fs": ^6.0.0-alpha.5
@@ -856,7 +866,7 @@ __metadata:
     "@guanghechen/resource": ^1.0.0-alpha.8
     "@rollup/plugin-replace": ^5.0.5
     "@types/command-exists": ^1.2.3
-    "@types/jest": 29.5.10
+    "@types/jest": 29.5.11
     "@types/node": ^18.19.2
     ci-info: ^4.0.0
     commander: ^11.1.0
@@ -1046,7 +1056,7 @@ __metadata:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/chalk": ^1.0.0-alpha.11
     "@guanghechen/cipher": ^1.0.0-alpha.18
-    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.2
+    "@guanghechen/cipher-catalog": ^1.0.0-alpha.3
     "@guanghechen/config": ^1.0.0-alpha.9
     "@guanghechen/file-split": ^1.0.0-alpha.15
     "@guanghechen/filetree": ^1.0.0-alpha.9
@@ -2383,13 +2393,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:29.5.10":
-  version: 29.5.10
-  resolution: "@types/jest@npm:29.5.10"
+"@types/jest@npm:29.5.11":
+  version: 29.5.11
+  resolution: "@types/jest@npm:29.5.11"
   dependencies:
     expect: ^29.0.0
     pretty-format: ^29.0.0
-  checksum: ef385905787db528de9b6beb2688865c0bb276e64256ed60b9a1a6ffc0b75737456cb5e27e952a3241c5845b6a1da487470010dd30f3ca59c8581624c564a823
+  checksum: f892a06ec9f0afa9a61cd7fa316ec614e21d4df1ad301b5a837787e046fcb40dfdf7f264a55e813ac6b9b633cb9d366bd5b8d1cea725e84102477b366df23fdd
   languageName: node
   linkType: hard
 

@@ -1,5 +1,5 @@
-import type { IDraftCatalogDiffItem, IDraftCatalogItem } from '@guanghechen/cipher-catalog.types'
-import { FileChangeType } from '@guanghechen/cipher-catalog.types'
+import type { IDraftCatalogDiffItem, IDraftCatalogItem } from '@guanghechen/cipher-catalog'
+import { FileChangeType } from '@guanghechen/cipher-catalog'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { GitCipher, encryptFilesOnly } from '@guanghechen/helper-git-cipher'
 import { isNonBlankString } from '@guanghechen/helper-is'

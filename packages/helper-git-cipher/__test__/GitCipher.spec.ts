@@ -3,6 +3,7 @@ import { bytes2text } from '@guanghechen/byte'
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
+import { CipherCatalogContext } from '@guanghechen/cipher-catalog'
 import type {
   ICatalogItem,
   ICipherCatalog,
@@ -10,7 +11,6 @@ import type {
 } from '@guanghechen/cipher-catalog.types'
 import { FileSplitter } from '@guanghechen/file-split'
 import {
-  CipherCatalogContext,
   FileCipherBatcher,
   FileCipherCatalog,
   FileCipherFactory,

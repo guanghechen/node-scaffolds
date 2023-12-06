@@ -1,16 +1,16 @@
+import { normalizePlainFilepath } from '@guanghechen/cipher-catalog'
 import type {
   ICatalogItem,
   ICipherCatalogContext,
   IDeserializedCatalogItem,
   IDraftCatalogItem,
   IReadonlyCipherCatalog,
-} from '@guanghechen/cipher-catalog.types'
+} from '@guanghechen/cipher-catalog'
 import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/file-split'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import { stat } from 'node:fs/promises'
 import { calcFingerprintFromFile, calcFingerprintFromString } from './util/fingerprint'
-import { normalizePlainFilepath } from './util/normalizePlainFilepath'
 
 const clazz = 'ReadonlyFileCipherCatalog'
 

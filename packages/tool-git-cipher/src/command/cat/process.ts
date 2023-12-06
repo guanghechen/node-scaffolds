@@ -1,5 +1,6 @@
 import { bytes2text } from '@guanghechen/byte'
-import { FileCipher, calcCryptFilepathsWithParts } from '@guanghechen/helper-cipher-file'
+import { calcCryptFilepathsWithParts } from '@guanghechen/cipher-catalog'
+import { FileCipher } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'

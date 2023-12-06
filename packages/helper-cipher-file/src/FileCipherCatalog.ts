@@ -1,3 +1,4 @@
+import { diffFromCatalogItems } from '@guanghechen/cipher-catalog'
 import type {
   ICatalogDiffItem,
   ICatalogDiffItemCombine,
@@ -7,7 +8,6 @@ import type {
   IDraftCatalogDiffItem,
 } from '@guanghechen/cipher-catalog.types'
 import { ReadonlyFileCipherCatalog } from './FileCipherCatalog.readonly'
-import { diffFromCatalogItems } from './util/diffFromCatalogItems'
 import { diffFromPlainFiles } from './util/diffFromPlainFiles'
 
 export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements ICipherCatalog {

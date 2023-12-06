@@ -1,12 +1,12 @@
 import { bytes2text, text2bytes } from '@guanghechen/byte'
 import type { ICipher } from '@guanghechen/cipher'
+import { FileChangeType } from '@guanghechen/cipher-catalog'
 import type {
   IDeserializedCatalogDiffItem,
   IDeserializedCatalogItem,
   ISerializedCatalogDiffItem,
   ISerializedCatalogItem,
-} from '@guanghechen/cipher-catalog.types'
-import { FileChangeType } from '@guanghechen/cipher-catalog.types'
+} from '@guanghechen/cipher-catalog'
 import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/config'
 import { JsonConfigKeeper } from '@guanghechen/config'
 import invariant from '@guanghechen/invariant'

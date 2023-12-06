@@ -2,11 +2,13 @@
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
-import type {
-  ICatalogDiffItem,
-  IDraftCatalogDiffItem,
-  IDraftCatalogItem,
-} from '@guanghechen/cipher-catalog.types'
+import {
+  CipherCatalogContext,
+  type ICatalogDiffItem,
+  type IDraftCatalogDiffItem,
+  type IDraftCatalogItem,
+  areSameDraftCatalogItem,
+} from '@guanghechen/cipher-catalog'
 import { FileSplitter } from '@guanghechen/file-split'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import { Reporter } from '@guanghechen/reporter'
@@ -19,13 +21,7 @@ import {
   writeFile,
 } from 'jest.helper'
 import path from 'node:path'
-import {
-  CipherCatalogContext,
-  FileCipherBatcher,
-  FileCipherCatalog,
-  FileCipherFactory,
-  areSameDraftCatalogItem,
-} from '../src'
+import { FileCipherBatcher, FileCipherCatalog, FileCipherFactory } from '../src'
 import {
   contentHashAlgorithm,
   contentTable,

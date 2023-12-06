@@ -49,7 +49,7 @@
   "dependencies": {
     "@guanghechen/byte": "^1.0.0-alpha.4",
     "@guanghechen/cipher": "^1.0.0-alpha.18",
-    "@guanghechen/cipher-catalog.types": "^1.0.0-alpha.2",
+    "@guanghechen/cipher-catalog": "^1.0.0-alpha.3",
     "@guanghechen/file-split": "^1.0.0-alpha.15",
     "@guanghechen/helper-fs": "^6.0.0-alpha.5",
     "@guanghechen/helper-func": "^6.0.0-alpha.1",

@@ -1,9 +1,6 @@
-import type {
-  IDeserializedCatalogItem,
-  IReadonlyCipherCatalog,
-} from '@guanghechen/cipher-catalog.types'
+import type { IDeserializedCatalogItem, IReadonlyCipherCatalog } from '@guanghechen/cipher-catalog'
+import { normalizePlainFilepath } from '@guanghechen/cipher-catalog'
 import type { IConfigKeeper } from '@guanghechen/config'
-import { normalizePlainFilepath } from '@guanghechen/helper-cipher-file'
 import { iterable2map } from '@guanghechen/helper-func'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { checkBranch, getAllLocalBranches, isGitRepo, listAllFiles } from '@guanghechen/helper-git'

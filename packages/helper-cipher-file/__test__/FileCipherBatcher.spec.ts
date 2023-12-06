@@ -2,12 +2,13 @@
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
-import type {
-  ICatalogDiffItem,
-  ICipherCatalog,
-  ICipherCatalogContext,
-  IDraftCatalogItem,
-} from '@guanghechen/cipher-catalog.types'
+import {
+  type ICatalogDiffItem,
+  type ICipherCatalog,
+  type ICipherCatalogContext,
+  type IDraftCatalogItem,
+  areSameDraftCatalogItem,
+} from '@guanghechen/cipher-catalog'
 import { FileSplitter } from '@guanghechen/file-split'
 import { calcMac } from '@guanghechen/mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
@@ -30,7 +31,6 @@ import {
   FileCipherBatcher,
   FileCipherCatalog,
   FileCipherFactory,
-  areSameDraftCatalogItem,
   calcFingerprintFromMac,
 } from '../src'
 import {
