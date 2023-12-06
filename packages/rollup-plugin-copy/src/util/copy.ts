@@ -1,5 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import { writeFile } from '@guanghechen/helper-fs'
-import chalk from 'chalk'
 import fs from 'node:fs/promises'
 import type { ICopyTargetItem } from '../types'
 import { relativePath } from './path'

@@ -30,7 +30,7 @@ describe('clean', () => {
     await rm(workspaceDir)
   })
 
-  test('cleanUntrackedFilepaths', async () => {
+  it('cleanUntrackedFilepaths', async () => {
     await initGitRepo({
       cwd: workspaceDir,
       defaultBranch: 'main',

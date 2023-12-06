@@ -51,7 +51,7 @@ describe('view', () => {
     await rm(workspaceDir)
   })
 
-  test('listAllFiles', async () => {
+  it('listAllFiles', async () => {
     const { commitTable } = await buildRepo1({
       repoDir: workspaceDir,
       reporter,
@@ -74,7 +74,7 @@ describe('view', () => {
     expect(await eListAllFiles(commitTable.K)).toEqual([fpA, fpB, fpC, fpE])
   })
 
-  test('listDiffFiles', async () => {
+  it('listDiffFiles', async () => {
     const { commitTable } = await buildRepo1({
       repoDir: workspaceDir,
       reporter,
@@ -103,7 +103,7 @@ describe('view', () => {
     expect(await eListDiffFiles(commitTable.K)).toEqual([fpD, fpE])
   })
 
-  test('showCommitInfo', async () => {
+  it('showCommitInfo', async () => {
     const { commitTable } = await buildRepo1({
       repoDir: workspaceDir,
       reporter,
@@ -137,7 +137,7 @@ describe('view', () => {
     await assertShowCommitInfo(commitTable.K)
   })
 
-  test('getCurrentBranchOrHeadCommitId', async () => {
+  it('getCurrentBranchOrHeadCommitId', async () => {
     const { commitIdTable } = await buildRepo1({
       repoDir: workspaceDir,
       reporter,
@@ -185,7 +185,7 @@ describe('view', () => {
     expect(await eGetHeadId()).toEqual('main')
   })
 
-  test('showFileContent', async () => {
+  it('showFileContent', async () => {
     const { commitIdTable } = await buildRepo1({
       repoDir: workspaceDir,
       reporter,

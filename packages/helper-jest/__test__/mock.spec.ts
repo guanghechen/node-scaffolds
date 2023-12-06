@@ -1,7 +1,7 @@
 import { createConsoleMock, createReporterMock } from '../src'
 
 describe('ConsoleMock', function () {
-  test('basic', function () {
+  it('basic', function () {
     const mock = createConsoleMock()
 
     console.debug('debug waw1')
@@ -23,7 +23,7 @@ describe('ConsoleMock', function () {
     mock.restore()
   })
 
-  test('reset', function () {
+  it('reset', function () {
     const mock = createConsoleMock()
 
     console.debug('debug waw1')
@@ -42,7 +42,7 @@ describe('ConsoleMock', function () {
     mock.restore()
   })
 
-  test('with desensitize', function () {
+  it('with desensitize', function () {
     const mock = createConsoleMock(undefined, args => args.map(arg => 'ghc: ' + arg))
 
     console.debug('debug waw1')
@@ -70,7 +70,7 @@ describe('LoggerMock', function () {
     write: (text: string): void => void process.stdout.write('waw-' + text),
   }
 
-  test('basic', function () {
+  it('basic', function () {
     const mock = createReporterMock({ reporter })
     reporter.write('reporter waw0')
     console.debug('debug waw1')
@@ -91,7 +91,7 @@ describe('LoggerMock', function () {
     mock.restore()
   })
 
-  test('spy reporter only', function () {
+  it('spy reporter only', function () {
     const mock = createReporterMock({ reporter, spyOnGlobalConsole: false })
     reporter.write('reporter waw0')
     console.debug('debug waw1')
@@ -105,7 +105,7 @@ describe('LoggerMock', function () {
     mock.restore()
   })
 
-  test('rest', function () {
+  it('rest', function () {
     const mock = createReporterMock({ reporter })
 
     reporter.write('reporter waw0')
@@ -126,7 +126,7 @@ describe('LoggerMock', function () {
     mock.restore()
   })
 
-  test('with desensitize', function () {
+  it('with desensitize', function () {
     const mock = createReporterMock({
       reporter,
       desensitize: args => args.map(arg => 'ghc: ' + arg),

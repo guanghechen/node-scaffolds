@@ -21,7 +21,7 @@ describe('empty', () => {
     await rm(fictitiousDir)
   })
 
-  test('basic', async () => {
+  it('basic', async () => {
     const dirpathA = path.join(fictitiousDir, 'A')
     const dirpathB = path.join(fictitiousDir, 'B')
     const filepathA = path.join(fictitiousDir, 'a.txt')
@@ -65,7 +65,7 @@ describe('empty', () => {
     expect(existsSync(filepathC)).toEqual(false)
   })
 
-  test('reporter', async () => {
+  it('reporter', async () => {
     const reporter = new Reporter(chalk, {
       level: ReporterLevelEnum.VERBOSE,
       flights: { colorful: false },
@@ -82,26 +82,26 @@ describe('empty', () => {
 })
 
 describe('ensureCriticalFilepathExistsSync', () => {
-  test('null / undefined', () => {
+  it('null / undefined', () => {
     expect(() => void ensureCriticalFilepathExistsSync(null)).toThrow(
       'Invariant failed: Invalid path: null.',
     )
   })
 
-  test('not found', () => {
+  it('not found', () => {
     expect(
       () =>
         void ensureCriticalFilepathExistsSync(locateFixtures('basic/config.json-non-existed---22')),
     ).toThrow('Invariant failed: Not found:')
   })
 
-  test('not a file', () => {
+  it('not a file', () => {
     expect(() => void ensureCriticalFilepathExistsSync(locateFixtures('basic/'))).toThrow(
       'Invariant failed: Not a file:',
     )
   })
 
-  test('valid', () => {
+  it('valid', () => {
     expect(
       () => void ensureCriticalFilepathExistsSync(locateFixtures('basic/config.yml')),
     ).not.toThrow()
@@ -109,21 +109,21 @@ describe('ensureCriticalFilepathExistsSync', () => {
 })
 
 describe('mkdirsIfNotExists', () => {
-  test('directory existed', () => {
+  it('directory existed', () => {
     const dirpath = locateFixtures('basic')
     expect(existsSync(dirpath)).toBe(true)
     mkdirsIfNotExists(dirpath, true)
     expect(existsSync(dirpath)).toBe(true)
   })
 
-  test('filepath', () => {
+  it('filepath', () => {
     const dirpath = locateFixtures('basic/config.yml')
     expect(existsSync(dirpath)).toBe(true)
     mkdirsIfNotExists(dirpath, false)
     expect(existsSync(dirpath)).toBe(true)
   })
 
-  test('mkdirs', async () => {
+  it('mkdirs', async () => {
     const dirpath = locateFixtures('basic--non-existed')
     expect(existsSync(dirpath)).toBe(false)
     mkdirsIfNotExists(dirpath, true)
@@ -131,7 +131,7 @@ describe('mkdirsIfNotExists', () => {
     await rm(dirpath)
   })
 
-  test('mkdirs reporter', async () => {
+  it('mkdirs reporter', async () => {
     const reporter = new Reporter(chalk, {
       level: ReporterLevelEnum.VERBOSE,
       flights: { colorful: false },

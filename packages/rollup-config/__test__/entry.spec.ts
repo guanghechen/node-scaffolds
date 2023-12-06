@@ -1,6 +1,6 @@
 import { resolveEntryItems } from '../src'
 
-test('resolveEntryItems', () => {
+it('resolveEntryItems', () => {
   expect(
     resolveEntryItems({
       module: 'lib/esm/a.js',

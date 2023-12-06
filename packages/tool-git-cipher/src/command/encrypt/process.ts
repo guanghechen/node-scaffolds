@@ -6,7 +6,6 @@ import { isNonBlankString } from '@guanghechen/helper-is'
 import invariant from '@guanghechen/invariant'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { TextFileResource } from '@guanghechen/resource'
-import inquirer from 'inquirer'
 import type { ICatalogCache } from '../../shared/CatalogCache'
 import { CatalogCacheKeeper } from '../../shared/CatalogCache'
 import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
@@ -96,6 +95,7 @@ async function pickDiffItems(
     message: string | undefined
   }
 
+  const inquirer = await import('inquirer').then(md => md.default)
   const answers: IAnswers = await inquirer.prompt<IAnswers>(
     [
       removed.length > 0 && {

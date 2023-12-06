@@ -2,11 +2,11 @@ import { locateFixtures } from 'jest.helper'
 import { isDirectorySync, isFileSync, isNonExistentOrEmpty } from '../src'
 
 describe('isFileSync', () => {
-  test('truthy', () => {
+  it('truthy', () => {
     expect(isFileSync(locateFixtures('basic/config.yml'))).toBe(true)
   })
 
-  test('falsy', () => {
+  it('falsy', () => {
     expect(isFileSync(locateFixtures('basic/config.yml-non-exist'))).toBe(false)
     expect(isFileSync(locateFixtures('basic'))).toBe(false)
     expect(isFileSync(null)).toBe(false)
@@ -15,11 +15,11 @@ describe('isFileSync', () => {
 })
 
 describe('isDirectorySync', () => {
-  test('truthy', () => {
+  it('truthy', () => {
     expect(isDirectorySync(locateFixtures('basic'))).toBe(true)
   })
 
-  test('falsy', () => {
+  it('falsy', () => {
     expect(isDirectorySync(locateFixtures('basic/config.yml'))).toBe(false)
     expect(isDirectorySync(locateFixtures('basic-non-exist'))).toBe(false)
     expect(isDirectorySync(null)).toBe(false)
@@ -28,12 +28,12 @@ describe('isDirectorySync', () => {
 })
 
 describe('isNonExistentOrEmpty', () => {
-  test('truthy', () => {
+  it('truthy', () => {
     expect(isNonExistentOrEmpty(locateFixtures('basic-non-exist'))).toBe(true)
     expect(isNonExistentOrEmpty(locateFixtures('basic/config.yml-non-exist'))).toBe(true)
   })
 
-  test('falsy', () => {
+  it('falsy', () => {
     expect(isNonExistentOrEmpty(locateFixtures('basic'))).toBe(false)
     expect(isNonExistentOrEmpty(locateFixtures('basic/config.yml'))).toBe(false)
     expect(isNonExistentOrEmpty(null)).toBe(false)

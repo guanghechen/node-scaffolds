@@ -93,7 +93,7 @@ describe('runPlop', function () {
     consoleMock.restore()
   }
 
-  test('simple', async function () {
+  it('simple', async function () {
     const defaultAnswers = { nickname: 'jojo', isMonorepo: false, repositoryName: 'node-scaffolds' }
     await runTest(
       ['@guanghechen/waw'],
@@ -105,10 +105,10 @@ describe('runPlop', function () {
 })
 
 describe('runPrompts', function () {
-  test('npm-package', function () {
-    const preAnswers = resolveNpmPackagePreAnswers()
+  it('npm-package', async function () {
     const defaultAnswers = { packageVersion: '1.0.0-alpha' }
-    const prompts = createNpmPackagePrompts(preAnswers, defaultAnswers)
+    const preAnswers = await resolveNpmPackagePreAnswers()
+    const prompts = await createNpmPackagePrompts(preAnswers, defaultAnswers)
 
     const calc = (bypass: string[], mockInputs: string[]): object => {
       const answers: any = runPromptsWithMock(prompts as InputQuestion[], bypass, mockInputs)

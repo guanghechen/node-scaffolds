@@ -66,7 +66,7 @@ describe('build', () => {
     logMock.restore()
   })
 
-  test('simple', async () => {
+  it('simple', async () => {
     const caseDir = resolveCaseDir('simple')
     process.chdir(caseDir)
     const results = await build(['@guanghechen/rollup-config'])

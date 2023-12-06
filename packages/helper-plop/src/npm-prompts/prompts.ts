@@ -1,4 +1,3 @@
-import { detectPackageAuthor } from '@guanghechen/helper-npm'
 import { composeTextTransformers, toSentenceCase, toTrim } from '@guanghechen/helper-string'
 import type { ITextTransformer } from '@guanghechen/helper-string'
 import type { InputQuestion } from 'inquirer'
@@ -14,10 +13,10 @@ const semverRegex =
  * @param transformer     Input transformer
  * @returns
  */
-export const createPackageNamePrompt = (
+export async function createPackageNamePrompt(
   defaultAnswer?: string,
   transformer: ITextTransformer = toTrim,
-): InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageName'>> => {
+): Promise<InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageName'>>> {
   const prompt: InputQuestion = {
     type: 'input',
     name: 'packageName',
@@ -35,11 +34,12 @@ export const createPackageNamePrompt = (
  * @param transformer     Input transformer
  * @returns
  */
-export const createPackageAuthorPrompt = (
+export async function createPackageAuthorPrompt(
   cwd: string,
   defaultAnswer?: string,
   transformer: ITextTransformer = toTrim,
-): InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageAuthor'>> => {
+): Promise<InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageAuthor'>>> {
+  const { detectPackageAuthor } = await import('@guanghechen/helper-npm')
   const prompt: InputQuestion = {
     type: 'input',
     name: 'packageAuthor',
@@ -60,10 +60,10 @@ export const createPackageAuthorPrompt = (
  * @param transformer     Input transformer
  * @returns
  */
-export const createPackageVersionPrompt = (
+export async function createPackageVersionPrompt(
   defaultAnswer?: string,
   transformer: ITextTransformer = toTrim,
-): InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageVersion'>> => {
+): Promise<InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageVersion'>>> {
   const prompt: InputQuestion = {
     type: 'input',
     name: 'packageVersion',
@@ -81,10 +81,10 @@ export const createPackageVersionPrompt = (
  * @param transformer     Input transformer
  * @returns
  */
-export const createPackageDescriptionPrompt = (
+export async function createPackageDescriptionPrompt(
   defaultAnswer?: string,
   transformer: ITextTransformer = composeTextTransformers(toTrim, toSentenceCase),
-): InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageDescription'>> => {
+): Promise<InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageDescription'>>> {
   const prompt: InputQuestion = {
     type: 'input',
     name: 'packageDescription',
@@ -101,18 +101,17 @@ export const createPackageDescriptionPrompt = (
  * @param transformer     Input transformer
  * @returns
  */
-export const createPackageLocationPrompt = (
+export async function createPackageLocationPrompt(
   isMonorepo: boolean,
   defaultAnswer?: string,
   transformer: ITextTransformer = toTrim,
-): InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageDescription'>> => {
-  type Answers = Pick<INpmPackagePromptsAnswers, 'packageName' | 'packageDescription'>
-
+): Promise<InputQuestion<Pick<INpmPackagePromptsAnswers, 'packageDescription'>>> {
+  type IAnswers = Pick<INpmPackagePromptsAnswers, 'packageName' | 'packageDescription'>
   const prompt: InputQuestion<any> = {
     type: 'input',
     name: 'packageLocation',
-    message: ({ packageName }: Answers): string => 'location of ' + packageName.trim(),
-    default: ({ packageName }: Answers): string => {
+    message: ({ packageName }: IAnswers): string => 'location of ' + packageName.trim(),
+    default: ({ packageName }: IAnswers): string => {
       if (defaultAnswer != null) return defaultAnswer
       return isMonorepo
         ? 'packages/' + packageName.replace(/^[^\\/]+[\\/]/, '')

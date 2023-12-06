@@ -433,7 +433,7 @@ describe('GitCipher', () => {
       crypt2plainIdMap.clear()
     })
 
-    test('commit A', async () => {
+    it('commit A', async () => {
       await checkBranch({ ...plainCtx, commitHash: commitIdTable.A })
       await createBranch({ ...plainCtx, newBranchName: 'A', commitHash: commitIdTable.A })
       await checkBranch({ ...plainCtx, commitHash: 'A' })
@@ -513,7 +513,7 @@ describe('GitCipher', () => {
       crypt2plainIdMap.clear()
     }, 10000)
 
-    test('commit E', async () => {
+    it('commit E', async () => {
       await checkBranch({ ...plainCtx, commitHash: commitIdTable.E })
       await deleteBranch({ ...plainCtx, branchName: 'main', force: true })
       await createBranch({ ...plainCtx, newBranchName: 'E', commitHash: commitIdTable.E })
@@ -585,7 +585,7 @@ describe('GitCipher', () => {
       ])
     })
 
-    test('commit I', async () => {
+    it('commit I', async () => {
       await createBranch({ ...plainCtx, newBranchName: 'I', commitHash: commitIdTable.I })
 
       // Test encrypt.
@@ -660,7 +660,7 @@ describe('GitCipher', () => {
       ])
     })
 
-    test('commit K', async () => {
+    it('commit K', async () => {
       await createBranch({ ...plainCtx, newBranchName: 'K', commitHash: commitIdTable.K })
       await checkBranch({ ...plainCtx, commitHash: 'K' })
 
@@ -785,7 +785,7 @@ describe('GitCipher', () => {
       ])
     })
 
-    test('log', () => {
+    it('log', () => {
       expect(logMock.getIndiscriminateAll()).toEqual([
         [
           "error [GitCipher] [safeExeca] failed to run git.  args: ['merge','06d25f06c6cd40756bf61624f1ee37bf014ec6d0','28fc4e74bf3bc436c21774dfc9947d60116d9716','-m','H -- Merge E and G <conflict> (b2,c3)']  options: {cwd:'<$WORKSPACE$>/packages/helper-git-cipher/__test__/fixtures/__fictitious__GitCipher/plain',env:{GIT_AUTHOR_DATE:'<$Date$> +0800',GIT_COMMITTER_DATE:'2023-01-27 15:00:08 +0800',GIT_AUTHOR_NAME:'guanghechen_h',GIT_COMMITTER_NAME:'guanghechen_h',GIT_AUTHOR_EMAIL:'exmaple_h@gmail.com',GIT_COMMITTER_EMAIL:'exmaple_h@gmail.com'},extendEnv:true,encoding:'utf8'}\n",
@@ -821,14 +821,14 @@ describe('GitCipher', () => {
       bakGitCipher.decryptFilesOnly({ cryptCommitId, filesOnly })
     const allBakFilepaths = (): string[] => collectAllFilesSync(bakPlainRootDir, () => true).sort()
 
-    test('A', async () => {
+    it('A', async () => {
       await decryptAt(repo1CryptCommitIdTable.A)
       expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA)
       expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
     })
 
-    test('A -- with filesOnly', async () => {
+    it('A -- with filesOnly', async () => {
       expect(allBakFilepaths()).toEqual([])
 
       await decryptAt(repo1CryptCommitIdTable.A, [fpA])
@@ -841,7 +841,7 @@ describe('GitCipher', () => {
       expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
     })
 
-    test('B', async () => {
+    it('B', async () => {
       await decryptAt(repo1CryptCommitIdTable.B)
       expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA2)
@@ -849,7 +849,7 @@ describe('GitCipher', () => {
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC)
     })
 
-    test('B -- with filesOnly', async () => {
+    it('B -- with filesOnly', async () => {
       expect(allBakFilepaths()).toEqual([])
 
       await decryptAt(repo1CryptCommitIdTable.B, [fpA])
@@ -863,14 +863,14 @@ describe('GitCipher', () => {
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC)
     })
 
-    test('C', async () => {
+    it('C', async () => {
       await decryptAt(repo1CryptCommitIdTable.C)
       expect(allBakFilepaths()).toEqual([bakFilepathB, bakFilepathC])
       expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC)
     })
 
-    test('C -- with filesOnly', async () => {
+    it('C -- with filesOnly', async () => {
       expect(allBakFilepaths()).toEqual([])
 
       await assertPromiseThrow(
@@ -891,7 +891,7 @@ describe('GitCipher', () => {
       expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB)
     })
 
-    test('D', async () => {
+    it('D', async () => {
       await decryptAt(repo1CryptCommitIdTable.D)
       expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA)
@@ -899,20 +899,20 @@ describe('GitCipher', () => {
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC2)
     })
 
-    test('E', async () => {
+    it('E', async () => {
       await decryptAt(repo1CryptCommitIdTable.E)
       expect(allBakFilepaths()).toEqual([bakFilepathC])
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC2)
     })
 
-    test('F', async () => {
+    it('F', async () => {
       await decryptAt(repo1CryptCommitIdTable.F)
       expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathC])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA)
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC2)
     })
 
-    test('G', async () => {
+    it('G', async () => {
       await decryptAt(repo1CryptCommitIdTable.G)
       expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA2)
@@ -920,14 +920,14 @@ describe('GitCipher', () => {
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC3)
     })
 
-    test('H', async () => {
+    it('H', async () => {
       await decryptAt(repo1CryptCommitIdTable.H)
       expect(allBakFilepaths()).toEqual([bakFilepathB, bakFilepathC])
       expect(await fs.readFile(bakFilepathB, encoding)).toEqual(contentB2)
       expect(await fs.readFile(bakFilepathC, encoding)).toEqual(contentC3)
     })
 
-    test('I', async () => {
+    it('I', async () => {
       await decryptAt(repo1CryptCommitIdTable.I)
       expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC, bakFilepathD])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA2)
@@ -936,7 +936,7 @@ describe('GitCipher', () => {
       expect(await fs.readFile(bakFilepathD, encoding)).toEqual(contentD)
     })
 
-    test('J', async () => {
+    it('J', async () => {
       await decryptAt(repo1CryptCommitIdTable.J)
       expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC, bakFilepathD])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA)
@@ -945,7 +945,7 @@ describe('GitCipher', () => {
       expect(await fs.readFile(bakFilepathD, encoding)).toEqual(contentD)
     })
 
-    test('K', async () => {
+    it('K', async () => {
       await decryptAt(repo1CryptCommitIdTable.K)
       expect(allBakFilepaths()).toEqual([bakFilepathA, bakFilepathB, bakFilepathC, bakFilepathE])
       expect(await fs.readFile(bakFilepathA, encoding)).toEqual(contentA)

@@ -30,7 +30,7 @@ describe('branch', () => {
     await rm(workspaceDir)
   })
 
-  test('createBranch / deleteBranch / checkBranch', async () => {
+  it('createBranch / deleteBranch / checkBranch', async () => {
     const { commitTable } = await buildRepo1({
       repoDir: workspaceDir,
       reporter,

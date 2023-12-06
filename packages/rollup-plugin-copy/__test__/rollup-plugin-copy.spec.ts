@@ -1,5 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import { jest } from '@jest/globals'
-import chalk from 'chalk'
 import { rm, writeFile } from 'jest.helper'
 import { existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
@@ -36,19 +38,19 @@ afterEach(async () => {
 })
 
 describe('Copy', () => {
-  test('No config passed', async () => {
+  it('No config passed', async () => {
     await build()
     expect(existsSync('dist/asset-1.js')).toBe(false)
   })
 
-  test('Empty array as target', async () => {
+  it('Empty array as target', async () => {
     await build({
       targets: [],
     })
     expect(existsSync('dist/asset-1.js')).toBe(false)
   })
 
-  test('Files', async () => {
+  it('Files', async () => {
     await build({
       targets: [
         {
@@ -62,7 +64,7 @@ describe('Copy', () => {
     expect(existsSync('dist/asset-2.js')).toBe(true)
   })
 
-  test('Folders', async () => {
+  it('Folders', async () => {
     await build({
       targets: [
         {
@@ -82,7 +84,7 @@ describe('Copy', () => {
     expect(existsSync('dist/scss/nested/scss-3.scss')).toBe(true)
   })
 
-  test('Glob', async () => {
+  it('Glob', async () => {
     await build({
       targets: [
         {
@@ -105,7 +107,7 @@ describe('Copy', () => {
     expect(existsSync('dist/scss-2.scss')).toBe(false)
   })
 
-  test('Multiple objects as targets', async () => {
+  it('Multiple objects as targets', async () => {
     await build({
       targets: [
         { src: ['src/assets/*', 'src/assets/css'], dest: 'dist' },
@@ -122,7 +124,7 @@ describe('Copy', () => {
     expect(existsSync('build/css-2.css')).toBe(true)
   })
 
-  test('Multiple destinations', async () => {
+  it('Multiple destinations', async () => {
     await build({
       targets: [
         {
@@ -144,7 +146,7 @@ describe('Copy', () => {
     expect(existsSync('build/scss-1.scss')).toBe(true)
   })
 
-  test('Same target', async () => {
+  it('Same target', async () => {
     await build({
       targets: [
         { src: 'src/assets/css', dest: 'dist' },
@@ -162,7 +164,7 @@ describe('Copy', () => {
     expect(existsSync('build/asset-1.js')).toBe(true)
   })
 
-  test('Throw if target is not an object', async () => {
+  it('Throw if target is not an object', async () => {
     await expect(
       build({
         targets: ['src/assets/asset-1.js'] as any,
@@ -180,7 +182,7 @@ describe('Copy', () => {
     )
   })
 
-  test('Throw if target object "rename" property is of wrong type', async () => {
+  it('Throw if target object "rename" property is of wrong type', async () => {
     await expect(
       build({
         targets: [{ src: 'src/assets/asset-1.js', dest: 'dist', rename: [] as any }],
@@ -191,7 +193,7 @@ describe('Copy', () => {
     )
   })
 
-  test('Rename target', async () => {
+  it('Rename target', async () => {
     await build({
       targets: [
         {
@@ -249,7 +251,7 @@ describe('Copy', () => {
     expect(existsSync('dist/asset-3.js')).toBe(true)
   })
 
-  test('Throw if transform target is not a file', async () => {
+  it('Throw if transform target is not a file', async () => {
     await expect(
       build({
         targets: [
@@ -264,7 +266,7 @@ describe('Copy', () => {
     ).rejects.toThrow('"transform" option works only on files: \'src/assets/css\' must be a file')
   })
 
-  test('Transform target', async () => {
+  it('Transform target', async () => {
     await build({
       targets: [
         {
@@ -310,7 +312,7 @@ describe('Copy', () => {
 
 describe('Options', () => {
   /* eslint-disable no-console */
-  test('Verbose, copy files', async () => {
+  it('Verbose, copy files', async () => {
     console.log = jest.fn()
 
     await build({
@@ -339,7 +341,7 @@ describe('Options', () => {
     )
   })
 
-  test('Verbose, no files to copy', async () => {
+  it('Verbose, no files to copy', async () => {
     console.log = jest.fn()
 
     await build({
@@ -351,7 +353,7 @@ describe('Options', () => {
     expect(console.log).toHaveBeenCalledWith(chalk.yellow('no items to copy'))
   })
 
-  test('Verbose, rename files', async () => {
+  it('Verbose, rename files', async () => {
     console.log = jest.fn()
 
     await build({
@@ -401,7 +403,7 @@ describe('Options', () => {
     )
   })
 
-  test('Verbose, transform files', async () => {
+  it('Verbose, transform files', async () => {
     console.log = jest.fn()
 
     await build({
@@ -431,7 +433,7 @@ describe('Options', () => {
   })
   /* eslint-enable no-console */
 
-  test('Hook', async () => {
+  it('Hook', async () => {
     await build({
       targets: [
         {
@@ -448,7 +450,7 @@ describe('Options', () => {
     expect(existsSync('dist/css/css-2.css')).toBe(true)
   })
 
-  test('Copy once', async () => {
+  it('Copy once', async () => {
     const watcher = watch({
       input: 'src/index.js',
       output: {
@@ -504,7 +506,7 @@ describe('Options', () => {
     })
   })
 
-  test('Watch', async () => {
+  it('Watch', async () => {
     const transform = (source: string | ArrayBuffer): string =>
       'Author: guanghechen\n' + source.toString()
 
@@ -568,7 +570,7 @@ describe('Options', () => {
     })
   }, 10000)
 
-  test('Flatten', async () => {
+  it('Flatten', async () => {
     await build({
       targets: [
         {
@@ -597,7 +599,7 @@ describe('Options', () => {
     expect(existsSync('dist/assets/scss/nested/scss-3-renamed.scss')).toBe(true)
   })
 
-  test('Rest options', async () => {
+  it('Rest options', async () => {
     await build({
       targets: [{ src: 'src/assets/asset-1.js', dest: 'dist' }],
       globbyOptions: {
@@ -608,7 +610,7 @@ describe('Options', () => {
     expect(existsSync('dist/asset-1.js')).toBe(false)
   })
 
-  test('Rest target options', async () => {
+  it('Rest target options', async () => {
     await build({
       targets: [
         {

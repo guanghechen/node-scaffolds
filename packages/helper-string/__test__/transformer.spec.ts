@@ -78,7 +78,7 @@ describe('string', function () {
 })
 
 describe('composeTextTransformers', function () {
-  test('trim and lower, then kebab', function () {
+  it('trim and lower, then kebab', function () {
     const transform = composeTextTransformers(toTrim, toLowerCase, toKebabCase)
     const text: string = transform(' TeSt_StrinG ')
     expect(text).toEqual('test-string')

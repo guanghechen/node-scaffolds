@@ -2,7 +2,6 @@ import { stripAnsi } from '@guanghechen/helper-commander'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import type { FakeClipboard } from '@guanghechen/mini-copy'
-import inquirer from 'inquirer'
 import fs from 'node:fs'
 import { reporter } from '../env/reporter'
 import { copy, paste } from './mini-copy'
@@ -77,6 +76,7 @@ export async function pasteToFile(params: {
 
     // the filepath is exists, wait for user's confirmation to overwrite it.
     if (!force) {
+      const inquirer = await import('inquirer').then(md => md.default)
       const { shouldForceRewrite } = await inquirer.prompt([
         {
           type: 'confirm',

@@ -16,12 +16,18 @@
     "plop"
   ],
   "type": "module",
-  "module": "./lib/esm/index.mjs",
   "exports": {
-    "import": "./lib/esm/index.mjs"
+    ".": {
+      "source": "./src/index.ts",
+      "import": "./lib/esm/index.mjs",
+      "require": "./lib/cjs/index.cjs",
+      "types": "./lib/types/index.d.ts"
+    }
   },
-  "types": "lib/types/index.d.ts",
-  "source": "src/index.ts",
+  "source": "./src/index.ts",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/esm/index.mjs",
+  "types": "./lib/types/index.d.ts",
   "license": "MIT",
   "engines": {
     "node": ">= 18.0.0"
@@ -40,12 +46,12 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
+    "@guanghechen/chalk": "^1.0.0-alpha.11",
     "@guanghechen/helper-is": "^6.0.0-alpha.1",
     "@guanghechen/helper-npm": "^6.0.0-alpha.0",
     "@guanghechen/helper-option": "^6.0.0-alpha.1",
     "@guanghechen/helper-string": "^6.0.0-alpha.1",
     "@guanghechen/invariant": "^6.0.0-alpha.1",
-    "chalk": "^5.3.0",
     "minimist": "^1.2.8",
     "mock-stdin": "^1.0.0",
     "node-plop": "^0.32.0",

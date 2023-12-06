@@ -14,12 +14,18 @@
   "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@6.0.0-alpha.7/packages/tool-mini-copy#readme",
   "keywords": [],
   "type": "module",
-  "module": "./lib/esm/index.mjs",
   "exports": {
-    "import": "./lib/esm/index.mjs"
+    ".": {
+      "source": "./src/index.ts",
+      "import": "./lib/esm/index.mjs",
+      "require": "./lib/cjs/index.cjs",
+      "types": "./lib/types/index.d.ts"
+    }
   },
-  "types": "lib/types/index.d.ts",
-  "source": "src/index.ts",
+  "source": "./src/index.ts",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/esm/index.mjs",
+  "types": "./lib/types/index.d.ts",
   "license": "MIT",
   "engines": {
     "node": ">= 18.0.0"

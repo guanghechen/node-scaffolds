@@ -7,20 +7,20 @@ import {
 } from '../src'
 
 describe('createFilepathDesensitizer', () => {
-  test('*nix', () => {
+  it('*nix', () => {
     const desensitize = createFilepathDesensitizer('/a/b/c')
     expect(desensitize('sfe /a/b/c/d')).toEqual('sfe <WORKSPACE>/d')
     expect(desensitize('sfe /a\\b/c/d')).toEqual('sfe <WORKSPACE>/d')
   })
 
-  test('windows', () => {
+  it('windows', () => {
     const desensitize = createFilepathDesensitizer('C:\\a\\b\\c')
     expect(desensitize('sfe C:\\a\\b\\c\\d')).toEqual('sfe <WORKSPACE>\\d')
   })
 })
 
 describe('createPackageVersionDesensitizer', () => {
-  test('basic', () => {
+  it('basic', () => {
     const desensitize = createPackageVersionDesensitizer(() => '1.0.0-alpha')
 
     expect(desensitize(`"@guanghechen/test-waw": "^0.1.0"`)).toEqual(
@@ -41,7 +41,7 @@ describe('createPackageVersionDesensitizer', () => {
     expect(desensitize('0.1.0', '@guanghechen/waw')).toEqual('1.0.0-alpha')
   })
 
-  test('custom testPackageName', () => {
+  it('custom testPackageName', () => {
     const desensitize = createPackageVersionDesensitizer(
       () => '1.0.0-alpha',
       packageName => /^@guanghechen\/test/.test(packageName),
@@ -65,7 +65,7 @@ describe('createPackageVersionDesensitizer', () => {
 })
 
 describe('composeStringDesensitizers', () => {
-  test('basic', () => {
+  it('basic', () => {
     const desensitize = composeStringDesensitizers(
       text => text.replace(/(?<=^|\b)alpha(?=\b|$)/gi, 'α'),
       text => text.replace(/(?<=^|\b)beta(?=\b|$)/gi, 'β'),
@@ -78,7 +78,7 @@ describe('composeStringDesensitizers', () => {
 })
 
 describe('createJsonDesensitizer', () => {
-  test('basic', () => {
+  it('basic', () => {
     const desensitize = createJsonDesensitizer(
       {
         string: text => text.replace(/(?<=^|\b)alpha(?=\b|$)/gi, 'α'),
@@ -103,7 +103,7 @@ describe('createJsonDesensitizer', () => {
     })
   })
 
-  test('default', () => {
+  it('default', () => {
     const desensitize = createJsonDesensitizer()
     const gender = Symbol('female')
     expect(
@@ -121,7 +121,7 @@ describe('createJsonDesensitizer', () => {
     })
   })
 
-  test('fallback', () => {
+  it('fallback', () => {
     const desensitize = createJsonDesensitizer({
       fallback: data => (isSymbol(data) ? null : data),
     })

@@ -29,7 +29,7 @@ describe('log', () => {
     await rm(workspaceDir)
   })
 
-  test('getCommitInTopology', async () => {
+  it('getCommitInTopology', async () => {
     const { commitTable } = await buildRepo1({
       repoDir: workspaceDir,
       reporter,
@@ -117,7 +117,7 @@ describe('log', () => {
     ])
   })
 
-  test('getCommitWithMessageList', async () => {
+  it('getCommitWithMessageList', async () => {
     const { commitTable } = await buildRepo1({
       repoDir: workspaceDir,
       reporter,
@@ -205,7 +205,7 @@ describe('log', () => {
     ])
   })
 
-  test('getParentCommitIdList', async () => {
+  it('getParentCommitIdList', async () => {
     const { commitIdTable } = await buildRepo1({
       repoDir: workspaceDir,
       reporter,

@@ -41,7 +41,7 @@ export default async function () {
 
 const coverageMap = {
   '@guanghechen/helper-plop': {
-    'src/cli.ts': { functions: 0, lines: 27, statements: 27 },
+    'src/cli.ts': { functions: 0, lines: 23, statements: 23 },
     'src/run/types.ts': { branches: 0, functions: 0, lines: 0, statements: 0 },
     'src/run/util.ts': { branches: 10, functions: 50, lines: 50, statements: 50 },
   },

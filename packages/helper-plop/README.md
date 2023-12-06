@@ -120,14 +120,15 @@ Where the `index.js` exposed a default plop config, such as:
   const path = require('path')
   const manifest = require('./package.json')
 
-  module.exports = function (plop) {
-    const preAnswers = resolveNpmPackagePreAnswers()
+  module.exports = async function (plop) {
+    const preAnswers = await resolveNpmPackagePreAnswers()
     const defaultAnswers = { packageVersion: manifest.version }
     const { cwd, isMonorepo } = preAnswers
+    const prompts = await createNpmPackagePrompts(preAnswers, defaultAnswers)
 
     plop.setGenerator('ts-package', {
       description: 'create template typescript project',
-      prompts: [...createNpmPackagePrompts(preAnswers, defaultAnswers)],
+      prompts: [...prompts],
       actions: function (_answers) {
         const answers = resolveNpmPackageAnswers(preAnswers, _answers)
         answers.toolPackageVersion = manifest.version

@@ -2,7 +2,6 @@ import { isFunction, isNonBlankString } from '@guanghechen/helper-is'
 import { coverString } from '@guanghechen/helper-option'
 import type { InputQuestion } from 'inquirer'
 import mockStdin from 'mock-stdin'
-import nodePlop from 'node-plop'
 import { runPlop } from './run'
 
 /**
@@ -25,6 +24,7 @@ export async function runPlopWithMock(
 
   try {
     const cwd = process.cwd()
+    const nodePlop = await import('node-plop').then(md => md.default)
     const plop = await nodePlop(templateConfig, {
       force: false,
       destBasePath: cwd,

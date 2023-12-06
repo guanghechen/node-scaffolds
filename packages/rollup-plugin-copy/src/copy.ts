@@ -1,4 +1,6 @@
-import chalk from 'chalk'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import path from 'node:path'
 import type rollup from 'rollup'
 import type { ICopyTargetItem, IOptions } from './types'

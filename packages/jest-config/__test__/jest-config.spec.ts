@@ -28,19 +28,19 @@ const desensitizeModuleNameMapper = (
 }
 
 describe('resolveModuleNameMapper', () => {
-  test('basic', async () => {
+  it('basic', async () => {
     const moduleNameMapper = await resolveModuleNameMapper(resolveFixturePath('basic'))
     expect(desensitizeModuleNameMapper(moduleNameMapper)).toEqual({
       '^@/(.+)$': '<WORKSPACE>/fixtures/basic/src/$1',
     })
   })
 
-  test('no tsconfig.json', async () => {
+  it('no tsconfig.json', async () => {
     const moduleNameMapper = await resolveModuleNameMapper(resolveFixturePath('__fictitious__0'))
     expect(desensitizeModuleNameMapper(moduleNameMapper)).toEqual({})
   })
 
-  test('custom tsconfig name', async () => {
+  it('custom tsconfig name', async () => {
     const moduleNameMapper = await resolveModuleNameMapper(
       resolveFixturePath('custom-tsconfig-name'),
       'tsconfig.src.json',
@@ -53,12 +53,12 @@ describe('resolveModuleNameMapper', () => {
     })
   })
 
-  test('empty', async () => {
+  it('empty', async () => {
     const moduleNameMapper = await resolveModuleNameMapper(resolveFixturePath('empty'))
     expect(moduleNameMapper).toEqual({})
   })
 
-  test('not exists', async () => {
+  it('not exists', async () => {
     const moduleNameMapper = await resolveModuleNameMapper(
       resolveFixturePath('empty'),
       'tsconfig.json',
@@ -68,7 +68,7 @@ describe('resolveModuleNameMapper', () => {
 })
 
 describe('tsMonorepoConfig', () => {
-  test('basic', async () => {
+  it('basic', async () => {
     const rootDir = resolveFixturePath('basic')
     process.chdir(rootDir)
     const config = await tsMonorepoConfig(rootDir)
@@ -119,7 +119,7 @@ describe('tsMonorepoConfig', () => {
     })
   })
 
-  test('useESM', async () => {
+  it('useESM', async () => {
     const rootDir = resolveFixturePath('basic')
     process.chdir(rootDir)
     const config = await tsMonorepoConfig(rootDir, { useESM: true })

@@ -1,4 +1,6 @@
-import chalk from 'chalk'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import chokidar from 'chokidar'
 import type { IConfigTarget, ICopyTargetItem } from '../types'
 import { collectCopyTargets } from './common'

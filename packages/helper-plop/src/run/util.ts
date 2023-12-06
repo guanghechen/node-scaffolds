@@ -1,5 +1,6 @@
-import chalk from 'chalk'
-import nodePlop from 'node-plop'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import type { PlopGenerator, PlopGeneratorConfig } from 'node-plop'
 
 /**
@@ -40,6 +41,7 @@ export async function choosePlopGenerator(
   plopList: Array<{ name: string; description: string }>,
   message?: string,
 ): Promise<PlopGenerator> {
+  const nodePlop = await import('node-plop').then(md => md.default)
   const plop = await nodePlop('')
   const generator = plop.setGenerator('choose', {
     description: 'Choose plop generator',

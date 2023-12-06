@@ -29,7 +29,7 @@ describe('waw', () => {
     await rm(workspaceDir)
   })
 
-  test('fixed commit id', async () => {
+  it('fixed commit id', async () => {
     await initGitRepo({
       ...ctx,
       defaultBranch: 'main',

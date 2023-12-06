@@ -1,5 +1,4 @@
 import { isNonBlankString } from '@guanghechen/helper-is'
-import { detectMonorepo } from '@guanghechen/helper-npm'
 import { cover } from '@guanghechen/helper-option'
 import { composeTextTransformers, toSentenceCase, toTrim } from '@guanghechen/helper-string'
 import type { ITextTransformer } from '@guanghechen/helper-string'
@@ -32,11 +31,11 @@ export const npmPackageTransformers: Record<string, ITextTransformer> = {
  * @param defaultAnswers
  * @returns
  */
-export function createNpmPackagePrompts(
+export async function createNpmPackagePrompts(
   preAnswers: INpmPackagePreAnswers,
   defaultAnswers: Partial<INpmPackagePromptsAnswers> = {},
-): InputQuestion<INpmPackagePromptsAnswers> {
-  const prompts: InputQuestion<INpmPackagePromptsAnswers> = [
+): Promise<InputQuestion<INpmPackagePromptsAnswers>> {
+  const prompts: InputQuestion<INpmPackagePromptsAnswers> = await Promise.all([
     createPackageNamePrompt(defaultAnswers.packageName, npmPackageTransformers.packageName),
     createPackageAuthorPrompt(
       preAnswers.cwd,
@@ -56,7 +55,7 @@ export function createNpmPackagePrompts(
       defaultAnswers.packageLocation,
       npmPackageTransformers.packageLocation,
     ),
-  ]
+  ])
   return prompts
 }
 
@@ -66,11 +65,12 @@ export function createNpmPackagePrompts(
  * @param preAnswers
  * @returns
  */
-export function resolveNpmPackagePreAnswers(
+export async function resolveNpmPackagePreAnswers(
   preAnswers: Partial<INpmPackagePreAnswers> = {},
-): INpmPackagePreAnswers {
+): Promise<INpmPackagePreAnswers> {
   const cwd: string = cover<string>(() => path.resolve(process.cwd()), preAnswers.cwd)
 
+  const { detectMonorepo } = await import('@guanghechen/helper-npm')
   const isMonorepo: boolean = cover<boolean>(() => detectMonorepo(cwd), preAnswers.isMonorepo)
 
   const result: INpmPackagePreAnswers = {

@@ -12,7 +12,7 @@ describe('resolveNpmPackageAnswers', function () {
     isMonorepo: false,
   }
 
-  test('empty author', function () {
+  it('empty author', function () {
     const answers: INpmPackagePromptsAnswers = {
       packageName: '@guanghechen/waw-helper',
       packageAuthor: '',

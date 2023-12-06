@@ -5,11 +5,11 @@ import { fileSnapshot } from '../src'
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
 describe('fileSnapshot', function () {
-  test('basic', function () {
+  it('basic', function () {
     fileSnapshot(path.join(__dirname, 'fixtures'), ['data1.json'])
   })
 
-  test('with desensitize', function () {
+  it('with desensitize', function () {
     fileSnapshot(path.join(__dirname, 'fixtures'), ['data1.json'], text =>
       text
         .replace(/1/g, '-one')

@@ -29,7 +29,7 @@ describe('check', () => {
     await rm(workspaceDir)
   })
 
-  test('hasUncommittedContent', async () => {
+  it('hasUncommittedContent', async () => {
     await initGitRepo({
       cwd: workspaceDir,
       defaultBranch: 'main',

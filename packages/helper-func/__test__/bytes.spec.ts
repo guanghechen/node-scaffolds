@@ -1,14 +1,14 @@
 import { parseBytesString } from '../src'
 
 describe('parseBytesString', () => {
-  test('pure number', () => {
+  it('pure number', () => {
     expect(parseBytesString('1234')).toEqual(1234)
     expect(parseBytesString('1234.2')).toEqual(1234)
     expect(parseBytesString('-1234')).toEqual(0)
     expect(parseBytesString('0')).toEqual(0)
   })
 
-  test('invalid string', () => {
+  it('invalid string', () => {
     expect(parseBytesString('1234s')).toEqual(0)
     expect(parseBytesString('1234k')).toEqual(0)
     expect(parseBytesString('1234m')).toEqual(0)
@@ -17,7 +17,7 @@ describe('parseBytesString', () => {
     expect(parseBytesString('1234p')).toEqual(0)
   })
 
-  test('with unit', () => {
+  it('with unit', () => {
     expect(parseBytesString('120K')).toEqual(120 * 1024)
     expect(parseBytesString('2.3M')).toEqual(Math.floor(2.3 * 1024 * 1024))
     expect(parseBytesString('2M')).toEqual(Math.floor(2 * 1024 * 1024))

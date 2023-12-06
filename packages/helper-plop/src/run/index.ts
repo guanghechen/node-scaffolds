@@ -1,14 +1,11 @@
 import { coverBoolean } from '@guanghechen/helper-option'
 import type { NodePlopAPI, PlopGenerator } from 'node-plop'
-import ora from 'ora'
 import type {
   IPlopActionHooksChanges,
   IPlopActionHooksFailures,
   IRunGeneratorOptions,
 } from './types'
 import { choosePlopGenerator, showChangeType } from './util'
-
-const progressSpinner = ora()
 
 /**
  * Execute a plop generator.
@@ -22,6 +19,9 @@ export async function runGenerator(
   defaultAnswers: object = {},
   opts: IRunGeneratorOptions = {},
 ): Promise<void> {
+  const ora = await import('ora').then(md => md.default)
+  const progressSpinner = ora()
+
   const noMap = coverBoolean(false, opts.showTypeNames)
   const promptsAnswers = await generator.runPrompts(bypassArr)
   const answers = { ...defaultAnswers, ...promptsAnswers }

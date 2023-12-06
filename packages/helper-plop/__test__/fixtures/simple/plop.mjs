@@ -11,13 +11,14 @@ const manifest = {
   version: '1.0.0-alpha',
 }
 
-export default function (plop) {
-  const preAnswers = resolveNpmPackagePreAnswers()
+export default async function (plop) {
   const defaultAnswers = { packageVersion: manifest.version }
+  const preAnswers = await resolveNpmPackagePreAnswers()
+  const prompts = await createNpmPackagePrompts(preAnswers, defaultAnswers)
 
   plop.setGenerator('ts-package', {
     description: 'create template typescript project',
-    prompts: [...createNpmPackagePrompts(preAnswers, defaultAnswers)],
+    prompts: [...prompts],
     actions: function (_answers) {
       const answers = resolveNpmPackageAnswers(preAnswers, _answers)
       answers.toolPackageVersion = manifest.version

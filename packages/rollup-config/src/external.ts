@@ -1,4 +1,3 @@
-import { collectAllDependencies, getDefaultDependencyFields } from '@guanghechen/helper-npm'
 import { DependencyCategory } from './types'
 import type { IEnv, IManifestWithDependencies } from './types'
 
@@ -53,6 +52,10 @@ export async function resolveExternal(
   env: IEnv,
   classifyDependency: (id: string) => DependencyCategory = () => DependencyCategory.UNKNOWN,
 ): Promise<(id: string) => boolean> {
+  const { collectAllDependencies, getDefaultDependencyFields } = await import(
+    '@guanghechen/helper-npm'
+  )
+
   const dependencyFields = getDefaultDependencyFields()
   let dependencies: string[] = dependencyFields.reduce((acc, key) => {
     const deps = manifest[key] as Record<string, string> | string[]

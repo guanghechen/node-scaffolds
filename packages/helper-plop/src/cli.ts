@@ -1,13 +1,12 @@
 import type { PrepareOptions } from 'liftoff'
 import minimist from 'minimist'
-import { Plop, run } from 'plop'
 
 /**
  * Call the Plop.launch
  *
  * @param createOptions
  */
-export function launch(
+export async function launch(
   argv: string[],
   createOptions?: (args: object) => Partial<PrepareOptions>,
 ): Promise<void> {
@@ -20,6 +19,8 @@ export function launch(
     completion: args.completion,
     ...(createOptions != null ? createOptions(args) : undefined),
   }
+
+  const { Plop, run } = await import('plop')
 
   // Call the Plop.launch
   return new Promise<void>((resolve, reject) => {

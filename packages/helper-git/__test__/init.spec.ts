@@ -26,7 +26,7 @@ describe('init', () => {
   })
 
   describe('initGitRepo', () => {
-    test('basic', async () => {
+    it('basic', async () => {
       expect(isGitRepo(workspaceDir)).toEqual(false)
       await initGitRepo({
         cwd: workspaceDir,
@@ -38,7 +38,7 @@ describe('init', () => {
       expect(isGitRepo(workspaceDir)).toEqual(true)
     })
 
-    test('custom defaultBranch', async () => {
+    it('custom defaultBranch', async () => {
       expect(isGitRepo(workspaceDir)).toEqual(false)
       await initGitRepo({
         cwd: workspaceDir,

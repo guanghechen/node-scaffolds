@@ -6,9 +6,6 @@ import { isNonBlankString } from '@guanghechen/helper-is'
 import { runPlop } from '@guanghechen/helper-plop'
 import invariant from '@guanghechen/invariant'
 import { pathResolver } from '@guanghechen/path'
-import { execa } from 'execa'
-import inquirer from 'inquirer'
-import nodePlop from 'node-plop'
 import { existsSync } from 'node:fs'
 import { resolveBoilerplateFilepath } from '../../shared/core/config'
 import { COMMAND_VERSION } from '../../shared/core/constant'
@@ -77,6 +74,8 @@ export class GitCipherInit
       })
       await stageAll({ cwd: plainPathResolver.root, reporter })
     }
+
+    const inquirer = await import('inquirer').then(md => md.default)
 
     let shouldGenerateSecret = true
     if (existsSync(context.secretFilepath)) {
@@ -205,6 +204,7 @@ export class GitCipherInit
     const { cryptPathResolver, plainPathResolver } = context
 
     // request repository url
+    const inquirer = await import('inquirer').then(md => md.default)
     let { plainRepoUrl } = await inquirer.prompt([
       {
         type: 'input',
@@ -230,6 +230,7 @@ export class GitCipherInit
     }
 
     const boilerplate = resolveBoilerplateFilepath('plop.mjs')
+    const nodePlop = await import('node-plop').then(md => md.default)
     const plop = await nodePlop(boilerplate, {
       force: false,
       destBasePath: context.workspace,
@@ -292,6 +293,8 @@ export class GitCipherInit
     const { context, reporter } = this
     const { plainPathResolver } = context
     mkdirsIfNotExists(plainPathResolver.root, true, reporter)
+
+    const { execa } = await import('execa')
     await execa('git', ['clone', plainRepoUrl, plainPathResolver.root], {
       stdio: 'inherit',
       cwd: plainPathResolver.root,
