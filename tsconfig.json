@@ -4,7 +4,6 @@
     "baseUrl": ".",
     "outDir": "lib",
     "paths": {
-      "@guanghechen/chalk-logger": ["packages/chalk-logger/src"],
       "@guanghechen/event-bus": ["packages/event-bus/src"],
       "@guanghechen/helper-cipher-file": ["packages/helper-cipher-file/src"],
       "@guanghechen/helper-commander": ["packages/helper-commander/src"],

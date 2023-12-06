@@ -46,7 +46,6 @@ A monorepo contains some utility functions and configs for building `Node.js` / 
 
 Package                               | Description
 :------------------------------------:|:--------------------------
-[@guanghechen/chalk-logger][]         | A simple colorful logger.
 [@guanghechen/eslint-config][]        | Eslint config for `Node.js` / `Javascript` project
 [@guanghechen/eslint-config-jsx][]    | Eslint config for `Jsx` project
 [@guanghechen/eslint-config-ts][]     | Eslint config for `Typescript` project
@@ -80,7 +79,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x
-[@guanghechen/chalk-logger]: ./packages/chalk-logger
 [@guanghechen/eslint-config]: ./packages/eslint-config
 [@guanghechen/eslint-config-jsx]: ./packages/eslint-config-jsx
 [@guanghechen/eslint-config-ts]: ./packages/eslint-config-ts

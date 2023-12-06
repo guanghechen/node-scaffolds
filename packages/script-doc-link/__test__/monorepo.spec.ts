@@ -46,7 +46,6 @@ describe('context', () => {
         "packages/eslint-config-jsx",
         "packages/eslint-config",
         "packages/conventional-changelog",
-        "packages/chalk-logger",
       ]
     `)
   })
