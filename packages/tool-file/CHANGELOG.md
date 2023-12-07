@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.10](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-file@6.0.0-alpha.9...@guanghechen/tool-file@6.0.0-alpha.10) (2023-12-07)
+
+
+### Performance Improvements
+
+* 🎨 upgrade @guagnhechen/cipher-catalog & fix errors due to the breaking change ([0b47cff](https://github.com/guanghechen/node-scaffolds/commit/0b47cff942d85fde042d86ed69a9634d493976f3))
+
+
+
+
+
 # [6.0.0-alpha.9](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-file@6.0.0-alpha.8...@guanghechen/tool-file@6.0.0-alpha.9) (2023-12-06)
 
 
