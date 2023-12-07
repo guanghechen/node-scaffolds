@@ -19,7 +19,7 @@ export interface IVerifyCryptRepoParams {
   readonly plainPathResolver: IWorkspacePathResolver
   readonly reporter: IReporter
   readonly secretConfig: Readonly<ISecretConfig>
-  readonly calcIv: (infos: ReadonlyArray<Uint8Array>) => Promise<Readonly<Uint8Array> | undefined>
+  readonly calcIvFromBytes: (infos: Iterable<Uint8Array>) => Promise<Uint8Array | undefined>
 }
 
 export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<void> {
@@ -31,7 +31,7 @@ export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<v
     cryptPathResolver,
     reporter,
     secretConfig,
-    calcIv,
+    calcIvFromBytes,
   } = params
 
   invariant(
@@ -81,7 +81,7 @@ export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<v
       keepPlainPatterns.length > 0
         ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
         : () => false,
-    calcIv,
+    calcIvFromBytes,
   })
   const catalog: IReadonlyCipherCatalog = new FileCipherCatalog(catalogContext)
   await verifyCryptGitCommit({

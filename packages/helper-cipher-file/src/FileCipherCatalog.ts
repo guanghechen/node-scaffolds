@@ -61,6 +61,26 @@ export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements ICip
   }
 
   // @override
+  public override find(filter: (item: ICatalogItem) => boolean): ICatalogItem | undefined {
+    for (const item of this.#itemMap.values()) {
+      if (filter(item)) return item
+    }
+    return undefined
+  }
+
+  // @override
+  public override get(plainFilepath: string): ICatalogItem | undefined {
+    const key: string = this.normalizePlainFilepath(plainFilepath)
+    return this.#itemMap.get(key)
+  }
+
+  // @override
+  public override has(plainFilepath: string): boolean {
+    const key: string = this.normalizePlainFilepath(plainFilepath)
+    return this.#itemMap.has(key)
+  }
+
+  // @override
   public reset(items?: Iterable<ICatalogItem>): void {
     const itemMap = this.#itemMap
     itemMap.clear()

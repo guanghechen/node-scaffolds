@@ -91,7 +91,7 @@ export class GitCipherVerify
       plainPathResolver,
       secretConfig: secretKeeper.data,
       reporter,
-      calcIv: secretMaster.calcIv,
+      calcIvFromBytes: secretMaster.calcIvFromBytes,
     })
   }
 }

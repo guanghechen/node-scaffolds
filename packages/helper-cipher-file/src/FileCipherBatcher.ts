@@ -105,7 +105,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       if (item.keepPlain) {
         await copyFile(absolutePlainFilepath, absoluteCryptFilepath)
       } else {
-        const iv: Uint8Array | undefined = await catalog.getIv(item)
+        const iv: Uint8Array | undefined = await catalog.calcIv(item)
         const fileCipher: IFileCipher = fileCipherFactory.fileCipher({ iv })
         const { authTag } = await fileCipher.encryptFile(
           absolutePlainFilepath,

@@ -2,12 +2,12 @@
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
-import {
-  CipherCatalogContext,
-  type ICatalogDiffItem,
-  type IDraftCatalogDiffItem,
-  type IDraftCatalogItem,
-  areSameDraftCatalogItem,
+import { areSameDraftCatalogItem } from '@guanghechen/cipher-catalog'
+import type {
+  ICatalogDiffItem,
+  ICipherCatalogContext,
+  IDraftCatalogDiffItem,
+  IDraftCatalogItem,
 } from '@guanghechen/cipher-catalog'
 import { FileSplitter } from '@guanghechen/file-split'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
@@ -54,7 +54,7 @@ describe('FileCipherCatalog', () => {
   const contentC: string = contentTable.C
   const contentD: string = contentTable.D
 
-  const catalogContext = new CipherCatalogContext({
+  const catalogContext: ICipherCatalogContext = {
     cryptFilesDir,
     cryptFilepathSalt: 'guanghechen',
     maxTargetFileSize,
@@ -64,10 +64,9 @@ describe('FileCipherCatalog', () => {
     plainPathResolver,
     cryptPathResolver,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
-    calcIv: async () => undefined,
-  })
-  catalogContext.getIv = async (item: IDraftCatalogItem): Promise<Uint8Array | undefined> =>
-    Object.values(itemTable).find(t => areSameDraftCatalogItem(t, item))?.iv
+    calcIv: async (item: IDraftCatalogItem): Promise<Uint8Array | undefined> =>
+      Object.values(itemTable).find(t => areSameDraftCatalogItem(t, item))?.iv,
+  }
   const catalog = new FileCipherCatalog(catalogContext)
 
   beforeEach(async () => {

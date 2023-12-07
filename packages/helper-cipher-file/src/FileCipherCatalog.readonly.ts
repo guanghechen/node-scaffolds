@@ -72,6 +72,14 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
   }
 
   // @override
+  public async calcIv(
+    item: IDeserializedCatalogItem | IDraftCatalogItem,
+  ): Promise<Uint8Array | undefined> {
+    const { context } = this
+    return context.calcIv(item)
+  }
+
+  // @override
   public async checkCryptIntegrity(cryptFilepaths: string[]): Promise<void> {
     const title = `${clazz}.checkCryptIntegrity`
     const { context, items } = this
@@ -147,19 +155,20 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
   }
 
   // @override
+  public abstract find(filter: (item: ICatalogItem) => boolean): ICatalogItem | undefined
+
+  // @override
   public async flatItem(item: IDeserializedCatalogItem): Promise<ICatalogItem> {
     const cryptFilepath: string = this.calcCryptFilepath(item.plainFilepath)
-    const iv: Uint8Array | undefined = await this.getIv(item)
+    const iv: Uint8Array | undefined = await this.calcIv(item)
     return { ...item, cryptFilepath, iv }
   }
 
   // @override
-  public async getIv(
-    item: IDeserializedCatalogItem | IDraftCatalogItem,
-  ): Promise<Uint8Array | undefined> {
-    const { context } = this
-    return context.getIv(item)
-  }
+  public abstract get(plainFilepath: string): ICatalogItem | undefined
+
+  // @override
+  public abstract has(plainFilepath: string): boolean
 
   // @override
   public isKeepPlain(relativePlainFilepath: string): boolean {

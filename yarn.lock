@@ -536,22 +536,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher-catalog.types@npm:^1.0.0-alpha.2":
-  version: 1.0.0-alpha.2
-  resolution: "@guanghechen/cipher-catalog.types@npm:1.0.0-alpha.2"
+"@guanghechen/cipher-catalog.types@npm:^1.0.0-alpha.5":
+  version: 1.0.0-alpha.5
+  resolution: "@guanghechen/cipher-catalog.types@npm:1.0.0-alpha.5"
   dependencies:
     "@guanghechen/path.types": ^1.0.0-alpha.11
-  checksum: b9f24e50503d83dd322ba38a5bea41c4afce601d6967085ba45a7fd09568290137010d2ea7026bf162dee5cecd879d4e25ba3daa82b94c0a097c4647bfef1bce
+  checksum: 2a3292cbe237e77befb31c0079b40bbcc8247e2910497289b6eff018d7cfc1a3988a919421e1bd32f622c34d2397d91df8cda4f4e31586c74f3ce6cd5ffee7af
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher-catalog@npm:^1.0.0-alpha.3":
-  version: 1.0.0-alpha.3
-  resolution: "@guanghechen/cipher-catalog@npm:1.0.0-alpha.3"
+"@guanghechen/cipher-catalog@npm:^1.0.0-alpha.6":
+  version: 1.0.0-alpha.6
+  resolution: "@guanghechen/cipher-catalog@npm:1.0.0-alpha.6"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.4
-    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.2
-  checksum: a76e43a46689e37fc8455366f708882831d87e17521fab9881acd3b4cf70e6ee4aa7465306472d633643e2be0ea68e46783d251ef9ee12d7408044e04dcb845c
+    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.5
+  checksum: 67c587931f6930ac1883cf7c13f2e0775f202cf8c4c281da93b031eb33fc0186971fd8fdcccf387717b06b56dfc5bf94e7277431ee7875557a522effd850d58a
   languageName: node
   linkType: hard
 
@@ -657,12 +657,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/file-split@npm:^1.0.0-alpha.15":
-  version: 1.0.0-alpha.15
-  resolution: "@guanghechen/file-split@npm:1.0.0-alpha.15"
+"@guanghechen/file-split@npm:^1.0.0-alpha.16":
+  version: 1.0.0-alpha.16
+  resolution: "@guanghechen/file-split@npm:1.0.0-alpha.16"
   dependencies:
     "@guanghechen/stream": ^1.0.0-alpha.8
-  checksum: 263b1125adc2caec2befb096013419cb0258d97d620c9a2d44f2bca604a110dbe3ef70bcf4d1456c9e0343e92e5a3a75192c0cd9ff8c8fdf34a1f380e34a65ed
+  checksum: 9413b7d0cda1c9634e0986d6d9ada5ad69296223e1c8653525d4965f24d2cc490bb8c0c42897466d94b70ad7910cfcfc677efa20dee611d9ef5e41a03fb625e8
   languageName: node
   linkType: hard
 
@@ -688,8 +688,8 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/cipher": ^1.0.0-alpha.18
-    "@guanghechen/cipher-catalog": ^1.0.0-alpha.3
-    "@guanghechen/file-split": ^1.0.0-alpha.15
+    "@guanghechen/cipher-catalog": ^1.0.0-alpha.6
+    "@guanghechen/file-split": ^1.0.0-alpha.16
     "@guanghechen/helper-fs": ^6.0.0-alpha.6
     "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/invariant": ^6.0.0-alpha.1
@@ -697,7 +697,7 @@ __metadata:
     "@guanghechen/path.types": ^1.0.0-alpha.11
     "@guanghechen/reporter.types": ^1.0.0-alpha.9
     "@guanghechen/stream": ^1.0.0-alpha.8
-    "@guanghechen/vfs.types": ^1.0.0-alpha.3
+    "@guanghechen/vfs.types": ^1.0.0-alpha.4
   languageName: unknown
   linkType: soft
 
@@ -743,7 +743,7 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/cipher": ^1.0.0-alpha.18
-    "@guanghechen/cipher-catalog": ^1.0.0-alpha.3
+    "@guanghechen/cipher-catalog": ^1.0.0-alpha.6
     "@guanghechen/config": ^1.0.0-alpha.9
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.10
     "@guanghechen/helper-fs": ^6.0.0-alpha.6
@@ -867,7 +867,7 @@ __metadata:
     "@rollup/plugin-replace": ^5.0.5
     "@types/command-exists": ^1.2.3
     "@types/jest": 29.5.11
-    "@types/node": ^18.19.2
+    "@types/node": ^18.19.3
     ci-info: ^4.0.0
     commander: ^11.1.0
     cross-env: ^7.0.3
@@ -889,7 +889,7 @@ __metadata:
     ts-jest: 29.1.1
     ts-node: 10.9.1
     tsconfig-paths: 4.2.0
-    typescript: 5.3.2
+    typescript: 5.3.3
   languageName: unknown
   linkType: soft
 
@@ -1034,7 +1034,7 @@ __metadata:
   resolution: "@guanghechen/tool-file@workspace:packages/tool-file"
   dependencies:
     "@guanghechen/chalk": ^1.0.0-alpha.11
-    "@guanghechen/file-split": ^1.0.0-alpha.15
+    "@guanghechen/file-split": ^1.0.0-alpha.16
     "@guanghechen/helper-commander": ^6.0.0-alpha.8
     "@guanghechen/helper-fs": ^6.0.0-alpha.6
     "@guanghechen/helper-func": ^6.0.0-alpha.1
@@ -1056,9 +1056,9 @@ __metadata:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/chalk": ^1.0.0-alpha.11
     "@guanghechen/cipher": ^1.0.0-alpha.18
-    "@guanghechen/cipher-catalog": ^1.0.0-alpha.3
+    "@guanghechen/cipher-catalog": ^1.0.0-alpha.6
     "@guanghechen/config": ^1.0.0-alpha.9
-    "@guanghechen/file-split": ^1.0.0-alpha.15
+    "@guanghechen/file-split": ^1.0.0-alpha.16
     "@guanghechen/filetree": ^1.0.0-alpha.9
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.10
     "@guanghechen/helper-commander": ^6.0.0-alpha.8
@@ -1111,13 +1111,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/vfs.types@npm:^1.0.0-alpha.3":
-  version: 1.0.0-alpha.3
-  resolution: "@guanghechen/vfs.types@npm:1.0.0-alpha.3"
+"@guanghechen/vfs.types@npm:^1.0.0-alpha.4":
+  version: 1.0.0-alpha.4
+  resolution: "@guanghechen/vfs.types@npm:1.0.0-alpha.4"
   dependencies:
     "@guanghechen/disposable.types": ^1.0.0-alpha.1
     "@guanghechen/path.types": ^1.0.0-alpha.11
-  checksum: 9b0cdd3966ecb12edfa836c5b8e7bf21abb90ef5dd52f5fef34a8989a58f2f6cff5b98bc5e974c3a560016abbb07901428b70e547b5ae2bb06df6d817bf92e7c
+  checksum: 258ae64ec034757f724ba5e929a97df9c346c8532bbb48e9fd98bd52262ef617db6d1e62cbe930bc6542c450c0352964d84392c7981bb6c377487a5b5da766a3
   languageName: node
   linkType: hard
 
@@ -2458,20 +2458,20 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 20.10.3
-  resolution: "@types/node@npm:20.10.3"
+  version: 20.10.4
+  resolution: "@types/node@npm:20.10.4"
   dependencies:
     undici-types: ~5.26.4
-  checksum: 34a329494f0ea239af05eeb6f00f396963725b3eb9a2f79c5e6a6d37e823f2ab85e1079c2ee56723a37d8b89e7bbe2bd050c97144e5bb06dab93fd1cace65c97
+  checksum: 054b296417e771ab524bea63cf3289559c6bdf290d45428f7cc68e9b00030ff7a0ece47b8c99a26b4f47a443919813bcf42beadff2f0bea7d8125fa541d92eb0
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.19.2":
-  version: 18.19.2
-  resolution: "@types/node@npm:18.19.2"
+"@types/node@npm:^18.19.3":
+  version: 18.19.3
+  resolution: "@types/node@npm:18.19.3"
   dependencies:
     undici-types: ~5.26.4
-  checksum: 6ae1e456f469bd50cac55d01ec17cddca3e60a1ae8cf6a95c8f2c49668ac358fd68d53af32076e37418f3b07cf6d2b245a48e3b77998ac51cc6a797d9d1a4367
+  checksum: 58c4fa45a78fcec75c78182a4b266395905957633654eb0311c5f9c30ac15c179ea2287ab1af034e46c2db7bb0589ef0000ee64c1de8f568a0aad29eaadb100c
   languageName: node
   linkType: hard
 
@@ -2868,9 +2868,9 @@ __metadata:
   linkType: hard
 
 "acorn-walk@npm:^8.1.1":
-  version: 8.3.0
-  resolution: "acorn-walk@npm:8.3.0"
-  checksum: 15ea56ab6529135be05e7d018f935ca80a572355dd3f6d3cd717e36df3346e0f635a93ae781b1c7942607693e2e5f3ef81af5c6fc697bbadcc377ebda7b7f5f6
+  version: 8.3.1
+  resolution: "acorn-walk@npm:8.3.1"
+  checksum: 5c8926ddb5400bc825b6baca782931f9df4ace603ba1a517f5243290fd9cdb089d52877840687b5d5c939591ebc314e2e63721514feaa37c6829c828f2b940ce
   languageName: node
   linkType: hard
 
@@ -4658,9 +4658,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.601":
-  version: 1.4.601
-  resolution: "electron-to-chromium@npm:1.4.601"
-  checksum: 6c6d090afaab83f49fe413c2558a3294e7dfce6a9d8afda3496a80ba59377901279ea7903122558399d5f5dbbdcca8562e3e826b7b78e7ec0b561fcc02c45f73
+  version: 1.4.607
+  resolution: "electron-to-chromium@npm:1.4.607"
+  checksum: cc31233eaf2a6bb6268f97365861a4411db6823bec59126658245d4aec742cfeacb09135ada6321d27cfe74f1b72f04ff53cf2f5ac675c1b81deab035f97ab28
   languageName: node
   linkType: hard
 
@@ -11576,23 +11576,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.3.2, typescript@npm:>=3 < 6":
-  version: 5.3.2
-  resolution: "typescript@npm:5.3.2"
+"typescript@npm:5.3.3, typescript@npm:>=3 < 6":
+  version: 5.3.3
+  resolution: "typescript@npm:5.3.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: d92534dda639eb825db013203404c1fabca8ac630564283c9e7dc9e64fd9c9346c2de95ecebdf3e6e8c1c32941bca1cfe0da37877611feb9daf8feeaea58d230
+  checksum: 2007ccb6e51bbbf6fde0a78099efe04dc1c3dfbdff04ca3b6a8bc717991862b39fd6126c0c3ebf2d2d98ac5e960bcaa873826bb2bb241f14277034148f41f6a2
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@5.3.2#~builtin<compat/typescript>, typescript@patch:typescript@>=3 < 6#~builtin<compat/typescript>":
-  version: 5.3.2
-  resolution: "typescript@patch:typescript@npm%3A5.3.2#~builtin<compat/typescript>::version=5.3.2&hash=ad5954"
+"typescript@patch:typescript@5.3.3#~builtin<compat/typescript>, typescript@patch:typescript@>=3 < 6#~builtin<compat/typescript>":
+  version: 5.3.3
+  resolution: "typescript@patch:typescript@npm%3A5.3.3#~builtin<compat/typescript>::version=5.3.3&hash=ad5954"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: c034461079fbfde3cb584ddee52afccb15b6e32a0ce186d0b2719968786f7ca73e1b07f71fac4163088790b16811c6ccf79680de190664ef66ff0ba9c1fe4a23
+  checksum: f61375590b3162599f0f0d5b8737877ac0a7bc52761dbb585d67e7b8753a3a4c42d9a554c4cc929f591ffcf3a2b0602f65ae3ce74714fd5652623a816862b610
   languageName: node
   linkType: hard
 

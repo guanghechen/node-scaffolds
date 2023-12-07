@@ -80,7 +80,7 @@ export class GitCipherCat
       item.cryptFilepathParts,
     )
 
-    const iv: Readonly<Uint8Array | undefined> = await catalog.getIv(item)
+    const iv: Readonly<Uint8Array | undefined> = await catalog.calcIv(item)
     const fileCipher = new FileCipher({
       cipher: cipherFactory!.cipher({ iv }),
       reporter,

@@ -35,7 +35,7 @@ export async function loadGitCipherContext(
   const catalogContext: CipherCatalogContext | undefined = secretKeeper.createCatalogContext({
     cryptPathResolver,
     plainPathResolver,
-    calcIv: secretMaster.calcIv,
+    calcIvFromBytes: secretMaster.calcIvFromBytes,
   })
   const catalogFilepath: string | undefined = secretKeeper.data?.catalogFilepath
   invariant(

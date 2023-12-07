@@ -133,7 +133,7 @@ describe('GitCipher', () => {
         pathHashAlgorithm,
         plainPathResolver,
         isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
-        calcIv: async info => calcMac(info, 'sha256').slice(0, ivSize),
+        calcIvFromBytes: async info => calcMac([...info], 'sha256').slice(0, ivSize),
       })
       const catalog: ICipherCatalog = new FileCipherCatalog(catalogContext)
       const context: IGitCipherContext = { catalog, cipherBatcher, configKeeper, reporter }
@@ -152,7 +152,7 @@ describe('GitCipher', () => {
         pathHashAlgorithm,
         plainPathResolver: bakPlainPathResolver,
         isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
-        calcIv: async info => calcMac(info, 'sha256').slice(0, ivSize),
+        calcIvFromBytes: async info => calcMac([...info], 'sha256').slice(0, ivSize),
       })
       const catalog: ICipherCatalog = new FileCipherCatalog(catalogContext)
       const context: IGitCipherContext = { catalog, cipherBatcher, configKeeper, reporter }
@@ -171,7 +171,7 @@ describe('GitCipher', () => {
 
     const results1: unknown[] = await Promise.all(
       configKeeper.data!.catalog.items.map(async item => {
-        const iv: Uint8Array | undefined = await context.catalog.getIv(item)
+        const iv: Uint8Array | undefined = await context.catalog.calcIv(item)
         return {
           ...item,
           cryptFilepath: context.catalog.calcCryptFilepath(item.plainFilepath),
@@ -191,7 +191,7 @@ describe('GitCipher', () => {
     const results2: unknown[] = await Promise.all(
       configKeeper.data!.catalog.diffItems.map(async diffItem => {
         const serializeItem = async (item: any): Promise<unknown> => {
-          const iv: Uint8Array | undefined = await context.catalog.getIv(item)
+          const iv: Uint8Array | undefined = await context.catalog.calcIv(item)
           return {
             plainFilepath: item.plainFilepath,
             fingerprint: item.fingerprint,

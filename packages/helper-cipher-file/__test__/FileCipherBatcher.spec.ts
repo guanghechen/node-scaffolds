@@ -128,7 +128,7 @@ describe('FileCipherBatcher', () => {
         plainPathResolver,
         cryptPathResolver,
         isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
-        getIv: async (item: IDraftCatalogItem): Promise<Uint8Array | undefined> =>
+        calcIv: async (item: IDraftCatalogItem): Promise<Uint8Array | undefined> =>
           Object.values(itemTable).find(t => areSameDraftCatalogItem(t, item))?.iv,
       }
       catalog = new FileCipherCatalog(catalogContext)
@@ -146,7 +146,7 @@ describe('FileCipherBatcher', () => {
         plainPathResolver: bakPlainPathResolver,
         cryptPathResolver,
         isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
-        getIv: async (item: IDraftCatalogItem): Promise<Uint8Array | undefined> =>
+        calcIv: async (item: IDraftCatalogItem): Promise<Uint8Array | undefined> =>
           Object.values(itemTable).find(t => areSameDraftCatalogItem(t, item))?.iv,
       }
       bakCatalog = new FileCipherCatalog(bakCatalogContext)
