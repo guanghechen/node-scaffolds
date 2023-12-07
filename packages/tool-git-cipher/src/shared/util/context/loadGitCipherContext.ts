@@ -17,7 +17,7 @@ export interface ILoadGitCipherContextParams {
 
 export async function loadGitCipherContext(
   params: ILoadGitCipherContextParams,
-): Promise<{ cipherFactory: ICipherFactory; context: IGitCipherContext }> {
+): Promise<IGitCipherContext> {
   const { secretFilepath, secretMaster, cryptPathResolver, plainPathResolver, reporter } = params
   const secretKeeper = await secretMaster.load({
     filepath: secretFilepath,
@@ -43,12 +43,12 @@ export async function loadGitCipherContext(
     '[loadGitCipherContext] Secret cipherFactory is not available!',
   )
 
-  const context = createContext({
+  const context: IGitCipherContext = createContext({
     catalogCipher,
     catalogContext,
     catalogFilepath,
     cipherFactory,
     reporter,
   })
-  return { cipherFactory, context }
+  return context
 }

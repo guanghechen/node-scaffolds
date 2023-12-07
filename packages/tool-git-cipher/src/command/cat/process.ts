@@ -3,6 +3,7 @@ import { calcCryptFilepathsWithParts } from '@guanghechen/cipher-catalog'
 import { FileCipher } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
+import type { IGitCipherContext } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
 import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
@@ -36,7 +37,8 @@ export class GitCipherCat
       `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.root}`,
     )
 
-    const { cipherFactory, context: gitCipherContext } = await loadGitCipherContext({
+    const { cipherFactory } = this.secretMaster
+    const gitCipherContext: IGitCipherContext = await loadGitCipherContext({
       secretFilepath: context.secretFilepath,
       secretMaster: this.secretMaster,
       cryptPathResolver,
@@ -80,7 +82,7 @@ export class GitCipherCat
 
     const iv: Readonly<Uint8Array | undefined> = await catalog.getIv(item)
     const fileCipher = new FileCipher({
-      cipher: cipherFactory.cipher({ iv }),
+      cipher: cipherFactory!.cipher({ iv }),
       reporter,
     })
     const plainContentBuffer: Uint8Array = await fileCipher.decryptFromFiles(cryptFilepaths, {

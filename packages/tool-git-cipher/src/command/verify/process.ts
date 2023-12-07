@@ -45,7 +45,7 @@ export class GitCipherVerify
   protected async _verifyStrict(): Promise<void> {
     const { context, secretMaster, reporter } = this
     const { cryptPathResolver, plainPathResolver } = context
-    const { context: gitCipherContext } = await loadGitCipherContext({
+    const gitCipherContext = await loadGitCipherContext({
       secretFilepath: context.secretFilepath,
       secretMaster: this.secretMaster,
       cryptPathResolver,
