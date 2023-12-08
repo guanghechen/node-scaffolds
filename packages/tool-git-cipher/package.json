@@ -50,7 +50,7 @@
     "@guanghechen/chalk": "^1.0.0-alpha.11",
     "@guanghechen/cipher": "^1.0.0-alpha.18",
     "@guanghechen/cipher-catalog": "^1.0.0-alpha.6",
-    "@guanghechen/config": "^1.0.0-alpha.9",
+    "@guanghechen/config": "^1.0.0-alpha.10",
     "@guanghechen/file-split": "^1.0.0-alpha.16",
     "@guanghechen/filetree": "^1.0.0-alpha.9",
     "@guanghechen/helper-cipher-file": "^6.0.0-alpha.11",
