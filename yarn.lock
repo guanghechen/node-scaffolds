@@ -737,7 +737,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-git-cipher@^6.0.0-alpha.11, @guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher":
+"@guanghechen/helper-git-cipher@^6.0.0-alpha.12, @guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher"
   dependencies:
@@ -1064,7 +1064,7 @@ __metadata:
     "@guanghechen/helper-commander": ^6.0.0-alpha.8
     "@guanghechen/helper-fs": ^6.0.0-alpha.6
     "@guanghechen/helper-git": ^6.0.0-alpha.6
-    "@guanghechen/helper-git-cipher": ^6.0.0-alpha.11
+    "@guanghechen/helper-git-cipher": ^6.0.0-alpha.12
     "@guanghechen/helper-is": ^6.0.0-alpha.1
     "@guanghechen/helper-option": ^6.0.0-alpha.1
     "@guanghechen/helper-plop": ^6.0.0-alpha.2
