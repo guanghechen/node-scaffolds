@@ -1,3 +1,4 @@
+import type { ICipherCatalogMonitor } from '@guanghechen/cipher-catalog'
 import { diffFromCatalogItems } from '@guanghechen/cipher-catalog'
 import type {
   ICatalogDiffItem,
@@ -6,16 +7,49 @@ import type {
   ICipherCatalog,
   ICipherCatalogContext,
   IDraftCatalogDiffItem,
+  IUnMonitorCipherCatalog,
 } from '@guanghechen/cipher-catalog.types'
+import { BatchDisposable, Disposable } from '@guanghechen/disposable'
+import type { IBatchDisposable, IDisposable } from '@guanghechen/disposable'
+import { type IMonitor, Monitor } from '@guanghechen/monitor'
 import { ReadonlyFileCipherCatalog } from './FileCipherCatalog.readonly'
 import { diffFromPlainFiles } from './util/diffFromPlainFiles'
 
-export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements ICipherCatalog {
+type IParametersOfOnItemChanged = Parameters<ICipherCatalogMonitor['onItemChanged']>
+
+export class FileCipherCatalog
+  extends ReadonlyFileCipherCatalog
+  implements ICipherCatalog, IBatchDisposable
+{
   readonly #itemMap: Map<string, ICatalogItem>
+  protected readonly _batchDisposable: IBatchDisposable
+  protected readonly _monitorItemChanged: IMonitor<IParametersOfOnItemChanged>
 
   constructor(context: ICipherCatalogContext) {
     super(context)
+
+    const batchDisposable: IBatchDisposable = new BatchDisposable()
+    const monitorItemChanged: IMonitor<IParametersOfOnItemChanged> =
+      new Monitor<IParametersOfOnItemChanged>('onItemChanged')
+    batchDisposable.registerDisposable(Disposable.fromCallback(() => monitorItemChanged.destroy()))
+
     this.#itemMap = new Map()
+    this._batchDisposable = batchDisposable
+    this._monitorItemChanged = monitorItemChanged
+  }
+
+  // @override
+  public get disposed(): boolean {
+    return this._batchDisposable.disposed
+  }
+
+  // @override
+  public dispose(): void {
+    this._batchDisposable.dispose()
+  }
+
+  public registerDisposable<T extends IDisposable>(disposable: T): void {
+    this._batchDisposable.registerDisposable(disposable)
   }
 
   // @override
@@ -78,6 +112,15 @@ export class FileCipherCatalog extends ReadonlyFileCipherCatalog implements ICip
   public override has(plainFilepath: string): boolean {
     const key: string = this.normalizePlainFilepath(plainFilepath)
     return this.#itemMap.has(key)
+  }
+
+  // @override
+  public override monitor(monitor: Partial<ICipherCatalogMonitor>): IUnMonitorCipherCatalog {
+    const { onItemChanged } = monitor
+    const unsubscribeOnItemChanged = this._monitorItemChanged.subscribe(onItemChanged)
+    return (): void => {
+      unsubscribeOnItemChanged()
+    }
   }
 
   // @override

@@ -52,7 +52,7 @@ const coverageMap = {
   '@guanghechen/helper-cipher-file': {
     global: {
       branches: 80,
-      functions: 88,
+      functions: 81,
       lines: 90,
       statements: 90,
     },

@@ -2,9 +2,11 @@ import { normalizePlainFilepath } from '@guanghechen/cipher-catalog'
 import type {
   ICatalogItem,
   ICipherCatalogContext,
+  ICipherCatalogMonitor,
   IDeserializedCatalogItem,
   IDraftCatalogItem,
   IReadonlyCipherCatalog,
+  IUnMonitorCipherCatalog,
 } from '@guanghechen/cipher-catalog'
 import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/filepart'
 import { isFileSync } from '@guanghechen/helper-fs'
@@ -177,6 +179,9 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
     const { context } = this
     return context.isKeepPlain(relativePlainFilepath)
   }
+
+  // @override
+  public abstract monitor(monitor: Partial<ICipherCatalogMonitor>): IUnMonitorCipherCatalog
 
   // @override
   public normalizePlainFilepath(plainFilepath: string): string {
