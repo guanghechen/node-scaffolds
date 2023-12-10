@@ -6,7 +6,7 @@ import type {
   IDraftCatalogItem,
   IReadonlyCipherCatalog,
 } from '@guanghechen/cipher-catalog'
-import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/file-split'
+import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/filepart'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import { stat } from 'node:fs/promises'
@@ -39,9 +39,11 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
     const keepPlain: boolean = context.isKeepPlain(relativePlainFilepath)
 
     const cryptFilepath: string = this.calcCryptFilepath(relativePlainFilepath)
-    const cryptFilepathParts = calcFilePartNames(
-      calcFilePartItemsBySize(fileSize, maxTargetFileSize),
-      partCodePrefix,
+    const cryptFilepathParts: string[] = Array.from(
+      calcFilePartNames(
+        Array.from(calcFilePartItemsBySize(fileSize, maxTargetFileSize)),
+        partCodePrefix,
+      ),
     )
 
     return {

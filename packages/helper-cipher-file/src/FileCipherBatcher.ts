@@ -1,7 +1,8 @@
 import { FileChangeType, calcCryptFilepathsWithParts } from '@guanghechen/cipher-catalog'
 import type { ICatalogDiffItem, ICatalogItem, IDraftCatalogItem } from '@guanghechen/cipher-catalog'
-import type { FileSplitter, IFilePartItem } from '@guanghechen/file-split'
-import { calcFilePartItemsBySize } from '@guanghechen/file-split'
+import type { FileSplitter } from '@guanghechen/file-split'
+import type { IFilePartItem } from '@guanghechen/filepart'
+import { calcFilePartItemsBySize } from '@guanghechen/filepart'
 import { isFileSync, mkdirsIfNotExists, rm } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import type { IWorkspacePathResolver } from '@guanghechen/path.types'
@@ -118,9 +119,11 @@ export class FileCipherBatcher implements IFileCipherBatcher {
 
       // Split encrypted file.
       {
-        const parts: IFilePartItem[] = calcFilePartItemsBySize(
-          await stat(absoluteCryptFilepath).then(md => md.size),
-          maxTargetFileSize,
+        const parts: IFilePartItem[] = Array.from(
+          calcFilePartItemsBySize(
+            await stat(absoluteCryptFilepath).then(md => md.size),
+            maxTargetFileSize,
+          ),
         )
         if (parts.length > 1) {
           const partFilepaths: string[] = await fileSplitter.split(absoluteCryptFilepath, parts)

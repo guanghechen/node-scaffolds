@@ -1,9 +1,6 @@
-import {
-  FileSplitter,
-  calcFilePartItemsByCount,
-  calcFilePartItemsBySize,
-} from '@guanghechen/file-split'
-import type { IFilePartItem } from '@guanghechen/file-split'
+import { FileSplitter } from '@guanghechen/file-split'
+import type { IFilePartItem } from '@guanghechen/filepart'
+import { calcFilePartItemsByCount, calcFilePartItemsBySize } from '@guanghechen/filepart'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import { pathResolver } from '@guanghechen/path'
@@ -33,10 +30,11 @@ export class ToolFileSplit
     invariant(isFileSync(absoluteFilepath), `[${title}] Cannot find ${absoluteFilepath}.`)
 
     const fileSize: number = await fs.stat(absoluteFilepath).then(file => file.size)
-    const fileParts: IFilePartItem[] =
+    const fileParts: IFilePartItem[] = Array.from(
       partSize > 0
         ? calcFilePartItemsBySize(fileSize, partSize)
-        : calcFilePartItemsByCount(fileSize, partTotal)
+        : calcFilePartItemsByCount(fileSize, partTotal),
+    )
 
     if (fileParts.length <= 1) {
       reporter.info(`Seems no need to split. done.`)

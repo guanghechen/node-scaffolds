@@ -2,11 +2,8 @@
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
-import {
-  FileSplitter,
-  calcFilePartItemsByCount,
-  calcFilePartItemsBySize,
-} from '@guanghechen/file-split'
+import { FileSplitter } from '@guanghechen/file-split'
+import { calcFilePartItemsByCount, calcFilePartItemsBySize } from '@guanghechen/filepart'
 import { Reporter } from '@guanghechen/reporter'
 import {
   assertPromiseThrow,
@@ -41,7 +38,7 @@ describe('FileCipher', () => {
     fileCipher = fileCipherFactory.fileCipher()
     partFilepaths = await fileSplitter.split(
       sourceFilepath,
-      calcFilePartItemsByCount(statSync(sourceFilepath).size, 5),
+      Array.from(calcFilePartItemsByCount(statSync(sourceFilepath).size, 5)),
     )
   })
 
@@ -77,7 +74,7 @@ describe('FileCipher', () => {
 
         cipherPartFilepaths = await fileSplitter.split(
           cipherFilepath,
-          calcFilePartItemsByCount(statSync(cipherFilepath).size, 5),
+          Array.from(calcFilePartItemsByCount(statSync(cipherFilepath).size, 5)),
         )
         expect(cipherPartFilepaths.length).toEqual(5)
 
@@ -214,7 +211,7 @@ describe('FileCipher', () => {
 
         cipherPartFilepaths = await fileSplitter.split(
           cipherFilepath,
-          calcFilePartItemsByCount(statSync(cipherFilepath).size, 5),
+          Array.from(calcFilePartItemsByCount(statSync(cipherFilepath).size, 5)),
         )
         expect(cipherPartFilepaths.length).toEqual(5)
 
@@ -260,7 +257,7 @@ describe('FileCipher', () => {
     expect(plain2Content).toEqual(plainContent)
 
     const cryptParts = calcFilePartItemsBySize(statSync(cryptFilepath).size, 1024)
-    const cryptPartsFilepaths = await fileSplitter.split(cryptFilepath, cryptParts)
+    const cryptPartsFilepaths = await fileSplitter.split(cryptFilepath, Array.from(cryptParts))
 
     await fileSplitter.merge(cryptPartsFilepaths, crypt2Filepath)
     const crypt2Content: Buffer = await fs.readFile(crypt2Filepath)

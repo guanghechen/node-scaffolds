@@ -657,12 +657,29 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/file-split@npm:^1.0.0-alpha.16":
-  version: 1.0.0-alpha.16
-  resolution: "@guanghechen/file-split@npm:1.0.0-alpha.16"
+"@guanghechen/file-split@npm:^1.0.0-alpha.17":
+  version: 1.0.0-alpha.17
+  resolution: "@guanghechen/file-split@npm:1.0.0-alpha.17"
   dependencies:
-    "@guanghechen/stream": ^1.0.0-alpha.8
-  checksum: 9413b7d0cda1c9634e0986d6d9ada5ad69296223e1c8653525d4965f24d2cc490bb8c0c42897466d94b70ad7910cfcfc677efa20dee611d9ef5e41a03fb625e8
+    "@guanghechen/filepart": ^1.0.0-alpha.1
+    "@guanghechen/stream": ^1.0.0-alpha.9
+  checksum: 5ef101d3c9eb9e0788948aa92bcaed6f2cf254b445d8faf789cb65bc88f5857376da212a781542094a3597ded55e0fb39aa66f9b55123951e3da3fde6f3d7aa9
+  languageName: node
+  linkType: hard
+
+"@guanghechen/filepart.types@npm:^1.0.0-alpha.1":
+  version: 1.0.0-alpha.1
+  resolution: "@guanghechen/filepart.types@npm:1.0.0-alpha.1"
+  checksum: 39831aeac8428ea46fc463df6fb178bea93fcb1c8da9d4fec5ee97d7be5faa905fd1d8104d4c264b3440b324b21f3fada8dedd1fda52bbff4da888457565fb20
+  languageName: node
+  linkType: hard
+
+"@guanghechen/filepart@npm:^1.0.0-alpha.1":
+  version: 1.0.0-alpha.1
+  resolution: "@guanghechen/filepart@npm:1.0.0-alpha.1"
+  dependencies:
+    "@guanghechen/filepart.types": ^1.0.0-alpha.1
+  checksum: 712081772650bcb4bf857c3186ff691da5d0f051a49b226c70ab80243d8d72db5e3f50c7a661e1d4fb21f171dad9450f1550d411b1187d82b85b5d418686f1ec
   languageName: node
   linkType: hard
 
@@ -689,15 +706,16 @@ __metadata:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/cipher": ^1.0.0-alpha.18
     "@guanghechen/cipher-catalog": ^1.0.0-alpha.6
-    "@guanghechen/file-split": ^1.0.0-alpha.16
+    "@guanghechen/file-split": ^1.0.0-alpha.17
+    "@guanghechen/filepart": ^1.0.0-alpha.1
     "@guanghechen/helper-fs": ^6.0.0-alpha.6
     "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/invariant": ^6.0.0-alpha.1
     "@guanghechen/mac": ^1.0.0-alpha.4
     "@guanghechen/path.types": ^1.0.0-alpha.11
     "@guanghechen/reporter.types": ^1.0.0-alpha.9
-    "@guanghechen/stream": ^1.0.0-alpha.8
-    "@guanghechen/vfs.types": ^1.0.0-alpha.4
+    "@guanghechen/stream": ^1.0.0-alpha.9
+    "@guanghechen/vfs.types": ^1.0.0-alpha.5
   languageName: unknown
   linkType: soft
 
@@ -883,7 +901,7 @@ __metadata:
     lint-staged: 15.2.0
     npm-run-all: 4.1.5
     pinst: 3.0.0
-    prettier: 3.1.0
+    prettier: 3.1.1
     rimraf: ^5.0.5
     rollup: ^4.7.0
     ts-jest: 29.1.1
@@ -1020,12 +1038,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/stream@npm:^1.0.0-alpha.8":
-  version: 1.0.0-alpha.8
-  resolution: "@guanghechen/stream@npm:1.0.0-alpha.8"
+"@guanghechen/stream@npm:^1.0.0-alpha.9":
+  version: 1.0.0-alpha.9
+  resolution: "@guanghechen/stream@npm:1.0.0-alpha.9"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.4
-  checksum: 73996cff64dd3b08b397803ac03f3a4ceac263b68f113463d41bd766e715d233d1d1c966aa574b983467cd2274d67e303a8795c7bf0119001598021c506aa96c
+  checksum: 270836ac958536df6cefbf49c999100e4b59cfd47cc4b10276728bf8531462a45383a63e88b8460b136b04f7aed5ecd3a6b79deb94069f03d431742b01537bed
   languageName: node
   linkType: hard
 
@@ -1034,7 +1052,8 @@ __metadata:
   resolution: "@guanghechen/tool-file@workspace:packages/tool-file"
   dependencies:
     "@guanghechen/chalk": ^1.0.0-alpha.11
-    "@guanghechen/file-split": ^1.0.0-alpha.16
+    "@guanghechen/file-split": ^1.0.0-alpha.17
+    "@guanghechen/filepart": ^1.0.0-alpha.1
     "@guanghechen/helper-commander": ^6.0.0-alpha.8
     "@guanghechen/helper-fs": ^6.0.0-alpha.6
     "@guanghechen/helper-func": ^6.0.0-alpha.1
@@ -1058,7 +1077,7 @@ __metadata:
     "@guanghechen/cipher": ^1.0.0-alpha.18
     "@guanghechen/cipher-catalog": ^1.0.0-alpha.6
     "@guanghechen/config": ^1.0.0-alpha.10
-    "@guanghechen/file-split": ^1.0.0-alpha.16
+    "@guanghechen/file-split": ^1.0.0-alpha.17
     "@guanghechen/filetree": ^1.0.0-alpha.9
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.11
     "@guanghechen/helper-commander": ^6.0.0-alpha.8
@@ -1111,13 +1130,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/vfs.types@npm:^1.0.0-alpha.4":
-  version: 1.0.0-alpha.4
-  resolution: "@guanghechen/vfs.types@npm:1.0.0-alpha.4"
+"@guanghechen/vfs.types@npm:^1.0.0-alpha.5":
+  version: 1.0.0-alpha.5
+  resolution: "@guanghechen/vfs.types@npm:1.0.0-alpha.5"
   dependencies:
     "@guanghechen/disposable.types": ^1.0.0-alpha.1
     "@guanghechen/path.types": ^1.0.0-alpha.11
-  checksum: 258ae64ec034757f724ba5e929a97df9c346c8532bbb48e9fd98bd52262ef617db6d1e62cbe930bc6542c450c0352964d84392c7981bb6c377487a5b5da766a3
+  checksum: 2a289972784715a7d709f1558bef8dc9c0d6bd8fcc3e3387f1aba0b768096655d61422b613579b08ed17283d6c175dea38acf4b141edbf85a1bba41102f88efe
   languageName: node
   linkType: hard
 
@@ -1685,32 +1704,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/devkit@npm:17.1.3":
-  version: 17.1.3
-  resolution: "@nrwl/devkit@npm:17.1.3"
+"@nrwl/devkit@npm:17.2.0":
+  version: 17.2.0
+  resolution: "@nrwl/devkit@npm:17.2.0"
   dependencies:
-    "@nx/devkit": 17.1.3
-  checksum: 76a80de1c5e91751290521855e41d8a674d4c59903eebea4f63348481c785ce60cfc52dab66e6eb91a94bdbd2669fd484086f6c081da06d2080adc89cc069d45
+    "@nx/devkit": 17.2.0
+  checksum: 7b189033a15089963d6daedbcfa1759b51d7cda03077e70e92760a25d572bb9ff15cf17f7e158cb08cf82820e9e76062505006f94a70c68ca0e6f9b9149f17ed
   languageName: node
   linkType: hard
 
-"@nrwl/tao@npm:17.1.3":
-  version: 17.1.3
-  resolution: "@nrwl/tao@npm:17.1.3"
+"@nrwl/tao@npm:17.2.0":
+  version: 17.2.0
+  resolution: "@nrwl/tao@npm:17.2.0"
   dependencies:
-    nx: 17.1.3
+    nx: 17.2.0
     tslib: ^2.3.0
   bin:
     tao: index.js
-  checksum: edce95c843183d68aedeac8b814ee22bc1fa12629daa4cb44199e233433a22c0911389aed58ec7637fb9023cde4ea21442fe84f34ca9de5a1c786b1eccb0599e
+  checksum: 8fcbb79f6addf6622b9964ce65b4e70c3e8d2a5d49667728f325e0c4e6125a87f8ab5b1f383fb7eacbba4eea95c050555e4f49bd735e5a3360ddfea60bd1b951
   languageName: node
   linkType: hard
 
-"@nx/devkit@npm:17.1.3, @nx/devkit@npm:>=17.1.2 < 18":
-  version: 17.1.3
-  resolution: "@nx/devkit@npm:17.1.3"
+"@nx/devkit@npm:17.2.0, @nx/devkit@npm:>=17.1.2 < 18":
+  version: 17.2.0
+  resolution: "@nx/devkit@npm:17.2.0"
   dependencies:
-    "@nrwl/devkit": 17.1.3
+    "@nrwl/devkit": 17.2.0
     ejs: ^3.1.7
     enquirer: ~2.3.6
     ignore: ^5.0.4
@@ -1719,76 +1738,76 @@ __metadata:
     tslib: ^2.3.0
   peerDependencies:
     nx: ">= 16 <= 18"
-  checksum: 02bf4b7c0c11e862e005e0194303036802766dfcafe111498feaa7f6c7f1a6c1999e59342371a8d2eb3fbe495d723895961c9ba0a5ed2bc1dd693778b54f88ba
+  checksum: 3d7de6fa9bd125755d882b8b3c041573395af184a1d70811eedcbf181dd8e841ce89da1fc642bbed53134e2df6b4705c02a7bb6d353d4c399fe8bf73bcefd9c6
   languageName: node
   linkType: hard
 
-"@nx/nx-darwin-arm64@npm:17.1.3":
-  version: 17.1.3
-  resolution: "@nx/nx-darwin-arm64@npm:17.1.3"
+"@nx/nx-darwin-arm64@npm:17.2.0":
+  version: 17.2.0
+  resolution: "@nx/nx-darwin-arm64@npm:17.2.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@nx/nx-darwin-x64@npm:17.1.3":
-  version: 17.1.3
-  resolution: "@nx/nx-darwin-x64@npm:17.1.3"
+"@nx/nx-darwin-x64@npm:17.2.0":
+  version: 17.2.0
+  resolution: "@nx/nx-darwin-x64@npm:17.2.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@nx/nx-freebsd-x64@npm:17.1.3":
-  version: 17.1.3
-  resolution: "@nx/nx-freebsd-x64@npm:17.1.3"
+"@nx/nx-freebsd-x64@npm:17.2.0":
+  version: 17.2.0
+  resolution: "@nx/nx-freebsd-x64@npm:17.2.0"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-arm-gnueabihf@npm:17.1.3":
-  version: 17.1.3
-  resolution: "@nx/nx-linux-arm-gnueabihf@npm:17.1.3"
+"@nx/nx-linux-arm-gnueabihf@npm:17.2.0":
+  version: 17.2.0
+  resolution: "@nx/nx-linux-arm-gnueabihf@npm:17.2.0"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-arm64-gnu@npm:17.1.3":
-  version: 17.1.3
-  resolution: "@nx/nx-linux-arm64-gnu@npm:17.1.3"
+"@nx/nx-linux-arm64-gnu@npm:17.2.0":
+  version: 17.2.0
+  resolution: "@nx/nx-linux-arm64-gnu@npm:17.2.0"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-arm64-musl@npm:17.1.3":
-  version: 17.1.3
-  resolution: "@nx/nx-linux-arm64-musl@npm:17.1.3"
+"@nx/nx-linux-arm64-musl@npm:17.2.0":
+  version: 17.2.0
+  resolution: "@nx/nx-linux-arm64-musl@npm:17.2.0"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-x64-gnu@npm:17.1.3":
-  version: 17.1.3
-  resolution: "@nx/nx-linux-x64-gnu@npm:17.1.3"
+"@nx/nx-linux-x64-gnu@npm:17.2.0":
+  version: 17.2.0
+  resolution: "@nx/nx-linux-x64-gnu@npm:17.2.0"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-x64-musl@npm:17.1.3":
-  version: 17.1.3
-  resolution: "@nx/nx-linux-x64-musl@npm:17.1.3"
+"@nx/nx-linux-x64-musl@npm:17.2.0":
+  version: 17.2.0
+  resolution: "@nx/nx-linux-x64-musl@npm:17.2.0"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@nx/nx-win32-arm64-msvc@npm:17.1.3":
-  version: 17.1.3
-  resolution: "@nx/nx-win32-arm64-msvc@npm:17.1.3"
+"@nx/nx-win32-arm64-msvc@npm:17.2.0":
+  version: 17.2.0
+  resolution: "@nx/nx-win32-arm64-msvc@npm:17.2.0"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@nx/nx-win32-x64-msvc@npm:17.1.3":
-  version: 17.1.3
-  resolution: "@nx/nx-win32-x64-msvc@npm:17.1.3"
+"@nx/nx-win32-x64-msvc@npm:17.2.0":
+  version: 17.2.0
+  resolution: "@nx/nx-win32-x64-msvc@npm:17.2.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -3682,9 +3701,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001565":
-  version: 1.0.30001566
-  resolution: "caniuse-lite@npm:1.0.30001566"
-  checksum: 0f9084bf9f7d5c0a9ddb200c2baddb25dd2ad5a2f205f01e7b971f3e98e9a7bb23c2d86bae48237e9bc9782b682cffaaf3406d936937ab9844987dbe2a6401f2
+  version: 1.0.30001568
+  resolution: "caniuse-lite@npm:1.0.30001568"
+  checksum: 7092aaa246dc8531fbca5b47be91e92065db7e5c04cc9e3d864e848f8f1be769ac6754429e843a5e939f7331a771e8b0a1bc3b13495c66b748c65e2f5bdb1220
   languageName: node
   linkType: hard
 
@@ -4665,9 +4684,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.601":
-  version: 1.4.608
-  resolution: "electron-to-chromium@npm:1.4.608"
-  checksum: 1c937468d7c637131100e24888768333cee690c6a5b54d2044a2ff3363a7c6aeeed581923e57242a0fc812c3bd6df896834fe9817bbee4ca2eb97e17334bbf4a
+  version: 1.4.609
+  resolution: "electron-to-chromium@npm:1.4.609"
+  checksum: 4ef3c32b11adc01ed8227d7bdbe0978b436b817e6b3bd09f19b42afbf9affdb6ddf99f4d20a3b28a494772a2985df12ec95abca849a38cccb217c4ee338561bb
   languageName: node
   linkType: hard
 
@@ -9041,21 +9060,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx@npm:17.1.3, nx@npm:>=17.1.2 < 18":
-  version: 17.1.3
-  resolution: "nx@npm:17.1.3"
+"nx@npm:17.2.0, nx@npm:>=17.1.2 < 18":
+  version: 17.2.0
+  resolution: "nx@npm:17.2.0"
   dependencies:
-    "@nrwl/tao": 17.1.3
-    "@nx/nx-darwin-arm64": 17.1.3
-    "@nx/nx-darwin-x64": 17.1.3
-    "@nx/nx-freebsd-x64": 17.1.3
-    "@nx/nx-linux-arm-gnueabihf": 17.1.3
-    "@nx/nx-linux-arm64-gnu": 17.1.3
-    "@nx/nx-linux-arm64-musl": 17.1.3
-    "@nx/nx-linux-x64-gnu": 17.1.3
-    "@nx/nx-linux-x64-musl": 17.1.3
-    "@nx/nx-win32-arm64-msvc": 17.1.3
-    "@nx/nx-win32-x64-msvc": 17.1.3
+    "@nrwl/tao": 17.2.0
+    "@nx/nx-darwin-arm64": 17.2.0
+    "@nx/nx-darwin-x64": 17.2.0
+    "@nx/nx-freebsd-x64": 17.2.0
+    "@nx/nx-linux-arm-gnueabihf": 17.2.0
+    "@nx/nx-linux-arm64-gnu": 17.2.0
+    "@nx/nx-linux-arm64-musl": 17.2.0
+    "@nx/nx-linux-x64-gnu": 17.2.0
+    "@nx/nx-linux-x64-musl": 17.2.0
+    "@nx/nx-win32-arm64-msvc": 17.2.0
+    "@nx/nx-win32-x64-msvc": 17.2.0
     "@yarnpkg/lockfile": ^1.1.0
     "@yarnpkg/parsers": 3.0.0-rc.46
     "@zkochan/js-yaml": 0.0.6
@@ -9087,7 +9106,6 @@ __metadata:
     tmp: ~0.2.1
     tsconfig-paths: ^4.1.2
     tslib: ^2.3.0
-    v8-compile-cache: 2.3.0
     yargs: ^17.6.2
     yargs-parser: 21.1.1
   peerDependencies:
@@ -9122,7 +9140,7 @@ __metadata:
   bin:
     nx: bin/nx.js
     nx-cloud: bin/nx-cloud.js
-  checksum: 24a062ebf8d7231d0ed3c50848cee53a7bb3d293f5740d5781dfead838cbdb3d0fe5c49bb760477724ed77273ffaa48b8ff1370b6719c391312c57394c113369
+  checksum: 61a15643c59a06a61c080315df3df11b3733675d9dbd4d3fd9f80108489d3f29ecaa4ab55db7970bf7274b307457a6827a6362630aa8272485d5571cd49a4f79
   languageName: node
   linkType: hard
 
@@ -9854,12 +9872,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.1.0":
-  version: 3.1.0
-  resolution: "prettier@npm:3.1.0"
+"prettier@npm:3.1.1":
+  version: 3.1.1
+  resolution: "prettier@npm:3.1.1"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 44b556bd56f74d7410974fbb2418bb4e53a894d3e7b42f6f87779f69f27a6c272fa7fc27cec0118cd11730ef3246478052e002cbd87e9a253f9cd04a56aa7d9b
+  checksum: e386855e3a1af86a748e16953f168be555ce66d6233f4ba54eb6449b88eb0c6b2ca79441b11eae6d28a7f9a5c96440ce50864b9d5f6356d331d39d6bb66c648e
   languageName: node
   linkType: hard
 
@@ -11773,13 +11791,6 @@ __metadata:
   version: 3.0.1
   resolution: "v8-compile-cache-lib@npm:3.0.1"
   checksum: 78089ad549e21bcdbfca10c08850022b22024cdcc2da9b168bcf5a73a6ed7bf01a9cebb9eac28e03cd23a684d81e0502797e88f3ccd27a32aeab1cfc44c39da0
-  languageName: node
-  linkType: hard
-
-"v8-compile-cache@npm:2.3.0":
-  version: 2.3.0
-  resolution: "v8-compile-cache@npm:2.3.0"
-  checksum: adb0a271eaa2297f2f4c536acbfee872d0dd26ec2d76f66921aa7fc437319132773483344207bdbeee169225f4739016d8d2dbf0553913a52bb34da6d0334f8e
   languageName: node
   linkType: hard
 
