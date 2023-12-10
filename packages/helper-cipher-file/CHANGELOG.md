@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.12](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@6.0.0-alpha.11...@guanghechen/helper-cipher-file@6.0.0-alpha.12) (2023-12-10)
+
+
+### Performance Improvements
+
+* :alien:  fix build error due to the upgrade of dependencies ([d2c0fba](https://github.com/guanghechen/node-scaffolds/commit/d2c0fbaa759d8403814e81a544a9ad8f2fbe9506))
+
+
+
+
+
 # [6.0.0-alpha.11](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@6.0.0-alpha.10...@guanghechen/helper-cipher-file@6.0.0-alpha.11) (2023-12-07)
 
 
