@@ -45,7 +45,7 @@
     "node-plop/inquirer": "^9.1.4"
   },
   "devDependencies": {
-    "@babel/core": "7.23.5",
+    "@babel/core": "7.23.6",
     "@guanghechen/chalk": "^1.0.0-alpha.11",
     "@guanghechen/path": "^1.0.0-alpha.14",
     "@guanghechen/reporter": "^1.0.0-alpha.23",
@@ -71,7 +71,7 @@
     "pinst": "3.0.0",
     "prettier": "3.1.1",
     "rimraf": "^5.0.5",
-    "rollup": "^4.7.0",
+    "rollup": "^4.8.0",
     "ts-jest": "29.1.1",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
