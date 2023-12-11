@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.14](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@6.0.0-alpha.13...@guanghechen/helper-cipher-file@6.0.0-alpha.14) (2023-12-11)
+
+
+### Bug Fixes
+
+* 🐛 notify changes ([54de2ad](https://github.com/guanghechen/node-scaffolds/commit/54de2adaac4f71f7075c448331c12e4215e47362))
+* 👽️ FileChangeType have been renamed to FileChangeTypeEnum ([b846ed4](https://github.com/guanghechen/node-scaffolds/commit/b846ed49afbeb40d27a60ad64fcbc5779401b663))
+
+
+### Performance Improvements
+
+* ⬆️ upgrade @guanghechen/cipher-catalog ([cea52de](https://github.com/guanghechen/node-scaffolds/commit/cea52dea20459c0c570287e05f14e8ddc45284be))
+* ⬆️ upgrade dependencies ([a737f31](https://github.com/guanghechen/node-scaffolds/commit/a737f31a1609504882508f7cdb2d315385e6894c))
+
+
+
+
+
 # [6.0.0-alpha.13](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@6.0.0-alpha.12...@guanghechen/helper-cipher-file@6.0.0-alpha.13) (2023-12-10)
 
 
