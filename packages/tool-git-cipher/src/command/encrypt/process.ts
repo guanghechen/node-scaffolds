@@ -1,5 +1,5 @@
 import type { IDraftCatalogDiffItem, IDraftCatalogItem } from '@guanghechen/cipher-catalog'
-import { FileChangeType } from '@guanghechen/cipher-catalog'
+import { FileChangeTypeEnum } from '@guanghechen/cipher-catalog'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { GitCipher, encryptFilesOnly } from '@guanghechen/helper-git-cipher'
 import { isNonBlankString } from '@guanghechen/helper-is'
@@ -76,13 +76,13 @@ async function pickDiffItems(
   for (let i = 0; i < candidateDiffItems.length; ++i) {
     const diffItem = candidateDiffItems[i]
     switch (diffItem.changeType) {
-      case FileChangeType.ADDED:
+      case FileChangeTypeEnum.ADDED:
         added.push({ index: i, newItem: diffItem.newItem })
         break
-      case FileChangeType.REMOVED:
+      case FileChangeTypeEnum.REMOVED:
         removed.push({ index: i, oldItem: diffItem.oldItem })
         break
-      case FileChangeType.MODIFIED:
+      case FileChangeTypeEnum.MODIFIED:
         modified.push({ index: i, oldItem: diffItem.oldItem, newItem: diffItem.newItem })
         break
     }

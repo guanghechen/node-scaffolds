@@ -1,6 +1,6 @@
 import { bytes2text, text2bytes } from '@guanghechen/byte'
 import type { ICipher } from '@guanghechen/cipher'
-import { FileChangeType } from '@guanghechen/cipher-catalog'
+import { FileChangeTypeEnum } from '@guanghechen/cipher-catalog'
 import type {
   IDeserializedCatalogDiffItem,
   IDeserializedCatalogItem,
@@ -89,18 +89,18 @@ export class GitCipherConfigKeeper
       catalog: {
         diffItems: instance.catalog.diffItems.map((diffItem): ISerializedCatalogDiffItem => {
           switch (diffItem.changeType) {
-            case FileChangeType.ADDED:
+            case FileChangeTypeEnum.ADDED:
               return {
                 changeType: diffItem.changeType,
                 newItem: serializeItem(diffItem.newItem),
               }
-            case FileChangeType.MODIFIED:
+            case FileChangeTypeEnum.MODIFIED:
               return {
                 changeType: diffItem.changeType,
                 oldItem: serializeItem(diffItem.oldItem),
                 newItem: serializeItem(diffItem.newItem),
               }
-            case FileChangeType.REMOVED:
+            case FileChangeTypeEnum.REMOVED:
               return {
                 changeType: diffItem.changeType,
                 oldItem: serializeItem(diffItem.oldItem),
@@ -166,18 +166,18 @@ export class GitCipherConfigKeeper
       catalog: {
         diffItems: data.catalog.diffItems.map((diffItem): IDeserializedCatalogDiffItem => {
           switch (diffItem.changeType) {
-            case FileChangeType.ADDED:
+            case FileChangeTypeEnum.ADDED:
               return {
                 changeType: diffItem.changeType,
                 newItem: deserializeItem(diffItem.newItem),
               }
-            case FileChangeType.MODIFIED:
+            case FileChangeTypeEnum.MODIFIED:
               return {
                 changeType: diffItem.changeType,
                 oldItem: deserializeItem(diffItem.oldItem),
                 newItem: deserializeItem(diffItem.newItem),
               }
-            case FileChangeType.REMOVED:
+            case FileChangeTypeEnum.REMOVED:
               return {
                 changeType: diffItem.changeType,
                 oldItem: deserializeItem(diffItem.oldItem),

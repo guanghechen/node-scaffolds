@@ -1,4 +1,4 @@
-import { FileChangeType } from '@guanghechen/cipher-catalog'
+import { FileChangeTypeEnum } from '@guanghechen/cipher-catalog'
 import type { ICatalogDiffItem, IDeserializedCatalogItem } from '@guanghechen/cipher-catalog'
 import {
   checkBranch,
@@ -65,7 +65,7 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
     const diffItems: ICatalogDiffItem[] = await Promise.all(
       preparedItems.map(
         async (item): Promise<ICatalogDiffItem> => ({
-          changeType: FileChangeType.ADDED,
+          changeType: FileChangeTypeEnum.ADDED,
           newItem: await context.catalog.flatItem(item),
         }),
       ),

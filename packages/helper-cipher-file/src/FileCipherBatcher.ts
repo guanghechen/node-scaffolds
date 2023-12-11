@@ -1,4 +1,4 @@
-import { FileChangeType, calcCryptFilepathsWithParts } from '@guanghechen/cipher-catalog'
+import { FileChangeTypeEnum, calcCryptFilepathsWithParts } from '@guanghechen/cipher-catalog'
 import type { ICatalogDiffItem, ICatalogItem, IDraftCatalogItem } from '@guanghechen/cipher-catalog'
 import type { FileSplitter } from '@guanghechen/file-split'
 import type { IFilePartItem } from '@guanghechen/filepart'
@@ -47,7 +47,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
     for (const diffItem of diffItems) {
       const { changeType } = diffItem
       switch (changeType) {
-        case FileChangeType.ADDED: {
+        case FileChangeTypeEnum.ADDED: {
           await this._ensureCryptPathNotExist(
             diffItem.newItem,
             strictCheck,
@@ -57,22 +57,22 @@ export class FileCipherBatcher implements IFileCipherBatcher {
           )
           const nextNewItem = await add(diffItem.newItem, changeType)
           results.push({
-            changeType: FileChangeType.ADDED,
+            changeType: FileChangeTypeEnum.ADDED,
             newItem: nextNewItem,
           })
           break
         }
-        case FileChangeType.MODIFIED: {
+        case FileChangeTypeEnum.MODIFIED: {
           await remove(diffItem.oldItem, changeType)
           const nextNewItem = await add(diffItem.newItem, changeType)
           results.push({
-            changeType: FileChangeType.MODIFIED,
+            changeType: FileChangeTypeEnum.MODIFIED,
             oldItem: diffItem.oldItem,
             newItem: nextNewItem,
           })
           break
         }
-        case FileChangeType.REMOVED: {
+        case FileChangeTypeEnum.REMOVED: {
           await this._ensurePlainPathNotExist(
             diffItem.oldItem,
             strictCheck,
@@ -82,7 +82,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
           )
           await remove(diffItem.oldItem, changeType)
           results.push({
-            changeType: FileChangeType.REMOVED,
+            changeType: FileChangeTypeEnum.REMOVED,
             oldItem: diffItem.oldItem,
           })
           break
@@ -91,7 +91,10 @@ export class FileCipherBatcher implements IFileCipherBatcher {
     }
     return results
 
-    async function add(item: IDraftCatalogItem, changeType: FileChangeType): Promise<ICatalogItem> {
+    async function add(
+      item: IDraftCatalogItem,
+      changeType: FileChangeTypeEnum,
+    ): Promise<ICatalogItem> {
       const { plainFilepath, cryptFilepath } = item
       const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
       invariant(
@@ -141,7 +144,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       return nextItem
     }
 
-    async function remove(item: IDraftCatalogItem, changeType: FileChangeType): Promise<void> {
+    async function remove(item: IDraftCatalogItem, changeType: FileChangeTypeEnum): Promise<void> {
       const cryptFilepaths: string[] = calcCryptFilepathsWithParts(
         item.cryptFilepath,
         item.cryptFilepathParts,
@@ -174,7 +177,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
     for (const diffItem of diffItems) {
       const { changeType } = diffItem
       switch (changeType) {
-        case FileChangeType.ADDED: {
+        case FileChangeTypeEnum.ADDED: {
           await this._ensurePlainPathNotExist(
             diffItem.newItem,
             strictCheck,
@@ -185,12 +188,12 @@ export class FileCipherBatcher implements IFileCipherBatcher {
           await add(diffItem.newItem, changeType)
           break
         }
-        case FileChangeType.MODIFIED: {
+        case FileChangeTypeEnum.MODIFIED: {
           await remove(diffItem.oldItem, changeType)
           await add(diffItem.newItem, changeType)
           break
         }
-        case FileChangeType.REMOVED: {
+        case FileChangeTypeEnum.REMOVED: {
           await this._ensureCryptPathNotExist(
             diffItem.oldItem,
             strictCheck,
@@ -204,7 +207,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       }
     }
 
-    async function add(item: ICatalogItem, changeType: FileChangeType): Promise<void> {
+    async function add(item: ICatalogItem, changeType: FileChangeTypeEnum): Promise<void> {
       const cryptFilepaths: string[] = calcCryptFilepathsWithParts(
         item.cryptFilepath,
         item.cryptFilepathParts,
@@ -235,7 +238,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       }
     }
 
-    async function remove(item: ICatalogItem, changeType: FileChangeType): Promise<void> {
+    async function remove(item: ICatalogItem, changeType: FileChangeTypeEnum): Promise<void> {
       const { plainFilepath } = item
       const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
 

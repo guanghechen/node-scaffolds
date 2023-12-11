@@ -1,4 +1,4 @@
-import { FileChangeType, collectAffectedPlainFilepaths } from '@guanghechen/cipher-catalog'
+import { FileChangeTypeEnum, collectAffectedPlainFilepaths } from '@guanghechen/cipher-catalog'
 import type { ICatalogDiffItem } from '@guanghechen/cipher-catalog'
 import type {
   IGitCommandBaseParams,
@@ -79,20 +79,20 @@ export async function decryptGitCommit(params: IDecryptGitCommitParams): Promise
   const diffItems: ICatalogDiffItem[] = await Promise.all(
     configData.catalog.diffItems.map(async (diffItem): Promise<ICatalogDiffItem> => {
       switch (diffItem.changeType) {
-        case FileChangeType.ADDED:
+        case FileChangeTypeEnum.ADDED:
           return {
-            changeType: FileChangeType.ADDED,
+            changeType: FileChangeTypeEnum.ADDED,
             newItem: await context.catalog.flatItem(diffItem.newItem),
           }
-        case FileChangeType.MODIFIED:
+        case FileChangeTypeEnum.MODIFIED:
           return {
-            changeType: FileChangeType.MODIFIED,
+            changeType: FileChangeTypeEnum.MODIFIED,
             oldItem: await context.catalog.flatItem(diffItem.oldItem),
             newItem: await context.catalog.flatItem(diffItem.newItem),
           }
-        case FileChangeType.REMOVED:
+        case FileChangeTypeEnum.REMOVED:
           return {
-            changeType: FileChangeType.REMOVED,
+            changeType: FileChangeTypeEnum.REMOVED,
             oldItem: await context.catalog.flatItem(diffItem.oldItem),
           }
         /* c8 ignore start */

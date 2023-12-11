@@ -1,5 +1,5 @@
 import { text2bytes } from '@guanghechen/byte'
-import { FileChangeType } from '@guanghechen/cipher-catalog'
+import { FileChangeTypeEnum } from '@guanghechen/cipher-catalog'
 import type { ICatalogDiffItem, ICatalogItem, IDraftCatalogItem } from '@guanghechen/cipher-catalog'
 import type { IHashAlgorithm } from '@guanghechen/mac'
 
@@ -73,25 +73,25 @@ export const itemTable: Record<ISymbol, ICatalogItem> = {
 
 export const diffItemsTable: Record<string, ICatalogDiffItem[]> = {
   step1: [
-    { changeType: FileChangeType.ADDED, newItem: itemTable.A },
-    { changeType: FileChangeType.ADDED, newItem: itemTable.B },
+    { changeType: FileChangeTypeEnum.ADDED, newItem: itemTable.A },
+    { changeType: FileChangeTypeEnum.ADDED, newItem: itemTable.B },
   ],
   step2: [
-    { changeType: FileChangeType.REMOVED, oldItem: itemTable.A },
-    { changeType: FileChangeType.ADDED, newItem: itemTable.C },
+    { changeType: FileChangeTypeEnum.REMOVED, oldItem: itemTable.A },
+    { changeType: FileChangeTypeEnum.ADDED, newItem: itemTable.C },
   ],
   step3: [
-    { changeType: FileChangeType.REMOVED, oldItem: itemTable.B },
-    { changeType: FileChangeType.ADDED, newItem: itemTable.A },
+    { changeType: FileChangeTypeEnum.REMOVED, oldItem: itemTable.B },
+    { changeType: FileChangeTypeEnum.ADDED, newItem: itemTable.A },
   ],
   step4: [
-    { changeType: FileChangeType.REMOVED, oldItem: itemTable.C },
-    { changeType: FileChangeType.ADDED, newItem: itemTable.D },
-    { changeType: FileChangeType.MODIFIED, oldItem: itemTable.A, newItem: itemTable.A2 },
+    { changeType: FileChangeTypeEnum.REMOVED, oldItem: itemTable.C },
+    { changeType: FileChangeTypeEnum.ADDED, newItem: itemTable.D },
+    { changeType: FileChangeTypeEnum.MODIFIED, oldItem: itemTable.A, newItem: itemTable.A2 },
   ],
   step5: [
-    { changeType: FileChangeType.REMOVED, oldItem: itemTable.D },
-    { changeType: FileChangeType.REMOVED, oldItem: itemTable.A2 },
+    { changeType: FileChangeTypeEnum.REMOVED, oldItem: itemTable.D },
+    { changeType: FileChangeTypeEnum.REMOVED, oldItem: itemTable.A2 },
   ],
 }
 
