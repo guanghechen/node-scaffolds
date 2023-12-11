@@ -1,5 +1,5 @@
 import type { ICipherCatalogMonitor } from '@guanghechen/cipher-catalog'
-import { diffFromCatalogItems } from '@guanghechen/cipher-catalog'
+import { CatalogItemChangeType, diffFromCatalogItems } from '@guanghechen/cipher-catalog'
 import type {
   ICatalogDiffItem,
   ICatalogDiffItemCombine,
@@ -58,7 +58,7 @@ export class FileCipherCatalog
   }
 
   // @override
-  public applyDiff(diffItems: Iterable<ICatalogDiffItem>): void {
+  public applyDiff(diffItems: ReadonlyArray<ICatalogDiffItem>): void {
     const itemMap = this.#itemMap
     for (const diffItem of diffItems) {
       const { oldItem, newItem } = diffItem as ICatalogDiffItemCombine
@@ -79,6 +79,10 @@ export class FileCipherCatalog
         })
       }
     }
+    this._monitorItemChanged.notify({
+      type: CatalogItemChangeType.APPLY_DIFF,
+      diffItems,
+    })
   }
 
   // @override
@@ -133,5 +137,6 @@ export class FileCipherCatalog
         itemMap.set(key, item)
       }
     }
+    this._monitorItemChanged.notify({ type: CatalogItemChangeType.RESET })
   }
 }
