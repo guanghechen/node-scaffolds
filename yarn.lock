@@ -619,7 +619,7 @@ __metadata:
   dependencies:
     "@babel/eslint-parser": ^7.23.3
     "@babel/plugin-syntax-import-assertions": ^7.23.3
-    "@guanghechen/eslint-config": ^6.0.0-alpha.0
+    "@guanghechen/eslint-config": ^6.0.0-alpha.1
     eslint-plugin-import: ^2.29.1
     eslint-plugin-jsx-a11y: ^6.8.0
     eslint-plugin-react: ^7.33.2
@@ -634,7 +634,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/eslint-config-ts@workspace:packages/eslint-config-ts"
   dependencies:
-    "@guanghechen/eslint-config": ^6.0.0-alpha.0
+    "@guanghechen/eslint-config": ^6.0.0-alpha.1
     "@typescript-eslint/eslint-plugin": ^6.14.0
     "@typescript-eslint/parser": ^6.14.0
   peerDependencies:
@@ -642,7 +642,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/eslint-config@^6.0.0-alpha.0, @guanghechen/eslint-config@workspace:packages/eslint-config":
+"@guanghechen/eslint-config@^6.0.0-alpha.1, @guanghechen/eslint-config@workspace:packages/eslint-config":
   version: 0.0.0-use.local
   resolution: "@guanghechen/eslint-config@workspace:packages/eslint-config"
   dependencies:
@@ -995,12 +995,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/rollup-config-cli@^6.0.0-alpha.6, @guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
+"@guanghechen/rollup-config-cli@^6.0.0-alpha.7, @guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli"
   dependencies:
     "@guanghechen/invariant": ^6.0.0-alpha.1
-    "@guanghechen/rollup-config": ^6.0.0-alpha.1
+    "@guanghechen/rollup-config": ^6.0.0-alpha.2
     "@guanghechen/rollup-plugin-copy": ^6.0.0-alpha.6
   peerDependencies:
     rollup: ^3.0.0
@@ -1008,7 +1008,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/rollup-config@^6.0.0-alpha.1, @guanghechen/rollup-config@workspace:packages/rollup-config":
+"@guanghechen/rollup-config@^6.0.0-alpha.2, @guanghechen/rollup-config@workspace:packages/rollup-config":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config@workspace:packages/rollup-config"
   dependencies:
@@ -1052,7 +1052,7 @@ __metadata:
     "@guanghechen/helper-is": ^6.0.0-alpha.1
     "@guanghechen/invariant": ^6.0.0-alpha.1
     "@guanghechen/reporter": ^1.0.0-alpha.23
-    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.6
+    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.7
     globby: ^14.0.0
     minimist: ^1.2.8
   bin:
@@ -1091,7 +1091,7 @@ __metadata:
     "@guanghechen/invariant": ^6.0.0-alpha.1
     "@guanghechen/path": ^1.0.0-alpha.14
     "@guanghechen/reporter": ^1.0.0-alpha.23
-    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.6
+    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.7
   bin:
     ghc-file: ./lib/esm/cli.mjs
   languageName: unknown
@@ -1121,7 +1121,7 @@ __metadata:
     "@guanghechen/path": ^1.0.0-alpha.14
     "@guanghechen/reporter": ^1.0.0-alpha.23
     "@guanghechen/resource": ^1.0.0-alpha.8
-    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.6
+    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.7
     "@types/micromatch": ^4.0.6
     execa: ^8.0.1
     inquirer: 9.2.12
@@ -1145,7 +1145,7 @@ __metadata:
     "@guanghechen/mini-copy": ^6.0.0-alpha.6
     "@guanghechen/path": ^1.0.0-alpha.14
     "@guanghechen/reporter": ^1.0.0-alpha.23
-    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.6
+    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.7
     inquirer: 9.2.12
   bin:
     mcp: ./lib/esm/cli.mjs

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.2](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/jest-config@6.0.0-alpha.1...@guanghechen/jest-config@6.0.0-alpha.2) (2023-12-17)
+
+
+### Performance Improvements
+
+* ✅  update tests ([799ac97](https://github.com/guanghechen/node-scaffolds/commit/799ac972c7576b13508c4f5e35b09c92b6d1a4ce))
+* 🔧 support commonjs entry as possible ([1707125](https://github.com/guanghechen/node-scaffolds/commit/17071251fd0fd7da3154f3f6848444c9eb31f138))
+* 🔧 update jest config ([7fc48de](https://github.com/guanghechen/node-scaffolds/commit/7fc48de0ce596c8b12c5d4474a4a6acac326d6d3))
+
+
+
+
+
 # [6.0.0-alpha.1](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/jest-config@6.0.0-alpha.0...@guanghechen/jest-config@6.0.0-alpha.1) (2023-12-04)
 
 

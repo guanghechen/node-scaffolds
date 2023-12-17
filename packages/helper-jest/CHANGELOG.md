@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.2](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-jest@6.0.0-alpha.1...@guanghechen/helper-jest@6.0.0-alpha.2) (2023-12-17)
+
+
+### Features
+
+* add keyOrderSerializer ([206841c](https://github.com/guanghechen/node-scaffolds/commit/206841c0c62066a5cd04be9321de48ba9e985258))
+
+
+### Performance Improvements
+
+* 🔧 support commonjs entry as possible ([1707125](https://github.com/guanghechen/node-scaffolds/commit/17071251fd0fd7da3154f3f6848444c9eb31f138))
+
+
+
+
+
 # [6.0.0-alpha.1](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-jest@6.0.0-alpha.0...@guanghechen/helper-jest@6.0.0-alpha.1) (2023-12-04)
 
 
