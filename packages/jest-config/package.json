@@ -47,6 +47,7 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "json5": "^2.2.3"
+    "json5": "^2.2.3",
+    "prettier-2": "npm:prettier@^2"
   }
 }
