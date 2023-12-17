@@ -529,22 +529,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher-catalog.types@npm:^1.0.0-alpha.10":
-  version: 1.0.0-alpha.10
-  resolution: "@guanghechen/cipher-catalog.types@npm:1.0.0-alpha.10"
+"@guanghechen/cipher-catalog.types@npm:^1.0.0-alpha.11":
+  version: 1.0.0-alpha.11
+  resolution: "@guanghechen/cipher-catalog.types@npm:1.0.0-alpha.11"
   dependencies:
     "@guanghechen/path.types": ^1.0.0-alpha.11
-  checksum: 7a1cdde3f5cbb6da83af3c865f1f92c6635288d438586ef6a4a6b454730a35971672d06096d8b1689ab7baf0228201de93705543a9db05b31853915bff3d967c
+  checksum: b7fda94e81067f55683b250d81b9d2d831a62c92b5bca72e6265f3df341d2f95518a840dfca0eb6f93401297a736adb5a3d148d25cabb75aceee31bf8f36a1eb
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher-catalog@npm:^1.0.0-alpha.11":
-  version: 1.0.0-alpha.11
-  resolution: "@guanghechen/cipher-catalog@npm:1.0.0-alpha.11"
+"@guanghechen/cipher-catalog@npm:^1.0.0-alpha.12":
+  version: 1.0.0-alpha.12
+  resolution: "@guanghechen/cipher-catalog@npm:1.0.0-alpha.12"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.4
-    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.10
-  checksum: 41fe83750ea3c494eb8ec754b565b9dc8b9d50326ad63aaf89011baede6c4b2e4dcf9445190a7edbc8a7727ec4eeded7724987776a86902bacdd8e6e27b2ac9f
+    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.11
+  checksum: 300d329c7297a8837ed83bc1581db62eadcc4e0e86d7633ffa5166a339689d25cdecbbb61f0ce270e947e9e0684d12d69c842c71a83bf269dd01933fd5199ca5
   languageName: node
   linkType: hard
 
@@ -686,19 +686,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/filetree.types@npm:^1.0.0-alpha.8":
-  version: 1.0.0-alpha.8
-  resolution: "@guanghechen/filetree.types@npm:1.0.0-alpha.8"
-  checksum: c0c22c3c409daf486a0c3849578141f52893c638e11f30fcd706c58314b224df09f0c555e3c7e45f2519f2a516925f11892b9f61c81db2211e83e13f94f3b25d
+"@guanghechen/filetree.types@npm:^1.0.0-alpha.9":
+  version: 1.0.0-alpha.9
+  resolution: "@guanghechen/filetree.types@npm:1.0.0-alpha.9"
+  checksum: 67e4bce8c8841f2325e9352e08c7bc7b7f486031b78e8bf9f2f6061d492f8085a33eb1a4f339aef3105a6abbfc855e63e400f625279fe174b4bce2ea7d990532
   languageName: node
   linkType: hard
 
-"@guanghechen/filetree@npm:^1.0.0-alpha.10":
-  version: 1.0.0-alpha.10
-  resolution: "@guanghechen/filetree@npm:1.0.0-alpha.10"
+"@guanghechen/filetree@npm:^1.0.0-alpha.11":
+  version: 1.0.0-alpha.11
+  resolution: "@guanghechen/filetree@npm:1.0.0-alpha.11"
   dependencies:
-    "@guanghechen/filetree.types": ^1.0.0-alpha.8
-  checksum: f89a7906f9eaf9ecd290d66af39815b8f315e0355e4419246f168f38f45ee5e91cd94e8c6d9815d12f8561ee36279dcf33dc235787835b23388093d5f1d4032f
+    "@guanghechen/filetree.types": ^1.0.0-alpha.9
+    uuid: ^9.0.1
+  checksum: 003a6b6095eae4ef0a0679b58288cd8b302010a9d84205e9cb214ba43d31634e29568060d5c33461d715b80a1bde5a482418001f4a8175f42cf2e9299d401b89
   languageName: node
   linkType: hard
 
@@ -708,7 +709,7 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/cipher": ^1.0.0-alpha.18
-    "@guanghechen/cipher-catalog": ^1.0.0-alpha.11
+    "@guanghechen/cipher-catalog": ^1.0.0-alpha.12
     "@guanghechen/disposable": ^1.0.0-alpha.1
     "@guanghechen/file-split": ^1.0.0-alpha.17
     "@guanghechen/filepart": ^1.0.0-alpha.1
@@ -766,7 +767,7 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/cipher": ^1.0.0-alpha.18
-    "@guanghechen/cipher-catalog": ^1.0.0-alpha.11
+    "@guanghechen/cipher-catalog": ^1.0.0-alpha.12
     "@guanghechen/config": ^1.0.0-alpha.10
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.14
     "@guanghechen/helper-fs": ^6.0.0-alpha.6
@@ -1104,10 +1105,10 @@ __metadata:
     "@guanghechen/byte": ^1.0.0-alpha.4
     "@guanghechen/chalk": ^1.0.0-alpha.11
     "@guanghechen/cipher": ^1.0.0-alpha.18
-    "@guanghechen/cipher-catalog": ^1.0.0-alpha.11
+    "@guanghechen/cipher-catalog": ^1.0.0-alpha.12
     "@guanghechen/config": ^1.0.0-alpha.10
     "@guanghechen/file-split": ^1.0.0-alpha.17
-    "@guanghechen/filetree": ^1.0.0-alpha.10
+    "@guanghechen/filetree": ^1.0.0-alpha.11
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.14
     "@guanghechen/helper-commander": ^6.0.0-alpha.8
     "@guanghechen/helper-fs": ^6.0.0-alpha.6
@@ -11797,7 +11798,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:^9.0.0":
+"uuid@npm:^9.0.0, uuid@npm:^9.0.1":
   version: 9.0.1
   resolution: "uuid@npm:9.0.1"
   bin:
