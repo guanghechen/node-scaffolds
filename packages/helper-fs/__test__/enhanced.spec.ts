@@ -76,7 +76,18 @@ describe('empty', () => {
     await emptyDir(fictitiousDir, false, reporter)
     await emptyDir(fictitiousDir, true, reporter)
 
-    expect(reporterMock.getIndiscriminateAll()).toMatchSnapshot()
+    expect(reporterMock.getIndiscriminateAll()).toMatchInlineSnapshot(`
+      [
+        [
+          "verb  [] empty: <$WORKSPACE$>/packages/helper-fs/__test__/fixtures/fictitiousDir_c4266163b919b
+      ",
+        ],
+        [
+          "verb  [] empty: <$WORKSPACE$>/packages/helper-fs/__test__/fixtures/fictitiousDir_c4266163b919b
+      ",
+        ],
+      ]
+    `)
     reporterMock.restore()
   })
 })
@@ -145,7 +156,14 @@ describe('mkdirsIfNotExists', () => {
 
     await rm(dirpath)
 
-    expect(reporterMock.getIndiscriminateAll()).toMatchSnapshot()
+    expect(reporterMock.getIndiscriminateAll()).toMatchInlineSnapshot(`
+      [
+        [
+          "verb  [] mkdirs: <$WORKSPACE$>/packages/helper-fs/__test__/fixtures/basic--non-existed--2
+      ",
+        ],
+      ]
+    `)
     reporterMock.restore()
   })
 })

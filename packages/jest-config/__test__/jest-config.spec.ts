@@ -26,6 +26,11 @@ const desensitizeModuleNameMapper = (
   }
   return result
 }
+const desensitizePath = (p: string | null | undefined): string | null | undefined => {
+  if (p === undefined) return undefined
+  if (p === null) return null
+  return '<WORKSPACE>/' + path.relative(__dirname, p)
+}
 
 describe('resolveModuleNameMapper', () => {
   it('basic', async () => {
@@ -73,50 +78,75 @@ describe('tsMonorepoConfig', () => {
     process.chdir(rootDir)
     const config = await tsMonorepoConfig(rootDir)
     config.moduleNameMapper = desensitizeModuleNameMapper(config.moduleNameMapper)
-    expect(config).toEqual({
-      bail: 1,
-      collectCoverage: false,
-      collectCoverageFrom: [
-        '<rootDir>/cli.js',
-        '<rootDir>/index.js',
-        '<rootDir>/src/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}',
-        '<rootDir>/src/**/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}',
-      ],
-      coverageDirectory: '<rootDir>/coverage/',
-      coveragePathIgnorePatterns: [],
-      coverageProvider: 'v8',
-      coverageReporters: ['text', 'text-summary'],
-      coverageThreshold: {
-        global: {
-          branches: 80,
-          functions: 80,
-          lines: 80,
-          statements: 80,
-        },
-      },
-      errorOnDeprecated: true,
-      moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'mts', 'mjs', 'cts', 'cjs', 'node'],
-      moduleNameMapper: {
-        '^@/(.+)$': '<WORKSPACE>/fixtures/basic/src/$1',
-      },
-      roots: ['<rootDir>/src'],
-      testEnvironment: 'node',
-      testEnvironmentOptions: {
-        url: 'http://localhost/',
-      },
-      testPathIgnorePatterns: ['/coverage/', '/lib/', '/node_modules/'],
-      testRegex: '/(__test__)/[^/]+\\.spec\\.[cm]?[jt]sx?$',
-      transform: {
-        '^.+\\.[cm]?tsx?$': [
-          'ts-jest',
-          {
-            tsconfig: '<rootDir>/tsconfig.json',
-            useESM: undefined,
-          },
+    config.prettierPath = desensitizePath(config.prettierPath)
+
+    expect(config).toMatchInlineSnapshot(`
+      {
+        "bail": 1,
+        "collectCoverage": false,
+        "collectCoverageFrom": [
+          "<rootDir>/cli.js",
+          "<rootDir>/index.js",
+          "<rootDir>/src/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}",
+          "<rootDir>/src/**/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}",
         ],
-      },
-      verbose: true,
-    })
+        "coverageDirectory": "<rootDir>/coverage/",
+        "coveragePathIgnorePatterns": [],
+        "coverageProvider": "v8",
+        "coverageReporters": [
+          "text",
+          "text-summary",
+        ],
+        "coverageThreshold": {
+          "global": {
+            "branches": 80,
+            "functions": 80,
+            "lines": 80,
+            "statements": 80,
+          },
+        },
+        "errorOnDeprecated": true,
+        "moduleFileExtensions": [
+          "ts",
+          "tsx",
+          "js",
+          "jsx",
+          "json",
+          "mts",
+          "mjs",
+          "cts",
+          "cjs",
+          "node",
+        ],
+        "moduleNameMapper": {
+          "^@/(.+)$": "<WORKSPACE>/fixtures/basic/src/$1",
+        },
+        "prettierPath": "<WORKSPACE>/../../../node_modules/prettier-2/index.js",
+        "roots": [
+          "<rootDir>/src",
+        ],
+        "testEnvironment": "node",
+        "testEnvironmentOptions": {
+          "url": "http://localhost/",
+        },
+        "testPathIgnorePatterns": [
+          "/coverage/",
+          "/lib/",
+          "/node_modules/",
+        ],
+        "testRegex": "/(__test__)/[^_][\\s\\S]+\\.spec\\.[cm]?[jt]sx?$",
+        "transform": {
+          "^.+\\.[cm]?tsx?$": [
+            "ts-jest",
+            {
+              "tsconfig": "<rootDir>/tsconfig.json",
+              "useESM": undefined,
+            },
+          ],
+        },
+        "verbose": true,
+      }
+    `)
   })
 
   it('useESM', async () => {
@@ -124,50 +154,75 @@ describe('tsMonorepoConfig', () => {
     process.chdir(rootDir)
     const config = await tsMonorepoConfig(rootDir, { useESM: true })
     config.moduleNameMapper = desensitizeModuleNameMapper(config.moduleNameMapper)
-    expect(config).toEqual({
-      bail: 1,
-      collectCoverage: false,
-      collectCoverageFrom: [
-        '<rootDir>/cli.js',
-        '<rootDir>/index.js',
-        '<rootDir>/src/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}',
-        '<rootDir>/src/**/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}',
-      ],
-      coverageDirectory: '<rootDir>/coverage/',
-      coveragePathIgnorePatterns: [],
-      coverageProvider: 'v8',
-      coverageReporters: ['text', 'text-summary'],
-      coverageThreshold: {
-        global: {
-          branches: 80,
-          functions: 80,
-          lines: 80,
-          statements: 80,
-        },
-      },
-      errorOnDeprecated: true,
-      moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'mts', 'mjs', 'cts', 'cjs', 'node'],
-      moduleNameMapper: {
-        '^@/(.+)$': '<WORKSPACE>/fixtures/basic/src/$1',
-      },
-      preset: 'ts-jest/presets/default-esm',
-      roots: ['<rootDir>/src'],
-      testEnvironment: 'node',
-      testEnvironmentOptions: {
-        url: 'http://localhost/',
-      },
-      testPathIgnorePatterns: ['/coverage/', '/lib/', '/node_modules/'],
-      testRegex: '/(__test__)/[^/]+\\.spec\\.[cm]?[jt]sx?$',
-      transform: {
-        '^.+\\.[cm]?tsx?$': [
-          'ts-jest',
-          {
-            tsconfig: '<rootDir>/tsconfig.json',
-            useESM: true,
-          },
+    config.prettierPath = desensitizePath(config.prettierPath)
+
+    expect(config).toMatchInlineSnapshot(`
+      {
+        "bail": 1,
+        "collectCoverage": false,
+        "collectCoverageFrom": [
+          "<rootDir>/cli.js",
+          "<rootDir>/index.js",
+          "<rootDir>/src/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}",
+          "<rootDir>/src/**/*.{js,jsx,ts,tsx,mjs,mts,cjs,cts}",
         ],
-      },
-      verbose: true,
-    })
+        "coverageDirectory": "<rootDir>/coverage/",
+        "coveragePathIgnorePatterns": [],
+        "coverageProvider": "v8",
+        "coverageReporters": [
+          "text",
+          "text-summary",
+        ],
+        "coverageThreshold": {
+          "global": {
+            "branches": 80,
+            "functions": 80,
+            "lines": 80,
+            "statements": 80,
+          },
+        },
+        "errorOnDeprecated": true,
+        "moduleFileExtensions": [
+          "ts",
+          "tsx",
+          "js",
+          "jsx",
+          "json",
+          "mts",
+          "mjs",
+          "cts",
+          "cjs",
+          "node",
+        ],
+        "moduleNameMapper": {
+          "^@/(.+)$": "<WORKSPACE>/fixtures/basic/src/$1",
+        },
+        "preset": "ts-jest/presets/default-esm",
+        "prettierPath": "<WORKSPACE>/../../../node_modules/prettier-2/index.js",
+        "roots": [
+          "<rootDir>/src",
+        ],
+        "testEnvironment": "node",
+        "testEnvironmentOptions": {
+          "url": "http://localhost/",
+        },
+        "testPathIgnorePatterns": [
+          "/coverage/",
+          "/lib/",
+          "/node_modules/",
+        ],
+        "testRegex": "/(__test__)/[^_][\\s\\S]+\\.spec\\.[cm]?[jt]sx?$",
+        "transform": {
+          "^.+\\.[cm]?tsx?$": [
+            "ts-jest",
+            {
+              "tsconfig": "<rootDir>/tsconfig.json",
+              "useESM": true,
+            },
+          ],
+        },
+        "verbose": true,
+      }
+    `)
   })
 })
