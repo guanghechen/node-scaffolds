@@ -70,6 +70,14 @@ describe('FileCipherCatalog', () => {
   const catalog = new FileCipherCatalog(catalogContext)
 
   beforeEach(async () => {
+    const originalCalcCatalogItem = catalog.calcCatalogItem.bind(catalog)
+    catalog.calcCatalogItem = async function (
+      plainFilePath: string,
+    ): Promise<IDraftCatalogItem | never> {
+      const result = await originalCalcCatalogItem(plainFilePath)
+      return { ...result, ctime: 0, mtime: 0 }
+    }
+
     catalog.reset()
     await emptyDir(workspaceDir)
   })

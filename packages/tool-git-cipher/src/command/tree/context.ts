@@ -17,6 +17,10 @@ export interface IGitCipherTreeContext extends IGitCipherSubCommandContext {
    */
   readonly encoding: string
   /**
+   * Plain workspace path resolver.
+   */
+  readonly plainPathResolver: IWorkspacePathResolver
+  /**
    * The path of secret file. (absolute path)
    */
   readonly secretFilepath: string
@@ -26,8 +30,13 @@ export async function createTreeContextFromOptions(
   options: IGitCipherTreeOptions,
 ): Promise<IGitCipherTreeContext> {
   const cryptRootDir: string = options.cryptRootDir
+  const plainRootDir: string = options.plainRootDir
   const cryptPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(
     cryptRootDir,
+    pathResolver,
+  )
+  const plainPathResolver: IWorkspacePathResolver = new WorkspacePathResolver(
+    plainRootDir,
     pathResolver,
   )
 
@@ -38,6 +47,7 @@ export async function createTreeContextFromOptions(
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
+    plainPathResolver,
     secretFilepath: options.secretFilepath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,

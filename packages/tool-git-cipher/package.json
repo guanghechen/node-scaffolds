@@ -49,7 +49,7 @@
     "@guanghechen/byte": "^1.0.0-alpha.4",
     "@guanghechen/chalk": "^1.0.0-alpha.11",
     "@guanghechen/cipher": "^1.0.0-alpha.18",
-    "@guanghechen/cipher-catalog": "^1.0.0-alpha.12",
+    "@guanghechen/cipher-catalog": "^1.0.0-alpha.13",
     "@guanghechen/config": "^1.0.0-alpha.10",
     "@guanghechen/file-split": "^1.0.0-alpha.17",
     "@guanghechen/filetree": "^1.0.0-alpha.11",

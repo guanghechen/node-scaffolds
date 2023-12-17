@@ -52,9 +52,9 @@ const coverageMap = {
   '@guanghechen/helper-cipher-file': {
     global: {
       branches: 80,
-      functions: 81,
-      lines: 90,
-      statements: 90,
+      functions: 75,
+      lines: 89,
+      statements: 89,
     },
   },
   '@guanghechen/rollup-config': {

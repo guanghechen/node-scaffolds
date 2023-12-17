@@ -3,12 +3,9 @@ import { bytes2text } from '@guanghechen/byte'
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
+import type { IDeserializedCatalogItem } from '@guanghechen/cipher-catalog'
 import { CipherCatalogContext } from '@guanghechen/cipher-catalog'
-import type {
-  ICatalogItem,
-  ICipherCatalog,
-  ICipherCatalogContext,
-} from '@guanghechen/cipher-catalog.types'
+import type { ICipherCatalog, ICipherCatalogContext } from '@guanghechen/cipher-catalog.types'
 import { FileSplitter } from '@guanghechen/file-split'
 import {
   FileCipherBatcher,
@@ -163,7 +160,7 @@ describe('GitCipher', () => {
   const testCatalog = async (
     commit: { message: string; cryptParents: string[] },
     diffItems: unknown[],
-    items: ICatalogItem[],
+    items: Array<IDeserializedCatalogItem & { iv: Uint8Array | undefined }>,
   ): Promise<void> => {
     const { context } = gitCipher
     await configKeeper.load()

@@ -1,11 +1,18 @@
 import type { ICipherFactory } from '@guanghechen/cipher'
-import type { IFileTree } from '@guanghechen/filetree'
-import { FileTree, FileTreeNodeTypeEnum } from '@guanghechen/filetree'
+import type { ICatalogItem } from '@guanghechen/cipher-catalog'
+import {
+  FileTree,
+  FileTreeNodeTypeEnum,
+  caseSensitiveCmp,
+  isFileTreeOperationFailed,
+  splitPathFromRoot,
+} from '@guanghechen/filetree'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo, showFileContent } from '@guanghechen/helper-git'
 import { GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
+import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
 import type { IGitCipherSubCommandProcessor } from '../_base'
 import { GitCipherSubCommandProcessor } from '../_base'
 import type { IGitCipherTreeContext } from './context'
@@ -23,7 +30,7 @@ export class GitCipherTree
   public override async process(): Promise<void> {
     const title = `${clazz}.process`
     const { context, secretMaster, reporter } = this
-    const { cryptPathResolver } = context
+    const { cryptPathResolver, plainPathResolver } = context
 
     invariant(hasGitInstalled(), `[${title}] Cannot find git, have you installed it?`)
 
@@ -68,15 +75,36 @@ export class GitCipherTree
     })
     await configKeeper.load()
 
-    const filepaths: string[] =
-      configKeeper.data?.catalog.items.map(item => item.plainFilepath) ?? []
-    const filetree: IFileTree = FileTree.build(
-      filepaths.map(filepath => ({
-        type: FileTreeNodeTypeEnum.FILE,
-        paths: filepath.split(/[/\\]/g).filter(x => !!x),
-      })),
-      (x, y) => x.localeCompare(y),
+    const gitCipherContext = await loadGitCipherContext({
+      secretFilepath: context.secretFilepath,
+      secretMaster: this.secretMaster,
+      cryptPathResolver,
+      plainPathResolver,
+      reporter,
+    })
+    const { catalog } = gitCipherContext
+    const items: ICatalogItem[] = await Promise.all<ICatalogItem>(
+      configKeeper.data?.catalog.items.map(async (item): Promise<ICatalogItem> => {
+        const iii = await catalog.flatItem(item)
+        return iii
+      }) ?? [],
     )
-    filetree.print()
+
+    const filetree = FileTree.fromRawNodes(
+      items.map(item => ({
+        type: FileTreeNodeTypeEnum.FILE,
+        pathFromRoot: splitPathFromRoot(item.plainFilepath),
+        ctime: item.ctime,
+        mtime: item.mtime,
+        size: item.size,
+      })),
+      caseSensitiveCmp,
+    )
+    if (isFileTreeOperationFailed(filetree)) {
+      throw new Error(`Failed to build filetree. ERROR CODE: ${filetree}.`)
+    }
+
+    const lines: string[] = filetree.draw()
+    console.log(lines.join('\n'))
   }
 }

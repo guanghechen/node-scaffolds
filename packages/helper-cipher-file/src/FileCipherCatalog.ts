@@ -76,6 +76,9 @@ export class FileCipherCatalog
           keepPlain: newItem.keepPlain,
           iv: newItem.iv,
           authTag: newItem.authTag,
+          ctime: newItem.ctime,
+          mtime: newItem.mtime,
+          size: newItem.size,
         })
       }
     }

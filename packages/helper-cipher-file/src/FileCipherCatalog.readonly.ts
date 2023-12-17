@@ -11,6 +11,7 @@ import type {
 import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/filepart'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
+import { existsSync, statSync } from 'node:fs'
 import { stat } from 'node:fs/promises'
 import { calcFingerprintFromFile, calcFingerprintFromString } from './util/fingerprint'
 
@@ -35,7 +36,7 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
     const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
     invariant(isFileSync(absolutePlainFilepath), `[${title}] Not a file ${absolutePlainFilepath}.`)
 
-    const fileSize = await stat(absolutePlainFilepath).then(md => md.size)
+    const { ctimeMs, mtimeMs, size } = await stat(absolutePlainFilepath)
     const fingerprint = await calcFingerprintFromFile(absolutePlainFilepath, contentHashAlgorithm)
     const relativePlainFilepath = plainPathResolver.relative(absolutePlainFilepath)
     const keepPlain: boolean = context.isKeepPlain(relativePlainFilepath)
@@ -43,7 +44,7 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
     const cryptFilepath: string = this.calcCryptFilepath(relativePlainFilepath)
     const cryptFilepathParts: string[] = Array.from(
       calcFilePartNames(
-        Array.from(calcFilePartItemsBySize(fileSize, maxTargetFileSize)),
+        Array.from(calcFilePartItemsBySize(size, maxTargetFileSize)),
         partCodePrefix,
       ),
     )
@@ -54,6 +55,9 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
       cryptFilepathParts: cryptFilepathParts.length > 1 ? cryptFilepathParts : [],
       fingerprint,
       keepPlain,
+      ctime: ctimeMs,
+      mtime: mtimeMs,
+      size,
     }
   }
 
@@ -165,7 +169,31 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
   public async flatItem(item: IDeserializedCatalogItem): Promise<ICatalogItem> {
     const cryptFilepath: string = this.calcCryptFilepath(item.plainFilepath)
     const iv: Uint8Array | undefined = await this.calcIv(item)
-    return { ...item, cryptFilepath, iv }
+    const { cryptPathResolver, plainPathResolver } = this.context
+
+    let ctime = 0
+    let mtime = 0
+    let size = 0
+    const absolutePlainPath: string = plainPathResolver.resolve(item.plainFilepath)
+    if (existsSync(absolutePlainPath)) {
+      const stat = statSync(absolutePlainPath)
+      ctime = stat.ctimeMs
+      mtime = stat.mtimeMs
+      size = stat.size
+    } else {
+      const baseAbsoluteCryptPath: string = cryptPathResolver.resolve(item.plainFilepath)
+      for (const cryptFilepathPart of item.cryptFilepathParts) {
+        const absoluteCryptPath: string = baseAbsoluteCryptPath + cryptFilepathPart
+        if (existsSync(absoluteCryptPath)) {
+          const stat = statSync(absoluteCryptPath)
+          if (ctime === 0 || ctime > stat.ctimeMs) ctime = stat.ctimeMs
+          if (mtime < stat.mtimeMs) mtime = stat.mtimeMs
+          size += stat.size
+        }
+      }
+    }
+
+    return { ...item, cryptFilepath, iv, ctime, mtime, size }
   }
 
   // @override
