@@ -686,20 +686,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/filetree.types@npm:^1.0.0-alpha.10":
-  version: 1.0.0-alpha.10
-  resolution: "@guanghechen/filetree.types@npm:1.0.0-alpha.10"
-  checksum: 4f9f17d3adc44c4fabfea6073189f9ebe57f903b1b0c653a6805b0a9248ca0a886d62226c6627e4c56114d6ecb41f42a7c42e363c6497f25e88cae8ae13ea183
+"@guanghechen/filetree.types@npm:^1.0.0-alpha.11":
+  version: 1.0.0-alpha.11
+  resolution: "@guanghechen/filetree.types@npm:1.0.0-alpha.11"
+  checksum: aec91d58d161fdedac383ba0be1db20440e2243c9ed3db252742a8933c525733a084dfccb6613e7a472caa06c3524ab2224145e3dc04e653cb3f5cbe3b00a5f6
   languageName: node
   linkType: hard
 
-"@guanghechen/filetree@npm:^1.0.0-alpha.12":
-  version: 1.0.0-alpha.12
-  resolution: "@guanghechen/filetree@npm:1.0.0-alpha.12"
+"@guanghechen/filetree@npm:^1.0.0-alpha.13":
+  version: 1.0.0-alpha.13
+  resolution: "@guanghechen/filetree@npm:1.0.0-alpha.13"
   dependencies:
-    "@guanghechen/filetree.types": ^1.0.0-alpha.10
+    "@guanghechen/filetree.types": ^1.0.0-alpha.11
     uuid: ^9.0.1
-  checksum: 4f3b98b4a2cc1950c690a2a646656916f9d66982efbc31d15757fb83aa7631e00487d31ee023b999ca2350254a1eee4a8b77b39d3261686282addbd06ae18252
+  checksum: 1fa9f0f1d42c14d8b9576809531f98ee2b137f74e5e8a3f80a964c25f95016c6efa90923dcf1275f209b17378e445beda2a0732255bfb506544d600328ccd18a
   languageName: node
   linkType: hard
 
@@ -1108,7 +1108,7 @@ __metadata:
     "@guanghechen/cipher-catalog": ^1.0.0-alpha.13
     "@guanghechen/config": ^1.0.0-alpha.10
     "@guanghechen/file-split": ^1.0.0-alpha.17
-    "@guanghechen/filetree": ^1.0.0-alpha.12
+    "@guanghechen/filetree": ^1.0.0-alpha.13
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.15
     "@guanghechen/helper-commander": ^6.0.0-alpha.8
     "@guanghechen/helper-fs": ^6.0.0-alpha.6
