@@ -1,4 +1,4 @@
-import { normalizePlainFilepath } from '@guanghechen/cipher-catalog'
+import { normalizePlainPath } from '@guanghechen/cipher-catalog'
 import type {
   ICatalogItem,
   ICipherCatalogContext,
@@ -11,7 +11,6 @@ import type {
 import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/filepart'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
-import { existsSync, statSync } from 'node:fs'
 import { stat } from 'node:fs/promises'
 import { calcFingerprintFromFile, calcFingerprintFromString } from './util/fingerprint'
 
@@ -33,16 +32,17 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
     const { context } = this
     const { contentHashAlgorithm, maxTargetFileSize, partCodePrefix, plainPathResolver } = context
 
-    const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
-    invariant(isFileSync(absolutePlainFilepath), `[${title}] Not a file ${absolutePlainFilepath}.`)
+    const absolutePlainPath = plainPathResolver.resolve(plainFilepath)
+    invariant(isFileSync(absolutePlainPath), `[${title}] Not a file ${absolutePlainPath}.`)
 
-    const { ctimeMs, mtimeMs, size } = await stat(absolutePlainFilepath)
-    const fingerprint = await calcFingerprintFromFile(absolutePlainFilepath, contentHashAlgorithm)
-    const relativePlainFilepath = plainPathResolver.relative(absolutePlainFilepath)
-    const keepPlain: boolean = context.isKeepPlain(relativePlainFilepath)
+    const { ctimeMs, mtimeMs, size } = await stat(absolutePlainPath)
+    const fingerprint = await calcFingerprintFromFile(absolutePlainPath, contentHashAlgorithm)
+    const relativePlainPath: string = plainPathResolver.relative(absolutePlainPath)
+    const keepIntegrity: boolean = context.isKeepIntegrity(relativePlainPath)
+    const keepPlain: boolean = context.isKeepPlain(relativePlainPath)
 
-    const cryptFilepath: string = this.calcCryptFilepath(relativePlainFilepath)
-    const cryptFilepathParts: string[] = Array.from(
+    const cryptPath: string = this.calcCryptFilepath(relativePlainPath)
+    const cryptPathParts: string[] = Array.from(
       calcFilePartNames(
         Array.from(calcFilePartItemsBySize(size, maxTargetFileSize)),
         partCodePrefix,
@@ -50,10 +50,11 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
     )
 
     return {
-      plainFilepath: relativePlainFilepath,
-      cryptFilepath,
-      cryptFilepathParts: cryptFilepathParts.length > 1 ? cryptFilepathParts : [],
+      plainPath: relativePlainPath,
+      cryptPath,
+      cryptPathParts,
       fingerprint,
+      keepIntegrity,
       keepPlain,
       ctime: ctimeMs,
       mtime: mtimeMs,
@@ -62,21 +63,21 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
   }
 
   // @override
-  public calcCryptFilepath(plainFilepath: string): string {
+  public calcCryptFilepath(plainPath: string): string {
     const { context } = this
     const { plainPathResolver } = context
-    const relativePlainFilepath = plainPathResolver.relative(plainFilepath)
-    if (context.isKeepPlain(relativePlainFilepath)) return relativePlainFilepath
+    const relativePlainPath = plainPathResolver.relative(plainPath)
+    if (context.isKeepPlain(relativePlainPath)) return relativePlainPath
 
     const { cryptFilepathSalt, cryptFilesDir, cryptPathResolver, pathHashAlgorithm } = context
-    const plainFilepathKey: string = this.normalizePlainFilepath(relativePlainFilepath)
+    const plainFilepathKey: string = this.normalizePlainFilepath(relativePlainPath)
     const filepathHash: string = calcFingerprintFromString(
       cryptFilepathSalt + plainFilepathKey,
       'utf8',
       pathHashAlgorithm,
     )
-    const cryptFilepath: string = cryptPathResolver.relative(cryptFilesDir + '/' + filepathHash)
-    return cryptFilepath
+    const cryptPath: string = cryptPathResolver.relative(cryptFilesDir + '/' + filepathHash)
+    return cryptPath
   }
 
   // @override
@@ -88,17 +89,17 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
   }
 
   // @override
-  public async checkCryptIntegrity(cryptFilepaths: string[]): Promise<void> {
+  public async checkCryptIntegrity(cryptPaths: string[]): Promise<void> {
     const title = `${clazz}.checkCryptIntegrity`
     const { context, items } = this
     const { cryptPathResolver } = context
-    const filepathSet: Set<string> = new Set(cryptFilepaths.map(p => cryptPathResolver.relative(p)))
+    const filepathSet: Set<string> = new Set(cryptPaths.map(p => cryptPathResolver.relative(p)))
 
     let count = 0
     for (const item of items) {
-      if (item.cryptFilepathParts.length > 1) {
-        for (const filePart of item.cryptFilepathParts) {
-          const cryptFilepath = item.cryptFilepath + filePart
+      if (item.cryptPathParts.length > 1) {
+        for (const filePart of item.cryptPathParts) {
+          const cryptFilepath = item.cryptPath + filePart
           const absoluteCryptFilepath = cryptPathResolver.resolve(cryptFilepath)
           count += 1
 
@@ -112,18 +113,12 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
           )
         }
       } else {
-        const { cryptFilepath } = item
-        const absoluteCryptFilepath = cryptPathResolver.resolve(cryptFilepath)
+        const { cryptPath } = item
+        const absoluteCryptPath = cryptPathResolver.resolve(cryptPath)
         count += 1
 
-        invariant(
-          filepathSet.has(cryptFilepath),
-          `[${title}] Unexpected cryptFilepath. ${cryptFilepath}`,
-        )
-        invariant(
-          isFileSync(absoluteCryptFilepath),
-          `[${title}] Missing crypt file. ${cryptFilepath}`,
-        )
+        invariant(filepathSet.has(cryptPath), `[${title}] Unexpected cryptFilepath. ${cryptPath}`)
+        invariant(isFileSync(absoluteCryptPath), `[${title}] Missing crypt file. ${cryptPath}`)
       }
     }
 
@@ -142,18 +137,12 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
 
     let count = 0
     for (const item of items) {
-      const { plainFilepath } = item
-      const absolutePlainFilepath = plainPathResolver.resolve(plainFilepath)
+      const { plainPath } = item
+      const absolutePlainPath = plainPathResolver.resolve(plainPath)
       count += 1
 
-      invariant(
-        filepathSet.has(plainFilepath),
-        `[${title}] Unexpected plainFilepath. ${plainFilepath}`,
-      )
-      invariant(
-        isFileSync(absolutePlainFilepath),
-        `[${title}] Missing plain file. (${plainFilepath})`,
-      )
+      invariant(filepathSet.has(plainPath), `[${title}] Unexpected plainFilepath. ${plainPath}`)
+      invariant(isFileSync(absolutePlainPath), `[${title}] Missing plain file. (${plainPath})`)
     }
 
     invariant(
@@ -167,45 +156,25 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
 
   // @override
   public async flatItem(item: IDeserializedCatalogItem): Promise<ICatalogItem> {
-    const cryptFilepath: string = this.calcCryptFilepath(item.plainFilepath)
+    const cryptPath: string = this.calcCryptFilepath(item.plainPath)
     const iv: Uint8Array | undefined = await this.calcIv(item)
-    const { cryptPathResolver, plainPathResolver } = this.context
-
-    let ctime = 0
-    let mtime = 0
-    let size = 0
-    const absolutePlainPath: string = plainPathResolver.resolve(item.plainFilepath)
-    if (existsSync(absolutePlainPath)) {
-      const stat = statSync(absolutePlainPath)
-      ctime = stat.ctimeMs
-      mtime = stat.mtimeMs
-      size = stat.size
-    } else {
-      const baseAbsoluteCryptPath: string = cryptPathResolver.resolve(item.plainFilepath)
-      for (const cryptFilepathPart of item.cryptFilepathParts) {
-        const absoluteCryptPath: string = baseAbsoluteCryptPath + cryptFilepathPart
-        if (existsSync(absoluteCryptPath)) {
-          const stat = statSync(absoluteCryptPath)
-          if (ctime === 0 || ctime > stat.ctimeMs) ctime = stat.ctimeMs
-          if (mtime < stat.mtimeMs) mtime = stat.mtimeMs
-          size += stat.size
-        }
-      }
-    }
-
-    return { ...item, cryptFilepath, iv, ctime, mtime, size }
+    return { ...item, cryptPath, iv }
   }
 
   // @override
-  public abstract get(plainFilepath: string): ICatalogItem | undefined
+  public abstract get(plainPath: string): ICatalogItem | undefined
 
   // @override
-  public abstract has(plainFilepath: string): boolean
+  public abstract has(plainPath: string): boolean
 
   // @override
-  public isKeepPlain(relativePlainFilepath: string): boolean {
-    const { context } = this
-    return context.isKeepPlain(relativePlainFilepath)
+  public isKeepIntegrity(relativePlainPath: string): boolean {
+    return this.context.isKeepIntegrity(relativePlainPath)
+  }
+
+  // @override
+  public isKeepPlain(relativePlainPath: string): boolean {
+    return this.context.isKeepPlain(relativePlainPath)
   }
 
   // @override
@@ -215,6 +184,6 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
   public normalizePlainFilepath(plainFilepath: string): string {
     const { context } = this
     const { plainPathResolver } = context
-    return normalizePlainFilepath(plainFilepath, plainPathResolver)
+    return normalizePlainPath(plainFilepath, plainPathResolver)
   }
 }

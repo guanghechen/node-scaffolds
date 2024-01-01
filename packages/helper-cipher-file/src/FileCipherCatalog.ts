@@ -13,7 +13,6 @@ import { BatchDisposable, Disposable } from '@guanghechen/disposable'
 import type { IBatchDisposable, IDisposable } from '@guanghechen/disposable'
 import { type IMonitor, Monitor } from '@guanghechen/monitor'
 import { ReadonlyFileCipherCatalog } from './FileCipherCatalog.readonly'
-import { diffFromPlainFiles } from './util/diffFromPlainFiles'
 
 type IParametersOfOnItemChanged = Parameters<ICipherCatalogMonitor['onItemChanged']>
 
@@ -63,16 +62,17 @@ export class FileCipherCatalog
     for (const diffItem of diffItems) {
       const { oldItem, newItem } = diffItem as ICatalogDiffItemCombine
       if (oldItem) {
-        const key: string = this.normalizePlainFilepath(oldItem.plainFilepath)
+        const key: string = this.normalizePlainFilepath(oldItem.plainPath)
         itemMap.delete(key)
       }
       if (newItem) {
-        const key: string = this.normalizePlainFilepath(newItem.plainFilepath)
+        const key: string = this.normalizePlainFilepath(newItem.plainPath)
         itemMap.set(key, {
-          plainFilepath: newItem.plainFilepath,
-          cryptFilepath: newItem.cryptFilepath,
-          cryptFilepathParts: newItem.cryptFilepathParts,
+          plainPath: newItem.plainPath,
+          cryptPath: newItem.cryptPath,
+          cryptPathParts: newItem.cryptPathParts,
           fingerprint: newItem.fingerprint,
+          keepIntegrity: newItem.keepIntegrity,
           keepPlain: newItem.keepPlain,
           iv: newItem.iv,
           authTag: newItem.authTag,
@@ -110,14 +110,14 @@ export class FileCipherCatalog
   }
 
   // @override
-  public override get(plainFilepath: string): ICatalogItem | undefined {
-    const key: string = this.normalizePlainFilepath(plainFilepath)
+  public override get(plainPath: string): ICatalogItem | undefined {
+    const key: string = this.normalizePlainFilepath(plainPath)
     return this.#itemMap.get(key)
   }
 
   // @override
-  public override has(plainFilepath: string): boolean {
-    const key: string = this.normalizePlainFilepath(plainFilepath)
+  public override has(plainPath: string): boolean {
+    const key: string = this.normalizePlainFilepath(plainPath)
     return this.#itemMap.has(key)
   }
 
@@ -136,7 +136,7 @@ export class FileCipherCatalog
     itemMap.clear()
     if (items) {
       for (const item of items) {
-        const key: string = this.normalizePlainFilepath(item.plainFilepath)
+        const key: string = this.normalizePlainFilepath(item.plainPath)
         itemMap.set(key, item)
       }
     }

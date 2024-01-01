@@ -6,44 +6,30 @@ export interface IFileCipher {
   /**
    * Encrypt plain data from plain files.
    */
-  encryptFromFiles(plainFilepaths: string[]): Promise<IEncryptResult>
+  encryptFromFiles(plainPaths: string[]): Promise<IEncryptResult>
 
   /**
    * Decrypt cipher data from ciphered files.
    */
-  decryptFromFiles(cryptFilepaths: string[], options?: IDecipherOptions): Promise<Uint8Array>
+  decryptFromFiles(cryptPaths: string[], options?: IDecipherOptions): Promise<Uint8Array>
 
   /**
    * Encrypt contents from plainFilepath, and save into cryptFilepath.
    */
-  encryptFile(
-    plainFilepath: string,
-    cryptFilepath: string,
-  ): Promise<Omit<IEncryptResult, 'cryptBytes'>>
+  encryptFile(plainPath: string, cryptPath: string): Promise<Omit<IEncryptResult, 'cryptBytes'>>
 
   /**
    * Decrypt contents from cryptFilepath, and save into plainFilepath.
    */
-  decryptFile(
-    cryptFilepath: string,
-    plainFilepath: string,
-    options?: IDecipherOptions,
-  ): Promise<void>
+  decryptFile(cryptPath: string, plainPath: string, options?: IDecipherOptions): Promise<void>
 
   /**
    * Encrypt multiple plain files into a single ciphered file.
    */
-  encryptFiles(
-    plainFilepaths: string[],
-    cryptFilepath: string,
-  ): Promise<Omit<IEncryptResult, 'cryptBytes'>>
+  encryptFiles(plainPaths: string[], cryptPath: string): Promise<Omit<IEncryptResult, 'cryptBytes'>>
 
   /**
    * Decrypt multiple ciphered files into a single plain file.
    */
-  decryptFiles(
-    cryptFilepaths: string[],
-    plainFilepath: string,
-    options?: IDecipherOptions,
-  ): Promise<void>
+  decryptFiles(cryptPaths: string[], plainPath: string, options?: IDecipherOptions): Promise<void>
 }

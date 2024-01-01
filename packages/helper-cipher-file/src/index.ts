@@ -1,7 +1,6 @@
 export * from './types/IFileCipher'
 export * from './types/IFileCipherBatcher'
 export * from './types/IFileCipherFactory'
-export * from './util/diffFromPlainFiles'
 export * from './util/fingerprint'
 
 export * from './FileCipher'
