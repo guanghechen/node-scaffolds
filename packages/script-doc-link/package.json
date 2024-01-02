@@ -51,7 +51,7 @@
     "@guanghechen/helper-func": "^6.0.0-alpha.1",
     "@guanghechen/helper-is": "^6.0.0-alpha.1",
     "@guanghechen/invariant": "^6.0.0-alpha.1",
-    "@guanghechen/reporter": "^1.0.0-alpha.23",
+    "@guanghechen/reporter": "^1.0.0-alpha.24",
     "globby": "^14.0.0",
     "minimist": "^1.2.8"
   },
