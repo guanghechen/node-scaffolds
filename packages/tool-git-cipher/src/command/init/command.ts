@@ -56,7 +56,7 @@ export class GitCipherSubCommandInit extends GitCipherSubCommand<O, C> implement
       .option('--main-key-size, --mainKeySize <mainKeySize>', 'Key size of main cipherFactory.')
       .option('--part-code-prefix, --partCodePrefix <partCodePrefix>', 'Prefix of parts code.')
       .option(
-        '--path-hash-algorithm, --pathHashAlgorithm <pathHashAlgorithm>',
+        '--path-hash-algorithm, --PATH_HASH_ALGORITHM <PATH_HASH_ALGORITHM>',
         'Hash algorithm for generate MAC for encrypted filepath.',
       )
       .option(

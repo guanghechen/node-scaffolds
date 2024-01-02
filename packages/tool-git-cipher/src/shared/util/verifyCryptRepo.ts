@@ -56,7 +56,7 @@ export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<v
     keepPlainPatterns,
     maxTargetFileSize = Number.POSITIVE_INFINITY,
     partCodePrefix,
-    pathHashAlgorithm,
+    PATH_HASH_ALGORITHM,
   } = secretConfig
 
   const configKeeper = new GitCipherConfigKeeper({
@@ -74,7 +74,7 @@ export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<v
     cryptFilesDir,
     maxTargetFileSize,
     partCodePrefix,
-    pathHashAlgorithm,
+    PATH_HASH_ALGORITHM,
     plainPathResolver,
     cryptPathResolver,
     isKeepPlain:

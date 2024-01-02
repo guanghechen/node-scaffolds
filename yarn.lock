@@ -529,22 +529,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher-catalog.types@npm:^1.0.0-alpha.16":
-  version: 1.0.0-alpha.16
-  resolution: "@guanghechen/cipher-catalog.types@npm:1.0.0-alpha.16"
+"@guanghechen/cipher-catalog.types@npm:^1.0.0-alpha.19":
+  version: 1.0.0-alpha.19
+  resolution: "@guanghechen/cipher-catalog.types@npm:1.0.0-alpha.19"
   dependencies:
     "@guanghechen/path.types": ^1.0.0-alpha.11
-  checksum: 73d3b869bb2658c143cc28b94bb323970fdb1eb26b30ef05ae40c2749680f6a2f4cfea52891365444040856079d40146e4918564364a755967268d9c9c99e88c
+  checksum: 4f9ced8d84158efc66c0121f615209efdbc4267c88a1f1db9dc46b271ac8cdad526b1ab87e695a6ae49ad8f385f90983a3eb8fd6aeb3067af46ae8788a2626ea
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher-catalog@npm:^1.0.0-alpha.17":
-  version: 1.0.0-alpha.17
-  resolution: "@guanghechen/cipher-catalog@npm:1.0.0-alpha.17"
+"@guanghechen/cipher-catalog@npm:^1.0.0-alpha.21":
+  version: 1.0.0-alpha.21
+  resolution: "@guanghechen/cipher-catalog@npm:1.0.0-alpha.21"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.5
-    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.16
-  checksum: 0c9af222bf826bdc4c7360efc89587bf84280d99ed8470bad47c9b206e5f622a23a42ad6ff49c05db17db65fa7aa6fd5b95d78663e362c3966ddcaf5a33c3d50
+    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.19
+  checksum: 89db5d096baebbb0ce6622e615866478ab032ef3173491fed5b61999bde7bb35c2a46d588e3d61a8ab751d3e70216b1eaa6e6a441be4747d1259f4326885d6b5
   languageName: node
   linkType: hard
 
@@ -709,7 +709,7 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.5
     "@guanghechen/cipher": ^1.0.0-alpha.19
-    "@guanghechen/cipher-catalog": ^1.0.0-alpha.17
+    "@guanghechen/cipher-catalog": ^1.0.0-alpha.21
     "@guanghechen/disposable": ^1.0.0-alpha.1
     "@guanghechen/file-split": ^1.0.0-alpha.18
     "@guanghechen/filepart": ^1.0.0-alpha.2
@@ -767,7 +767,7 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.5
     "@guanghechen/cipher": ^1.0.0-alpha.19
-    "@guanghechen/cipher-catalog": ^1.0.0-alpha.17
+    "@guanghechen/cipher-catalog": ^1.0.0-alpha.21
     "@guanghechen/config": ^1.0.0-alpha.11
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.15
     "@guanghechen/helper-fs": ^6.0.0-alpha.6
@@ -1105,7 +1105,7 @@ __metadata:
     "@guanghechen/byte": ^1.0.0-alpha.5
     "@guanghechen/chalk": ^1.0.0-alpha.11
     "@guanghechen/cipher": ^1.0.0-alpha.19
-    "@guanghechen/cipher-catalog": ^1.0.0-alpha.17
+    "@guanghechen/cipher-catalog": ^1.0.0-alpha.21
     "@guanghechen/config": ^1.0.0-alpha.11
     "@guanghechen/file-split": ^1.0.0-alpha.18
     "@guanghechen/filetree": ^1.0.0-alpha.13

@@ -1,5 +1,10 @@
 import { FileChangeTypeEnum, calcCryptPathsWithPart } from '@guanghechen/cipher-catalog'
-import type { ICatalogDiffItem, ICatalogItem, IDraftCatalogItem } from '@guanghechen/cipher-catalog'
+import type {
+  ICatalogDiffItem,
+  ICatalogItem,
+  ICipherCatalogContext,
+  IDraftCatalogItem,
+} from '@guanghechen/cipher-catalog'
 import type { FileSplitter } from '@guanghechen/file-split'
 import type { IFilePartItem } from '@guanghechen/filepart'
 import { calcFilePartItemsBySize } from '@guanghechen/filepart'
@@ -18,22 +23,22 @@ import type {
 import type { IFileCipherFactory } from './types/IFileCipherFactory'
 
 export interface IFileCipherBatcherProps {
-  fileSplitter: FileSplitter
-  fileCipherFactory: IFileCipherFactory
-  maxTargetFileSize: number
-  reporter?: IReporter
+  readonly context: ICipherCatalogContext
+  readonly fileSplitter: FileSplitter
+  readonly fileCipherFactory: IFileCipherFactory
+  readonly reporter?: IReporter
 }
 
 export class FileCipherBatcher implements IFileCipherBatcher {
+  public readonly context: ICipherCatalogContext
   public readonly fileSplitter: FileSplitter
   public readonly fileCipherFactory: IFileCipherFactory
-  public readonly maxTargetFileSize: number
   public readonly reporter: IReporter | undefined
 
   constructor(props: IFileCipherBatcherProps) {
+    this.context = props.context
     this.fileCipherFactory = props.fileCipherFactory
     this.fileSplitter = props.fileSplitter
-    this.maxTargetFileSize = props.maxTargetFileSize
     this.reporter = props.reporter
   }
 
@@ -41,7 +46,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
     const title = 'batchEncrypt'
     const { catalog, diffItems, strictCheck } = params
     const { cryptPathResolver, plainPathResolver } = catalog.context
-    const { reporter, fileCipherFactory, fileSplitter, maxTargetFileSize } = this
+    const { reporter, fileCipherFactory, fileSplitter, context } = this
 
     const results: ICatalogDiffItem[] = []
     for (const diffItem of diffItems) {
@@ -105,15 +110,13 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       const absoluteCryptPath: string = cryptPathResolver.resolve(cryptPath)
       mkdirsIfNotExists(absoluteCryptPath, false, reporter)
 
-      const nextItem: ICatalogItem = { ...item, iv: undefined, authTag: undefined }
+      const nonce: Uint8Array = await context.genNonce()
+      const nextItem: ICatalogItem = { ...item, nonce, authTag: undefined }
       if (item.keepPlain) {
         await copyFile(absolutePlainPath, absoluteCryptPath)
       } else {
-        const iv: Uint8Array | undefined = await catalog.calcIv(item)
-        const fileCipher: IFileCipher = fileCipherFactory.fileCipher({ iv })
+        const fileCipher: IFileCipher = fileCipherFactory.fileCipher({ iv: nonce })
         const { authTag } = await fileCipher.encryptFile(absolutePlainPath, absoluteCryptPath)
-
-        nextItem.iv = iv
         nextItem.authTag = authTag
       }
 
@@ -122,7 +125,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
         const parts: IFilePartItem[] = Array.from(
           calcFilePartItemsBySize(
             await stat(absoluteCryptPath).then(md => md.size),
-            maxTargetFileSize,
+            context.MAX_CRYPT_FILE_SIZE,
           ),
         )
         if (parts.length > 1) {
@@ -222,7 +225,7 @@ export class FileCipherBatcher implements IFileCipherBatcher {
       if (item.keepPlain) {
         await fileSplitter.merge(absoluteCryptPaths, absolutePlainPath)
       } else {
-        const fileCipher = fileCipherFactory.fileCipher({ iv: item.iv })
+        const fileCipher = fileCipherFactory.fileCipher({ iv: item.nonce })
         await fileCipher.decryptFiles(absoluteCryptPaths, absolutePlainPath, {
           authTag: item.authTag,
         })

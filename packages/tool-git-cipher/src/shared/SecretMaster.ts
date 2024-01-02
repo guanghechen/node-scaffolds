@@ -168,7 +168,7 @@ export class SecretMaster {
             mainKeySize: presetConfigData.mainKeySize,
             maxTargetFileSize: presetConfigData.maxTargetFileSize,
             partCodePrefix: presetConfigData.partCodePrefix,
-            pathHashAlgorithm: presetConfigData.pathHashAlgorithm,
+            PATH_HASH_ALGORITHM: presetConfigData.PATH_HASH_ALGORITHM,
             pbkdf2Options: presetConfigData.pbkdf2Options,
             secret: cSecret.cryptBytes,
             secretAuthTag: cSecret.authTag,

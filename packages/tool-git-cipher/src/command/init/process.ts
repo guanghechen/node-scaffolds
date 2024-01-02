@@ -45,7 +45,7 @@ export class GitCipherInit
       maxTargetFileSize:
         context.maxTargetFileSize > Number.MAX_SAFE_INTEGER ? undefined : context.maxTargetFileSize,
       partCodePrefix: context.partCodePrefix,
-      pathHashAlgorithm: context.pathHashAlgorithm,
+      PATH_HASH_ALGORITHM: context.PATH_HASH_ALGORITHM,
       pbkdf2Options: context.pbkdf2Options,
       secretIvSize: context.secretIvSize,
       secretKeySize: context.secretKeySize,

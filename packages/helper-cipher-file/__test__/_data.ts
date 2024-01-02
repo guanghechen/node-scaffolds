@@ -123,4 +123,4 @@ export const cryptFilesDir = 'kirito'
 export const maxTargetFileSize = 1024
 export const partCodePrefix = '.ghc-part'
 export const contentHashAlgorithm: IHashAlgorithm = 'sha256'
-export const pathHashAlgorithm: IHashAlgorithm = 'sha256'
+export const PATH_HASH_ALGORITHM: IHashAlgorithm = 'sha256'

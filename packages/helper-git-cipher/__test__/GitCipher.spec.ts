@@ -42,6 +42,7 @@ import type { IGitCipherContext } from '../src'
 import { GitCipher, GitCipherConfigKeeper, verifyCryptGitCommit } from '../src'
 import type { IBuildRepo1Result } from './_data-repo1'
 import {
+  PATH_HASH_ALGORITHM,
   buildRepo1,
   contentA,
   contentA2,
@@ -63,7 +64,6 @@ import {
   itemTable,
   maxTargetFileSize,
   partCodePrefix,
-  pathHashAlgorithm,
   repo1CryptCommitIdTable,
   repo1CryptCommitMessageTable,
 } from './_data-repo1'
@@ -127,7 +127,7 @@ describe('GitCipher', () => {
         cryptPathResolver,
         maxTargetFileSize,
         partCodePrefix,
-        pathHashAlgorithm,
+        PATH_HASH_ALGORITHM,
         plainPathResolver,
         isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
         calcIvFromBytes: async info => calcMac([...info], 'sha256').slice(0, ivSize),
@@ -146,7 +146,7 @@ describe('GitCipher', () => {
         cryptPathResolver,
         maxTargetFileSize,
         partCodePrefix,
-        pathHashAlgorithm,
+        PATH_HASH_ALGORITHM,
         plainPathResolver: bakPlainPathResolver,
         isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
         calcIvFromBytes: async info => calcMac([...info], 'sha256').slice(0, ivSize),

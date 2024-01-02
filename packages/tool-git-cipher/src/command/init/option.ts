@@ -67,7 +67,7 @@ interface ISubCommandOptions extends IGitCipherSubCommandOption {
    * Hash algorithm for generate MAC for filepath.
    * @default 'sha256'
    */
-  readonly pathHashAlgorithm: IHashAlgorithm
+  readonly PATH_HASH_ALGORITHM: IHashAlgorithm
   /**
    * Options for PBKDF2 algorithm.
    */
@@ -99,7 +99,7 @@ const getDefaultCommandInitOptions = (params: IResolveDefaultOptionsParams): ICo
   mainKeySize: 32,
   maxTargetFileSize: Number.POSITIVE_INFINITY,
   partCodePrefix: '.ghc-part',
-  pathHashAlgorithm: 'sha1',
+  PATH_HASH_ALGORITHM: 'sha1',
   pbkdf2Options: {
     salt: bytes2text(randomBytes(12), 'hex'),
     iterations: 200000,
@@ -203,13 +203,13 @@ export function resolveSubCommandInitOptions(
   )
   reporter.debug('partCodePrefix:', partCodePrefix)
 
-  // Resolve pathHashAlgorithm
-  const pathHashAlgorithm: IHashAlgorithm = cover<IHashAlgorithm>(
-    baseOptions.pathHashAlgorithm,
-    options.pathHashAlgorithm,
+  // Resolve PATH_HASH_ALGORITHM
+  const PATH_HASH_ALGORITHM: IHashAlgorithm = cover<IHashAlgorithm>(
+    baseOptions.PATH_HASH_ALGORITHM,
+    options.PATH_HASH_ALGORITHM,
     isNonBlankString,
   )
-  reporter.debug('pathHashAlgorithm:', pathHashAlgorithm)
+  reporter.debug('PATH_HASH_ALGORITHM:', PATH_HASH_ALGORITHM)
 
   // Resolve pbkdf2Options
   const pbkdf2Options: IPBKDF2Options = {
@@ -255,7 +255,7 @@ export function resolveSubCommandInitOptions(
     mainKeySize,
     maxTargetFileSize,
     partCodePrefix,
-    pathHashAlgorithm,
+    PATH_HASH_ALGORITHM,
     pbkdf2Options,
     secretIvSize,
     secretKeySize,

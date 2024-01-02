@@ -23,6 +23,7 @@ import {
 import path from 'node:path'
 import { FileCipherBatcher, FileCipherCatalog, FileCipherFactory } from '../src'
 import {
+  PATH_HASH_ALGORITHM,
   contentHashAlgorithm,
   contentTable,
   cryptFilesDir,
@@ -32,7 +33,6 @@ import {
   itemTable,
   maxTargetFileSize,
   partCodePrefix,
-  pathHashAlgorithm,
 } from './_data'
 
 describe('FileCipherCatalog', () => {
@@ -60,7 +60,7 @@ describe('FileCipherCatalog', () => {
     maxTargetFileSize,
     partCodePrefix,
     contentHashAlgorithm: contentHashAlgorithm,
-    pathHashAlgorithm: pathHashAlgorithm,
+    PATH_HASH_ALGORITHM: PATH_HASH_ALGORITHM,
     plainPathResolver,
     cryptPathResolver,
     isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',

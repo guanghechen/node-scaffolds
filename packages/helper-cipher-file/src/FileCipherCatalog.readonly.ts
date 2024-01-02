@@ -11,8 +11,7 @@ import type {
 import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/filepart'
 import { isFileSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
-import { stat } from 'node:fs/promises'
-import { calcFingerprintFromFile, calcFingerprintFromString } from './util/fingerprint'
+import { calcFingerprintFromString } from './util/fingerprint'
 
 const clazz = 'ReadonlyFileCipherCatalog'
 
@@ -27,65 +26,63 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
   public abstract readonly items: Iterable<ICatalogItem>
 
   // @override
-  public async calcCatalogItem(plainFilepath: string): Promise<IDraftCatalogItem | never> {
+  public async calcCatalogItem(filepath: string): Promise<IDraftCatalogItem | never> {
     const title = `${clazz}.calcCatalogItem`
     const { context } = this
-    const { contentHashAlgorithm, maxTargetFileSize, partCodePrefix, plainPathResolver } = context
+    const { MAX_CRYPT_FILE_SIZE, PART_CODE_PREFIX } = context
 
-    const absolutePlainPath = plainPathResolver.resolve(plainFilepath)
-    invariant(isFileSync(absolutePlainPath), `[${title}] Not a file ${absolutePlainPath}.`)
+    const plainPath: string = this.normalizePlainPath(filepath)
+    invariant(await context.isPlainPathExist(plainPath), `[${title}] Not a file ${plainPath}.`)
 
-    const { ctimeMs, mtimeMs, size } = await stat(absolutePlainPath)
-    const fingerprint = await calcFingerprintFromFile(absolutePlainPath, contentHashAlgorithm)
-    const relativePlainPath: string = plainPathResolver.relative(absolutePlainPath)
-    const keepIntegrity: boolean = context.isKeepIntegrity(relativePlainPath)
-    const keepPlain: boolean = context.isKeepPlain(relativePlainPath)
+    const stat = await context.statPlainFile(plainPath)
+    invariant(!!stat, `[${title}] Cannot get the stat of a plain path.`)
 
-    const cryptPath: string = this.calcCryptFilepath(relativePlainPath)
+    const { ctime, mtime, size } = stat
+    const fingerprint = await context.calcFingerprint(plainPath)
+    const keepIntegrity: boolean = await context.isKeepIntegrity(plainPath)
+    const keepPlain: boolean = await context.isKeepPlain(plainPath)
+
+    const cryptPath: string = await this.calcCryptFilepath(plainPath)
     const cryptPathParts: string[] = Array.from(
       calcFilePartNames(
-        Array.from(calcFilePartItemsBySize(size, maxTargetFileSize)),
-        partCodePrefix,
+        Array.from(calcFilePartItemsBySize(size, MAX_CRYPT_FILE_SIZE)),
+        PART_CODE_PREFIX,
       ),
     )
 
-    return {
-      plainPath: relativePlainPath,
+    const nonce: Uint8Array = await context.genNonce()
+    const draftItem: IDraftCatalogItem = {
+      plainPath,
       cryptPath,
       cryptPathParts,
       fingerprint,
       keepIntegrity,
       keepPlain,
-      ctime: ctimeMs,
-      mtime: mtimeMs,
+      nonce,
+      ctime,
+      mtime,
       size,
     }
+    return draftItem
   }
 
   // @override
-  public calcCryptFilepath(plainPath: string): string {
+  public async calcCryptFilepath(plainPath: string): Promise<string> {
     const { context } = this
     const { plainPathResolver } = context
     const relativePlainPath = plainPathResolver.relative(plainPath)
-    if (context.isKeepPlain(relativePlainPath)) return relativePlainPath
+    const isPlainFileKeepPlain: boolean = await context.isKeepPlain(relativePlainPath)
+    if (isPlainFileKeepPlain) return relativePlainPath
 
-    const { cryptFilepathSalt, cryptFilesDir, cryptPathResolver, pathHashAlgorithm } = context
-    const plainFilepathKey: string = this.normalizePlainFilepath(relativePlainPath)
+    const { cryptPathSalt, cryptFilesDir, cryptPathResolver, PATH_HASH_ALGORITHM } = context
+    const plainFilepathKey: string = this.normalizePlainPath(relativePlainPath)
     const filepathHash: string = calcFingerprintFromString(
-      cryptFilepathSalt + plainFilepathKey,
+      cryptPathSalt + plainFilepathKey,
       'utf8',
-      pathHashAlgorithm,
+      PATH_HASH_ALGORITHM,
     )
     const cryptPath: string = cryptPathResolver.relative(cryptFilesDir + '/' + filepathHash)
     return cryptPath
-  }
-
-  // @override
-  public async calcIv(
-    item: IDeserializedCatalogItem | IDraftCatalogItem,
-  ): Promise<Uint8Array | undefined> {
-    const { context } = this
-    return context.calcIv(item)
   }
 
   // @override
@@ -156,9 +153,8 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
 
   // @override
   public async flatItem(item: IDeserializedCatalogItem): Promise<ICatalogItem> {
-    const cryptPath: string = this.calcCryptFilepath(item.plainPath)
-    const iv: Uint8Array | undefined = await this.calcIv(item)
-    return { ...item, cryptPath, iv }
+    const cryptPath: string = await this.calcCryptFilepath(item.plainPath)
+    return { ...item, cryptPath }
   }
 
   // @override
@@ -168,22 +164,10 @@ export abstract class ReadonlyFileCipherCatalog implements IReadonlyCipherCatalo
   public abstract has(plainPath: string): boolean
 
   // @override
-  public isKeepIntegrity(relativePlainPath: string): boolean {
-    return this.context.isKeepIntegrity(relativePlainPath)
-  }
-
-  // @override
-  public isKeepPlain(relativePlainPath: string): boolean {
-    return this.context.isKeepPlain(relativePlainPath)
-  }
-
-  // @override
   public abstract monitor(monitor: Partial<ICipherCatalogMonitor>): IUnMonitorCipherCatalog
 
   // @override
-  public normalizePlainFilepath(plainFilepath: string): string {
-    const { context } = this
-    const { plainPathResolver } = context
-    return normalizePlainPath(plainFilepath, plainPathResolver)
+  public normalizePlainPath(plainPath: string): string {
+    return normalizePlainPath(plainPath, this.context.plainPathResolver)
   }
 }

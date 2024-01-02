@@ -42,7 +42,7 @@ export interface ISecretConfig {
   /**
    * Hash algorithm for generate MAC for filepath.
    */
-  readonly pathHashAlgorithm: IHashAlgorithm
+  readonly PATH_HASH_ALGORITHM: IHashAlgorithm
   /**
    * Options for PBKDF2 algorithm.
    */
@@ -118,7 +118,7 @@ export interface ISecretConfigData {
   /**
    * Hash algorithm for generate MAC for filepath.
    */
-  readonly pathHashAlgorithm: IHashAlgorithm
+  readonly PATH_HASH_ALGORITHM: IHashAlgorithm
   /**
    * Options for PBKDF2 algorithm.
    */

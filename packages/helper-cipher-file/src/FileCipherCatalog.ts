@@ -1,5 +1,9 @@
 import type { ICipherCatalogMonitor } from '@guanghechen/cipher-catalog'
-import { CatalogItemChangeType, diffFromCatalogItems } from '@guanghechen/cipher-catalog'
+import {
+  CatalogItemChangeType,
+  diffFromCatalogItems,
+  diffFromPlainFiles,
+} from '@guanghechen/cipher-catalog'
 import type {
   ICatalogDiffItem,
   ICatalogDiffItemCombine,
@@ -62,11 +66,11 @@ export class FileCipherCatalog
     for (const diffItem of diffItems) {
       const { oldItem, newItem } = diffItem as ICatalogDiffItemCombine
       if (oldItem) {
-        const key: string = this.normalizePlainFilepath(oldItem.plainPath)
+        const key: string = this.normalizePlainPath(oldItem.plainPath)
         itemMap.delete(key)
       }
       if (newItem) {
-        const key: string = this.normalizePlainFilepath(newItem.plainPath)
+        const key: string = this.normalizePlainPath(newItem.plainPath)
         itemMap.set(key, {
           plainPath: newItem.plainPath,
           cryptPath: newItem.cryptPath,
@@ -74,7 +78,7 @@ export class FileCipherCatalog
           fingerprint: newItem.fingerprint,
           keepIntegrity: newItem.keepIntegrity,
           keepPlain: newItem.keepPlain,
-          iv: newItem.iv,
+          nonce: newItem.nonce,
           authTag: newItem.authTag,
           ctime: newItem.ctime,
           mtime: newItem.mtime,
@@ -111,13 +115,13 @@ export class FileCipherCatalog
 
   // @override
   public override get(plainPath: string): ICatalogItem | undefined {
-    const key: string = this.normalizePlainFilepath(plainPath)
+    const key: string = this.normalizePlainPath(plainPath)
     return this.#itemMap.get(key)
   }
 
   // @override
   public override has(plainPath: string): boolean {
-    const key: string = this.normalizePlainFilepath(plainPath)
+    const key: string = this.normalizePlainPath(plainPath)
     return this.#itemMap.has(key)
   }
 
@@ -136,7 +140,7 @@ export class FileCipherCatalog
     itemMap.clear()
     if (items) {
       for (const item of items) {
-        const key: string = this.normalizePlainFilepath(item.plainPath)
+        const key: string = this.normalizePlainPath(item.plainPath)
         itemMap.set(key, item)
       }
     }

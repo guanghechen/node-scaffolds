@@ -66,7 +66,7 @@ export class SecretConfigKeeper
         keepPlainPatterns,
         maxTargetFileSize = Number.POSITIVE_INFINITY,
         partCodePrefix,
-        pathHashAlgorithm,
+        PATH_HASH_ALGORITHM,
       } = this.data
       const catalogContext = new CipherCatalogContext({
         contentHashAlgorithm,
@@ -74,7 +74,7 @@ export class SecretConfigKeeper
         cryptFilesDir,
         maxTargetFileSize,
         partCodePrefix,
-        pathHashAlgorithm,
+        PATH_HASH_ALGORITHM,
         plainPathResolver,
         cryptPathResolver,
         isKeepPlain:
@@ -121,7 +121,7 @@ export class SecretConfigKeeper
           ? undefined
           : instance.maxTargetFileSize,
       partCodePrefix: instance.partCodePrefix,
-      pathHashAlgorithm: instance.pathHashAlgorithm,
+      PATH_HASH_ALGORITHM: instance.PATH_HASH_ALGORITHM,
       pbkdf2Options: instance.pbkdf2Options,
       secret,
       secretAuthTag,
@@ -163,7 +163,7 @@ export class SecretConfigKeeper
           ? Number.POSITIVE_INFINITY
           : data.maxTargetFileSize,
       partCodePrefix: data.partCodePrefix,
-      pathHashAlgorithm: data.pathHashAlgorithm,
+      PATH_HASH_ALGORITHM: data.PATH_HASH_ALGORITHM,
       pbkdf2Options: data.pbkdf2Options,
       secret,
       secretAuthTag,

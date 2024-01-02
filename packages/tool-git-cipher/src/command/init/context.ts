@@ -63,7 +63,7 @@ export interface IGitCipherInitContext extends IGitCipherSubCommandContext {
   /**
    * Hash algorithm for generate MAC for filepath.
    */
-  readonly pathHashAlgorithm: IHashAlgorithm
+  readonly PATH_HASH_ALGORITHM: IHashAlgorithm
   /**
    * Options for PBKDF2 algorithm.
    */
@@ -117,7 +117,7 @@ export async function createInitContextFromOptions(
     minPasswordLength: options.minPasswordLength,
     maxTargetFileSize: options.maxTargetFileSize ?? Number.POSITIVE_INFINITY,
     partCodePrefix: options.partCodePrefix,
-    pathHashAlgorithm: options.pathHashAlgorithm,
+    PATH_HASH_ALGORITHM: options.PATH_HASH_ALGORITHM,
     pbkdf2Options: options.pbkdf2Options,
     plainPathResolver,
     secretFilepath: options.secretFilepath,
