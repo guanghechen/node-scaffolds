@@ -529,14 +529,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher-catalog.types@npm:^1.0.0-alpha.19":
-  version: 1.0.0-alpha.19
-  resolution: "@guanghechen/cipher-catalog.types@npm:1.0.0-alpha.19"
+"@guanghechen/cipher-catalog.types@^1.0.0-alpha.19, @guanghechen/cipher-catalog.types@workspace:packages/cipher-catalog.types":
+  version: 0.0.0-use.local
+  resolution: "@guanghechen/cipher-catalog.types@workspace:packages/cipher-catalog.types"
   dependencies:
     "@guanghechen/path.types": ^1.0.0-alpha.11
-  checksum: 4f9ced8d84158efc66c0121f615209efdbc4267c88a1f1db9dc46b271ac8cdad526b1ab87e695a6ae49ad8f385f90983a3eb8fd6aeb3067af46ae8788a2626ea
-  languageName: node
-  linkType: hard
+  languageName: unknown
+  linkType: soft
 
 "@guanghechen/cipher-catalog@npm:^1.0.0-alpha.21":
   version: 1.0.0-alpha.21
