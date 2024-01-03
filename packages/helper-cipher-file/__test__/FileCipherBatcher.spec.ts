@@ -34,10 +34,10 @@ import {
   calcFingerprintFromMac,
 } from '../src'
 import {
+  CRYPT_FILES_DIR,
   PATH_HASH_ALGORITHM,
   contentHashAlgorithm,
   contentTable,
-  cryptFilesDir,
   diffItemsTable,
   encoding,
   itemTable,
@@ -119,7 +119,7 @@ describe('FileCipherBatcher', () => {
     {
       // Initialize catalog.
       const catalogContext: ICipherCatalogContext = {
-        cryptFilesDir,
+        CRYPT_FILES_DIR,
         cryptFilepathSalt: 'guanghechen',
         maxTargetFileSize,
         partCodePrefix,
@@ -137,7 +137,7 @@ describe('FileCipherBatcher', () => {
     {
       // Initialize bak catalog.
       const bakCatalogContext: ICipherCatalogContext = {
-        cryptFilesDir,
+        CRYPT_FILES_DIR,
         cryptFilepathSalt: 'guanghechen',
         maxTargetFileSize,
         partCodePrefix,

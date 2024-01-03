@@ -139,7 +139,7 @@ export const diffItemsTable = {
   ],
 }
 
-export const cryptFilesDir = 'asuna'
+export const CRYPT_FILES_DIR = 'asuna'
 export const maxTargetFileSize = 1024
 export const partCodePrefix = '.ghc-part'
 export const contentHashAlgorithm: IHashAlgorithm = 'sha256'

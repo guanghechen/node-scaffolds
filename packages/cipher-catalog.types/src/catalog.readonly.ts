@@ -1,7 +1,12 @@
 import type { ICipherCatalogContext } from './context'
+import type { ICatalogDiffItem, IDraftCatalogDiffItem } from './diff-item'
 import type { ICatalogItem, IDeserializedCatalogItem, IDraftCatalogItem } from './item'
-import type { ICipherCatalogMonitor, IUnMonitorCipherCatalog } from './monitor'
 
+/**
+ * !!! All plainPath and cryptPath should be relative path and use '/' as path separator.
+ * The plainPath should be a relative path based on the plain folder.
+ * The cryptPath should be a relative path based on the crypt folder.
+ */
 export interface IReadonlyCipherCatalog {
   /**
    * Get current catalog context.
@@ -23,19 +28,41 @@ export interface IReadonlyCipherCatalog {
    * Calc crypt filepath.
    * @param plainPath
    */
-  calcCryptFilepath(plainPath: string): Promise<string>
+  calcCryptPath(plainPath: string): Promise<string>
 
   /**
    * Check crypt files for corruption.
-   * @param cryptPaths
+   * @param allCryptPaths
+   * @param returnImmediatelyOnError
    */
-  checkCryptIntegrity(cryptPaths: string[]): Promise<void | never>
+  checkCryptIntegrity(
+    allCryptPaths: ReadonlySet<string>,
+    returnImmediatelyOnError: boolean,
+  ): Promise<string[]>
 
   /**
-   * Check plain files for corruption.
-   * @param plainPaths
+   * Check if any plain files are corrupted.
+   * @param allPlainPaths
+   * @param returnImmediatelyOnError
    */
-  checkPlainIntegrity(plainPaths: string[]): Promise<void | never>
+  checkPlainIntegrity(
+    allPlainPaths: ReadonlySet<string>,
+    returnImmediatelyOnError: boolean,
+  ): Promise<string[]>
+
+  /**
+   * Calculate diff items with the new catalog items.
+   * @param newItems
+   */
+  diffFromCatalogItems(newItems: Iterable<ICatalogItem>): ICatalogDiffItem[]
+
+  /**
+   * Calculate diff items.
+   * @param plainPaths
+   * @param strickCheck     Wether if to check some edge cases that shouldn't affect the final result,
+   *                        just for higher integrity check.
+   */
+  diffFromPlainFiles(plainPaths: string[], strickCheck: boolean): Promise<IDraftCatalogDiffItem[]>
 
   /**
    * Find a catalog item which matched the given filter.
@@ -60,10 +87,4 @@ export interface IReadonlyCipherCatalog {
    * @param plainPath
    */
   has(plainPath: string): boolean
-
-  /**
-   * Monitor the catalog change.
-   * @param monitor
-   */
-  monitor(monitor: Partial<ICipherCatalogMonitor>): IUnMonitorCipherCatalog
 }

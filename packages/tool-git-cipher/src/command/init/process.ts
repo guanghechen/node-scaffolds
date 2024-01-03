@@ -38,7 +38,7 @@ export class GitCipherInit
       catalogFilepath: context.catalogFilepath,
       contentHashAlgorithm: context.contentHashAlgorithm,
       cryptFilepathSalt: context.cryptFilepathSalt,
-      cryptFilesDir: context.cryptFilesDir,
+      CRYPT_FILES_DIR: context.CRYPT_FILES_DIR,
       keepPlainPatterns: context.keepPlainPatterns,
       mainIvSize: context.mainIvSize,
       mainKeySize: context.mainKeySize,
@@ -97,7 +97,7 @@ export class GitCipherInit
     if (shouldGenerateSecret) {
       const {
         cryptFilepathSalt,
-        cryptFilesDir,
+        CRYPT_FILES_DIR,
         mainIvSize,
         mainKeySize,
         maxTargetFileSize,
@@ -164,9 +164,9 @@ export class GitCipherInit
         },
         {
           type: 'string',
-          name: 'cryptFilesDir',
-          default: context.cryptFilesDir,
-          message: 'cryptFilesDir',
+          name: 'CRYPT_FILES_DIR',
+          default: context.CRYPT_FILES_DIR,
+          message: 'CRYPT_FILES_DIR',
           filter: x => x.trim(),
           transformer: (x: string) => x.trim(),
         },
@@ -182,7 +182,7 @@ export class GitCipherInit
       await this._createSecret({
         ...presetSecretData,
         cryptFilepathSalt,
-        cryptFilesDir,
+        CRYPT_FILES_DIR,
         mainIvSize,
         mainKeySize,
         maxTargetFileSize,
@@ -247,7 +247,11 @@ export class GitCipherInit
       configFilepath: data.configFilepath,
       configNonce: bytes2text(randomBytes(20), 'hex'),
       cryptFilepathSalt: context.cryptFilepathSalt,
-      cryptFilesDir: pathResolver.safeRelative(cryptPathResolver.root, context.cryptFilesDir, true),
+      CRYPT_FILES_DIR: pathResolver.safeRelative(
+        cryptPathResolver.root,
+        context.CRYPT_FILES_DIR,
+        true,
+      ),
       cryptRootDir: pathResolver.safeRelative(context.workspace, cryptPathResolver.root, true),
       encoding: context.encoding,
       logLevel: reporter.level,

@@ -17,7 +17,7 @@ export interface ISecretConfig {
   /**
    * The path of not-plain files located. (relative of cryptRootDir)
    */
-  readonly cryptFilesDir: string
+  readonly CRYPT_FILES_DIR: string
   /**
    * Glob patterns indicated which files should be keepPlain.
    */
@@ -93,7 +93,7 @@ export interface ISecretConfigData {
   /**
    * The path of not-plain files located. (relative of cryptRootDir)
    */
-  readonly cryptFilesDir: string
+  readonly CRYPT_FILES_DIR: string
   /**
    * Glob patterns indicated which files should be keepPlain.
    */

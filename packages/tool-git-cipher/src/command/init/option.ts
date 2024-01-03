@@ -33,7 +33,7 @@ interface ISubCommandOptions extends IGitCipherSubCommandOption {
    * The path of not-plain files located. (relative of cryptRootDir)
    * @default 'encrypted'
    */
-  readonly cryptFilesDir: string
+  readonly CRYPT_FILES_DIR: string
   /**
    * Set the git config 'commit.gpgSign'.
    */
@@ -92,7 +92,7 @@ const getDefaultCommandInitOptions = (params: IResolveDefaultOptionsParams): ICo
   catalogFilepath: '.ghc-catalog',
   contentHashAlgorithm: 'sha1',
   cryptFilepathSalt: bytes2text(randomBytes(8), 'hex'),
-  cryptFilesDir: 'encrypted',
+  CRYPT_FILES_DIR: 'encrypted',
   gitGpgSign: false,
   keepPlainPatterns: ['.ghc-config.json', '.ghc-secret.json'],
   mainIvSize: 12,
@@ -149,13 +149,13 @@ export function resolveSubCommandInitOptions(
   )
   reporter.debug('cryptFilepathSalt:', cryptFilepathSalt)
 
-  // Resolve cryptFilesDir
-  const cryptFilesDir: string = cover<string>(
-    baseOptions.cryptFilesDir,
-    options.cryptFilesDir,
+  // Resolve CRYPT_FILES_DIR
+  const CRYPT_FILES_DIR: string = cover<string>(
+    baseOptions.CRYPT_FILES_DIR,
+    options.CRYPT_FILES_DIR,
     isNonBlankString,
   )
-  reporter.debug('cryptFilesDir:', cryptFilesDir)
+  reporter.debug('CRYPT_FILES_DIR:', CRYPT_FILES_DIR)
 
   // Resolve gitGpgSign
   const gitGpgSign: boolean | undefined = cover<boolean | undefined>(
@@ -248,7 +248,7 @@ export function resolveSubCommandInitOptions(
     catalogFilepath,
     contentHashAlgorithm,
     cryptFilepathSalt,
-    cryptFilesDir,
+    CRYPT_FILES_DIR,
     gitGpgSign,
     keepPlainPatterns,
     mainIvSize,

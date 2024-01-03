@@ -1,7 +1,8 @@
 import type { IBatchDisposable } from '@guanghechen/disposable.types'
 import type { IReadonlyCipherCatalog } from './catalog.readonly'
-import type { ICatalogDiffItem, IDraftCatalogDiffItem } from './diff-item'
+import type { ICatalogDiffItem } from './diff-item'
 import type { ICatalogItem } from './item'
+import type { ICipherCatalogMonitor, IUnMonitorCipherCatalog } from './monitor'
 
 export interface ICipherCatalog extends IReadonlyCipherCatalog, IBatchDisposable {
   /**
@@ -10,18 +11,10 @@ export interface ICipherCatalog extends IReadonlyCipherCatalog, IBatchDisposable
   applyDiff(diffItems: ReadonlyArray<ICatalogDiffItem>): void
 
   /**
-   * Calculate diff items with the new catalog items.
-   * @param newItems
+   * Monitor the catalog change.
+   * @param monitor
    */
-  diffFromCatalogItems(newItems: Iterable<ICatalogItem>): ICatalogDiffItem[]
-
-  /**
-   * Calculate diff items.
-   * @param plainPaths
-   * @param strickCheck     Wether if to check some edge cases that shouldn't affect the final result,
-   *                        just for higher integrity check.
-   */
-  diffFromPlainFiles(plainPaths: string[], strickCheck: boolean): Promise<IDraftCatalogDiffItem[]>
+  monitor(monitor: Partial<ICipherCatalogMonitor>): IUnMonitorCipherCatalog
 
   /**
    * Clear the catalog items and init with the new given items.

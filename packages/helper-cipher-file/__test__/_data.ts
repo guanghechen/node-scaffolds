@@ -119,7 +119,7 @@ export const contentTable: Record<ISymbol, string> = {
 }
 
 export const encoding: BufferEncoding = 'utf8'
-export const cryptFilesDir = 'kirito'
+export const CRYPT_FILES_DIR = 'kirito'
 export const maxTargetFileSize = 1024
 export const partCodePrefix = '.ghc-part'
 export const contentHashAlgorithm: IHashAlgorithm = 'sha256'

@@ -42,6 +42,7 @@ import type { IGitCipherContext } from '../src'
 import { GitCipher, GitCipherConfigKeeper, verifyCryptGitCommit } from '../src'
 import type { IBuildRepo1Result } from './_data-repo1'
 import {
+  CRYPT_FILES_DIR,
   PATH_HASH_ALGORITHM,
   buildRepo1,
   contentA,
@@ -53,7 +54,6 @@ import {
   contentC3,
   contentD,
   contentHashAlgorithm,
-  cryptFilesDir,
   diffItemsTable,
   encoding,
   fpA,
@@ -122,7 +122,7 @@ describe('GitCipher', () => {
       // build gitCipher
       const catalogContext: ICipherCatalogContext = new CipherCatalogContext({
         contentHashAlgorithm,
-        cryptFilesDir,
+        CRYPT_FILES_DIR,
         cryptFilepathSalt: 'guanghechen_git_cipher',
         cryptPathResolver,
         maxTargetFileSize,
@@ -141,7 +141,7 @@ describe('GitCipher', () => {
       // build bakGitCipher
       const catalogContext: ICipherCatalogContext = new CipherCatalogContext({
         contentHashAlgorithm,
-        cryptFilesDir,
+        CRYPT_FILES_DIR,
         cryptFilepathSalt: 'guanghechen_git_cipher',
         cryptPathResolver,
         maxTargetFileSize,
@@ -171,7 +171,7 @@ describe('GitCipher', () => {
         const iv: Uint8Array | undefined = await context.catalog.calcIv(item)
         return {
           ...item,
-          cryptFilepath: context.catalog.calcCryptFilepath(item.plainFilepath),
+          cryptFilepath: context.catalog.calcCryptPath(item.plainFilepath),
           iv: bytes2text(iv!, 'hex'),
           authTag: item.authTag ? bytes2text(item.authTag, 'hex') : undefined,
         }

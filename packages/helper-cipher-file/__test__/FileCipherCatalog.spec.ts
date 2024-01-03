@@ -23,10 +23,10 @@ import {
 import path from 'node:path'
 import { FileCipherBatcher, FileCipherCatalog, FileCipherFactory } from '../src'
 import {
+  CRYPT_FILES_DIR,
   PATH_HASH_ALGORITHM,
   contentHashAlgorithm,
   contentTable,
-  cryptFilesDir,
   diffItemsTable,
   encoding,
   itemDraftTable,
@@ -55,7 +55,7 @@ describe('FileCipherCatalog', () => {
   const contentD: string = contentTable.D
 
   const catalogContext: ICipherCatalogContext = {
-    cryptFilesDir,
+    CRYPT_FILES_DIR,
     cryptFilepathSalt: 'guanghechen',
     maxTargetFileSize,
     partCodePrefix,
@@ -140,10 +140,10 @@ describe('FileCipherCatalog', () => {
   })
 
   test('calcCryptFilepath', async () => {
-    expect(catalog.calcCryptFilepath(filepathA)).toEqual(itemDraftTable.A.cryptFilepath)
-    expect(catalog.calcCryptFilepath(filepathB)).toEqual(itemDraftTable.B.cryptFilepath)
-    expect(catalog.calcCryptFilepath(filepathC)).toEqual(itemDraftTable.C.cryptFilepath)
-    expect(catalog.calcCryptFilepath(filepathD)).toEqual(itemDraftTable.D.cryptFilepath)
+    expect(catalog.calcCryptPath(filepathA)).toEqual(itemDraftTable.A.cryptFilepath)
+    expect(catalog.calcCryptPath(filepathB)).toEqual(itemDraftTable.B.cryptFilepath)
+    expect(catalog.calcCryptPath(filepathC)).toEqual(itemDraftTable.C.cryptFilepath)
+    expect(catalog.calcCryptPath(filepathD)).toEqual(itemDraftTable.D.cryptFilepath)
   })
 
   describe('checkIntegrity', () => {

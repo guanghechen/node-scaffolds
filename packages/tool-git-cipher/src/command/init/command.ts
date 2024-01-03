@@ -37,7 +37,7 @@ export class GitCipherSubCommandInit extends GitCipherSubCommand<O, C> implement
         'Salt for generate encrypted file path. (utf8 string)',
       )
       .option(
-        '--crypt-files-dir, --cryptFilesDir <cryptFilesDir>',
+        '--crypt-files-dir, --CRYPT_FILES_DIR <CRYPT_FILES_DIR>',
         'The path of not-plain files located. (relative of cryptRootDir)',
       )
       .option('--git-gpg-sign', `Config git commit.gpgSign to 'true'.`)

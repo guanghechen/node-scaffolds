@@ -652,7 +652,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Performance Improvements
 
 * 🔖 publish v4.4.1 ([332c5ff](https://github.com/guanghechen/node-scaffolds/commit/332c5ff77ef74b08a5349e80c64cc35a7ea1bbed))
-* 🎨 ask to input 'cryptFilesDir' in init ux ([ec2a86f](https://github.com/guanghechen/node-scaffolds/commit/ec2a86f7f8c29ce2f07e71205159a21f3ba2907f))
+* 🎨 ask to input 'CRYPT_FILES_DIR' in init ux ([ec2a86f](https://github.com/guanghechen/node-scaffolds/commit/ec2a86f7f8c29ce2f07e71205159a21f3ba2907f))
 * 🍱 fix boilerplates ([0971c05](https://github.com/guanghechen/node-scaffolds/commit/0971c05ecd1cb456e290df79c2c5d69c8c7c068f))
 
 
@@ -708,7 +708,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* 🐛 incorrect cryptFilesDir ([4a01c41](https://github.com/guanghechen/node-scaffolds/commit/4a01c41fbee432504a0d631deecbe60a93ff1ecb))
+* 🐛 incorrect CRYPT_FILES_DIR ([4a01c41](https://github.com/guanghechen/node-scaffolds/commit/4a01c41fbee432504a0d631deecbe60a93ff1ecb))
 
 
 ### Performance Improvements

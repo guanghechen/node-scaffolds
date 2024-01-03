@@ -72,9 +72,7 @@ export class GitCipherCat
     const item = configKeeper.data?.catalog.items.find(item => item.plainFilepath === plainFilepath)
     invariant(!!item, `[${title}] Cannot find plainFilepath ${context.plainFilepath}.`)
 
-    const cryptFilepath: string = catalog.calcCryptFilepath(
-      plainPathResolver.relative(plainFilepath),
-    )
+    const cryptFilepath: string = catalog.calcCryptPath(plainPathResolver.relative(plainFilepath))
     const cryptFilepaths: string[] = calcCryptFilepathsWithParts(
       cryptPathResolver.resolve(cryptFilepath),
       item.cryptFilepathParts,

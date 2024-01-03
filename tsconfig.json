@@ -4,6 +4,8 @@
     "baseUrl": ".",
     "outDir": "lib",
     "paths": {
+      "@guanghechen/internal": ["packages/_internal/src"],
+      "@guanghechen/cipher-catalog": ["packages/cipher-catalog/src"],
       "@guanghechen/cipher-catalog.types": ["packages/cipher-catalog.types/src"],
       "@guanghechen/event-bus": ["packages/event-bus/src"],
       "@guanghechen/helper-cipher-file": ["packages/helper-cipher-file/src"],

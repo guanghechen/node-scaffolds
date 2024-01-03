@@ -1,21 +1,6 @@
+import type { ICipherCatalogStat } from './stat'
+
 export type IHashAlgorithm = 'md5' | 'sha1' | 'sha256' | 'sha512'
-
-export interface ICipherCatalogStat {
-  /**
-   * File create time.
-   */
-  ctime: number
-
-  /**
-   * File modify time.
-   */
-  mtime: number
-
-  /**
-   * File size.
-   */
-  size: number
-}
 
 /**
  * !!! All plainPath and cryptPath should be relative path and use '/' as path separator.
@@ -32,18 +17,18 @@ export interface ICipherCatalogContext {
   readonly PATH_HASH_ALGORITHM: IHashAlgorithm
 
   /**
-   * Calculate fingerprint for the given plain file.
-   * @param plainPath
-   */
-  calcFingerprint(plainPath: string): Promise<string>
-
-  /**
    * Generate a nonce with the given size.
    */
   genNonce(): Promise<Uint8Array>
 
   /**
-   * Check if the given cryptPath exist.
+   * Calculate fingerprint for the given plain file.
+   * @param plainPath
+   */
+  hashPlainFile(plainPath: string): Promise<string>
+
+  /**
+   * Check if the given cryptPath (or file part) exist.
    * @param cryptPath
    */
   isCryptPathExist(cryptPath: string): Promise<boolean>
@@ -67,14 +52,26 @@ export interface ICipherCatalogContext {
   isPlainPathExist(plainPath: string): Promise<boolean>
 
   /**
+   * Normalize the given path to get a stable crypt path across platforms.
+   * @param filepath
+   */
+  normalizeCryptPath(filepath: string): string | never
+
+  /**
+   * Normalize the given path to get a stable plain path across platforms.
+   * @param filepath
+   */
+  normalizePlainPath(filepath: string): string | never
+
+  /**
    * Get the plain file stat.
    * @param plainPath
    */
   statPlainFile(plainPath: string): Promise<ICipherCatalogStat | undefined>
 
   /**
-   * Normalize the given relative path to get a stable string across platforms.
-   * @param relativePath
+   * Get the crypt file stat.
+   * @param cryptPath
    */
-  verifyAndNormalizePath(relativePath: string): string | never
+  statCryptFile(cryptPath: string): Promise<ICipherCatalogStat | undefined>
 }

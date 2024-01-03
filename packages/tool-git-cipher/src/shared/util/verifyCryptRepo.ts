@@ -52,7 +52,7 @@ export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<v
     catalogFilepath,
     contentHashAlgorithm,
     cryptFilepathSalt,
-    cryptFilesDir,
+    CRYPT_FILES_DIR,
     keepPlainPatterns,
     maxTargetFileSize = Number.POSITIVE_INFINITY,
     partCodePrefix,
@@ -71,7 +71,7 @@ export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<v
   const catalogContext = new CipherCatalogContext({
     contentHashAlgorithm,
     cryptFilepathSalt,
-    cryptFilesDir,
+    CRYPT_FILES_DIR,
     maxTargetFileSize,
     partCodePrefix,
     PATH_HASH_ALGORITHM,

@@ -107,7 +107,7 @@
         "catalogFilepath": "ghc-crypt/.ghc-catalog",
         "cryptRootDir": "ghc-crypt",
         "encoding": "utf8",
-        "cryptFilesDir": "encrypted",
+        "CRYPT_FILES_DIR": "encrypted",
         "cryptFilepathSalt": "",
         "keepPlainPatterns": [
           ".gitignore",

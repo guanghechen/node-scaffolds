@@ -506,7 +506,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/byte@npm:^1.0.0-alpha.5":
+"@guanghechen/byte@npm:^1.0.0-alpha.0, @guanghechen/byte@npm:^1.0.0-alpha.5":
   version: 1.0.0-alpha.5
   resolution: "@guanghechen/byte@npm:1.0.0-alpha.5"
   checksum: e175eec3e5424605b5ad7d5f2c5d8e7bee0efa48dbc0e12e43b2dbb0425af72624cf9db94436c676eac6ce7a3e20f1f2a509fc705f47020f3cdb5a0482948e57
@@ -537,15 +537,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/cipher-catalog@npm:^1.0.0-alpha.21":
-  version: 1.0.0-alpha.21
-  resolution: "@guanghechen/cipher-catalog@npm:1.0.0-alpha.21"
+"@guanghechen/cipher-catalog@^1.0.0-alpha.21, @guanghechen/cipher-catalog@workspace:packages/cipher-catalog":
+  version: 0.0.0-use.local
+  resolution: "@guanghechen/cipher-catalog@workspace:packages/cipher-catalog"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.5
     "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.19
-  checksum: 89db5d096baebbb0ce6622e615866478ab032ef3173491fed5b61999bde7bb35c2a46d588e3d61a8ab751d3e70216b1eaa6e6a441be4747d1259f4326885d6b5
-  languageName: node
-  linkType: hard
+    "@guanghechen/disposable": ^1.0.0-alpha.1
+    "@guanghechen/filepart": ^1.0.0-alpha.2
+    "@guanghechen/internal": ^1.0.0-alpha.0
+    "@guanghechen/mac": ^1.0.0-alpha.4
+    "@guanghechen/monitor": ^1.0.0-alpha.25
+  languageName: unknown
+  linkType: soft
 
 "@guanghechen/cipher.types@npm:^1.0.0-alpha.10":
   version: 1.0.0-alpha.10
@@ -845,6 +849,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@guanghechen/internal@^1.0.0-alpha.0, @guanghechen/internal@workspace:packages/_internal":
+  version: 0.0.0-use.local
+  resolution: "@guanghechen/internal@workspace:packages/_internal"
+  dependencies:
+    "@guanghechen/byte": ^1.0.0-alpha.0
+    "@guanghechen/reporter.types": ^1.0.0-alpha.0
+    "@guanghechen/subscribe.types": ^1.0.0-alpha.0
+  languageName: unknown
+  linkType: soft
+
 "@guanghechen/invariant@^6.0.0-alpha.1, @guanghechen/invariant@workspace:packages/invariant":
   version: 0.0.0-use.local
   resolution: "@guanghechen/invariant@workspace:packages/invariant"
@@ -959,7 +973,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/reporter.types@npm:^1.0.0-alpha.9":
+"@guanghechen/reporter.types@npm:^1.0.0-alpha.0, @guanghechen/reporter.types@npm:^1.0.0-alpha.9":
   version: 1.0.0-alpha.9
   resolution: "@guanghechen/reporter.types@npm:1.0.0-alpha.9"
   checksum: 170c3c92eac5ab0d4579433c51889ca1a11a2be047e68bdd783d678dbf8c0cb195174a8c92d15598573ebeea1ea9745bc9da6dcf33d854d96cb80df00b3e9f7a
@@ -1069,7 +1083,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/subscribe.types@npm:^1.0.0-alpha.1":
+"@guanghechen/subscribe.types@npm:^1.0.0-alpha.0, @guanghechen/subscribe.types@npm:^1.0.0-alpha.1":
   version: 1.0.0-alpha.1
   resolution: "@guanghechen/subscribe.types@npm:1.0.0-alpha.1"
   checksum: 2dac930dfa01b7479a439b1d61ed10ef6389fb4b2a2979485b7fab911db28f8a76ac18bcb4eb5de24183d5859267a80f881095abd6257018f42cefd64cbbee1e

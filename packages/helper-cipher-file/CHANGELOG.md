@@ -594,7 +594,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* 🐛 ensure the cryptFilesDir is a relative path ([7cd341e](https://github.com/guanghechen/node-scaffolds/commit/7cd341e2dd74eece83cba0e3a53a434f9189d367))
+* 🐛 ensure the CRYPT_FILES_DIR is a relative path ([7cd341e](https://github.com/guanghechen/node-scaffolds/commit/7cd341e2dd74eece83cba0e3a53a434f9189d367))
 
 
 ### Performance Improvements

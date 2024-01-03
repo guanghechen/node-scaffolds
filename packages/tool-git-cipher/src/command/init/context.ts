@@ -25,7 +25,7 @@ export interface IGitCipherInitContext extends IGitCipherSubCommandContext {
   /**
    * The path of not-plain files located. (relative of cryptRootDir)
    */
-  readonly cryptFilesDir: string
+  readonly CRYPT_FILES_DIR: string
   /**
    * Crypt workspace path resolver.
    */
@@ -105,7 +105,7 @@ export async function createInitContextFromOptions(
     configFilepaths: options.configPath ?? [],
     contentHashAlgorithm: options.contentHashAlgorithm,
     cryptFilepathSalt: options.cryptFilepathSalt,
-    cryptFilesDir: options.cryptFilesDir,
+    CRYPT_FILES_DIR: options.CRYPT_FILES_DIR,
     cryptPathResolver,
     encoding: options.encoding,
     gitGpgSign: options.gitGpgSign,

@@ -1,29 +1,22 @@
-import type { ICipherCatalogMonitor } from '@guanghechen/cipher-catalog'
-import {
-  CatalogItemChangeType,
-  diffFromCatalogItems,
-  diffFromPlainFiles,
-} from '@guanghechen/cipher-catalog'
+import { CatalogItemChangeType } from '@guanghechen/cipher-catalog.types'
 import type {
   ICatalogDiffItem,
   ICatalogDiffItemCombine,
   ICatalogItem,
   ICipherCatalog,
   ICipherCatalogContext,
-  IDraftCatalogDiffItem,
+  ICipherCatalogMonitor,
   IUnMonitorCipherCatalog,
 } from '@guanghechen/cipher-catalog.types'
 import { BatchDisposable, Disposable } from '@guanghechen/disposable'
 import type { IBatchDisposable, IDisposable } from '@guanghechen/disposable'
-import { type IMonitor, Monitor } from '@guanghechen/monitor'
-import { ReadonlyFileCipherCatalog } from './FileCipherCatalog.readonly'
+import type { IMonitor } from '@guanghechen/monitor'
+import { Monitor } from '@guanghechen/monitor'
+import { ReadonlyCipherCatalog } from './catalog.readonly'
 
 type IParametersOfOnItemChanged = Parameters<ICipherCatalogMonitor['onItemChanged']>
 
-export class FileCipherCatalog
-  extends ReadonlyFileCipherCatalog
-  implements ICipherCatalog, IBatchDisposable
-{
+export class CipherCatalog extends ReadonlyCipherCatalog implements ICipherCatalog {
   readonly #itemMap: Map<string, ICatalogItem>
   protected readonly _batchDisposable: IBatchDisposable
   protected readonly _monitorItemChanged: IMonitor<IParametersOfOnItemChanged>
@@ -41,6 +34,10 @@ export class FileCipherCatalog
     this._monitorItemChanged = monitorItemChanged
   }
 
+  protected override get itemMap(): ReadonlyMap<string, ICatalogItem> {
+    return this.#itemMap
+  }
+
   // @override
   public get disposed(): boolean {
     return this._batchDisposable.disposed
@@ -56,22 +53,15 @@ export class FileCipherCatalog
   }
 
   // @override
-  public override get items(): Iterable<ICatalogItem> {
-    return this.#itemMap.values()
-  }
-
-  // @override
   public applyDiff(diffItems: ReadonlyArray<ICatalogDiffItem>): void {
     const itemMap = this.#itemMap
     for (const diffItem of diffItems) {
       const { oldItem, newItem } = diffItem as ICatalogDiffItemCombine
       if (oldItem) {
-        const key: string = this.normalizePlainPath(oldItem.plainPath)
-        itemMap.delete(key)
+        itemMap.delete(oldItem.plainPath)
       }
       if (newItem) {
-        const key: string = this.normalizePlainPath(newItem.plainPath)
-        itemMap.set(key, {
+        itemMap.set(newItem.plainPath, {
           plainPath: newItem.plainPath,
           cryptPath: newItem.cryptPath,
           cryptPathParts: newItem.cryptPathParts,
@@ -86,52 +76,14 @@ export class FileCipherCatalog
         })
       }
     }
-    this._monitorItemChanged.notify({
-      type: CatalogItemChangeType.APPLY_DIFF,
-      diffItems,
-    })
+    this._monitorItemChanged.notify({ type: CatalogItemChangeType.APPLY_DIFF, diffItems })
   }
 
   // @override
-  public diffFromCatalogItems(newItems: Iterable<ICatalogItem>): ICatalogDiffItem[] {
-    return diffFromCatalogItems(this.#itemMap, newItems)
-  }
-
-  // @override
-  public diffFromPlainFiles(
-    plainFilepaths: string[],
-    strickCheck: boolean,
-  ): Promise<IDraftCatalogDiffItem[]> {
-    return diffFromPlainFiles(this, this.#itemMap, plainFilepaths, strickCheck)
-  }
-
-  // @override
-  public override find(filter: (item: ICatalogItem) => boolean): ICatalogItem | undefined {
-    for (const item of this.#itemMap.values()) {
-      if (filter(item)) return item
-    }
-    return undefined
-  }
-
-  // @override
-  public override get(plainPath: string): ICatalogItem | undefined {
-    const key: string = this.normalizePlainPath(plainPath)
-    return this.#itemMap.get(key)
-  }
-
-  // @override
-  public override has(plainPath: string): boolean {
-    const key: string = this.normalizePlainPath(plainPath)
-    return this.#itemMap.has(key)
-  }
-
-  // @override
-  public override monitor(monitor: Partial<ICipherCatalogMonitor>): IUnMonitorCipherCatalog {
+  public monitor(monitor: Partial<ICipherCatalogMonitor>): IUnMonitorCipherCatalog {
     const { onItemChanged } = monitor
     const unsubscribeOnItemChanged = this._monitorItemChanged.subscribe(onItemChanged)
-    return (): void => {
-      unsubscribeOnItemChanged()
-    }
+    return unsubscribeOnItemChanged
   }
 
   // @override
@@ -139,10 +91,7 @@ export class FileCipherCatalog
     const itemMap = this.#itemMap
     itemMap.clear()
     if (items) {
-      for (const item of items) {
-        const key: string = this.normalizePlainPath(item.plainPath)
-        itemMap.set(key, item)
-      }
+      for (const item of items) itemMap.set(item.plainPath, item)
     }
     this._monitorItemChanged.notify({ type: CatalogItemChangeType.RESET })
   }

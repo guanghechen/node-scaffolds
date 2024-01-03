@@ -162,7 +162,7 @@ export class SecretMaster {
             catalogFilepath: presetConfigData.catalogFilepath,
             contentHashAlgorithm: presetConfigData.contentHashAlgorithm,
             cryptFilepathSalt: presetConfigData.cryptFilepathSalt,
-            cryptFilesDir: presetConfigData.cryptFilesDir,
+            CRYPT_FILES_DIR: presetConfigData.CRYPT_FILES_DIR,
             keepPlainPatterns: presetConfigData.keepPlainPatterns,
             mainIvSize: presetConfigData.mainIvSize,
             mainKeySize: presetConfigData.mainKeySize,
