@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git-cipher@6.0.0-alpha.16/packages/helper-git-cipher#readme">@guanghechen/helper-git-cipher</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git-cipher@6.0.0-alpha.17/packages/helper-git-cipher#readme">@guanghechen/helper-git-cipher</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/helper-git-cipher">
@@ -76,4 +76,4 @@ Utility functions for encrypt / decrypt git repo.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git-cipher@6.0.0-alpha.16/packages/helper-git-cipher#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git-cipher@6.0.0-alpha.17/packages/helper-git-cipher#readme

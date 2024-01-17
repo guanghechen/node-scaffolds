@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.5](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/eslint-config-ts@6.0.0-alpha.4...@guanghechen/eslint-config-ts@6.0.0-alpha.5) (2024-01-17)
+
+
+### Performance Improvements
+
+* :art:  refactor tool-git-cipher ([4fea1e2](https://github.com/guanghechen/node-scaffolds/commit/4fea1e2708704a431cf64d836f88d1dac8323767))
+* 🎨 upgrade dependencies ([6d704fd](https://github.com/guanghechen/node-scaffolds/commit/6d704fdab7c828c58797d511e387fbf545410a36))
+* ⬆️ upgrade dependencies ([52f66b6](https://github.com/guanghechen/node-scaffolds/commit/52f66b6fc0b04857784b6b9b22fdf76eaf57c35f))
+
+
+
+
+
 # [6.0.0-alpha.4](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/eslint-config-ts@6.0.0-alpha.3...@guanghechen/eslint-config-ts@6.0.0-alpha.4) (2023-12-17)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-cipher-file",
-  "version": "6.0.0-alpha.15",
+  "version": "6.0.0-alpha.16",
   "description": "Utility functions for encrypt / decrypt files.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-cipher-file@6.0.0-alpha.15",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-cipher-file@6.0.0-alpha.16",
     "directory": "packages/helper-cipher-file"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-cipher-file@6.0.0-alpha.15/packages/helper-cipher-file#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-cipher-file@6.0.0-alpha.16/packages/helper-cipher-file#readme",
   "keywords": [
     "cipher",
     "cipher helper"

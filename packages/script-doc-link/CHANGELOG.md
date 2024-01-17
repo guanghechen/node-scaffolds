@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.10](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@6.0.0-alpha.9...@guanghechen/script-doc-link@6.0.0-alpha.10) (2024-01-17)
+
+
+### Performance Improvements
+
+* :art:  refactor tool-git-cipher ([4fea1e2](https://github.com/guanghechen/node-scaffolds/commit/4fea1e2708704a431cf64d836f88d1dac8323767))
+* 🎨 upgrade dependencies ([6d704fd](https://github.com/guanghechen/node-scaffolds/commit/6d704fdab7c828c58797d511e387fbf545410a36))
+
+
+
+
+
 # [6.0.0-alpha.9](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@6.0.0-alpha.8...@guanghechen/script-doc-link@6.0.0-alpha.9) (2023-12-17)
 
 **Note:** Version bump only for package @guanghechen/script-doc-link

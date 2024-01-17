@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.3](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/rollup-config@6.0.0-alpha.2...@guanghechen/rollup-config@6.0.0-alpha.3) (2024-01-17)
+
+
+### Performance Improvements
+
+* :art:  refactor tool-git-cipher ([4fea1e2](https://github.com/guanghechen/node-scaffolds/commit/4fea1e2708704a431cf64d836f88d1dac8323767))
+
+
+
+
+
 # [6.0.0-alpha.2](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/rollup-config@6.0.0-alpha.1...@guanghechen/rollup-config@6.0.0-alpha.2) (2023-12-17)
 
 

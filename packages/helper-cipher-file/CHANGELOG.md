@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.16](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@6.0.0-alpha.15...@guanghechen/helper-cipher-file@6.0.0-alpha.16) (2024-01-17)
+
+
+### Bug Fixes
+
+* 👽️ update due to the change of cipher-catalog types ([14c1325](https://github.com/guanghechen/node-scaffolds/commit/14c13256f5a71fc61fce9a7dab719ef00e7aa6f9))
+* 👽️ update due to the upgrade of @guanghechen/cipher-catalog ([0cbea20](https://github.com/guanghechen/node-scaffolds/commit/0cbea20dba0b87c6cd13247e5a63ee2ab5184d39))
+
+
+### Performance Improvements
+
+* :art:  refactor tool-git-cipher ([4fea1e2](https://github.com/guanghechen/node-scaffolds/commit/4fea1e2708704a431cf64d836f88d1dac8323767))
+* :art:  refactor helper-cipher-file ([0e41eaa](https://github.com/guanghechen/node-scaffolds/commit/0e41eaa5768ccc6df53969a30eabdf507c98ca2b))
+* refactor ([a84472d](https://github.com/guanghechen/node-scaffolds/commit/a84472dc29fe9da72639a0f42d3679b077931be3))
+* add @guanghechen/cipher-catalog.types ([3df8bcd](https://github.com/guanghechen/node-scaffolds/commit/3df8bcdc76946d33a8b7ae4814e9382e503fcd0a))
+* 🎨 upgrade dependencies ([6d704fd](https://github.com/guanghechen/node-scaffolds/commit/6d704fdab7c828c58797d511e387fbf545410a36))
+* ⬆️ upgrade dependencies ([52f66b6](https://github.com/guanghechen/node-scaffolds/commit/52f66b6fc0b04857784b6b9b22fdf76eaf57c35f))
+
+
+
+
+
 # [6.0.0-alpha.15](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-cipher-file@6.0.0-alpha.14...@guanghechen/helper-cipher-file@6.0.0-alpha.15) (2023-12-17)
 
 

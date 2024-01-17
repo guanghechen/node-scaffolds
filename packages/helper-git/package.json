@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-git",
-  "version": "6.0.0-alpha.6",
+  "version": "6.0.0-alpha.7",
   "description": "Utility functions for executing git commands.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@6.0.0-alpha.6",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@6.0.0-alpha.7",
     "directory": "packages/helper-git"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@6.0.0-alpha.6/packages/helper-git#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-git@6.0.0-alpha.7/packages/helper-git#readme",
   "keywords": [
     "commander"
   ],

@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-commander",
-  "version": "6.0.0-alpha.8",
+  "version": "6.0.0-alpha.9",
   "description": "Utils for creating node.js command line program",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@6.0.0-alpha.8",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@6.0.0-alpha.9",
     "directory": "packages/helper-commander"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@6.0.0-alpha.8/packages/helper-commander#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@6.0.0-alpha.9/packages/helper-commander#readme",
   "keywords": [
     "commander"
   ],
@@ -47,10 +47,10 @@
   },
   "dependencies": {
     "@guanghechen/helper-fs": "^6.0.0-alpha.6",
-    "@guanghechen/helper-git": "^6.0.0-alpha.6",
+    "@guanghechen/helper-git": "^6.0.0-alpha.7",
     "@guanghechen/helper-is": "^6.0.0-alpha.1",
     "@guanghechen/helper-option": "^6.0.0-alpha.1",
-    "@guanghechen/helper-string": "^6.0.0-alpha.1",
+    "@guanghechen/helper-string": "^6.0.0-alpha.2",
     "@guanghechen/invariant": "^6.0.0-alpha.1",
     "@guanghechen/path": "^1.0.0-alpha.15",
     "@guanghechen/reporter": "^1.0.0-alpha.25",
