@@ -27,14 +27,16 @@ export class CatalogCacheKeeper
     this.reporter = props.reporter
   }
 
-  public override async load(): Promise<void> {
+  public override async load(): Promise<ICatalogCache> {
+    let result: ICatalogCache | undefined = this._instance
     if (await this._resource.exists()) {
       try {
-        await super.load()
+        result = await super.load()
       } catch (error) {
         this.reporter.warn('Failed to load catalog cache (ignored).', error)
       }
     }
+    return result ?? { crypt2plainIdMap: new Map() }
   }
 
   protected override async serialize(instance: ICatalogCache): Promise<ICatalogCacheData> {

@@ -62,7 +62,7 @@
     re-encrypted by comparing the latest modified time of the source file.
 
   - The secret key to encrypt the `plaintextRootDir` directory is encrypted by
-    a password entered by the user and saved in the `secretFilepath` file. This
+    a password entered by the user and saved in the `secretConfigPath` file. This
     file also saves the encrypted result of the mac value of the original key,
     which is used to verify whether the subsequent input password is correct.
 
@@ -104,11 +104,20 @@
     },
     "@guanghechen/tool-git-cipher": {
       "__globalOptions__": {
-        "catalogFilepath": "ghc-crypt/.ghc-catalog",
+        "catalogConfigPath": "ghc-crypt/.ghc-catalog",
         "cryptRootDir": "ghc-crypt",
         "encoding": "utf8",
         "CRYPT_FILES_DIR": "encrypted",
         "cryptFilepathSalt": "",
+        "keepIntegrity": [
+          ".gitignore",
+          ".npmrc",
+          ".nvmrc",
+          ".yarnrc",
+          "package.json",
+          "yarn.lock",
+          ".ghc-secret"
+        ],
         "keepPlainPatterns": [
           ".gitignore",
           ".npmrc",
@@ -120,18 +129,18 @@
         ],
         "logLevel": "info",
         "minPasswordLength": 6,
-        "partCodePrefix": ".ghc-part",
+        "PART_CODE_PREFIX": ".ghc-part",
         "pbkdf2Options": {
           "salt": "guanghechen",
           "digest": "sha256",
           "iterations": 100000,
           "keylen": 32
         },
-        "secretFilepath": ".ghc-secret",
+        "secretConfigPath": ".ghc-secret",
         "showAsterisk": true
       },
       "encrypt": {
-        "catalogCacheFilepath": ".ghc-cache-catalog.json"
+        "catalogCachePath": ".ghc-catalog.cache.json"
       },
       "decrypt": {}
     }

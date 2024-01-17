@@ -9,23 +9,23 @@ export interface IGitCipherInitContext extends IGitCipherSubCommandContext {
   /**
    * The path of catalog file of crypt repo. (absolute path)
    */
-  readonly catalogFilepath: string
+  readonly catalogConfigPath: string
   /**
    * The path of config file. (absolute path)
    */
-  readonly configFilepaths: string[]
+  readonly configPaths: string[]
   /**
    * Hash algorithm for generate MAC for content.
    */
   readonly contentHashAlgorithm: IHashAlgorithm
   /**
-   * Salt for generate encrypted file path. (utf8 string)
-   */
-  readonly cryptFilepathSalt: string
-  /**
    * The path of not-plain files located. (relative of cryptRootDir)
    */
-  readonly CRYPT_FILES_DIR: string
+  readonly cryptFilesDir: string
+  /**
+   * Salt for generate encrypted file path. (utf8 string)
+   */
+  readonly cryptPathSalt: string
   /**
    * Crypt workspace path resolver.
    */
@@ -38,6 +38,11 @@ export interface IGitCipherInitContext extends IGitCipherSubCommandContext {
    * Set the git config 'commit.gpgSign'.
    */
   readonly gitGpgSign: boolean | undefined
+  /**
+   * Glob patterns indicated which files should be keepIntegrity.
+   * @default []
+   */
+  readonly integrityPatterns: string[]
   /**
    * Glob patterns indicated which files should be keepPlain.
    * @default []
@@ -55,7 +60,7 @@ export interface IGitCipherInitContext extends IGitCipherSubCommandContext {
    * Max size (byte) of target file, once the file size exceeds this value,
    * the target file is split into multiple files.
    */
-  readonly maxTargetFileSize: number
+  readonly maxCryptFileSize: number
   /**
    * Prefix of splitted files parts code.
    */
@@ -63,7 +68,7 @@ export interface IGitCipherInitContext extends IGitCipherSubCommandContext {
   /**
    * Hash algorithm for generate MAC for filepath.
    */
-  readonly PATH_HASH_ALGORITHM: IHashAlgorithm
+  readonly pathHashAlgorithm: IHashAlgorithm
   /**
    * Options for PBKDF2 algorithm.
    */
@@ -75,7 +80,7 @@ export interface IGitCipherInitContext extends IGitCipherSubCommandContext {
   /**
    * The path of secret file. (absolute path)
    */
-  readonly secretFilepath: string
+  readonly secretConfigPath: string
   /**
    * IV size of the secret cipherFactory.
    */
@@ -101,26 +106,27 @@ export async function createInitContextFromOptions(
   )
 
   const context: IGitCipherInitContext = {
-    catalogFilepath: options.catalogFilepath,
-    configFilepaths: options.configPath ?? [],
+    catalogConfigPath: options.catalogConfigPath,
+    configPaths: options.configPath ?? [],
     contentHashAlgorithm: options.contentHashAlgorithm,
-    cryptFilepathSalt: options.cryptFilepathSalt,
-    CRYPT_FILES_DIR: options.CRYPT_FILES_DIR,
+    cryptPathSalt: options.cryptPathSalt,
+    cryptFilesDir: options.cryptFilesDir,
     cryptPathResolver,
     encoding: options.encoding,
     gitGpgSign: options.gitGpgSign,
+    integrityPatterns: options.integrityPatterns,
     keepPlainPatterns: options.keepPlainPatterns,
     mainIvSize: options.mainIvSize,
     mainKeySize: options.mainKeySize,
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
-    maxTargetFileSize: options.maxTargetFileSize ?? Number.POSITIVE_INFINITY,
+    maxCryptFileSize: options.maxCryptFileSize ?? Number.POSITIVE_INFINITY,
     partCodePrefix: options.partCodePrefix,
-    PATH_HASH_ALGORITHM: options.PATH_HASH_ALGORITHM,
+    pathHashAlgorithm: options.pathHashAlgorithm,
     pbkdf2Options: options.pbkdf2Options,
     plainPathResolver,
-    secretFilepath: options.secretFilepath,
+    secretConfigPath: options.secretConfigPath,
     secretIvSize: options.secretIvSize,
     secretKeySize: options.secretKeySize,
     showAsterisk: options.showAsterisk,

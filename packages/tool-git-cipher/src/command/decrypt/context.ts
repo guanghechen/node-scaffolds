@@ -7,7 +7,7 @@ export interface IGitCipherDecryptContext extends IGitCipherSubCommandContext {
   /**
    * The path of catalog cache file of crypt repo. (absolute path)
    */
-  readonly catalogCacheFilepath: string
+  readonly catalogCachePath: string
   /**
    * Crypt workspace path resolver.
    */
@@ -39,7 +39,7 @@ export interface IGitCipherDecryptContext extends IGitCipherSubCommandContext {
   /**
    * The path of secret file. (absolute path)
    */
-  readonly secretFilepath: string
+  readonly secretConfigPath: string
 }
 
 export async function createDecryptContextFromOptions(
@@ -57,7 +57,7 @@ export async function createDecryptContextFromOptions(
   )
 
   const context: IGitCipherDecryptContext = {
-    catalogCacheFilepath: options.catalogCacheFilepath,
+    catalogCachePath: options.catalogCachePath,
     cryptPathResolver,
     encoding: options.encoding,
     filesAt: options.filesAt,
@@ -67,7 +67,7 @@ export async function createDecryptContextFromOptions(
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
     plainPathResolver,
-    secretFilepath: options.secretFilepath,
+    secretConfigPath: options.secretConfigPath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
   }

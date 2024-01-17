@@ -1,94 +1,29 @@
-import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
-import { CipherCatalogContext } from '@guanghechen/cipher-catalog'
-import type { IReadonlyCipherCatalog } from '@guanghechen/cipher-catalog'
-import { FileCipherCatalog } from '@guanghechen/helper-cipher-file'
 import { showCommitInfo } from '@guanghechen/helper-git'
-import { GitCipherConfigKeeper, verifyCryptGitCommit } from '@guanghechen/helper-git-cipher'
-import invariant from '@guanghechen/invariant'
-import type { IWorkspacePathResolver } from '@guanghechen/path'
+import type { GitCipher } from '@guanghechen/helper-git-cipher'
 import type { IReporter } from '@guanghechen/reporter.types'
-import { TextFileResource } from '@guanghechen/resource'
-import micromatch from 'micromatch'
-import type { ISecretConfig } from '../SecretConfig.types'
 
 export interface IVerifyCryptRepoParams {
-  readonly catalogCipher: ICipher | undefined
-  readonly cipherFactory: ICipherFactory | undefined
+  readonly catalogConfigPath: string
   readonly cryptCommitId: string
-  readonly cryptPathResolver: IWorkspacePathResolver
-  readonly plainPathResolver: IWorkspacePathResolver
+  readonly cryptRootDir: string
+  readonly gitCipher: GitCipher
   readonly reporter: IReporter
-  readonly secretConfig: Readonly<ISecretConfig>
-  readonly calcIvFromBytes: (infos: Iterable<Uint8Array>) => Promise<Uint8Array | undefined>
 }
 
 export async function verifyCryptRepo(params: IVerifyCryptRepoParams): Promise<void> {
   const title = 'verifyCryptRepo'
-  const {
-    catalogCipher,
-    cipherFactory,
-    plainPathResolver,
-    cryptPathResolver,
-    reporter,
-    secretConfig,
-    calcIvFromBytes,
-  } = params
-
-  invariant(
-    !!cipherFactory && !!catalogCipher,
-    `[${title}] cipherFactory or catalogCipher is not available!`,
-  )
+  const { catalogConfigPath, cryptRootDir, gitCipher, reporter } = params
 
   // To avoid the `HEAD` reference.
   const cryptCommitId: string = (
     await showCommitInfo({
       commitHash: params.cryptCommitId,
-      cwd: cryptPathResolver.root,
+      cwd: cryptRootDir,
       reporter,
     })
   ).commitId
 
-  const {
-    catalogFilepath,
-    contentHashAlgorithm,
-    cryptFilepathSalt,
-    CRYPT_FILES_DIR,
-    keepPlainPatterns,
-    maxTargetFileSize = Number.POSITIVE_INFINITY,
-    partCodePrefix,
-    PATH_HASH_ALGORITHM,
-  } = secretConfig
+  reporter.debug(`[${title}] cryptCommitId(${cryptCommitId}).`)
 
-  const configKeeper = new GitCipherConfigKeeper({
-    cipher: catalogCipher,
-    resource: new TextFileResource({
-      strict: true,
-      filepath: catalogFilepath,
-      encoding: 'utf8',
-    }),
-  })
-
-  const catalogContext = new CipherCatalogContext({
-    contentHashAlgorithm,
-    cryptFilepathSalt,
-    CRYPT_FILES_DIR,
-    maxTargetFileSize,
-    partCodePrefix,
-    PATH_HASH_ALGORITHM,
-    plainPathResolver,
-    cryptPathResolver,
-    isKeepPlain:
-      keepPlainPatterns.length > 0
-        ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
-        : () => false,
-    calcIvFromBytes,
-  })
-  const catalog: IReadonlyCipherCatalog = new FileCipherCatalog(catalogContext)
-  await verifyCryptGitCommit({
-    catalog,
-    catalogFilepath,
-    configKeeper,
-    cryptCommitId,
-    reporter,
-  })
+  await gitCipher.verifyCryptCommit({ catalogConfigPath, cryptCommitId })
 }

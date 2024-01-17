@@ -26,7 +26,7 @@ export class GitCipherSubCommandCat
       .aliases(aliases)
       .description('Show plain content of a specified crypt file on a branch/commit.')
       .option(
-        '--plain-filepath, --plainFilepath <plainFilepath>',
+        '--plain-path, --plainPath <plainPath>',
         'The file you want to check the plain content.',
       )
       .action(async function (args: string[], options: O) {

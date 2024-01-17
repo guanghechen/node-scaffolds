@@ -26,7 +26,7 @@ export class GitCipherSubCommandDecrypt
       .aliases(aliases)
       .description('Decrypt git repo or decrypt files on a branch/commit only.')
       .option(
-        '--catalog-cache-filepath, --catalogCacheFilepath <catalogCacheFilepath>',
+        '--catalog-cache-path, --catalogCachePath <catalogCachePath>',
         'The path where catalog cache file located. (relative of workspace)',
       )
       .option(

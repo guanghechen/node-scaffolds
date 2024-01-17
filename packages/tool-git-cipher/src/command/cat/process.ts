@@ -1,5 +1,5 @@
 import { bytes2text } from '@guanghechen/byte'
-import { calcCryptFilepathsWithParts } from '@guanghechen/cipher-catalog'
+import { calcCryptPathsWithPart } from '@guanghechen/cipher-catalog'
 import { FileCipher } from '@guanghechen/helper-cipher-file'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo } from '@guanghechen/helper-git'
@@ -37,9 +37,9 @@ export class GitCipherCat
       `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.root}`,
     )
 
-    const { cipherFactory } = this.secretMaster
+    const { contentCipherFactory: cipherFactory } = this.secretMaster
     const gitCipherContext: IGitCipherContext = await loadGitCipherContext({
-      secretFilepath: context.secretFilepath,
+      secretConfigPath: context.secretConfigPath,
       secretMaster: this.secretMaster,
       cryptPathResolver,
       plainPathResolver,
@@ -50,7 +50,7 @@ export class GitCipherCat
     await configKeeper.load()
 
     // Print catalog config.
-    if (!context.plainFilepath) {
+    if (!context.plainPath) {
       console.log(
         JSON.stringify(
           configKeeper.data,
@@ -68,23 +68,28 @@ export class GitCipherCat
     }
 
     // Print plain file content.
-    const plainFilepath = plainPathResolver.relative(context.plainFilepath)
-    const item = configKeeper.data?.catalog.items.find(item => item.plainFilepath === plainFilepath)
-    invariant(!!item, `[${title}] Cannot find plainFilepath ${context.plainFilepath}.`)
+    const plainPath = plainPathResolver.relative(context.plainPath, true)
+    const item = configKeeper.data?.catalog.items.find(item => item.plainPath === plainPath)
+    invariant(!!item, `[${title}] Cannot find plainFilepath ${context.plainPath}.`)
 
-    const cryptFilepath: string = catalog.calcCryptPath(plainPathResolver.relative(plainFilepath))
-    const cryptFilepaths: string[] = calcCryptFilepathsWithParts(
-      cryptPathResolver.resolve(cryptFilepath),
-      item.cryptFilepathParts,
+    const cryptPath: string = await catalog.calcCryptPath(
+      plainPathResolver.relative(plainPath, true),
+    )
+    const cryptPaths: string[] = calcCryptPathsWithPart(
+      cryptPathResolver.resolve(cryptPath),
+      item.cryptPathParts,
     )
 
-    const iv: Readonly<Uint8Array | undefined> = await catalog.calcIv(item)
+    const nonce: Readonly<Uint8Array | undefined> = await catalog.context.genNonce(item)
     const fileCipher = new FileCipher({
-      cipher: cipherFactory!.cipher({ iv }),
+      cipher: cipherFactory!.cipher({ iv: nonce }),
+      cryptPathResolver,
+      plainPathResolver,
       reporter,
     })
-    const plainContentBuffer: Uint8Array = await fileCipher.decryptFromFiles(cryptFilepaths, {
+    const plainContentBuffer: Uint8Array = await fileCipher.decryptFromFiles({
       authTag: item.authTag,
+      cryptPaths,
     })
     const plainContent: string = bytes2text(plainContentBuffer, 'utf8')
     console.log(plainContent)

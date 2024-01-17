@@ -698,7 +698,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * 🔖 publish v4.2.2 ([bf0f251](https://github.com/guanghechen/node-scaffolds/commit/bf0f251214e1eac2056911e2ad7895dfa19959d7))
 * 🎨 ask input new password until the confirmation matched ([68b22a1](https://github.com/guanghechen/node-scaffolds/commit/68b22a1f89674548f2a56a47f9014ea1386fc45f))
-* 🎨 ask to input maxTargetFileSize ([f8343c8](https://github.com/guanghechen/node-scaffolds/commit/f8343c866ed005c6d2ff5109ac571beabe10a440))
+* 🎨 ask to input MAX_CRYPT_FILE_SIZE ([f8343c8](https://github.com/guanghechen/node-scaffolds/commit/f8343c866ed005c6d2ff5109ac571beabe10a440))
 * 🎨 generate random salt ([d099aa3](https://github.com/guanghechen/node-scaffolds/commit/d099aa305b70f0c615bd757c35ab69e3700dc787))
 
 
@@ -827,7 +827,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* 🐛 fix logic on resolving catalogFilepath & update boilerplates ([05f2a03](https://github.com/guanghechen/node-scaffolds/commit/05f2a03b7f94222b7f2ace0aa3a8949defbbb40e))
+* 🐛 fix logic on resolving catalogConfigPath & update boilerplates ([05f2a03](https://github.com/guanghechen/node-scaffolds/commit/05f2a03b7f94222b7f2ace0aa3a8949defbbb40e))
 
 
 ### Features

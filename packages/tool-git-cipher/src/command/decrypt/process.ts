@@ -1,7 +1,7 @@
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { GitCipher } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
-import { TextFileResource } from '@guanghechen/resource'
+import { FileTextResource } from '@guanghechen/resource'
 import type { ICatalogCache } from '../../shared/CatalogCache'
 import { CatalogCacheKeeper } from '../../shared/CatalogCache'
 import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
@@ -26,7 +26,7 @@ export class GitCipherDecrypt
     const { context, reporter } = this
     const { cryptPathResolver, plainPathResolver } = context
     const gitCipherContext = await loadGitCipherContext({
-      secretFilepath: context.secretFilepath,
+      secretConfigPath: context.secretConfigPath,
       secretMaster: this.secretMaster,
       cryptPathResolver,
       plainPathResolver,
@@ -45,15 +45,14 @@ export class GitCipherDecrypt
       reporter.debug('Trying decrypt entire repo...')
 
       const cacheKeeper = new CatalogCacheKeeper({
-        resource: new TextFileResource({
+        resource: new FileTextResource({
           strict: true,
-          filepath: context.catalogCacheFilepath,
+          filepath: context.catalogCachePath,
           encoding: 'utf8',
         }),
         reporter,
       })
-      await cacheKeeper.load()
-      const data: ICatalogCache = cacheKeeper.data ?? { crypt2plainIdMap: new Map() }
+      const data: ICatalogCache = (await cacheKeeper.load()) ?? { crypt2plainIdMap: new Map() }
       const { crypt2plainIdMap } = await gitCipher.decrypt({
         crypt2plainIdMap: new Map(data.crypt2plainIdMap),
         gpgSign: context.gitGpgSign,

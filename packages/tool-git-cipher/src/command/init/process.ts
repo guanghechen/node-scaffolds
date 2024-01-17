@@ -6,8 +6,9 @@ import { isNonBlankString } from '@guanghechen/helper-is'
 import { runPlop } from '@guanghechen/helper-plop'
 import invariant from '@guanghechen/invariant'
 import { pathResolver } from '@guanghechen/path'
+import { retrieveLevelName } from '@guanghechen/reporter'
 import { existsSync } from 'node:fs'
-import { resolveBoilerplateFilepath } from '../../shared/core/config'
+import { resolveBoilerplateFilepath } from '../../shared/config'
 import { COMMAND_VERSION } from '../../shared/core/constant'
 import type { SecretConfigKeeper } from '../../shared/SecretConfig'
 import type { IPresetSecretConfig } from '../../shared/SecretConfig.types'
@@ -35,17 +36,18 @@ export class GitCipherInit
     const { context, reporter } = this
     const { plainPathResolver } = context
     const presetSecretData: IPresetSecretConfig = {
-      catalogFilepath: context.catalogFilepath,
+      catalogConfigPath: context.catalogConfigPath,
       contentHashAlgorithm: context.contentHashAlgorithm,
-      cryptFilepathSalt: context.cryptFilepathSalt,
-      CRYPT_FILES_DIR: context.CRYPT_FILES_DIR,
+      cryptPathSalt: context.cryptPathSalt,
+      cryptFilesDir: context.cryptFilesDir,
+      integrityPatterns: context.integrityPatterns,
       keepPlainPatterns: context.keepPlainPatterns,
       mainIvSize: context.mainIvSize,
       mainKeySize: context.mainKeySize,
-      maxTargetFileSize:
-        context.maxTargetFileSize > Number.MAX_SAFE_INTEGER ? undefined : context.maxTargetFileSize,
+      maxCryptFileSize:
+        context.maxCryptFileSize > Number.MAX_SAFE_INTEGER ? undefined : context.maxCryptFileSize,
       partCodePrefix: context.partCodePrefix,
-      PATH_HASH_ALGORITHM: context.PATH_HASH_ALGORITHM,
+      pathHashAlgorithm: context.pathHashAlgorithm,
       pbkdf2Options: context.pbkdf2Options,
       secretIvSize: context.secretIvSize,
       secretKeySize: context.secretKeySize,
@@ -57,11 +59,11 @@ export class GitCipherInit
 
     if (isWorkspaceEmpty) {
       // Render boilerplates if the workspace is non-exist or empty.
-      const relativeConfigPaths: string[] = context.configFilepaths.map(fp =>
+      const relativeConfigPaths: string[] = context.configPaths.map(fp =>
         pathResolver.safeRelative(context.workspace, fp, true),
       )
       await this._renderBoilerplates({
-        configFilepath: relativeConfigPaths.find(fp => fp.endsWith('.json')) ?? '.ghc-config.json',
+        configPath: relativeConfigPaths.find(fp => fp.endsWith('.json')) ?? '.ghc-config.json',
       })
 
       // Init git repo.
@@ -78,7 +80,7 @@ export class GitCipherInit
     const inquirer = await import('inquirer').then(md => md.default)
 
     let shouldGenerateSecret = true
-    if (existsSync(context.secretFilepath)) {
+    if (existsSync(context.secretConfigPath)) {
       // Regenerate secret.
       shouldGenerateSecret = await inquirer
         .prompt([
@@ -100,7 +102,7 @@ export class GitCipherInit
         CRYPT_FILES_DIR,
         mainIvSize,
         mainKeySize,
-        maxTargetFileSize,
+        MAX_CRYPT_FILE_SIZE,
         pbkdf2Options_digest,
         pbkdf2Options_iterations,
         pbkdf2Options_salt,
@@ -157,7 +159,7 @@ export class GitCipherInit
         {
           type: 'string',
           name: 'cryptFilepathSalt',
-          default: context.cryptFilepathSalt,
+          default: context.cryptPathSalt,
           message: 'cryptFilepathSalt',
           filter: x => x.trim(),
           transformer: (x: string) => x.trim(),
@@ -165,27 +167,27 @@ export class GitCipherInit
         {
           type: 'string',
           name: 'CRYPT_FILES_DIR',
-          default: context.CRYPT_FILES_DIR,
+          default: context.cryptFilesDir,
           message: 'CRYPT_FILES_DIR',
           filter: x => x.trim(),
           transformer: (x: string) => x.trim(),
         },
         {
           type: 'number',
-          name: 'maxTargetFileSize',
-          default: context.maxTargetFileSize,
-          message: 'maxTargetFileSize (bytes)',
+          name: 'MAX_CRYPT_FILE_SIZE',
+          default: context.maxCryptFileSize,
+          message: 'MAX_CRYPT_FILE_SIZE (bytes)',
         },
       ])
 
       // Create secret file.
       await this._createSecret({
         ...presetSecretData,
-        cryptFilepathSalt,
-        CRYPT_FILES_DIR,
+        cryptPathSalt: cryptFilepathSalt,
+        cryptFilesDir: CRYPT_FILES_DIR,
         mainIvSize,
         mainKeySize,
-        maxTargetFileSize,
+        maxCryptFileSize: MAX_CRYPT_FILE_SIZE,
         pbkdf2Options: {
           salt: pbkdf2Options_salt,
           iterations: pbkdf2Options_iterations,
@@ -199,7 +201,7 @@ export class GitCipherInit
   }
 
   // Render boilerplates.
-  protected async _renderBoilerplates(data: { configFilepath: string }): Promise<void> {
+  protected async _renderBoilerplates(data: { configPath: string }): Promise<void> {
     const { context, reporter } = this
     const { cryptPathResolver, plainPathResolver } = context
 
@@ -226,10 +228,14 @@ export class GitCipherInit
     // clone plaintext repository
     if (isNonBlankString(plainRepoUrl)) {
       await this._cloneFromRemote(plainRepoUrl)
-      return
     }
 
     const boilerplate = resolveBoilerplateFilepath('plop.mjs')
+    if (!existsSync(boilerplate)) {
+      reporter.error('Cannot find the plop.mjs.', { path: boilerplate })
+      return
+    }
+
     const nodePlop = await import('node-plop').then(md => md.default)
     const plop = await nodePlop(boilerplate, {
       force: false,
@@ -238,40 +244,21 @@ export class GitCipherInit
 
     const error = await runPlop(plop, undefined, {
       bakPlainRootDir: pathResolver.safeRelative(context.workspace, plainPathResolver.root, true),
-      catalogFilepath: pathResolver.safeRelative(
-        cryptPathResolver.root,
-        context.catalogFilepath,
-        true,
-      ),
       commandVersion: COMMAND_VERSION,
-      configFilepath: data.configFilepath,
+      configPath: data.configPath,
       configNonce: bytes2text(randomBytes(20), 'hex'),
-      cryptFilepathSalt: context.cryptFilepathSalt,
-      CRYPT_FILES_DIR: pathResolver.safeRelative(
-        cryptPathResolver.root,
-        context.CRYPT_FILES_DIR,
-        true,
-      ),
       cryptRootDir: pathResolver.safeRelative(context.workspace, cryptPathResolver.root, true),
       encoding: context.encoding,
-      logLevel: reporter.level,
-      mainIvSize: context.mainIvSize,
-      mainKeySize: context.mainKeySize,
-      maxPasswordLength: context.maxPasswordLength,
+      logLevel: retrieveLevelName(reporter.level),
       minPasswordLength: context.minPasswordLength,
-      partCodePrefix: context.partCodePrefix,
-      pbkdf2Options: context.pbkdf2Options,
       plainRootDir: pathResolver.safeRelative(context.workspace, plainPathResolver.root, true),
-      secret: '',
-      secretAuthTag: undefined,
-      secretNonce: '',
-      secretCatalogNonce: '',
-      secretFilepath: pathResolver.safeRelative(context.workspace, context.secretFilepath, true),
-      secretIvSize: context.secretIvSize,
-      secretKeySize: context.secretKeySize,
+      secretConfigPath: pathResolver.safeRelative(
+        context.workspace,
+        context.secretConfigPath,
+        true,
+      ),
       showAsterisk: context.showAsterisk,
       workspace: context.workspace,
-      plainRepoUrl,
     })
     if (error) reporter.error(error)
   }
@@ -283,7 +270,7 @@ export class GitCipherInit
     const { context, secretMaster } = this
     const configKeeper = await secretMaster.createSecret({
       cryptRootDir: context.cryptPathResolver.root,
-      filepath: context.secretFilepath,
+      filepath: context.secretConfigPath,
       presetConfigData,
     })
     return configKeeper

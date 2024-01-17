@@ -10,7 +10,7 @@ import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
 interface ISubCommandOptions extends IGitCipherSubCommandOption {
-  plainFilepath: string | undefined
+  plainPath: string | undefined
 }
 
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions
@@ -18,7 +18,7 @@ export type IGitCipherCatOptions = ICommandOptions & ICommandConfigurationFlatOp
 
 const getDefaultCommandCatOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(params),
-  plainFilepath: undefined,
+  plainPath: undefined,
 })
 
 export function resolveSubCommandCatOptions(
@@ -38,13 +38,13 @@ export function resolveSubCommandCatOptions(
   )
 
   // Resolve plainFilepath
-  const plainFilepath: string | undefined = cover<string | undefined>(
-    baseOptions.plainFilepath,
-    options.plainFilepath,
+  const plainPath: string | undefined = cover<string | undefined>(
+    baseOptions.plainPath,
+    options.plainPath,
     isNonBlankString,
   )
-  reporter.debug('plainFilepath:', plainFilepath)
+  reporter.debug('plainPath:', plainPath)
 
-  const resolvedOptions: ISubCommandOptions = { plainFilepath }
+  const resolvedOptions: ISubCommandOptions = { plainPath: plainPath }
   return { ...baseOptions, ...resolvedOptions }
 }

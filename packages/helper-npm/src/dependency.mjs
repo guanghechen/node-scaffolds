@@ -85,7 +85,7 @@ export async function collectAllDependencies(
           console.error(e)
           return
       }
-      /* c8 ignore end */
+      /* c8 ignore stop */
     }
 
     if (nextPackageJsonPath == null) {

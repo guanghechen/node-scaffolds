@@ -65,6 +65,7 @@ export async function createRollupConfig(options: IRollupConfigOptions): Promise
     invariant(configs.length > 0, `Cannot find valid rollup input`)
     const copyPlugin = copy(resources)
     let plugins = await configs[0].plugins
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     if (Array.isArray(plugins)) plugins = [...plugins, copyPlugin]
     else if (!plugins) plugins = [copyPlugin]
     else plugins = [plugins, copyPlugin]

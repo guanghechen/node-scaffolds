@@ -9,9 +9,12 @@ import {
 } from '@guanghechen/filetree'
 import { hasGitInstalled } from '@guanghechen/helper-commander'
 import { isGitRepo, showFileContent } from '@guanghechen/helper-git'
+import type { IGitCipherConfig } from '@guanghechen/helper-git-cipher'
 import { GitCipherConfigKeeper } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
+import { MemoTextResource } from '@guanghechen/resource'
 import { existsSync } from 'node:fs'
+import type { ISecretConfig } from '../../shared/SecretConfig.types'
 import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
 import type { IGitCipherSubCommandProcessor } from '../_base'
 import { GitCipherSubCommandProcessor } from '../_base'
@@ -44,58 +47,44 @@ export class GitCipherTree
       `[${title}] cryptRootDir is not a git repo. ${cryptPathResolver.root}`,
     )
 
-    const secretKeeper = await secretMaster.load({
-      filepath: context.secretFilepath,
-      cryptRootDir: cryptPathResolver.root,
-      force: false,
-    })
-
-    const cipherFactory: ICipherFactory | undefined = secretMaster.cipherFactory
-    invariant(
-      !!secretKeeper.data && !!cipherFactory && !!secretMaster.catalogCipher,
-      `[${title}] Secret cipherFactory is not available!`,
-    )
-
-    const { catalogFilepath } = secretKeeper.data
-    const catalogContent: string = await showFileContent({
-      filepath: cryptPathResolver.relative(catalogFilepath),
-      commitHash: context.cryptCommitId,
-      cwd: cryptPathResolver.root,
-      reporter,
-    })
-
-    const configKeeper = new GitCipherConfigKeeper({
-      cipher: secretMaster.catalogCipher,
-      resource: {
-        load: async () => catalogContent,
-        save: async () => {},
-        destroy: async () => {},
-        exists: async () => true,
-      },
-    })
-    await configKeeper.load()
-
     const gitCipherContext = await loadGitCipherContext({
-      secretFilepath: context.secretFilepath,
+      secretConfigPath: context.secretConfigPath,
       secretMaster: this.secretMaster,
       cryptPathResolver,
       plainPathResolver,
       reporter,
     })
-    const { catalog } = gitCipherContext
+    const { catalog, catalogConfigPath } = gitCipherContext
+    const catalogCipherFactory: ICipherFactory | undefined = secretMaster.catalogCipherFactory
+    invariant(!!catalogCipherFactory, `[${title}] Missing catalogCipherFactory.`)
+
+    const catalogContent: string = await showFileContent({
+      filepath: cryptPathResolver.relative(catalogConfigPath, true),
+      commitHash: context.cryptCommitId,
+      cwd: cryptPathResolver.root,
+      reporter,
+    })
+
+    const cipherConfigKeeper = new GitCipherConfigKeeper({
+      MAX_CRYPT_FILE_SIZE: catalog.context.MAX_CRYPT_FILE_SIZE,
+      PART_CODE_PREFIX: catalog.context.PART_CODE_PREFIX,
+      cipherFactory: catalogCipherFactory,
+      resource: new MemoTextResource({ strict: false, encoding: 'utf8', content: catalogContent }),
+      genNonceByCommitMessage: secretMaster.genNonceByCommitMessage,
+    })
+    const cipherConfig: IGitCipherConfig = await cipherConfigKeeper.load()
     const items: ICatalogItem[] = await Promise.all<ICatalogItem>(
-      configKeeper.data?.catalog.items.map(async (item): Promise<ICatalogItem> => {
-        const iii = await catalog.flatItem(item)
-        return iii
-      }) ?? [],
+      cipherConfig.catalog.items.map(
+        async (item): Promise<ICatalogItem> => catalog.flatItem(item),
+      ) ?? [],
     )
 
     const filetree = FileTree.fromRawNodes(
       items.map(item => ({
         type: FileTreeNodeTypeEnum.FILE,
-        pathFromRoot: splitPathFromRoot(item.plainFilepath),
-        ctime: item.ctime,
-        mtime: item.mtime,
+        pathFromRoot: splitPathFromRoot(item.plainPath),
+        ctime: 0,
+        mtime: 0,
         size: item.size,
       })),
       caseSensitiveCmp,

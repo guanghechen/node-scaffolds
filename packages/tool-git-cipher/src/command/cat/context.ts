@@ -15,7 +15,7 @@ export interface IGitCipherCatContext extends IGitCipherSubCommandContext {
   /**
    * Relative plain filepath.
    */
-  readonly plainFilepath: string | undefined
+  readonly plainPath: string | undefined
   /**
    * Plain workspace path resolver.
    */
@@ -23,7 +23,7 @@ export interface IGitCipherCatContext extends IGitCipherSubCommandContext {
   /**
    * The path of secret file. (absolute path)
    */
-  readonly secretFilepath: string
+  readonly secretConfigPath: string
 }
 
 export async function createCatContextFromOptions(
@@ -46,9 +46,9 @@ export async function createCatContextFromOptions(
     maxPasswordLength: options.maxPasswordLength,
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
-    plainFilepath: options.plainFilepath,
+    plainPath: options.plainPath,
     plainPathResolver,
-    secretFilepath: options.secretFilepath,
+    secretConfigPath: options.secretConfigPath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
   }

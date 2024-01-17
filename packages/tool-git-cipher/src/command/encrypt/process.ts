@@ -5,7 +5,7 @@ import { GitCipher, encryptFilesOnly } from '@guanghechen/helper-git-cipher'
 import { isNonBlankString } from '@guanghechen/helper-is'
 import invariant from '@guanghechen/invariant'
 import type { IReporter } from '@guanghechen/reporter.types'
-import { TextFileResource } from '@guanghechen/resource'
+import { FileTextResource } from '@guanghechen/resource'
 import type { ICatalogCache } from '../../shared/CatalogCache'
 import { CatalogCacheKeeper } from '../../shared/CatalogCache'
 import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
@@ -30,7 +30,7 @@ export class GitCipherEncrypt
     const { context, reporter } = this
     const { cryptPathResolver, plainPathResolver } = context
     const gitCipherContext = await loadGitCipherContext({
-      secretFilepath: context.secretFilepath,
+      secretConfigPath: context.secretConfigPath,
       secretMaster: this.secretMaster,
       cryptPathResolver,
       plainPathResolver,
@@ -43,15 +43,14 @@ export class GitCipherEncrypt
     } else {
       // encrypt files
       const cacheKeeper = new CatalogCacheKeeper({
-        resource: new TextFileResource({
+        resource: new FileTextResource({
           strict: true,
-          filepath: context.catalogCacheFilepath,
+          filepath: context.catalogCachePath,
           encoding: 'utf8',
         }),
         reporter,
       })
-      await cacheKeeper.load()
-      const data: ICatalogCache = cacheKeeper.data ?? { crypt2plainIdMap: new Map() }
+      const data: ICatalogCache = (await cacheKeeper.load()) ?? { crypt2plainIdMap: new Map() }
       const { crypt2plainIdMap } = await gitCipher.encrypt({
         crypt2plainIdMap: new Map(data.crypt2plainIdMap),
       })
@@ -103,7 +102,7 @@ async function pickDiffItems(
         name: 'removed',
         message: 'Select files to commit (removed)',
         choices: removed.map(({ index, oldItem }) => ({
-          name: oldItem.plainFilepath,
+          name: oldItem.plainPath,
           value: index,
         })),
       },
@@ -112,7 +111,7 @@ async function pickDiffItems(
         name: 'added',
         message: 'Select files to commit (added)',
         choices: added.map(({ index, newItem }) => ({
-          name: newItem.plainFilepath,
+          name: newItem.plainPath,
           value: index,
         })),
       },
@@ -122,9 +121,9 @@ async function pickDiffItems(
         message: 'Select files to commit (modified)',
         choices: modified.map(({ index, oldItem, newItem }) => ({
           name:
-            oldItem.plainFilepath === newItem.plainFilepath
-              ? oldItem.plainFilepath
-              : `${oldItem.plainFilepath} --> ${newItem.plainFilepath}`,
+            oldItem.plainPath === newItem.plainPath
+              ? oldItem.plainPath
+              : `${oldItem.plainPath} --> ${newItem.plainPath}`,
           value: index,
         })),
       },

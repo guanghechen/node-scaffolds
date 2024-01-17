@@ -13,9 +13,9 @@ import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../op
 interface ISubCommandOptions extends IGitCipherSubCommandOption {
   /**
    * The path of catalog cache file of crypt repo. (relative of workspace)
-   * @default '.ghc-cache-catalog.encrypt.json'
+   * @default '.ghc-catalog.cache.encrypt.json'
    */
-  readonly catalogCacheFilepath: string
+  readonly catalogCachePath: string
   /**
    * Crypt repo branch or commit id.
    */
@@ -31,7 +31,7 @@ export type IGitCipherVerifyOptions = ICommandOptions & ICommandConfigurationFla
 
 const getDefaultCommandVerifyOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(params),
-  catalogCacheFilepath: '.ghc-cache-catalog.encrypt.json',
+  catalogCachePath: '.ghc-catalog.cache.encrypt.json',
   cryptCommitId: 'HEAD',
   plainCommitId: undefined,
 })
@@ -52,12 +52,12 @@ export function resolveSubCommandVerifyOptions(
     getDefaultCommandVerifyOptions,
   )
 
-  // Resolve catalogCacheFilepath
-  const catalogCacheFilepath: string = pathResolver.safeResolve(
+  // Resolve catalogCachePath
+  const catalogCachePath: string = pathResolver.safeResolve(
     baseOptions.workspace,
-    cover<string>(baseOptions.catalogCacheFilepath, options.catalogCacheFilepath, isNonBlankString),
+    cover<string>(baseOptions.catalogCachePath, options.catalogCachePath, isNonBlankString),
   )
-  reporter.debug('catalogCacheFilepath:', catalogCacheFilepath)
+  reporter.debug('catalogCachePath:', catalogCachePath)
 
   // Resolve cryptCommitId
   const cryptCommitId: string = cover<string>(
@@ -76,7 +76,7 @@ export function resolveSubCommandVerifyOptions(
   reporter.debug('plainCommitId:', plainCommitId)
 
   const resolvedOptions: ISubCommandOptions = {
-    catalogCacheFilepath,
+    catalogCachePath,
     cryptCommitId,
     plainCommitId,
   }

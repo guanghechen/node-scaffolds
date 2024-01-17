@@ -25,7 +25,7 @@ export class GitCipherSubCommandInit extends GitCipherSubCommand<O, C> implement
       .arguments('<workspace>')
       .description('Initialize a encrypt / decrypt able git repo.')
       .option(
-        '--catalog-filepath, --catalogFilepath <catalogFilepath>',
+        '--catalog-config-path, --catalogConfigPath <catalogConfigPath>',
         'The path of catalog file of crypt repo. (relative of cryptRootDir)',
       )
       .option(
@@ -33,18 +33,24 @@ export class GitCipherSubCommandInit extends GitCipherSubCommand<O, C> implement
         'Hash algorithm for generate MAC for content.',
       )
       .option(
-        '--crypt-filepath-salt, --cryptFilepathSalt <cryptFilepathSalt>',
-        'Salt for generate encrypted file path. (utf8 string)',
+        '--crypt-files-dir, --cryptFilesDir <cryptFilesDir>',
+        'The path of not-plain files located. (relative of cryptRootDir)',
       )
       .option(
-        '--crypt-files-dir, --CRYPT_FILES_DIR <CRYPT_FILES_DIR>',
-        'The path of not-plain files located. (relative of cryptRootDir)',
+        '--crypt-path-salt, --cryptPathSalt <cryptPathSalt>',
+        'Salt for generate encrypted file path. (utf8 string)',
       )
       .option('--git-gpg-sign', `Config git commit.gpgSign to 'true'.`)
       .option('--no-git-gpg-sign', `Config git commit.gpgSign to 'false'.`)
       .option(
         '--secret-key-size, --secretKeySize <secretKeySize>',
         'Key size of the secret cipherFactory.',
+      )
+      .option(
+        '--keep-integrity-pattens, --keepIntegrityPatterns <keepIntegrityPatterns>',
+        'Glob patterns indicated which files should be keepIntegrity.',
+        (val, acc: string[]) => acc.concat(val),
+        [],
       )
       .option(
         '--keep-plain-pattens, --keepPlainPatterns <keepPlainPatterns>',
@@ -56,7 +62,7 @@ export class GitCipherSubCommandInit extends GitCipherSubCommand<O, C> implement
       .option('--main-key-size, --mainKeySize <mainKeySize>', 'Key size of main cipherFactory.')
       .option('--part-code-prefix, --partCodePrefix <partCodePrefix>', 'Prefix of parts code.')
       .option(
-        '--path-hash-algorithm, --PATH_HASH_ALGORITHM <PATH_HASH_ALGORITHM>',
+        '--path-hash-algorithm, --pathHashAlgorithm <pathHashAlgorithm>',
         'Hash algorithm for generate MAC for encrypted filepath.',
       )
       .option(

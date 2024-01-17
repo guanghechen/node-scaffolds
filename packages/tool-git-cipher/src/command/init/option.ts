@@ -18,26 +18,31 @@ interface ISubCommandOptions extends IGitCipherSubCommandOption {
    * The path of catalog file of crypt repo. (relative of cryptRootDir)
    * @default '.ghc-catalog'
    */
-  readonly catalogFilepath: string
+  readonly catalogConfigPath: string
   /**
    * Hash algorithm for generate MAC for content.
    * @default 'sha256
    */
   readonly contentHashAlgorithm: IHashAlgorithm
   /**
-   * Salt for generate encrypted file path. (utf8 string)
-   * @default 'ac2bf19c04d532'
-   */
-  readonly cryptFilepathSalt: string
-  /**
    * The path of not-plain files located. (relative of cryptRootDir)
    * @default 'encrypted'
    */
-  readonly CRYPT_FILES_DIR: string
+  readonly cryptFilesDir: string
+  /**
+   * Salt for generate encrypted file path. (utf8 string)
+   * @default 'ac2bf19c04d532'
+   */
+  readonly cryptPathSalt: string
   /**
    * Set the git config 'commit.gpgSign'.
    */
   readonly gitGpgSign: boolean | undefined
+  /**
+   * Glob patterns indicated which files should be keepIntegrity.
+   * @default []
+   */
+  readonly integrityPatterns: string[]
   /**
    * Glob patterns indicated which files should be keepPlain.
    * @default []
@@ -57,7 +62,7 @@ interface ISubCommandOptions extends IGitCipherSubCommandOption {
    * Max size (byte) of target file, once the file size exceeds this value,
    * the target file is split into multiple files.
    */
-  readonly maxTargetFileSize: number | undefined
+  readonly maxCryptFileSize: number | undefined
   /**
    * Prefix of parts code.
    * @default '.ghc-part'
@@ -67,7 +72,7 @@ interface ISubCommandOptions extends IGitCipherSubCommandOption {
    * Hash algorithm for generate MAC for filepath.
    * @default 'sha256'
    */
-  readonly PATH_HASH_ALGORITHM: IHashAlgorithm
+  readonly pathHashAlgorithm: IHashAlgorithm
   /**
    * Options for PBKDF2 algorithm.
    */
@@ -89,17 +94,18 @@ export type IGitCipherInitOptions = ICommandOptions & ICommandConfigurationFlatO
 
 const getDefaultCommandInitOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(params),
-  catalogFilepath: '.ghc-catalog',
-  contentHashAlgorithm: 'sha1',
-  cryptFilepathSalt: bytes2text(randomBytes(8), 'hex'),
-  CRYPT_FILES_DIR: 'encrypted',
+  catalogConfigPath: '.ghc-catalog',
+  contentHashAlgorithm: 'sha256',
+  cryptPathSalt: bytes2text(randomBytes(8), 'hex'),
+  cryptFilesDir: 'encrypted',
   gitGpgSign: false,
+  integrityPatterns: ['.ghc-config.json', '.ghc-secret.json'],
   keepPlainPatterns: ['.ghc-config.json', '.ghc-secret.json'],
   mainIvSize: 12,
   mainKeySize: 32,
-  maxTargetFileSize: Number.POSITIVE_INFINITY,
+  maxCryptFileSize: Number.POSITIVE_INFINITY,
   partCodePrefix: '.ghc-part',
-  PATH_HASH_ALGORITHM: 'sha1',
+  pathHashAlgorithm: 'sha1',
   pbkdf2Options: {
     salt: bytes2text(randomBytes(12), 'hex'),
     iterations: 200000,
@@ -126,12 +132,12 @@ export function resolveSubCommandInitOptions(
     getDefaultCommandInitOptions,
   )
 
-  // Resolve catalogFilepath
-  const catalogFilepath: string = pathResolver.safeResolve(
+  // Resolve catalogConfigPath
+  const catalogConfigPath: string = pathResolver.safeResolve(
     baseOptions.cryptRootDir,
-    cover<string>(baseOptions.catalogFilepath, options.catalogFilepath, isNonBlankString),
+    cover<string>(baseOptions.catalogConfigPath, options.catalogConfigPath, isNonBlankString),
   )
-  reporter.debug('catalogFilepath:', catalogFilepath)
+  reporter.debug('catalogConfigPath:', catalogConfigPath)
 
   // Resolve contentHashAlgorithm
   const contentHashAlgorithm: IHashAlgorithm = cover<IHashAlgorithm>(
@@ -141,21 +147,21 @@ export function resolveSubCommandInitOptions(
   )
   reporter.debug('contentHashAlgorithm:', contentHashAlgorithm)
 
-  // Resolve cryptFilepathSalt
-  const cryptFilepathSalt: string = cover<string>(
-    baseOptions.cryptFilepathSalt,
-    options.cryptFilepathSalt,
+  // Resolve cryptPathSalt
+  const cryptPathSalt: string = cover<string>(
+    baseOptions.cryptPathSalt,
+    options.cryptPathSalt,
     isNonBlankString,
   )
-  reporter.debug('cryptFilepathSalt:', cryptFilepathSalt)
+  reporter.debug('cryptPathSalt:', cryptPathSalt)
 
-  // Resolve CRYPT_FILES_DIR
-  const CRYPT_FILES_DIR: string = cover<string>(
-    baseOptions.CRYPT_FILES_DIR,
-    options.CRYPT_FILES_DIR,
+  // Resolve cryptFilesDir
+  const cryptFilesDir: string = cover<string>(
+    baseOptions.cryptFilesDir,
+    options.cryptFilesDir,
     isNonBlankString,
   )
-  reporter.debug('CRYPT_FILES_DIR:', CRYPT_FILES_DIR)
+  reporter.debug('cryptFilesDir:', cryptFilesDir)
 
   // Resolve gitGpgSign
   const gitGpgSign: boolean | undefined = cover<boolean | undefined>(
@@ -163,6 +169,16 @@ export function resolveSubCommandInitOptions(
     convertToBoolean(options.gitGpgSign),
   )
   reporter.debug('gitGpgSign:', gitGpgSign)
+
+  // Resolve integrityPatterns
+  const integrityPatterns: string[] = cover<string[]>(
+    baseOptions.integrityPatterns ?? [],
+    options.integrityPatterns,
+    isNotEmptyArray,
+  )
+    .map(p => p.trim())
+    .filter(Boolean)
+  reporter.debug('integrityPatterns:', integrityPatterns)
 
   // Resolve keepPlainPatterns
   const keepPlainPatterns: string[] = cover<string[]>(
@@ -188,12 +204,12 @@ export function resolveSubCommandInitOptions(
   )
   reporter.debug('mainKeySize:', mainKeySize)
 
-  // Resolve maxTargetFileSize
-  const maxTargetFileSize: number | undefined = cover<number | undefined>(
-    baseOptions.maxTargetFileSize,
-    convertToNumber(options.maxTargetFileSize),
+  // Resolve maxCryptFileSize
+  const maxCryptFileSize: number | undefined = cover<number | undefined>(
+    baseOptions.maxCryptFileSize,
+    convertToNumber(options.maxCryptFileSize),
   )
-  reporter.debug('maxTargetFileSize:', maxTargetFileSize)
+  reporter.debug('maxCryptFileSize:', maxCryptFileSize)
 
   // Resolve partCodePrefix
   const partCodePrefix: string = cover<string>(
@@ -203,13 +219,13 @@ export function resolveSubCommandInitOptions(
   )
   reporter.debug('partCodePrefix:', partCodePrefix)
 
-  // Resolve PATH_HASH_ALGORITHM
-  const PATH_HASH_ALGORITHM: IHashAlgorithm = cover<IHashAlgorithm>(
-    baseOptions.PATH_HASH_ALGORITHM,
-    options.PATH_HASH_ALGORITHM,
+  // Resolve pathHashAlgorithm
+  const pathHashAlgorithm: IHashAlgorithm = cover<IHashAlgorithm>(
+    baseOptions.pathHashAlgorithm,
+    options.pathHashAlgorithm,
     isNonBlankString,
   )
-  reporter.debug('PATH_HASH_ALGORITHM:', PATH_HASH_ALGORITHM)
+  reporter.debug('pathHashAlgorithm:', pathHashAlgorithm)
 
   // Resolve pbkdf2Options
   const pbkdf2Options: IPBKDF2Options = {
@@ -245,17 +261,18 @@ export function resolveSubCommandInitOptions(
   reporter.debug('secretKeySize:', secretKeySize)
 
   const resolvedOptions: ISubCommandOptions = {
-    catalogFilepath,
+    catalogConfigPath,
     contentHashAlgorithm,
-    cryptFilepathSalt,
-    CRYPT_FILES_DIR,
+    cryptPathSalt,
+    cryptFilesDir,
     gitGpgSign,
+    integrityPatterns,
     keepPlainPatterns,
     mainIvSize,
     mainKeySize,
-    maxTargetFileSize,
+    maxCryptFileSize,
     partCodePrefix,
-    PATH_HASH_ALGORITHM,
+    pathHashAlgorithm,
     pbkdf2Options,
     secretIvSize,
     secretKeySize,

@@ -1,12 +1,12 @@
 import { bytes2text, text2bytes } from '@guanghechen/byte'
 import type { ICipher } from '@guanghechen/cipher'
-import { CipherCatalogContext } from '@guanghechen/cipher-catalog'
+import type { ICipherCatalogContext } from '@guanghechen/cipher-catalog.types'
 import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/config'
 import { JsonConfigKeeper, PlainJsonConfigKeeper } from '@guanghechen/config'
+import { GitCipherCatalogContext } from '@guanghechen/helper-git-cipher'
 import type { IHashAlgorithm } from '@guanghechen/mac'
 import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { pathResolver } from '@guanghechen/path'
-import micromatch from 'micromatch'
 import type { ISecretConfig, ISecretConfigData } from './SecretConfig.types'
 
 type Instance = ISecretConfig
@@ -21,8 +21,8 @@ export const decodeAuthTag = (authTag: string | undefined): Uint8Array | undefin
   authTag === undefined ? undefined : text2bytes(authTag, 'hex')
 
 export const secretConfigHashAlgorithm: IHashAlgorithm | undefined = 'sha256'
-const __version__ = '2.0.0'
-const __compatible_version__ = '~2.0.0'
+const __version__ = '3.0.0'
+const __compatible_version__ = '~3.0.0'
 
 export class CryptSecretConfigKeeper
   extends PlainJsonConfigKeeper<Data>
@@ -53,35 +53,34 @@ export class SecretConfigKeeper
   }
 
   public createCatalogContext(params: {
+    NONCE_SIZE: number
     cryptPathResolver: IWorkspacePathResolver
     plainPathResolver: IWorkspacePathResolver
-    calcIvFromBytes: (infos: Iterable<Uint8Array>) => Promise<Uint8Array | undefined>
-  }): CipherCatalogContext | undefined {
+  }): ICipherCatalogContext | undefined {
     if (this.data) {
-      const { cryptPathResolver, plainPathResolver, calcIvFromBytes } = params
+      const { NONCE_SIZE, cryptPathResolver, plainPathResolver } = params
       const {
         contentHashAlgorithm,
-        cryptFilepathSalt,
-        CRYPT_FILES_DIR,
+        cryptFilesDir,
+        cryptPathSalt,
+        integrityPatterns,
         keepPlainPatterns,
-        maxTargetFileSize = Number.POSITIVE_INFINITY,
+        maxCryptFileSize = Number.POSITIVE_INFINITY,
         partCodePrefix,
-        PATH_HASH_ALGORITHM,
+        pathHashAlgorithm,
       } = this.data
-      const catalogContext = new CipherCatalogContext({
-        contentHashAlgorithm,
-        cryptFilepathSalt,
-        CRYPT_FILES_DIR,
-        maxTargetFileSize,
-        partCodePrefix,
-        PATH_HASH_ALGORITHM,
-        plainPathResolver,
+      const catalogContext: ICipherCatalogContext = new GitCipherCatalogContext({
+        CONTENT_HASH_ALGORITHM: contentHashAlgorithm,
+        CRYPT_FILES_DIR: cryptFilesDir,
+        CRYPT_PATH_SALT: cryptPathSalt,
+        MAX_CRYPT_FILE_SIZE: maxCryptFileSize,
+        NONCE_SIZE,
+        PART_CODE_PREFIX: partCodePrefix,
+        PATH_HASH_ALGORITHM: pathHashAlgorithm,
         cryptPathResolver,
-        isKeepPlain:
-          keepPlainPatterns.length > 0
-            ? sourceFile => micromatch.isMatch(sourceFile, keepPlainPatterns, { dot: true })
-            : () => false,
-        calcIvFromBytes,
+        plainPathResolver,
+        integrityPatterns,
+        keepPlainPatterns,
       })
       return catalogContext
     }
@@ -91,90 +90,80 @@ export class SecretConfigKeeper
   protected override async serialize(instance: Instance): Promise<Data> {
     const cipher = this.#cipher
 
-    const eCryptFilepathSalt = cipher.encrypt(text2bytes(instance.cryptFilepathSalt, 'utf8'))
+    const eCryptFilepathSalt = cipher.encrypt(text2bytes(instance.cryptPathSalt, 'utf8'))
     const eSecretNonce = cipher.encrypt(instance.secretNonce)
-    const eSecretCatalogNonce = cipher.encrypt(instance.secretCatalogNonce)
 
-    const cryptFilepathSalt: string = encodeCryptBytes(eCryptFilepathSalt.cryptBytes)
-    const cryptFilepathSaltAuthTag: string | undefined = encodeAuthTag(eCryptFilepathSalt.authTag)
+    const CRYPT_PATH_SALT: string = encodeCryptBytes(eCryptFilepathSalt.cryptBytes)
+    const CRYPT_PATH_SALT_AUTH_TAG: string | undefined = encodeAuthTag(eCryptFilepathSalt.authTag)
     const secretNonce: string = encodeCryptBytes(eSecretNonce.cryptBytes)
-    const secretCatalogNonce: string = encodeCryptBytes(eSecretCatalogNonce.cryptBytes)
 
     const secret: string = encodeCryptBytes(instance.secret) // pre-encrypted
     const secretAuthTag: string | undefined = encodeAuthTag(instance.secretAuthTag) // pre-encrypted
 
     return {
-      catalogFilepath: pathResolver.safeRelative(
+      catalogConfigPath: pathResolver.safeRelative(
         this.#cryptRootDir,
-        instance.catalogFilepath,
+        instance.catalogConfigPath,
         true,
       ),
       contentHashAlgorithm: instance.contentHashAlgorithm,
-      cryptFilepathSalt,
-      cryptFilepathSaltAuthTag,
-      CRYPT_FILES_DIR: pathResolver.safeRelative(
-        this.#cryptRootDir,
-        instance.CRYPT_FILES_DIR,
-        true,
-      ),
+      cryptPathSalt: CRYPT_PATH_SALT,
+      cryptPathSaltAuthTag: CRYPT_PATH_SALT_AUTH_TAG,
+      cryptFilesDir: pathResolver.safeRelative(this.#cryptRootDir, instance.cryptFilesDir, true),
+      integrityPatterns: instance.integrityPatterns,
       keepPlainPatterns: instance.keepPlainPatterns,
       mainIvSize: instance.mainIvSize,
       mainKeySize: instance.mainKeySize,
-      maxTargetFileSize:
-        (instance.maxTargetFileSize ?? Number.POSITIVE_INFINITY) > Number.MAX_SAFE_INTEGER
+      maxCryptFileSize:
+        (instance.maxCryptFileSize ?? Number.POSITIVE_INFINITY) > Number.MAX_SAFE_INTEGER
           ? undefined
-          : instance.maxTargetFileSize,
+          : instance.maxCryptFileSize,
       partCodePrefix: instance.partCodePrefix,
-      PATH_HASH_ALGORITHM: instance.PATH_HASH_ALGORITHM,
+      pathHashAlgorithm: instance.pathHashAlgorithm,
       pbkdf2Options: instance.pbkdf2Options,
       secret,
       secretAuthTag,
       secretIvSize: instance.secretIvSize,
       secretKeySize: instance.secretKeySize,
       secretNonce,
-      secretCatalogNonce,
     }
   }
 
   protected override async deserialize(data: Data): Promise<Instance> {
     const cipher = this.#cipher
-
-    const sCryptFilepathSalt = decodeCryptBytes(data.cryptFilepathSalt)
-    const sCryptFilepathSaltAuthTag = decodeAuthTag(data.cryptFilepathSaltAuthTag)
+    const sCryptFilepathSalt = decodeCryptBytes(data.cryptPathSalt)
+    const sCryptFilepathSaltAuthTag = decodeAuthTag(data.cryptPathSaltAuthTag)
     const sSecretNonce = decodeCryptBytes(data.secretNonce)
-    const sSecretCatalogNonce = decodeCryptBytes(data.secretCatalogNonce)
 
-    const cryptFilepathSaltAuthTag = sCryptFilepathSaltAuthTag
-    const cryptFilepathSalt = cipher.decrypt(sCryptFilepathSalt, {
-      authTag: cryptFilepathSaltAuthTag,
+    const CRYPT_PATH_SALT_AUTH_TAG = sCryptFilepathSaltAuthTag
+    const CRYPT_PATH_SALT = cipher.decrypt(sCryptFilepathSalt, {
+      authTag: CRYPT_PATH_SALT_AUTH_TAG,
     })
     const secretNonce = cipher.decrypt(sSecretNonce)
-    const secretCatalogNonce = cipher.decrypt(sSecretCatalogNonce)
-
     const secret = decodeCryptBytes(data.secret) // pre-encrypted.
     const secretAuthTag = decodeAuthTag(data.secretAuthTag) // pre-encrypted.
 
     return {
-      catalogFilepath: pathResolver.safeResolve(this.#cryptRootDir, data.catalogFilepath),
+      catalogConfigPath: pathResolver.safeResolve(this.#cryptRootDir, data.catalogConfigPath),
       contentHashAlgorithm: data.contentHashAlgorithm,
-      cryptFilepathSalt: bytes2text(cryptFilepathSalt, 'utf8'),
-      CRYPT_FILES_DIR: pathResolver.safeRelative(this.#cryptRootDir, data.CRYPT_FILES_DIR, true),
+      cryptPathSalt: bytes2text(CRYPT_PATH_SALT, 'utf8'),
+      cryptFilesDir: pathResolver.safeRelative(this.#cryptRootDir, data.cryptFilesDir, true),
+      integrityPatterns: data.integrityPatterns,
       keepPlainPatterns: data.keepPlainPatterns,
       mainIvSize: data.mainIvSize,
       mainKeySize: data.mainKeySize,
-      maxTargetFileSize:
-        (data.maxTargetFileSize ?? Number.POSITIVE_INFINITY) > Number.MAX_SAFE_INTEGER
+      maxCryptFileSize:
+        (data.maxCryptFileSize ?? Number.POSITIVE_INFINITY) > Number.MAX_SAFE_INTEGER
           ? Number.POSITIVE_INFINITY
-          : data.maxTargetFileSize,
+          : data.maxCryptFileSize,
       partCodePrefix: data.partCodePrefix,
-      PATH_HASH_ALGORITHM: data.PATH_HASH_ALGORITHM,
+      pathHashAlgorithm: data.pathHashAlgorithm,
       pbkdf2Options: data.pbkdf2Options,
       secret,
       secretAuthTag,
       secretIvSize: data.secretIvSize,
       secretKeySize: data.secretKeySize,
       secretNonce,
-      secretCatalogNonce,
     }
   }
 }

@@ -14,14 +14,9 @@ export default function (plop) {
       return [
         {
           type: 'add',
-          path: resolveTargetPath(answers.configFilepath),
+          path: resolveTargetPath(answers.configPath),
           templateFile: resolveSourcePath('.ghc-config.json.hbs'),
         },
-        // {
-        //   type: 'add',
-        //   path: resolveTargetPath(answers.secretFilepath),
-        //   templateFile: resolveSourcePath('.ghc-secret.json.hbs'),
-        // },
         {
           type: 'add',
           path: resolveTargetPath('.gitignore'),

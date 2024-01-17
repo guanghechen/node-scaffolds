@@ -7,7 +7,7 @@ export interface IGitCipherVerifyContext extends IGitCipherSubCommandContext {
   /**
    * The path of catalog cache file of crypt repo. (absolute path)
    */
-  readonly catalogCacheFilepath: string
+  readonly catalogCachePath: string
   /**
    * Crypt repo branch or commit id.
    */
@@ -31,7 +31,7 @@ export interface IGitCipherVerifyContext extends IGitCipherSubCommandContext {
   /**
    * The path of secret file. (absolute path)
    */
-  readonly secretFilepath: string
+  readonly secretConfigPath: string
 }
 
 export async function createVerifyContextFromOptions(
@@ -49,7 +49,7 @@ export async function createVerifyContextFromOptions(
   )
 
   const context: IGitCipherVerifyContext = {
-    catalogCacheFilepath: options.catalogCacheFilepath,
+    catalogCachePath: options.catalogCachePath,
     cryptCommitId: options.cryptCommitId,
     cryptPathResolver,
     encoding: options.encoding,
@@ -58,7 +58,7 @@ export async function createVerifyContextFromOptions(
     minPasswordLength: options.minPasswordLength,
     plainCommitId: options.plainCommitId,
     plainPathResolver,
-    secretFilepath: options.secretFilepath,
+    secretConfigPath: options.secretConfigPath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
   }

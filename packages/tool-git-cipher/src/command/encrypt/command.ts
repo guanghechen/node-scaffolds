@@ -26,7 +26,7 @@ export class GitCipherSubCommandEncrypt
       .aliases(aliases)
       .description('Encrypt git repo.')
       .option(
-        '--catalog-cache-filepath, --catalogCacheFilepath <catalogCacheFilepath>',
+        '--catalog-cache-path, --catalogCachePath <catalogCachePath>',
         'The path where catalog cache file located. (relative of workspace)',
       )
       .option(

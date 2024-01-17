@@ -45,7 +45,7 @@ export interface IGlobalCommandOptions extends ICommandConfigurationOptions {
    * The path of secret file. (relative of workspace)
    * @default '.ghc-secret'
    */
-  readonly secretFilepath: string
+  readonly secretConfigPath: string
   /**
    * Whether to print password asterisks.
    * @default true
@@ -68,7 +68,7 @@ export const getDefaultGlobalCommandOptions = (
     maxRetryTimes: 3,
     minPasswordLength: 6,
     plainRootDir: `${repoName}-plain`,
-    secretFilepath: '.ghc-secret.json',
+    secretConfigPath: '.ghc-secret.json',
     showAsterisk: true,
   }
 }
@@ -138,12 +138,12 @@ export function resolveBaseCommandOptions<O extends object>(
   )
   reporter.debug('plainRootDir:', plainRootDir)
 
-  // Resolve secretFilepath
-  const secretFilepath: string = pathResolver.safeResolve(
+  // Resolve secretConfigPath
+  const secretConfigPath: string = pathResolver.safeResolve(
     workspace,
-    cover<string>(baseOptions.secretFilepath, options.secretFilepath, isNonBlankString),
+    cover<string>(baseOptions.secretConfigPath, options.secretConfigPath, isNonBlankString),
   )
-  reporter.debug('secretFilepath:', secretFilepath)
+  reporter.debug('secretConfigPath:', secretConfigPath)
 
   // Resolve showAsterisk
   const showAsterisk: boolean = cover<boolean>(
@@ -159,7 +159,7 @@ export function resolveBaseCommandOptions<O extends object>(
     maxRetryTimes,
     minPasswordLength,
     plainRootDir,
-    secretFilepath,
+    secretConfigPath,
     showAsterisk,
   }
 

@@ -1,15 +1,13 @@
-import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import { showCommitInfo } from '@guanghechen/helper-git'
 import type { GitCipher } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import type { IReporter } from '@guanghechen/reporter.types'
-import { TextFileResource } from '@guanghechen/resource'
+import { FileTextResource } from '@guanghechen/resource'
+import type { ICatalogCache } from '../CatalogCache'
 import { CatalogCacheKeeper } from '../CatalogCache'
 
 export interface IVerifyCryptRepoStrictlyParams {
-  readonly catalogCacheFilepath: string
-  readonly catalogCipher: ICipher | undefined
-  readonly cipherFactory: ICipherFactory | undefined
+  readonly catalogCachePath: string
   readonly cryptCommitId: string
   readonly cryptRootDir: string
   readonly gitCipher: GitCipher
@@ -19,13 +17,7 @@ export interface IVerifyCryptRepoStrictlyParams {
 
 export async function verifyRepoStrictly(params: IVerifyCryptRepoStrictlyParams): Promise<void> {
   const title = 'verifyRepoStrictly'
-  const { catalogCacheFilepath, catalogCipher, cipherFactory, cryptRootDir, gitCipher, reporter } =
-    params
-
-  invariant(
-    !!cipherFactory && !!catalogCipher,
-    `[${title}] cipherFactory or catalogCipher is not available!`,
-  )
+  const { catalogCachePath, cryptRootDir, gitCipher, reporter } = params
 
   // To avoid the `HEAD` reference.
   const cryptCommitId: string = (
@@ -39,16 +31,16 @@ export async function verifyRepoStrictly(params: IVerifyCryptRepoStrictlyParams)
   let plainCommitId = params.plainCommitId
   if (!plainCommitId) {
     const cacheKeeper = new CatalogCacheKeeper({
-      resource: new TextFileResource({
+      resource: new FileTextResource({
         strict: true,
-        filepath: catalogCacheFilepath,
+        filepath: catalogCachePath,
         encoding: 'utf8',
       }),
       reporter,
     })
 
-    await cacheKeeper.load()
-    const { crypt2plainIdMap } = cacheKeeper.data ?? { crypt2plainIdMap: new Map() }
+    const catalogCache: ICatalogCache = await cacheKeeper.load()
+    const crypt2plainIdMap: Map<string, string> = catalogCache.crypt2plainIdMap ?? new Map()
     plainCommitId = crypt2plainIdMap.get(cryptCommitId)
   }
 

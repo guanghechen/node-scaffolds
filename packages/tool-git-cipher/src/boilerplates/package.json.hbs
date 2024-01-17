@@ -4,10 +4,11 @@
   "private": true,
   "files": [],
   "scripts": {
-    "encrypt": "ghc-git-cipher encrypt",
-    "encrypt:files": "ghc-git-cipher encrypt --plainRootDir {{{plainRootDir}}}-files --filesOnly",
-    "decrypt": "ghc-git-cipher decrypt",
-    "verify": "ghc-git-cipher verify",
+    "cipher": "ghc-git-cipher",
+    "encrypt": "yarn cipher encrypt",
+    "encrypt:files": "yarn cipher encrypt --plainRootDir {{{plainRootDir}}}-files --filesOnly",
+    "decrypt": "yarn cipher decrypt",
+    "verify": "yarn cipher verify",
     "sync:pull": "(cd {{{cryptRootDir}}} && git pull origin main)",
     "sync:push": "(cd {{{cryptRootDir}}} && git push origin main)"
   }

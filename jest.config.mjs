@@ -57,6 +57,11 @@ const coverageMap = {
       statements: 89,
     },
   },
+  '@guanghechen/helper-git-cipher': {
+    global: {
+      functions: 85,
+    },
+  },
   '@guanghechen/rollup-config': {
     'src/config.ts': { branches: 66 },
     'src/env.ts': { branches: 50 },

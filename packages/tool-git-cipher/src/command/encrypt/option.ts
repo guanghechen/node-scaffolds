@@ -14,9 +14,9 @@ import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../op
 interface ISubCommandOptions extends IGitCipherSubCommandOption {
   /**
    * The path of catalog cache file of crypt repo. (relative of workspace)
-   * @default '.ghc-cache-catalog.encrypt.json'
+   * @default '.ghc-catalog.cache.encrypt.json'
    */
-  readonly catalogCacheFilepath: string
+  readonly catalogCachePath: string
   /**
    * Determines whether `plainRootDir` represents the root directory of source files
    * or the root directory of a git repository containing the source files.
@@ -34,7 +34,7 @@ const getDefaultCommandEncryptOptions = (
   params: IResolveDefaultOptionsParams,
 ): ICommandOptions => ({
   ...getDefaultGlobalCommandOptions(params),
-  catalogCacheFilepath: '.ghc-cache-catalog.encrypt.json',
+  catalogCachePath: '.ghc-catalog.cache.encrypt.json',
   filesOnly: false,
 })
 
@@ -54,19 +54,19 @@ export function resolveSubCommandEncryptOptions(
     getDefaultCommandEncryptOptions,
   )
 
-  // Resolve catalogCacheFilepath
-  const catalogCacheFilepath: string = pathResolver.safeResolve(
+  // Resolve catalogCachePath
+  const catalogCachePath: string = pathResolver.safeResolve(
     baseOptions.workspace,
-    cover<string>(baseOptions.catalogCacheFilepath, options.catalogCacheFilepath, isNonBlankString),
+    cover<string>(baseOptions.catalogCachePath, options.catalogCachePath, isNonBlankString),
   )
-  reporter.debug('catalogCacheFilepath:', catalogCacheFilepath)
+  reporter.debug('catalogCachePath:', catalogCachePath)
 
   // Resolve filesOnly
   const filesOnly: boolean = cover<boolean>(baseOptions.filesOnly, options.filesOnly, isBoolean)
   reporter.debug('filesOnly:', filesOnly)
 
   const resolvedOptions: ISubCommandOptions = {
-    catalogCacheFilepath,
+    catalogCachePath,
     filesOnly,
   }
   return { ...baseOptions, ...resolvedOptions }

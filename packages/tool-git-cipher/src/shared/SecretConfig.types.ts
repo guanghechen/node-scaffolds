@@ -5,19 +5,23 @@ export interface ISecretConfig {
   /**
    * The path of catalog file of crypt repo. (relative of cryptRootDir)
    */
-  readonly catalogFilepath: string
+  readonly catalogConfigPath: string
   /**
    * Hash algorithm for generate MAC for content.
    */
   readonly contentHashAlgorithm: IHashAlgorithm
   /**
-   * Salt for generate encrypted file path. (utf8 string)
-   */
-  readonly cryptFilepathSalt: string
-  /**
    * The path of not-plain files located. (relative of cryptRootDir)
    */
-  readonly CRYPT_FILES_DIR: string
+  readonly cryptFilesDir: string
+  /**
+   * Salt for generate encrypted file path. (utf8 string)
+   */
+  readonly cryptPathSalt: string
+  /**
+   * Glob patterns indicated which files should be keepIntegrity.
+   */
+  readonly integrityPatterns: string[]
   /**
    * Glob patterns indicated which files should be keepPlain.
    */
@@ -34,7 +38,7 @@ export interface ISecretConfig {
    * Max size (byte) of target file, once the file size exceeds this value,
    * the target file is split into multiple files.
    */
-  readonly maxTargetFileSize: number | undefined
+  readonly maxCryptFileSize: number | undefined
   /**
    * Prefix of splitted files parts code.
    */
@@ -42,7 +46,7 @@ export interface ISecretConfig {
   /**
    * Hash algorithm for generate MAC for filepath.
    */
-  readonly PATH_HASH_ALGORITHM: IHashAlgorithm
+  readonly pathHashAlgorithm: IHashAlgorithm
   /**
    * Options for PBKDF2 algorithm.
    */
@@ -67,33 +71,33 @@ export interface ISecretConfig {
    * Initial nonce for generating ivs of each file in a commit. (hex string)
    */
   readonly secretNonce: Readonly<Uint8Array>
-  /**
-   * Initial nonce for generating iv for catalog config. (hex string)
-   */
-  readonly secretCatalogNonce: Readonly<Uint8Array>
 }
 
 export interface ISecretConfigData {
   /**
    * The path of catalog file of crypt repo. (relative of cryptRootDir)
    */
-  readonly catalogFilepath: string
+  readonly catalogConfigPath: string
   /**
    * Hash algorithm for generate MAC for content.
    */
   readonly contentHashAlgorithm: IHashAlgorithm
   /**
+   * The path of not-plain files located. (relative of cryptRootDir)
+   */
+  readonly cryptFilesDir: string
+  /**
    * Salt for generate encrypted file path. (utf8 string)
    */
-  readonly cryptFilepathSalt: string
+  readonly cryptPathSalt: string
   /**
    * Auth tag of cryptFilepathSalt. (hex string)
    */
-  readonly cryptFilepathSaltAuthTag: string | undefined
+  readonly cryptPathSaltAuthTag: string | undefined
   /**
-   * The path of not-plain files located. (relative of cryptRootDir)
+   * Glob patterns indicated which files should be keepIntegrity.
    */
-  readonly CRYPT_FILES_DIR: string
+  readonly integrityPatterns: string[]
   /**
    * Glob patterns indicated which files should be keepPlain.
    */
@@ -110,7 +114,7 @@ export interface ISecretConfigData {
    * Max size (byte) of target file, once the file size exceeds this value,
    * the target file is split into multiple files.
    */
-  readonly maxTargetFileSize: number | undefined
+  readonly maxCryptFileSize: number | undefined
   /**
    * Prefix of splitted files parts code.
    */
@@ -118,7 +122,7 @@ export interface ISecretConfigData {
   /**
    * Hash algorithm for generate MAC for filepath.
    */
-  readonly PATH_HASH_ALGORITHM: IHashAlgorithm
+  readonly pathHashAlgorithm: IHashAlgorithm
   /**
    * Options for PBKDF2 algorithm.
    */
@@ -143,13 +147,6 @@ export interface ISecretConfigData {
    * Initial nonce for generating ivs of each file in a commit. (hex string)
    */
   readonly secretNonce: string
-  /**
-   * Initial nonce for generating iv for catalog config. (hex string)
-   */
-  readonly secretCatalogNonce: string
 }
 
-export type IPresetSecretConfig = Omit<
-  ISecretConfig,
-  'secret' | 'secretAuthTag' | 'secretNonce' | 'secretCatalogNonce'
->
+export type IPresetSecretConfig = Omit<ISecretConfig, 'secret' | 'secretAuthTag' | 'secretNonce'>

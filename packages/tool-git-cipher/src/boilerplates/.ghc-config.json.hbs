@@ -4,23 +4,23 @@
   "__globalOptions__": {
     "logLevel": "{{{logLevel}}}",
     "encoding": "{{{encoding}}}",
-    "plainRootDir": "{{{plainRootDir}}}",
     "cryptRootDir": "{{{cryptRootDir}}}",
-    "secretFilepath": "{{{secretFilepath}}}",
     "minPasswordLength": {{{minPasswordLength}}},
+    "plainRootDir": "{{{plainRootDir}}}",
+    "secretConfigPath": "{{{secretConfigPath}}}",
     "showAsterisk": {{{showAsterisk}}}
   },
   "init": {
     "gitGpgSign": false
   },
   "encrypt": {
-    "catalogCacheFilepath": ".ghc-cache-catalog.json"
+    "catalogCachePath": ".ghc-catalog.cache.json"
   },
   "decrypt": {
-    "catalogCacheFilepath": ".ghc-cache-catalog.json",
+    "catalogCachePath": ".ghc-catalog.cache.json",
     "gitGpgSign": false
   },
   "verify": {
-    "catalogCacheFilepath": ".ghc-cache-catalog.json"
+    "catalogCachePath": ".ghc-catalog.cache.json"
   }
 }

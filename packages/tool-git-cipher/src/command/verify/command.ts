@@ -24,7 +24,7 @@ export class GitCipherSubCommandVerify extends GitCipherSubCommand<O, C> impleme
       .aliases(aliases)
       .description('Verify if there are any problems in the crypt repo.')
       .option(
-        '--catalog-cache-filepath, --catalogCacheFilepath <catalogCacheFilepath>',
+        '--catalog-cache-path, --catalogCachePath <catalogCachePath>',
         'The path where catalog cache file located. (relative of workspace)',
       )
       .option('--crypt-commit-id, --cryptCommitId <commitHash>', 'Crypt repo branch or commit id.')

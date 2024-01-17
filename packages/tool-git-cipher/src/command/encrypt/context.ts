@@ -7,7 +7,7 @@ export interface IGitCipherEncryptContext extends IGitCipherSubCommandContext {
   /**
    * The path of catalog cache file of crypt repo. (absolute path)
    */
-  readonly catalogCacheFilepath: string
+  readonly catalogCachePath: string
   /**
    * Crypt workspace path resolver.
    */
@@ -31,7 +31,7 @@ export interface IGitCipherEncryptContext extends IGitCipherSubCommandContext {
   /**
    * The path of secret file. (absolute path)
    */
-  readonly secretFilepath: string
+  readonly secretConfigPath: string
 }
 
 export async function createEncryptContextFromOptions(
@@ -49,7 +49,7 @@ export async function createEncryptContextFromOptions(
   )
 
   const context: IGitCipherEncryptContext = {
-    catalogCacheFilepath: options.catalogCacheFilepath,
+    catalogCachePath: options.catalogCachePath,
     cryptPathResolver,
     encoding: options.encoding,
     filesOnly: options.filesOnly,
@@ -57,7 +57,7 @@ export async function createEncryptContextFromOptions(
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
     plainPathResolver,
-    secretFilepath: options.secretFilepath,
+    secretConfigPath: options.secretConfigPath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
   }

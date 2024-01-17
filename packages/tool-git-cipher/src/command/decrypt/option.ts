@@ -13,9 +13,9 @@ import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../op
 interface ISubCommandOptions extends IGitCipherSubCommandOption {
   /**
    * The path of catalog cache file of crypt repo. (relative of workspace)
-   * @default '.ghc-cache-catalog.decrypt.json'
+   * @default '.ghc-catalog.cache.decrypt.json'
    */
-  readonly catalogCacheFilepath: string
+  readonly catalogCachePath: string
   /**
    * Crypt repo commit hash, if specified, then decrypt files only at the given commit id or branch.
    */
@@ -41,7 +41,7 @@ export type IGitCipherDecryptOption = ICommandOptions & ICommandConfigurationFla
 const getDefaultCommandDecryptOptions = (params: IResolveDefaultOptionsParams): ICommandOptions => {
   return {
     ...getDefaultGlobalCommandOptions(params),
-    catalogCacheFilepath: '.ghc-cache-catalog.decrypt.json',
+    catalogCachePath: '.ghc-catalog.cache.decrypt.json',
     filesAt: undefined,
     filesOnly: [],
     gitGpgSign: false,
@@ -64,12 +64,12 @@ export function resolveSubCommandDecryptOptions(
     getDefaultCommandDecryptOptions,
   )
 
-  // Resolve catalogCacheFilepath
-  const catalogCacheFilepath: string = pathResolver.safeResolve(
+  // Resolve catalogCachePath
+  const catalogCachePath: string = pathResolver.safeResolve(
     baseOptions.workspace,
-    cover<string>(baseOptions.catalogCacheFilepath, options.catalogCacheFilepath, isNonBlankString),
+    cover<string>(baseOptions.catalogCachePath, options.catalogCachePath, isNonBlankString),
   )
-  reporter.debug('catalogCacheFilepath:', catalogCacheFilepath)
+  reporter.debug('catalogCachePath:', catalogCachePath)
 
   // Resolve filesAt
   const filesAt: string | undefined = cover<string | undefined>(
@@ -95,7 +95,7 @@ export function resolveSubCommandDecryptOptions(
   reporter.debug('gitGpgSign:', gitGpgSign)
 
   const resolvedOptions: ISubCommandOptions = {
-    catalogCacheFilepath,
+    catalogCachePath,
     filesAt,
     filesOnly,
     gitGpgSign,

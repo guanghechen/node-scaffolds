@@ -23,7 +23,7 @@ export interface IGitCipherTreeContext extends IGitCipherSubCommandContext {
   /**
    * The path of secret file. (absolute path)
    */
-  readonly secretFilepath: string
+  readonly secretConfigPath: string
 }
 
 export async function createTreeContextFromOptions(
@@ -48,7 +48,7 @@ export async function createTreeContextFromOptions(
     maxRetryTimes: options.maxRetryTimes,
     minPasswordLength: options.minPasswordLength,
     plainPathResolver,
-    secretFilepath: options.secretFilepath,
+    secretConfigPath: options.secretConfigPath,
     showAsterisk: options.showAsterisk,
     workspace: options.workspace,
   }

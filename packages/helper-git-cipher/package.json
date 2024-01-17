@@ -48,7 +48,7 @@
   "dependencies": {
     "@guanghechen/byte": "^1.0.0-alpha.5",
     "@guanghechen/cipher": "^1.0.0-alpha.19",
-    "@guanghechen/cipher-catalog": "^1.0.0-alpha.21",
+    "@guanghechen/cipher-catalog": "^1.0.0-alpha.25",
     "@guanghechen/config": "^1.0.0-alpha.12",
     "@guanghechen/filepart": "^1.0.0-alpha.3",
     "@guanghechen/helper-cipher-file": "^6.0.0-alpha.15",
@@ -56,7 +56,7 @@
     "@guanghechen/helper-func": "^6.0.0-alpha.1",
     "@guanghechen/helper-git": "^6.0.0-alpha.6",
     "@guanghechen/invariant": "^6.0.0-alpha.1",
-    "@guanghechen/path.types": "^1.0.0-alpha.11",
+    "@guanghechen/path.types": "^1.0.0-alpha.12",
     "@guanghechen/reporter.types": "^1.0.0-alpha.9",
     "micromatch": "^4.0.5"
   },

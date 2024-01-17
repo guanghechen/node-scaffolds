@@ -72,6 +72,7 @@ export abstract class GitCipherSubCommand<
             throw new CustomError(CustomErrorCode.SOFT_EXITING, 'exiting')
         }
       }
+      throw error
     } finally {
       await processor.destroy()
     }

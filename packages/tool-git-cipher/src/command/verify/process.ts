@@ -3,6 +3,7 @@ import { isGitRepo } from '@guanghechen/helper-git'
 import { GitCipher } from '@guanghechen/helper-git-cipher'
 import invariant from '@guanghechen/invariant'
 import { existsSync } from 'node:fs'
+import type { ISecretConfig } from '../../shared/SecretConfig.types'
 import { loadGitCipherContext } from '../../shared/util/context/loadGitCipherContext'
 import { verifyCryptRepo } from '../../shared/util/verifyCryptRepo'
 import { verifyRepoStrictly } from '../../shared/util/verifyRepoStrictly'
@@ -43,10 +44,10 @@ export class GitCipherVerify
   }
 
   protected async _verifyStrict(): Promise<void> {
-    const { context, secretMaster, reporter } = this
-    const { cryptPathResolver, plainPathResolver } = context
+    const { context, reporter } = this
+    const { cryptPathResolver, plainPathResolver, secretConfigPath } = context
     const gitCipherContext = await loadGitCipherContext({
-      secretFilepath: context.secretFilepath,
+      secretConfigPath,
       secretMaster: this.secretMaster,
       cryptPathResolver,
       plainPathResolver,
@@ -55,9 +56,7 @@ export class GitCipherVerify
     const gitCipher = new GitCipher({ context: gitCipherContext })
 
     await verifyRepoStrictly({
-      catalogCacheFilepath: context.catalogCacheFilepath,
-      catalogCipher: secretMaster.catalogCipher,
-      cipherFactory: secretMaster.cipherFactory,
+      catalogCachePath: context.catalogCachePath,
       cryptCommitId: context.cryptCommitId,
       cryptRootDir: cryptPathResolver.root,
       gitCipher,
@@ -67,31 +66,24 @@ export class GitCipherVerify
   }
 
   protected async _verifyCryptRepo(): Promise<void> {
-    const title = `${clazz}.process`
-    const { context, secretMaster, reporter } = this
-    const {
-      secretFilepath, //
-      cryptCommitId,
+    const { context, reporter } = this
+    const { cryptCommitId, cryptPathResolver, plainPathResolver, secretConfigPath } = context
+    const gitCipherContext = await loadGitCipherContext({
+      secretConfigPath,
+      secretMaster: this.secretMaster,
       cryptPathResolver,
       plainPathResolver,
-    } = context
-
-    const secretKeeper = await secretMaster.load({
-      filepath: secretFilepath,
-      cryptRootDir: cryptPathResolver.root,
-      force: true,
+      reporter,
     })
-    invariant(!!secretKeeper.data, `[${title}] secret is not available.`)
+    const gitCipher = new GitCipher({ context: gitCipherContext })
+    const { catalogConfigPath } = gitCipherContext
 
     await verifyCryptRepo({
-      catalogCipher: secretMaster.catalogCipher,
-      cipherFactory: secretMaster.cipherFactory,
+      catalogConfigPath,
       cryptCommitId,
-      cryptPathResolver,
-      plainPathResolver,
-      secretConfig: secretKeeper.data,
+      cryptRootDir: cryptPathResolver.root,
+      gitCipher,
       reporter,
-      calcIvFromBytes: secretMaster.calcIvFromBytes,
     })
   }
 }

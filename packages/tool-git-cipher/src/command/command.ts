@@ -29,7 +29,7 @@ export function createProgram(): Command {
       'The directory where the plain repo located. (relative of workspace or absolute path)',
     )
     .option(
-      '--secret-filepath, --secretFilepath <secretFilepath>',
+      '--secret-config-path, --secretConfigPath <secretConfigPath>',
       'The path of secret file. (relative of workspace)',
     )
     .option('--show-asterisk', `Print password asterisk.`)

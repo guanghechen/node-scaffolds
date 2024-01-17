@@ -1,10 +1,10 @@
-import { destroyBytes } from '@guanghechen/byte'
+import { destroyBytes, text2bytes } from '@guanghechen/byte'
 import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
 import invariant from '@guanghechen/invariant'
+import { calcMac } from '@guanghechen/mac'
 import type { IReporter } from '@guanghechen/reporter.types'
-import { TextFileResource } from '@guanghechen/resource'
-import { createHash } from 'node:crypto'
+import { FileTextResource } from '@guanghechen/resource'
 import { CustomErrorCode } from './core/constant'
 import {
   CryptSecretConfigKeeper,
@@ -70,29 +70,12 @@ export class SecretMaster {
     this.#secretConfigKeeper = undefined
   }
 
-  public get cipherFactory(): ICipherFactory | undefined {
+  public get contentCipherFactory(): ICipherFactory | undefined {
     return this.#secretCipherFactory
   }
 
-  public get catalogCipher(): ICipher | undefined {
-    const secretCatalogNonce = this.#secretConfigKeeper?.data?.secretCatalogNonce
-    return this.#secretCipherFactory && secretCatalogNonce
-      ? this.#secretCipherFactory.cipher({ iv: secretCatalogNonce })
-      : undefined
-  }
-
-  public calcIvFromBytes = async (infos: Iterable<Uint8Array>): Promise<Uint8Array> => {
-    const secretNonce = this.#secretConfigKeeper?.data?.secretNonce
-    const secretIvSize = this.#secretConfigKeeper?.data?.secretIvSize
-    invariant(
-      !!secretNonce && !!secretIvSize && !!this.#secretCipherFactory,
-      '[SecretMaster.calcIv] secretCipherFactory is not available.',
-    )
-
-    const sha256 = createHash('sha256')
-    sha256.update(secretNonce)
-    for (const info of infos) sha256.update(info)
-    return sha256.digest().subarray(0, secretIvSize)
+  public get catalogCipherFactory(): ICipherFactory | undefined {
+    return this.#secretCipherFactory
   }
 
   // create a new secret key
@@ -155,34 +138,32 @@ export class SecretMaster {
           reporter.debug('New create secret is fine.')
 
           const secretNonce: Uint8Array = secretCipherFactoryBuilder.createRandomIv()
-          const secretCatalogNonce: Uint8Array = secretCipherFactoryBuilder.createRandomIv()
-
           const cSecret = passwordCipher.encrypt(secret)
           const config: ISecretConfig = {
-            catalogFilepath: presetConfigData.catalogFilepath,
+            catalogConfigPath: presetConfigData.catalogConfigPath,
             contentHashAlgorithm: presetConfigData.contentHashAlgorithm,
-            cryptFilepathSalt: presetConfigData.cryptFilepathSalt,
-            CRYPT_FILES_DIR: presetConfigData.CRYPT_FILES_DIR,
+            cryptPathSalt: presetConfigData.cryptPathSalt,
+            cryptFilesDir: presetConfigData.cryptFilesDir,
+            integrityPatterns: presetConfigData.integrityPatterns,
             keepPlainPatterns: presetConfigData.keepPlainPatterns,
             mainIvSize: presetConfigData.mainIvSize,
             mainKeySize: presetConfigData.mainKeySize,
-            maxTargetFileSize: presetConfigData.maxTargetFileSize,
+            maxCryptFileSize: presetConfigData.maxCryptFileSize,
             partCodePrefix: presetConfigData.partCodePrefix,
-            PATH_HASH_ALGORITHM: presetConfigData.PATH_HASH_ALGORITHM,
+            pathHashAlgorithm: presetConfigData.pathHashAlgorithm,
             pbkdf2Options: presetConfigData.pbkdf2Options,
             secret: cSecret.cryptBytes,
             secretAuthTag: cSecret.authTag,
             secretKeySize: presetConfigData.secretKeySize,
             secretIvSize: presetConfigData.secretIvSize,
             secretNonce,
-            secretCatalogNonce,
           }
 
           const secretCipher = secretCipherFactory.cipher()
           configKeeper = new SecretConfigKeeper({
             cipher: secretCipher,
             cryptRootDir,
-            resource: new TextFileResource({ strict: true, filepath, encoding: 'utf8' }),
+            resource: new FileTextResource({ strict: true, filepath, encoding: 'utf8' }),
           })
 
           reporter.debug('Updating secret config.')
@@ -207,6 +188,17 @@ export class SecretMaster {
     return configKeeper
   }
 
+  // Destroy secret and sensitive data
+  public destroy(): void {
+    this.#secretCipherFactory?.destroy()
+    this.#secretCipherFactory = undefined
+  }
+
+  public genNonceByCommitMessage = (message: string): Uint8Array => {
+    const mac = calcMac([text2bytes(message, 'utf8')], 'sha256')
+    return mac.slice(0, 16)
+  }
+
   // Load secret key & initialize secret cipher factory.
   public async load(params: {
     cryptRootDir: string
@@ -218,21 +210,19 @@ export class SecretMaster {
 
     const { reporter } = this
     const title: string = this.constructor.name
-    const resource = new TextFileResource({ strict: true, filepath, encoding: 'utf8' })
-    const plainConfigKeeper = new CryptSecretConfigKeeper({
+    const resource = new FileTextResource({ strict: true, filepath, encoding: 'utf8' })
+    const cryptSecretConfigKeeper = new CryptSecretConfigKeeper({
       resource,
       hashAlgorithm: secretConfigHashAlgorithm,
     })
-    await plainConfigKeeper.load()
-
-    const cryptSecretConfig = plainConfigKeeper.data
+    const cryptSecretConfig: ISecretConfigData = await cryptSecretConfigKeeper.load()
     invariant(!!cryptSecretConfig, `[${title}.load] Bad config`)
 
     let mainCipherFactory: ICipherFactory | null = null
     let secret: Uint8Array | null = null
     let password: Uint8Array | null = null
     let passwordCipher: ICipher | null = null
-    let configKeeper: SecretConfigKeeper
+    let secretConfigKeeper: SecretConfigKeeper
     try {
       // Ask password to initialize mainCipherFactory
       password = await this._askPassword(cryptSecretConfig)
@@ -261,14 +251,10 @@ export class SecretMaster {
       }).buildFromSecret(secret)
 
       const secretCipher = secretCipherFactory.cipher()
-      configKeeper = new SecretConfigKeeper({
-        cipher: secretCipher,
-        cryptRootDir,
-        resource: resource,
-      })
-      await configKeeper.load()
+      secretConfigKeeper = new SecretConfigKeeper({ cipher: secretCipher, cryptRootDir, resource })
+      await secretConfigKeeper.load()
 
-      this.#secretConfigKeeper = configKeeper
+      this.#secretConfigKeeper = secretConfigKeeper
       this.#secretCipherFactory?.destroy()
       this.#secretCipherFactory = secretCipherFactory
     } finally {
@@ -279,13 +265,7 @@ export class SecretMaster {
       secret = null
       password = null
     }
-    return configKeeper
-  }
-
-  // Destroy secret and sensitive data
-  public destroy(): void {
-    this.#secretCipherFactory?.destroy()
-    this.#secretCipherFactory = undefined
+    return secretConfigKeeper
   }
 
   // Request password.

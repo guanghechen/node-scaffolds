@@ -9,7 +9,7 @@ export * from './command/command'
 export * from './command/option'
 
 // shared
-export * from './shared/core/config'
+export * from './shared/config'
 export * from './shared/core/constant'
 export * from './shared/core/error'
 export * from './shared/util/context/createContext'
