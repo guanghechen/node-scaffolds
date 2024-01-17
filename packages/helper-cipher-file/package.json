@@ -49,18 +49,13 @@
   "dependencies": {
     "@guanghechen/byte": "^1.0.0-alpha.5",
     "@guanghechen/cipher": "^1.0.0-alpha.19",
-    "@guanghechen/cipher-catalog": "^1.0.0-alpha.21",
-    "@guanghechen/disposable": "^1.0.0-alpha.1",
-    "@guanghechen/file-split": "^1.0.0-alpha.18",
-    "@guanghechen/filepart": "^1.0.0-alpha.2",
+    "@guanghechen/cipher-catalog.types": "^1.0.0-alpha.20",
+    "@guanghechen/file-split": "^1.0.0-alpha.19",
+    "@guanghechen/filepart": "^1.0.0-alpha.3",
     "@guanghechen/helper-fs": "^6.0.0-alpha.6",
-    "@guanghechen/helper-func": "^6.0.0-alpha.1",
     "@guanghechen/invariant": "^6.0.0-alpha.1",
-    "@guanghechen/mac": "^1.0.0-alpha.4",
-    "@guanghechen/monitor": "^1.0.0-alpha.25",
     "@guanghechen/path.types": "^1.0.0-alpha.11",
     "@guanghechen/reporter.types": "^1.0.0-alpha.9",
-    "@guanghechen/stream": "^1.0.0-alpha.10",
-    "@guanghechen/vfs.types": "^1.0.0-alpha.6"
+    "@guanghechen/stream": "^1.0.0-alpha.10"
   }
 }

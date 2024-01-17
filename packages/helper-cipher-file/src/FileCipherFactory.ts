@@ -12,6 +12,7 @@ export interface IFileCipherFactoryProps {
 export class FileCipherFactory implements IFileCipherFactory {
   public readonly cipherFactory: ICipherFactory
   protected readonly reporter: IReporter | undefined
+
   #cipher: ICipher | undefined
   #fileCipher: IFileCipher | undefined
 
@@ -22,13 +23,19 @@ export class FileCipherFactory implements IFileCipherFactory {
     this.#fileCipher = undefined
   }
 
-  public fileCipher(options: ICreateFileCipherOptions = { iv: undefined }): IFileCipher {
-    const cipher = this.cipherFactory.cipher({ iv: options.iv })
-    if (!options.iv) this.#cipher = cipher
-
+  public fileCipher(options: ICreateFileCipherOptions): IFileCipher {
+    const { iv, cryptPathResolver, plainPathResolver } = options
+    const cipher = this.cipherFactory.cipher({ iv })
+    if (!iv) this.#cipher = cipher
     if (cipher === this.#cipher && this.#fileCipher !== undefined) return this.#fileCipher
 
-    const fileCipher: IFileCipher = new FileCipher({ cipher, reporter: this.reporter })
+    const { reporter } = this
+    const fileCipher: IFileCipher = new FileCipher({
+      cipher,
+      cryptPathResolver,
+      plainPathResolver,
+      reporter,
+    })
     if (cipher === this.#cipher) this.#fileCipher = fileCipher
     return fileCipher
   }

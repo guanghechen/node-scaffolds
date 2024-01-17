@@ -630,7 +630,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Performance Improvements
 
-* :boom: [BREAKING] improve(helper-cipher-file): ask to specify pathHashAlgorithm and contentHashAlgorithm for FileCipherCatalog ([c9f0ca7](https://github.com/guanghechen/node-scaffolds/commit/c9f0ca712845f9e8f445e2500de084bd074d0ccf))
+* :boom: [BREAKING] improve(helper-cipher-file): ask to specify pathHashAlgorithm and CONTENT_HASH_ALGORITHM for FileCipherCatalog ([c9f0ca7](https://github.com/guanghechen/node-scaffolds/commit/c9f0ca712845f9e8f445e2500de084bd074d0ccf))
 * 🔖 publish v4.1.0 ([a2eb1f3](https://github.com/guanghechen/node-scaffolds/commit/a2eb1f37d4646e3e612f3b407a6cf078daf436a6))
 
 

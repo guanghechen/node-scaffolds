@@ -1,284 +1,305 @@
-import { FileChangeTypeEnum, calcCryptPathsWithPart } from '@guanghechen/cipher-catalog'
 import type {
-  ICatalogDiffItem,
   ICatalogItem,
-  ICipherCatalogContext,
   IDraftCatalogItem,
-} from '@guanghechen/cipher-catalog'
-import type { FileSplitter } from '@guanghechen/file-split'
+  IItemForGenNonce,
+} from '@guanghechen/cipher-catalog.types'
+import { FileChangeTypeEnum } from '@guanghechen/cipher-catalog.types'
+import type { IFileSplitter } from '@guanghechen/file-split'
 import type { IFilePartItem } from '@guanghechen/filepart'
-import { calcFilePartItemsBySize } from '@guanghechen/filepart'
-import { isFileSync, mkdirsIfNotExists, rm } from '@guanghechen/helper-fs'
-import invariant from '@guanghechen/invariant'
+import {
+  calcFilePartItemsByCount,
+  calcFilePartItemsBySize,
+  calcFilePartNames,
+} from '@guanghechen/filepart'
+import { isFileSync, mkdirsIfNotExists } from '@guanghechen/helper-fs'
 import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import type { IReporter } from '@guanghechen/reporter.types'
-import { existsSync } from 'node:fs'
-import { copyFile, stat, unlink } from 'node:fs/promises'
+import { existsSync, statSync } from 'node:fs'
+import fs from 'node:fs/promises'
 import type { IFileCipher } from './types/IFileCipher'
 import type {
+  IBatchDecryptByDiffItemsParams,
   IBatchDecryptParams,
+  IBatchEncryptByDiffItemsParams,
   IBatchEncryptParams,
   IFileCipherBatcher,
 } from './types/IFileCipherBatcher'
 import type { IFileCipherFactory } from './types/IFileCipherFactory'
 
 export interface IFileCipherBatcherProps {
-  readonly context: ICipherCatalogContext
-  readonly fileSplitter: FileSplitter
+  readonly MAX_CRYPT_FILE_SIZE: number
+  readonly PART_CODE_PREFIX: string
   readonly fileCipherFactory: IFileCipherFactory
+  readonly fileSplitter: IFileSplitter
   readonly reporter?: IReporter
+  readonly genNonce: (item: IItemForGenNonce) => Promise<Uint8Array>
 }
 
+const clazz = 'FileCipherBatcher'
+
 export class FileCipherBatcher implements IFileCipherBatcher {
-  public readonly context: ICipherCatalogContext
-  public readonly fileSplitter: FileSplitter
-  public readonly fileCipherFactory: IFileCipherFactory
-  public readonly reporter: IReporter | undefined
+  public readonly MAX_CRYPT_FILE_SIZE: number
+  public readonly PART_CODE_PREFIX: string
+  protected readonly fileSplitter: IFileSplitter
+  protected readonly fileCipherFactory: IFileCipherFactory
+  protected readonly reporter: IReporter | undefined
+  protected readonly genNonce: (item: IItemForGenNonce) => Promise<Uint8Array>
 
   constructor(props: IFileCipherBatcherProps) {
-    this.context = props.context
+    this.MAX_CRYPT_FILE_SIZE = props.MAX_CRYPT_FILE_SIZE
+    this.PART_CODE_PREFIX = props.PART_CODE_PREFIX
     this.fileCipherFactory = props.fileCipherFactory
     this.fileSplitter = props.fileSplitter
     this.reporter = props.reporter
+    this.genNonce = props.genNonce
   }
 
-  public async batchEncrypt(params: IBatchEncryptParams): Promise<ICatalogDiffItem[]> {
-    const title = 'batchEncrypt'
-    const { catalog, diffItems, strictCheck } = params
-    const { cryptPathResolver, plainPathResolver } = catalog.context
-    const { reporter, fileCipherFactory, fileSplitter, context } = this
+  public async batchEncrypt(params: IBatchEncryptParams): Promise<ICatalogItem[]> {
+    const title: string = `${clazz}.batchEncrypt`
+    const { draftItems, cryptPathResolver, plainPathResolver } = params
+    const {
+      MAX_CRYPT_FILE_SIZE,
+      PART_CODE_PREFIX,
+      reporter,
+      fileCipherFactory,
+      fileSplitter,
+      genNonce,
+    } = this
 
-    const results: ICatalogDiffItem[] = []
-    for (const diffItem of diffItems) {
-      const { changeType } = diffItem
-      switch (changeType) {
-        case FileChangeTypeEnum.ADDED: {
-          await this._ensureCryptPathNotExist(
-            diffItem.newItem,
-            strictCheck,
-            cryptPathResolver,
-            cryptPath =>
-              `[${title}] Bad diff item (${changeType}), crypt file already exists. (${cryptPath})`,
+    const items: ICatalogItem[] = []
+    for (const draftItem of draftItems) {
+      const absolutePlainPath: string = plainPathResolver.resolve(draftItem.plainPath)
+      if (!isFileSync(absolutePlainPath)) {
+        throw new Error(
+          `[${title}] Bad item, plain file does not exist or it is not a file. (${draftItem.plainPath})`,
+        )
+      }
+
+      const absoluteBaseCryptPath: string = cryptPathResolver.resolve(draftItem.cryptPath)
+      {
+        let isCryptPathExist: boolean = false
+        if (draftItem.cryptPathParts.length <= 1) {
+          isCryptPathExist ||= existsSync(absoluteBaseCryptPath)
+        } else {
+          for (const partName of draftItem.cryptPathParts) {
+            const absoluteCryptPath: string = absoluteBaseCryptPath + partName
+            isCryptPathExist ||= existsSync(absoluteCryptPath)
+          }
+        }
+        if (isCryptPathExist) {
+          throw new Error(
+            `[${title}] Bad draft item, crypt file already exists. (${draftItem.cryptPath})`,
           )
-          const nextNewItem = await add(diffItem.newItem, changeType)
-          results.push({
-            changeType: FileChangeTypeEnum.ADDED,
-            newItem: nextNewItem,
-          })
+        }
+      }
+
+      mkdirsIfNotExists(absoluteBaseCryptPath, false, reporter)
+
+      const nonce: Uint8Array = await genNonce({
+        plainPath: draftItem.plainPath,
+        fingerprint: draftItem.fingerprint,
+      })
+      const item: ICatalogItem = { ...draftItem, nonce, authTag: undefined }
+      items.push(item)
+
+      const parts: IFilePartItem[] = draftItem.keepIntegrity
+        ? Array.from(calcFilePartItemsByCount(draftItem.size, 1))
+        : Array.from(calcFilePartItemsBySize(draftItem.size, MAX_CRYPT_FILE_SIZE))
+
+      if (draftItem.keepPlain) {
+        if (parts.length <= 1) await fs.copyFile(absolutePlainPath, absoluteBaseCryptPath)
+        else await fileSplitter.split(absolutePlainPath, parts, absoluteBaseCryptPath)
+      } else {
+        const fileCipher: IFileCipher = fileCipherFactory.fileCipher({
+          iv: nonce,
+          cryptPathResolver,
+          plainPathResolver,
+        })
+        const { authTag } = await fileCipher.encryptFile({
+          cryptPath: absoluteBaseCryptPath,
+          plainPath: absolutePlainPath,
+        })
+        item.authTag = authTag
+
+        if (parts.length > 1) {
+          // Split the big crypt file.
+          await fileSplitter.split(absoluteBaseCryptPath, parts)
+
+          // Remove the original big crypt file.
+          await fs.unlink(absoluteBaseCryptPath)
+
+          const cryptPathParts: string[] = Array.from(
+            calcFilePartNames(
+              Array.from(calcFilePartItemsBySize(draftItem.size, MAX_CRYPT_FILE_SIZE)),
+              PART_CODE_PREFIX,
+            ),
+          )
+          item.cryptPathParts = cryptPathParts
+        }
+      }
+    }
+    return items
+  }
+
+  public async batchEncryptByDiffItems(
+    params: IBatchEncryptByDiffItemsParams,
+  ): Promise<ICatalogItem[]> {
+    const title: string = `${clazz}.batchEncryptByDiffItems`
+    const { diffItems, cryptPathResolver, plainPathResolver } = params
+    const draftItems: IDraftCatalogItem[] = []
+
+    for (const diffItem of diffItems) {
+      switch (diffItem.changeType) {
+        case FileChangeTypeEnum.ADDED: {
+          await this._removeCryptFiles(diffItem.newItem, cryptPathResolver)
+          draftItems.push(diffItem.newItem)
           break
         }
         case FileChangeTypeEnum.MODIFIED: {
-          await remove(diffItem.oldItem, changeType)
-          const nextNewItem = await add(diffItem.newItem, changeType)
-          results.push({
-            changeType: FileChangeTypeEnum.MODIFIED,
-            oldItem: diffItem.oldItem,
-            newItem: nextNewItem,
-          })
+          await this._removeCryptFiles(diffItem.oldItem, cryptPathResolver)
+          await this._removeCryptFiles(diffItem.newItem, cryptPathResolver)
+          draftItems.push(diffItem.newItem)
           break
         }
         case FileChangeTypeEnum.REMOVED: {
-          await this._ensurePlainPathNotExist(
-            diffItem.oldItem,
-            strictCheck,
-            plainPathResolver,
-            plainPath =>
-              `[${title}] Bad diff item (${changeType}), plain file should not exist. (${plainPath})`,
-          )
-          await remove(diffItem.oldItem, changeType)
-          results.push({
-            changeType: FileChangeTypeEnum.REMOVED,
-            oldItem: diffItem.oldItem,
-          })
+          await this._removeCryptFiles(diffItem.oldItem, cryptPathResolver)
           break
         }
+        /* c8 ignore start */
+        default:
+          throw new TypeError(`[${title}] Unknown changeType: ${(diffItem as any).changeType}`)
+        /* c8 ignore stop */
       }
     }
-    return results
 
-    async function add(
-      item: IDraftCatalogItem,
-      changeType: FileChangeTypeEnum,
-    ): Promise<ICatalogItem> {
-      const { plainPath, cryptPath } = item
-      const absolutePlainPath: string = plainPathResolver.resolve(plainPath)
-      invariant(
-        isFileSync(absolutePlainPath),
-        `[${title}.add] Bad diff item (${changeType}), plain file does not exist or it is not a file. (${plainPath})`,
-      )
-
-      const absoluteCryptPath: string = cryptPathResolver.resolve(cryptPath)
-      mkdirsIfNotExists(absoluteCryptPath, false, reporter)
-
-      const nonce: Uint8Array = await context.genNonce()
-      const nextItem: ICatalogItem = { ...item, nonce, authTag: undefined }
-      if (item.keepPlain) {
-        await copyFile(absolutePlainPath, absoluteCryptPath)
-      } else {
-        const fileCipher: IFileCipher = fileCipherFactory.fileCipher({ iv: nonce })
-        const { authTag } = await fileCipher.encryptFile(absolutePlainPath, absoluteCryptPath)
-        nextItem.authTag = authTag
-      }
-
-      // Split encrypted file.
-      {
-        const parts: IFilePartItem[] = Array.from(
-          calcFilePartItemsBySize(
-            await stat(absoluteCryptPath).then(md => md.size),
-            context.MAX_CRYPT_FILE_SIZE,
-          ),
-        )
-        if (parts.length > 1) {
-          const partFilepaths: string[] = await fileSplitter.split(absoluteCryptPath, parts)
-          const relativeCryptPath: string = cryptPathResolver.relative(cryptPath)
-          const cryptPathParts: string[] = partFilepaths.map(p =>
-            cryptPathResolver.relative(p).slice(relativeCryptPath.length),
-          )
-
-          nextItem.cryptPathParts = cryptPathParts
-
-          // Remove the original big crypt file.
-          await unlink(absoluteCryptPath)
-        }
-      }
-      return nextItem
-    }
-
-    async function remove(item: IDraftCatalogItem, changeType: FileChangeTypeEnum): Promise<void> {
-      const cryptPaths: string[] = calcCryptPathsWithPart(item.cryptPath, item.cryptPathParts)
-
-      // pre-check
-      for (const cryptPath of cryptPaths) {
-        const absoluteCryptPath = cryptPathResolver.resolve(cryptPath)
-        if (strictCheck) {
-          invariant(
-            isFileSync(absoluteCryptPath),
-            `[${title}.remove] Bad diff item (${changeType}), crypt file does not exist or it is not a file. (${cryptPath})`,
-          )
-          await unlink(absoluteCryptPath)
-        } else {
-          await rm(absoluteCryptPath)
-        }
-      }
-    }
+    const items: ICatalogItem[] = await this.batchEncrypt({
+      draftItems,
+      cryptPathResolver,
+      plainPathResolver,
+    })
+    return items
   }
 
   public async batchDecrypt(params: IBatchDecryptParams): Promise<void> {
-    const title = 'batchDecrypt'
-    const { catalog, diffItems, strictCheck } = params
-    const { cryptPathResolver, plainPathResolver } = catalog.context
-    const { reporter, fileCipherFactory, fileSplitter } = this
+    const title: string = `${clazz}.batchDecrypt`
+    const { items, cryptPathResolver, plainPathResolver } = params
+    const { fileCipherFactory, fileSplitter, reporter } = this
 
-    // Plain filepath should always pointer to the plain contents,
-    // while crypt files indicate those encrypted contents.
-    for (const diffItem of diffItems) {
-      const { changeType } = diffItem
-      switch (changeType) {
-        case FileChangeTypeEnum.ADDED: {
-          await this._ensurePlainPathNotExist(
-            diffItem.newItem,
-            strictCheck,
-            plainPathResolver,
-            plainPath =>
-              `[${title}] Bad diff item (${changeType}), plain file already exists. (${plainPath})`,
-          )
-          await add(diffItem.newItem, changeType)
-          break
-        }
-        case FileChangeTypeEnum.MODIFIED: {
-          await remove(diffItem.oldItem, changeType)
-          await add(diffItem.newItem, changeType)
-          break
-        }
-        case FileChangeTypeEnum.REMOVED: {
-          await this._ensureCryptPathNotExist(
-            diffItem.oldItem,
-            strictCheck,
-            cryptPathResolver,
-            cryptPath =>
-              `[${title}] Bad diff item (REMOVED), crypt file should not exist. (${cryptPath})`,
-          )
-          await remove(diffItem.oldItem, changeType)
-          break
+    for (const item of items) {
+      const absolutePlainPath: string = plainPathResolver.resolve(item.plainPath)
+      {
+        const isPlainPathExit: boolean = existsSync(absolutePlainPath)
+        if (isPlainPathExit) {
+          const isFile: boolean = statSync(absolutePlainPath).isFile()
+          if (!isFile) {
+            throw new Error(
+              `[${title}] Bad item, plain file already exists and it is not a file. (${item.plainPath})`,
+            )
+          }
         }
       }
-    }
 
-    async function add(item: ICatalogItem, changeType: FileChangeTypeEnum): Promise<void> {
-      const cryptPaths: string[] = calcCryptPathsWithPart(item.cryptPath, item.cryptPathParts)
-      const absoluteCryptPaths: string[] = []
+      const absoluteBaseCryptPath: string = cryptPathResolver.resolve(item.cryptPath)
+      const absoluteCryptPaths: string[] =
+        item.cryptPathParts.length <= 1
+          ? [absoluteBaseCryptPath]
+          : item.cryptPathParts.map(partName => absoluteBaseCryptPath + partName)
 
-      // pre-check
-      for (const cryptPath of cryptPaths) {
-        const absoluteCryptPath = cryptPathResolver.resolve(cryptPath)
-        absoluteCryptPaths.push(absoluteCryptPath)
-
-        invariant(
-          isFileSync(absoluteCryptPath),
-          `[${title}.add] Bad diff item (${changeType}), crypt file does not exist or it is not a file. (${cryptPath})`,
+      if (absoluteCryptPaths.some(p => !isFileSync(p))) {
+        throw new Error(
+          `[${title}] Bad item, crypt file does not exist or it is not a file. (${item.cryptPath})`,
         )
       }
 
-      const absolutePlainPath = plainPathResolver.resolve(item.plainPath)
       mkdirsIfNotExists(absolutePlainPath, false, reporter)
 
       if (item.keepPlain) {
         await fileSplitter.merge(absoluteCryptPaths, absolutePlainPath)
       } else {
-        const fileCipher = fileCipherFactory.fileCipher({ iv: item.nonce })
-        await fileCipher.decryptFiles(absoluteCryptPaths, absolutePlainPath, {
+        const fileCipher = fileCipherFactory.fileCipher({
+          iv: item.nonce,
+          cryptPathResolver,
+          plainPathResolver,
+        })
+        await fileCipher.decryptFiles({
           authTag: item.authTag,
+          cryptPaths: absoluteCryptPaths,
+          plainPath: absolutePlainPath,
         })
       }
     }
+  }
 
-    async function remove(item: ICatalogItem, changeType: FileChangeTypeEnum): Promise<void> {
-      const { plainPath } = item
-      const absolutePlainPath = plainPathResolver.resolve(plainPath)
+  public async batchDecryptByDiffItems(params: IBatchDecryptByDiffItemsParams): Promise<void> {
+    const title: string = `${clazz}.batchDecryptByDiffItems`
+    const { diffItems, cryptPathResolver, plainPathResolver } = params
+    const items: ICatalogItem[] = []
 
-      if (strictCheck) {
-        invariant(
-          isFileSync(absolutePlainPath),
-          `[${title}.remove] Bad diff item (${changeType}), plain file does not exist or it is not a file. (${plainPath})`,
-        )
-        await unlink(absolutePlainPath)
-      } else {
-        await rm(absolutePlainPath)
+    for (const diffItem of diffItems) {
+      switch (diffItem.changeType) {
+        case FileChangeTypeEnum.ADDED: {
+          await this._removePlainFiles(diffItem.newItem, plainPathResolver)
+          items.push(diffItem.newItem)
+          break
+        }
+        case FileChangeTypeEnum.MODIFIED: {
+          await this._removePlainFiles(diffItem.oldItem, plainPathResolver)
+          await this._removePlainFiles(diffItem.newItem, plainPathResolver)
+          items.push(diffItem.newItem)
+          break
+        }
+        case FileChangeTypeEnum.REMOVED: {
+          await this._removePlainFiles(diffItem.oldItem, plainPathResolver)
+          break
+        }
+        /* c8 ignore start */
+        default:
+          throw new TypeError(`[${title}] Unknown changeType: ${(diffItem as any).changeType}`)
+        /* c8 ignore stop */
       }
     }
+
+    await this.batchDecrypt({ items, cryptPathResolver, plainPathResolver })
   }
 
-  // @overridable
-  protected async _ensurePlainPathNotExist(
-    item: Readonly<ICatalogItem>,
-    strictCheck: boolean,
-    plainPathResolver: IWorkspacePathResolver,
-    getErrorMsg: (plainPath: string) => string,
-  ): Promise<void> {
-    const { plainPath } = item
-    const absolutePlainPath = plainPathResolver.resolve(plainPath)
-    if (strictCheck) {
-      invariant(!existsSync(absolutePlainPath), () => getErrorMsg(plainPath))
-    } else {
-      await rm(absolutePlainPath)
-    }
-  }
-
-  // @overridable
-  protected async _ensureCryptPathNotExist(
-    item: Readonly<IDraftCatalogItem>,
-    strictCheck: boolean,
+  protected async _removeCryptFiles(
+    item: IDraftCatalogItem,
     cryptPathResolver: IWorkspacePathResolver,
-    getErrorMsg: (cryptPath: string) => string,
-  ): Promise<void | never> {
-    const cryptFilepaths: string[] = calcCryptPathsWithPart(item.cryptPath, item.cryptPathParts)
-    for (const cryptFilepath of cryptFilepaths) {
-      const absoluteCryptFilepath = cryptPathResolver.resolve(cryptFilepath)
-      if (strictCheck) {
-        invariant(!existsSync(absoluteCryptFilepath), () => getErrorMsg(cryptFilepath))
-      } else {
-        await rm(absoluteCryptFilepath)
+  ): Promise<void> {
+    const title: string = `${clazz}._removeCryptFiles`
+    const absoluteBaseCryptPath: string = cryptPathResolver.resolve(item.cryptPath)
+
+    if (item.cryptPathParts.length <= 1) {
+      const absoluteCryptPath: string = absoluteBaseCryptPath
+      await remove(absoluteCryptPath)
+    } else {
+      for (const part of item.cryptPathParts) {
+        const absoluteCryptPath: string = absoluteBaseCryptPath + part
+        await remove(absoluteCryptPath)
       }
     }
+
+    async function remove(absoluteCryptPath: string): Promise<void> {
+      if (!existsSync(absoluteCryptPath)) return
+
+      const isFile: boolean = statSync(absoluteCryptPath).isFile()
+      if (!isFile) throw new Error(`[${title}] the crypt file is not a file. (${item.cryptPath})`)
+
+      await fs.unlink(absoluteCryptPath)
+    }
+  }
+
+  protected async _removePlainFiles(
+    item: IDraftCatalogItem,
+    plainPathResolver: IWorkspacePathResolver,
+  ): Promise<void> {
+    const title: string = `${clazz}._removePlainFiles`
+    const absolutePlainPath: string = plainPathResolver.resolve(item.plainPath)
+    if (!existsSync(absolutePlainPath)) return
+
+    const isFile: boolean = statSync(absolutePlainPath).isFile()
+    if (!isFile) throw new Error(`[${title}] the plain file is not a file. (${item.plainPath})`)
+
+    await fs.unlink(absolutePlainPath)
   }
 }

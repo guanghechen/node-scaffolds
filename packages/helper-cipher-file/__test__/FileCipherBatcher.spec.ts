@@ -1,21 +1,22 @@
+import { text2bytes } from '@guanghechen/byte'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
+import type { ICipherFactory } from '@guanghechen/cipher'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
-import {
-  type ICatalogDiffItem,
-  type ICipherCatalog,
-  type ICipherCatalogContext,
-  type IDraftCatalogItem,
-  areSameDraftCatalogItem,
-} from '@guanghechen/cipher-catalog'
+import { calcFingerprintFromMac } from '@guanghechen/cipher-catalog'
+import type {
+  ICatalogDiffItem,
+  ICatalogDiffItemCombine,
+  ICatalogItem,
+} from '@guanghechen/cipher-catalog.types'
+import type { IFileSplitter } from '@guanghechen/file-split'
 import { FileSplitter } from '@guanghechen/file-split'
 import { calcMac } from '@guanghechen/mac'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import { Reporter } from '@guanghechen/reporter'
 import { mergeStreams, stream2buffer } from '@guanghechen/stream'
 import {
-  assertPromiseNotThrow,
   assertPromiseThrow,
   emptyDir,
   locateFixtures,
@@ -27,60 +28,54 @@ import type { ReadStream } from 'node:fs'
 import { createReadStream, existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import type { IFileCipherBatcher, IFileCipherFactory } from '../src'
+import { FileCipherBatcher, FileCipherFactory } from '../src'
 import {
-  FileCipherBatcher,
-  FileCipherCatalog,
-  FileCipherFactory,
-  calcFingerprintFromMac,
-} from '../src'
-import {
-  CRYPT_FILES_DIR,
-  PATH_HASH_ALGORITHM,
-  contentHashAlgorithm,
+  CONTENT_HASH_ALGORITHM,
+  MAX_CRYPT_FILE_SIZE,
+  PART_CODE_PREFIX,
   contentTable,
   diffItemsTable,
   encoding,
   itemTable,
-  maxTargetFileSize,
-  partCodePrefix,
 } from './_data'
 
 const getFingerprintOfEncryptedFile = async (filePartPaths: string | string[]): Promise<string> => {
   const streams: ReadStream[] = [filePartPaths].flat().map(fp => createReadStream(fp))
   const stream = mergeStreams(streams)
   const buffer: Buffer = await stream2buffer(stream, false)
-  const mac: Uint8Array = calcMac([buffer], contentHashAlgorithm)
+  const mac: Uint8Array = calcMac([buffer], CONTENT_HASH_ALGORITHM)
   return calcFingerprintFromMac(mac)
 }
 
 describe('FileCipherBatcher', () => {
   const workspaceDir: string = locateFixtures('__fictitious__.FileCipherBatcher')
-  const plainRootDir: string = path.join(workspaceDir, 'src')
-  const cryptRootDir: string = path.join(workspaceDir, 'src_encrypted')
-  const bakPlainRootDir: string = path.join(workspaceDir, 'src_backup')
+  const plainRootDir: string = path.join(workspaceDir, 'plain')
+  const cryptRootDir: string = path.join(workspaceDir, 'crypt')
+  const bakPlainRootDir: string = path.join(workspaceDir, 'plain-bak')
   const plainPathResolver = new WorkspacePathResolver(plainRootDir, pathResolver)
   const cryptPathResolver = new WorkspacePathResolver(cryptRootDir, pathResolver)
   const bakPlainPathResolver = new WorkspacePathResolver(bakPlainRootDir, pathResolver)
   const reporter = new Reporter(chalk, { flights: { colorful: false, date: false } })
 
-  const filepathA: string = plainPathResolver.resolve(itemTable.A.plainFilepath)
-  const filepathB: string = plainPathResolver.resolve(itemTable.B.plainFilepath)
-  const filepathC: string = plainPathResolver.resolve(itemTable.C.plainFilepath)
-  const filepathD: string = plainPathResolver.resolve(itemTable.D.plainFilepath)
+  const filepathA: string = plainPathResolver.resolve(itemTable.A.plainPath)
+  const filepathB: string = plainPathResolver.resolve(itemTable.B.plainPath)
+  const filepathC: string = plainPathResolver.resolve(itemTable.C.plainPath)
+  const filepathD: string = plainPathResolver.resolve(itemTable.D.plainPath)
 
-  const filepath2A: string = bakPlainPathResolver.resolve(itemTable.A.plainFilepath)
-  const filepath2B: string = bakPlainPathResolver.resolve(itemTable.B.plainFilepath)
-  const filepath2C: string = bakPlainPathResolver.resolve(itemTable.C.plainFilepath)
-  const filepath2D: string = bakPlainPathResolver.resolve(itemTable.D.plainFilepath)
+  const filepath2A: string = bakPlainPathResolver.resolve(itemTable.A.plainPath)
+  const filepath2B: string = bakPlainPathResolver.resolve(itemTable.B.plainPath)
+  const filepath2C: string = bakPlainPathResolver.resolve(itemTable.C.plainPath)
+  const filepath2D: string = bakPlainPathResolver.resolve(itemTable.D.plainPath)
 
-  const encryptedFilepathA: string = cryptPathResolver.resolve(itemTable.A.cryptFilepath)
-  const encryptedFilepathA2: string = cryptPathResolver.resolve(itemTable.A2.cryptFilepath)
-  const encryptedFilepathB: string = cryptPathResolver.resolve(itemTable.B.cryptFilepath)
-  const encryptedFilepathsC: string[] = itemTable.C.cryptFilepathParts.map(part =>
-    cryptPathResolver.resolve(itemTable.C.cryptFilepath + part),
+  const absoluteCryptPathA: string = cryptPathResolver.resolve(itemTable.A.cryptPath)
+  const absoluteCryptPathA2: string = cryptPathResolver.resolve(itemTable.A2.cryptPath)
+  const absoluteCryptPathB: string = cryptPathResolver.resolve(itemTable.B.cryptPath)
+  const absoluteCryptPathsC: string[] = itemTable.C.cryptPathParts.map(part =>
+    cryptPathResolver.resolve(itemTable.C.cryptPath + part),
   )
-  const encryptedFilepathsD: string[] = itemTable.D.cryptFilepathParts.map(part =>
-    cryptPathResolver.resolve(itemTable.D.cryptFilepath + part),
+  const absoluteCryptPathsD: string[] = itemTable.D.cryptPathParts.map(part =>
+    cryptPathResolver.resolve(itemTable.D.cryptPath + part),
   )
 
   const contentA: string = contentTable.A
@@ -91,66 +86,37 @@ describe('FileCipherBatcher', () => {
 
   const cryptContentFingerA = '4e26698e6bebd87fc210bec49fea4da6210b5769dbff50b3479effa16799120f'
   const cryptContentFingerA2 = '70b47f9cc28ad379043b328d7d058097c69e7bb38d766ecca2655cd3afb6b5fa'
-  const cryptContentFingerB = '7155dd86eeabef61d44b738ffb1cde7cbf955f4c75c82395193cd117722d91ea'
-  const cryptContentFingerC = '1dfcd91be6d7a9b32cf42d8ef78544886302e3946810da8da4077d1c70374d66'
-  const cryptContentFingerD = '74d6230e1ce4eb794184fee9a4d15747b5b96374e0afc4f3de74f4f9458d74aa'
+  const cryptContentFingerB = '205c2fb8827737958506bfe634713d5f38d155f0bf2beb3e9ab5c8e86fd195d1'
+  const cryptContentFingerC = 'f33f240ebc889a7910c46ad1bf9286e36f4e782a943b1d9255b9c491f2b507b4'
+  const cryptContentFingerD = '8744cc667a27aab7178770d92b38b55dd44308448c6b8a595220bf4946d25fc7'
 
-  const fileSplitter = new FileSplitter({ partCodePrefix })
-  const cipherFactory = new AesGcmCipherFactoryBuilder().buildFromPassword(
-    Uint8Array.from(Buffer.from('guanghechen', encoding)),
-    {
-      salt: 'salt',
-      iterations: 100000,
-      digest: 'sha256',
-    },
-  )
-  const fileCipherFactory = new FileCipherFactory({ cipherFactory, reporter })
-  const cipherBatcher = new FileCipherBatcher({
-    fileSplitter: fileSplitter,
-    fileCipherFactory,
-    maxTargetFileSize,
-    reporter,
-  })
-
-  let catalog: ICipherCatalog
-  let bakCatalog: ICipherCatalog
+  let cipherFactory: ICipherFactory
+  let fileCipherBatcher: IFileCipherBatcher
+  let fileCipherFactory: IFileCipherFactory
+  let fileSplitter: IFileSplitter
 
   beforeAll(() => {
-    {
-      // Initialize catalog.
-      const catalogContext: ICipherCatalogContext = {
-        CRYPT_FILES_DIR,
-        cryptFilepathSalt: 'guanghechen',
-        maxTargetFileSize,
-        partCodePrefix,
-        contentHashAlgorithm: contentHashAlgorithm,
-        PATH_HASH_ALGORITHM: PATH_HASH_ALGORITHM,
-        plainPathResolver,
-        cryptPathResolver,
-        isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
-        calcIv: async (item: IDraftCatalogItem): Promise<Uint8Array | undefined> =>
-          Object.values(itemTable).find(t => areSameDraftCatalogItem(t, item))?.iv,
-      }
-      catalog = new FileCipherCatalog(catalogContext)
-    }
-
-    {
-      // Initialize bak catalog.
-      const bakCatalogContext: ICipherCatalogContext = {
-        CRYPT_FILES_DIR,
-        cryptFilepathSalt: 'guanghechen',
-        maxTargetFileSize,
-        partCodePrefix,
-        contentHashAlgorithm: contentHashAlgorithm,
-        PATH_HASH_ALGORITHM: PATH_HASH_ALGORITHM,
-        plainPathResolver: bakPlainPathResolver,
-        cryptPathResolver,
-        isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
-        calcIv: async (item: IDraftCatalogItem): Promise<Uint8Array | undefined> =>
-          Object.values(itemTable).find(t => areSameDraftCatalogItem(t, item))?.iv,
-      }
-      bakCatalog = new FileCipherCatalog(bakCatalogContext)
-    }
+    fileSplitter = new FileSplitter({ partCodePrefix: PART_CODE_PREFIX })
+    cipherFactory = new AesGcmCipherFactoryBuilder().buildFromPassword(
+      Uint8Array.from(Buffer.from('guanghechen', encoding)),
+      {
+        salt: 'salt',
+        iterations: 100000,
+        digest: 'sha256',
+      },
+    )
+    fileCipherFactory = new FileCipherFactory({ cipherFactory, reporter })
+    fileCipherBatcher = new FileCipherBatcher({
+      MAX_CRYPT_FILE_SIZE,
+      PART_CODE_PREFIX,
+      fileSplitter,
+      fileCipherFactory,
+      reporter,
+      genNonce: async item =>
+        Object.values(itemTable).find(
+          t => t.plainPath === item.plainPath && t.fingerprint === item.fingerprint,
+        )?.nonce ?? text2bytes('af5e87dbe9a86c24d35df07e5151bb76', 'hex'),
+    })
   })
 
   beforeEach(async () => {
@@ -176,23 +142,37 @@ describe('FileCipherBatcher', () => {
       expect(existsSync(filepathA)).toEqual(true)
       expect(existsSync(filepathB)).toEqual(true)
 
-      mkdirsIfNotExists(encryptedFilepathA, true)
+      mkdirsIfNotExists(absoluteCryptPathA, true)
 
       await assertPromiseThrow(
-        () => cipherBatcher.batchEncrypt({ catalog, diffItems, strictCheck: true }),
-        'Bad diff item (added), crypt file already exists.',
+        () =>
+          fileCipherBatcher.batchEncryptByDiffItems({
+            diffItems,
+            cryptPathResolver,
+            plainPathResolver,
+          }),
+        'the crypt file is not a file.',
       )
-      expect(existsSync(encryptedFilepathA)).toEqual(true)
-      expect(existsSync(encryptedFilepathB)).toEqual(false)
-      expect(encryptedFilepathsC.some(fp => existsSync(fp))).toEqual(false)
-      expect(encryptedFilepathsD.some(fp => existsSync(fp))).toEqual(false)
+      expect(existsSync(absoluteCryptPathA)).toEqual(true)
+      expect(existsSync(absoluteCryptPathB)).toEqual(false)
+      expect(absoluteCryptPathsC.some(fp => existsSync(fp))).toEqual(false)
+      expect(absoluteCryptPathsD.some(fp => existsSync(fp))).toEqual(false)
 
-      await cipherBatcher.batchEncrypt({ catalog, diffItems, strictCheck: false })
+      await rm(absoluteCryptPathA)
 
-      expect(existsSync(encryptedFilepathA)).toEqual(true)
-      expect(existsSync(encryptedFilepathB)).toEqual(true)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathA)).toEqual(cryptContentFingerA)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathB)).toEqual(cryptContentFingerB)
+      const items: ICatalogItem[] = await fileCipherBatcher.batchEncryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver,
+      })
+      expect(items.map(item => item.plainPath)).toEqual([
+        itemTable.A.plainPath,
+        itemTable.B.plainPath,
+      ])
+      expect(existsSync(absoluteCryptPathA)).toEqual(true)
+      expect(existsSync(absoluteCryptPathB)).toEqual(true)
+      expect(await getFingerprintOfEncryptedFile(absoluteCryptPathA)).toEqual(cryptContentFingerA)
+      expect(await getFingerprintOfEncryptedFile(absoluteCryptPathB)).toEqual(cryptContentFingerB)
     }
 
     // diffItems2
@@ -200,22 +180,19 @@ describe('FileCipherBatcher', () => {
       const diffItems: ICatalogDiffItem[] = diffItemsTable.step2
 
       await writeFile(filepathC, contentC, encoding)
-      await assertPromiseThrow(
-        () => cipherBatcher.batchEncrypt({ catalog, diffItems, strictCheck: true }),
-        '[batchEncrypt] Bad diff item (removed), plain file should not exist.',
-      )
 
-      expect(existsSync(encryptedFilepathA)).toEqual(true)
-      expect(encryptedFilepathsC.some(fp => existsSync(fp))).toEqual(false)
+      const items: ICatalogItem[] = await fileCipherBatcher.batchEncryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver,
+      })
 
-      await rm(filepathA)
-      await cipherBatcher.batchEncrypt({ catalog, diffItems, strictCheck: false })
-
-      expect(existsSync(encryptedFilepathA)).toEqual(false)
-      expect(existsSync(encryptedFilepathB)).toEqual(true)
-      expect(encryptedFilepathsC.every(fp => existsSync(fp))).toEqual(true)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathB)).toEqual(cryptContentFingerB)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathsC)).toEqual(cryptContentFingerC)
+      expect(items.map(item => item.plainPath)).toEqual([itemTable.C.plainPath])
+      expect(existsSync(absoluteCryptPathA)).toEqual(false)
+      expect(existsSync(absoluteCryptPathB)).toEqual(true)
+      expect(absoluteCryptPathsC.every(fp => existsSync(fp))).toEqual(true)
+      expect(await getFingerprintOfEncryptedFile(absoluteCryptPathB)).toEqual(cryptContentFingerB)
+      expect(await getFingerprintOfEncryptedFile(absoluteCryptPathsC)).toEqual(cryptContentFingerC)
     }
 
     // diffItems3
@@ -224,13 +201,17 @@ describe('FileCipherBatcher', () => {
 
       await rm(filepathB)
       await writeFile(filepathA, contentA, encoding)
-      await cipherBatcher.batchEncrypt({ catalog, diffItems, strictCheck: true })
+      await fileCipherBatcher.batchEncryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver,
+      })
 
-      expect(existsSync(encryptedFilepathA)).toEqual(true)
-      expect(existsSync(encryptedFilepathB)).toEqual(false)
-      expect(encryptedFilepathsC.every(fp => existsSync(fp))).toEqual(true)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathA)).toEqual(cryptContentFingerA)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathsC)).toEqual(cryptContentFingerC)
+      expect(existsSync(absoluteCryptPathA)).toEqual(true)
+      expect(existsSync(absoluteCryptPathB)).toEqual(false)
+      expect(absoluteCryptPathsC.every(fp => existsSync(fp))).toEqual(true)
+      expect(await getFingerprintOfEncryptedFile(absoluteCryptPathA)).toEqual(cryptContentFingerA)
+      expect(await getFingerprintOfEncryptedFile(absoluteCryptPathsC)).toEqual(cryptContentFingerC)
     }
 
     // diffItems4
@@ -240,13 +221,17 @@ describe('FileCipherBatcher', () => {
       await rm(filepathC)
       await writeFile(filepathD, contentD, encoding)
       await writeFile(filepathA, contentA2, encoding)
-      await cipherBatcher.batchEncrypt({ catalog, diffItems, strictCheck: true })
+      await fileCipherBatcher.batchEncryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver,
+      })
 
-      expect(existsSync(encryptedFilepathA2)).toEqual(true)
-      expect(encryptedFilepathsC.some(fp => existsSync(fp))).toEqual(false)
-      expect(encryptedFilepathsD.every(fp => existsSync(fp))).toEqual(true)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathA2)).toEqual(cryptContentFingerA2)
-      expect(await getFingerprintOfEncryptedFile(encryptedFilepathsD)).toEqual(cryptContentFingerD)
+      expect(existsSync(absoluteCryptPathA2)).toEqual(true)
+      expect(absoluteCryptPathsC.some(fp => existsSync(fp))).toEqual(false)
+      expect(absoluteCryptPathsD.every(fp => existsSync(fp))).toEqual(true)
+      expect(await getFingerprintOfEncryptedFile(absoluteCryptPathA2)).toEqual(cryptContentFingerA2)
+      expect(await getFingerprintOfEncryptedFile(absoluteCryptPathsD)).toEqual(cryptContentFingerD)
     }
 
     // diffItems5
@@ -255,12 +240,16 @@ describe('FileCipherBatcher', () => {
 
       await rm(filepathA)
       await rm(filepathD)
-      await cipherBatcher.batchEncrypt({ catalog, diffItems, strictCheck: true })
+      await fileCipherBatcher.batchEncryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver,
+      })
 
-      expect(existsSync(encryptedFilepathA)).toEqual(false)
-      expect(existsSync(encryptedFilepathA2)).toEqual(false)
-      expect(encryptedFilepathsC.some(fp => existsSync(fp))).toEqual(false)
-      expect(encryptedFilepathsD.some(fp => existsSync(fp))).toEqual(false)
+      expect(existsSync(absoluteCryptPathA)).toEqual(false)
+      expect(existsSync(absoluteCryptPathA2)).toEqual(false)
+      expect(absoluteCryptPathsC.some(fp => existsSync(fp))).toEqual(false)
+      expect(absoluteCryptPathsD.some(fp => existsSync(fp))).toEqual(false)
     }
   })
 
@@ -271,18 +260,33 @@ describe('FileCipherBatcher', () => {
 
       await writeFile(filepathA, contentA, encoding)
       await writeFile(filepathB, contentB, encoding)
-      await cipherBatcher.batchEncrypt({ catalog, diffItems, strictCheck: false })
+      await fileCipherBatcher.batchEncryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver,
+      })
 
       mkdirsIfNotExists(filepath2A, true)
-      await assertPromiseThrow(
-        () => cipherBatcher.batchDecrypt({ catalog: bakCatalog, diffItems, strictCheck: true }),
-        'Bad diff item (added), plain file already exists.',
-      )
 
+      await assertPromiseThrow(
+        () =>
+          fileCipherBatcher.batchDecryptByDiffItems({
+            diffItems,
+            cryptPathResolver,
+            plainPathResolver: bakPlainPathResolver,
+          }),
+        'the plain file is not a file.',
+      )
       expect(existsSync(filepath2A)).toEqual(true)
       expect(existsSync(filepath2B)).toEqual(false)
 
-      await cipherBatcher.batchDecrypt({ catalog: bakCatalog, diffItems, strictCheck: false })
+      await rm(filepath2A)
+
+      await fileCipherBatcher.batchDecryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver: bakPlainPathResolver,
+      })
 
       expect(existsSync(filepath2A)).toEqual(true)
       expect(existsSync(filepath2B)).toEqual(true)
@@ -295,14 +299,52 @@ describe('FileCipherBatcher', () => {
       const diffItems: ICatalogDiffItem[] = diffItemsTable.step2
 
       await assertPromiseThrow(
-        () => cipherBatcher.batchDecrypt({ catalog: bakCatalog, diffItems, strictCheck: true }),
-        'Bad diff item (REMOVED), crypt file should not exist.',
+        () =>
+          fileCipherBatcher.batchDecryptByDiffItems({
+            diffItems,
+            cryptPathResolver,
+            plainPathResolver: bakPlainPathResolver,
+          }),
+        'Bad item, crypt file does not exist or it is not a file.',
       )
 
       await rm(filepathA)
       await writeFile(filepathC, contentC, encoding)
-      await cipherBatcher.batchEncrypt({ catalog, diffItems, strictCheck: false })
-      await cipherBatcher.batchDecrypt({ catalog: bakCatalog, diffItems, strictCheck: true })
+      mkdirsIfNotExists(filepath2C, true)
+
+      await assertPromiseThrow(
+        () =>
+          fileCipherBatcher.batchDecryptByDiffItems({
+            diffItems,
+            cryptPathResolver,
+            plainPathResolver: bakPlainPathResolver,
+          }),
+        'the plain file is not a file.',
+      )
+      await assertPromiseThrow(
+        () =>
+          fileCipherBatcher.batchDecrypt({
+            items: diffItems
+              .map(item => (item as ICatalogDiffItemCombine).newItem)
+              .filter(Boolean) as ICatalogItem[],
+            cryptPathResolver,
+            plainPathResolver: bakPlainPathResolver,
+          }),
+        'Bad item, plain file already exists and it is not a file.',
+      )
+
+      await rm(filepath2C)
+
+      await fileCipherBatcher.batchEncryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver,
+      })
+      await fileCipherBatcher.batchDecryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver: bakPlainPathResolver,
+      })
 
       expect(existsSync(filepath2A)).toEqual(false)
       expect(existsSync(filepath2B)).toEqual(true)
@@ -310,13 +352,11 @@ describe('FileCipherBatcher', () => {
       expect(await fs.readFile(filepath2B, encoding)).toEqual(contentB)
       expect(await fs.readFile(filepath2C, encoding)).toEqual(contentC)
 
-      await assertPromiseThrow(
-        () => cipherBatcher.batchDecrypt({ catalog: bakCatalog, diffItems, strictCheck: true }),
-        'Bad diff item (removed), plain file does not exist or it is not a file.',
-      )
-      await assertPromiseNotThrow(() =>
-        cipherBatcher.batchDecrypt({ catalog: bakCatalog, diffItems, strictCheck: false }),
-      )
+      await fileCipherBatcher.batchDecryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver: bakPlainPathResolver,
+      })
     }
 
     // diffItems3
@@ -325,8 +365,16 @@ describe('FileCipherBatcher', () => {
 
       await rm(filepathB)
       await writeFile(filepathA, contentA, encoding)
-      await cipherBatcher.batchEncrypt({ catalog, diffItems, strictCheck: true })
-      await cipherBatcher.batchDecrypt({ catalog: bakCatalog, diffItems, strictCheck: true })
+      await fileCipherBatcher.batchEncryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver,
+      })
+      await fileCipherBatcher.batchDecryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver: bakPlainPathResolver,
+      })
 
       expect(existsSync(filepath2A)).toEqual(true)
       expect(existsSync(filepath2B)).toEqual(false)
@@ -342,8 +390,16 @@ describe('FileCipherBatcher', () => {
       await rm(filepathC)
       await writeFile(filepathD, contentD, encoding)
       await writeFile(filepathA, contentA2, encoding)
-      await cipherBatcher.batchEncrypt({ catalog, diffItems, strictCheck: true })
-      await cipherBatcher.batchDecrypt({ catalog: bakCatalog, diffItems, strictCheck: true })
+      await fileCipherBatcher.batchEncryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver,
+      })
+      await fileCipherBatcher.batchDecryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver: bakPlainPathResolver,
+      })
 
       expect(existsSync(filepath2A)).toEqual(true)
       expect(existsSync(filepath2B)).toEqual(false)
@@ -359,8 +415,16 @@ describe('FileCipherBatcher', () => {
 
       await rm(filepathA)
       await rm(filepathD)
-      await cipherBatcher.batchEncrypt({ catalog, diffItems, strictCheck: true })
-      await cipherBatcher.batchDecrypt({ catalog: bakCatalog, diffItems, strictCheck: true })
+      await fileCipherBatcher.batchEncryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver,
+      })
+      await fileCipherBatcher.batchDecryptByDiffItems({
+        diffItems,
+        cryptPathResolver,
+        plainPathResolver: bakPlainPathResolver,
+      })
 
       expect(existsSync(filepath2A)).toEqual(false)
       expect(existsSync(filepath2B)).toEqual(false)
