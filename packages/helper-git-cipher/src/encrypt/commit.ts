@@ -12,7 +12,7 @@ import {
   showCommitInfo,
 } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
-import type { IGitCipherContext } from '../types'
+import type { IGitCipherConfig, IGitCipherContext } from '../types'
 import { getCryptCommitId } from '../util'
 import { internalEncryptDiffItems } from './_internal'
 
@@ -32,8 +32,7 @@ export interface IEncryptGitCommitParams {
 export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise<void> {
   const title = 'encryptGitCommit'
   const { context, plainCommitNode, plain2cryptIdMap } = params
-  const { catalog, configKeeper, reporter } = context
-  const { cryptPathResolver, plainPathResolver } = catalog.context
+  const { catalog, configKeeper, cryptPathResolver, plainPathResolver, reporter } = context
   const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, reporter }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
@@ -47,12 +46,11 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     await checkBranch({ ...cryptCmdCtx, commitHash: cryptParentId })
 
     // Load the diffItems between the <first parent>...<current>.
-    await configKeeper.load()
-    const configData = configKeeper.data
-    invariant(!!configData, `[${title}] cannot load config. crypt(${cryptParentId})`)
+    const cipherConfig: IGitCipherConfig = await configKeeper.load()
+    invariant(!!cipherConfig, `[${title}] cannot load config. crypt(${cryptParentId})`)
 
     const items: ICatalogItem[] = await Promise.all(
-      configData.catalog.items.map(
+      cipherConfig.catalog.items.map(
         async (item): Promise<ICatalogItem> => context.catalog.flatItem(item),
       ),
     )
@@ -65,16 +63,9 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
     ...plainCmdCtx,
     commitHash: plainCommitNode.id,
   })
-  const plainFiles: string[] =
-    plainCommitNode.parents.length > 0
-      ? await listDiffFiles({
-          ...plainCmdCtx,
-          olderCommitHash: plainCommitNode.parents[0],
-          newerCommitHash: plainCommitNode.id,
-        })
-      : await listAllFiles({ ...plainCmdCtx, commitHash: plainCommitNode.id })
+  const plainFiles: string[] = await collectChangedPlainFiles()
   const draftDiffItems: IDraftCatalogDiffItem[] = await catalog.diffFromPlainFiles(
-    plainFiles.sort(),
+    plainFiles,
     false,
   )
   const cryptParentCommitIds: string[] = plainCommitNode.parents.map(plainParentId =>
@@ -93,4 +84,28 @@ export async function encryptGitCommit(params: IEncryptGitCommitParams): Promise
   }
 
   await internalEncryptDiffItems({ context, draftDiffItems, shouldAmend, signature })
+
+  async function collectChangedPlainFiles(): Promise<string[]> {
+    if (plainCommitNode.parents.length <= 0) {
+      return listAllFiles({ ...plainCmdCtx, commitHash: plainCommitNode.id })
+    }
+    if (plainCommitNode.parents.length === 1) {
+      return listDiffFiles({
+        ...plainCmdCtx,
+        olderCommitHash: plainCommitNode.parents[0],
+        newerCommitHash: plainCommitNode.id,
+      })
+    }
+
+    const plainFileSet: Set<string> = new Set<string>()
+    for (const parentId of plainCommitNode.parents) {
+      const plainFiles: string[] = await listDiffFiles({
+        ...plainCmdCtx,
+        olderCommitHash: parentId,
+        newerCommitHash: plainCommitNode.id,
+      })
+      plainFiles.forEach(plainFile => plainFileSet.add(plainFile))
+    }
+    return Array.from(plainFileSet)
+  }
 }

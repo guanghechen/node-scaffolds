@@ -57,7 +57,7 @@ export const generateCommitHash = (
 ): string => {
   const sha256 = createHash('sha256')
   for (const item of items) {
-    sha256.update(item.plainFilepath)
+    sha256.update(item.plainPath)
     sha256.update(item.fingerprint)
   }
   const mac: Uint8Array = sha256.digest()

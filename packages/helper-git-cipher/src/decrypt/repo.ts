@@ -39,8 +39,7 @@ export async function decryptGitRepo(
 ): Promise<IDecryptGitRepoResult> {
   const title = 'decryptGitRepo'
   const { context } = params
-  const { catalog, reporter } = context
-  const { cryptPathResolver, plainPathResolver } = catalog.context
+  const { cryptPathResolver, plainPathResolver, reporter } = context
   const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, reporter }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 

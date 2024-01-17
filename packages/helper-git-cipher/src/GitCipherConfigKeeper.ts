@@ -1,14 +1,10 @@
 import { bytes2text, text2bytes } from '@guanghechen/byte'
-import type { ICipher } from '@guanghechen/cipher'
-import { FileChangeTypeEnum } from '@guanghechen/cipher-catalog'
-import type {
-  IDeserializedCatalogDiffItem,
-  IDeserializedCatalogItem,
-  ISerializedCatalogDiffItem,
-  ISerializedCatalogItem,
-} from '@guanghechen/cipher-catalog'
+import type { ICipher, ICipherFactory } from '@guanghechen/cipher'
+import type { IDeserializedCatalogItem, ISerializedCatalogItem } from '@guanghechen/cipher-catalog'
+import { CatalogItemFlagEnum } from '@guanghechen/cipher-catalog'
 import type { IConfigKeeper, IJsonConfigKeeperProps } from '@guanghechen/config'
 import { JsonConfigKeeper } from '@guanghechen/config'
+import { calcFilePartItemsBySize, calcFilePartNames } from '@guanghechen/filepart'
 import invariant from '@guanghechen/invariant'
 import path from 'node:path'
 import type { IGitCipherConfig, IGitCipherConfigData } from './types'
@@ -17,20 +13,31 @@ type Instance = IGitCipherConfig
 type Data = IGitCipherConfigData
 
 export interface IGitCipherConfigKeeperProps extends IJsonConfigKeeperProps {
-  readonly cipher: ICipher
+  readonly MAX_CRYPT_FILE_SIZE: number
+  readonly PART_CODE_PREFIX: string
+  readonly cipherFactory: ICipherFactory
+  readonly genNonceByCommitMessage: (message: string) => Uint8Array
 }
+
+const clazz = 'GitCipherConfigKeeper'
 
 export class GitCipherConfigKeeper
   extends JsonConfigKeeper<Instance, Data>
   implements IConfigKeeper<Instance>
 {
-  public override readonly __version__ = '5.1.0'
-  public override readonly __compatible_version__ = '~5.1.0'
-  readonly #cipher: ICipher
+  public override readonly __version__ = '6.0.0'
+  public override readonly __compatible_version__ = '~6.0.0'
+  protected readonly MAX_CRYPT_FILE_SIZE: number
+  protected readonly PART_CODE_PREFIX: string
+  protected readonly genNonceByCommitMessage: (message: string) => Uint8Array
+  readonly #cipherFactory: ICipherFactory
 
   constructor(props: IGitCipherConfigKeeperProps) {
     super(props)
-    this.#cipher = props.cipher
+    this.MAX_CRYPT_FILE_SIZE = props.MAX_CRYPT_FILE_SIZE
+    this.PART_CODE_PREFIX = props.PART_CODE_PREFIX
+    this.genNonceByCommitMessage = props.genNonceByCommitMessage
+    this.#cipherFactory = props.cipherFactory
   }
 
   protected override nonce(): string | undefined {
@@ -38,107 +45,104 @@ export class GitCipherConfigKeeper
   }
 
   protected override async serialize(instance: Instance): Promise<Data> {
-    const title = this.constructor.name
-    const cipher = this.#cipher
+    const cipherFactory: ICipherFactory = this.#cipherFactory
 
     const serializeItem = (item: IDeserializedCatalogItem): ISerializedCatalogItem => {
       invariant(
-        !path.isAbsolute(item.plainFilepath),
-        `[${title}] bad catalog, contains absolute filepaths. plainFilepath:(${item.plainFilepath})`,
+        !path.isAbsolute(item.plainPath),
+        `[${clazz}] bad catalog, contains absolute filepaths. plainFilepath:(${item.plainPath})`,
       )
 
-      const eAuthTag: Uint8Array | undefined =
+      const cipher: ICipher = cipherFactory.cipher({ iv: item.nonce })
+      const authTag: string | undefined =
         item.authTag === undefined
           ? undefined
-          : cipher.encrypt(Uint8Array.from(item.authTag)).cryptBytes
+          : bytes2text(cipher.encrypt(Uint8Array.from(item.authTag)).cryptBytes, 'hex')
+      const nonce: string = bytes2text(item.nonce, 'hex')
+      const fingerprint: string = item.fingerprint
+      let flag: CatalogItemFlagEnum = CatalogItemFlagEnum.NONE
+      if (item.keepIntegrity) flag |= CatalogItemFlagEnum.KEEP_INTEGRITY
+      if (item.keepPlain) flag |= CatalogItemFlagEnum.KEEP_PLAIN
 
       if (item.keepPlain) {
         return {
-          plainFilepath: item.plainFilepath,
-          fingerprint: item.fingerprint,
-          cryptFilepathParts: item.cryptFilepathParts,
-          keepPlain: true,
-          authTag: eAuthTag === undefined ? undefined : bytes2text(eAuthTag, 'hex'),
+          authTag,
+          fingerprint,
+          flag,
+          nonce,
+          plainPath: item.plainPath,
+          size: item.size,
         }
       }
 
-      const ePlainFilepath: Uint8Array = cipher.encrypt(
-        text2bytes(item.plainFilepath, 'utf8'),
-      ).cryptBytes
-      const eFingerprint: Uint8Array = cipher.encrypt(
-        text2bytes(item.fingerprint, 'hex'),
-      ).cryptBytes
+      const { cryptBytes: ePlainPath } = cipher.encrypt(text2bytes(item.plainPath, 'utf8'))
+      const { cryptBytes: eFingerprint } = cipher.encrypt(text2bytes(item.fingerprint, 'hex'))
       return {
-        plainFilepath: bytes2text(ePlainFilepath, 'base64'),
+        authTag,
         fingerprint: bytes2text(eFingerprint, 'hex'),
-        cryptFilepathParts: item.cryptFilepathParts,
-        keepPlain: false,
-        authTag: eAuthTag === undefined ? undefined : bytes2text(eAuthTag, 'hex'),
+        flag,
+        nonce,
+        plainPath: bytes2text(ePlainPath, 'base64'),
+        size: item.size,
       }
     }
 
+    const commitNonce: Uint8Array = this.genNonceByCommitMessage(instance.commit.message)
+    const commitMessageCipher: ICipher = cipherFactory.cipher({ iv: commitNonce })
     const commitMessage: string = bytes2text(
-      cipher.encrypt(text2bytes(instance.commit.message, 'utf8')).cryptBytes,
+      commitMessageCipher.encrypt(text2bytes(instance.commit.message, 'utf8')).cryptBytes,
       'base64',
     )
 
     return {
       commit: {
         message: commitMessage,
+        nonce: bytes2text(commitNonce, 'hex'),
       },
       catalog: {
-        diffItems: instance.catalog.diffItems.map((diffItem): ISerializedCatalogDiffItem => {
-          switch (diffItem.changeType) {
-            case FileChangeTypeEnum.ADDED:
-              return {
-                changeType: diffItem.changeType,
-                newItem: serializeItem(diffItem.newItem),
-              }
-            case FileChangeTypeEnum.MODIFIED:
-              return {
-                changeType: diffItem.changeType,
-                oldItem: serializeItem(diffItem.oldItem),
-                newItem: serializeItem(diffItem.newItem),
-              }
-            case FileChangeTypeEnum.REMOVED:
-              return {
-                changeType: diffItem.changeType,
-                oldItem: serializeItem(diffItem.oldItem),
-              }
-            /* c8 ignore start */
-            default:
-              throw new Error(`[${title} unknown changeType`)
-            /* c8 ignore end */
-          }
-        }),
-        items: instance.catalog.items
-          .sort((x, y) => x.plainFilepath.localeCompare(y.plainFilepath))
+        items: Array.from(instance.catalog.items)
+          .sort((x, y) => this.compareItem(x, y))
           .map(serializeItem),
       },
     }
   }
 
   protected override async deserialize(data: Data): Promise<Instance> {
-    const title = this.constructor.name
-    const cipher = this.#cipher
+    const { MAX_CRYPT_FILE_SIZE, PART_CODE_PREFIX } = this
+    const cipherFactory: ICipherFactory = this.#cipherFactory
 
     const deserializeItem = (item: ISerializedCatalogItem): IDeserializedCatalogItem => {
+      const nonce: Uint8Array = text2bytes(item.nonce, 'hex')
+      const cipher = cipherFactory.cipher({ iv: nonce })
       const authTag: Uint8Array | undefined = item.authTag
         ? cipher.decrypt(text2bytes(item.authTag, 'hex'))
         : undefined
+      const keepPlain: boolean =
+        (item.flag & CatalogItemFlagEnum.KEEP_PLAIN) === CatalogItemFlagEnum.KEEP_PLAIN
+      const keepIntegrity: boolean =
+        (item.flag & CatalogItemFlagEnum.KEEP_INTEGRITY) === CatalogItemFlagEnum.KEEP_INTEGRITY
+      const cryptPathParts: string[] = Array.from(
+        calcFilePartNames(
+          Array.from(calcFilePartItemsBySize(item.size, MAX_CRYPT_FILE_SIZE)),
+          PART_CODE_PREFIX,
+        ),
+      )
 
-      if (item.keepPlain) {
+      if (keepPlain) {
         return {
-          plainFilepath: item.plainFilepath,
-          fingerprint: item.fingerprint,
-          cryptFilepathParts: item.cryptFilepathParts,
-          keepPlain: true,
           authTag,
+          cryptPathParts,
+          fingerprint: item.fingerprint,
+          keepPlain,
+          keepIntegrity,
+          nonce,
+          plainPath: item.plainPath,
+          size: item.size,
         }
       }
 
-      const plainFilepath: string = bytes2text(
-        cipher.decrypt(text2bytes(item.plainFilepath, 'base64')),
+      const plainPath: string = bytes2text(
+        cipher.decrypt(text2bytes(item.plainPath, 'base64')),
         'utf8',
       )
       const fingerprint: string = bytes2text(
@@ -146,16 +150,21 @@ export class GitCipherConfigKeeper
         'hex',
       )
       return {
-        plainFilepath,
-        fingerprint,
-        cryptFilepathParts: item.cryptFilepathParts,
-        keepPlain: false,
         authTag,
+        cryptPathParts,
+        fingerprint,
+        keepPlain,
+        keepIntegrity,
+        nonce,
+        plainPath,
+        size: item.size,
       }
     }
 
+    const commitNonce: Uint8Array = text2bytes(data.commit.nonce, 'hex')
+    const commitMessageCipher: ICipher = cipherFactory.cipher({ iv: commitNonce })
     const commitMessage: string = bytes2text(
-      cipher.decrypt(text2bytes(data.commit.message, 'base64')),
+      commitMessageCipher.decrypt(text2bytes(data.commit.message, 'base64')),
       'utf8',
     )
 
@@ -164,32 +173,24 @@ export class GitCipherConfigKeeper
         message: commitMessage,
       },
       catalog: {
-        diffItems: data.catalog.diffItems.map((diffItem): IDeserializedCatalogDiffItem => {
-          switch (diffItem.changeType) {
-            case FileChangeTypeEnum.ADDED:
-              return {
-                changeType: diffItem.changeType,
-                newItem: deserializeItem(diffItem.newItem),
-              }
-            case FileChangeTypeEnum.MODIFIED:
-              return {
-                changeType: diffItem.changeType,
-                oldItem: deserializeItem(diffItem.oldItem),
-                newItem: deserializeItem(diffItem.newItem),
-              }
-            case FileChangeTypeEnum.REMOVED:
-              return {
-                changeType: diffItem.changeType,
-                oldItem: deserializeItem(diffItem.oldItem),
-              }
-            /* c8 ignore start */
-            default:
-              throw new Error(`[${title} unknown changeType`)
-            /* c8 ignore end */
-          }
-        }),
         items: data.catalog.items.map(deserializeItem),
       },
     }
+  }
+
+  protected compareItem(
+    item1: IDeserializedCatalogItem,
+    item2: IDeserializedCatalogItem,
+  ): -1 | 0 | 1 {
+    let i: number = item1.plainPath.length - 1
+    let j: number = item2.plainPath.length - 1
+    for (; i >= 0 && j >= 0; --i, --j) {
+      const x: string = item1.plainPath[i]
+      const y: string = item2.plainPath[j]
+      if (x === y) continue
+      return x < y ? -1 : 1
+    }
+    if (i < 0) return j < 0 ? 0 : -1
+    return 1
   }
 }

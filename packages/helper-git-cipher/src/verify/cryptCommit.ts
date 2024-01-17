@@ -1,18 +1,19 @@
-import { calcCryptFilepathsWithParts } from '@guanghechen/cipher-catalog'
-import type { IReadonlyCipherCatalog } from '@guanghechen/cipher-catalog'
+import { type IReadonlyCipherCatalog, calcCryptPathsWithPart } from '@guanghechen/cipher-catalog'
 import type { IConfigKeeper } from '@guanghechen/config'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import { checkBranch, getAllLocalBranches, isGitRepo, listAllFiles } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
+import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { existsSync } from 'node:fs'
 import type { IGitCipherConfig } from '../types'
 
 export interface IVerifyCryptGitCommitParams {
   catalog: IReadonlyCipherCatalog
-  catalogFilepath: string
+  catalogConfigPath: string
   configKeeper: IConfigKeeper<IGitCipherConfig>
   cryptCommitId: string
+  cryptPathResolver: IWorkspacePathResolver
   reporter: IReporter | undefined
 }
 
@@ -20,8 +21,7 @@ export async function verifyCryptGitCommit(
   params: IVerifyCryptGitCommitParams,
 ): Promise<void | never> {
   const title = 'verifyCryptGitCommit'
-  const { catalog, configKeeper, cryptCommitId, reporter } = params
-  const { cryptPathResolver } = catalog.context
+  const { catalog, configKeeper, cryptCommitId, cryptPathResolver, reporter } = params
 
   invariant(
     existsSync(cryptPathResolver.root),
@@ -40,22 +40,24 @@ export async function verifyCryptGitCommit(
 
   try {
     await checkBranch({ ...cryptCtx, commitHash: cryptCommitId })
-    await configKeeper.load()
+    const cipherConfig: IGitCipherConfig = await configKeeper.load()
     const allCryptFiles: string[] = await listAllFiles({ ...cryptCtx, commitHash: cryptCommitId })
 
-    const expectedCryptFilepaths: string[] = (configKeeper.data?.catalog.items ?? [])
-      .map(item => {
-        const cryptFilepath: string = catalog.calcCryptPath(item.plainFilepath)
-        return calcCryptFilepathsWithParts(cryptFilepath, item.cryptFilepathParts)
-      })
-      .flat()
-    const expectedSet: Set<string> = new Set(expectedCryptFilepaths)
+    const expectedCryptPaths: string[] = await Promise.all<string[]>(
+      (cipherConfig?.catalog.items ?? []).map(
+        (item): Promise<string[]> =>
+          catalog
+            .calcCryptPath(item.plainPath)
+            .then(cryptPath => calcCryptPathsWithPart(cryptPath, item.cryptPathParts)),
+      ),
+    ).then(paths => paths.flat())
+    const expectedSet: Set<string> = new Set(expectedCryptPaths)
     const matchedSet: Set<string> = new Set()
     const unMatchedSet: Set<string> = new Set()
 
-    const catalogFilepath: string = cryptPathResolver.relative(params.catalogFilepath)
+    const catalogConfigPath: string = cryptPathResolver.relative(params.catalogConfigPath, true)
     for (const cryptFilepath of allCryptFiles) {
-      if (cryptFilepath === catalogFilepath) continue
+      if (cryptFilepath === catalogConfigPath) continue
       if (expectedSet.has(cryptFilepath)) matchedSet.add(cryptFilepath)
       else unMatchedSet.add(cryptFilepath)
     }

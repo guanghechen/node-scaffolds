@@ -1,18 +1,20 @@
 import type {
   ICipherCatalog,
-  IDeserializedCatalogDiffItem,
   IDeserializedCatalogItem,
-  ISerializedCatalogDiffItem,
   ISerializedCatalogItem,
 } from '@guanghechen/cipher-catalog.types'
 import type { IConfigKeeper } from '@guanghechen/config'
 import type { IFileCipherBatcher } from '@guanghechen/helper-cipher-file'
+import type { IWorkspacePathResolver } from '@guanghechen/path.types'
 import type { IReporter } from '@guanghechen/reporter.types'
 
 export interface IGitCipherContext {
   readonly catalog: ICipherCatalog
-  readonly configKeeper: IConfigKeeper<IGitCipherConfig>
+  readonly catalogConfigPath: string
   readonly cipherBatcher: IFileCipherBatcher
+  readonly configKeeper: IConfigKeeper<IGitCipherConfig>
+  readonly cryptPathResolver: IWorkspacePathResolver
+  readonly plainPathResolver: IWorkspacePathResolver
   readonly reporter: IReporter
 }
 
@@ -21,8 +23,6 @@ export interface IGitCipherConfig {
     readonly message: string
   }
   readonly catalog: {
-    // Diff from the first parent commit.
-    readonly diffItems: IDeserializedCatalogDiffItem[]
     readonly items: IDeserializedCatalogItem[]
   }
 }
@@ -30,10 +30,9 @@ export interface IGitCipherConfig {
 export interface IGitCipherConfigData {
   readonly commit: {
     readonly message: string
+    readonly nonce: string
   }
   readonly catalog: {
-    // Diff from the first parent commit.
-    readonly diffItems: ISerializedCatalogDiffItem[]
     readonly items: ISerializedCatalogItem[]
   }
 }

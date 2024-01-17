@@ -21,8 +21,7 @@ export interface IEncryptGitBranchParams {
  */
 export async function encryptGitBranch(params: IEncryptGitBranchParams): Promise<void> {
   const { branchName, context, plain2cryptIdMap } = params
-  const { catalog, reporter } = context
-  const { cryptPathResolver, plainPathResolver } = catalog.context
+  const { cryptPathResolver, plainPathResolver, reporter } = context
   const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, reporter }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 

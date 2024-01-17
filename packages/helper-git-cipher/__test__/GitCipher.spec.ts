@@ -1,17 +1,19 @@
-import { bytes2text } from '@guanghechen/byte'
+import { bytes2text, text2bytes } from '@guanghechen/byte'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
 import { AesGcmCipherFactoryBuilder } from '@guanghechen/cipher'
-import type { IDeserializedCatalogItem } from '@guanghechen/cipher-catalog'
-import { CipherCatalogContext } from '@guanghechen/cipher-catalog'
-import type { ICipherCatalog, ICipherCatalogContext } from '@guanghechen/cipher-catalog.types'
+import { CipherCatalog, FileChangeTypeEnum } from '@guanghechen/cipher-catalog'
+import type {
+  ICatalogDiffItem,
+  ICipherCatalog,
+  ICipherCatalogContext,
+  IDeserializedCatalogItem,
+  IItemForGenNonce,
+  ISerializedCatalogItem,
+} from '@guanghechen/cipher-catalog.types'
 import { FileSplitter } from '@guanghechen/file-split'
-import {
-  FileCipherBatcher,
-  FileCipherCatalog,
-  FileCipherFactory,
-} from '@guanghechen/helper-cipher-file'
+import { FileCipherBatcher, FileCipherFactory } from '@guanghechen/helper-cipher-file'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import {
   checkBranch,
@@ -24,9 +26,10 @@ import {
 import type { IReporterMock } from '@guanghechen/helper-jest'
 import { createReporterMock } from '@guanghechen/helper-jest'
 import { calcMac } from '@guanghechen/mac'
+import type { IWorkspacePathResolver } from '@guanghechen/path'
 import { WorkspacePathResolver, pathResolver } from '@guanghechen/path'
 import { Reporter, ReporterLevelEnum } from '@guanghechen/reporter'
-import { TextFileResource } from '@guanghechen/resource'
+import { FileTextResource } from '@guanghechen/resource'
 import {
   assertPromiseNotThrow,
   assertPromiseThrow,
@@ -38,11 +41,19 @@ import {
 } from 'jest.helper'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import type { IGitCipherContext } from '../src'
-import { GitCipher, GitCipherConfigKeeper, verifyCryptGitCommit } from '../src'
+import {
+  GitCipher,
+  GitCipherCatalogContext,
+  GitCipherConfigKeeper,
+  verifyCryptGitCommit,
+} from '../src'
 import type { IBuildRepo1Result } from './_data-repo1'
 import {
+  CONTENT_HASH_ALGORITHM,
   CRYPT_FILES_DIR,
+  MAX_CRYPT_FILE_SIZE,
+  NONCE_SIZE,
+  PART_CODE_PREFIX,
   PATH_HASH_ALGORITHM,
   buildRepo1,
   contentA,
@@ -53,7 +64,6 @@ import {
   contentC2,
   contentC3,
   contentD,
-  contentHashAlgorithm,
   diffItemsTable,
   encoding,
   fpA,
@@ -62,11 +72,20 @@ import {
   fpD,
   fpE,
   itemTable,
-  maxTargetFileSize,
-  partCodePrefix,
   repo1CryptCommitIdTable,
   repo1CryptCommitMessageTable,
 } from './_data-repo1'
+
+class TestGitCipherCatalogContext extends GitCipherCatalogContext implements ICipherCatalogContext {
+  public override async genNonce(item: IItemForGenNonce): Promise<Uint8Array> {
+    const { NONCE_SIZE } = this
+    const nonce: Uint8Array = calcMac(
+      [text2bytes(item.plainPath, 'utf8'), text2bytes(item.fingerprint ?? '', 'hex')],
+      'sha256',
+    ).slice(0, NONCE_SIZE)
+    return nonce
+  }
+}
 
 describe('GitCipher', () => {
   const workspaceDir: string = locateFixtures('__fictitious__GitCipher')
@@ -87,13 +106,14 @@ describe('GitCipher', () => {
   const cryptCtx: IGitCommandBaseParams = { cwd: cryptRootDir, reporter, execaOptions: {} }
   const bakPlainCtx: IGitCommandBaseParams = { cwd: bakPlainRootDir, reporter, execaOptions: {} }
 
-  let resource: TextFileResource
+  let resource: FileTextResource
   let configKeeper: GitCipherConfigKeeper
   let gitCipher: GitCipher
   let bakGitCipher: GitCipher
 
   beforeAll(() => {
-    const ivSize = 12
+    const ivSize = 16
+    const catalogConfigPath: string = path.join(cryptRootDir, 'catalog.ghc.txt')
     const cipherFactory = new AesGcmCipherFactoryBuilder({ ivSize }).buildFromPassword(
       Buffer.from('guanghechen', encoding),
       {
@@ -102,126 +122,152 @@ describe('GitCipher', () => {
         digest: 'sha256',
       },
     )
-    resource = new TextFileResource({
+    resource = new FileTextResource({
       strict: true,
-      filepath: path.join(cryptRootDir, 'catalog.ghc.txt'),
+      filepath: catalogConfigPath,
       encoding: 'utf8',
     })
-    configKeeper = new GitCipherConfigKeeper({ resource, cipher: cipherFactory.cipher() })
-
-    const fileCipherFactory = new FileCipherFactory({ cipherFactory, reporter })
-    const fileSplitter = new FileSplitter({ partCodePrefix })
-    const cipherBatcher = new FileCipherBatcher({
-      fileCipherFactory,
-      fileSplitter,
-      maxTargetFileSize,
-      reporter,
+    configKeeper = new GitCipherConfigKeeper({
+      MAX_CRYPT_FILE_SIZE,
+      PART_CODE_PREFIX,
+      cipherFactory,
+      resource,
+      genNonceByCommitMessage: (message: string) => {
+        const mac = calcMac([text2bytes(message, 'utf8')], 'sha256')
+        return mac.slice(0, NONCE_SIZE)
+      },
     })
 
-    {
-      // build gitCipher
-      const catalogContext: ICipherCatalogContext = new CipherCatalogContext({
-        contentHashAlgorithm,
+    const createCatalogContext = (
+      cryptPathResolver: IWorkspacePathResolver,
+      plainPathResolver: IWorkspacePathResolver,
+    ): ICipherCatalogContext => {
+      const catalogContext: ICipherCatalogContext = new TestGitCipherCatalogContext({
+        CONTENT_HASH_ALGORITHM,
         CRYPT_FILES_DIR,
-        cryptFilepathSalt: 'guanghechen_git_cipher',
-        cryptPathResolver,
-        maxTargetFileSize,
-        partCodePrefix,
+        CRYPT_PATH_SALT: 'guanghechen_git_cipher',
+        MAX_CRYPT_FILE_SIZE,
+        NONCE_SIZE,
+        PART_CODE_PREFIX,
         PATH_HASH_ALGORITHM,
+        cryptPathResolver,
         plainPathResolver,
-        isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
-        calcIvFromBytes: async info => calcMac([...info], 'sha256').slice(0, ivSize),
+        integrityPatterns: [],
+        keepPlainPatterns: ['a.txt'],
       })
-      const catalog: ICipherCatalog = new FileCipherCatalog(catalogContext)
-      const context: IGitCipherContext = { catalog, cipherBatcher, configKeeper, reporter }
-      gitCipher = new GitCipher({ context })
+      return catalogContext
+    }
+
+    const fileCipherFactory = new FileCipherFactory({ cipherFactory, reporter })
+    const fileSplitter = new FileSplitter({ partCodePrefix: PART_CODE_PREFIX })
+    {
+      const catalogContext: ICipherCatalogContext = createCatalogContext(
+        cryptPathResolver,
+        plainPathResolver,
+      )
+      const catalog: ICipherCatalog = new CipherCatalog(catalogContext)
+      const cipherBatcher = new FileCipherBatcher({
+        MAX_CRYPT_FILE_SIZE,
+        PART_CODE_PREFIX,
+        fileCipherFactory,
+        fileSplitter,
+        reporter,
+        genNonce: (...args) => catalogContext.genNonce(...args),
+      })
+      gitCipher = new GitCipher({
+        context: {
+          catalog,
+          catalogConfigPath,
+          cipherBatcher,
+          configKeeper,
+          cryptPathResolver,
+          plainPathResolver,
+          reporter,
+        },
+      })
     }
 
     {
-      // build bakGitCipher
-      const catalogContext: ICipherCatalogContext = new CipherCatalogContext({
-        contentHashAlgorithm,
-        CRYPT_FILES_DIR,
-        cryptFilepathSalt: 'guanghechen_git_cipher',
+      const catalogContext: ICipherCatalogContext = createCatalogContext(
         cryptPathResolver,
-        maxTargetFileSize,
-        partCodePrefix,
-        PATH_HASH_ALGORITHM,
-        plainPathResolver: bakPlainPathResolver,
-        isKeepPlain: sourceFilepath => sourceFilepath === 'a.txt',
-        calcIvFromBytes: async info => calcMac([...info], 'sha256').slice(0, ivSize),
+        bakPlainPathResolver,
+      )
+      const catalog: ICipherCatalog = new CipherCatalog(catalogContext)
+      const cipherBatcher = new FileCipherBatcher({
+        MAX_CRYPT_FILE_SIZE,
+        PART_CODE_PREFIX,
+        fileCipherFactory,
+        fileSplitter,
+        reporter,
+        genNonce: catalogContext.genNonce,
       })
-      const catalog: ICipherCatalog = new FileCipherCatalog(catalogContext)
-      const context: IGitCipherContext = { catalog, cipherBatcher, configKeeper, reporter }
-      bakGitCipher = new GitCipher({ context })
+      bakGitCipher = new GitCipher({
+        context: {
+          catalog,
+          catalogConfigPath,
+          cipherBatcher,
+          configKeeper,
+          cryptPathResolver,
+          plainPathResolver: bakPlainPathResolver,
+          reporter,
+        },
+      })
     }
   })
 
   const testCatalog = async (
     commit: { message: string; cryptParents: string[] },
-    diffItems: unknown[],
-    items: Array<IDeserializedCatalogItem & { iv: Uint8Array | undefined }>,
+    diffItems: ICatalogDiffItem[],
+    items: IDeserializedCatalogItem[],
   ): Promise<void> => {
     const { context } = gitCipher
     await configKeeper.load()
     expect(configKeeper.data!.commit).toEqual({ message: commit.message })
 
-    const results1: unknown[] = await Promise.all(
-      configKeeper.data!.catalog.items.map(async item => {
-        const iv: Uint8Array | undefined = await context.catalog.calcIv(item)
-        return {
-          ...item,
-          cryptFilepath: context.catalog.calcCryptPath(item.plainFilepath),
-          iv: bytes2text(iv!, 'hex'),
-          authTag: item.authTag ? bytes2text(item.authTag, 'hex') : undefined,
-        }
-      }),
+    type IItem = Omit<ISerializedCatalogItem, 'flag'> & { cryptPath: string }
+    const results1: IItem[] = await Promise.all(
+      configKeeper.data!.catalog.items.map(
+        async (deserializedItem: IDeserializedCatalogItem): Promise<IItem> => {
+          const nonce: Uint8Array | undefined = await context.catalog.context.genNonce(
+            deserializedItem,
+          )
+          const item: IItem = {
+            ...deserializedItem,
+            cryptPath: await context.catalog.calcCryptPath(deserializedItem.plainPath),
+            nonce: bytes2text(nonce!, 'hex'),
+            authTag: deserializedItem.authTag
+              ? bytes2text(deserializedItem.authTag, 'hex')
+              : undefined,
+          }
+          return item
+        },
+      ),
     )
     expect(results1).toEqual(
       items.map(item => ({
         ...item,
-        iv: item.iv ? bytes2text(item.iv, 'hex') : undefined,
+        nonce: item.nonce ? bytes2text(item.nonce, 'hex') : undefined,
         authTag: item.authTag ? bytes2text(item.authTag, 'hex') : undefined,
       })),
     )
 
-    const results2: unknown[] = await Promise.all(
-      configKeeper.data!.catalog.diffItems.map(async diffItem => {
-        const serializeItem = async (item: any): Promise<unknown> => {
-          const iv: Uint8Array | undefined = await context.catalog.calcIv(item)
-          return {
-            plainFilepath: item.plainFilepath,
-            fingerprint: item.fingerprint,
-            cryptFilepathParts: item.cryptFilepathParts,
-            keepPlain: item.keepPlain,
-            iv: bytes2text(iv!, 'hex'),
-            authTag: item.authTag ? bytes2text(item.authTag, 'hex') : undefined,
-          }
-        }
-
-        const result: any = { ...diffItem }
-        if (result.oldItem) result.oldItem = await serializeItem(result.oldItem)
-        if (result.newItem) result.newItem = await serializeItem(result.newItem)
-        return result
-      }),
-    )
-    expect(results2).toEqual(
-      diffItems.map((diffItem: any): any => {
-        const serializeItem = (item: any): any => ({
-          plainFilepath: item.plainFilepath,
-          fingerprint: item.fingerprint,
-          cryptFilepathParts: item.cryptFilepathParts,
-          keepPlain: item.keepPlain,
-          iv: item.iv ? bytes2text(item.iv, 'hex') : undefined,
-          authTag: item.authTag ? bytes2text(item.authTag, 'hex') : undefined,
-        })
-
-        const result: any = { ...diffItem }
-        if (result.oldItem) result.oldItem = serializeItem(result.oldItem)
-        if (result.newItem) result.newItem = serializeItem(result.newItem)
-        return result
-      }),
-    )
+    const addedPlainPaths: Set<string> = new Set()
+    const modifiedPlainPaths: Set<string> = new Set()
+    const removedPlainPaths: Set<string> = new Set()
+    for (const diffItem of diffItems) {
+      switch (diffItem.changeType) {
+        case FileChangeTypeEnum.ADDED:
+          addedPlainPaths.add(diffItem.newItem.plainPath)
+          break
+        case FileChangeTypeEnum.MODIFIED:
+          modifiedPlainPaths.add(diffItem.oldItem.plainPath)
+          modifiedPlainPaths.add(diffItem.newItem.plainPath)
+          break
+        case FileChangeTypeEnum.REMOVED:
+          removedPlainPaths.add(diffItem.oldItem.plainPath)
+          break
+      }
+    }
   }
 
   describe('complex', () => {
@@ -247,21 +293,18 @@ describe('GitCipher', () => {
 
         // Test encrypt.
         let { crypt2plainIdMap } = await gitCipher.encrypt({ crypt2plainIdMap: new Map() })
-        expect(crypt2plainIdMap).toEqual(
-          new Map([
-            [repo1CryptCommitIdTable.A, commitIdTable.A],
-            [repo1CryptCommitIdTable.B, commitIdTable.B],
-            [repo1CryptCommitIdTable.C, commitIdTable.C],
-            [repo1CryptCommitIdTable.D, commitIdTable.D],
-            [repo1CryptCommitIdTable.E, commitIdTable.E],
-            [repo1CryptCommitIdTable.F, commitIdTable.F],
-            [repo1CryptCommitIdTable.G, commitIdTable.G],
-            [repo1CryptCommitIdTable.H, commitIdTable.H],
-            [repo1CryptCommitIdTable.I, commitIdTable.I],
-            [repo1CryptCommitIdTable.J, commitIdTable.J],
-            [repo1CryptCommitIdTable.K, commitIdTable.K],
-          ]),
-        )
+        expect(crypt2plainIdMap.size).toEqual(11)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.A)).toEqual(commitIdTable.A)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.B)).toEqual(commitIdTable.B)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.C)).toEqual(commitIdTable.C)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.D)).toEqual(commitIdTable.D)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.E)).toEqual(commitIdTable.E)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.F)).toEqual(commitIdTable.F)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.G)).toEqual(commitIdTable.G)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.H)).toEqual(commitIdTable.H)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.I)).toEqual(commitIdTable.I)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.J)).toEqual(commitIdTable.J)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.K)).toEqual(commitIdTable.K)
         expect(await getAllLocalBranches({ ...cryptCtx })).toEqual({
           currentBranch: 'main',
           branches: ['main'],
@@ -331,9 +374,10 @@ describe('GitCipher', () => {
           await assertPromiseNotThrow(() =>
             verifyCryptGitCommit({
               catalog: gitCipher.context.catalog,
-              catalogFilepath: resource.filepath,
+              catalogConfigPath: resource.filepath,
               configKeeper,
               cryptCommitId: repo1CryptCommitIdTable[symbol],
+              cryptPathResolver: gitCipher.context.cryptPathResolver,
               reporter,
             }),
           )
@@ -343,21 +387,19 @@ describe('GitCipher', () => {
         crypt2plainIdMap = await bakGitCipher
           .decrypt({ crypt2plainIdMap, gpgSign: false })
           .then(md => md.crypt2plainIdMap)
-        expect(crypt2plainIdMap).toEqual(
-          new Map([
-            [repo1CryptCommitIdTable.A, commitIdTable.A],
-            [repo1CryptCommitIdTable.B, commitIdTable.B],
-            [repo1CryptCommitIdTable.C, commitIdTable.C],
-            [repo1CryptCommitIdTable.D, commitIdTable.D],
-            [repo1CryptCommitIdTable.E, commitIdTable.E],
-            [repo1CryptCommitIdTable.F, commitIdTable.F],
-            [repo1CryptCommitIdTable.G, commitIdTable.G],
-            [repo1CryptCommitIdTable.H, commitIdTable.H],
-            [repo1CryptCommitIdTable.I, commitIdTable.I],
-            [repo1CryptCommitIdTable.J, commitIdTable.J],
-            [repo1CryptCommitIdTable.K, commitIdTable.K],
-          ]),
-        )
+        expect(crypt2plainIdMap.size).toEqual(11)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.A)).toEqual(commitIdTable.A)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.B)).toEqual(commitIdTable.B)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.C)).toEqual(commitIdTable.C)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.D)).toEqual(commitIdTable.D)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.E)).toEqual(commitIdTable.E)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.F)).toEqual(commitIdTable.F)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.G)).toEqual(commitIdTable.G)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.H)).toEqual(commitIdTable.H)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.I)).toEqual(commitIdTable.I)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.J)).toEqual(commitIdTable.J)
+        expect(crypt2plainIdMap.get(repo1CryptCommitIdTable.K)).toEqual(commitIdTable.K)
+
         expect(await getAllLocalBranches(bakPlainCtx)).toEqual({
           currentBranch: 'main',
           branches: ['main'],
@@ -399,7 +441,7 @@ describe('GitCipher', () => {
           ],
         ])
       },
-      20 * 1000,
+      20 * 100000,
     )
   })
 

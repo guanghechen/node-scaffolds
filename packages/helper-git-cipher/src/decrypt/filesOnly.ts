@@ -1,5 +1,4 @@
-import { FileChangeTypeEnum } from '@guanghechen/cipher-catalog'
-import type { ICatalogDiffItem, IDeserializedCatalogItem } from '@guanghechen/cipher-catalog'
+import type { ICatalogItem, IDeserializedCatalogItem } from '@guanghechen/cipher-catalog'
 import {
   checkBranch,
   getHeadBranchOrCommitId,
@@ -8,7 +7,7 @@ import {
 } from '@guanghechen/helper-git'
 import type { IGitCommandBaseParams } from '@guanghechen/helper-git'
 import invariant from '@guanghechen/invariant'
-import type { IGitCipherContext } from '../types'
+import type { IGitCipherConfig, IGitCipherContext } from '../types'
 
 export interface IDecryptFilesOnlyParams {
   context: IGitCipherContext
@@ -22,9 +21,7 @@ export interface IDecryptFilesOnlyParams {
 export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise<void> {
   const title = 'decryptFilesOnly'
   const { context, cryptCommitId, filesOnly = [] } = params
-  const { catalog, cipherBatcher, configKeeper, reporter } = context
-  const { cryptPathResolver, plainPathResolver } = catalog.context
-
+  const { cipherBatcher, configKeeper, cryptPathResolver, plainPathResolver, reporter } = context
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
 
   invariant(
@@ -43,34 +40,32 @@ export async function decryptFilesOnly(params: IDecryptFilesOnlyParams): Promise
     await checkBranch({ ...cryptCmdCtx, commitHash: cryptCommitId })
 
     // Load the diffItems between the <first parent>...<current>.
-    await configKeeper.load()
-    const configData = configKeeper.data
-    invariant(!!configData, `[${title}] cannot load config. cryptCommitId(${cryptCommitId})`)
+    const cipherConfig: IGitCipherConfig = await configKeeper.load()
+    invariant(!!cipherConfig, `[${title}] cannot load config. cryptCommitId(${cryptCommitId})`)
 
-    let preparedItems: IDeserializedCatalogItem[] = configData.catalog.items
+    let preparedItems: IDeserializedCatalogItem[] = cipherConfig.catalog.items
     if (filesOnly.length > 0) {
       const plainFilepathSet: Set<string> = new Set<string>(
-        filesOnly.map(f => plainPathResolver.relative(f)),
+        filesOnly.map(f => plainPathResolver.relative(f, true)),
       )
-      preparedItems = preparedItems.filter(item => plainFilepathSet.has(item.plainFilepath))
+      preparedItems = preparedItems.filter(item => plainFilepathSet.has(item.plainPath))
       if (preparedItems.length !== plainFilepathSet.size) {
         const notFound: string[] = Array.from(plainFilepathSet).filter(
-          f => !preparedItems.some(item => item.plainFilepath === f),
+          f => !preparedItems.some(item => item.plainPath === f),
         )
         invariant(notFound.length === 0, `[${title}] cannot find file(s): ${notFound.join(', ')}`)
       }
     }
 
     // Decrypt files.
-    const diffItems: ICatalogDiffItem[] = await Promise.all(
-      preparedItems.map(
-        async (item): Promise<ICatalogDiffItem> => ({
-          changeType: FileChangeTypeEnum.ADDED,
-          newItem: await context.catalog.flatItem(item),
-        }),
-      ),
+    const items: ICatalogItem[] = await Promise.all(
+      preparedItems.map(async (item): Promise<ICatalogItem> => context.catalog.flatItem(item)),
     )
-    await cipherBatcher.batchDecrypt({ catalog, diffItems, strictCheck: false })
+    await cipherBatcher.batchDecrypt({
+      items,
+      cryptPathResolver,
+      plainPathResolver,
+    })
   } finally {
     // Restore crypt repo HEAD point.
     await checkBranch({ ...cryptCmdCtx, commitHash: initialCommitHash })

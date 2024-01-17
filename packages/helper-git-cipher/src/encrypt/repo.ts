@@ -29,8 +29,7 @@ export async function encryptGitRepo(
 ): Promise<IEncryptGitRepoResult> {
   const title = 'encryptGitRepo'
   const { context } = params
-  const { catalog, reporter } = context
-  const { cryptPathResolver, plainPathResolver } = catalog.context
+  const { cryptPathResolver, plainPathResolver, reporter } = context
 
   const plainCmdCtx: IGitCommandBaseParams = { cwd: plainPathResolver.root, reporter }
   const cryptCmdCtx: IGitCommandBaseParams = { cwd: cryptPathResolver.root, reporter }
