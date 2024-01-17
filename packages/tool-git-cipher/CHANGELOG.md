@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.21](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-git-cipher@6.0.0-alpha.20...@guanghechen/tool-git-cipher@6.0.0-alpha.21) (2024-01-17)
+
+
+### Performance Improvements
+
+* ⬆️ upgrade dependencies ([fbcc9e1](https://github.com/guanghechen/node-scaffolds/commit/fbcc9e147ae4c893ffac0203f74a615c4961937f))
+
+
+
+
+
 # [6.0.0-alpha.20](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/tool-git-cipher@6.0.0-alpha.19...@guanghechen/tool-git-cipher@6.0.0-alpha.20) (2024-01-17)
 
 

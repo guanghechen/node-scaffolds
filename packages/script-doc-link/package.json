@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/script-doc-link",
-  "version": "6.0.0-alpha.10",
+  "version": "6.0.0-alpha.11",
   "description": "Script-doc-link function",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@6.0.0-alpha.10",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@6.0.0-alpha.11",
     "directory": "packages/script-doc-link"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@6.0.0-alpha.10/packages/script-doc-link#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@6.0.0-alpha.11/packages/script-doc-link#readme",
   "type": "module",
   "exports": {
     ".": {
