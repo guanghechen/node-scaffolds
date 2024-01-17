@@ -49,12 +49,12 @@
   "dependencies": {
     "@guanghechen/byte": "^1.0.0-alpha.5",
     "@guanghechen/cipher": "^1.0.0-alpha.19",
-    "@guanghechen/cipher-catalog.types": "^1.0.0-alpha.23",
+    "@guanghechen/cipher-catalog.types": "^1.0.0-alpha.24",
     "@guanghechen/file-split": "^1.0.0-alpha.19",
     "@guanghechen/filepart": "^1.0.0-alpha.3",
     "@guanghechen/helper-fs": "^6.0.0-alpha.6",
     "@guanghechen/invariant": "^6.0.0-alpha.1",
-    "@guanghechen/path.types": "^1.0.0-alpha.12",
+    "@guanghechen/path.types": "^1.0.0-alpha.13",
     "@guanghechen/reporter.types": "^1.0.0-alpha.9",
     "@guanghechen/stream": "^1.0.0-alpha.10"
   }

@@ -53,8 +53,8 @@
     "@guanghechen/helper-option": "^6.0.0-alpha.1",
     "@guanghechen/invariant": "^6.0.0-alpha.1",
     "@guanghechen/mini-copy": "^6.0.0-alpha.6",
-    "@guanghechen/path": "^1.0.0-alpha.15",
-    "@guanghechen/reporter": "^1.0.0-alpha.25",
+    "@guanghechen/path": "^1.0.0-alpha.16",
+    "@guanghechen/reporter": "^1.0.0-alpha.26",
     "inquirer": "9.2.12"
   },
   "devDependencies": {

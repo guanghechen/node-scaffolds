@@ -529,26 +529,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher-catalog.types@npm:^1.0.0-alpha.23":
-  version: 1.0.0-alpha.23
-  resolution: "@guanghechen/cipher-catalog.types@npm:1.0.0-alpha.23"
+"@guanghechen/cipher-catalog.types@npm:^1.0.0-alpha.24":
+  version: 1.0.0-alpha.24
+  resolution: "@guanghechen/cipher-catalog.types@npm:1.0.0-alpha.24"
   dependencies:
-    "@guanghechen/path.types": ^1.0.0-alpha.12
-  checksum: 35feb4b88d174c95ac098bb6ee5ad87f2b7eaa6c96b8a42c60fae25ad382cb35b014223cc3a2807fc35dd1bb645150d2f81319b0f95e6fa21315e20eca0c6679
+    "@guanghechen/path.types": ^1.0.0-alpha.13
+  checksum: c79f4bb814ce4f2efc0b414e6fb292f3f29cce180fb451c25efc9ff36466da3d4ff50b3a03f7fe96604b15c4aa2680ed1a157b5dd283e402b90590861695dc0d
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher-catalog@npm:^1.0.0-alpha.25":
-  version: 1.0.0-alpha.25
-  resolution: "@guanghechen/cipher-catalog@npm:1.0.0-alpha.25"
+"@guanghechen/cipher-catalog@npm:^1.0.0-alpha.26":
+  version: 1.0.0-alpha.26
+  resolution: "@guanghechen/cipher-catalog@npm:1.0.0-alpha.26"
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.5
-    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.23
+    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.24
     "@guanghechen/disposable": ^1.0.0-alpha.1
     "@guanghechen/filepart": ^1.0.0-alpha.3
     "@guanghechen/mac": ^1.0.0-alpha.4
     "@guanghechen/monitor": ^1.0.0-alpha.25
-  checksum: c4afa927ca98ce87fcae939abf08908bd60c7142d43f63a328bddd296bb6baf38dc5bb6deebd24f2d03335eb7212463e8ea7c262b7293230cf38029dd7c53495
+  checksum: a193c7af7fd8b02d49a0d223f0b4db836f8405aaa404b8fdc7395b4768f5c6577090dcae4ad7be457cdd8d22dbbdba65b405d054aadd7f8feab01defcc6be671
   languageName: node
   linkType: hard
 
@@ -713,12 +713,12 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.5
     "@guanghechen/cipher": ^1.0.0-alpha.19
-    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.23
+    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.24
     "@guanghechen/file-split": ^1.0.0-alpha.19
     "@guanghechen/filepart": ^1.0.0-alpha.3
     "@guanghechen/helper-fs": ^6.0.0-alpha.6
     "@guanghechen/invariant": ^6.0.0-alpha.1
-    "@guanghechen/path.types": ^1.0.0-alpha.12
+    "@guanghechen/path.types": ^1.0.0-alpha.13
     "@guanghechen/reporter.types": ^1.0.0-alpha.9
     "@guanghechen/stream": ^1.0.0-alpha.10
   languageName: unknown
@@ -734,8 +734,8 @@ __metadata:
     "@guanghechen/helper-option": ^6.0.0-alpha.1
     "@guanghechen/helper-string": ^6.0.0-alpha.2
     "@guanghechen/invariant": ^6.0.0-alpha.1
-    "@guanghechen/path": ^1.0.0-alpha.15
-    "@guanghechen/reporter": ^1.0.0-alpha.25
+    "@guanghechen/path": ^1.0.0-alpha.16
+    "@guanghechen/reporter": ^1.0.0-alpha.26
     "@types/js-yaml": ^4.0.9
     command-exists: ^1.2.9
     commander: ^11.1.0
@@ -766,7 +766,7 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.5
     "@guanghechen/cipher": ^1.0.0-alpha.19
-    "@guanghechen/cipher-catalog": ^1.0.0-alpha.25
+    "@guanghechen/cipher-catalog": ^1.0.0-alpha.26
     "@guanghechen/config": ^1.0.0-alpha.12
     "@guanghechen/filepart": ^1.0.0-alpha.3
     "@guanghechen/helper-cipher-file": ^6.0.0-alpha.16
@@ -774,7 +774,7 @@ __metadata:
     "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/helper-git": ^6.0.0-alpha.7
     "@guanghechen/invariant": ^6.0.0-alpha.1
-    "@guanghechen/path.types": ^1.0.0-alpha.12
+    "@guanghechen/path.types": ^1.0.0-alpha.13
     "@guanghechen/reporter.types": ^1.0.0-alpha.9
     "@types/micromatch": ^4.0.6
     micromatch: ^4.0.5
@@ -904,8 +904,8 @@ __metadata:
   dependencies:
     "@babel/core": 7.23.7
     "@guanghechen/chalk": ^1.0.0-alpha.11
-    "@guanghechen/path": ^1.0.0-alpha.15
-    "@guanghechen/reporter": ^1.0.0-alpha.25
+    "@guanghechen/path": ^1.0.0-alpha.16
+    "@guanghechen/reporter": ^1.0.0-alpha.26
     "@guanghechen/resource": ^1.0.0-alpha.10
     "@rollup/plugin-replace": ^5.0.5
     "@types/command-exists": ^1.2.3
@@ -936,19 +936,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/path.types@npm:^1.0.0-alpha.12":
-  version: 1.0.0-alpha.12
-  resolution: "@guanghechen/path.types@npm:1.0.0-alpha.12"
-  checksum: 3011b3c13da08d103eab5df0fac7a70eb763950d49add41693a97494778e0d60857025971046b8d64564c401f2096cfc79e98501b6ae94446757f25f4ce02382
+"@guanghechen/path.types@npm:^1.0.0-alpha.13":
+  version: 1.0.0-alpha.13
+  resolution: "@guanghechen/path.types@npm:1.0.0-alpha.13"
+  checksum: af19600d4af6356995e280160dc6c3d3954251eb7a990e900f47aea882c7427b71ac3925167d3f612eedfb6cbb7bb11953d6a1ddb1e1a9e6df98268e5b4f5e12
   languageName: node
   linkType: hard
 
-"@guanghechen/path@npm:^1.0.0-alpha.15":
-  version: 1.0.0-alpha.15
-  resolution: "@guanghechen/path@npm:1.0.0-alpha.15"
+"@guanghechen/path@npm:^1.0.0-alpha.16":
+  version: 1.0.0-alpha.16
+  resolution: "@guanghechen/path@npm:1.0.0-alpha.16"
   dependencies:
-    "@guanghechen/path.types": ^1.0.0-alpha.12
-  checksum: 089aad37fbf42219f05a1f11c45b7b40364fb8641f3f45cf8b3aa762e1b5a70185435fd3891863555085e013cc5c0596ee870f3b7c2bbefdf54d1193018e7447
+    "@guanghechen/path.types": ^1.0.0-alpha.13
+  checksum: ba37e0c13e80d463d6b7086801f7c0b17b5e137acdc99cf99f52d74c10765ec1884ad899976c26bec40a2ff248c99390b4826a8bba4b285b4b469521674cb84f
   languageName: node
   linkType: hard
 
@@ -969,16 +969,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/reporter@npm:^1.0.0-alpha.25":
-  version: 1.0.0-alpha.25
-  resolution: "@guanghechen/reporter@npm:1.0.0-alpha.25"
+"@guanghechen/reporter@npm:^1.0.0-alpha.26":
+  version: 1.0.0-alpha.26
+  resolution: "@guanghechen/reporter@npm:1.0.0-alpha.26"
   dependencies:
     "@guanghechen/chalk.types": ^1.0.0-alpha.8
     "@guanghechen/reporter.types": ^1.0.0-alpha.9
     "@guanghechen/types": ^1.0.0-alpha.9
     dayjs: ^1.11.10
     json5: ^2.2.3
-  checksum: 5479e4d07545225cd41fd7ac6ec5c27ee53cabe9243e3911655fd18ea8bebb091283dc1e0865b0552d3d18940e9586af3ee1313cf35f83987040ddca20d7d7c2
+  checksum: 984cc11c3d06ecb2807fe35654b00ab0fd6f33524e06ba098ad3ec827cbde0bee89069a064497156b0adc152574d07d928c0db18f8842e78f3e8fffc0b3bcedb
   languageName: node
   linkType: hard
 
@@ -1054,7 +1054,7 @@ __metadata:
     "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/helper-is": ^6.0.0-alpha.1
     "@guanghechen/invariant": ^6.0.0-alpha.1
-    "@guanghechen/reporter": ^1.0.0-alpha.25
+    "@guanghechen/reporter": ^1.0.0-alpha.26
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.8
     globby: ^14.0.0
     minimist: ^1.2.8
@@ -1092,8 +1092,8 @@ __metadata:
     "@guanghechen/helper-is": ^6.0.0-alpha.1
     "@guanghechen/helper-option": ^6.0.0-alpha.1
     "@guanghechen/invariant": ^6.0.0-alpha.1
-    "@guanghechen/path": ^1.0.0-alpha.15
-    "@guanghechen/reporter": ^1.0.0-alpha.25
+    "@guanghechen/path": ^1.0.0-alpha.16
+    "@guanghechen/reporter": ^1.0.0-alpha.26
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.8
   bin:
     ghc-file: ./lib/esm/cli.mjs
@@ -1107,7 +1107,7 @@ __metadata:
     "@guanghechen/byte": ^1.0.0-alpha.5
     "@guanghechen/chalk": ^1.0.0-alpha.11
     "@guanghechen/cipher": ^1.0.0-alpha.19
-    "@guanghechen/cipher-catalog": ^1.0.0-alpha.25
+    "@guanghechen/cipher-catalog": ^1.0.0-alpha.26
     "@guanghechen/config": ^1.0.0-alpha.12
     "@guanghechen/file-split": ^1.0.0-alpha.19
     "@guanghechen/filetree": ^1.0.0-alpha.13
@@ -1121,8 +1121,8 @@ __metadata:
     "@guanghechen/helper-plop": ^6.0.0-alpha.3
     "@guanghechen/invariant": ^6.0.0-alpha.1
     "@guanghechen/mac": ^1.0.0-alpha.4
-    "@guanghechen/path": ^1.0.0-alpha.15
-    "@guanghechen/reporter": ^1.0.0-alpha.25
+    "@guanghechen/path": ^1.0.0-alpha.16
+    "@guanghechen/reporter": ^1.0.0-alpha.26
     "@guanghechen/resource": ^1.0.0-alpha.10
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.8
     "@types/micromatch": ^4.0.6
@@ -1146,8 +1146,8 @@ __metadata:
     "@guanghechen/helper-option": ^6.0.0-alpha.1
     "@guanghechen/invariant": ^6.0.0-alpha.1
     "@guanghechen/mini-copy": ^6.0.0-alpha.6
-    "@guanghechen/path": ^1.0.0-alpha.15
-    "@guanghechen/reporter": ^1.0.0-alpha.25
+    "@guanghechen/path": ^1.0.0-alpha.16
+    "@guanghechen/reporter": ^1.0.0-alpha.26
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.8
     inquirer: 9.2.12
   bin:
