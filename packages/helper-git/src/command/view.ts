@@ -73,7 +73,7 @@ export const listDiffFiles = async (params: IListDiffFiles): Promise<string[]> =
         throw new Error(
           `[listDiffFiles] Unknown git change symbol. symbol(${symbol}), stdout(${result.stdout})`,
         )
-      /* c8 ignore end */
+      /* c8 ignore stop */
     }
   }
   return files

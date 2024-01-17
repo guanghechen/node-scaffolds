@@ -122,7 +122,7 @@ describe('branch', () => {
     await checkBranch({ ...ctx, commitHash: 'E' })
     await assertPromiseThrow(
       () => deleteBranch({ ...ctx, branchName: 'D', force: false }),
-      `The branch 'D' is not fully merged`,
+      /the branch 'D' is not fully merged/i,
     )
 
     await checkBranch({ ...ctx, commitHash: 'main' })
@@ -205,7 +205,7 @@ describe('branch', () => {
 
     await assertPromiseThrow(
       () => deleteBranch({ ...ctx, branchName: 'main', force: true }),
-      `Cannot delete branch 'main'`,
+      /cannot delete branch 'main'/i,
     )
     expect(await getAllLocalBranches(ctx)).toEqual({ currentBranch: 'main', branches: ['main'] })
   })
