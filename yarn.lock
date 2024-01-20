@@ -610,25 +610,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/git@npm:^1.0.0-alpha.0":
-  version: 1.0.0-alpha.1
-  resolution: "@guanghechen/git@npm:1.0.0-alpha.1"
-  dependencies:
-    "@guanghechen/reporter.types": ^1.0.0-alpha.9
-    execa: ^8.0.1
-  checksum: 2511ed0c55a3d025f46b35a4d9c2790c811a78b71547b7a0226d0d18eff9f3974fbe5b74e37415c08e0f6679e0805a91d7d63adc0ba8ed7ccca8ca4b47cf3ed1
-  languageName: node
-  linkType: hard
-
 "@guanghechen/helper-commander@^6.0.0-alpha.10, @guanghechen/helper-commander@workspace:packages/helper-commander":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-commander@workspace:packages/helper-commander"
   dependencies:
-    "@guanghechen/git": ^1.0.0-alpha.0
-    "@guanghechen/helper-fs": ^6.0.0-alpha.6
     "@guanghechen/helper-is": ^6.0.0-alpha.1
     "@guanghechen/helper-option": ^6.0.0-alpha.1
-    "@guanghechen/helper-string": ^6.0.0-alpha.2
     "@guanghechen/invariant": ^6.0.0-alpha.1
     "@guanghechen/path": ^1.0.0-alpha.16
     "@guanghechen/reporter": ^1.0.0-alpha.26

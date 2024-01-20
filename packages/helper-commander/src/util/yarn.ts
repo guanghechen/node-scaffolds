@@ -1,4 +1,3 @@
-import { toLowerCase } from '@guanghechen/helper-string'
 import type { IReporter } from '@guanghechen/reporter'
 import commandExists from 'command-exists'
 import type { Options as IExecaOptions } from 'execa'
@@ -37,8 +36,8 @@ export async function installDependencies(
           default: hasYarnInstalled ? 'yarn' : 'npm',
           message: 'npm or yarn?',
           choices: ['npm', 'yarn', 'skip'],
-          filter: x => toLowerCase(x.trim()),
-          transformer: (x: string) => toLowerCase(x.trim()),
+          filter: x => x.toLowerCase().trim(),
+          transformer: (x: string) => x.toLowerCase().trim(),
         },
       ])
     ).npmScript

@@ -45,6 +45,11 @@ const coverageMap = {
     'src/run/types.ts': { branches: 0, functions: 0, lines: 0, statements: 0 },
     'src/run/util.ts': { branches: 10, functions: 50, lines: 50, statements: 50 },
   },
+  '@guanghechen/helper-commander': {
+    global: {
+      branches: 77,
+    },
+  },
   '@guanghechen/helper-string': {
     'src/vender/change-case.ts': { branches: 53, functions: 82 },
     'src/vender/title-case.ts': { branches: 50 },

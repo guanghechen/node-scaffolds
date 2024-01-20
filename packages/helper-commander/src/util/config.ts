@@ -1,4 +1,3 @@
-import { ensureCriticalFilepathExistsSync } from '@guanghechen/helper-fs'
 import invariant from '@guanghechen/invariant'
 import yaml from 'js-yaml'
 import fs from 'node:fs'
@@ -23,7 +22,17 @@ export function detectConfigFileType(filepath: string): ConfigFileType | null {
 }
 
 export function loadConfig(filepath: string, encoding: BufferEncoding = 'utf8'): unknown | never {
-  ensureCriticalFilepathExistsSync(filepath)
+  let errMsg: string | null = null
+
+  if (filepath == null) {
+    errMsg = `Invalid path: ${filepath}.`
+  } else if (!fs.existsSync(filepath!)) {
+    errMsg = `Not found: ${filepath}.`
+  } else if (!fs.statSync(filepath).isFile()) {
+    errMsg = `Not a file: ${filepath}.`
+  }
+
+  invariant(errMsg == null, errMsg)
 
   const fileType = detectConfigFileType(filepath)
   invariant(
