@@ -529,69 +529,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/cipher-catalog.types@npm:^1.0.0-alpha.24":
-  version: 1.0.0-alpha.24
-  resolution: "@guanghechen/cipher-catalog.types@npm:1.0.0-alpha.24"
-  dependencies:
-    "@guanghechen/path.types": ^1.0.0-alpha.13
-  checksum: c79f4bb814ce4f2efc0b414e6fb292f3f29cce180fb451c25efc9ff36466da3d4ff50b3a03f7fe96604b15c4aa2680ed1a157b5dd283e402b90590861695dc0d
-  languageName: node
-  linkType: hard
-
-"@guanghechen/cipher-catalog@npm:^1.0.0-alpha.26":
-  version: 1.0.0-alpha.26
-  resolution: "@guanghechen/cipher-catalog@npm:1.0.0-alpha.26"
-  dependencies:
-    "@guanghechen/byte": ^1.0.0-alpha.5
-    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.24
-    "@guanghechen/disposable": ^1.0.0-alpha.1
-    "@guanghechen/filepart": ^1.0.0-alpha.3
-    "@guanghechen/mac": ^1.0.0-alpha.4
-    "@guanghechen/monitor": ^1.0.0-alpha.25
-  checksum: a193c7af7fd8b02d49a0d223f0b4db836f8405aaa404b8fdc7395b4768f5c6577090dcae4ad7be457cdd8d22dbbdba65b405d054aadd7f8feab01defcc6be671
-  languageName: node
-  linkType: hard
-
-"@guanghechen/cipher.types@npm:^1.0.0-alpha.10":
-  version: 1.0.0-alpha.10
-  resolution: "@guanghechen/cipher.types@npm:1.0.0-alpha.10"
-  checksum: a41e3d7461e71abd41e8b09eb7a1b01df9ef97975259ad55d6b539ebdc59f91f2dd8f3f03c9060164290e43eeeac6352cdf3a3b6494bb8c9d240f3b334608f27
-  languageName: node
-  linkType: hard
-
-"@guanghechen/cipher@npm:^1.0.0-alpha.19":
-  version: 1.0.0-alpha.19
-  resolution: "@guanghechen/cipher@npm:1.0.0-alpha.19"
-  dependencies:
-    "@guanghechen/byte": ^1.0.0-alpha.5
-    "@guanghechen/cipher.types": ^1.0.0-alpha.10
-    "@guanghechen/mac": ^1.0.0-alpha.4
-  checksum: 41159d387a34df28edde1a1c39be39a28232b3efb4f54c37c9fda55f7b90c979597c47f22c1be9953d87007a80b512efa485398e5fab125a7286cf731ac2dfd9
-  languageName: node
-  linkType: hard
-
-"@guanghechen/config.types@npm:^1.0.0-alpha.5":
-  version: 1.0.0-alpha.5
-  resolution: "@guanghechen/config.types@npm:1.0.0-alpha.5"
-  dependencies:
-    "@guanghechen/resource.types": ^1.0.0-alpha.4
-  checksum: cec159c033e3cf0230d8ac277e41229b28ade55b3d918ba522d7a6808f19834a5dc220cae15e7e11d3e24a177c60863ab95be1b21ffc1f9798930cbdb738fc3e
-  languageName: node
-  linkType: hard
-
-"@guanghechen/config@npm:^1.0.0-alpha.12":
-  version: 1.0.0-alpha.12
-  resolution: "@guanghechen/config@npm:1.0.0-alpha.12"
-  dependencies:
-    "@guanghechen/byte": ^1.0.0-alpha.5
-    "@guanghechen/config.types": ^1.0.0-alpha.5
-    "@guanghechen/mac": ^1.0.0-alpha.4
-    "@guanghechen/resource.types": ^1.0.0-alpha.4
-    semver: ^7.5.4
-  checksum: cc70afb4fa014d1df2188dea24d5de9ec34d6b9b28d9be64672904af49376c27a8af429ff6526d22a27c01e8e7c6faa38330e8258e911bf33562af27b55f0c84
-  languageName: node
-  linkType: hard
-
 "@guanghechen/conventional-changelog@workspace:packages/conventional-changelog":
   version: 0.0.0-use.local
   resolution: "@guanghechen/conventional-changelog@workspace:packages/conventional-changelog"
@@ -599,23 +536,6 @@ __metadata:
     gitmojis: ^3.14.0
   languageName: unknown
   linkType: soft
-
-"@guanghechen/disposable.types@npm:^1.0.0-alpha.1":
-  version: 1.0.0-alpha.1
-  resolution: "@guanghechen/disposable.types@npm:1.0.0-alpha.1"
-  checksum: a30054eb0c8fb49aad39394240e5c70d89ca87fcde5b09d1106616c6b4c176fee14a3d18bdbeeee4167515071301403bcb8dabce6f39a22e7b9a632f84d242f2
-  languageName: node
-  linkType: hard
-
-"@guanghechen/disposable@npm:^1.0.0-alpha.1":
-  version: 1.0.0-alpha.1
-  resolution: "@guanghechen/disposable@npm:1.0.0-alpha.1"
-  dependencies:
-    "@guanghechen/disposable.types": ^1.0.0-alpha.1
-    "@guanghechen/subscribe.types": ^1.0.0-alpha.1
-  checksum: dcd217f341044ddcbc7e9340d4e14ef2f272a877f0b0ea2e15ffbc0b286e7e150ea79227a2a0f9b1325f8c9200cf3c817aba93ba0d2aa1bd709152c62921af25
-  languageName: node
-  linkType: hard
 
 "@guanghechen/eslint-config-jsx@workspace:packages/eslint-config-jsx":
   version: 0.0.0-use.local
@@ -690,46 +610,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/filetree.types@npm:^1.0.0-alpha.11":
-  version: 1.0.0-alpha.11
-  resolution: "@guanghechen/filetree.types@npm:1.0.0-alpha.11"
-  checksum: aec91d58d161fdedac383ba0be1db20440e2243c9ed3db252742a8933c525733a084dfccb6613e7a472caa06c3524ab2224145e3dc04e653cb3f5cbe3b00a5f6
-  languageName: node
-  linkType: hard
-
-"@guanghechen/filetree@npm:^1.0.0-alpha.13":
-  version: 1.0.0-alpha.13
-  resolution: "@guanghechen/filetree@npm:1.0.0-alpha.13"
+"@guanghechen/git@npm:^1.0.0-alpha.0":
+  version: 1.0.0-alpha.1
+  resolution: "@guanghechen/git@npm:1.0.0-alpha.1"
   dependencies:
-    "@guanghechen/filetree.types": ^1.0.0-alpha.11
-    uuid: ^9.0.1
-  checksum: 1fa9f0f1d42c14d8b9576809531f98ee2b137f74e5e8a3f80a964c25f95016c6efa90923dcf1275f209b17378e445beda2a0732255bfb506544d600328ccd18a
-  languageName: node
-  linkType: hard
-
-"@guanghechen/helper-cipher-file@^6.0.0-alpha.17, @guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/helper-cipher-file@workspace:packages/helper-cipher-file"
-  dependencies:
-    "@guanghechen/byte": ^1.0.0-alpha.5
-    "@guanghechen/cipher": ^1.0.0-alpha.19
-    "@guanghechen/cipher-catalog.types": ^1.0.0-alpha.24
-    "@guanghechen/file-split": ^1.0.0-alpha.19
-    "@guanghechen/filepart": ^1.0.0-alpha.3
-    "@guanghechen/helper-fs": ^6.0.0-alpha.6
-    "@guanghechen/invariant": ^6.0.0-alpha.1
-    "@guanghechen/path.types": ^1.0.0-alpha.13
     "@guanghechen/reporter.types": ^1.0.0-alpha.9
-    "@guanghechen/stream": ^1.0.0-alpha.10
-  languageName: unknown
-  linkType: soft
+    execa: ^8.0.1
+  checksum: 2511ed0c55a3d025f46b35a4d9c2790c811a78b71547b7a0226d0d18eff9f3974fbe5b74e37415c08e0f6679e0805a91d7d63adc0ba8ed7ccca8ca4b47cf3ed1
+  languageName: node
+  linkType: hard
 
 "@guanghechen/helper-commander@^6.0.0-alpha.10, @guanghechen/helper-commander@workspace:packages/helper-commander":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-commander@workspace:packages/helper-commander"
   dependencies:
+    "@guanghechen/git": ^1.0.0-alpha.0
     "@guanghechen/helper-fs": ^6.0.0-alpha.6
-    "@guanghechen/helper-git": ^6.0.0-alpha.7
     "@guanghechen/helper-is": ^6.0.0-alpha.1
     "@guanghechen/helper-option": ^6.0.0-alpha.1
     "@guanghechen/helper-string": ^6.0.0-alpha.2
@@ -757,37 +653,6 @@ __metadata:
 "@guanghechen/helper-func@^6.0.0-alpha.1, @guanghechen/helper-func@workspace:packages/helper-func":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-func@workspace:packages/helper-func"
-  languageName: unknown
-  linkType: soft
-
-"@guanghechen/helper-git-cipher@^6.0.0-alpha.18, @guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/helper-git-cipher@workspace:packages/helper-git-cipher"
-  dependencies:
-    "@guanghechen/byte": ^1.0.0-alpha.5
-    "@guanghechen/cipher": ^1.0.0-alpha.19
-    "@guanghechen/cipher-catalog": ^1.0.0-alpha.26
-    "@guanghechen/config": ^1.0.0-alpha.12
-    "@guanghechen/filepart": ^1.0.0-alpha.3
-    "@guanghechen/helper-cipher-file": ^6.0.0-alpha.17
-    "@guanghechen/helper-fs": ^6.0.0-alpha.6
-    "@guanghechen/helper-func": ^6.0.0-alpha.1
-    "@guanghechen/helper-git": ^6.0.0-alpha.7
-    "@guanghechen/invariant": ^6.0.0-alpha.1
-    "@guanghechen/path.types": ^1.0.0-alpha.13
-    "@guanghechen/reporter.types": ^1.0.0-alpha.9
-    "@types/micromatch": ^4.0.6
-    micromatch: ^4.0.5
-  languageName: unknown
-  linkType: soft
-
-"@guanghechen/helper-git@^6.0.0-alpha.7, @guanghechen/helper-git@workspace:packages/helper-git":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/helper-git@workspace:packages/helper-git"
-  dependencies:
-    "@guanghechen/invariant": ^6.0.0-alpha.1
-    "@guanghechen/reporter.types": ^1.0.0-alpha.9
-    execa: ^8.0.1
   languageName: unknown
   linkType: soft
 
@@ -824,7 +689,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-plop@^6.0.0-alpha.3, @guanghechen/helper-plop@workspace:packages/helper-plop":
+"@guanghechen/helper-plop@workspace:packages/helper-plop":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-plop@workspace:packages/helper-plop"
   dependencies:
@@ -863,13 +728,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/mac@npm:^1.0.0-alpha.4":
-  version: 1.0.0-alpha.4
-  resolution: "@guanghechen/mac@npm:1.0.0-alpha.4"
-  checksum: a6ca90e5666be0c802cd65aa5642d78b363f750d4b537d9fabfe2573fb9b11199a51dd8624c9cc98ad80c943f10c3c47be0eb6fbcb57fea4f40695f26395ac85
-  languageName: node
-  linkType: hard
-
 "@guanghechen/mini-copy@^6.0.0-alpha.6, @guanghechen/mini-copy@workspace:packages/mini-copy":
   version: 0.0.0-use.local
   resolution: "@guanghechen/mini-copy@workspace:packages/mini-copy"
@@ -881,22 +739,6 @@ __metadata:
     execa: ^8.0.1
   languageName: unknown
   linkType: soft
-
-"@guanghechen/monitor.types@npm:^1.0.0-alpha.8":
-  version: 1.0.0-alpha.8
-  resolution: "@guanghechen/monitor.types@npm:1.0.0-alpha.8"
-  checksum: ea8e0123cb55d078929dd715361ccee872774abff2f8e9feedd2dca584561ef3028c1680c5fb000a7413954758577fb211b8bd2f9a88db2c712dc5d532f02939
-  languageName: node
-  linkType: hard
-
-"@guanghechen/monitor@npm:^1.0.0-alpha.25":
-  version: 1.0.0-alpha.25
-  resolution: "@guanghechen/monitor@npm:1.0.0-alpha.25"
-  dependencies:
-    "@guanghechen/monitor.types": ^1.0.0-alpha.8
-  checksum: 8dc035234c2084abd503909da1aac329401efe1fb0a30d275c47da8c288bfa3e4da50a49aa82cb87572961a4a6b1288e3a4f4d24aac949a740918814d7b77bc5
-  languageName: node
-  linkType: hard
 
 "@guanghechen/node-scaffolds@workspace:.":
   version: 0.0.0-use.local
@@ -1072,13 +914,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/subscribe.types@npm:^1.0.0-alpha.1":
-  version: 1.0.0-alpha.1
-  resolution: "@guanghechen/subscribe.types@npm:1.0.0-alpha.1"
-  checksum: 2dac930dfa01b7479a439b1d61ed10ef6389fb4b2a2979485b7fab911db28f8a76ac18bcb4eb5de24183d5859267a80f881095abd6257018f42cefd64cbbee1e
-  languageName: node
-  linkType: hard
-
 "@guanghechen/tool-file@workspace:packages/tool-file":
   version: 0.0.0-use.local
   resolution: "@guanghechen/tool-file@workspace:packages/tool-file"
@@ -1097,41 +932,6 @@ __metadata:
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.8
   bin:
     ghc-file: ./lib/esm/cli.mjs
-  languageName: unknown
-  linkType: soft
-
-"@guanghechen/tool-git-cipher@workspace:packages/tool-git-cipher":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/tool-git-cipher@workspace:packages/tool-git-cipher"
-  dependencies:
-    "@guanghechen/byte": ^1.0.0-alpha.5
-    "@guanghechen/chalk": ^1.0.0-alpha.11
-    "@guanghechen/cipher": ^1.0.0-alpha.19
-    "@guanghechen/cipher-catalog": ^1.0.0-alpha.26
-    "@guanghechen/config": ^1.0.0-alpha.12
-    "@guanghechen/file-split": ^1.0.0-alpha.19
-    "@guanghechen/filetree": ^1.0.0-alpha.13
-    "@guanghechen/helper-cipher-file": ^6.0.0-alpha.17
-    "@guanghechen/helper-commander": ^6.0.0-alpha.10
-    "@guanghechen/helper-fs": ^6.0.0-alpha.6
-    "@guanghechen/helper-git": ^6.0.0-alpha.7
-    "@guanghechen/helper-git-cipher": ^6.0.0-alpha.18
-    "@guanghechen/helper-is": ^6.0.0-alpha.1
-    "@guanghechen/helper-option": ^6.0.0-alpha.1
-    "@guanghechen/helper-plop": ^6.0.0-alpha.3
-    "@guanghechen/invariant": ^6.0.0-alpha.1
-    "@guanghechen/mac": ^1.0.0-alpha.4
-    "@guanghechen/path": ^1.0.0-alpha.16
-    "@guanghechen/reporter": ^1.0.0-alpha.26
-    "@guanghechen/resource": ^1.0.0-alpha.10
-    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.8
-    "@types/micromatch": ^4.0.6
-    execa: ^8.0.1
-    inquirer: 9.2.12
-    micromatch: ^4.0.5
-    node-plop: ~0.32.0
-  bin:
-    ghc-git-cipher: ./lib/esm/cli.mjs
   languageName: unknown
   linkType: soft
 
@@ -8720,7 +8520,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-plop@npm:^0.32.0, node-plop@npm:~0.32.0":
+"node-plop@npm:^0.32.0":
   version: 0.32.0
   resolution: "node-plop@npm:0.32.0"
   dependencies:
@@ -11743,7 +11543,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:^9.0.0, uuid@npm:^9.0.1":
+"uuid@npm:^9.0.0":
   version: 9.0.1
   resolution: "uuid@npm:9.0.1"
   bin:

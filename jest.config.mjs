@@ -49,19 +49,6 @@ const coverageMap = {
     'src/vender/change-case.ts': { branches: 53, functions: 82 },
     'src/vender/title-case.ts': { branches: 50 },
   },
-  '@guanghechen/helper-cipher-file': {
-    global: {
-      branches: 80,
-      functions: 75,
-      lines: 89,
-      statements: 89,
-    },
-  },
-  '@guanghechen/helper-git-cipher': {
-    global: {
-      functions: 85,
-    },
-  },
   '@guanghechen/rollup-config': {
     'src/config.ts': { branches: 66 },
     'src/env.ts': { branches: 50 },

@@ -5,12 +5,9 @@
     "outDir": "lib",
     "paths": {
       "@guanghechen/event-bus": ["packages/event-bus/src"],
-      "@guanghechen/helper-cipher-file": ["packages/helper-cipher-file/src"],
       "@guanghechen/helper-commander": ["packages/helper-commander/src"],
       "@guanghechen/helper-fs": ["packages/helper-fs/src"],
       "@guanghechen/helper-func": ["packages/helper-func/src"],
-      "@guanghechen/helper-git": ["packages/helper-git/src"],
-      "@guanghechen/helper-git-cipher": ["packages/helper-git-cipher/src"],
       "@guanghechen/helper-is": ["packages/helper-is/src"],
       "@guanghechen/helper-jest": ["packages/helper-jest/src"],
       "@guanghechen/helper-option": ["packages/helper-option/src"],
@@ -25,10 +22,8 @@
       "@guanghechen/rollup-plugin-copy": ["packages/rollup-plugin-copy/src"],
       "@guanghechen/script-doc-link": ["packages/script-doc-link/src"],
       "@guanghechen/tool-file": ["packages/tool-file/src"],
-      "@guanghechen/tool-git-cipher": ["packages/tool-git-cipher/src"],
       "@guanghechen/tool-mini-copy": ["packages/tool-mini-copy/src"],
-      "jest.helper": ["jest.helper.mts"],
-      "@guanghechen/helper-git/__test__/*": ["packages/helper-git/__test__/*"]
+      "jest.helper": ["jest.helper.mts"]
     }
   },
   "exclude": ["**/__test__/fixtures"]

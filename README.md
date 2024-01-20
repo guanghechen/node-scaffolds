@@ -50,7 +50,6 @@ Package                               | Description
 [@guanghechen/eslint-config-jsx][]    | Eslint config for `Jsx` project
 [@guanghechen/eslint-config-ts][]     | Eslint config for `Typescript` project
 [@guanghechen/event-bus]              | A simple event bus.
-[@guanghechen/helper-cipher-file][]   | Utility functions for cipher files.
 [@guanghechen/helper-commander][]     | Utility functions for creating command line programs.
 [@guanghechen/helper-file]            | Utilities for handling files, such as split big file or merge multiple small files.
 [@guanghechen/helper-fs]              | Provide some enhanced methods base on `node:fs`.
@@ -69,7 +68,6 @@ Package                               | Description
 [@guanghechen/rollup-config-cli][]    | Rollup configs for bundle typescript cli project.
 [@guanghechen/rollup-plugin-copy][]   | Rollup plugins to copy files and folds (glob supported)
 [@guanghechen/tool-file][]            | A cli tool to split / merge big file.
-[@guanghechen/tool-git-cipher][]      | A cli tool for encrypting a entire git repository.
 [@guanghechen/tool-mini-copy][]       | "A cli tool to copy / paste with system clipboard or customized fake clipboard (file).
 
 
@@ -83,7 +81,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/eslint-config-jsx]: ./packages/eslint-config-jsx
 [@guanghechen/eslint-config-ts]: ./packages/eslint-config-ts
 [@guanghechen/event-bus]: ./packages/event-bus
-[@guanghechen/helper-cipher-file]: ./packages/helper-cipher-file
 [@guanghechen/helper-commander]: ./packages/helper-commander
 [@guanghechen/helper-file]: ./packages/helper-file
 [@guanghechen/helper-fs]: ./packages/helper-fs

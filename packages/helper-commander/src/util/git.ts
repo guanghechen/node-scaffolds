@@ -1,5 +1,5 @@
-import type { IInitGitRepoParams } from '@guanghechen/helper-git'
-import { commitAll, initGitRepo } from '@guanghechen/helper-git'
+import type { IInitGitRepoParams } from '@guanghechen/git'
+import { commitAll, initGitRepo } from '@guanghechen/git'
 import { toLowerCase } from '@guanghechen/helper-string'
 import commandExists from 'command-exists'
 

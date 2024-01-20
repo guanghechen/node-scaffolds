@@ -19,7 +19,6 @@ describe('context', () => {
     expect(context.packagePaths).toMatchInlineSnapshot(`
       [
         "packages/tool-mini-copy",
-        "packages/tool-git-cipher",
         "packages/tool-file",
         "packages/script-doc-link",
         "packages/rollup-plugin-copy",
@@ -35,12 +34,9 @@ describe('context', () => {
         "packages/helper-npm",
         "packages/helper-jest",
         "packages/helper-is",
-        "packages/helper-git-cipher",
-        "packages/helper-git",
         "packages/helper-func",
         "packages/helper-fs",
         "packages/helper-commander",
-        "packages/helper-cipher-file",
         "packages/event-bus",
         "packages/eslint-config-ts",
         "packages/eslint-config-jsx",
