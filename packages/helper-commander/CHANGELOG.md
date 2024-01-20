@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.11](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-commander@6.0.0-alpha.10...@guanghechen/helper-commander@6.0.0-alpha.11) (2024-01-20)
+
+
+### Performance Improvements
+
+* 🎨 remove useless dependencies ([b301ec6](https://github.com/guanghechen/node-scaffolds/commit/b301ec65afbc2ecfd02fc62d9944abc0f89afe8e))
+* ⚰️ remove @guanghechen/helper-cipher-file, @guanghechen/helper-git, @guanghechen/helper-git-cipher and @guanghechen/tool-git-cipher ([dc09ae0](https://github.com/guanghechen/node-scaffolds/commit/dc09ae015cb390a410e6e7e7a66fbcf2b6957dc9))
+
+
+
+
+
 # [6.0.0-alpha.10](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-commander@6.0.0-alpha.9...@guanghechen/helper-commander@6.0.0-alpha.10) (2024-01-17)
 
 
