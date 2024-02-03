@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.7](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-fs@6.0.0-alpha.6...@guanghechen/helper-fs@6.0.0-alpha.7) (2024-02-03)
+
+
+### Performance Improvements
+
+* ✅  update tests ([799ac97](https://github.com/guanghechen/node-scaffolds/commit/799ac972c7576b13508c4f5e35b09c92b6d1a4ce))
+* ⬆️ upgrade devDependencies ([cb10f2c](https://github.com/guanghechen/node-scaffolds/commit/cb10f2c917c64183425f6e67d6de2d55e0396fe5))
+
+
+
+
+
 # [6.0.0-alpha.6](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-fs@6.0.0-alpha.5...@guanghechen/helper-fs@6.0.0-alpha.6) (2023-12-06)
 
 

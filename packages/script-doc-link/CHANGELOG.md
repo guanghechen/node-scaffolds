@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.12](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@6.0.0-alpha.11...@guanghechen/script-doc-link@6.0.0-alpha.12) (2024-02-03)
+
+
+### Performance Improvements
+
+* ⚰️ remove @guanghechen/helper-cipher-file, @guanghechen/helper-git, @guanghechen/helper-git-cipher and @guanghechen/tool-git-cipher ([dc09ae0](https://github.com/guanghechen/node-scaffolds/commit/dc09ae015cb390a410e6e7e7a66fbcf2b6957dc9))
+* ⬆️ upgrade devDependencies ([cb10f2c](https://github.com/guanghechen/node-scaffolds/commit/cb10f2c917c64183425f6e67d6de2d55e0396fe5))
+
+
+
+
+
 # [6.0.0-alpha.11](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/script-doc-link@6.0.0-alpha.10...@guanghechen/script-doc-link@6.0.0-alpha.11) (2024-01-17)
 
 

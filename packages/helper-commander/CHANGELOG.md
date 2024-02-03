@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.13](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-commander@6.0.0-alpha.12...@guanghechen/helper-commander@6.0.0-alpha.13) (2024-02-03)
+
+
+### Performance Improvements
+
+* ⬆️ upgrade devDependencies ([cb10f2c](https://github.com/guanghechen/node-scaffolds/commit/cb10f2c917c64183425f6e67d6de2d55e0396fe5))
+
+
+
+
+
 # [6.0.0-alpha.12](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-commander@6.0.0-alpha.11...@guanghechen/helper-commander@6.0.0-alpha.12) (2024-02-03)
 
 

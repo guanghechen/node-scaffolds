@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.9](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/rollup-config-cli@6.0.0-alpha.8...@guanghechen/rollup-config-cli@6.0.0-alpha.9) (2024-02-03)
+
+**Note:** Version bump only for package @guanghechen/rollup-config-cli
+
+
+
+
+
 # [6.0.0-alpha.8](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/rollup-config-cli@6.0.0-alpha.7...@guanghechen/rollup-config-cli@6.0.0-alpha.8) (2024-01-17)
 
 
