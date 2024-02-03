@@ -46,17 +46,17 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@guanghechen/chalk": "^1.0.0-alpha.11",
-    "@guanghechen/file-split": "^1.0.0-alpha.19",
-    "@guanghechen/filepart": "^1.0.0-alpha.3",
+    "@guanghechen/chalk": "^1.0.0-alpha.12",
+    "@guanghechen/file-split": "^1.0.0-alpha.20",
+    "@guanghechen/filepart": "^1.0.0-alpha.4",
     "@guanghechen/helper-commander": "^6.0.0-alpha.12",
     "@guanghechen/helper-fs": "^6.0.0-alpha.6",
     "@guanghechen/helper-func": "^6.0.0-alpha.1",
     "@guanghechen/helper-is": "^6.0.0-alpha.1",
     "@guanghechen/helper-option": "^6.0.0-alpha.1",
     "@guanghechen/invariant": "^6.0.0-alpha.1",
-    "@guanghechen/path": "^1.0.0-alpha.16",
-    "@guanghechen/reporter": "^1.0.0-alpha.26"
+    "@guanghechen/path": "^1.0.0-alpha.17",
+    "@guanghechen/reporter": "^1.0.0-alpha.27"
   },
   "devDependencies": {
     "@guanghechen/rollup-config-cli": "^6.0.0-alpha.8"

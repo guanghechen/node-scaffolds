@@ -46,7 +46,7 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/chalk": "^1.0.0-alpha.11",
+    "@guanghechen/chalk": "^1.0.0-alpha.12",
     "@guanghechen/helper-is": "^6.0.0-alpha.1",
     "@guanghechen/helper-npm": "^6.0.0-alpha.1",
     "@guanghechen/helper-option": "^6.0.0-alpha.1",
