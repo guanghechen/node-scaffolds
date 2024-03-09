@@ -54,8 +54,8 @@
     "@guanghechen/invariant": "^6.0.0-alpha.1",
     "@guanghechen/mini-copy": "^6.0.0-alpha.7",
     "@guanghechen/path": "^1.0.0-alpha.17",
-    "@guanghechen/reporter": "^1.0.0-alpha.27",
-    "inquirer": "9.2.13"
+    "@guanghechen/reporter": "^1.0.0-alpha.28",
+    "inquirer": "9.2.15"
   },
   "devDependencies": {
     "@guanghechen/rollup-config-cli": "^6.0.0-alpha.9"

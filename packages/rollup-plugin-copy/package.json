@@ -46,9 +46,9 @@
     "@guanghechen/chalk": "^1.0.0-alpha.12",
     "@guanghechen/helper-fs": "^6.0.0-alpha.7",
     "@guanghechen/helper-is": "^6.0.0-alpha.1",
-    "chokidar": "^3.5.3",
+    "chokidar": "^3.6.0",
     "dir-glob": "^3.0.1",
-    "globby": "^14.0.0",
+    "globby": "^14.0.1",
     "micromatch": "^4.0.5"
   },
   "peerDependencies": {
