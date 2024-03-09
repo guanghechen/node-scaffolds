@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.5](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-plop@6.0.0-alpha.4...@guanghechen/helper-plop@6.0.0-alpha.5) (2024-03-09)
+
+
+### Performance Improvements
+
+* ⬆️ upgrade devDependencies ([073bac4](https://github.com/guanghechen/node-scaffolds/commit/073bac4dec6f47f5efe18823bb249284152528bb))
+
+
+
+
+
 # [6.0.0-alpha.4](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-plop@6.0.0-alpha.3...@guanghechen/helper-plop@6.0.0-alpha.4) (2024-02-03)
 
 
