@@ -20,6 +20,7 @@
   "type": "module",
   "module": "./lib/esm/index.mjs",
   "exports": {
+    "types": "lib/types/index.d.ts",
     "import": "./lib/esm/index.mjs"
   },
   "types": "lib/types/index.d.ts",
