@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-commander",
-  "version": "6.0.0-alpha.14",
+  "version": "6.0.0-alpha.15",
   "description": "Utils for creating node.js command line program",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@6.0.0-alpha.14",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@6.0.0-alpha.15",
     "directory": "packages/helper-commander"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@6.0.0-alpha.14/packages/helper-commander#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@6.0.0-alpha.15/packages/helper-commander#readme",
   "keywords": [
     "commander"
   ],

@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/eslint-config-ts",
-  "version": "6.0.0-alpha.7",
+  "version": "6.0.0-alpha.8",
   "description": "eslint config for ts project",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-ts@6.0.0-alpha.7",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-ts@6.0.0-alpha.8",
     "directory": "packages/eslint-config-ts"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-ts@6.0.0-alpha.7/packages/eslint-config-ts#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-ts@6.0.0-alpha.8/packages/eslint-config-ts#readme",
   "keywords": [
     "eslint",
     "eslint config",
