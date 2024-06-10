@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/eslint-config-jsx",
-  "version": "6.0.0-alpha.4",
+  "version": "7.0.0",
   "description": "eslint config for jsx",
   "author": {
     "name": "guanghechen",
@@ -8,35 +8,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-jsx@6.0.0-alpha.4",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-jsx@7.0.0",
     "directory": "packages/eslint-config-jsx"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-jsx@6.0.0-alpha.4/packages/eslint-config-jsx#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-jsx@7.0.0/packages/eslint-config-jsx#readme",
   "keywords": [
     "eslint",
     "eslint config",
     "jsx"
   ],
   "type": "commonjs",
-  "main": "./index.cjs",
   "module": "./index.mjs",
   "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./index.cjs"
-    },
-    "./eslint.json": {
-      "import": "./eslint.json",
-      "require": "./eslint.json"
-    }
+    "import": "./index.mjs"
   },
   "license": "MIT",
   "engines": {
     "node": ">= 18.0.0"
   },
   "files": [
-    "eslint.json",
-    "index.cjs",
     "index.mjs",
     "package.json",
     "CHANGELOG.md",
@@ -44,16 +34,16 @@
     "README.md"
   ],
   "dependencies": {
-    "@babel/eslint-parser": "^7.24.1",
-    "@babel/plugin-syntax-import-assertions": "^7.24.1",
-    "@guanghechen/eslint-config": "^6.0.0-alpha.1",
+    "@babel/eslint-parser": "^7.24.7",
+    "@babel/plugin-syntax-import-assertions": "^7.24.7",
+    "@guanghechen/eslint-config": "^7.0.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^6.8.0",
-    "eslint-plugin-react": "^7.34.1",
-    "eslint-plugin-react-hooks": "^4.6.0"
+    "eslint-plugin-react": "^7.34.2",
+    "eslint-plugin-react-hooks": "^4.6.2"
   },
   "peerDependencies": {
     "@babel/core": "^7.0.0",
-    "eslint": "^8.0.0"
+    "eslint": "^9.0.0"
   }
 }

@@ -52,9 +52,9 @@
     "@guanghechen/path": "^1.0.0-alpha.17",
     "@guanghechen/reporter": "^1.0.0-alpha.29",
     "command-exists": "^1.2.9",
-    "commander": "^12.0.0",
+    "commander": "^12.1.0",
     "execa": "^8.0.1",
-    "inquirer": "9.2.18",
+    "inquirer": "9.2.23",
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {

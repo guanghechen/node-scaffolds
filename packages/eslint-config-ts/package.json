@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/eslint-config-ts",
-  "version": "6.0.0-alpha.8",
+  "version": "7.0.0",
   "description": "eslint config for ts project",
   "author": {
     "name": "guanghechen",
@@ -8,35 +8,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-ts@6.0.0-alpha.8",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-ts@7.0.0",
     "directory": "packages/eslint-config-ts"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-ts@6.0.0-alpha.8/packages/eslint-config-ts#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config-ts@7.0.0/packages/eslint-config-ts#readme",
   "keywords": [
     "eslint",
     "eslint config",
     "typescript"
   ],
   "type": "commonjs",
-  "main": "./index.cjs",
   "module": "./index.mjs",
   "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./index.cjs"
-    },
-    "./eslint.json": {
-      "import": "./eslint.json",
-      "require": "./eslint.json"
-    }
+    "import": "./index.mjs"
   },
   "license": "MIT",
   "engines": {
     "node": ">= 18.0.0"
   },
   "files": [
-    "eslint.json",
-    "index.cjs",
     "index.mjs",
     "package.json",
     "CHANGELOG.md",
@@ -44,11 +34,11 @@
     "README.md"
   ],
   "dependencies": {
-    "@guanghechen/eslint-config": "^6.0.0-alpha.1",
-    "@typescript-eslint/eslint-plugin": "^7.7.0",
-    "@typescript-eslint/parser": "^7.7.0"
+    "@guanghechen/eslint-config": "^7.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.12.0",
+    "@typescript-eslint/parser": "^7.12.0"
   },
   "peerDependencies": {
-    "eslint": "^8.0.0"
+    "eslint": "^9.0.0"
   }
 }
