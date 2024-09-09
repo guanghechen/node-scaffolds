@@ -16,7 +16,10 @@
     {
       "files": ["**/*.mjs"],
       "extends": ["@guanghechen", "prettier"],
-      "parser": "@typescript-eslint/parser"
+      "parser": "@typescript-eslint/parser",
+      "rules": {
+        "import/no-useless-path-segments": 0
+      }
     },
     {
       "files": ["**/*.ts", "**/*.mts"],

@@ -52,7 +52,7 @@
     "@guanghechen/helper-is": "^6.0.0-alpha.1",
     "@guanghechen/invariant": "^6.0.0-alpha.1",
     "@guanghechen/reporter": "^1.0.0-alpha.29",
-    "globby": "^14.0.1",
+    "globby": "^14.0.2",
     "minimist": "^1.2.8"
   },
   "devDependencies": {
