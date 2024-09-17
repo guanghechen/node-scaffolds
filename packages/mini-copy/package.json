@@ -50,6 +50,6 @@
     "@guanghechen/invariant": "^6.0.0-alpha.1",
     "@guanghechen/reporter.types": "^1.0.0-alpha.10",
     "clipboardy": "^4.0.0",
-    "execa": "^8.0.1"
+    "execa": "^9.4.0"
   }
 }
