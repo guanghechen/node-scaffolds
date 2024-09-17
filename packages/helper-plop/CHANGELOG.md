@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.6 (2024-09-17)
+
+* :wrench:  chore: fix inquirer version issues ([8501171](https://github.com/guanghechen/node-scaffolds/commit/8501171))
+* :wrench:  chore: upgrade eslint to v9 ([8479bbe](https://github.com/guanghechen/node-scaffolds/commit/8479bbe))
+* chore: upgrade dependencies ([32b775c](https://github.com/guanghechen/node-scaffolds/commit/32b775c))
+
+
+
+
+
 # [6.0.0-alpha.5](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-plop@6.0.0-alpha.4...@guanghechen/helper-plop@6.0.0-alpha.5) (2024-03-09)
 
 

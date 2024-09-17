@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.8 (2024-09-17)
+
+* :wrench:  chore: upgrade dependencies ([b4d9f34](https://github.com/guanghechen/node-scaffolds/commit/b4d9f34))
+* :wrench:  chore: upgrade eslint to v9 ([8479bbe](https://github.com/guanghechen/node-scaffolds/commit/8479bbe))
+
+
+
+
+
 # [6.0.0-alpha.7](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/mini-copy@6.0.0-alpha.6...@guanghechen/mini-copy@6.0.0-alpha.7) (2024-02-03)
 
 

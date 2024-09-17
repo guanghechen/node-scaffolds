@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.12 (2024-09-17)
+
+* :wrench:  chore: upgrade eslint to v9 ([8479bbe](https://github.com/guanghechen/node-scaffolds/commit/8479bbe))
+
+
+
+
+
 # [6.0.0-alpha.11](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/rollup-config-cli@6.0.0-alpha.10...@guanghechen/rollup-config-cli@6.0.0-alpha.11) (2024-04-16)
 
 **Note:** Version bump only for package @guanghechen/rollup-config-cli

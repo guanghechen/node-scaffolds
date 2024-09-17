@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-option",
-  "version": "6.0.0-alpha.1",
+  "version": "6.0.0-alpha.2",
   "description": "Utilities for resolving options or props.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-option@6.0.0-alpha.1",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-option@6.0.0-alpha.2",
     "directory": "packages/helper-option"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-option@6.0.0-alpha.1/packages/helper-option#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-option@6.0.0-alpha.2/packages/helper-option#readme",
   "keywords": [
     "option",
     "option utils"
@@ -47,6 +47,6 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-is": "^6.0.0-alpha.1"
+    "@guanghechen/helper-is": "^6.0.0-alpha.2"
   }
 }

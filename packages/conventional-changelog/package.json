@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/conventional-changelog",
-  "version": "6.0.0-alpha.0",
+  "version": "6.0.0-alpha.1",
   "description": "Customized conventional changelog preset",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/conventional-changelog@6.0.0-alpha.0",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/conventional-changelog@6.0.0-alpha.1",
     "directory": "packages/conventional-changelog"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/conventional-changelog@6.0.0-alpha.0/packages/conventional-changelog#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/conventional-changelog@6.0.0-alpha.1/packages/conventional-changelog#readme",
   "keywords": [
     "conventional-changelog preset"
   ],

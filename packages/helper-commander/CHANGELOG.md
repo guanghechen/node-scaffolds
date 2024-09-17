@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.16 (2024-09-17)
+
+* :wrench:  chore: fix inquirer version issues ([8501171](https://github.com/guanghechen/node-scaffolds/commit/8501171))
+* :wrench:  chore: upgrade dependencies ([b4d9f34](https://github.com/guanghechen/node-scaffolds/commit/b4d9f34))
+* chore: upgrade dependencies ([32b775c](https://github.com/guanghechen/node-scaffolds/commit/32b775c))
+
+
+
+
+
 # [6.0.0-alpha.15](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-commander@6.0.0-alpha.14...@guanghechen/helper-commander@6.0.0-alpha.15) (2024-04-16)
 
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.2 (2024-09-17)
+
+* :wrench:  chore: support commonjs entry as possible ([1707125](https://github.com/guanghechen/node-scaffolds/commit/1707125))
+
+
+
+
+
 # [6.0.0-alpha.1](https://github.com/guanghechen/node-scaffolds/compare/@guanghechen/helper-option@6.0.0-alpha.0...@guanghechen/helper-option@6.0.0-alpha.1) (2023-12-04)
 
 
