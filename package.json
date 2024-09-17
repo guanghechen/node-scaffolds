@@ -42,7 +42,7 @@
     "playground/*"
   ],
   "resolutions": {
-    "node-plop/inquirer": "^9.1.4"
+    "node-plop/inquirer": "9.3.5"
   },
   "devDependencies": {
     "@babel/core": "7.25.2",

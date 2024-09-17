@@ -45,6 +45,9 @@
     "prepublishOnly": "yarn build",
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
+  "peerDependencies": {
+    "inquirer": "9.3.5"
+  },
   "dependencies": {
     "@guanghechen/chalk": "^1.0.0-alpha.12",
     "@guanghechen/helper-is": "^6.0.0-alpha.1",

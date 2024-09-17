@@ -55,7 +55,7 @@
     "@guanghechen/mini-copy": "^6.0.0-alpha.7",
     "@guanghechen/path": "^1.0.0-alpha.17",
     "@guanghechen/reporter": "^1.0.0-alpha.29",
-    "inquirer": "9.3.6"
+    "inquirer": "9.3.5"
   },
   "devDependencies": {
     "@guanghechen/rollup-config-cli": "^6.0.0-alpha.11"
