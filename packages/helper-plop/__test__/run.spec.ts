@@ -41,7 +41,6 @@ const desensitizers = {
   filepath: createFilepathDesensitizer(__dirname),
   packageVersion: createPackageVersionDesensitizer(
     packageVersion => {
-      // eslint-disable-next-line jest/no-standalone-expect
       expect(packageVersion).toEqual(manifest.version)
       return '<LATEST>'
     },

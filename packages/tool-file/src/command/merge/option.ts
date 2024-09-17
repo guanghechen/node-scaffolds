@@ -7,7 +7,6 @@ import type { IToolFileSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ISubCommandOptions extends IToolFileSubCommandOption {}
 
 type ICommandOptions = IGlobalCommandOptions & ISubCommandOptions

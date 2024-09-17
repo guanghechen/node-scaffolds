@@ -17,8 +17,8 @@ export async function safeCopy(content: string, options: ISafeCopyOptions): Prom
   const { from, silence, shouldStripAnsi, fakeClipboard } = options
   const startMessage = `Copying from ${from}.`
   const succeedMessage = fakeClipboard
-    ? `Copied into fake clipboard.`
-    : `Copied into system clipboard.`
+    ? 'Copied into fake clipboard.'
+    : 'Copied into system clipboard.'
 
   try {
     reporter.debug(startMessage)
@@ -45,8 +45,8 @@ export async function safePaste(
 ): Promise<void> {
   const { to, silence, shouldStripAnsi, fakeClipboard } = options
   const startMessage = fakeClipboard
-    ? `Reading from fake clipboard`
-    : `Reading from system clipboard`
+    ? 'Reading from fake clipboard'
+    : 'Reading from system clipboard'
   const succeedMessage = `Pasted into ${to}.`
 
   try {
@@ -109,7 +109,7 @@ export async function pasteToStdout(params: {
         process.stdout.write(content, encoding, err => (err ? reject(err) : resolve())),
       ),
     {
-      to: `stdout`,
+      to: 'stdout',
       silence: true,
       shouldStripAnsi,
       fakeClipboard,

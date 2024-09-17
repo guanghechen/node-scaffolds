@@ -15,10 +15,10 @@
   "keywords": [
     "conventional-changelog preset"
   ],
-  "type": "commonjs",
-  "main": "./index.js",
+  "type": "module",
+  "module": "./index.mjs",
   "exports": {
-    "require": "./index.js"
+    "import": "./index.mjs"
   },
   "license": "MIT",
   "engines": {

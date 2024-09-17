@@ -42,7 +42,7 @@ export class ToolFileMerge
     const fileSplitter = new FileSplitter({ partCodePrefix })
     await fileSplitter.merge(absolutePartFilepaths, output)
     reporter.info(
-      `Merge done.`,
+      'Merge done.',
       partFilenames.map(text => `\n  - ${text}`).join('') + `\n==>${output}`,
     )
   }

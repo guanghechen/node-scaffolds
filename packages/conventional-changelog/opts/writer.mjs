@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
-const { gitmojis } = require('gitmojis')
-const { readFile } = require('node:fs/promises')
-const path = require('node:path')
+import { gitmojis } from 'gitmojis'
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
 
 const boilerplateRootDir = path.join(__dirname, '../boilerplates')
 const resolveTemplateFilepath = (...filepath) => {
@@ -9,7 +9,7 @@ const resolveTemplateFilepath = (...filepath) => {
   return readFile(abFilepath, 'utf-8')
 }
 
-module.exports.writerOpts = Promise.all([
+export const writerOpts = Promise.all([
   resolveTemplateFilepath('./template.hbs'),
   resolveTemplateFilepath('./header.hbs'),
   resolveTemplateFilepath('./commit.hbs'),

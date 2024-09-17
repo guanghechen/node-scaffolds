@@ -75,7 +75,7 @@ export async function handleCommand(
 
   // Paste to stdout.
   if (!copied && !pasted) {
-    reporter.debug(`paste to stdout.`)
+    reporter.debug('paste to stdout.')
     await pasteToStdout({
       encoding,
       shouldStripAnsi,

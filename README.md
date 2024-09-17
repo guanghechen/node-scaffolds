@@ -46,9 +46,7 @@ A monorepo contains some utility functions and configs for building `Node.js` / 
 
 Package                               | Description
 :------------------------------------:|:--------------------------
-[@guanghechen/eslint-config][]        | Eslint config for `Node.js` / `Javascript` project
-[@guanghechen/eslint-config-jsx][]    | Eslint config for `Jsx` project
-[@guanghechen/eslint-config-ts][]     | Eslint config for `Typescript` project
+[@guanghechen/eslint-config][]        | Preset eslint configs for node.js/javascript/react/typescript project
 [@guanghechen/event-bus]              | A simple event bus.
 [@guanghechen/helper-commander][]     | Utility functions for creating command line programs.
 [@guanghechen/helper-file]            | Utilities for handling files, such as split big file or merge multiple small files.
@@ -78,8 +76,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x
 [@guanghechen/eslint-config]: ./packages/eslint-config
-[@guanghechen/eslint-config-jsx]: ./packages/eslint-config-jsx
-[@guanghechen/eslint-config-ts]: ./packages/eslint-config-ts
 [@guanghechen/event-bus]: ./packages/event-bus
 [@guanghechen/helper-commander]: ./packages/helper-commander
 [@guanghechen/helper-file]: ./packages/helper-file

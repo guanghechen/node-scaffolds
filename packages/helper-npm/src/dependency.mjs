@@ -4,7 +4,7 @@ import url from 'node:url'
 import { locateNearestFilepath } from './locate.mjs'
 
 /**
- * Represents a field name within a package.json file that specifies different types of dependencies.
+ * The field name within a package.json file that specifies different types of dependencies.
  * @typedef {'dependencies' | 'optionalDependencies' | 'peerDependencies'} IDependencyField
  */
 
@@ -17,7 +17,7 @@ export function getDefaultDependencyFields() {
 }
 
 /**
- * Collect all dependencies declared in the package.json and the dependency's dependencies and so on.
+ * Collect all dependencies declared in the package.json and the dependency's dependencies and etc.
  *
  * @param {string|null} packageJsonPath
  * @param {ReadonlyArray<IDependencyField>|undefined} dependenciesFields (such as ['dependencies', 'devDependencies'])

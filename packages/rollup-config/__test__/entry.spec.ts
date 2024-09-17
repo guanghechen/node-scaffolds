@@ -25,14 +25,14 @@ it('resolveEntryItems', () => {
     resolveEntryItems({
       source: 'src/index.ts',
     }),
-  ).toMatchInlineSnapshot(`[]`)
+  ).toMatchInlineSnapshot('[]')
 
   expect(
     resolveEntryItems({
       source: 'src/index.ts',
       types: 'lib/types/index.d.ts',
     }),
-  ).toMatchInlineSnapshot(`[]`)
+  ).toMatchInlineSnapshot('[]')
 
   expect(
     resolveEntryItems({
@@ -43,7 +43,7 @@ it('resolveEntryItems', () => {
         require: 'lib/esm/a.js',
       },
     }),
-  ).toMatchInlineSnapshot(`[]`)
+  ).toMatchInlineSnapshot('[]')
 
   expect(
     resolveEntryItems({
@@ -68,7 +68,7 @@ it('resolveEntryItems', () => {
       source: 'src/index.ts',
       exports: {},
     }),
-  ).toMatchInlineSnapshot(`[]`)
+  ).toMatchInlineSnapshot('[]')
 
   expect(
     resolveEntryItems({
@@ -77,7 +77,7 @@ it('resolveEntryItems', () => {
         waw: {},
       },
     }),
-  ).toMatchInlineSnapshot(`[]`)
+  ).toMatchInlineSnapshot('[]')
 
   expect(
     resolveEntryItems({

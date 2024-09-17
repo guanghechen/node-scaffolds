@@ -20,7 +20,7 @@ export function modify(options: IModifyPluginOptions = {}): rollup.Plugin {
           if (/\.cjs$/.test(filename)) {
             const modifiedContent: string = item.code.replace(
               /\brequire\s*\(['"]([^'"]+)\.mjs['"]\);?/,
-              `require('$1.cjs');`,
+              "require('$1.cjs');",
             )
             item.code = modifiedContent
             continue
@@ -29,7 +29,7 @@ export function modify(options: IModifyPluginOptions = {}): rollup.Plugin {
           if (/\.mjs$/.test(filename)) {
             const modifiedContent: string = item.code.replace(
               /\s+from\s+['"]([^'"]+)\.cjs['"];?/,
-              ` from '$1.mjs';`,
+              " from '$1.mjs';",
             )
             item.code = modifiedContent
             continue

@@ -23,14 +23,14 @@ describe('createPackageVersionDesensitizer', () => {
   it('basic', () => {
     const desensitize = createPackageVersionDesensitizer(() => '1.0.0-alpha')
 
-    expect(desensitize(`"@guanghechen/test-waw": "^0.1.0"`)).toEqual(
-      `"@guanghechen/test-waw": "^1.0.0-alpha"`,
+    expect(desensitize('"@guanghechen/test-waw": "^0.1.0"')).toEqual(
+      '"@guanghechen/test-waw": "^1.0.0-alpha"',
     )
-    expect(desensitize(`"@guanghechen/test-waw": "0.1.0"`)).toEqual(
-      `"@guanghechen/test-waw": "1.0.0-alpha"`,
+    expect(desensitize('"@guanghechen/test-waw": "0.1.0"')).toEqual(
+      '"@guanghechen/test-waw": "1.0.0-alpha"',
     )
-    expect(desensitize(`"@guanghechen/waw": "^0.1.0"`)).toEqual(
-      `"@guanghechen/waw": "^1.0.0-alpha"`,
+    expect(desensitize('"@guanghechen/waw": "^0.1.0"')).toEqual(
+      '"@guanghechen/waw": "^1.0.0-alpha"',
     )
 
     expect(desensitize('^0.1.0', '@guanghechen/test-waw')).toEqual('^1.0.0-alpha')
@@ -47,13 +47,13 @@ describe('createPackageVersionDesensitizer', () => {
       packageName => /^@guanghechen\/test/.test(packageName),
     )
 
-    expect(desensitize(`"@guanghechen/test-waw": "^0.1.0"`)).toEqual(
-      `"@guanghechen/test-waw": "^1.0.0-alpha"`,
+    expect(desensitize('"@guanghechen/test-waw": "^0.1.0"')).toEqual(
+      '"@guanghechen/test-waw": "^1.0.0-alpha"',
     )
-    expect(desensitize(`"@guanghechen/test-waw": "0.1.0"`)).toEqual(
-      `"@guanghechen/test-waw": "1.0.0-alpha"`,
+    expect(desensitize('"@guanghechen/test-waw": "0.1.0"')).toEqual(
+      '"@guanghechen/test-waw": "1.0.0-alpha"',
     )
-    expect(desensitize(`"@guanghechen/waw": "^0.1.0"`)).toEqual(`"@guanghechen/waw": "^0.1.0"`)
+    expect(desensitize('"@guanghechen/waw": "^0.1.0"')).toEqual('"@guanghechen/waw": "^0.1.0"')
 
     expect(desensitize('^0.1.0', '@guanghechen/test-waw')).toEqual('^1.0.0-alpha')
     expect(desensitize('~0.1.0', '@guanghechen/test-waw')).toEqual('~1.0.0-alpha')

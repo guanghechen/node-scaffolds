@@ -1,6 +1,6 @@
-const { parserOpts } = require('./parser')
+import { parserOpts } from './parser.mjs'
 
-module.exports.recommendedBumpOpts = {
+export const recommendedBumpOpts = {
   parserOpts,
   whatBump: commits => {
     let level = 2

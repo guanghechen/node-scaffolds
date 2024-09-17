@@ -34,7 +34,7 @@ export async function copy(content: string, options: ICopyOptions = {}): Promise
     await clipboardy.write(content)
     return
   } catch (error) {
-    reporter?.debug(`[copy] Failed to write clipboard through clipboardy:`, error)
+    reporter?.debug('[copy] Failed to write clipboard through clipboardy:', error)
   }
 
   if (copyCommandPath != null) {
@@ -54,5 +54,7 @@ export async function copy(content: string, options: ICopyOptions = {}): Promise
     await fakeClipboard.write(content)
     return
   }
-  throw `[copy] Cannot find available clipboard or fake-clipboard.`
+
+  // eslint-disable-next-line no-throw-literal
+  throw '[copy] Cannot find available clipboard or fake-clipboard.'
 }

@@ -13,7 +13,7 @@ export function createProgram(): Command {
     .option('--output <output>', 'Specify the output filepath.')
     .option(
       '--part-code-prefix, --partCodePrefix <partCodePrefix>',
-      `The prefix of the each file part code`,
+      'The prefix of the each file part code',
     )
   return program
 }

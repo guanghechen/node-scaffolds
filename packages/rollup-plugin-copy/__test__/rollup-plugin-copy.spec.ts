@@ -311,7 +311,6 @@ describe('Copy', () => {
 })
 
 describe('Options', () => {
-  /* eslint-disable no-console */
   it('Verbose, copy files', async () => {
     console.log = jest.fn()
 
@@ -431,7 +430,6 @@ describe('Options', () => {
       )} ${chalk.yellow('[T]')}`,
     )
   })
-  /* eslint-enable no-console */
 
   it('Hook', async () => {
     await build({
@@ -470,7 +468,7 @@ describe('Options', () => {
     const originalContent = await fs.readFile('src/assets/asset-1.js', encoding)
     expect(await fs.readFile('dist/asset-1.js', encoding)).toEqual(originalContent)
 
-    const newContent = `export const message = "waw"`
+    const newContent = 'export const message = "waw"'
     await writeFile('src/assets/asset-1.js', newContent, encoding)
     await sleep(1000)
     expect(await fs.readFile('dist/asset-1.js', encoding)).toEqual(originalContent)
@@ -536,7 +534,7 @@ describe('Options', () => {
     const originalContent = await fs.readFile('src/assets/asset-1.js', encoding)
     expect(await fs.readFile('dist/asset-1.js', encoding)).toEqual(transform(originalContent))
 
-    const newContent = originalContent + `\nexport const message = "waw";`
+    const newContent = originalContent + '\nexport const message = "waw";'
     await writeFile('src/assets/asset-1.js', newContent, encoding)
     await sleep(1000)
     expect(await fs.readFile('dist/asset-1.js', encoding)).toEqual(transform(newContent))

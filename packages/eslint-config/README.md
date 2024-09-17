@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@6.0.0-alpha.1/packages/eslint-config#readme">@guanghechen/eslint-config</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@7.0.0/packages/eslint-config#readme">@guanghechen/eslint-config</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/eslint-config">
@@ -44,7 +44,7 @@
 <br/>
 
 
-Basic eslint config for node.js/javascript project.
+Preset eslint configs for node.js/javascript/react/typescript project.
 
 ## Install
 
@@ -62,21 +62,23 @@ Basic eslint config for node.js/javascript project.
 
 ## Usage
 
-* Use in .eslintrc.js
+* For javascript project.
 
   ```javascript
-  {
-    extends: ['@guanghechen'],
-  }
+  // eslint.config.js
+  import configs from '@guanghechen/eslint-config/js'
+
+  export default [...configs]
   ```
 
-## Related
+* For typescript project.
 
-* [@guanghechen/eslint-config-jsx][]
-* [@guanghechen/eslint-config-ts][]
+  ```javascript
+  // eslint.config.js
+  import configs from '@guanghechen/eslint-config/ts'
 
+  export default [...configs]
+  ```
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@6.0.0-alpha.1/packages/eslint-config#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@7.0.0/packages/eslint-config#readme
 [@guanghechen/eslint-config]: https://www.npmjs.com/package/@guanghechen/eslint-config
-[@guanghechen/eslint-config-jsx]: https://www.npmjs.com/package/@guanghechen/eslint-config-jsx
-[@guanghechen/eslint-config-ts]: https://www.npmjs.com/package/@guanghechen/eslint-config-ts

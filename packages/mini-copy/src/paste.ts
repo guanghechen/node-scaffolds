@@ -45,7 +45,7 @@ export async function paste(options: IPasteOptions = {}): Promise<string | never
     const content: string = await clipboardy.read()
     return normalizeOutput(content, lineEnd)
   } catch (error) {
-    reporter?.debug(`[paste] Failed to read clipboard through clipboardy:`, error)
+    reporter?.debug('[paste] Failed to read clipboard through clipboardy:', error)
   }
 
   if (pasteCommandPath != null) {
@@ -68,7 +68,9 @@ export async function paste(options: IPasteOptions = {}): Promise<string | never
     reporter?.debug('[paste] try: fake clipboard {}.', fakeClipboard.filepath)
     return await fakeClipboard.read()
   }
-  throw `[paste] Cannot find available clipboard or fake-clipboard.`
+
+  // eslint-disable-next-line no-throw-literal
+  throw '[paste] Cannot find available clipboard or fake-clipboard.'
 }
 
 /**

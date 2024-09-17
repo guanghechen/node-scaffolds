@@ -39,11 +39,9 @@ export class CopyWatcher {
         }
 
         this.copying = true
-        void Promise.allSettled<void>(items.map(item => copySingleItem(workspace, item))).finally(
-          () => {
-            this.copying = false
-          },
-        )
+        void Promise.allSettled(items.map(item => copySingleItem(workspace, item))).finally(() => {
+          this.copying = false
+        })
       }
     })
 

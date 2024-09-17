@@ -6,7 +6,7 @@ export const dtsConfigMiddleware: IConfigMiddleware = ctx => next => (entry, pre
   if (entry.types && !hasSpecifiedOutputFile(prevResults, entry.types)) {
     const dtsPresetConfig = ctx.presetMap.get(PresetBuilderName.DTS)
     if (!dtsPresetConfig) {
-      console.warn(`Missing builtin dts preset-config.`)
+      console.warn('Missing builtin dts preset-config.')
       return next(entry, prevResults)
     }
 

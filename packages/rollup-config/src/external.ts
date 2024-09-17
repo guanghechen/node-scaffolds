@@ -78,7 +78,7 @@ export async function resolveExternal(
       case DependencyCategory.UNKNOWN:
         break
       default:
-        throw new TypeError(`Unknown return value from classifyDependency`)
+        throw new TypeError('Unknown return value from classifyDependency')
     }
 
     if (builtinExternalSet.has(id)) return true

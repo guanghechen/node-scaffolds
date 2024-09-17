@@ -22,7 +22,7 @@ export default async function () {
             delimiters: ['', ''],
             preventAssignment: true,
             values: {
-              [`} from '.';`]: `} from './index.mjs';`,
+              "} from '.';": "} from './index.mjs';",
             },
           }),
           replace({
@@ -30,7 +30,7 @@ export default async function () {
             delimiters: ['', ''],
             preventAssignment: true,
             values: {
-              [` from '${manifest.name}/package.json'`]: ` from '../../package.json'`,
+              [` from '${manifest.name}/package.json'`]: " from '../../package.json'",
             },
           }),
           modify(),

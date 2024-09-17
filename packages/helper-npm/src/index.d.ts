@@ -7,7 +7,7 @@ export type IDependencyField = 'dependencies' | 'optionalDependencies' | 'peerDe
 export function getDefaultDependencyFields(): IDependencyField[]
 
 /**
- * Collect all dependencies declared in the package.json and the dependency's dependencies and so on.
+ * Collect all dependencies declared in the package.json and the dependency's dependencies and etc.
  *
  * @param {string|null} packageJsonPath
  * @param {ReadonlyArray<IDependencyField>|undefined} dependenciesFields (such as ['dependencies', 'devDependencies'])
@@ -39,7 +39,7 @@ export function detectMonorepo(currentDir: string): boolean
 export function detectPackageAuthor(currentDir: string): string | null
 
 /**
- * Locate a nearest filepath from the given `currentDir` which name included in the give `filenames`.
+ * Locate a nearest filepath from the given `currentDir` which name included in the `filenames`.
  *
  * @param {string} currentDir
  * @param {string|ReadonlyArray<string>} filenames

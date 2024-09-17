@@ -37,14 +37,14 @@ export class ToolFileSplit
     )
 
     if (fileParts.length <= 1) {
-      reporter.info(`Seems no need to split. done.`)
+      reporter.info('Seems no need to split. done.')
       return
     }
 
     const fileSplitter = new FileSplitter({ partCodePrefix })
     const partFilepaths: string[] = await fileSplitter.split(absoluteFilepath, fileParts, output)
     reporter.info(
-      `Split done.`,
+      'Split done.',
       partFilepaths.map(p => `\n  - ${pathResolver.safeRelative(workspace, p)}`).join(''),
     )
   }

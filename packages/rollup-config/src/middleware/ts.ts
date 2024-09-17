@@ -9,7 +9,7 @@ export const tsConfigMiddleware: IConfigMiddleware = ctx => next => (entry, prev
   if (todoImport || todoRequire) {
     const tsPresetConfig = ctx.presetMap.get(PresetBuilderName.TS)
     if (!tsPresetConfig) {
-      console.warn(`Missing builtin ts preset-config.`)
+      console.warn('Missing builtin ts preset-config.')
       return next(entry, prevResults)
     }
 

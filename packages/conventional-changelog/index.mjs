@@ -1,8 +1,9 @@
-const { recommendedBumpOpts } = require('./opts/bump')
-const { parserOpts } = require('./opts/parser')
-const { writerOpts: writerOptsPromise } = require('./opts/writer')
+import { recommendedBumpOpts } from './opts/bump.mjs'
+import { parserOpts } from './opts/parser.mjs'
+import { writerOpts as writerOptsPromise } from './opts/writer.mjs'
 
-module.exports = buildPresetConfig()
+const presetConfig = buildPresetConfig()
+export default presetConfig
 
 async function buildPresetConfig() {
   const writerOpts = await writerOptsPromise

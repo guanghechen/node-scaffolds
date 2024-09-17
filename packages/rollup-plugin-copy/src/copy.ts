@@ -52,7 +52,6 @@ export function copy(options: IOptions = {}): rollup.Plugin {
     name: 'copy',
     [hook]: handleCopy,
     async [watchHook]() {
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
       const context: rollup.PluginContext = this as any
 
       if (!copyOnce) {

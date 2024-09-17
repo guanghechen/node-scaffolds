@@ -1,22 +1,22 @@
 export type ITextTransformer = (text: string) => string
 
 export interface IMonorepoRewriteAbleItem {
-  filepath: string
-  packagePath: string
+  readonly filepath: string
+  readonly packagePath: string
 }
 
 export interface ITopPackageJson {
-  author?: string | { name?: string } | undefined
-  repository?: string | { url?: string } | undefined
-  workspaces?: string[]
+  readonly author?: string | { name?: string } | undefined
+  readonly repository?: string | { url?: string } | undefined
+  readonly workspaces?: string[]
 }
 
 export interface IPackageJson {
-  name?: string
-  version?: string
-  private?: boolean
+  readonly name?: string
+  readonly version?: string
+  readonly private?: boolean
 }
 
 export interface ILernaJson {
-  version?: string
+  readonly version?: string
 }

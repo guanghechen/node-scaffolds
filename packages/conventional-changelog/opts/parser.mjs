@@ -1,4 +1,4 @@
-module.exports.parserOpts = {
+export const parserOpts = {
   headerPattern: /^\s*(?:(:\w+:)\s)?\s*(\w*)(?:\((.*)\))?: (.*)$/,
   headerCorrespondence: ['gitmoji', 'type', 'scope', 'subject'],
   issuePrefixes: ['#'],

@@ -3,7 +3,7 @@ import { dirname, isAbsolute, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 /**
- * Locate a nearest filepath from the given `currentDir` which name included in the give `filenames`.
+ * Locate a nearest filepath from the given `currentDir` which name included in the `filenames`.
  *
  * @param {string} currentDir
  * @param {string|ReadonlyArray<string>} filenames

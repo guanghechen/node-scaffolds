@@ -1,32 +1,30 @@
 {
   "name": "@guanghechen/eslint-config",
-  "version": "6.0.0-alpha.1",
-  "description": "basic eslint config for node.js/javascript project",
+  "version": "7.0.0",
+  "description": "Preset eslint configs for node.js/javascript/react/typescript project",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@6.0.0-alpha.1",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@7.0.0",
     "directory": "packages/eslint-config"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@6.0.0-alpha.1/packages/eslint-config#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@7.0.0/packages/eslint-config#readme",
   "keywords": [
     "eslint",
     "eslint config"
   ],
-  "type": "commonjs",
-  "main": "./index.cjs",
+  "type": "module",
   "module": "./index.mjs",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./index.cjs"
+      "import": "./index.mjs"
     },
-    "./eslint.json": {
-      "import": "./eslint.json",
-      "require": "./eslint.json"
+    "./globals.json": {
+      "import": "./globals.json",
+      "require": "./globals.json"
     }
   },
   "license": "MIT",
@@ -42,10 +40,21 @@
     "LICENSE",
     "README.md"
   ],
-  "dependencies": {
-    "eslint-plugin-import": "^2.30.0"
-  },
   "peerDependencies": {
-    "eslint": "^8.0.0"
+    "eslint": "^9.0.0"
+  },
+  "dependencies": {
+    "@eslint/js": "^10.0.0",
+    "@stylistic/eslint-plugin-ts": "^2.8.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-import": "^2.30.0",
+    "eslint-plugin-jest": "^28.8.3",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.36.1",
+    "typescript-eslint": "^8.6.0"
+  },
+  "devDependencies": {
+    "@types/eslint__js": "^8.42.3"
   }
 }

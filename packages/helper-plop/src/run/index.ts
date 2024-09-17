@@ -77,7 +77,7 @@ export async function runPlop(
   plop: NodePlopAPI,
   bypassArr?: string[],
   defaultAnswers: object = {},
-): Promise<string | void> {
+): Promise<string | undefined> {
   const generators = plop.getGeneratorList()
 
   if (generators.length <= 0) {
