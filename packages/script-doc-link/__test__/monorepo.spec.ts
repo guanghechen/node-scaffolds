@@ -38,8 +38,6 @@ describe('context', () => {
         "packages/helper-fs",
         "packages/helper-commander",
         "packages/event-bus",
-        "packages/eslint-config-ts",
-        "packages/eslint-config-jsx",
         "packages/eslint-config",
         "packages/conventional-changelog",
       ]
