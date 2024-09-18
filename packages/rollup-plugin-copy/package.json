@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-plugin-copy",
-  "version": "6.0.0-alpha.10",
+  "version": "6.0.0-alpha.11",
   "description": "Rollup plugins to copy files and folds (glob supported)",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-plugin-copy@6.0.0-alpha.10",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-plugin-copy@6.0.0-alpha.11",
     "directory": "packages/rollup-plugin-copy"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-plugin-copy@6.0.0-alpha.10/packages/rollup-plugin-copy#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-plugin-copy@6.0.0-alpha.11/packages/rollup-plugin-copy#readme",
   "keywords": [
     "rollup",
     "rollup plugin",
@@ -46,7 +46,7 @@
   "dependencies": {
     "@guanghechen/chalk": "^1.0.0-alpha.12",
     "@guanghechen/helper-fs": "^6.0.0-alpha.7",
-    "@guanghechen/helper-is": "^6.0.0-alpha.2",
+    "@guanghechen/helper-is": "^6.0.0-alpha.3",
     "chokidar": "^3.6.0",
     "dir-glob": "^3.0.1",
     "globby": "^14.0.2",

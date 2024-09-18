@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.3 (2024-09-18)
+
+* :bookmark:  release ([ed53565](https://github.com/guanghechen/node-scaffolds/commit/ed53565))
+
+
+
+
+
 ## 6.0.0-alpha.2 (2024-09-17)
 
 **Note:** Version bump only for package @guanghechen/postcss-modules-dts

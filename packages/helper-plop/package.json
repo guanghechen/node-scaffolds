@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-plop",
-  "version": "6.0.0-alpha.6",
+  "version": "6.0.0-alpha.7",
   "description": "A collection of utility functions for plop templates",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@6.0.0-alpha.6",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@6.0.0-alpha.7",
     "directory": "packages/helper-plop"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@6.0.0-alpha.6/packages/helper-plop#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-plop@6.0.0-alpha.7/packages/helper-plop#readme",
   "keywords": [
     "plop"
   ],
@@ -50,9 +50,9 @@
   },
   "dependencies": {
     "@guanghechen/chalk": "^1.0.0-alpha.12",
-    "@guanghechen/helper-is": "^6.0.0-alpha.2",
-    "@guanghechen/helper-npm": "^6.0.0-alpha.2",
-    "@guanghechen/helper-option": "^6.0.0-alpha.2",
+    "@guanghechen/helper-is": "^6.0.0-alpha.3",
+    "@guanghechen/helper-npm": "^6.0.0-alpha.3",
+    "@guanghechen/helper-option": "^6.0.0-alpha.3",
     "@guanghechen/helper-string": "^6.0.0-alpha.2",
     "@guanghechen/invariant": "^6.0.0-alpha.1",
     "minimist": "^1.2.8",

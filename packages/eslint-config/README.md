@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@7.0.1/packages/eslint-config#readme">@guanghechen/eslint-config</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@7.0.2/packages/eslint-config#readme">@guanghechen/eslint-config</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/eslint-config">
@@ -80,5 +80,5 @@ Preset eslint configs for node.js/javascript/react/typescript project.
   export default [...configs]
   ```
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@7.0.1/packages/eslint-config#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@7.0.2/packages/eslint-config#readme
 [@guanghechen/eslint-config]: https://www.npmjs.com/package/@guanghechen/eslint-config
