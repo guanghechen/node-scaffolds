@@ -32,8 +32,7 @@
     "node": ">= 18.0.0"
   },
   "files": [
-    "eslint.json",
-    "index.cjs",
+    "globals.json",
     "index.mjs",
     "package.json",
     "CHANGELOG.md",
