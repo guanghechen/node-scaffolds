@@ -567,33 +567,6 @@ const configs = [
     },
   },
   {
-    files: ['**/demo/**/*.ts'],
-    rules: {
-      'import/no-extraneous-dependencies': 'off',
-    },
-  },
-  {
-    files: ['**/__test__/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}', 'jest.helper.ts'],
-    plugins: {
-      jest: jestPlugin,
-    },
-    languageOptions: {
-      parserOptions: {
-        ecmaVersion: 2018,
-        sourceType: 'module',
-        ecmaFeatures: {
-          globalReturn: false,
-          impliedStrict: true,
-        },
-      },
-      globals: { ...globals.builtin, ...globals.browser, ...globals.node, ...globals.jest },
-    },
-    rules: {
-      'import/no-extraneous-dependencies': 'off',
-      'jest/expect-expect': 'off',
-    },
-  },
-  {
     files: ['**/*.{ts,cts,mts,tsx,ctsx,mtsx}'],
     plugins: {
       '@stylistic/ts': stylisticTsPlugin,
@@ -633,6 +606,47 @@ const configs = [
           },
         },
       ],
+    },
+  },
+  {
+    files: ['**/__test__/**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}', 'jest.helper.ts'],
+    plugins: {
+      jest: jestPlugin,
+    },
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: 2018,
+        sourceType: 'module',
+        ecmaFeatures: {
+          globalReturn: false,
+          impliedStrict: true,
+        },
+      },
+      globals: { ...globals.builtin, ...globals.browser, ...globals.node, ...globals.jest },
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+      'import/no-extraneous-dependencies': 'off',
+      'jest/expect-expect': 'off',
+    },
+  },
+  {
+    files: ['**/constant.{ts,cts,mts}', '**/constant/**.{ts,cts,mts}'],
+    rules: {
+      '@typescript-eslint/prefer-literal-enum-member': 'off',
+    },
+  },
+  {
+    files: ['**/demo/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+      'import/no-extraneous-dependencies': 'off',
+    },
+  },
+  {
+    files: ['script/**/*'],
+    rules: {
+      'import/no-extraneous-dependencies': 'off',
     },
   },
   {
