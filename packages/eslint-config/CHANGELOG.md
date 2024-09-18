@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>7.0.3 (2024-09-18)</small>
+
+* :art:  improve(eslint-config): tweak preset rules ([b2244c3](https://github.com/guanghechen/node-scaffolds/commit/b2244c3))
+
+
+
+
+
 ## <small>7.0.2 (2024-09-18)</small>
 
 * :bookmark:  release ([ed53565](https://github.com/guanghechen/node-scaffolds/commit/ed53565))
