@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>7.0.5 (2024-09-20)</small>
+
+* :wrench:  chore: tweak eslint config ([deb11a3](https://github.com/guanghechen/node-scaffolds/commit/deb11a3))
+
+
+
+
+
 ## <small>7.0.4 (2024-09-20)</small>
 
 * :wrench:  chore: tweak eslint config ([fad23bc](https://github.com/guanghechen/node-scaffolds/commit/fad23bc))
