@@ -50,10 +50,6 @@ const coverageMap = {
       branches: 77,
     },
   },
-  '@guanghechen/helper-string': {
-    'src/vender/change-case.ts': { branches: 53, functions: 82 },
-    'src/vender/title-case.ts': { branches: 50 },
-  },
   '@guanghechen/rollup-config': {
     'src/config.ts': { branches: 66 },
     'src/env.ts': { branches: 50 },

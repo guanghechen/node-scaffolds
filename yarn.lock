@@ -661,9 +661,9 @@ __metadata:
     "@guanghechen/chalk": ^1.0.0-alpha.13
     "@guanghechen/helper-npm": ^6.0.0-alpha.3
     "@guanghechen/helper-option": ^6.0.0-alpha.3
-    "@guanghechen/helper-string": ^6.0.0-alpha.2
     "@guanghechen/invariant": ^6.0.0
     "@guanghechen/is": ^1.0.1
+    "@guanghechen/string": ^1.0.1
     minimist: ^1.2.8
     mock-stdin: ^1.0.0
     node-plop: ^0.32.0
@@ -671,12 +671,6 @@ __metadata:
     plop: ^4.0.1
   peerDependencies:
     inquirer: 9.3.5
-  languageName: unknown
-  linkType: soft
-
-"@guanghechen/helper-string@^6.0.0-alpha.2, @guanghechen/helper-string@workspace:packages/helper-string":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/helper-string@workspace:packages/helper-string"
   languageName: unknown
   linkType: soft
 
@@ -883,6 +877,13 @@ __metadata:
   dependencies:
     "@guanghechen/byte": ^1.0.0-alpha.7
   checksum: 27209af8bd770fce959c3adc47f29987fc63120efed0388c1ffd99119ef1d9d8cc85441b563ffbbaceba61f604962e6e654cc782d2e7b21c878e805d9403c00d
+  languageName: node
+  linkType: hard
+
+"@guanghechen/string@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@guanghechen/string@npm:1.0.1"
+  checksum: 41548288d8fc3e07431af02b5a685ed6cda0e8341973c04cc48a8710d46b8a438910f6ad08fc0c30d95172e47fb0462b2772e6c9286cba35532ab24ad6afe4c3
   languageName: node
   linkType: hard
 
