@@ -37,7 +37,6 @@ describe('context', () => {
         "packages/helper-func",
         "packages/helper-fs",
         "packages/helper-commander",
-        "packages/event-bus",
         "packages/eslint-config",
         "packages/conventional-changelog",
       ]

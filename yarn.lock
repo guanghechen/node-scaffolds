@@ -568,14 +568,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/event-bus@workspace:packages/event-bus":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/event-bus@workspace:packages/event-bus"
-  dependencies:
-    "@guanghechen/helper-func": ^6.0.0-alpha.1
-  languageName: unknown
-  linkType: soft
-
 "@guanghechen/file-split@npm:^1.0.0-alpha.23":
   version: 1.0.0-alpha.23
   resolution: "@guanghechen/file-split@npm:1.0.0-alpha.23"
