@@ -14,12 +14,11 @@ export function createProgram(): Command {
     .option('-e, --encoding <encoding>', 'Encoding of content from stdin or file.')
     .option('-i, --input <filepath>', 'Copy the data from <filepath> to the system clipboard.')
     .option('-o, --output <filepath>', 'Write the data from the system clipboard into <filepath>.')
-    .option('-f, --force', 'Overwrite the <filepath> without confirmation.')
-    .option('-s, --silence', "don't print info-level log.")
     .option(
-      '--force',
-      'force paste the content of the system clipboard without copy even piped data.',
+      '-f, --force',
+      'Paste the content from the system clipboard to the <filepath> without confirmation.',
     )
+    .option('-s, --silence', "Don't print info-level log.")
     .option('--fake-clipboard [local filepath]', 'Specify a fake clipboard.')
     .option('--strip-ansi', 'Strip ansi escape codes.')
 
