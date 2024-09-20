@@ -1,4 +1,5 @@
 import type { IReporter } from '@guanghechen/reporter'
+import select from '@inquirer/select'
 import commandExists from 'command-exists'
 import type { Options as IExecaOptions } from 'execa'
 
@@ -27,20 +28,11 @@ export async function installDependencies(
   if (plopBypass.length > 0) {
     npmScript = plopBypass.shift()!
   } else {
-    const inquirer = await import('inquirer').then(md => md.default)
-    npmScript = (
-      await inquirer.prompt([
-        {
-          type: 'list',
-          name: 'npmScript',
-          default: hasYarnInstalled ? 'yarn' : 'npm',
-          message: 'npm or yarn?',
-          choices: ['npm', 'yarn', 'skip'],
-          filter: x => x.toLowerCase().trim(),
-          transformer: (x: string) => x.toLowerCase().trim(),
-        },
-      ])
-    ).npmScript
+    npmScript = await select({
+      message: 'npm or yarn?',
+      choices: ['npm', 'yarn', 'skip'],
+      default: hasYarnInstalled ? 'yarn' : 'npm',
+    })
   }
 
   reporter?.debug?.('npmScript:', npmScript)
