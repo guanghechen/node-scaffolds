@@ -40,6 +40,10 @@
     "prepublishOnly": "yarn build",
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
+  "peerDependencies": {
+    "rollup": "^3.0.0 || ^4.0.0",
+    "typescript": ">=5.0.0"
+  },
   "dependencies": {
     "@guanghechen/helper-npm": "^6.0.0-alpha.3",
     "@rollup/plugin-commonjs": "26.0.1",
@@ -47,9 +51,5 @@
     "@rollup/plugin-node-resolve": "15.2.3",
     "@rollup/plugin-typescript": "11.1.6",
     "rollup-plugin-dts": "^6.1.1"
-  },
-  "peerDependencies": {
-    "rollup": "^3.0.0",
-    "typescript": ">=3.7.0"
   }
 }

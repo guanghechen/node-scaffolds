@@ -39,13 +39,13 @@
     "build": "../../node_modules/.bin/rimraf lib/ && ../../node_modules/.bin/cross-env NODE_ENV=production ../../node_modules/.bin/rollup -c ../../rollup.config.mjs",
     "prepublishOnly": "yarn build"
   },
+  "peerDependencies": {
+    "rollup": "^3.0.0 || ^4.0.0",
+    "typescript": ">=5.0.0"
+  },
   "dependencies": {
     "@guanghechen/invariant": "^6.0.1",
     "@guanghechen/rollup-config": "^6.0.0-alpha.5",
     "@guanghechen/rollup-plugin-copy": "^6.0.0-alpha.11"
-  },
-  "peerDependencies": {
-    "rollup": "^3.0.0",
-    "typescript": ">=3.7.0"
   }
 }

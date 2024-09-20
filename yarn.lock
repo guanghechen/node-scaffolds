@@ -799,8 +799,8 @@ __metadata:
     "@guanghechen/rollup-config": ^6.0.0-alpha.5
     "@guanghechen/rollup-plugin-copy": ^6.0.0-alpha.11
   peerDependencies:
-    rollup: ^3.0.0
-    typescript: ">=3.7.0"
+    rollup: ^3.0.0 || ^4.0.0
+    typescript: ">=5.0.0"
   languageName: unknown
   linkType: soft
 
@@ -815,8 +815,8 @@ __metadata:
     "@rollup/plugin-typescript": 11.1.6
     rollup-plugin-dts: ^6.1.1
   peerDependencies:
-    rollup: ^3.0.0
-    typescript: ">=3.7.0"
+    rollup: ^3.0.0 || ^4.0.0
+    typescript: ">=5.0.0"
   languageName: unknown
   linkType: soft
 

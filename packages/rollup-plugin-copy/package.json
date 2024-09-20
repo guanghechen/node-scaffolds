@@ -43,6 +43,9 @@
     "prepublishOnly": "yarn build",
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
+  "peerDependencies": {
+    "rollup": "^2.0.0 || ^3.0.0 || ^4.0.0"
+  },
   "dependencies": {
     "@guanghechen/chalk": "^1.0.0",
     "@guanghechen/fs": "^1.0.1",
@@ -51,9 +54,6 @@
     "dir-glob": "^3.0.1",
     "globby": "^14.0.2",
     "micromatch": "^4.0.8"
-  },
-  "peerDependencies": {
-    "rollup": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
     "@types/dir-glob": "^2.0.3",
