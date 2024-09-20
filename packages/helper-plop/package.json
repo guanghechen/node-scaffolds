@@ -53,7 +53,7 @@
     "@guanghechen/helper-npm": "^6.0.0-alpha.3",
     "@guanghechen/helper-option": "^6.0.0-alpha.3",
     "@guanghechen/helper-string": "^6.0.0-alpha.2",
-    "@guanghechen/invariant": "^6.0.0-alpha.1",
+    "@guanghechen/invariant": "^6.0.0",
     "@guanghechen/is": "^1.0.1",
     "minimist": "^1.2.8",
     "mock-stdin": "^1.0.0",

@@ -27,7 +27,6 @@ describe('context', () => {
         "packages/postcss-modules-dts",
         "packages/mini-copy",
         "packages/jest-config",
-        "packages/invariant",
         "packages/helper-string",
         "packages/helper-plop",
         "packages/helper-option",

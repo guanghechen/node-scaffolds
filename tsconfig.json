@@ -12,7 +12,6 @@
       "@guanghechen/helper-option": ["packages/helper-option/src"],
       "@guanghechen/helper-plop": ["packages/helper-plop/src"],
       "@guanghechen/helper-string": ["packages/helper-string/src"],
-      "@guanghechen/invariant": ["packages/invariant/src"],
       "@guanghechen/jest-config": ["packages/jest-config/src"],
       "@guanghechen/mini-copy": ["packages/mini-copy/src"],
       "@guanghechen/postcss-modules-dts": ["packages/postcss-modules-dts/src"],

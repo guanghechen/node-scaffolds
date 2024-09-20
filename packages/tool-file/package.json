@@ -53,7 +53,7 @@
     "@guanghechen/helper-fs": "^6.0.0-alpha.7",
     "@guanghechen/helper-func": "^6.0.0-alpha.1",
     "@guanghechen/helper-option": "^6.0.0-alpha.3",
-    "@guanghechen/invariant": "^6.0.0-alpha.1",
+    "@guanghechen/invariant": "^6.0.0",
     "@guanghechen/is": "^1.0.1",
     "@guanghechen/path": "^1.0.0-alpha.18",
     "@guanghechen/reporter": "^1.0.0-alpha.30"

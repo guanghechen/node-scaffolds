@@ -599,7 +599,7 @@ __metadata:
   resolution: "@guanghechen/helper-commander@workspace:packages/helper-commander"
   dependencies:
     "@guanghechen/helper-option": ^6.0.0-alpha.3
-    "@guanghechen/invariant": ^6.0.0-alpha.1
+    "@guanghechen/invariant": ^6.0.0
     "@guanghechen/is": ^1.0.1
     "@guanghechen/path": ^1.0.0-alpha.18
     "@guanghechen/reporter": ^1.0.0-alpha.30
@@ -616,7 +616,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-fs@workspace:packages/helper-fs"
   dependencies:
-    "@guanghechen/invariant": ^6.0.0-alpha.1
+    "@guanghechen/invariant": ^6.0.0
     "@guanghechen/reporter.types": ^1.0.0-alpha.11
   languageName: unknown
   linkType: soft
@@ -662,7 +662,7 @@ __metadata:
     "@guanghechen/helper-npm": ^6.0.0-alpha.3
     "@guanghechen/helper-option": ^6.0.0-alpha.3
     "@guanghechen/helper-string": ^6.0.0-alpha.2
-    "@guanghechen/invariant": ^6.0.0-alpha.1
+    "@guanghechen/invariant": ^6.0.0
     "@guanghechen/is": ^1.0.1
     minimist: ^1.2.8
     mock-stdin: ^1.0.0
@@ -680,11 +680,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/invariant@^6.0.0-alpha.1, @guanghechen/invariant@workspace:packages/invariant":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/invariant@workspace:packages/invariant"
-  languageName: unknown
-  linkType: soft
+"@guanghechen/invariant@npm:^6.0.0":
+  version: 6.0.1
+  resolution: "@guanghechen/invariant@npm:6.0.1"
+  checksum: 178ce5acf2d21e7d0493e5cc39b01809ab51acb142e35f353c0c459613ef1793bdaa070d9efe62b79c34cd8aa241c581071cf1d8acd6c609f05d829ea98b5180
+  languageName: node
+  linkType: hard
 
 "@guanghechen/is@npm:^1.0.1":
   version: 1.0.1
@@ -707,7 +708,7 @@ __metadata:
   resolution: "@guanghechen/mini-copy@workspace:packages/mini-copy"
   dependencies:
     "@guanghechen/helper-fs": ^6.0.0-alpha.7
-    "@guanghechen/invariant": ^6.0.0-alpha.1
+    "@guanghechen/invariant": ^6.0.0
     "@guanghechen/reporter.types": ^1.0.0-alpha.11
     clipboardy: ^4.0.0
     execa: ^9.4.0
@@ -815,7 +816,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli"
   dependencies:
-    "@guanghechen/invariant": ^6.0.0-alpha.1
+    "@guanghechen/invariant": ^6.0.0
     "@guanghechen/rollup-config": ^6.0.0-alpha.5
     "@guanghechen/rollup-plugin-copy": ^6.0.0-alpha.11
   peerDependencies:
@@ -865,7 +866,7 @@ __metadata:
     "@guanghechen/chalk": ^1.0.0-alpha.13
     "@guanghechen/helper-fs": ^6.0.0-alpha.7
     "@guanghechen/helper-func": ^6.0.0-alpha.1
-    "@guanghechen/invariant": ^6.0.0-alpha.1
+    "@guanghechen/invariant": ^6.0.0
     "@guanghechen/is": ^1.0.1
     "@guanghechen/reporter": ^1.0.0-alpha.30
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.13
@@ -896,7 +897,7 @@ __metadata:
     "@guanghechen/helper-fs": ^6.0.0-alpha.7
     "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/helper-option": ^6.0.0-alpha.3
-    "@guanghechen/invariant": ^6.0.0-alpha.1
+    "@guanghechen/invariant": ^6.0.0
     "@guanghechen/is": ^1.0.1
     "@guanghechen/path": ^1.0.0-alpha.18
     "@guanghechen/reporter": ^1.0.0-alpha.30
@@ -914,7 +915,7 @@ __metadata:
     "@guanghechen/helper-commander": ^6.0.0-alpha.17
     "@guanghechen/helper-fs": ^6.0.0-alpha.7
     "@guanghechen/helper-option": ^6.0.0-alpha.3
-    "@guanghechen/invariant": ^6.0.0-alpha.1
+    "@guanghechen/invariant": ^6.0.0
     "@guanghechen/is": ^1.0.1
     "@guanghechen/mini-copy": ^6.0.0-alpha.9
     "@guanghechen/path": ^1.0.0-alpha.18
