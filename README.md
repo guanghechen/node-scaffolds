@@ -53,7 +53,6 @@ Package                               | Description
 [@guanghechen/helper-jest][]          | A collection of utility functions for jest tests.
 [@guanghechen/helper-npm][]           | Utilities for handling npm repo and `package.json`.
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
-[@guanghechen/helper-plop][]          | A collection of utility functions for plop templates
 [@guanghechen/jest-config][]          | Basic jest configs for typescript monorepo
 [@guanghechen/mini-copy][]            | Access system clipboard (also support to share clipboard in wsl with windows).
 [@guanghechen/postcss-modules-dts][]  | Generate `*.d.ts` files for style files (such as css, stylus and etc)
@@ -77,7 +76,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/helper-jest]: ./packages/helper-jest
 [@guanghechen/helper-npm]: ./packages/helper-npm
 [@guanghechen/helper-option]: ./packages/helper-option
-[@guanghechen/helper-plop]: ./packages/helper-plop
 [@guanghechen/jest-config]: ./packages/jest-config
 [@guanghechen/mini-copy]: ./packages/mini-copy
 [@guanghechen/postcss-modules-dts]: ./packages/postcss-modules-dts
