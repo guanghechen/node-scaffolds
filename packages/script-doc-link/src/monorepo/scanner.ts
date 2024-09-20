@@ -1,4 +1,4 @@
-import { isFileSync } from '@guanghechen/helper-fs'
+import { isFileSync } from '@guanghechen/fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import type { IMonorepoRewriteAbleItem } from '../types'

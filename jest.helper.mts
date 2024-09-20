@@ -20,7 +20,7 @@ export {
   mkdirsIfNotExists,
   rm,
   writeFile,
-} from '@guanghechen/helper-fs'
+} from '@guanghechen/fs'
 export { isCI } from 'ci-info'
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))

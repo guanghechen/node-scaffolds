@@ -594,6 +594,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@guanghechen/fs@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@guanghechen/fs@npm:1.0.1"
+  dependencies:
+    "@guanghechen/invariant": ^6.0.1
+    "@guanghechen/reporter.types": ^1.0.0
+  checksum: 39e5caee91c25ce084d76b510dbe7579f160d2ff5186b7e467786ad9c0e84babae1c0fee93a5e53f96733bdf014baa7e0663f90eae50b5355a680fe54341a5b2
+  languageName: node
+  linkType: hard
+
 "@guanghechen/helper-commander@^6.0.0-alpha.17, @guanghechen/helper-commander@workspace:packages/helper-commander":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-commander@workspace:packages/helper-commander"
@@ -609,15 +619,6 @@ __metadata:
     commander: ^12.1.0
     execa: ^9.4.0
     js-yaml: ^4.1.0
-  languageName: unknown
-  linkType: soft
-
-"@guanghechen/helper-fs@^6.0.0-alpha.7, @guanghechen/helper-fs@workspace:packages/helper-fs":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/helper-fs@workspace:packages/helper-fs"
-  dependencies:
-    "@guanghechen/invariant": ^6.0.0
-    "@guanghechen/reporter.types": ^1.0.0-alpha.11
   languageName: unknown
   linkType: soft
 
@@ -674,7 +675,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/invariant@npm:^6.0.0":
+"@guanghechen/invariant@npm:^6.0.0, @guanghechen/invariant@npm:^6.0.1":
   version: 6.0.1
   resolution: "@guanghechen/invariant@npm:6.0.1"
   checksum: 178ce5acf2d21e7d0493e5cc39b01809ab51acb142e35f353c0c459613ef1793bdaa070d9efe62b79c34cd8aa241c581071cf1d8acd6c609f05d829ea98b5180
@@ -701,7 +702,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/mini-copy@workspace:packages/mini-copy"
   dependencies:
-    "@guanghechen/helper-fs": ^6.0.0-alpha.7
+    "@guanghechen/fs": ^1.0.1
     "@guanghechen/invariant": ^6.0.0
     "@guanghechen/reporter.types": ^1.0.0-alpha.11
     clipboardy: ^4.0.0
@@ -715,6 +716,7 @@ __metadata:
   dependencies:
     "@babel/core": 7.25.2
     "@guanghechen/chalk": ^1.0.0-alpha.13
+    "@guanghechen/fs": ^1.0.1
     "@guanghechen/path": ^1.0.0-alpha.18
     "@guanghechen/reporter": ^1.0.0-alpha.30
     "@guanghechen/resource": ^1.0.0-alpha.14
@@ -769,6 +771,13 @@ __metadata:
     reserved-words: 0.1.2
   languageName: unknown
   linkType: soft
+
+"@guanghechen/reporter.types@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@guanghechen/reporter.types@npm:1.0.0"
+  checksum: 61da3766417c922ffd981511e08e67ef8c5200e772a624de3ac3ae1a7e1f595d28ad8b918d0c4e0af5fb401bb781cb6f877861fefd33332b73f835d07c7563b8
+  languageName: node
+  linkType: hard
 
 "@guanghechen/reporter.types@npm:^1.0.0-alpha.11":
   version: 1.0.0-alpha.11
@@ -840,7 +849,7 @@ __metadata:
   resolution: "@guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy"
   dependencies:
     "@guanghechen/chalk": ^1.0.0-alpha.13
-    "@guanghechen/helper-fs": ^6.0.0-alpha.7
+    "@guanghechen/fs": ^1.0.1
     "@guanghechen/is": ^1.0.1
     "@types/dir-glob": ^2.0.3
     "@types/micromatch": ^4.0.9
@@ -858,7 +867,7 @@ __metadata:
   resolution: "@guanghechen/script-doc-link@workspace:packages/script-doc-link"
   dependencies:
     "@guanghechen/chalk": ^1.0.0-alpha.13
-    "@guanghechen/helper-fs": ^6.0.0-alpha.7
+    "@guanghechen/fs": ^1.0.1
     "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/invariant": ^6.0.0
     "@guanghechen/is": ^1.0.1
@@ -894,8 +903,8 @@ __metadata:
     "@guanghechen/chalk": ^1.0.0-alpha.13
     "@guanghechen/file-split": ^1.0.0-alpha.23
     "@guanghechen/filepart": ^1.0.0-alpha.7
+    "@guanghechen/fs": ^1.0.1
     "@guanghechen/helper-commander": ^6.0.0-alpha.17
-    "@guanghechen/helper-fs": ^6.0.0-alpha.7
     "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/helper-option": ^6.0.0-alpha.3
     "@guanghechen/invariant": ^6.0.0
@@ -913,8 +922,8 @@ __metadata:
   resolution: "@guanghechen/tool-mini-copy@workspace:packages/tool-mini-copy"
   dependencies:
     "@guanghechen/chalk": ^1.0.0-alpha.13
+    "@guanghechen/fs": ^1.0.1
     "@guanghechen/helper-commander": ^6.0.0-alpha.17
-    "@guanghechen/helper-fs": ^6.0.0-alpha.7
     "@guanghechen/helper-option": ^6.0.0-alpha.3
     "@guanghechen/invariant": ^6.0.0
     "@guanghechen/is": ^1.0.1

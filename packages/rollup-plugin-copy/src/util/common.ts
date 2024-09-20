@@ -1,4 +1,4 @@
-import { isFileSync } from '@guanghechen/helper-fs'
+import { isFileSync } from '@guanghechen/fs'
 import { globby } from 'globby'
 import path from 'node:path'
 import util from 'util'

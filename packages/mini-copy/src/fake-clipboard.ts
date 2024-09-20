@@ -1,4 +1,4 @@
-import { mkdirsIfNotExists, writeFile } from '@guanghechen/helper-fs'
+import { mkdirsIfNotExists, writeFile } from '@guanghechen/fs'
 import invariant from '@guanghechen/invariant'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { existsSync, statSync } from 'node:fs'

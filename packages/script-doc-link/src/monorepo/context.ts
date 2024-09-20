@@ -1,4 +1,4 @@
-import { isFileSync } from '@guanghechen/helper-fs'
+import { isFileSync } from '@guanghechen/fs'
 import { escapeRegexSpecialChars } from '@guanghechen/helper-func'
 import invariant from '@guanghechen/invariant'
 import { isNonBlankString } from '@guanghechen/is'

@@ -1,7 +1,7 @@
 import { FileSplitter } from '@guanghechen/file-split'
 import type { IFilePartItem } from '@guanghechen/filepart'
 import { calcFilePartItemsByCount, calcFilePartItemsBySize } from '@guanghechen/filepart'
-import { isFileSync } from '@guanghechen/helper-fs'
+import { isFileSync } from '@guanghechen/fs'
 import invariant from '@guanghechen/invariant'
 import { pathResolver } from '@guanghechen/path'
 import fs from 'node:fs/promises'

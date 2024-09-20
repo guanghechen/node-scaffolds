@@ -1,5 +1,5 @@
 import { FileSplitter } from '@guanghechen/file-split'
-import { isDirectorySync } from '@guanghechen/helper-fs'
+import { isDirectorySync } from '@guanghechen/fs'
 import invariant from '@guanghechen/invariant'
 import { pathResolver } from '@guanghechen/path'
 import fs from 'node:fs/promises'

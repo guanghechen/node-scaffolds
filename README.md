@@ -49,7 +49,6 @@ Package                               | Description
 [@guanghechen/eslint-config][]        | Preset eslint configs for node.js/javascript/react/typescript project
 [@guanghechen/helper-commander][]     | Utility functions for creating command line programs.
 [@guanghechen/helper-file]            | Utilities for handling files, such as split big file or merge multiple small files.
-[@guanghechen/helper-fs]              | Provide some enhanced methods base on `node:fs`.
 [@guanghechen/helper-func]            | Helpful utility funcs.
 [@guanghechen/helper-jest][]          | A collection of utility functions for jest tests.
 [@guanghechen/helper-npm][]           | Utilities for handling npm repo and `package.json`.
@@ -74,7 +73,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/eslint-config]: ./packages/eslint-config
 [@guanghechen/helper-commander]: ./packages/helper-commander
 [@guanghechen/helper-file]: ./packages/helper-file
-[@guanghechen/helper-fs]: ./packages/helper-fs
 [@guanghechen/helper-func]: ./packages/helper-func
 [@guanghechen/helper-jest]: ./packages/helper-jest
 [@guanghechen/helper-npm]: ./packages/helper-npm

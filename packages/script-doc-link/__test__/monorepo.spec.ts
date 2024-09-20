@@ -1,4 +1,4 @@
-import { isFileSync } from '@guanghechen/helper-fs'
+import { isFileSync } from '@guanghechen/fs'
 import { workspaceRootDir } from 'jest.helper'
 import path from 'node:path'
 import type { IMonorepoRewriteAbleItem } from '../src'
@@ -32,7 +32,6 @@ describe('context', () => {
         "packages/helper-npm",
         "packages/helper-jest",
         "packages/helper-func",
-        "packages/helper-fs",
         "packages/helper-commander",
         "packages/eslint-config",
         "packages/conventional-changelog",

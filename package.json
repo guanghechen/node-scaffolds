@@ -47,6 +47,7 @@
   "devDependencies": {
     "@babel/core": "7.25.2",
     "@guanghechen/chalk": "^1.0.0-alpha.13",
+    "@guanghechen/fs": "^1.0.1",
     "@guanghechen/path": "^1.0.0-alpha.18",
     "@guanghechen/reporter": "^1.0.0-alpha.30",
     "@guanghechen/resource": "^1.0.0-alpha.14",
