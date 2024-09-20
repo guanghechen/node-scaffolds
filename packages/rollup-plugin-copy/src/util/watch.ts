@@ -2,6 +2,7 @@
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
 import chokidar from 'chokidar'
+import type { FSWatcher } from 'chokidar'
 import type { IConfigTarget, ICopyTargetItem } from '../types'
 import { collectCopyTargets } from './common'
 import { copySingleItem } from './copy'
@@ -10,18 +11,17 @@ import { reporter } from './reporter'
 
 export class CopyWatcher {
   protected readonly watchedPatterns: Set<string[]>
-  protected readonly watcher: chokidar.FSWatcher
+  protected readonly watcher: FSWatcher
   protected readonly workspace: string
   protected targets: ReadonlyArray<IConfigTarget>
   protected copying: boolean
   protected _isClosed: boolean
 
   constructor(workspace: string) {
-    const watcher: chokidar.FSWatcher = chokidar.watch(workspace, {
+    const watcher: FSWatcher = chokidar.watch(workspace, {
       cwd: workspace,
       ignoreInitial: true,
       persistent: true,
-      useFsEvents: true,
       usePolling: false,
       // See https://stackoverflow.com/a/65044648
       awaitWriteFinish: {
