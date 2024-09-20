@@ -128,7 +128,7 @@ const configs = [
       'no-iterator': 'warn',
       'no-label-var': 'warn',
       'no-labels': ['warn', { allowLoop: true, allowSwitch: false }],
-      'no-lone-blocks': 'warn',
+      'no-lone-blocks': 'off',
       'no-loop-func': 'warn',
       'no-mixed-operators': [
         'warn',
@@ -350,6 +350,7 @@ const configs = [
       '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/no-invalid-void-type': 'off',
       '@typescript-eslint/no-misused-promises': [
         'error',
         {
@@ -393,7 +394,12 @@ const configs = [
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {
-          args: 'none',
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
           ignoreRestSiblings: true,
         },
       ],
@@ -411,7 +417,7 @@ const configs = [
       'import/first': 'error',
       'import/named': 'off',
       'import/namespace': 'off',
-      'import/no-anonymous-default-export': 'warn',
+      'import/no-anonymous-default-export': 'off',
       'import/no-cycle': ['error', { ignoreExternal: true }],
       'import/no-deprecated': 'off',
       'import/no-extraneous-dependencies': 'error',
