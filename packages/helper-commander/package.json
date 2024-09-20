@@ -47,10 +47,10 @@
   },
   "dependencies": {
     "@guanghechen/helper-option": "^6.0.0-alpha.3",
-    "@guanghechen/invariant": "^6.0.0",
+    "@guanghechen/invariant": "^6.0.1",
     "@guanghechen/is": "^1.0.1",
-    "@guanghechen/path": "^1.0.0-alpha.18",
-    "@guanghechen/reporter": "^1.0.0-alpha.30",
+    "@guanghechen/path": "^1.0.0",
+    "@guanghechen/reporter": "^1.0.0",
     "@inquirer/select": "^3.0.1",
     "command-exists": "^1.2.9",
     "commander": "^12.1.0",
