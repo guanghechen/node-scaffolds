@@ -49,8 +49,8 @@
     "@guanghechen/chalk": "^1.0.0-alpha.13",
     "@guanghechen/helper-fs": "^6.0.0-alpha.7",
     "@guanghechen/helper-func": "^6.0.0-alpha.1",
-    "@guanghechen/helper-is": "^6.0.0-alpha.3",
     "@guanghechen/invariant": "^6.0.0-alpha.1",
+    "@guanghechen/is": "^1.0.1",
     "@guanghechen/reporter": "^1.0.0-alpha.30",
     "globby": "^14.0.2",
     "minimist": "^1.2.8"

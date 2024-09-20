@@ -51,7 +51,6 @@ Package                               | Description
 [@guanghechen/helper-file]            | Utilities for handling files, such as split big file or merge multiple small files.
 [@guanghechen/helper-fs]              | Provide some enhanced methods base on `node:fs`.
 [@guanghechen/helper-func]            | Helpful utility funcs.
-[@guanghechen/helper-is][]            | Utilities to detect data type.
 [@guanghechen/helper-jest][]          | A collection of utility functions for jest tests.
 [@guanghechen/helper-npm][]           | Utilities for handling npm repo and `package.json`.
 [@guanghechen/helper-option][]        | Utilities for resolving options or props.
@@ -79,7 +78,6 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [@guanghechen/helper-file]: ./packages/helper-file
 [@guanghechen/helper-fs]: ./packages/helper-fs
 [@guanghechen/helper-func]: ./packages/helper-func
-[@guanghechen/helper-is]: ./packages/helper-is
 [@guanghechen/helper-jest]: ./packages/helper-jest
 [@guanghechen/helper-npm]: ./packages/helper-npm
 [@guanghechen/helper-option]: ./packages/helper-option

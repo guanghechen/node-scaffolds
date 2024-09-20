@@ -1,4 +1,4 @@
-import { isPlainObject } from '@guanghechen/helper-is'
+import { isPlainObject } from '@guanghechen/is'
 import dirGlob from 'dir-glob'
 import type {
   IConfig,

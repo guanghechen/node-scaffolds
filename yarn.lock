@@ -598,9 +598,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-commander@workspace:packages/helper-commander"
   dependencies:
-    "@guanghechen/helper-is": ^6.0.0-alpha.3
     "@guanghechen/helper-option": ^6.0.0-alpha.3
     "@guanghechen/invariant": ^6.0.0-alpha.1
+    "@guanghechen/is": ^1.0.1
     "@guanghechen/path": ^1.0.0-alpha.18
     "@guanghechen/reporter": ^1.0.0-alpha.30
     "@inquirer/select": ^3.0.1
@@ -627,18 +627,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-is@^6.0.0-alpha.3, @guanghechen/helper-is@workspace:packages/helper-is":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/helper-is@workspace:packages/helper-is"
-  languageName: unknown
-  linkType: soft
-
 "@guanghechen/helper-jest@workspace:packages/helper-jest":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-jest@workspace:packages/helper-jest"
   dependencies:
     "@guanghechen/helper-func": ^6.0.0-alpha.1
-    "@guanghechen/helper-is": ^6.0.0-alpha.3
+    "@guanghechen/is": ^1.0.1
     "@jest/globals": ^29.7.0
     jest: ^29.7.0
   languageName: unknown
@@ -656,7 +650,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-option@workspace:packages/helper-option"
   dependencies:
-    "@guanghechen/helper-is": ^6.0.0-alpha.3
+    "@guanghechen/is": ^1.0.1
   languageName: unknown
   linkType: soft
 
@@ -665,11 +659,11 @@ __metadata:
   resolution: "@guanghechen/helper-plop@workspace:packages/helper-plop"
   dependencies:
     "@guanghechen/chalk": ^1.0.0-alpha.13
-    "@guanghechen/helper-is": ^6.0.0-alpha.3
     "@guanghechen/helper-npm": ^6.0.0-alpha.3
     "@guanghechen/helper-option": ^6.0.0-alpha.3
     "@guanghechen/helper-string": ^6.0.0-alpha.2
     "@guanghechen/invariant": ^6.0.0-alpha.1
+    "@guanghechen/is": ^1.0.1
     minimist: ^1.2.8
     mock-stdin: ^1.0.0
     node-plop: ^0.32.0
@@ -691,6 +685,13 @@ __metadata:
   resolution: "@guanghechen/invariant@workspace:packages/invariant"
   languageName: unknown
   linkType: soft
+
+"@guanghechen/is@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@guanghechen/is@npm:1.0.1"
+  checksum: 139c31869d15f02f16292eb455cf1598d9ba474442d06e5995a847aa95155b0cfb165b4151a3975c801af00f7344d59529793ef5ba30cb2ee59dce86809ac57d
+  languageName: node
+  linkType: hard
 
 "@guanghechen/jest-config@workspace:packages/jest-config":
   version: 0.0.0-use.local
@@ -845,7 +846,7 @@ __metadata:
   dependencies:
     "@guanghechen/chalk": ^1.0.0-alpha.13
     "@guanghechen/helper-fs": ^6.0.0-alpha.7
-    "@guanghechen/helper-is": ^6.0.0-alpha.3
+    "@guanghechen/is": ^1.0.1
     "@types/dir-glob": ^2.0.3
     "@types/micromatch": ^4.0.9
     chokidar: ^3.6.0
@@ -864,8 +865,8 @@ __metadata:
     "@guanghechen/chalk": ^1.0.0-alpha.13
     "@guanghechen/helper-fs": ^6.0.0-alpha.7
     "@guanghechen/helper-func": ^6.0.0-alpha.1
-    "@guanghechen/helper-is": ^6.0.0-alpha.3
     "@guanghechen/invariant": ^6.0.0-alpha.1
+    "@guanghechen/is": ^1.0.1
     "@guanghechen/reporter": ^1.0.0-alpha.30
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.13
     globby: ^14.0.2
@@ -894,9 +895,9 @@ __metadata:
     "@guanghechen/helper-commander": ^6.0.0-alpha.17
     "@guanghechen/helper-fs": ^6.0.0-alpha.7
     "@guanghechen/helper-func": ^6.0.0-alpha.1
-    "@guanghechen/helper-is": ^6.0.0-alpha.3
     "@guanghechen/helper-option": ^6.0.0-alpha.3
     "@guanghechen/invariant": ^6.0.0-alpha.1
+    "@guanghechen/is": ^1.0.1
     "@guanghechen/path": ^1.0.0-alpha.18
     "@guanghechen/reporter": ^1.0.0-alpha.30
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.13
@@ -912,9 +913,9 @@ __metadata:
     "@guanghechen/chalk": ^1.0.0-alpha.13
     "@guanghechen/helper-commander": ^6.0.0-alpha.17
     "@guanghechen/helper-fs": ^6.0.0-alpha.7
-    "@guanghechen/helper-is": ^6.0.0-alpha.3
     "@guanghechen/helper-option": ^6.0.0-alpha.3
     "@guanghechen/invariant": ^6.0.0-alpha.1
+    "@guanghechen/is": ^1.0.1
     "@guanghechen/mini-copy": ^6.0.0-alpha.9
     "@guanghechen/path": ^1.0.0-alpha.18
     "@guanghechen/reporter": ^1.0.0-alpha.30

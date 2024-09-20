@@ -1,4 +1,4 @@
-import { isBoolean, isNumber, isString } from '@guanghechen/helper-is'
+import { isBoolean, isNumber, isString } from '@guanghechen/is'
 
 /**
  * Convert a given value to boolean type.

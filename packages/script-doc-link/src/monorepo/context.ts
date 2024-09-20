@@ -1,7 +1,7 @@
 import { isFileSync } from '@guanghechen/helper-fs'
 import { escapeRegexSpecialChars } from '@guanghechen/helper-func'
-import { isNonBlankString } from '@guanghechen/helper-is'
 import invariant from '@guanghechen/invariant'
+import { isNonBlankString } from '@guanghechen/is'
 import type { IReporter } from '@guanghechen/reporter.types'
 import path from 'node:path'
 import type { ILernaJson, IPackageJson, ITopPackageJson } from '../types'
@@ -54,8 +54,8 @@ export class MonorepoContext {
     const username: string | undefined = isNonBlankString(options.username)
       ? options.username
       : typeof topPackageJson.author === 'string'
-        ? topPackageJson.author
-        : topPackageJson.author?.name
+      ? topPackageJson.author
+      : topPackageJson.author?.name
     invariant(
       isNonBlankString(username),
       `[${this.name}] Not found valid username in ${topPackageJsonPath}`,

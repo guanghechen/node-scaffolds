@@ -33,7 +33,6 @@ describe('context', () => {
         "packages/helper-option",
         "packages/helper-npm",
         "packages/helper-jest",
-        "packages/helper-is",
         "packages/helper-func",
         "packages/helper-fs",
         "packages/helper-commander",

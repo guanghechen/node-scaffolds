@@ -1,9 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
-import { isNonBlankString } from '@guanghechen/helper-is'
 import { createReporterMock } from '@guanghechen/helper-jest'
 import { convertToBoolean, cover } from '@guanghechen/helper-option'
+import { isNonBlankString } from '@guanghechen/is'
 import { pathResolver } from '@guanghechen/path'
 import type { IReporter } from '@guanghechen/reporter'
 import { Reporter } from '@guanghechen/reporter'

@@ -1,4 +1,4 @@
-import { isFunction } from '@guanghechen/helper-is'
+import { isFunction } from '@guanghechen/is'
 import { convertToBoolean, convertToInteger, convertToNumber, convertToString } from './convert'
 
 /**

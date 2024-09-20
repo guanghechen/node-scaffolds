@@ -1,4 +1,4 @@
-import { isNotEmptyArray, isNotEmptyObject } from '@guanghechen/helper-is'
+import { isNotEmptyArray, isNotEmptyObject } from '@guanghechen/is'
 import { merge } from '../src'
 
 describe('merge', function () {
