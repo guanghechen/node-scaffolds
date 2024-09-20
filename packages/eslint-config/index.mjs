@@ -9,6 +9,21 @@ import tseslint from 'typescript-eslint'
 import globals from './globals.json' assert { type: 'json' }
 
 const configs = [
+  {
+    ignores: [
+      '.DS_Store',
+      '**/*.hbs',
+      '**/.husky/',
+      '**/.nx/',
+      '**/.git/',
+      '**/.yarn/',
+      '**/__test__/fixtures/',
+      '**/coverage/',
+      '**/dist/',
+      '**/lib/',
+      '**/node_modules/',
+    ],
+  },
   eslint.configs.recommended,
   prettierPlugin,
   importPlugin.flatConfigs.errors,
@@ -625,8 +640,10 @@ const configs = [
       globals: { ...globals.builtin, ...globals.browser, ...globals.node, ...globals.jest },
     },
     rules: {
+      '@typescript-eslint/ban-ts-comment': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       'import/no-extraneous-dependencies': 'off',
+      'import/no-named-as-default': 'off',
       'jest/expect-expect': 'off',
     },
   },

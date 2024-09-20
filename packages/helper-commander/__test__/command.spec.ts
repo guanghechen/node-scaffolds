@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
 import { createReporterMock } from '@guanghechen/helper-jest'
