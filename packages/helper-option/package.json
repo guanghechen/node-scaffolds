@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-option",
-  "version": "6.0.0-alpha.3",
+  "version": "6.0.0-alpha.4",
   "description": "Utilities for resolving options or props.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-option@6.0.0-alpha.3",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-option@6.0.0-alpha.4",
     "directory": "packages/helper-option"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-option@6.0.0-alpha.3/packages/helper-option#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-option@6.0.0-alpha.4/packages/helper-option#readme",
   "keywords": [
     "option",
     "option utils"

@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.12 (2024-09-20)
+
+* :arrow_up:  chore: upgrade dependencies ([5421960](https://github.com/guanghechen/node-scaffolds/commit/5421960))
+* :arrow_up:  chore: upgrade dependencies and prefer @inquirer/* instead of inquirer ([8f3c7af](https://github.com/guanghechen/node-scaffolds/commit/8f3c7af))
+* :arrow_up:  chore(rollup-config-copy): upgrade chokidar to v4 ([c4ed2f3](https://github.com/guanghechen/node-scaffolds/commit/c4ed2f3))
+* :truck:  move: migrate helper-fs to sora (renamed to @guanghechen/fs) ([2d28b55](https://github.com/guanghechen/node-scaffolds/commit/2d28b55))
+* :truck:  move: migrate helper-is to sora (renamed to @guanghechen/is) ([80072f8](https://github.com/guanghechen/node-scaffolds/commit/80072f8))
+* :wrench:  chore: tweak eslint config ([fad23bc](https://github.com/guanghechen/node-scaffolds/commit/fad23bc))
+* :wrench:  chore: tweak peerdependencies ([11ded3f](https://github.com/guanghechen/node-scaffolds/commit/11ded3f))
+
+
+
+
+
 ## 6.0.0-alpha.11 (2024-09-18)
 
 * :bookmark:  release ([ed53565](https://github.com/guanghechen/node-scaffolds/commit/ed53565))

@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.17 (2024-09-20)
+
+* :arrow_up:  chore: upgrade dependencies ([5421960](https://github.com/guanghechen/node-scaffolds/commit/5421960))
+* :arrow_up:  chore: upgrade dependencies and prefer @inquirer/* instead of inquirer ([8f3c7af](https://github.com/guanghechen/node-scaffolds/commit/8f3c7af))
+* :fire:  improve: remove @guanghechen/helper-plop ([6cb0b5c](https://github.com/guanghechen/node-scaffolds/commit/6cb0b5c))
+* :truck:  move: migrate event-bus to sora ([6ef1ea3](https://github.com/guanghechen/node-scaffolds/commit/6ef1ea3))
+* :truck:  move: migrate helper-fs to sora (renamed to @guanghechen/fs) ([2d28b55](https://github.com/guanghechen/node-scaffolds/commit/2d28b55))
+* :truck:  move: migrate helper-is to sora (renamed to @guanghechen/is) ([80072f8](https://github.com/guanghechen/node-scaffolds/commit/80072f8))
+* :truck:  move: migrate helper-string to sora (renamed to @guanghechen/string) ([6556a2c](https://github.com/guanghechen/node-scaffolds/commit/6556a2c))
+* :truck:  move: migrate invariant to sora ([af251a7](https://github.com/guanghechen/node-scaffolds/commit/af251a7))
+
+
+
+
+
 ## 6.0.0-alpha.16 (2024-09-18)
 
 * :bookmark:  release ([ed53565](https://github.com/guanghechen/node-scaffolds/commit/ed53565))

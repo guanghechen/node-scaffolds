@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.5 (2024-09-20)
+
+* :truck:  move: migrate helper-is to sora (renamed to @guanghechen/is) ([80072f8](https://github.com/guanghechen/node-scaffolds/commit/80072f8))
+
+
+
+
+
 ## 6.0.0-alpha.4 (2024-09-18)
 
 * :bookmark:  release ([ed53565](https://github.com/guanghechen/node-scaffolds/commit/ed53565))
