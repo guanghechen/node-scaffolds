@@ -46,7 +46,7 @@
     "@guanghechen/chalk": "^1.0.0",
     "@guanghechen/fs": "^1.0.2",
     "@guanghechen/path": "^1.0.0",
-    "@guanghechen/reporter": "^1.0.0",
+    "@guanghechen/reporter": "^1.0.2",
     "@guanghechen/resource": "^1.0.0",
     "@rollup/plugin-replace": "^5.0.7",
     "@types/command-exists": "^1.2.3",

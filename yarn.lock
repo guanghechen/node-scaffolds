@@ -572,7 +572,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/exec@workspace:packages/exec"
   dependencies:
-    "@guanghechen/reporter.types": ^1.0.0
+    "@guanghechen/reporter.types": ^1.0.2
   languageName: unknown
   linkType: soft
 
@@ -609,7 +609,7 @@ __metadata:
   resolution: "@guanghechen/fs@workspace:packages/fs"
   dependencies:
     "@guanghechen/invariant": ^6.0.1
-    "@guanghechen/reporter.types": ^1.0.0
+    "@guanghechen/reporter.types": ^1.0.2
   languageName: unknown
   linkType: soft
 
@@ -622,7 +622,7 @@ __metadata:
     "@guanghechen/invariant": ^6.0.1
     "@guanghechen/is": ^1.0.1
     "@guanghechen/path": ^1.0.0
-    "@guanghechen/reporter": ^1.0.0
+    "@guanghechen/reporter": ^1.0.2
     "@inquirer/select": ^3.0.1
     "@types/js-yaml": ^4.0.9
     command-exists: ^1.2.9
@@ -643,6 +643,7 @@ __metadata:
   dependencies:
     "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/is": ^1.0.1
+    "@guanghechen/reporter.types": ^1.0.2
     "@jest/globals": ^29.7.0
     jest: ^29.7.0
   languageName: unknown
@@ -694,7 +695,7 @@ __metadata:
     "@guanghechen/exec": ^1.0.2
     "@guanghechen/fs": ^1.0.2
     "@guanghechen/invariant": ^6.0.1
-    "@guanghechen/reporter.types": ^1.0.0
+    "@guanghechen/reporter.types": ^1.0.2
     clipboardy: ^4.0.0
   languageName: unknown
   linkType: soft
@@ -707,7 +708,7 @@ __metadata:
     "@guanghechen/chalk": ^1.0.0
     "@guanghechen/fs": ^1.0.2
     "@guanghechen/path": ^1.0.0
-    "@guanghechen/reporter": ^1.0.0
+    "@guanghechen/reporter": ^1.0.2
     "@guanghechen/resource": ^1.0.0
     "@rollup/plugin-replace": ^5.0.7
     "@types/command-exists": ^1.2.3
@@ -761,23 +762,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/reporter.types@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@guanghechen/reporter.types@npm:1.0.0"
-  checksum: 61da3766417c922ffd981511e08e67ef8c5200e772a624de3ac3ae1a7e1f595d28ad8b918d0c4e0af5fb401bb781cb6f877861fefd33332b73f835d07c7563b8
+"@guanghechen/reporter.types@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@guanghechen/reporter.types@npm:1.0.2"
+  checksum: 6e42351c5206ff73cded9be3aca7a89ebd362ce33b4a76168422bd409b9f24c759360319d23264cf3b2324403ce673f4e25c65041bd50694d035ffe967bf1844
   languageName: node
   linkType: hard
 
-"@guanghechen/reporter@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@guanghechen/reporter@npm:1.0.0"
+"@guanghechen/reporter@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@guanghechen/reporter@npm:1.0.2"
   dependencies:
     "@guanghechen/chalk.types": ^1.0.0
-    "@guanghechen/reporter.types": ^1.0.0
+    "@guanghechen/reporter.types": ^1.0.2
     "@guanghechen/types": ^1.0.0
     dayjs: ^1.11.13
     json5: ^2.2.3
-  checksum: 2df71ba2a9180c8408d299112320ef7673afd97a066939bc94ba7a69575ebfd9a08e0c2afebba6c3a553894c0d89ce7ae4cf37e39e1784b4d86c7ea4479d7148
+  checksum: 062c9b56e7c5eb0af6070859d47dd8cec694cd6edd9a6642fd84fd48356ddc5773cf38849b5161ca38f1c2fd527a769dab0748e834dd992722dd0a394548f4f6
   languageName: node
   linkType: hard
 
@@ -854,7 +855,7 @@ __metadata:
     "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/invariant": ^6.0.1
     "@guanghechen/is": ^1.0.1
-    "@guanghechen/reporter": ^1.0.0
+    "@guanghechen/reporter": ^1.0.2
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.15
     globby: ^14.0.2
     minimist: ^1.2.8
@@ -886,7 +887,7 @@ __metadata:
     "@guanghechen/invariant": ^6.0.1
     "@guanghechen/is": ^1.0.1
     "@guanghechen/path": ^1.0.0
-    "@guanghechen/reporter": ^1.0.0
+    "@guanghechen/reporter": ^1.0.2
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.15
   bin:
     ghc-file: ./lib/esm/cli.mjs
@@ -905,7 +906,7 @@ __metadata:
     "@guanghechen/is": ^1.0.1
     "@guanghechen/mini-copy": ^6.0.0-alpha.13
     "@guanghechen/path": ^1.0.0
-    "@guanghechen/reporter": ^1.0.0
+    "@guanghechen/reporter": ^1.0.2
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.15
     "@inquirer/confirm": ^4.0.1
   bin:

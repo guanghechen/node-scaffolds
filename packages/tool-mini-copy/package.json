@@ -54,7 +54,7 @@
     "@guanghechen/is": "^1.0.1",
     "@guanghechen/mini-copy": "^6.0.0-alpha.13",
     "@guanghechen/path": "^1.0.0",
-    "@guanghechen/reporter": "^1.0.0",
+    "@guanghechen/reporter": "^1.0.2",
     "@inquirer/confirm": "^4.0.1"
   },
   "devDependencies": {

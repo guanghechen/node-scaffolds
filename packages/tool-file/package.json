@@ -56,7 +56,7 @@
     "@guanghechen/invariant": "^6.0.1",
     "@guanghechen/is": "^1.0.1",
     "@guanghechen/path": "^1.0.0",
-    "@guanghechen/reporter": "^1.0.0"
+    "@guanghechen/reporter": "^1.0.2"
   },
   "devDependencies": {
     "@guanghechen/rollup-config-cli": "^6.0.0-alpha.15"
