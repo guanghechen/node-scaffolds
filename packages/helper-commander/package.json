@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-commander",
-  "version": "6.0.0-alpha.20",
+  "version": "6.0.0-alpha.21",
   "description": "Utils for creating node.js command line program",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@6.0.0-alpha.20",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@6.0.0-alpha.21",
     "directory": "packages/helper-commander"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@6.0.0-alpha.20/packages/helper-commander#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@6.0.0-alpha.21/packages/helper-commander#readme",
   "keywords": [
     "commander"
   ],
@@ -46,7 +46,7 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/exec": "^1.0.2",
+    "@guanghechen/exec": "^1.0.3",
     "@guanghechen/helper-option": "^6.0.0-alpha.4",
     "@guanghechen/invariant": "^6.0.1",
     "@guanghechen/is": "^1.0.1",

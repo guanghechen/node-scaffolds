@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@6.0.0-alpha.18/packages/script-doc-link#readme">@guanghechen/script-doc-link</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@6.0.0-alpha.19/packages/script-doc-link#readme">@guanghechen/script-doc-link</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/script-doc-link">
@@ -53,4 +53,4 @@
 
 ## Related
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@6.0.0-alpha.18/packages/script-doc-link#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@6.0.0-alpha.19/packages/script-doc-link#readme

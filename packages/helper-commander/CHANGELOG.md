@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.21 (2024-09-21)
+
+* :arrow_up:  chore: upgrade devDependencies ([cdc8ab0](https://github.com/guanghechen/node-scaffolds/commit/cdc8ab0))
+
+
+
+
+
 ## 6.0.0-alpha.20 (2024-09-21)
 
 **Note:** Version bump only for package @guanghechen/helper-commander

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.6 (2024-09-21)
+
+* :arrow_up:  chore: upgrade devDependencies ([cdc8ab0](https://github.com/guanghechen/node-scaffolds/commit/cdc8ab0))
+* :art:  improve(helper-jest): support to desensitize error type data ([e9940d1](https://github.com/guanghechen/node-scaffolds/commit/e9940d1))
+* :art:  improve(helper-jest): tweak reporter mock ([45b1de5](https://github.com/guanghechen/node-scaffolds/commit/45b1de5))
+
+
+
+
+
 ## 6.0.0-alpha.5 (2024-09-20)
 
 * :truck:  move: migrate helper-is to sora (renamed to @guanghechen/is) ([80072f8](https://github.com/guanghechen/node-scaffolds/commit/80072f8))

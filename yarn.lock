@@ -568,7 +568,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/exec@^1.0.2, @guanghechen/exec@workspace:packages/exec":
+"@guanghechen/exec@^1.0.3, @guanghechen/exec@workspace:packages/exec":
   version: 0.0.0-use.local
   resolution: "@guanghechen/exec@workspace:packages/exec"
   dependencies:
@@ -604,7 +604,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/fs@^1.0.2, @guanghechen/fs@workspace:packages/fs":
+"@guanghechen/fs@^1.0.2, @guanghechen/fs@^1.0.3, @guanghechen/fs@workspace:packages/fs":
   version: 0.0.0-use.local
   resolution: "@guanghechen/fs@workspace:packages/fs"
   dependencies:
@@ -613,11 +613,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-commander@^6.0.0-alpha.20, @guanghechen/helper-commander@workspace:packages/helper-commander":
+"@guanghechen/helper-commander@^6.0.0-alpha.21, @guanghechen/helper-commander@workspace:packages/helper-commander":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-commander@workspace:packages/helper-commander"
   dependencies:
-    "@guanghechen/exec": ^1.0.2
+    "@guanghechen/exec": ^1.0.3
     "@guanghechen/helper-option": ^6.0.0-alpha.4
     "@guanghechen/invariant": ^6.0.1
     "@guanghechen/is": ^1.0.1
@@ -688,12 +688,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/mini-copy@^6.0.0-alpha.13, @guanghechen/mini-copy@workspace:packages/mini-copy":
+"@guanghechen/mini-copy@^6.0.0-alpha.14, @guanghechen/mini-copy@workspace:packages/mini-copy":
   version: 0.0.0-use.local
   resolution: "@guanghechen/mini-copy@workspace:packages/mini-copy"
   dependencies:
-    "@guanghechen/exec": ^1.0.2
-    "@guanghechen/fs": ^1.0.2
+    "@guanghechen/exec": ^1.0.3
+    "@guanghechen/fs": ^1.0.3
     "@guanghechen/invariant": ^6.0.1
     "@guanghechen/reporter.types": ^1.0.2
     clipboardy: ^4.0.0
@@ -799,13 +799,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/rollup-config-cli@^6.0.0-alpha.15, @guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
+"@guanghechen/rollup-config-cli@^6.0.0-alpha.16, @guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli"
   dependencies:
     "@guanghechen/invariant": ^6.0.1
     "@guanghechen/rollup-config": ^6.0.0-alpha.6
-    "@guanghechen/rollup-plugin-copy": ^6.0.0-alpha.13
+    "@guanghechen/rollup-plugin-copy": ^6.0.0-alpha.14
   peerDependencies:
     rollup: ^3.0.0 || ^4.0.0
     typescript: ">=5.0.0"
@@ -828,12 +828,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/rollup-plugin-copy@^6.0.0-alpha.13, @guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy":
+"@guanghechen/rollup-plugin-copy@^6.0.0-alpha.14, @guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy"
   dependencies:
     "@guanghechen/chalk": ^1.0.0
-    "@guanghechen/fs": ^1.0.2
+    "@guanghechen/fs": ^1.0.3
     "@guanghechen/is": ^1.0.1
     "@types/dir-glob": ^2.0.3
     "@types/micromatch": ^4.0.9
@@ -851,12 +851,12 @@ __metadata:
   resolution: "@guanghechen/script-doc-link@workspace:packages/script-doc-link"
   dependencies:
     "@guanghechen/chalk": ^1.0.0
-    "@guanghechen/fs": ^1.0.2
+    "@guanghechen/fs": ^1.0.3
     "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/invariant": ^6.0.1
     "@guanghechen/is": ^1.0.1
     "@guanghechen/reporter": ^1.0.2
-    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.15
+    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.16
     globby: ^14.0.2
     minimist: ^1.2.8
   bin:
@@ -880,15 +880,15 @@ __metadata:
     "@guanghechen/chalk": ^1.0.0
     "@guanghechen/file-split": ^1.0.0
     "@guanghechen/filepart": ^1.0.0
-    "@guanghechen/fs": ^1.0.2
-    "@guanghechen/helper-commander": ^6.0.0-alpha.20
+    "@guanghechen/fs": ^1.0.3
+    "@guanghechen/helper-commander": ^6.0.0-alpha.21
     "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/helper-option": ^6.0.0-alpha.4
     "@guanghechen/invariant": ^6.0.1
     "@guanghechen/is": ^1.0.1
     "@guanghechen/path": ^1.0.0
     "@guanghechen/reporter": ^1.0.2
-    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.15
+    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.16
   bin:
     ghc-file: ./lib/esm/cli.mjs
   languageName: unknown
@@ -899,15 +899,15 @@ __metadata:
   resolution: "@guanghechen/tool-mini-copy@workspace:packages/tool-mini-copy"
   dependencies:
     "@guanghechen/chalk": ^1.0.0
-    "@guanghechen/fs": ^1.0.2
-    "@guanghechen/helper-commander": ^6.0.0-alpha.20
+    "@guanghechen/fs": ^1.0.3
+    "@guanghechen/helper-commander": ^6.0.0-alpha.21
     "@guanghechen/helper-option": ^6.0.0-alpha.4
     "@guanghechen/invariant": ^6.0.1
     "@guanghechen/is": ^1.0.1
-    "@guanghechen/mini-copy": ^6.0.0-alpha.13
+    "@guanghechen/mini-copy": ^6.0.0-alpha.14
     "@guanghechen/path": ^1.0.0
     "@guanghechen/reporter": ^1.0.2
-    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.15
+    "@guanghechen/rollup-config-cli": ^6.0.0-alpha.16
     "@inquirer/confirm": ^4.0.1
   bin:
     mcp: ./lib/esm/cli.mjs

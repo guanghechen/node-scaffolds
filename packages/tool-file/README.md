@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@6.0.0-alpha.25/packages/tool-file#readme">@guanghechen/tool-file</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@6.0.0-alpha.26/packages/tool-file#readme">@guanghechen/tool-file</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/tool-file">
@@ -71,4 +71,4 @@ A cli tool to split / merge big file.
 ## Examples
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@6.0.0-alpha.25/packages/tool-file#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@6.0.0-alpha.26/packages/tool-file#readme
