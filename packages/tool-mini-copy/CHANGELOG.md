@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.20 (2024-09-21)
+
+**Note:** Version bump only for package @guanghechen/tool-mini-copy
+
+
+
+
+
 ## 6.0.0-alpha.19 (2024-09-20)
 
 * :arrow_up:  chore: upgrade dependencies ([5421960](https://github.com/guanghechen/node-scaffolds/commit/5421960))

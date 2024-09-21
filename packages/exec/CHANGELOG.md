@@ -6,3 +6,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## <small>1.0.1 (2024-09-21)</small>
 
 * :art:  improve: remove execa, prefer node:child_process ([f1d6020](https://github.com/guanghechen/node-scaffolds/commit/f1d6020))
+* :wrench:  chore: update CHANGELOG ([021be53](https://github.com/guanghechen/node-scaffolds/commit/021be53))
+
+
+
+
+
+## <small>1.0.1 (2024-09-21)</small>
+
+* :art:  improve: remove execa, prefer node:child_process ([f1d6020](https://github.com/guanghechen/node-scaffolds/commit/f1d6020))

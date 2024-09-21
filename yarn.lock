@@ -568,7 +568,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/exec@^1.0.0, @guanghechen/exec@workspace:packages/exec":
+"@guanghechen/exec@^1.0.1, @guanghechen/exec@workspace:packages/exec":
   version: 0.0.0-use.local
   resolution: "@guanghechen/exec@workspace:packages/exec"
   dependencies:
@@ -613,11 +613,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-commander@^6.0.0-alpha.18, @guanghechen/helper-commander@workspace:packages/helper-commander":
+"@guanghechen/helper-commander@^6.0.0-alpha.19, @guanghechen/helper-commander@workspace:packages/helper-commander":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-commander@workspace:packages/helper-commander"
   dependencies:
-    "@guanghechen/exec": ^1.0.0
+    "@guanghechen/exec": ^1.0.1
     "@guanghechen/helper-option": ^6.0.0-alpha.4
     "@guanghechen/invariant": ^6.0.1
     "@guanghechen/is": ^1.0.1
@@ -687,11 +687,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/mini-copy@^6.0.0-alpha.10, @guanghechen/mini-copy@workspace:packages/mini-copy":
+"@guanghechen/mini-copy@^6.0.0-alpha.11, @guanghechen/mini-copy@workspace:packages/mini-copy":
   version: 0.0.0-use.local
   resolution: "@guanghechen/mini-copy@workspace:packages/mini-copy"
   dependencies:
-    "@guanghechen/exec": ^1.0.0
+    "@guanghechen/exec": ^1.0.1
     "@guanghechen/fs": ^1.0.1
     "@guanghechen/invariant": ^6.0.1
     "@guanghechen/reporter.types": ^1.0.0
@@ -880,7 +880,7 @@ __metadata:
     "@guanghechen/file-split": ^1.0.0
     "@guanghechen/filepart": ^1.0.0
     "@guanghechen/fs": ^1.0.1
-    "@guanghechen/helper-commander": ^6.0.0-alpha.18
+    "@guanghechen/helper-commander": ^6.0.0-alpha.19
     "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/helper-option": ^6.0.0-alpha.4
     "@guanghechen/invariant": ^6.0.1
@@ -899,11 +899,11 @@ __metadata:
   dependencies:
     "@guanghechen/chalk": ^1.0.0
     "@guanghechen/fs": ^1.0.1
-    "@guanghechen/helper-commander": ^6.0.0-alpha.18
+    "@guanghechen/helper-commander": ^6.0.0-alpha.19
     "@guanghechen/helper-option": ^6.0.0-alpha.4
     "@guanghechen/invariant": ^6.0.1
     "@guanghechen/is": ^1.0.1
-    "@guanghechen/mini-copy": ^6.0.0-alpha.10
+    "@guanghechen/mini-copy": ^6.0.0-alpha.11
     "@guanghechen/path": ^1.0.0
     "@guanghechen/reporter": ^1.0.0
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.14
