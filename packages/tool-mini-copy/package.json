@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/tool-mini-copy",
-  "version": "6.0.0-alpha.20",
+  "version": "6.0.0-alpha.21",
   "description": "A cli tool to copy / paste with system clipboard or customized fake clipboard (file).",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@6.0.0-alpha.20",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@6.0.0-alpha.21",
     "directory": "packages/tool-mini-copy"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@6.0.0-alpha.20/packages/tool-mini-copy#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@6.0.0-alpha.21/packages/tool-mini-copy#readme",
   "keywords": [],
   "type": "module",
   "exports": {
@@ -52,12 +52,12 @@
     "@guanghechen/helper-option": "^6.0.0-alpha.4",
     "@guanghechen/invariant": "^6.0.1",
     "@guanghechen/is": "^1.0.1",
-    "@guanghechen/mini-copy": "^6.0.0-alpha.11",
+    "@guanghechen/mini-copy": "^6.0.0-alpha.12",
     "@guanghechen/path": "^1.0.0",
     "@guanghechen/reporter": "^1.0.0",
     "@inquirer/confirm": "^4.0.1"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config-cli": "^6.0.0-alpha.14"
+    "@guanghechen/rollup-config-cli": "^6.0.0-alpha.15"
   }
 }
