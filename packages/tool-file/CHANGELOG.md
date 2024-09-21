@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.25 (2024-09-21)
+
+**Note:** Version bump only for package @guanghechen/tool-file
+
+
+
+
+
 ## 6.0.0-alpha.24 (2024-09-21)
 
 * :wrench:  chore: fix dependencies ([d168084](https://github.com/guanghechen/node-scaffolds/commit/d168084))
