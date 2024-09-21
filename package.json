@@ -44,7 +44,7 @@
   "devDependencies": {
     "@babel/core": "7.25.2",
     "@guanghechen/chalk": "^1.0.0",
-    "@guanghechen/fs": "^1.0.1",
+    "@guanghechen/fs": "^1.0.2",
     "@guanghechen/path": "^1.0.0",
     "@guanghechen/reporter": "^1.0.0",
     "@guanghechen/resource": "^1.0.0",
@@ -66,7 +66,7 @@
     "pinst": "3.0.0",
     "prettier": "3.3.3",
     "rimraf": "^6.0.1",
-    "rollup": "^4.22.2",
+    "rollup": "^4.22.3",
     "ts-jest": "29.2.5",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
