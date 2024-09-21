@@ -254,7 +254,7 @@ const configs = [
       ],
       'space-before-function-paren': 'off',
       'spaced-comment': ['error', 'always'],
-      'space-in-parens': ['error', 'never'],
+      'space-in-parens': 'off',
       'space-infix-ops': ['error', { int32Hint: false }],
       'space-unary-ops': ['error', { words: true, nonwords: false }],
       strict: ['warn', 'never'],
@@ -651,6 +651,7 @@ const configs = [
       'import/no-extraneous-dependencies': 'off',
       'import/no-named-as-default': 'off',
       'jest/expect-expect': 'off',
+      'no-plusplus': 'off',
     },
   },
   {
