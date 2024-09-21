@@ -1,4 +1,5 @@
 import type { IReporter } from '@guanghechen/reporter.types'
+import { spawn } from 'node:child_process'
 import type { FakeClipboard } from './fake-clipboard'
 
 export interface ICopyOptions {
@@ -41,8 +42,15 @@ export async function copy(content: string, options: ICopyOptions = {}): Promise
     // is windows or wsl, use clipboardy (as powershell Get-Clipboard will return messy code).
     reporter?.debug(`[copy] try: ${copyCommandPath} ${copyCommandArgs.join(' ')}`)
     try {
-      const { execa } = await import('execa')
-      await execa(copyCommandPath, copyCommandArgs, { input: content })
+      await new Promise<void>((resolve, reject) => {
+        const command = spawn(copyCommandPath)
+        command.stdin.write(content)
+        command.stdin.end()
+        command.on('close', code => {
+          if (code === 0) resolve()
+          else reject('[paste] Failed to copy content to clipboard')
+        })
+      })
       return
     } catch (error) {
       reporter?.debug(`[copy] Failed to call ${copyCommandPath}`, error)

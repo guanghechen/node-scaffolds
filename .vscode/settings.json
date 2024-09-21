@@ -13,7 +13,6 @@
     "dirpath",
     "editorconfig",
     "eslintconfig",
-    "execa",
     "filetree",
     "flexbugs",
     "funcs",

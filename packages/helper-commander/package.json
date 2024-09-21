@@ -46,6 +46,7 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
+    "@guanghechen/exec": "^1.0.0",
     "@guanghechen/helper-option": "^6.0.0-alpha.4",
     "@guanghechen/invariant": "^6.0.1",
     "@guanghechen/is": "^1.0.1",
@@ -54,7 +55,6 @@
     "@inquirer/select": "^3.0.1",
     "command-exists": "^1.2.9",
     "commander": "^12.1.0",
-    "execa": "^9.4.0",
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {

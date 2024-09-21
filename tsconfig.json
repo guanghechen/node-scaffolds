@@ -6,6 +6,7 @@
     "paths": {
       "@guanghechen/conventional-changelog": ["packages/conventional-changelog/src"],
       "@guanghechen/helper-commander": ["packages/helper-commander/src"],
+      "@guanghechen/helper-exec": ["packages/helper-exec/src"],
       "@guanghechen/helper-func": ["packages/helper-func/src"],
       "@guanghechen/helper-jest": ["packages/helper-jest/src"],
       "@guanghechen/helper-option": ["packages/helper-option/src"],

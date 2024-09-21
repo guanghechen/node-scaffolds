@@ -1,3 +1,4 @@
+import { safeExec } from '@guanghechen/exec'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { DEFAULT_LINE_END } from './constant'
 import type { FakeClipboard } from './fake-clipboard'
@@ -52,8 +53,11 @@ export async function paste(options: IPasteOptions = {}): Promise<string | never
     // is windows or wsl, use clipboardy (as powershell Get-Clipboard will return messy code).
     reporter?.debug(`[paste] try: ${pasteCommandPath} ${pasteCommandArgs.join(' ')}`)
     try {
-      const { execa } = await import('execa')
-      const { stdout } = await execa(pasteCommandPath, pasteCommandArgs)
+      const { stdout } = await safeExec({
+        from: 'paste',
+        cmd: pasteCommandPath,
+        args: pasteCommandArgs,
+      })
       let content = stdout.toString()
       if (/powershell/.test(pasteCommandPath)) {
         content = content.replace(/^([^]*?)(?:\r\n|\n\r|[\n\r])$/, '$1')

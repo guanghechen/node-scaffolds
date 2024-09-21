@@ -1,19 +1,19 @@
+import { safeExec } from '@guanghechen/exec'
 import type { IReporter } from '@guanghechen/reporter'
 import select from '@inquirer/select'
 import commandExists from 'command-exists'
-import type { Options as IExecaOptions } from 'execa'
+
+export interface IInstallDependenciesParams {
+  cwd: string
+  plopBypass: string[]
+  reporter?: IReporter
+}
 
 /**
  * Run `npm/yarn install` to Install node.js dependencies
- * @param execaOptions
- * @param plopBypass
- * @param reporter
  */
-export async function installDependencies(
-  execaOptions: IExecaOptions,
-  plopBypass: string[],
-  reporter?: IReporter,
-): Promise<void> {
+export async function installDependencies(params: IInstallDependenciesParams): Promise<void> {
+  const { cwd, plopBypass, reporter } = params
   const hasYarnInstalled: boolean = commandExists.sync('yarn')
 
   /**
@@ -41,6 +41,5 @@ export async function installDependencies(
   if (npmScript === 'skip') return
 
   // install dependencies
-  const { execa } = await import('execa')
-  await execa(npmScript, ['install'], execaOptions)
+  await safeExec({ from: 'installDependencies', cmd: npmScript, args: ['install'], cwd, reporter })
 }

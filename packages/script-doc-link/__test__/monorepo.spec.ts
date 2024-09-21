@@ -32,6 +32,7 @@ describe('context', () => {
         "packages/helper-jest",
         "packages/helper-func",
         "packages/helper-commander",
+        "packages/exec",
         "packages/eslint-config",
         "packages/conventional-changelog",
       ]
