@@ -1,0 +1,48 @@
+{
+  "name": "@guanghechen/fs",
+  "version": "1.0.1",
+  "description": "Provide some enhanced methods base on `node:fs`.",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/fs@1.0.1",
+    "directory": "packages/fs"
+  },
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/fs@1.0.1/packages/fs#readme",
+  "keywords": [
+    "url path",
+    "file path"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "import": "./lib/esm/index.mjs",
+      "require": "./lib/cjs/index.cjs",
+      "types": "./lib/types/index.d.ts"
+    }
+  },
+  "source": "./src/index.ts",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/esm/index.mjs",
+  "types": "./lib/types/index.d.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 18.0.0"
+  },
+  "files": [
+    "lib/",
+    "!lib/**/*.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "dependencies": {
+    "@guanghechen/invariant": "^6.0.1",
+    "@guanghechen/reporter.types": "^1.0.0"
+  }
+}

@@ -604,15 +604,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/fs@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@guanghechen/fs@npm:1.0.1"
+"@guanghechen/fs@^1.0.1, @guanghechen/fs@workspace:packages/fs":
+  version: 0.0.0-use.local
+  resolution: "@guanghechen/fs@workspace:packages/fs"
   dependencies:
     "@guanghechen/invariant": ^6.0.1
     "@guanghechen/reporter.types": ^1.0.0
-  checksum: 39e5caee91c25ce084d76b510dbe7579f160d2ff5186b7e467786ad9c0e84babae1c0fee93a5e53f96733bdf014baa7e0663f90eae50b5355a680fe54341a5b2
-  languageName: node
-  linkType: hard
+  languageName: unknown
+  linkType: soft
 
 "@guanghechen/helper-commander@^6.0.0-alpha.18, @guanghechen/helper-commander@workspace:packages/helper-commander":
   version: 0.0.0-use.local
