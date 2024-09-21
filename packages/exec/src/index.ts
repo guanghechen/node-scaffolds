@@ -18,7 +18,7 @@ export interface ISafeExecResult {
 
 export async function safeExec(params: ISafeExecParams): Promise<ISafeExecResult> {
   const { from, cmd, args, cwd, stdio, encoding = 'utf8', reporter } = params
-  const env: Record<string, string | undefined> = { ...process.env, ...params.env }
+  const env: Record<string, string | undefined> | undefined = params.env
   reporter?.debug(
     '[safeExec] {}: cmd: {}, args: {}, cwd: {}, stdio: {}, env: {}, encoding: {}',
     from,
