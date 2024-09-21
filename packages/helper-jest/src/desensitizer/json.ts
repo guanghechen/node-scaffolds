@@ -1,6 +1,11 @@
 import { identity } from '@guanghechen/helper-func'
 import { isArray, isNumber, isObject, isString } from '@guanghechen/is'
-import type { IDesensitizer, INumberDesensitizer, IStringDesensitizer } from './types'
+import type {
+  IDesensitizer,
+  IErrorDesensitizer,
+  INumberDesensitizer,
+  IStringDesensitizer,
+} from './types'
 
 /**
  * Create a desensitizer to eliminate sensitive json data.
@@ -11,6 +16,7 @@ import type { IDesensitizer, INumberDesensitizer, IStringDesensitizer } from './
 export function createJsonDesensitizer(
   valDesensitizers: {
     string?: IStringDesensitizer
+    error?: IErrorDesensitizer
     number?: INumberDesensitizer
     fallback?: IDesensitizer<unknown>
   } = {},
@@ -24,12 +30,15 @@ export function createJsonDesensitizer(
       valDesensitizers.string == null ? (fallback as IStringDesensitizer) : valDesensitizers.string,
     number:
       valDesensitizers.number == null ? (fallback as INumberDesensitizer) : valDesensitizers.number,
+    error:
+      valDesensitizers.error == null ? (fallback as IErrorDesensitizer) : valDesensitizers.error,
     fallback,
   }
 
   const desensitize = (json: any, key?: string): any => {
     if (isString(json)) return desensitizers.string(json, key)
     if (isNumber(json)) return desensitizers.number(json, key)
+    if (json instanceof Error) return desensitizers.error(json, key)
     if (isArray(json)) {
       return json.map((value, index) => desensitize(value, '' + index))
     }
