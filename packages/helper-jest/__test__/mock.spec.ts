@@ -1,3 +1,6 @@
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
+import { Reporter, ReporterLevelEnum } from '@guanghechen/reporter'
 import { createConsoleMock, createReporterMock } from '../src'
 
 describe('ConsoleMock', function () {
@@ -66,26 +69,28 @@ describe('ConsoleMock', function () {
 })
 
 describe('LoggerMock', function () {
-  const reporter = {
-    write: (text: string): void => void process.stdout.write('waw-' + text),
-  }
+  const reporter = new Reporter(chalk, {
+    baseName: 'mock',
+    level: ReporterLevelEnum.VERBOSE,
+    flights: { colorful: false },
+  })
 
   it('basic', function () {
     const mock = createReporterMock({ reporter })
-    reporter.write('reporter waw0')
+    reporter.info('reporter waw0')
     console.debug('debug waw1')
     console.log('log waw2')
     console.info('info waw3')
     console.error('error waw4')
-    reporter.write('reporter waw5')
+    reporter.info('reporter waw5')
 
     expect(mock.getIndiscriminateAll()).toEqual([
-      ['reporter waw0'],
+      ['info  [mock] reporter waw0\n'],
       ['debug waw1'],
       ['log waw2'],
       ['info waw3'],
       ['error waw4'],
-      ['reporter waw5'],
+      ['info  [mock] reporter waw5\n'],
     ])
 
     mock.restore()
@@ -93,14 +98,17 @@ describe('LoggerMock', function () {
 
   it('spy reporter only', function () {
     const mock = createReporterMock({ reporter, spyOnGlobalConsole: false })
-    reporter.write('reporter waw0')
+    reporter.info('reporter waw0')
     console.debug('debug waw1')
     console.log('log waw2')
     console.info('info waw3')
     console.error('error waw4')
-    reporter.write('reporter waw5')
+    reporter.info('reporter waw5')
 
-    expect(mock.getIndiscriminateAll()).toEqual([['reporter waw0'], ['reporter waw5']])
+    expect(mock.getIndiscriminateAll()).toEqual([
+      ['info  [mock] reporter waw0\n'],
+      ['info  [mock] reporter waw5\n'],
+    ])
 
     mock.restore()
   })
@@ -108,20 +116,28 @@ describe('LoggerMock', function () {
   it('rest', function () {
     const mock = createReporterMock({ reporter })
 
-    reporter.write('reporter waw0')
+    reporter.info('reporter waw0')
     console.debug('debug waw1')
-    expect(mock.getIndiscriminateAll()).toEqual([['reporter waw0'], ['debug waw1']])
+    expect(mock.getIndiscriminateAll()).toEqual([['info  [mock] reporter waw0\n'], ['debug waw1']])
 
     console.log('log waw2')
-    expect(mock.getIndiscriminateAll()).toEqual([['reporter waw0'], ['debug waw1'], ['log waw2']])
+    expect(mock.getIndiscriminateAll()).toEqual([
+      ['info  [mock] reporter waw0\n'],
+      ['debug waw1'],
+      ['log waw2'],
+    ])
 
     // reset mock
     mock.reset()
 
     console.info('info waw3')
     console.error('error waw4')
-    reporter.write('reporter waw5')
-    expect(mock.getIndiscriminateAll()).toEqual([['info waw3'], ['error waw4'], ['reporter waw5']])
+    reporter.info('reporter waw5')
+    expect(mock.getIndiscriminateAll()).toEqual([
+      ['info waw3'],
+      ['error waw4'],
+      ['info  [mock] reporter waw5\n'],
+    ])
 
     mock.restore()
   })
@@ -132,20 +148,20 @@ describe('LoggerMock', function () {
       desensitize: args => args.map(arg => 'ghc: ' + arg),
     })
 
-    reporter.write('reporter waw0')
+    reporter.info('reporter {}', 'waw0')
     console.debug('debug waw1')
     console.log('log waw2')
     console.info('info waw3')
     console.error('error waw4')
-    reporter.write('reporter waw5')
+    reporter.info('reporter {}', 'waw5')
 
     expect(mock.getIndiscriminateAll()).toEqual([
-      ['ghc: reporter waw0'],
+      ['info  [mock] reporter ghc: waw0\n'],
       ['ghc: debug waw1'],
       ['ghc: log waw2'],
       ['ghc: info waw3'],
       ['ghc: error waw4'],
-      ['ghc: reporter waw5'],
+      ['info  [mock] reporter ghc: waw5\n'],
     ])
 
     mock.restore()

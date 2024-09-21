@@ -1,18 +1,8 @@
 import { identity } from '@guanghechen/helper-func'
+import type { IReporter, ReporterLevelEnum } from '@guanghechen/reporter.types'
 import { jest } from '@jest/globals'
 import type { MockInstance } from 'jest-mock'
 import type { IConsoleMethodField } from './console'
-
-/**
- * Shape of a reporter.
- */
-interface IReporter {
-  /**
-   * Output something into stdout or files.
-   * @param text
-   */
-  write(text: string): void | Promise<void>
-}
 
 interface ICreateReporterMockOptions {
   /**
@@ -68,14 +58,17 @@ export function createReporterMock(options: ICreateReporterMockOptions): IReport
     desensitize = identity,
   } = options
 
-  const logData: unknown[][] = []
-  const collectLog = (...args: any[]): void => {
-    const data = desensitize(args)
-    logData.push(data)
-  }
-
   // mock reporter
-  const writeMock: MockInstance<any> = jest.spyOn(reporter, 'write').mockImplementation(collectLog)
+  const logData: unknown[][] = []
+  const logMock: MockInstance<any> = jest
+    .spyOn(reporter, 'log')
+    .mockImplementation(
+      (level: ReporterLevelEnum, messageFormat: string | unknown, messages: unknown[]): void => {
+        const args: unknown[] = desensitize(messages)
+        const text: string | undefined = reporter.format(level, messageFormat, args)
+        if (text !== undefined) logData.push([text])
+      },
+    )
 
   const consoleMockFnMap: Record<IConsoleMethodField, MockInstance<any>> = {} as any
   if (spyOnGlobalConsole) {
@@ -95,7 +88,7 @@ export function createReporterMock(options: ICreateReporterMockOptions): IReport
       logData.splice(0, logData.length)
     },
     restore: () => {
-      if (writeMock != null) writeMock.mockRestore()
+      if (logMock != null) logMock.mockRestore()
       if (spyOnGlobalConsole) {
         for (const field of consoleMethods) consoleMockFnMap[field].mockRestore()
       }
