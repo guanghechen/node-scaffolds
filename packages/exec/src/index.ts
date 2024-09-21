@@ -20,40 +20,66 @@ export async function safeExec(params: ISafeExecParams): Promise<ISafeExecResult
   const { from, cmd, args, cwd, stdio, encoding = 'utf8', reporter } = params
   const env: Record<string, string | undefined> = { ...process.env, ...params.env }
   reporter?.debug(
-    '[safeExec] {}: cmd: {}, args: {}, cwd: {}, env: {}, encoding: {}',
+    '[safeExec] {}: cmd: {}, args: {}, cwd: {}, stdio: {}, env: {}, encoding: {}',
     from,
     cmd,
     args,
     cwd,
+    stdio,
     env,
     encoding,
   )
 
   try {
-    const stdout: string = await new Promise<string>((resolve, reject) => {
-      const command = spawn(cmd, args, { cwd, env, stdio })
-
+    const stdout = await new Promise<string>((resolve, reject) => {
       let stdoutData: string = ''
       let stderrData: string = ''
+      let terminated: boolean = false
 
-      command.stdout!.on('data', data => {
-        stdoutData += data.toString(encoding)
-      })
+      const onResolved = (): void => {
+        if (!terminated) {
+          terminated = true
+          resolve(stdoutData.trimEnd())
+        }
+      }
 
-      command.stderr!.on('data', data => {
-        stderrData += data.toString(encoding)
-      })
+      const onRejected = (error?: unknown): void => {
+        if (!terminated) {
+          terminated = true
+          reject(error || new Error((stderrData || stdoutData).trimEnd()))
+        }
+      }
 
-      command.on('close', code => {
-        if (code === 0) resolve(stdoutData)
-        else reject(stderrData)
-      })
+      try {
+        const child = spawn(cmd, args, { cwd, env, stdio })
+        child.stdout!.on('data', data => {
+          stdoutData += data.toString(encoding)
+        })
+        child.stderr!.on('data', data => {
+          stderrData += data.toString(encoding)
+        })
+        child.on('close', code => {
+          if (code === 0) onResolved()
+          else onRejected()
+        })
+      } catch (error) {
+        onRejected(error)
+      }
     })
 
-    const result: ISafeExecResult = { stdout }
-    return result
+    return { stdout }
   } catch (error) {
-    reporter?.error?.('[safeExec] failed to run {}, (args: {}, params: {})', cmd, args, params)
+    reporter?.error?.(
+      '[safeExec] Failed to run {}: cmd: {}, args: {}, cwd: {}, stdio: {}, env: {}, encoding: {}. error:\n',
+      from,
+      cmd,
+      args,
+      cwd,
+      stdio,
+      env,
+      encoding,
+      error,
+    )
     throw error
   }
 }
