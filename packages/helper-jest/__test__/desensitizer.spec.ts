@@ -1,4 +1,4 @@
-import { isSymbol } from '@guanghechen/is'
+import { isSymbol } from '@guanghechen/std'
 import {
   composeStringDesensitizers,
   createFilepathDesensitizer,

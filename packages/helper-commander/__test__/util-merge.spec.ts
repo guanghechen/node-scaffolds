@@ -1,4 +1,4 @@
-import { isNotEmptyArray, isNotEmptyObject } from '@guanghechen/is'
+import { isNotEmptyArray, isNotEmptyObject } from '@guanghechen/std'
 import { merge } from '../src'
 
 describe('merge', function () {

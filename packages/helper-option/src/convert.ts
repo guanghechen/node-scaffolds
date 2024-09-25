@@ -1,4 +1,4 @@
-import { isBoolean, isNumber, isString } from '@guanghechen/is'
+import { isBoolean, isNumber, isString } from '@guanghechen/std'
 
 /**
  * Convert a given value to boolean type.

@@ -1,5 +1,5 @@
 import { identity } from '@guanghechen/helper-func'
-import { isArray, isNumber, isObject, isString } from '@guanghechen/is'
+import { isArray, isNumber, isObject, isString } from '@guanghechen/std'
 import type {
   IDesensitizer,
   IErrorDesensitizer,
