@@ -46,12 +46,12 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/chalk": "^1.0.0",
+    "@guanghechen/chalk": "^1.0.1",
     "@guanghechen/fs": "^1.0.3",
     "@guanghechen/helper-func": "^6.0.0-alpha.1",
-    "@guanghechen/invariant": "^6.0.1",
+    "@guanghechen/invariant": "^6.0.2",
     "@guanghechen/is": "^1.0.1",
-    "@guanghechen/reporter": "^1.0.2",
+    "@guanghechen/reporter": "^1.0.3",
     "globby": "^14.0.2",
     "minimist": "^1.2.8"
   },

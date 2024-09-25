@@ -48,8 +48,8 @@
   "dependencies": {
     "@guanghechen/exec": "^1.0.3",
     "@guanghechen/fs": "^1.0.3",
-    "@guanghechen/invariant": "^6.0.1",
-    "@guanghechen/reporter.types": "^1.0.2",
+    "@guanghechen/invariant": "^6.0.2",
+    "@guanghechen/reporter.types": "^1.0.3",
     "clipboardy": "^4.0.0"
   }
 }

@@ -45,6 +45,6 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@guanghechen/reporter.types": "^1.0.2"
+    "@guanghechen/reporter.types": "^1.0.3"
   }
 }
