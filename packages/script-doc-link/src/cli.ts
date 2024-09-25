@@ -21,19 +21,19 @@ async function run(argv: string[]): Promise<void> {
   )
 
   const args = minimist(argv)
-  const repoType = (args.repoType ?? 'monorepo').toLowerCase()
+  const repoType = (args['repoType'] ?? 'monorepo').toLowerCase()
   reporter.debug('repoType:', repoType)
 
   switch (repoType) {
     case 'monorepo': {
-      const rootDir: string = args.rootDir ?? path.resolve()
+      const rootDir: string = args['rootDir'] ?? path.resolve()
       reporter.debug('rootDir:', rootDir)
-      reporter.debug('username:', args.username)
-      reporter.debug('repository:', args.repository)
+      reporter.debug('username:', args['username'])
+      reporter.debug('repository:', args['repository'])
       await resolveMonorepoDocLinkRewrite({
-        rootDir: args.rootDir ?? path.resolve(),
-        username: args.username,
-        repository: args.repository,
+        rootDir: args['rootDir'] ?? path.resolve(),
+        username: args['username'],
+        repository: args['repository'],
         reporter,
       })
       break

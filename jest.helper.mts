@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import type { IDesensitizer } from '@guanghechen/helper-jest'
+import type { IDesensitizer, IStringDesensitizer } from '@guanghechen/helper-jest'
 import {
   composeStringDesensitizers,
   createFilepathDesensitizer,
@@ -26,15 +26,19 @@ export { isCI } from 'ci-info'
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 export const workspaceRootDir = __dirname
 
+const stringDesensitizer: IStringDesensitizer = composeStringDesensitizers(
+  createFilepathDesensitizer(workspaceRootDir, '<$WORKSPACE$>'),
+  text => text.replace(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/, '<$Date$>'),
+  text => text.replace(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/, '<$ISO-Date$>'),
+)
+
 /**
  * Desensitize test data.
  */
 export const desensitize: IDesensitizer<any> & IDesensitizer<string> = createJsonDesensitizer({
-  string: composeStringDesensitizers(
-    createFilepathDesensitizer(workspaceRootDir, '<$WORKSPACE$>'),
-    text => text.replace(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/, '<$Date$>'),
-    text => text.replace(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/, '<$ISO-Date$>'),
-  ),
+  string: stringDesensitizer,
+  error: (error: Error, key): string =>
+    stringDesensitizer(error.message || error.stack || String(error), key),
 }) as IDesensitizer<any>
 
 /**

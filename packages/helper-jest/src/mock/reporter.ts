@@ -66,7 +66,7 @@ export function createReporterMock(options: ICreateReporterMockOptions): IReport
       (level: ReporterLevelEnum, messageFormat: string | unknown, messages: unknown[]): void => {
         const args: unknown[] = desensitize(messages)
         const text: string | undefined = reporter.format(level, messageFormat, args)
-        if (text !== undefined) logData.push([text])
+        if (text !== undefined) logData.push(desensitize([text]))
       },
     )
 

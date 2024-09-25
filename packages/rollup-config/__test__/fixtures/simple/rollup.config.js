@@ -4,7 +4,7 @@ import tsnode from 'ts-node'
 tsnode.register({
   dir: __dirname,
   files: true,
-  project: 'tsconfig.src.json',
+  project: 'tsconfig.lib.json',
 })
 
 const { createRollupConfig } = require('@guanghechen/rollup-config/src/index.ts')
@@ -17,7 +17,7 @@ const config = createRollupConfig({
     dependencies: [],
   },
   pluginOptions: {
-    typescriptOptions: { tsconfig: 'tsconfig.src.json' },
+    typescriptOptions: { tsconfig: 'tsconfig.lib.json' },
   },
 })
 

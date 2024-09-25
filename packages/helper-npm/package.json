@@ -31,9 +31,6 @@
     "LICENSE",
     "README.md"
   ],
-  "scripts": {
-    "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
-  },
   "dependencies": {
     "import-meta-resolve": "^4.1.0"
   }

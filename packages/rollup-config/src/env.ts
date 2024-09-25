@@ -14,9 +14,11 @@ export interface IRawRollupConfigEnv {
 }
 
 export function resolveRollupConfigEnv(rawEnv: IRawRollupConfigEnv): IEnv {
-  const forceSourceMap: boolean | undefined = convertToBoolean(process.env.ROLLUP_SHOULD_SOURCEMAP)
+  const forceSourceMap: boolean | undefined = convertToBoolean(
+    process.env['ROLLUP_SHOULD_SOURCEMAP'],
+  )
   const forceExternalAll: boolean | undefined = convertToBoolean(
-    process.env.ROLLUP_EXTERNAL_ALL_DEPENDENCIES,
+    process.env['ROLLUP_EXTERNAL_ALL_DEPENDENCIES'],
   )
   const env: IEnv = {
     sourcemap: forceSourceMap ?? rawEnv.sourcemap ?? true,

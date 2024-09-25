@@ -1,0 +1,47 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "tool-file",
+  "sourceRoot": "packages/tool-file/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "packages/tool-file",
+        "parallel": false,
+        "commands": ["rimraf lib"]
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["clean", "^build"],
+      "options": {
+        "cwd": "packages/tool-file",
+        "parallel": false,
+        "sourcemap": true,
+        "commands": ["rollup -c ../../rollup.config.cli.mjs"]
+      },
+      "configurations": {
+        "production": {
+          "sourcemap": false,
+          "env": {
+            "NODE_ENV": "production"
+          }
+        }
+      }
+    },
+    "watch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "packages/tool-file",
+        "parallel": false,
+        "sourcemap": true,
+        "commands": ["rollup -c ../../rollup.config.cli.mjs -w"],
+        "env": {
+          "NODE_ENV": "development"
+        }
+      }
+    }
+  }
+}

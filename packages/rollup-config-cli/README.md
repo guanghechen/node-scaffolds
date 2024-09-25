@@ -72,7 +72,7 @@ Rollup configs for bundle typescript cli project.
     manifest,
     pluginOptions: {
       typescriptOptions: {
-        tsconfig: 'tsconfig.src.json',
+        tsconfig: 'tsconfig.lib.json',
       },
     },
     resources: {

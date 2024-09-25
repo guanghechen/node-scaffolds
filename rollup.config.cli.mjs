@@ -14,7 +14,7 @@ export default async function () {
     presetConfigBuilders: [
       tsPresetConfigBuilder({
         typescriptOptions: {
-          tsconfig: 'tsconfig.src.json',
+          tsconfig: 'tsconfig.lib.json',
         },
         additionalPlugins: [
           replace({

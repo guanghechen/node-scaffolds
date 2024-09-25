@@ -1,0 +1,44 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "exec",
+  "sourceRoot": "packages/exec/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "packages/exec",
+        "parallel": false,
+        "commands": ["rimraf lib"]
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["clean", "^build"],
+      "options": {
+        "cwd": "packages/exec",
+        "parallel": false,
+        "sourcemap": true,
+        "commands": ["rollup -c ../../rollup.config.mjs"]
+      },
+      "configurations": {
+        "production": {
+          "sourcemap": false,
+          "env": {
+            "NODE_ENV": "production"
+          }
+        }
+      }
+    },
+    "watch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "packages/exec",
+        "parallel": false,
+        "sourcemap": true,
+        "commands": ["cross-env NODE_ENV=development rollup -c ../../rollup.config.mjs -w"]
+      }
+    }
+  }
+}

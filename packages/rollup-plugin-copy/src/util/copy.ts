@@ -1,11 +1,22 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
-import { writeFile } from '@guanghechen/fs'
+import type { WriteFileOptions } from 'node:fs'
 import fs from 'node:fs/promises'
+import path from 'node:path'
 import type { ICopyTargetItem } from '../types'
 import { relativePath } from './path'
 import { reporter } from './reporter'
+
+async function writeFile(
+  filepath: string,
+  content: string | NodeJS.ArrayBufferView,
+  options?: WriteFileOptions,
+): Promise<void> {
+  const dirpath = path.dirname(filepath)
+  await fs.mkdir(dirpath, { recursive: true })
+  await fs.writeFile(filepath, content, options)
+}
 
 export async function copySingleItem(workspace: string, item: ICopyTargetItem): Promise<void> {
   if (item.copying) {

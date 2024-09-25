@@ -10,7 +10,7 @@ export default async function () {
   })
   const baseConfig = await tsMonorepoConfig(__dirname, {
     useESM: true,
-    tsconfigFilepath: path.join(__dirname, 'tsconfig.test.esm.json'),
+    tsconfigFilepath: path.join(__dirname, 'tsconfig.test.json'),
   })
 
   const config = {

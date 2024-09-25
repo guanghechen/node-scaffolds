@@ -21,8 +21,8 @@
   "exports": {
     "import": "./lib/esm/index.mjs"
   },
-  "types": "lib/types/index.d.ts",
-  "source": "src/index.ts",
+  "types": "./lib/types/index.d.ts",
+  "source": "./src/index.ts",
   "license": "MIT",
   "engines": {
     "node": ">= 18.0.0"
@@ -36,9 +36,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "../../node_modules/.bin/rimraf lib/ && cross-env NODE_ENV=production node --experimental-specifier-resolution=node --loader ts-node/esm -r tsconfig-paths/register script/build.ts",
-    "prepublishOnly": "yarn build",
-    "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
+    "build": "../../node_modules/.bin/rimraf lib/ && ../../node_modules/.bin/cross-env NODE_ENV=production node --experimental-specifier-resolution=node --loader ts-node/esm -r tsconfig-paths/register script/build.ts"
   },
   "peerDependencies": {
     "rollup": "^3.0.0 || ^4.0.0",

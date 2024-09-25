@@ -78,7 +78,7 @@ Rollup configs for bundle typescript project.
     manifest,
     pluginOptions: {
       typescriptOptions: {
-        tsconfig: 'tsconfig.src.json',
+        tsconfig: 'tsconfig.lib.json',
       },
     }
   })
@@ -99,7 +99,7 @@ Rollup configs for bundle typescript project.
     const config = await createRollupConfig({
       manifest,
       pluginOptions: {
-        typescriptOptions: { tsconfig: 'tsconfig.src.json' },
+        typescriptOptions: { tsconfig: 'tsconfig.lib.json' },
       },
     })
     return config

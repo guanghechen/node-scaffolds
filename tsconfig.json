@@ -2,7 +2,6 @@
   "extends": "./tsconfig.settings.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "lib",
     "paths": {
       "@guanghechen/conventional-changelog": ["packages/conventional-changelog/src"],
       "@guanghechen/helper-commander": ["packages/helper-commander/src"],

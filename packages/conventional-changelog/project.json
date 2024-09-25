@@ -1,0 +1,44 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "conventional-changelog",
+  "sourceRoot": "packages/conventional-changelog/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "packages/conventional-changelog",
+        "parallel": false,
+        "commands": ["rimraf lib"]
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["clean", "^build"],
+      "options": {
+        "cwd": "packages/conventional-changelog",
+        "parallel": false,
+        "sourcemap": true,
+        "commands": ["rollup -c ../../rollup.config.mjs"]
+      },
+      "configurations": {
+        "production": {
+          "sourcemap": false,
+          "env": {
+            "NODE_ENV": "production"
+          }
+        }
+      }
+    },
+    "watch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "packages/conventional-changelog",
+        "parallel": false,
+        "sourcemap": true,
+        "commands": ["cross-env NODE_ENV=development rollup -c ../../rollup.config.mjs -w"]
+      }
+    }
+  }
+}

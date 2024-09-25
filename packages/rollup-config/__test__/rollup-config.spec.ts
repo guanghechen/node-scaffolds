@@ -27,7 +27,7 @@ async function build(dependencies: string[]): Promise<RollupOutput[]> {
     presetConfigBuilders: [
       tsPresetConfigBuilder({
         typescriptOptions: {
-          tsconfig: 'tsconfig.src.json',
+          tsconfig: 'tsconfig.lib.json',
         },
       }),
     ],

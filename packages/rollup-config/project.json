@@ -1,0 +1,30 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "rollup-config",
+  "sourceRoot": "packages/rollup-config/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "packages/rollup-config",
+        "commands": [
+          "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
+        ]
+      },
+      "configurations": {
+        "coverage": {
+          "commands": [
+            "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir . --coverage"
+          ]
+        },
+        "update": {
+          "commands": [
+            "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir . -u"
+          ]
+        }
+      }
+    }
+  }
+}

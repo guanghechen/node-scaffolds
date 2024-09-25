@@ -8,7 +8,7 @@ async function build(): Promise<void> {
     presetConfigBuilders: [
       tsPresetConfigBuilder({
         typescriptOptions: {
-          tsconfig: 'tsconfig.src.json',
+          tsconfig: 'tsconfig.lib.json',
         },
       }),
     ],
@@ -16,7 +16,6 @@ async function build(): Promise<void> {
 
   for (const config of configs) {
     const bundle = await rollup(config)
-
     const outputOptions = [config.output ?? []].flat()
     for (const outputOption of outputOptions) {
       await bundle.write(outputOption)

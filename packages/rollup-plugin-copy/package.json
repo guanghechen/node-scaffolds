@@ -20,11 +20,11 @@
   "type": "module",
   "module": "./lib/esm/index.mjs",
   "exports": {
-    "types": "lib/types/index.d.ts",
+    "types": "./lib/types/index.d.ts",
     "import": "./lib/esm/index.mjs"
   },
-  "types": "lib/types/index.d.ts",
-  "source": "src/index.ts",
+  "types": "./lib/types/index.d.ts",
+  "source": "./src/index.ts",
   "license": "MIT",
   "engines": {
     "node": ">= 18.0.0"
@@ -37,18 +37,11 @@
     "LICENSE",
     "README.md"
   ],
-  "scripts": {
-    "build": "../../node_modules/.bin/cross-env NODE_ENV=production ../../node_modules/.bin/rollup -c ../../rollup.config.mjs",
-    "prebuild": "../../node_modules/.bin/rimraf lib/",
-    "prepublishOnly": "yarn build",
-    "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
-  },
   "peerDependencies": {
     "rollup": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "dependencies": {
     "@guanghechen/chalk": "^1.0.1",
-    "@guanghechen/fs": "^1.0.4",
     "@guanghechen/std": "^1.0.1",
     "chokidar": "^4.0.1",
     "dir-glob": "^3.0.1",

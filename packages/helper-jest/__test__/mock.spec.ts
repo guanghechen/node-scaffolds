@@ -156,12 +156,12 @@ describe('LoggerMock', function () {
     reporter.info('reporter {}', 'waw5')
 
     expect(mock.getIndiscriminateAll()).toEqual([
-      ['info  [mock] reporter ghc: waw0\n'],
+      ['ghc: info  [mock] reporter ghc: waw0\n'],
       ['ghc: debug waw1'],
       ['ghc: log waw2'],
       ['ghc: info waw3'],
       ['ghc: error waw4'],
-      ['info  [mock] reporter ghc: waw5\n'],
+      ['ghc: info  [mock] reporter ghc: waw5\n'],
     ])
 
     mock.restore()

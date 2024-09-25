@@ -41,11 +41,6 @@
     "LICENSE",
     "README.md"
   ],
-  "scripts": {
-    "build": "../../node_modules/.bin/rimraf lib/ && ../../node_modules/.bin/cross-env NODE_ENV=production ../../node_modules/.bin/rollup -c ../../rollup.config.mjs",
-    "prepublishOnly": "yarn build",
-    "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
-  },
   "dependencies": {
     "json5": "^2.2.3",
     "prettier-2": "npm:prettier@^2"

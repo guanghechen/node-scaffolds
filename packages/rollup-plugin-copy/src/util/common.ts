@@ -1,9 +1,16 @@
-import { isFileSync } from '@guanghechen/fs'
 import { globby } from 'globby'
+import { existsSync, statSync } from 'node:fs'
 import path from 'node:path'
 import util from 'util'
 import type { IConfigTarget, ICopyTargetItem } from '../types'
 import { findExpandedFilepath, isMatch, relativePath, resolvePath } from './path'
+
+function isFileSync(filepath: string | null): boolean {
+  if (filepath == null) return false
+  if (!existsSync(filepath)) return false
+  const stat = statSync(filepath)
+  return stat.isFile()
+}
 
 /**
  * Stringify data

@@ -48,7 +48,7 @@ describe('resolveModuleNameMapper', () => {
   it('custom tsconfig name', async () => {
     const moduleNameMapper = await resolveModuleNameMapper(
       resolveFixturePath('custom-tsconfig-name'),
-      'tsconfig.src.json',
+      'tsconfig.lib.json',
     )
     expect(desensitizeModuleNameMapper(moduleNameMapper)).toEqual({
       '^@/(.+)$': [

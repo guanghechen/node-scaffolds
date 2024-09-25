@@ -40,10 +40,6 @@
     "LICENSE",
     "README.md"
   ],
-  "scripts": {
-    "build": "../../node_modules/.bin/rimraf lib/ && ../../node_modules/.bin/cross-env NODE_ENV=production ../../node_modules/.bin/rollup -c ../../rollup.config.mjs",
-    "prepublishOnly": "yarn build"
-  },
   "dependencies": {
     "@guanghechen/reporter.types": "^1.0.3"
   }
