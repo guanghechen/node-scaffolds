@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/exec",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Utils for run command",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/exec@1.0.4",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/exec@1.0.5",
     "directory": "packages/exec"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/exec@1.0.4/packages/exec#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/exec@1.0.5/packages/exec#readme",
   "keywords": [
     "exec"
   ],
