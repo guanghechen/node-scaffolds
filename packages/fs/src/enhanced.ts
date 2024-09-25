@@ -1,7 +1,7 @@
 import invariant from '@guanghechen/invariant'
 import type { IReporter } from '@guanghechen/reporter.types'
 import type { WriteFileOptions } from 'node:fs'
-import { existsSync, mkdirSync, statSync } from 'node:fs'
+import { existsSync, mkdirSync, statSync, unlinkSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
@@ -72,6 +72,18 @@ export function mkdirsIfNotExists(filepath: string, isDir: boolean, reporter?: I
 export async function rm(fileOrDirPath: string): Promise<void> {
   if (existsSync(fileOrDirPath)) {
     await fs.rm(fileOrDirPath, { recursive: true, force: true })
+  }
+}
+
+/**
+ * Remove files
+ * @param filepaths the paths of files to remove.
+ */
+export const unlinksSync = (...filepaths: Array<string | null | undefined | string[]>): void => {
+  for (let filepath of filepaths) {
+    if (filepath == null) continue
+    if (!Array.isArray(filepath)) filepath = [filepath]
+    for (const p of filepath) if (existsSync(p)) unlinkSync(p)
   }
 }
 
