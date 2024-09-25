@@ -1,5 +1,5 @@
-import { identity } from '@guanghechen/helper-func'
 import type { IReporter, ReporterLevelEnum } from '@guanghechen/reporter.types'
+import { identity } from '@guanghechen/std'
 import { jest } from '@jest/globals'
 import type { MockInstance } from 'jest-mock'
 import type { IConsoleMethodField } from './console'

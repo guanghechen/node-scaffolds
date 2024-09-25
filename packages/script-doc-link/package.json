@@ -48,7 +48,6 @@
   "dependencies": {
     "@guanghechen/chalk": "^1.0.1",
     "@guanghechen/fs": "^1.0.3",
-    "@guanghechen/helper-func": "^6.0.0-alpha.1",
     "@guanghechen/invariant": "^6.0.2",
     "@guanghechen/reporter": "^1.0.3",
     "@guanghechen/std": "^1.0.1",

@@ -51,7 +51,6 @@
     "@guanghechen/filepart": "^1.0.1",
     "@guanghechen/fs": "^1.0.3",
     "@guanghechen/helper-commander": "^6.0.0-alpha.21",
-    "@guanghechen/helper-func": "^6.0.0-alpha.1",
     "@guanghechen/invariant": "^6.0.2",
     "@guanghechen/path": "^1.0.1",
     "@guanghechen/reporter": "^1.0.3",

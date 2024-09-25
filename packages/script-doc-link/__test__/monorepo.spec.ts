@@ -29,7 +29,6 @@ describe('context', () => {
         "packages/jest-config",
         "packages/helper-npm",
         "packages/helper-jest",
-        "packages/helper-func",
         "packages/helper-commander",
         "packages/fs",
         "packages/exec",

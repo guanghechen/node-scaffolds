@@ -12,3 +12,7 @@ export const versionPattern: string =
 export const tagNamePattern: string = new RegExp(
   `(?:(?:${npmNamePattern}@|[\\w-]*)(?:${versionPattern})|[^\\\\/'"]+)`,
 ).source
+
+export function escapeRegexSpecialChars(source: string): string {
+  return source.replace(/([.*+?|^$()[\]{}\\])/g, '\\$1')
+}

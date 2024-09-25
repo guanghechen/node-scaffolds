@@ -638,17 +638,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-func@^6.0.0-alpha.1, @guanghechen/helper-func@workspace:packages/helper-func":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/helper-func@workspace:packages/helper-func"
-  languageName: unknown
-  linkType: soft
-
 "@guanghechen/helper-jest@workspace:packages/helper-jest":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-jest@workspace:packages/helper-jest"
   dependencies:
-    "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/reporter.types": ^1.0.3
     "@guanghechen/std": ^1.0.1
     "@jest/globals": ^29.7.0
@@ -807,7 +800,6 @@ __metadata:
   dependencies:
     "@guanghechen/chalk": ^1.0.1
     "@guanghechen/fs": ^1.0.3
-    "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/invariant": ^6.0.2
     "@guanghechen/reporter": ^1.0.3
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.16
@@ -844,7 +836,6 @@ __metadata:
     "@guanghechen/filepart": ^1.0.1
     "@guanghechen/fs": ^1.0.3
     "@guanghechen/helper-commander": ^6.0.0-alpha.21
-    "@guanghechen/helper-func": ^6.0.0-alpha.1
     "@guanghechen/invariant": ^6.0.2
     "@guanghechen/path": ^1.0.1
     "@guanghechen/reporter": ^1.0.3

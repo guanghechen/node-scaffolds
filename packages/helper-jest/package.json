@@ -44,7 +44,6 @@
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@guanghechen/helper-func": "^6.0.0-alpha.1",
     "@guanghechen/reporter.types": "^1.0.3",
     "@guanghechen/std": "^1.0.1",
     "@jest/globals": "^29.7.0",

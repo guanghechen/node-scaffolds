@@ -1,6 +1,5 @@
-import { escapeRegexSpecialChars } from '@guanghechen/helper-func'
 import type { ITextTransformer } from '../types'
-import { tagNamePattern } from '../util'
+import { escapeRegexSpecialChars, tagNamePattern } from '../util'
 import type { MonorepoContext } from './context'
 
 interface IMonorepoDocLinkRewriterProps {

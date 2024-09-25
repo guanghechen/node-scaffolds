@@ -2,9 +2,8 @@ import type {
   ICommandConfigurationFlatOpts,
   IResolveDefaultOptionsParams,
 } from '@guanghechen/helper-commander'
-import { parseBytesString } from '@guanghechen/helper-func'
 import type { IReporter } from '@guanghechen/reporter'
-import { convertToNumber, cover } from '@guanghechen/std'
+import { convertToNumber, cover, parseBytesString } from '@guanghechen/std'
 import type { IToolFileSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'

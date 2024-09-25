@@ -1,11 +1,10 @@
 import { isFileSync } from '@guanghechen/fs'
-import { escapeRegexSpecialChars } from '@guanghechen/helper-func'
 import invariant from '@guanghechen/invariant'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { isNonBlankString } from '@guanghechen/std'
 import path from 'node:path'
 import type { ILernaJson, IPackageJson, ITopPackageJson } from '../types'
-import { loadJson } from '../util'
+import { escapeRegexSpecialChars, loadJson } from '../util'
 
 interface IPackageItem {
   name: string

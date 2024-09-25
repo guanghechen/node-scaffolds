@@ -1,4 +1,4 @@
-import { identity } from '@guanghechen/helper-func'
+import { identity } from '@guanghechen/std'
 import { jest } from '@jest/globals'
 import type { MockInstance } from 'jest-mock'
 
