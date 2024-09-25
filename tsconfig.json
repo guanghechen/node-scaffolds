@@ -10,7 +10,6 @@
       "@guanghechen/helper-fs": ["packages/helper-fs/src"],
       "@guanghechen/helper-func": ["packages/helper-func/src"],
       "@guanghechen/helper-jest": ["packages/helper-jest/src"],
-      "@guanghechen/helper-option": ["packages/helper-option/src"],
       "@guanghechen/jest-config": ["packages/jest-config/src"],
       "@guanghechen/mini-copy": ["packages/mini-copy/src"],
       "@guanghechen/postcss-modules-dts": ["packages/postcss-modules-dts/src"],

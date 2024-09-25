@@ -4,9 +4,8 @@ import type {
   IResolveDefaultOptionsParams,
 } from '@guanghechen/helper-commander'
 import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
-import { cover, coverString } from '@guanghechen/helper-option'
 import type { IReporter } from '@guanghechen/reporter'
-import { isNonBlankString } from '@guanghechen/std'
+import { cover, coverString, isNonBlankString } from '@guanghechen/std'
 
 // Global command options
 export interface IGlobalCommandOptions extends ICommandConfigurationOptions {

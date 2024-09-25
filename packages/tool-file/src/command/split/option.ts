@@ -3,8 +3,8 @@ import type {
   IResolveDefaultOptionsParams,
 } from '@guanghechen/helper-commander'
 import { parseBytesString } from '@guanghechen/helper-func'
-import { convertToNumber, cover } from '@guanghechen/helper-option'
 import type { IReporter } from '@guanghechen/reporter'
+import { convertToNumber, cover } from '@guanghechen/std'
 import type { IToolFileSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'
 import { getDefaultGlobalCommandOptions, resolveBaseCommandOptions } from '../option'

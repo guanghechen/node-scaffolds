@@ -1,8 +1,9 @@
-import { cover, coverString } from '@guanghechen/helper-option'
 import { locateNearestFilepath, pathResolver } from '@guanghechen/path'
 import { resolveLevel } from '@guanghechen/reporter'
 import type { IReporter, ReporterLevelEnum } from '@guanghechen/reporter'
 import {
+  cover,
+  coverString,
   isFunction,
   isNonBlankString,
   isNotEmptyArray,

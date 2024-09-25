@@ -47,7 +47,6 @@
   },
   "dependencies": {
     "@guanghechen/exec": "^1.0.3",
-    "@guanghechen/helper-option": "^6.0.0-alpha.4",
     "@guanghechen/invariant": "^6.0.2",
     "@guanghechen/path": "^1.0.1",
     "@guanghechen/reporter": "^1.0.3",

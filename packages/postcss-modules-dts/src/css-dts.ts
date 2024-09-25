@@ -1,4 +1,4 @@
-import { coverBoolean, coverString } from '@guanghechen/helper-option'
+import { coverBoolean, coverString } from '@guanghechen/std'
 import { existsSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
