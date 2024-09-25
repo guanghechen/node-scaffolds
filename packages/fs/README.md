@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/fs@1.0.3/packages/fs#readme">@guanghechen/fs</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/fs@1.0.4/packages/fs#readme">@guanghechen/fs</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/fs">
@@ -74,4 +74,4 @@ Name                                | Description
 `writeFile`                         | Same as the writeFile method provided in `node:fs/promises`, except that it will ensure that the parent path exists.
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/fs@1.0.3/packages/fs#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/fs@1.0.4/packages/fs#readme

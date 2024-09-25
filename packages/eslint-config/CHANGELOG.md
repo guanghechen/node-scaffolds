@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>7.0.7 (2024-09-25)</small>
+
+* :arrow_up:  chore: upgrade devDependencies ([29b1f01](https://github.com/guanghechen/node-scaffolds/commit/29b1f01))
+
+
+
+
+
 ## <small>7.0.6 (2024-09-21)</small>
 
 * :arrow_up:  chore: upgrade devDependencies ([71e8ef9](https://github.com/guanghechen/node-scaffolds/commit/71e8ef9))

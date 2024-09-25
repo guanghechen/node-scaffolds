@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.24 (2024-09-25)
+
+* :arrow_up:  chore: upgrade devDependencies ([29b1f01](https://github.com/guanghechen/node-scaffolds/commit/29b1f01))
+* :art:  improve: use @guanghechen/std instead of @guanghechen/helper-option ([67b0ecc](https://github.com/guanghechen/node-scaffolds/commit/67b0ecc))
+* :art:  improve: use @guanghechen/std instead of @guanghechen/is ([ab18376](https://github.com/guanghechen/node-scaffolds/commit/ab18376))
+
+
+
+
+
 ## 6.0.0-alpha.23 (2024-09-21)
 
 * :arrow_up:  chore: upgrade devDependencies ([cdc8ab0](https://github.com/guanghechen/node-scaffolds/commit/cdc8ab0))

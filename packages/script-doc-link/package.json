@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/script-doc-link",
-  "version": "6.0.0-alpha.19",
+  "version": "6.0.0-alpha.20",
   "description": "Script-doc-link function",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@6.0.0-alpha.19",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@6.0.0-alpha.20",
     "directory": "packages/script-doc-link"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@6.0.0-alpha.19/packages/script-doc-link#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/script-doc-link@6.0.0-alpha.20/packages/script-doc-link#readme",
   "type": "module",
   "exports": {
     ".": {
@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "@guanghechen/chalk": "^1.0.1",
-    "@guanghechen/fs": "^1.0.3",
+    "@guanghechen/fs": "^1.0.4",
     "@guanghechen/invariant": "^6.0.2",
     "@guanghechen/reporter": "^1.0.3",
     "@guanghechen/std": "^1.0.1",
@@ -55,6 +55,6 @@
     "minimist": "^1.2.8"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config-cli": "^6.0.0-alpha.16"
+    "@guanghechen/rollup-config-cli": "^6.0.0-alpha.17"
   }
 }

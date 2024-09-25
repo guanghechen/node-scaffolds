@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.17 (2024-09-25)
+
+* :arrow_up:  chore: upgrade devDependencies ([29b1f01](https://github.com/guanghechen/node-scaffolds/commit/29b1f01))
+
+
+
+
+
 ## 6.0.0-alpha.16 (2024-09-21)
 
 **Note:** Version bump only for package @guanghechen/rollup-config-cli

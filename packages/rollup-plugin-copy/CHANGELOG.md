@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.15 (2024-09-25)
+
+* :arrow_up:  chore: upgrade devDependencies ([29b1f01](https://github.com/guanghechen/node-scaffolds/commit/29b1f01))
+* :art:  improve: use @guanghechen/std instead of @guanghechen/is ([ab18376](https://github.com/guanghechen/node-scaffolds/commit/ab18376))
+
+
+
+
+
 ## 6.0.0-alpha.14 (2024-09-21)
 
 **Note:** Version bump only for package @guanghechen/rollup-plugin-copy

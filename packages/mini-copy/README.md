@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/mini-copy@6.0.0-alpha.14/packages/mini-copy#readme">@guanghechen/mini-copy</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/mini-copy@6.0.0-alpha.15/packages/mini-copy#readme">@guanghechen/mini-copy</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/mini-copy">
@@ -147,4 +147,4 @@ await paste()     // => read content from clipboard.
   ```
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/mini-copy@6.0.0-alpha.14/packages/mini-copy#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/mini-copy@6.0.0-alpha.15/packages/mini-copy#readme

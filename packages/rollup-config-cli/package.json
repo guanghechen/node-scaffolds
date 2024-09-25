@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-config-cli",
-  "version": "6.0.0-alpha.16",
+  "version": "6.0.0-alpha.17",
   "description": "Rollup configs for bundle typescript cli project",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config-cli@6.0.0-alpha.16",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config-cli@6.0.0-alpha.17",
     "directory": "packages/rollup-config-cli"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config-cli@6.0.0-alpha.16/packages/rollup-config-cli#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config-cli@6.0.0-alpha.17/packages/rollup-config-cli#readme",
   "keywords": [
     "rollup",
     "typescript cli"
@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@guanghechen/invariant": "^6.0.2",
-    "@guanghechen/rollup-config": "^6.0.0-alpha.6",
-    "@guanghechen/rollup-plugin-copy": "^6.0.0-alpha.14"
+    "@guanghechen/rollup-config": "^6.0.0-alpha.7",
+    "@guanghechen/rollup-plugin-copy": "^6.0.0-alpha.15"
   }
 }

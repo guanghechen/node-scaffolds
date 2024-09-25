@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.7 (2024-09-25)
+
+* :arrow_up:  chore: upgrade devDependencies ([29b1f01](https://github.com/guanghechen/node-scaffolds/commit/29b1f01))
+
+
+
+
+
 ## 6.0.0-alpha.6 (2024-09-20)
 
 * :wrench:  chore: tweak peerdependencies ([11ded3f](https://github.com/guanghechen/node-scaffolds/commit/11ded3f))
