@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+/* eslint-disable import/no-extraneous-dependencies */
 import copy from '@guanghechen/rollup-plugin-copy'
 
 export default async function rollupConfig() {

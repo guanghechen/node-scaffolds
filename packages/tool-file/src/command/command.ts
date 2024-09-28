@@ -1,5 +1,5 @@
-import type { Command } from '@guanghechen/helper-commander'
-import { createTopCommand } from '@guanghechen/helper-commander'
+import type { Command } from '@guanghechen/commander'
+import { createTopCommand } from '@guanghechen/commander'
 import { COMMAND_NAME, COMMAND_VERSION } from '../shared/constant'
 
 /**

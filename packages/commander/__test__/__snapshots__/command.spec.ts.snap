@@ -9,11 +9,11 @@ exports[`command no sub-command with arguments: args 1`] = `
 exports[`command no sub-command with arguments: logs 1`] = `
 [
   [
-    "debug [ghc] cwd: <$WORKSPACE$>/packages/helper-commander
+    "debug [ghc] cwd: <$WORKSPACE$>/packages/commander
 ",
   ],
   [
-    "debug [ghc] workspace: <$WORKSPACE$>/packages/helper-commander
+    "debug [ghc] workspace: <$WORKSPACE$>/packages/commander
 ",
   ],
   [
@@ -21,11 +21,11 @@ exports[`command no sub-command with arguments: logs 1`] = `
 ",
   ],
   [
-    "debug [ghc] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/package.json
+    "debug [ghc] parasticConfigPath: <$WORKSPACE$>/packages/commander/package.json
 ",
   ],
   [
-    "debug [ghc] parasticConfigEntry: @guanghechen/helper-commander--demo
+    "debug [ghc] parasticConfigEntry: @guanghechen/commander--demo
 ",
   ],
   [
@@ -79,16 +79,16 @@ exports[`command no sub-command with arguments: options 1`] = `
 exports[`command no sub-command with arguments: resolvedOptions 1`] = `
 {
   "configPath": [],
-  "cwd": "<$WORKSPACE$>/packages/helper-commander",
+  "cwd": "<$WORKSPACE$>/packages/commander",
   "encoding": "utf8",
   "force": true,
   "input": undefined,
   "logLevel": 1,
   "output": undefined,
-  "parasticConfigEntry": "@guanghechen/helper-commander--demo",
-  "parasticConfigPath": "<$WORKSPACE$>/packages/helper-commander/package.json",
+  "parasticConfigEntry": "@guanghechen/commander--demo",
+  "parasticConfigPath": "<$WORKSPACE$>/packages/commander/package.json",
   "silence": false,
-  "workspace": "<$WORKSPACE$>/packages/helper-commander",
+  "workspace": "<$WORKSPACE$>/packages/commander",
 }
 `;
 
@@ -101,11 +101,11 @@ exports[`command no sub-command without arguments: args 1`] = `
 exports[`command no sub-command without arguments: logs 1`] = `
 [
   [
-    "debug [ghc] cwd: <$WORKSPACE$>/packages/helper-commander
+    "debug [ghc] cwd: <$WORKSPACE$>/packages/commander
 ",
   ],
   [
-    "debug [ghc] workspace: <$WORKSPACE$>/packages/helper-commander
+    "debug [ghc] workspace: <$WORKSPACE$>/packages/commander
 ",
   ],
   [
@@ -113,11 +113,11 @@ exports[`command no sub-command without arguments: logs 1`] = `
 ",
   ],
   [
-    "debug [ghc] parasticConfigPath: <$WORKSPACE$>/packages/helper-commander/package.json
+    "debug [ghc] parasticConfigPath: <$WORKSPACE$>/packages/commander/package.json
 ",
   ],
   [
-    "debug [ghc] parasticConfigEntry: @guanghechen/helper-commander--demo
+    "debug [ghc] parasticConfigEntry: @guanghechen/commander--demo
 ",
   ],
   [
@@ -171,15 +171,15 @@ exports[`command no sub-command without arguments: options 1`] = `
 exports[`command no sub-command without arguments: resolvedOptions 1`] = `
 {
   "configPath": [],
-  "cwd": "<$WORKSPACE$>/packages/helper-commander",
+  "cwd": "<$WORKSPACE$>/packages/commander",
   "encoding": "utf8",
   "force": true,
   "input": undefined,
   "logLevel": 1,
   "output": undefined,
-  "parasticConfigEntry": "@guanghechen/helper-commander--demo",
-  "parasticConfigPath": "<$WORKSPACE$>/packages/helper-commander/package.json",
+  "parasticConfigEntry": "@guanghechen/commander--demo",
+  "parasticConfigPath": "<$WORKSPACE$>/packages/commander/package.json",
   "silence": false,
-  "workspace": "<$WORKSPACE$>/packages/helper-commander",
+  "workspace": "<$WORKSPACE$>/packages/commander",
 }
 `;

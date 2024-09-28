@@ -42,15 +42,15 @@
     "ghc-file": "./lib/esm/cli.mjs"
   },
   "dependencies": {
-    "@guanghechen/chalk": "^1.0.1",
-    "@guanghechen/file-split": "^1.0.1",
-    "@guanghechen/filepart": "^1.0.1",
+    "@guanghechen/chalk": "^1.0.2",
+    "@guanghechen/commander": "^1.0.0",
+    "@guanghechen/file-split": "^1.0.2",
+    "@guanghechen/filepart": "^1.0.2",
     "@guanghechen/fs": "^1.0.5",
-    "@guanghechen/helper-commander": "^6.0.0-alpha.23",
-    "@guanghechen/invariant": "^6.0.2",
-    "@guanghechen/path": "^1.0.1",
-    "@guanghechen/reporter": "^1.0.3",
-    "@guanghechen/std": "^1.0.1"
+    "@guanghechen/invariant": "^6.0.3",
+    "@guanghechen/path": "^1.0.2",
+    "@guanghechen/reporter": "^1.0.4",
+    "@guanghechen/std": "^1.0.2"
   },
   "devDependencies": {
     "@guanghechen/rollup-config-cli": "^6.0.0-alpha.18"

@@ -29,11 +29,12 @@ describe('context', () => {
         "packages/jest-config",
         "packages/helper-npm",
         "packages/helper-jest",
-        "packages/helper-commander",
         "packages/fs",
         "packages/exec",
         "packages/eslint-config",
         "packages/conventional-changelog",
+        "packages/commander",
+        "packages/cli",
       ]
     `)
   })

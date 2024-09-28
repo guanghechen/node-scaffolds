@@ -3,6 +3,7 @@
 .prettierignore
 
 **/*.hbs
+**/*.md
 
 .nx/
 .yarn/

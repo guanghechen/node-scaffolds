@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
-import type { ISubCommand, ISubCommandOptions } from '@guanghechen/helper-commander'
+import type { ISubCommand, ISubCommandOptions } from '@guanghechen/commander'
 import type { IReporter } from '@guanghechen/reporter'
 import { Reporter } from '@guanghechen/reporter'
 import type { IToolFileSubCommandProps } from './command/_base'

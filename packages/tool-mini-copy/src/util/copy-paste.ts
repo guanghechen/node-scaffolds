@@ -1,5 +1,5 @@
+import { stripAnsi } from '@guanghechen/commander'
 import { isFileSync } from '@guanghechen/fs'
-import { stripAnsi } from '@guanghechen/helper-commander'
 import invariant from '@guanghechen/invariant'
 import type { FakeClipboard } from '@guanghechen/mini-copy'
 import confirm from '@inquirer/confirm'

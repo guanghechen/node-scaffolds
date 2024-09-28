@@ -4,8 +4,8 @@
     "baseUrl": ".",
     "paths": {
       "@guanghechen/cli": ["packages/cli/src"],
+      "@guanghechen/commander": ["packages/commander/src"],
       "@guanghechen/conventional-changelog": ["packages/conventional-changelog/src"],
-      "@guanghechen/helper-commander": ["packages/helper-commander/src"],
       "@guanghechen/helper-exec": ["packages/helper-exec/src"],
       "@guanghechen/helper-fs": ["packages/helper-fs/src"],
       "@guanghechen/helper-jest": ["packages/helper-jest/src"],

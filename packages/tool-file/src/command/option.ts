@@ -2,8 +2,8 @@ import type {
   ICommandConfigurationFlatOpts,
   ICommandConfigurationOptions,
   IResolveDefaultOptionsParams,
-} from '@guanghechen/helper-commander'
-import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
+} from '@guanghechen/commander'
+import { resolveCommandConfigurationOptions } from '@guanghechen/commander'
 import type { IReporter } from '@guanghechen/reporter'
 import { cover, coverString, isNonBlankString } from '@guanghechen/std'
 

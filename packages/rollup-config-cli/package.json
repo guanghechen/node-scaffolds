@@ -40,7 +40,7 @@
     "typescript": ">=5.0.0"
   },
   "dependencies": {
-    "@guanghechen/invariant": "^6.0.2",
+    "@guanghechen/invariant": "^6.0.3",
     "@guanghechen/rollup-config": "^6.0.0-alpha.8",
     "@guanghechen/rollup-plugin-copy": "^6.0.0-alpha.16"
   }

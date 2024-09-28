@@ -1,5 +1,11 @@
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
+import type {
+  ICommandConfigurationFlatOpts,
+  ICommandConfigurationOptions,
+  IResolveCommandConfigurationOptionsParams,
+} from '@guanghechen/cli'
+import { resolveCommandConfigurationOptions } from '@guanghechen/cli'
 import { createReporterMock } from '@guanghechen/helper-jest'
 import { pathResolver } from '@guanghechen/path'
 import type { IReporter } from '@guanghechen/reporter'
@@ -7,13 +13,8 @@ import { Reporter } from '@guanghechen/reporter'
 import { convertToBoolean, cover, isNonBlankString } from '@guanghechen/std'
 import { desensitize } from 'jest.helper'
 import path from 'node:path'
-import type {
-  Command,
-  ICommandConfigurationFlatOpts,
-  ICommandConfigurationOptions,
-  IResolveCommandConfigurationOptionsParams,
-} from '../src'
-import { createTopCommand, resolveCommandConfigurationOptions } from '../src'
+import type { Command } from '../src'
+import { createTopCommand } from '../src'
 
 describe('command', () => {
   describe('no sub-command', () => {
@@ -111,7 +112,7 @@ async function getCommand(
       .action(function (args: string[], options: IGlobalCommandOptions): void {
         try {
           const resolvedOptions = resolveGlobalCommandOptions<IGlobalCommandOptions>({
-            commandName: '@guanghechen/helper-commander--demo',
+            commandName: '@guanghechen/commander--demo',
             defaultOptions: __defaultGlobalCommandOptions,
             reporter,
             options,

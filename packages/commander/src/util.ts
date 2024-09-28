@@ -1,12 +1,15 @@
 import { safeExec } from '@guanghechen/exec'
-import type { IReporter } from '@guanghechen/reporter'
+import type { IReporter } from '@guanghechen/reporter.types'
 import select from '@inquirer/select'
 import commandExists from 'command-exists'
 
+// Check if the git installed.
+export const hasGitInstalled = (): boolean => commandExists.sync('git')
+
 export interface IInstallDependenciesParams {
-  cwd: string
-  plopBypass: string[]
-  reporter?: IReporter
+  readonly cwd: string
+  readonly plopBypass: string[]
+  readonly reporter?: IReporter
 }
 
 /**

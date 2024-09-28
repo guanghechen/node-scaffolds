@@ -1,8 +1,8 @@
 import type {
   ICommandConfigurationFlatOpts,
   ICommandConfigurationOptions,
-} from '@guanghechen/helper-commander'
-import { resolveCommandConfigurationOptions } from '@guanghechen/helper-commander'
+} from '@guanghechen/commander'
+import { resolveCommandConfigurationOptions } from '@guanghechen/commander'
 import { pathResolver } from '@guanghechen/path'
 import { convertToBoolean, cover, isNonBlankString } from '@guanghechen/std'
 import { reporter } from '../env/reporter'

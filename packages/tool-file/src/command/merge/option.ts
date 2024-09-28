@@ -1,7 +1,7 @@
 import type {
   ICommandConfigurationFlatOpts,
   IResolveDefaultOptionsParams,
-} from '@guanghechen/helper-commander'
+} from '@guanghechen/commander'
 import type { IReporter } from '@guanghechen/reporter'
 import type { IToolFileSubCommandOption } from '../_base'
 import type { IGlobalCommandOptions } from '../option'

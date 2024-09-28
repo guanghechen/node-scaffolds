@@ -1,14 +1,14 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "name": "helper-commander",
-  "sourceRoot": "packages/helper-commander/src",
+  "name": "commander",
+  "sourceRoot": "packages/commander/src",
   "projectType": "library",
   "tags": [],
   "targets": {
     "clean": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "packages/helper-commander",
+        "cwd": "packages/commander",
         "parallel": false,
         "commands": ["rimraf lib"]
       }
@@ -17,7 +17,7 @@
       "executor": "nx:run-commands",
       "dependsOn": ["clean", "^build"],
       "options": {
-        "cwd": "packages/helper-commander",
+        "cwd": "packages/commander",
         "parallel": false,
         "sourcemap": true,
         "commands": ["rollup -c ../../rollup.config.mjs"]
@@ -34,7 +34,7 @@
     "watch": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "packages/helper-commander",
+        "cwd": "packages/commander",
         "parallel": false,
         "sourcemap": true,
         "commands": ["cross-env NODE_ENV=development rollup -c ../../rollup.config.mjs -w"]
@@ -43,7 +43,7 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "packages/helper-commander",
+        "cwd": "packages/commander",
         "commands": [
           "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
         ]

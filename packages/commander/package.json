@@ -1,17 +1,17 @@
 {
-  "name": "@guanghechen/helper-commander",
-  "version": "6.0.0-alpha.23",
-  "description": "Utils for creating node.js command line program",
+  "name": "@guanghechen/commander",
+  "version": "1.0.0",
+  "description": "A wrapper of commander.js with some utilities",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@6.0.0-alpha.23",
-    "directory": "packages/helper-commander"
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/commander@1.0.0",
+    "directory": "packages/commander"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-commander@6.0.0-alpha.23/packages/helper-commander#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/commander@1.0.0/packages/commander#readme",
   "keywords": [
     "commander"
   ],
@@ -41,15 +41,12 @@
     "README.md"
   ],
   "dependencies": {
+    "@guanghechen/cli": "^1.0.0",
     "@guanghechen/exec": "^1.0.5",
-    "@guanghechen/invariant": "^6.0.2",
-    "@guanghechen/path": "^1.0.1",
-    "@guanghechen/reporter": "^1.0.3",
-    "@guanghechen/std": "^1.0.1",
+    "@guanghechen/reporter.types": "^1.0.4",
     "@inquirer/select": "^3.0.1",
     "command-exists": "^1.2.9",
-    "commander": "^12.1.0",
-    "js-yaml": "^4.1.0"
+    "commander": "^12.1.0"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9"

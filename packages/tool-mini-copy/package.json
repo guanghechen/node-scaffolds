@@ -42,14 +42,14 @@
     "mcp": "./lib/esm/cli.mjs"
   },
   "dependencies": {
-    "@guanghechen/chalk": "^1.0.1",
+    "@guanghechen/chalk": "^1.0.2",
+    "@guanghechen/commander": "^1.0.0",
     "@guanghechen/fs": "^1.0.5",
-    "@guanghechen/helper-commander": "^6.0.0-alpha.23",
-    "@guanghechen/invariant": "^6.0.2",
+    "@guanghechen/invariant": "^6.0.3",
     "@guanghechen/mini-copy": "^6.0.0-alpha.16",
-    "@guanghechen/path": "^1.0.1",
-    "@guanghechen/reporter": "^1.0.3",
-    "@guanghechen/std": "^1.0.1",
+    "@guanghechen/path": "^1.0.2",
+    "@guanghechen/reporter": "^1.0.4",
+    "@guanghechen/std": "^1.0.2",
     "@inquirer/confirm": "^4.0.1"
   },
   "devDependencies": {

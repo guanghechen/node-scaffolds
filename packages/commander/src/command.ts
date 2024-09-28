@@ -1,6 +1,6 @@
+import type { ICommandConfigurationOptions } from '@guanghechen/cli'
 import type { OptionValues } from 'commander'
 import { Command as Command$ } from 'commander'
-import type { ICommandConfigurationOptions } from '../types'
 
 /**
  * Callback for handling the command

@@ -1,4 +1,4 @@
-import type { ISubCommandOptions } from '@guanghechen/helper-commander'
+import type { ISubCommandOptions } from '@guanghechen/commander'
 
 export interface IToolFileSubCommandOption extends ISubCommandOptions {
   //

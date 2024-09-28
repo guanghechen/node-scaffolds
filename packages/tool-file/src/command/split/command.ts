@@ -1,4 +1,4 @@
-import { Command } from '@guanghechen/helper-commander'
+import { Command } from '@guanghechen/commander'
 import { COMMAND_NAME } from '../../shared/constant'
 import type { IToolFileSubCommand, IToolFileSubCommandProcessor } from '../_base'
 import { ToolFileSubCommand } from '../_base'

@@ -1,6 +1,5 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+/* eslint-disable import/no-extraneous-dependencies */
 import { modify, tsPresetConfigBuilder } from '@guanghechen/rollup-config'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import createRollupConfig from '@guanghechen/rollup-config-cli'
 import replace from '@rollup/plugin-replace'
 import path from 'node:path'

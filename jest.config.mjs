@@ -17,11 +17,9 @@ export default async function () {
     ...baseConfig,
     collectCoverageFrom: [...(baseConfig.collectCoverageFrom ?? [])],
     coveragePathIgnorePatterns: [
-      'packages/helper-commander/src/command/main.ts',
-      'packages/helper-commander/src/command/sub.ts',
-      'packages/helper-commander/src/util/git.ts',
-      'packages/helper-commander/src/util/stdin.ts',
-      'packages/helper-commander/src/util/yarn.ts',
+      'packages/commander/src/main.ts',
+      'packages/commander/src/sub.ts',
+      'packages/commander/src/util.ts',
       'packages/helper-npm/src/index.d.ts',
       'packages/script-doc-link/src/cli.ts',
     ],
@@ -40,11 +38,7 @@ export default async function () {
 }
 
 const coverageMap = {
-  '@guanghechen/helper-commander': {
-    global: {
-      branches: 77,
-    },
-  },
+  '@guanghechen/cli': { global: { branches: 68 } },
   '@guanghechen/rollup-config': {
     'src/config.ts': { branches: 66 },
     'src/env.ts': { branches: 50 },

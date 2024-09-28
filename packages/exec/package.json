@@ -41,6 +41,6 @@
     "README.md"
   ],
   "dependencies": {
-    "@guanghechen/reporter.types": "^1.0.3"
+    "@guanghechen/reporter.types": "^1.0.4"
   }
 }
