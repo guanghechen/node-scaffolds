@@ -1,0 +1,12 @@
+{
+  "@guanghechen/tool-demo": {
+    "init": {
+      "logLevel": "verbose",
+      "color": true
+    },
+    "generate": {
+      "logLevel": "debug",
+      "date": true
+    }
+  }
+}

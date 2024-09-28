@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`resolveCommandConfigurationOptions basic 1`] = `
+{
+  "a": [
+    1,
+    2,
+    3,
+  ],
+  "color": true,
+  "configPath": [
+    "<$WORKSPACE$>/packages/cli/__test__/fixtures/basic2/demo.config.yml",
+  ],
+  "cwd": "<$WORKSPACE$>/packages/cli",
+  "date": false,
+  "logLevel": 3,
+  "parasticConfigEntry": "@guanghechen/tool-demo",
+  "parasticConfigPath": "<$WORKSPACE$>/packages/cli/__test__/fixtures/basic2/package.json",
+  "workspace": "<$WORKSPACE$>/packages/cli/__test__/fixtures/basic2",
+}
+`;
+
+exports[`resolveCommandConfigurationOptions basic 2`] = `
+[
+  [
+    "verb  [] [flatOptionsFromConfiguration] Config file is not exist (ignored). <$WORKSPACE$>/packages/cli/__test__/fixtures/basic2/demo.config.yml
+",
+  ],
+]
+`;
+
+exports[`resolveCommandConfigurationOptions no sub-command 1`] = `
+{
+  "a": [
+    1,
+    2,
+    3,
+  ],
+  "color": true,
+  "configPath": [],
+  "cwd": "<$WORKSPACE$>/packages/cli",
+  "date": false,
+  "generate": {
+    "date": true,
+    "logLevel": "debug",
+  },
+  "init": {
+    "color": true,
+    "logLevel": "verbose",
+  },
+  "logLevel": 4,
+  "parasticConfigEntry": "@guanghechen/tool-demo",
+  "parasticConfigPath": "<$WORKSPACE$>/packages/cli/__test__/fixtures/basic2/package.json",
+  "workspace": "<$WORKSPACE$>/packages/cli/__test__/fixtures/basic2",
+}
+`;
+
+exports[`resolveCommandConfigurationOptions no sub-command 2`] = `[]`;
+
+exports[`resolveCommandConfigurationOptions with config 1`] = `
+{
+  "a": [
+    1,
+    2,
+    3,
+  ],
+  "color": true,
+  "configPath": [],
+  "cwd": "<$WORKSPACE$>/packages/cli",
+  "date": true,
+  "logLevel": 1,
+  "parasticConfigEntry": "@guanghechen/tool-demo",
+  "parasticConfigPath": "<$WORKSPACE$>/packages/cli/__test__/fixtures/basic2/package.json",
+  "workspace": "<$WORKSPACE$>/packages/cli/__test__/fixtures/basic2",
+}
+`;
+
+exports[`resolveCommandConfigurationOptions with config 2`] = `
+[
+  [
+    "debug [] cwd: <$WORKSPACE$>/packages/cli
+",
+  ],
+  [
+    "debug [] workspace: <$WORKSPACE$>/packages/cli/__test__/fixtures/basic2
+",
+  ],
+  [
+    "debug [] configPath: []
+",
+  ],
+  [
+    "debug [] parasticConfigPath: <$WORKSPACE$>/packages/cli/__test__/fixtures/basic2/package.json
+",
+  ],
+  [
+    "debug [] parasticConfigEntry: @guanghechen/tool-demo
+",
+  ],
+  [
+    "debug [] logLevel: 1
+",
+  ],
+  [
+    "debug [] resolvedConfig: {init:{logLevel:'verbose',color:true},generate:{logLevel:'debug',date:true}}
+",
+  ],
+  [
+    "debug [] resolvedOptions: {logLevel:'debug',workspace:'<$WORKSPACE$>/packages/cli/__test__/fixtures/basic2',color:true,date:true,a:[1,2,3]}
+",
+  ],
+]
+`;

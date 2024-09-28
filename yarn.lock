@@ -548,6 +548,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@guanghechen/cli@workspace:packages/cli":
+  version: 0.0.0-use.local
+  resolution: "@guanghechen/cli@workspace:packages/cli"
+  dependencies:
+    "@guanghechen/invariant": ^6.0.2
+    "@guanghechen/path": ^1.0.1
+    "@guanghechen/reporter.types": ^1.0.3
+    "@guanghechen/std": ^1.0.1
+  languageName: unknown
+  linkType: soft
+
 "@guanghechen/conventional-changelog@workspace:packages/conventional-changelog":
   version: 0.0.0-use.local
   resolution: "@guanghechen/conventional-changelog@workspace:packages/conventional-changelog"
