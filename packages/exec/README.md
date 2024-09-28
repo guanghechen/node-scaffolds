@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/exec@1.0.5/packages/exec#readme">@guanghechen/exec</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/exec@1.0.6/packages/exec#readme">@guanghechen/exec</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/exec">
@@ -73,5 +73,5 @@ Utils for run command.
   ```
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/exec@1.0.5/packages/exec#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/exec@1.0.6/packages/exec#readme
 
