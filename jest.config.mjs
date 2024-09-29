@@ -38,7 +38,7 @@ export default async function () {
 }
 
 const coverageMap = {
-  '@guanghechen/cli': { global: { branches: 68 } },
+  '@guanghechen/cli': { global: { branches: 72 } },
   '@guanghechen/rollup-config': {
     'src/config.ts': { branches: 66 },
     'src/env.ts': { branches: 50 },

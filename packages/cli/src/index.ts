@@ -1,4 +1,5 @@
 export * from './util/ansi'
+export * from './util/command-exists'
 export * from './util/config'
 export * from './util/merge'
 export * from './util/option'
