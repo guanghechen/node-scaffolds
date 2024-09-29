@@ -38,7 +38,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@guanghechen/std": "^1.0.2",
+    "@guanghechen/std": "^1.0.3",
     "@types/reserved-words": "0.1.4",
     "reserved-words": "0.1.2"
   }

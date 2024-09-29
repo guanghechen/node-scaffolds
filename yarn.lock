@@ -555,7 +555,7 @@ __metadata:
     "@guanghechen/invariant": ^6.0.3
     "@guanghechen/path": ^1.0.2
     "@guanghechen/reporter.types": ^1.0.4
-    "@guanghechen/std": ^1.0.2
+    "@guanghechen/std": ^1.0.3
   languageName: unknown
   linkType: soft
 
@@ -649,7 +649,7 @@ __metadata:
   resolution: "@guanghechen/helper-jest@workspace:packages/helper-jest"
   dependencies:
     "@guanghechen/reporter.types": ^1.0.4
-    "@guanghechen/std": ^1.0.2
+    "@guanghechen/std": ^1.0.3
     "@jest/globals": ^29.7.0
     jest: ^29.7.0
   languageName: unknown
@@ -711,7 +711,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/postcss-modules-dts@workspace:packages/postcss-modules-dts"
   dependencies:
-    "@guanghechen/std": ^1.0.2
+    "@guanghechen/std": ^1.0.3
     "@types/reserved-words": 0.1.4
     reserved-words: 0.1.2
   languageName: unknown
@@ -787,7 +787,7 @@ __metadata:
   resolution: "@guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy"
   dependencies:
     "@guanghechen/chalk": ^1.0.2
-    "@guanghechen/std": ^1.0.2
+    "@guanghechen/std": ^1.0.3
     "@types/dir-glob": ^2.0.3
     "@types/micromatch": ^4.0.9
     chokidar: ^4.0.1
@@ -808,7 +808,7 @@ __metadata:
     "@guanghechen/invariant": ^6.0.3
     "@guanghechen/reporter": ^1.0.4
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.19
-    "@guanghechen/std": ^1.0.2
+    "@guanghechen/std": ^1.0.3
     globby: ^14.0.2
     minimist: ^1.2.8
   bin:
@@ -816,10 +816,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/std@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@guanghechen/std@npm:1.0.2"
-  checksum: ee4c057a1ce541ddf052799073866321de75ccb8183faf8fddaf978f67be63e27a2a5e4dc0bbfd44a54516fab89f27d65690a56e2da2a4dd8ee7a59e4f784d9e
+"@guanghechen/std@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@guanghechen/std@npm:1.0.3"
+  checksum: 8802359afcdd8ada618a3993a2262350d4ada5e242d2f3ea4ea542199f04f2b8fd217fb9cdfd937107331a62ddfe28a9da8e9084e64a12945a4c6cf64a368af1
   languageName: node
   linkType: hard
 
@@ -845,7 +845,7 @@ __metadata:
     "@guanghechen/path": ^1.0.2
     "@guanghechen/reporter": ^1.0.4
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.19
-    "@guanghechen/std": ^1.0.2
+    "@guanghechen/std": ^1.0.3
   bin:
     ghc-file: ./lib/esm/cli.mjs
   languageName: unknown
@@ -863,7 +863,7 @@ __metadata:
     "@guanghechen/path": ^1.0.2
     "@guanghechen/reporter": ^1.0.4
     "@guanghechen/rollup-config-cli": ^6.0.0-alpha.19
-    "@guanghechen/std": ^1.0.2
+    "@guanghechen/std": ^1.0.3
     "@inquirer/confirm": ^4.0.1
   bin:
     mcp: ./lib/esm/cli.mjs

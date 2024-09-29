@@ -40,7 +40,7 @@
   ],
   "dependencies": {
     "@guanghechen/reporter.types": "^1.0.4",
-    "@guanghechen/std": "^1.0.2",
+    "@guanghechen/std": "^1.0.3",
     "@jest/globals": "^29.7.0",
     "jest": "^29.7.0"
   }
