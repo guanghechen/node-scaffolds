@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.0.3 (2024-09-29)</small>
+
+**Note:** Version bump only for package @guanghechen/commander
+
+
+
+
+
 ## <small>1.0.2 (2024-09-29)</small>
 
 * :art:  improve(commander): remove unnecessary third-party dependencies ([d5cb553](https://github.com/guanghechen/node-scaffolds/commit/d5cb553))

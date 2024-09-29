@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.18 (2024-09-29)
+
+* :arrow_up:  chore: upgrade dependencies ([7dc72a5](https://github.com/guanghechen/node-scaffolds/commit/7dc72a5))
+
+
+
+
+
 ## 6.0.0-alpha.17 (2024-09-28)
 
 * :art:  improve: reuse @guanghechen/cli ([6c8e6a0](https://github.com/guanghechen/node-scaffolds/commit/6c8e6a0))

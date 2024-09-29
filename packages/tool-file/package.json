@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/tool-file",
-  "version": "6.0.0-alpha.30",
+  "version": "6.0.0-alpha.31",
   "description": "A cli tool to split / merge big file.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@6.0.0-alpha.30",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@6.0.0-alpha.31",
     "directory": "packages/tool-file"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@6.0.0-alpha.30/packages/tool-file#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@6.0.0-alpha.31/packages/tool-file#readme",
   "keywords": [],
   "type": "module",
   "exports": {
@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@guanghechen/chalk": "^1.0.2",
-    "@guanghechen/commander": "^1.0.2",
+    "@guanghechen/commander": "^1.0.3",
     "@guanghechen/file-split": "^1.0.2",
     "@guanghechen/filepart": "^1.0.2",
     "@guanghechen/fs": "^1.0.6",
@@ -53,6 +53,6 @@
     "@guanghechen/std": "^1.0.3"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config-cli": "^6.0.0-alpha.19"
+    "@guanghechen/rollup-config-cli": "^6.0.0-alpha.20"
   }
 }
