@@ -1,10 +1,10 @@
+import { commandExistsSync } from '@guanghechen/cli'
 import { safeExec } from '@guanghechen/exec'
 import type { IReporter } from '@guanghechen/reporter.types'
 import select from '@inquirer/select'
-import commandExists from 'command-exists'
 
 // Check if the git installed.
-export const hasGitInstalled = (): boolean => commandExists.sync('git')
+export const hasGitInstalled = (): boolean => commandExistsSync('git')
 
 export interface IInstallDependenciesParams {
   readonly cwd: string
@@ -17,13 +17,13 @@ export interface IInstallDependenciesParams {
  */
 export async function installDependencies(params: IInstallDependenciesParams): Promise<void> {
   const { cwd, plopBypass, reporter } = params
-  const hasYarnInstalled: boolean = commandExists.sync('yarn')
+  const hasYarnInstalled: boolean = commandExistsSync('yarn')
 
   /**
    * If neither yarn nor npm is installed, this operation will be skipped
    */
   if (!hasYarnInstalled) {
-    const hasNpmInstalled: boolean = commandExists.sync('npm')
+    const hasNpmInstalled: boolean = commandExistsSync('npm')
     if (!hasNpmInstalled) return
   }
 

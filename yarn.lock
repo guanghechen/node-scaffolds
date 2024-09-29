@@ -567,8 +567,6 @@ __metadata:
     "@guanghechen/exec": ^1.0.6
     "@guanghechen/reporter.types": ^1.0.4
     "@inquirer/select": ^3.0.1
-    "@types/js-yaml": ^4.0.9
-    command-exists: ^1.2.9
     commander: ^12.1.0
   languageName: unknown
   linkType: soft
@@ -2298,13 +2296,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/command-exists@npm:^1.2.3":
-  version: 1.2.3
-  resolution: "@types/command-exists@npm:1.2.3"
-  checksum: c90ed5f3c36d2ed5cb390d1a2e7263daabdeb18a2e20eb71bef83b0823980ee81ca773417b4d8a50fc61ede274b96d30f9b3ab836e1ecebfba5df27677cfc5fc
-  languageName: node
-  linkType: hard
-
 "@types/dir-glob@npm:^2.0.3":
   version: 2.0.3
   resolution: "@types/dir-glob@npm:2.0.3"
@@ -2379,13 +2370,6 @@ __metadata:
     expect: ^29.0.0
     pretty-format: ^29.0.0
   checksum: 875ac23c2398cdcf22aa56c6ba24560f11d2afda226d4fa23936322dde6202f9fdbd2b91602af51c27ecba223d9fc3c1e33c9df7e47b3bf0e2aefc6baf13ce53
-  languageName: node
-  linkType: hard
-
-"@types/js-yaml@npm:^4.0.9":
-  version: 4.0.9
-  resolution: "@types/js-yaml@npm:4.0.9"
-  checksum: e5e5e49b5789a29fdb1f7d204f82de11cb9e8f6cb24ab064c616da5d6e1b3ccfbf95aa5d1498a9fbd3b9e745564e69b4a20b6c530b5a8bbb2d4eb830cda9bc69
   languageName: node
   linkType: hard
 
@@ -3614,13 +3598,6 @@ __metadata:
   dependencies:
     delayed-stream: ~1.0.0
   checksum: 49fa4aeb4916567e33ea81d088f6584749fc90c7abec76fd516bf1c5aa5c79f3584b5ba3de6b86d26ddd64bae5329c4c7479343250cfe71c75bb366eae53bb7c
-  languageName: node
-  linkType: hard
-
-"command-exists@npm:^1.2.9":
-  version: 1.2.9
-  resolution: "command-exists@npm:1.2.9"
-  checksum: 729ae3d88a2058c93c58840f30341b7f82688a573019535d198b57a4d8cb0135ced0ad7f52b591e5b28a90feb2c675080ce916e56254a0f7c15cb2395277cac3
   languageName: node
   linkType: hard
 
@@ -9335,7 +9312,6 @@ __metadata:
     "@guanghechen/reporter": ^1.0.4
     "@guanghechen/resource": ^1.0.2
     "@rollup/plugin-replace": ^6.0.1
-    "@types/command-exists": ^1.2.3
     "@types/jest": 29.5.13
     "@types/node": ^20.16.10
     ci-info: ^4.0.0

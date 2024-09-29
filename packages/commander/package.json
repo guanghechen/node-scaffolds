@@ -45,10 +45,6 @@
     "@guanghechen/exec": "^1.0.6",
     "@guanghechen/reporter.types": "^1.0.4",
     "@inquirer/select": "^3.0.1",
-    "command-exists": "^1.2.9",
     "commander": "^12.1.0"
-  },
-  "devDependencies": {
-    "@types/js-yaml": "^4.0.9"
   }
 }
