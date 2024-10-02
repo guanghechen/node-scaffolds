@@ -93,6 +93,10 @@ export interface IOptions {
    */
   flatten?: boolean
   /**
+   * Whether if show warning message if no valid target.
+   */
+  silentIfNoValidTargets?: boolean
+  /**
    * Output copied items to console.
    * @default false
    */

@@ -1,6 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import { chalk } from '@guanghechen/chalk/node'
+import { ReporterLevelEnum } from '@guanghechen/reporter'
 import path from 'node:path'
 import type rollup from 'rollup'
 import type { ICopyTargetItem, IOptions } from './types'
@@ -17,7 +15,8 @@ export function copy(options: IOptions = {}): rollup.Plugin {
   const config = normalizeOptions(options)
   const { targets, copyOnce, hook, watchHook } = config
 
-  reporter.shouldBeVerbose = config.verbose
+  if (config.verbose) reporter.setLevel(ReporterLevelEnum.VERBOSE)
+
   let copied = false
   let copyTargets: ReadonlyArray<ICopyTargetItem> | undefined
 
@@ -27,10 +26,10 @@ export function copy(options: IOptions = {}): rollup.Plugin {
   async function fullCopy(): Promise<void> {
     if (copyTargets === undefined) copyTargets = await collectAndWatchingTargets(workspace, targets)
     if (copyTargets.length) {
-      reporter.verbose(chalk.green('copied:'))
+      reporter.verbose('copied:')
       for (const copyTarget of copyTargets) await copySingleItem(workspace, copyTarget)
     } else {
-      reporter.verbose(chalk.yellow('no items to copy'))
+      if (!config.silentIfNoValidTargets) reporter.warn('no items to copy')
     }
     copied = true
   }

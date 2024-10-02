@@ -16,6 +16,10 @@ export interface IConfig {
    */
   flatten: boolean
   /**
+   * Whether if show warning message if no valid target.
+   */
+  silentIfNoValidTargets: boolean
+  /**
    * Output copied items to console.
    */
   verbose: boolean
