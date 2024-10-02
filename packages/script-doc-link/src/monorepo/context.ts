@@ -2,6 +2,7 @@ import { isFileSync } from '@guanghechen/fs'
 import invariant from '@guanghechen/invariant'
 import type { IReporter } from '@guanghechen/reporter.types'
 import { isNonBlankString } from '@guanghechen/std'
+import { globby } from 'globby'
 import path from 'node:path'
 import type { ILernaJson, IPackageJson, ITopPackageJson } from '../types'
 import { escapeRegexSpecialChars, loadJson } from '../util'
@@ -85,7 +86,6 @@ export class MonorepoContext {
       `[${this.name}] Not found valid workspaces`,
     )
 
-    const { globby } = await import('globby')
     const packagePaths = (
       await globby(workspacesPattern, {
         onlyDirectories: true,

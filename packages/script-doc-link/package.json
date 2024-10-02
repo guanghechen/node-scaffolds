@@ -17,12 +17,10 @@
     ".": {
       "source": "./src/index.ts",
       "import": "./lib/esm/index.mjs",
-      "require": "./lib/cjs/index.cjs",
       "types": "./lib/types/index.d.ts"
     }
   },
   "source": "./src/index.ts",
-  "main": "./lib/cjs/index.cjs",
   "module": "./lib/esm/index.mjs",
   "types": "./lib/types/index.d.ts",
   "license": "MIT",
@@ -41,15 +39,12 @@
     "ghc-doc-link-rewrite": "./lib/esm/cli.mjs"
   },
   "dependencies": {
-    "@guanghechen/chalk": "^1.0.2",
-    "@guanghechen/fs": "^1.0.6",
-    "@guanghechen/invariant": "^6.0.3",
-    "@guanghechen/reporter": "^1.0.4",
-    "@guanghechen/std": "^1.0.3",
-    "globby": "^14.0.2",
-    "minimist": "^1.2.8"
-  },
-  "devDependencies": {
-    "@guanghechen/rollup-config-cli": "6.0.0-alpha.20"
+    "@guanghechen/chalk": "1.0.2",
+    "@guanghechen/fs": "1.0.6",
+    "@guanghechen/invariant": "6.0.3",
+    "@guanghechen/reporter": "1.0.4",
+    "@guanghechen/std": "1.0.3",
+    "globby": "13.2.2",
+    "minimist": "1.2.8"
   }
 }

@@ -559,7 +559,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/commander@^1.0.3, @guanghechen/commander@workspace:packages/commander":
+"@guanghechen/commander@1.0.3, @guanghechen/commander@workspace:packages/commander":
   version: 0.0.0-use.local
   resolution: "@guanghechen/commander@workspace:packages/commander"
   dependencies:
@@ -607,7 +607,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/file-split@npm:^1.0.2":
+"@guanghechen/file-split@npm:1.0.2":
   version: 1.0.2
   resolution: "@guanghechen/file-split@npm:1.0.2"
   dependencies:
@@ -625,7 +625,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/filepart@npm:^1.0.2":
+"@guanghechen/filepart@npm:1.0.2, @guanghechen/filepart@npm:^1.0.2":
   version: 1.0.2
   resolution: "@guanghechen/filepart@npm:1.0.2"
   dependencies:
@@ -663,7 +663,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/invariant@npm:^6.0.3":
+"@guanghechen/invariant@npm:6.0.3, @guanghechen/invariant@npm:^6.0.3":
   version: 6.0.3
   resolution: "@guanghechen/invariant@npm:6.0.3"
   checksum: 1795d8d3c718d68c49d4583ba88ff34e8dcf778629365f2205092ba12ceda8aea46c22e64f5411d46b9bca421834f1c74195108eb2afeafe72f57e5c58577e99
@@ -679,7 +679,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/mini-copy@^6.0.0-alpha.17, @guanghechen/mini-copy@workspace:packages/mini-copy":
+"@guanghechen/mini-copy@6.0.0-alpha.17, @guanghechen/mini-copy@workspace:packages/mini-copy":
   version: 0.0.0-use.local
   resolution: "@guanghechen/mini-copy@workspace:packages/mini-copy"
   dependencies:
@@ -753,7 +753,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/rollup-config-cli@6.0.0-alpha.20, @guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
+"@guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli"
   dependencies:
@@ -787,12 +787,13 @@ __metadata:
   resolution: "@guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy"
   dependencies:
     "@guanghechen/chalk": ^1.0.2
+    "@guanghechen/reporter": ^1.0.4
     "@guanghechen/std": ^1.0.3
     "@types/dir-glob": 2.0.3
     "@types/micromatch": 4.0.9
     chokidar: ^4.0.1
     dir-glob: ^3.0.1
-    globby: ^14.0.2
+    globby: ^13.2.2
     micromatch: ^4.0.8
   peerDependencies:
     rollup: ^2.0.0 || ^3.0.0 || ^4.0.0
@@ -803,20 +804,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/script-doc-link@workspace:packages/script-doc-link"
   dependencies:
-    "@guanghechen/chalk": ^1.0.2
-    "@guanghechen/fs": ^1.0.6
-    "@guanghechen/invariant": ^6.0.3
-    "@guanghechen/reporter": ^1.0.4
-    "@guanghechen/rollup-config-cli": 6.0.0-alpha.20
-    "@guanghechen/std": ^1.0.3
-    globby: ^14.0.2
-    minimist: ^1.2.8
+    "@guanghechen/chalk": 1.0.2
+    "@guanghechen/fs": 1.0.6
+    "@guanghechen/invariant": 6.0.3
+    "@guanghechen/reporter": 1.0.4
+    "@guanghechen/std": 1.0.3
+    globby: 13.2.2
+    minimist: 1.2.8
   bin:
     ghc-doc-link-rewrite: ./lib/esm/cli.mjs
   languageName: unknown
   linkType: soft
 
-"@guanghechen/std@npm:^1.0.3":
+"@guanghechen/std@npm:1.0.3, @guanghechen/std@npm:^1.0.3":
   version: 1.0.3
   resolution: "@guanghechen/std@npm:1.0.3"
   checksum: 8802359afcdd8ada618a3993a2262350d4ada5e242d2f3ea4ea542199f04f2b8fd217fb9cdfd937107331a62ddfe28a9da8e9084e64a12945a4c6cf64a368af1
@@ -836,16 +836,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/tool-file@workspace:packages/tool-file"
   dependencies:
-    "@guanghechen/chalk": ^1.0.2
-    "@guanghechen/commander": ^1.0.3
-    "@guanghechen/file-split": ^1.0.2
-    "@guanghechen/filepart": ^1.0.2
-    "@guanghechen/fs": ^1.0.6
-    "@guanghechen/invariant": ^6.0.3
-    "@guanghechen/path": ^1.0.2
-    "@guanghechen/reporter": ^1.0.4
-    "@guanghechen/rollup-config-cli": 6.0.0-alpha.20
-    "@guanghechen/std": ^1.0.3
+    "@guanghechen/chalk": 1.0.2
+    "@guanghechen/commander": 1.0.3
+    "@guanghechen/file-split": 1.0.2
+    "@guanghechen/filepart": 1.0.2
+    "@guanghechen/fs": 1.0.6
+    "@guanghechen/invariant": 6.0.3
+    "@guanghechen/path": 1.0.2
+    "@guanghechen/reporter": 1.0.4
+    "@guanghechen/std": 1.0.3
   bin:
     ghc-file: ./lib/esm/cli.mjs
   languageName: unknown
@@ -855,16 +854,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/tool-mini-copy@workspace:packages/tool-mini-copy"
   dependencies:
-    "@guanghechen/chalk": ^1.0.2
-    "@guanghechen/commander": ^1.0.3
-    "@guanghechen/fs": ^1.0.6
-    "@guanghechen/invariant": ^6.0.3
-    "@guanghechen/mini-copy": ^6.0.0-alpha.17
-    "@guanghechen/path": ^1.0.2
-    "@guanghechen/reporter": ^1.0.4
-    "@guanghechen/rollup-config-cli": 6.0.0-alpha.20
-    "@guanghechen/std": ^1.0.3
-    "@inquirer/confirm": ^4.0.1
+    "@guanghechen/chalk": 1.0.2
+    "@guanghechen/commander": 1.0.3
+    "@guanghechen/fs": 1.0.6
+    "@guanghechen/invariant": 6.0.3
+    "@guanghechen/mini-copy": 6.0.0-alpha.17
+    "@guanghechen/path": 1.0.2
+    "@guanghechen/reporter": 1.0.4
+    "@guanghechen/std": 1.0.3
+    "@inquirer/confirm": 4.0.1
   bin:
     mcp: ./lib/esm/cli.mjs
   languageName: unknown
@@ -891,7 +889,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/confirm@npm:^4.0.1":
+"@inquirer/confirm@npm:4.0.1":
   version: 4.0.1
   resolution: "@inquirer/confirm@npm:4.0.1"
   dependencies:
@@ -2153,13 +2151,6 @@ __metadata:
   version: 0.27.8
   resolution: "@sinclair/typebox@npm:0.27.8"
   checksum: 00bd7362a3439021aa1ea51b0e0d0a0e8ca1351a3d54c606b115fdcc49b51b16db6e5f43b4fe7a28c38688523e22a94d49dd31168868b655f0d4d50f032d07a1
-  languageName: node
-  linkType: hard
-
-"@sindresorhus/merge-streams@npm:^2.1.0":
-  version: 2.3.0
-  resolution: "@sindresorhus/merge-streams@npm:2.3.0"
-  checksum: e989d53dee68d7e49b4ac02ae49178d561c461144cea83f66fa91ff012d981ad0ad2340cbd13f2fdb57989197f5c987ca22a74eb56478626f04e79df84291159
   languageName: node
   linkType: hard
 
@@ -4835,7 +4826,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.2":
+"fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.0, fast-glob@npm:^3.3.2":
   version: 3.3.2
   resolution: "fast-glob@npm:3.3.2"
   dependencies:
@@ -5398,17 +5389,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:^14.0.2":
-  version: 14.0.2
-  resolution: "globby@npm:14.0.2"
+"globby@npm:13.2.2, globby@npm:^13.2.2":
+  version: 13.2.2
+  resolution: "globby@npm:13.2.2"
   dependencies:
-    "@sindresorhus/merge-streams": ^2.1.0
-    fast-glob: ^3.3.2
+    dir-glob: ^3.0.1
+    fast-glob: ^3.3.0
     ignore: ^5.2.4
-    path-type: ^5.0.0
-    slash: ^5.1.0
-    unicorn-magic: ^0.1.0
-  checksum: 2cee79efefca4383a825fc2fcbdb37e5706728f2d39d4b63851927c128fff62e6334ef7d4d467949d411409ad62767dc2d214e0f837a0f6d4b7290b6711d485c
+    merge2: ^1.4.1
+    slash: ^4.0.0
+  checksum: f3d84ced58a901b4fcc29c846983108c426631fe47e94872868b65565495f7bee7b3defd68923bd480582771fd4bbe819217803a164a618ad76f1d22f666f41e
   languageName: node
   linkType: hard
 
@@ -7622,7 +7612,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:^1.2.0, minimist@npm:^1.2.5, minimist@npm:^1.2.6, minimist@npm:^1.2.8":
+"minimist@npm:1.2.8, minimist@npm:^1.2.0, minimist@npm:^1.2.5, minimist@npm:^1.2.6":
   version: 1.2.8
   resolution: "minimist@npm:1.2.8"
   checksum: 75a6d645fb122dad29c06a7597bddea977258957ed88d7a6df59b5cd3fe4a527e253e9bbf2e783e4b73657f9098b96a5fe96ab8a113655d4109108577ecf85b0
@@ -8630,13 +8620,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-type@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "path-type@npm:5.0.0"
-  checksum: 15ec24050e8932c2c98d085b72cfa0d6b4eeb4cbde151a0a05726d8afae85784fc5544f733d8dfc68536587d5143d29c0bd793623fad03d7e61cc00067291cd5
-  languageName: node
-  linkType: hard
-
 "picocolors@npm:^1.0.0, picocolors@npm:^1.1.0":
   version: 1.1.0
   resolution: "picocolors@npm:1.1.0"
@@ -9567,10 +9550,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"slash@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "slash@npm:5.1.0"
-  checksum: 70434b34c50eb21b741d37d455110258c42d2cf18c01e6518aeb7299f3c6e626330c889c0c552b5ca2ef54a8f5a74213ab48895f0640717cacefeef6830a1ba4
+"slash@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "slash@npm:4.0.0"
+  checksum: da8e4af73712253acd21b7853b7e0dbba776b786e82b010a5bfc8b5051a1db38ed8aba8e1e8f400dd2c9f373be91eb1c42b66e91abb407ff42b10feece5e1d2d
   languageName: node
   linkType: hard
 
@@ -10451,13 +10434,6 @@ __metadata:
   version: 6.19.8
   resolution: "undici-types@npm:6.19.8"
   checksum: de51f1b447d22571cf155dfe14ff6d12c5bdaec237c765085b439c38ca8518fc360e88c70f99469162bf2e14188a7b0bcb06e1ed2dc031042b984b0bb9544017
-  languageName: node
-  linkType: hard
-
-"unicorn-magic@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "unicorn-magic@npm:0.1.0"
-  checksum: 48c5882ca3378f380318c0b4eb1d73b7e3c5b728859b060276e0a490051d4180966beeb48962d850fd0c6816543bcdfc28629dcd030bb62a286a2ae2acb5acb6
   languageName: node
   linkType: hard
 

@@ -1,5 +1,5 @@
-import type { IGlobalCommandOptions } from '.'
 import {
+  type IGlobalCommandOptions,
   PACKAGE_NAME,
   __defaultGlobalCommandOptions,
   createProgram,

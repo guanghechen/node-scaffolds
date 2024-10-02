@@ -42,17 +42,14 @@
     "mcp": "./lib/esm/cli.mjs"
   },
   "dependencies": {
-    "@guanghechen/chalk": "^1.0.2",
-    "@guanghechen/commander": "^1.0.3",
-    "@guanghechen/fs": "^1.0.6",
-    "@guanghechen/invariant": "^6.0.3",
-    "@guanghechen/mini-copy": "^6.0.0-alpha.17",
-    "@guanghechen/path": "^1.0.2",
-    "@guanghechen/reporter": "^1.0.4",
-    "@guanghechen/std": "^1.0.3",
-    "@inquirer/confirm": "^4.0.1"
-  },
-  "devDependencies": {
-    "@guanghechen/rollup-config-cli": "6.0.0-alpha.20"
+    "@guanghechen/chalk": "1.0.2",
+    "@guanghechen/commander": "1.0.3",
+    "@guanghechen/fs": "1.0.6",
+    "@guanghechen/invariant": "6.0.3",
+    "@guanghechen/mini-copy": "6.0.0-alpha.17",
+    "@guanghechen/path": "1.0.2",
+    "@guanghechen/reporter": "1.0.4",
+    "@guanghechen/std": "1.0.3",
+    "@inquirer/confirm": "4.0.1"
   }
 }
