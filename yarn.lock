@@ -753,20 +753,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli":
-  version: 0.0.0-use.local
-  resolution: "@guanghechen/rollup-config-cli@workspace:packages/rollup-config-cli"
-  dependencies:
-    "@guanghechen/invariant": ^6.0.3
-    "@guanghechen/rollup-config": ^6.0.0-alpha.8
-    "@guanghechen/rollup-plugin-copy": ^6.0.0-alpha.18
-  peerDependencies:
-    rollup: ^3.0.0 || ^4.0.0
-    typescript: ">=5.0.0"
-  languageName: unknown
-  linkType: soft
-
-"@guanghechen/rollup-config@^6.0.0-alpha.8, @guanghechen/rollup-config@workspace:packages/rollup-config":
+"@guanghechen/rollup-config@workspace:packages/rollup-config":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config@workspace:packages/rollup-config"
   dependencies:
@@ -782,7 +769,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/rollup-plugin-copy@^6.0.0-alpha.18, @guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy":
+"@guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy":
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy"
   dependencies:

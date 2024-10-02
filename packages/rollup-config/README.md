@@ -184,11 +184,9 @@ Extended from rollup.InputOptions.
 
 ## Related
 
-* [@guanghechen/rollup-config-cli][]
 * [@guanghechen/rollup-plugin-copy][]
 
 
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config@6.0.0-alpha.8/packages/rollup-config#readme
 [@guanghechen/rollup-config]: https://www.npmjs.com/package/@guanghechen/rollup-config
-[@guanghechen/rollup-config-cli]: https://www.npmjs.com/package/@guanghechen/rollup-config-cli
 [@guanghechen/rollup-plugin-copy]: https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy

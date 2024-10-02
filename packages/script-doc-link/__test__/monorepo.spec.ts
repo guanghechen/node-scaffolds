@@ -22,7 +22,6 @@ describe('context', () => {
         "packages/tool-file",
         "packages/script-doc-link",
         "packages/rollup-plugin-copy",
-        "packages/rollup-config-cli",
         "packages/rollup-config",
         "packages/postcss-modules-dts",
         "packages/mini-copy",

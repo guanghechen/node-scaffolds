@@ -48,14 +48,13 @@ Package                               | Description
 :------------------------------------:|:--------------------------
 [@guanghechen/commander][]            | A wrapper of commander.js with some utilities.
 [@guanghechen/eslint-config][]        | Preset eslint configs for node.js/javascript/react/typescript project.
-[@guanghechen/helper-file]            | Utilities for handling files, such as split big file or merge multiple small files.
+[@guanghechen/fs]                     | Utilities for handling files, such as split big file or merge multiple small files.
 [@guanghechen/helper-jest][]          | A collection of utility functions for jest tests.
 [@guanghechen/helper-npm][]           | Utilities for handling npm repo and `package.json`.
 [@guanghechen/jest-config][]          | Basic jest configs for typescript monorepo
 [@guanghechen/mini-copy][]            | Access system clipboard (also support to share clipboard in wsl with windows).
 [@guanghechen/postcss-modules-dts][]  | Generate `*.d.ts` files for style files (such as css, stylus and etc)
 [@guanghechen/rollup-config][]        | Rollup config for bundle typescript project.
-[@guanghechen/rollup-config-cli][]    | Rollup configs for bundle typescript cli project.
 [@guanghechen/rollup-plugin-copy][]   | Rollup plugins to copy files and folds (glob supported)
 [@guanghechen/tool-file][]            | A cli tool to split / merge big file.
 [@guanghechen/tool-mini-copy][]       | "A cli tool to copy / paste with system clipboard or customized fake clipboard (file).
@@ -69,14 +68,13 @@ node-scaffolds is [MIT licensed](https://github.com/guanghechen/node-scaffolds/t
 [homepage]: https://github.com/guanghechen/node-scaffolds/tree/release-6.x.x
 [@guanghechen/eslint-config]: ./packages/eslint-config
 [@guanghechen/commander]: ./packages/commander
-[@guanghechen/helper-file]: ./packages/helper-file
+[@guanghechen/fs]: ./packages/fs
 [@guanghechen/helper-jest]: ./packages/helper-jest
 [@guanghechen/helper-npm]: ./packages/helper-npm
 [@guanghechen/jest-config]: ./packages/jest-config
 [@guanghechen/mini-copy]: ./packages/mini-copy
 [@guanghechen/postcss-modules-dts]: ./packages/postcss-modules-dts
 [@guanghechen/rollup-config]: ./packages/rollup-config
-[@guanghechen/rollup-config-cli]: ./packages/rollup-config-cli
 [@guanghechen/rollup-plugin-copy]: ./packages/rollup-plugin-copy
 [@guanghechen/tool-file]: ./packages/tool-file
 [@guanghechen/tool-git-cipher]: ./packages/tool-git-cipher
