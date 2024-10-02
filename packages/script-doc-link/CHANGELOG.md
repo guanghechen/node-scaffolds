@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.24 (2024-10-02)
+
+* :arrow_up:  chore: upgrade dependencies ([a1c39fd](https://github.com/guanghechen/node-scaffolds/commit/a1c39fd))
+* :arrow_up:  chore: upgrade dependencies ([a0f49a3](https://github.com/guanghechen/node-scaffolds/commit/a0f49a3))
+* :fire:  improve: remove @guanghechen/rollup-config-cli as it not needed anymore ([0540ef7](https://github.com/guanghechen/node-scaffolds/commit/0540ef7))
+* :wrench:  chore: tool should bundle into a single file ([19e2788](https://github.com/guanghechen/node-scaffolds/commit/19e2788))
+
+
+
+
+
 ## 6.0.0-alpha.23 (2024-09-29)
 
 * :arrow_up:  chore: upgrade dependencies ([7dc72a5](https://github.com/guanghechen/node-scaffolds/commit/7dc72a5))

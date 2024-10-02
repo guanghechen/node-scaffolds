@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/eslint-config",
-  "version": "7.0.8",
+  "version": "7.0.9",
   "description": "Preset eslint configs for node.js/javascript/react/typescript project",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@7.0.8",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@7.0.9",
     "directory": "packages/eslint-config"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@7.0.8/packages/eslint-config#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/eslint-config@7.0.9/packages/eslint-config#readme",
   "keywords": [
     "eslint",
     "eslint config"

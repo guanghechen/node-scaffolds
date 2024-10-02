@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.0-alpha.19 (2024-10-02)
+
+* :arrow_up:  chore: upgrade dependencies ([a1c39fd](https://github.com/guanghechen/node-scaffolds/commit/a1c39fd))
+* :arrow_up:  chore: upgrade dependencies ([a0f49a3](https://github.com/guanghechen/node-scaffolds/commit/a0f49a3))
+* :art:  improve(rollup-plugin-copy): refactor & support silentIfNoValidTargets option ([b02801f](https://github.com/guanghechen/node-scaffolds/commit/b02801f))
+* :bug:  fix(rollup-plugin-copy): fix tests ([632e476](https://github.com/guanghechen/node-scaffolds/commit/632e476))
+* :fire:  improve: remove @guanghechen/rollup-config-cli as it not needed anymore ([0540ef7](https://github.com/guanghechen/node-scaffolds/commit/0540ef7))
+
+
+
+
+
 ## 6.0.0-alpha.18 (2024-09-29)
 
 * :arrow_up:  chore: upgrade dependencies ([7dc72a5](https://github.com/guanghechen/node-scaffolds/commit/7dc72a5))

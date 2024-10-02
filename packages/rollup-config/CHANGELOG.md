@@ -1,5 +1,21 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## 6.0.0-alpha.9 (2024-10-02)
+
+* :arrow_up:  chore: upgrade dependencies ([a0f49a3](https://github.com/guanghechen/node-scaffolds/commit/a0f49a3))
+* :art:  improve(rollup-config): support inlineDynamicImports option ([881beb5](https://github.com/guanghechen/node-scaffolds/commit/881beb5))
+* :fire:  improve: remove @guanghechen/rollup-config-cli as it not needed anymore ([0540ef7](https://github.com/guanghechen/node-scaffolds/commit/0540ef7))
+* :wrench:  chore: fix rollup config ([6586b1e](https://github.com/guanghechen/node-scaffolds/commit/6586b1e))
+
+
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
