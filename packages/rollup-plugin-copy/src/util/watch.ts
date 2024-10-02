@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { chalk } from '@guanghechen/chalk/node'
 import chokidar from 'chokidar'
 import type { FSWatcher } from 'chokidar'
 import type { IConfigTarget, ICopyTargetItem } from '../types'
@@ -32,7 +35,7 @@ export class CopyWatcher {
       const items: ICopyTargetItem[] = collectCopyTargets(workspace, srcPath, this.targets)
       if (items.length > 0) {
         if (!this.copying) {
-          reporter.verbose('copied:')
+          reporter.verbose(chalk.green('copied:'))
         }
 
         this.copying = true

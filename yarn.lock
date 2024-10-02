@@ -774,7 +774,6 @@ __metadata:
   resolution: "@guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy"
   dependencies:
     "@guanghechen/chalk": ^1.0.2
-    "@guanghechen/reporter": ^1.0.4
     "@guanghechen/std": ^1.0.3
     "@types/dir-glob": 2.0.3
     "@types/micromatch": 4.0.9

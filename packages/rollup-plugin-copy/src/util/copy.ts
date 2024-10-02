@@ -1,7 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { chalk } from '@guanghechen/chalk/node'
-import { ReporterLevelEnum } from '@guanghechen/reporter'
 import type { WriteFileOptions } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -45,7 +44,7 @@ export async function copySingleItem(workspace: string, item: ICopyTargetItem): 
     })
   }
 
-  if (target.verbose && reporter.level <= ReporterLevelEnum.VERBOSE) {
+  reporter.verbose(() => {
     const flags: string[] = []
     if (item.renamed) flags.push('R')
     if (item.target.transform) flags.push('T')
@@ -56,9 +55,8 @@ export async function copySingleItem(workspace: string, item: ICopyTargetItem): 
       )}`,
     )
     if (flags.length) message = `${message} ${chalk.yellow(`[${flags.join(', ')}]`)}`
-
-    reporter.verbose(message)
-  }
+    return message
+  }, target.verbose)
 
   await consume(workspace)
 }

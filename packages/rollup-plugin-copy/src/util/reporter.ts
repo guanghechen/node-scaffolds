@@ -1,17 +1,17 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import { chalk } from '@guanghechen/chalk/node'
-import { Reporter, ReporterLevelEnum } from '@guanghechen/reporter'
+export type ILoggerMessage = string | (() => string)
 
-export const reporter = new Reporter(
-  chalk,
-  {
-    baseName: 'rollup-plugin-copy',
-    level: ReporterLevelEnum.INFO,
-    flights: {
-      date: false,
-      colorful: true,
-    },
-  },
-  process.argv,
-)
+export class Logger {
+  public shouldBeVerbose: boolean
+
+  constructor(shouldBeVerbose: boolean) {
+    this.shouldBeVerbose = shouldBeVerbose
+  }
+
+  public verbose(message: ILoggerMessage, shouldBeVerbose = this.shouldBeVerbose): void {
+    if (!shouldBeVerbose) return
+    const details: string = typeof message === 'function' ? message() : message
+    console.log(details)
+  }
+}
+
+export const reporter = new Logger(false)
