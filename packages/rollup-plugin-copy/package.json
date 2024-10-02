@@ -44,10 +44,10 @@
     "@guanghechen/chalk": "^1.0.2",
     "@guanghechen/reporter": "^1.0.4",
     "@guanghechen/std": "^1.0.3",
-    "chokidar": "^4.0.1",
-    "dir-glob": "^3.0.1",
-    "globby": "^13.2.2",
-    "micromatch": "^4.0.8"
+    "chokidar": "4.0.1",
+    "dir-glob": "3.0.1",
+    "globby": "13.2.2",
+    "micromatch": "4.0.8"
   },
   "devDependencies": {
     "@types/dir-glob": "2.0.3",

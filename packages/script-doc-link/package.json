@@ -39,11 +39,11 @@
     "ghc-doc-link-rewrite": "./lib/esm/cli.mjs"
   },
   "dependencies": {
-    "@guanghechen/chalk": "1.0.2",
-    "@guanghechen/fs": "1.0.6",
-    "@guanghechen/invariant": "6.0.3",
-    "@guanghechen/reporter": "1.0.4",
-    "@guanghechen/std": "1.0.3",
+    "@guanghechen/chalk": "^1.0.2",
+    "@guanghechen/fs": "^1.0.6",
+    "@guanghechen/invariant": "^6.0.3",
+    "@guanghechen/reporter": "^1.0.4",
+    "@guanghechen/std": "^1.0.3",
     "globby": "13.2.2",
     "minimist": "1.2.8"
   }

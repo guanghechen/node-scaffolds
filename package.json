@@ -42,7 +42,6 @@
     "playground/*"
   ],
   "devDependencies": {
-    "@babel/core": "7.25.2",
     "@guanghechen/chalk": "1.0.2",
     "@guanghechen/fs": "1.0.6",
     "@guanghechen/path": "1.0.2",
@@ -65,7 +64,7 @@
     "pinst": "3.0.0",
     "prettier": "3.3.3",
     "rimraf": "6.0.1",
-    "rollup": "4.23.0",
+    "rollup": "4.24.0",
     "ts-jest": "29.2.5",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
