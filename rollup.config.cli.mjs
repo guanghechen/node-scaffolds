@@ -78,6 +78,7 @@ export default async function () {
         source: src,
         module: binPath,
       },
+      env: { sourcemap },
       presetConfigBuilders: [
         tsPresetConfigBuilder({
           typescriptOptions: {

@@ -65,6 +65,8 @@ export function tsPresetConfigBuilder(
         }),
         typescript({
           include: ['**/*.tsx', '**/*.ts'],
+          sourceMap: env.sourcemap,
+          declarationMap: false,
           ...typescriptOptions,
           compilerOptions: {
             // compilerOptions
