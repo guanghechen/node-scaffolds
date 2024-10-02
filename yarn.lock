@@ -496,7 +496,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.11.1, @eslint/js@npm:^9.11.1":
+"@eslint/js@npm:9.11.1":
   version: 9.11.1
   resolution: "@eslint/js@npm:9.11.1"
   checksum: 6fdd1958b25223588dd002a7497a395abb71dd1f25626ecd16ebcb8dd0fca7b74104a8172c192dfff131b49faa2b469be36a179b6ca096b6f55afb1f9b6fa952
@@ -539,7 +539,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/chalk@npm:1.0.2, @guanghechen/chalk@npm:^1.0.2":
+"@guanghechen/chalk@npm:^1.0.2":
   version: 1.0.2
   resolution: "@guanghechen/chalk@npm:1.0.2"
   dependencies:
@@ -566,8 +566,8 @@ __metadata:
     "@guanghechen/cli": ^1.0.3
     "@guanghechen/exec": ^1.0.6
     "@guanghechen/reporter.types": ^1.0.4
-    "@inquirer/select": ^3.0.1
-    commander: ^12.1.0
+    "@inquirer/select": 3.0.1
+    commander: 12.1.0
   languageName: unknown
   linkType: soft
 
@@ -575,7 +575,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/conventional-changelog@workspace:packages/conventional-changelog"
   dependencies:
-    gitmojis: ^3.14.0
+    gitmojis: 3.14.0
   languageName: unknown
   linkType: soft
 
@@ -583,16 +583,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/eslint-config@workspace:packages/eslint-config"
   dependencies:
-    "@eslint/js": ^9.11.1
-    "@stylistic/eslint-plugin-ts": ^2.8.0
+    "@eslint/js": 9.11.1
+    "@stylistic/eslint-plugin-ts": 2.8.0
     "@types/eslint__js": 8.42.3
     eslint-config-prettier: 9.1.0
-    eslint-plugin-import: ^2.30.0
-    eslint-plugin-jest: ^28.8.3
-    eslint-plugin-jsx-a11y: ^6.10.0
-    eslint-plugin-prettier: ^5.2.1
-    eslint-plugin-react: ^7.37.1
-    typescript-eslint: ^8.8.0
+    eslint-plugin-import: 2.30.0
+    eslint-plugin-jest: 28.8.3
+    eslint-plugin-jsx-a11y: 6.10.0
+    eslint-plugin-prettier: 5.2.1
+    eslint-plugin-react: 7.37.1
+    typescript-eslint: 8.8.0
   peerDependencies:
     eslint: ^9.0.0
     prettier: ">=2"
@@ -635,7 +635,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/fs@1.0.6, @guanghechen/fs@^1.0.6, @guanghechen/fs@workspace:packages/fs":
+"@guanghechen/fs@^1.0.6, @guanghechen/fs@workspace:packages/fs":
   version: 0.0.0-use.local
   resolution: "@guanghechen/fs@workspace:packages/fs"
   dependencies:
@@ -650,7 +650,8 @@ __metadata:
   dependencies:
     "@guanghechen/reporter.types": ^1.0.4
     "@guanghechen/std": ^1.0.3
-    "@jest/globals": ^29.7.0
+    "@jest/globals": 29.7.0
+  peerDependencies:
     jest: ^29.7.0
   languageName: unknown
   linkType: soft
@@ -659,7 +660,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-npm@workspace:packages/helper-npm"
   dependencies:
-    import-meta-resolve: ^4.1.0
+    import-meta-resolve: 4.1.0
   languageName: unknown
   linkType: soft
 
@@ -687,7 +688,7 @@ __metadata:
     "@guanghechen/fs": ^1.0.6
     "@guanghechen/invariant": ^6.0.3
     "@guanghechen/reporter.types": ^1.0.4
-    clipboardy: ^4.0.0
+    clipboardy: 4.0.0
   languageName: unknown
   linkType: soft
 
@@ -698,7 +699,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/path@npm:1.0.2, @guanghechen/path@npm:^1.0.2":
+"@guanghechen/path@npm:^1.0.2":
   version: 1.0.2
   resolution: "@guanghechen/path@npm:1.0.2"
   dependencies:
@@ -724,7 +725,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/reporter@npm:1.0.4, @guanghechen/reporter@npm:^1.0.4":
+"@guanghechen/reporter@npm:^1.0.4":
   version: 1.0.4
   resolution: "@guanghechen/reporter@npm:1.0.4"
   dependencies:
@@ -743,7 +744,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/resource@npm:1.0.2":
+"@guanghechen/resource@npm:^1.0.2":
   version: 1.0.2
   resolution: "@guanghechen/resource@npm:1.0.2"
   dependencies:
@@ -762,7 +763,7 @@ __metadata:
     "@rollup/plugin-json": 6.1.0
     "@rollup/plugin-node-resolve": 15.3.0
     "@rollup/plugin-typescript": 11.1.6
-    rollup-plugin-dts: ^6.1.1
+    rollup-plugin-dts: 6.1.1
   peerDependencies:
     rollup: ^3.0.0 || ^4.0.0
     typescript: ">=5.0.0"
@@ -912,7 +913,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/select@npm:^3.0.1":
+"@inquirer/select@npm:3.0.1":
   version: 3.0.1
   resolution: "@inquirer/select@npm:3.0.1"
   dependencies:
@@ -1075,7 +1076,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/globals@npm:^29.7.0":
+"@jest/globals@npm:29.7.0, @jest/globals@npm:^29.7.0":
   version: 29.7.0
   resolution: "@jest/globals@npm:29.7.0"
   dependencies:
@@ -2158,7 +2159,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stylistic/eslint-plugin-ts@npm:^2.8.0":
+"@stylistic/eslint-plugin-ts@npm:2.8.0":
   version: 2.8.0
   resolution: "@stylistic/eslint-plugin-ts@npm:2.8.0"
   dependencies:
@@ -3439,7 +3440,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clipboardy@npm:^4.0.0":
+"clipboardy@npm:4.0.0":
   version: 4.0.0
   resolution: "clipboardy@npm:4.0.0"
   dependencies:
@@ -3578,7 +3579,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:12.1.0, commander@npm:^12.1.0, commander@npm:~12.1.0":
+"commander@npm:12.1.0, commander@npm:~12.1.0":
   version: 12.1.0
   resolution: "commander@npm:12.1.0"
   checksum: 68e9818b00fc1ed9cdab9eb16905551c2b768a317ae69a5e3c43924c2b20ac9bb65b27e1cab36aeda7b6496376d4da908996ba2c0b5d79463e0fb1e77935d514
@@ -4439,7 +4440,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-import@npm:^2.30.0":
+"eslint-plugin-import@npm:2.30.0":
   version: 2.30.0
   resolution: "eslint-plugin-import@npm:2.30.0"
   dependencies:
@@ -4467,7 +4468,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:^28.8.3":
+"eslint-plugin-jest@npm:28.8.3":
   version: 28.8.3
   resolution: "eslint-plugin-jest@npm:28.8.3"
   dependencies:
@@ -4485,7 +4486,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsx-a11y@npm:^6.10.0":
+"eslint-plugin-jsx-a11y@npm:6.10.0":
   version: 6.10.0
   resolution: "eslint-plugin-jsx-a11y@npm:6.10.0"
   dependencies:
@@ -4511,7 +4512,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-prettier@npm:^5.2.1":
+"eslint-plugin-prettier@npm:5.2.1":
   version: 5.2.1
   resolution: "eslint-plugin-prettier@npm:5.2.1"
   dependencies:
@@ -4531,7 +4532,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:^7.37.1":
+"eslint-plugin-react@npm:7.37.1":
   version: 7.37.1
   resolution: "eslint-plugin-react@npm:7.37.1"
   dependencies:
@@ -5254,7 +5255,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gitmojis@npm:^3.14.0":
+"gitmojis@npm:3.14.0":
   version: 3.14.0
   resolution: "gitmojis@npm:3.14.0"
   checksum: b8979133601d946bc815b7e5ba03c65f592f2fbb935b1aa80efc0b81003752034c6ef3f1f223a413092cd151d3caf98f30cd7ae80f5459b51d216b95333aa625
@@ -5662,7 +5663,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-meta-resolve@npm:^4.1.0":
+"import-meta-resolve@npm:4.1.0":
   version: 4.1.0
   resolution: "import-meta-resolve@npm:4.1.0"
   checksum: 6497af27bf3ee384ad4efd4e0ec3facf9a114863f35a7b35f248659f32faa5e1ae07baa74d603069f35734ae3718a78b3f66926f98dc9a62e261e7df37854a62
@@ -6784,7 +6785,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:29.7.0, jest@npm:^29.7.0":
+"jest@npm:29.7.0":
   version: 29.7.0
   resolution: "jest@npm:29.7.0"
   dependencies:
@@ -9191,7 +9192,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup-plugin-dts@npm:^6.1.1":
+"rollup-plugin-dts@npm:6.1.1":
   version: 6.1.1
   resolution: "rollup-plugin-dts@npm:6.1.1"
   dependencies:
@@ -9274,11 +9275,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root@workspace:."
   dependencies:
-    "@guanghechen/chalk": 1.0.2
-    "@guanghechen/fs": 1.0.6
-    "@guanghechen/path": 1.0.2
-    "@guanghechen/reporter": 1.0.4
-    "@guanghechen/resource": 1.0.2
+    "@guanghechen/chalk": ^1.0.2
+    "@guanghechen/fs": ^1.0.6
+    "@guanghechen/path": ^1.0.2
+    "@guanghechen/reporter": ^1.0.4
+    "@guanghechen/resource": ^1.0.2
     "@rollup/plugin-replace": 6.0.1
     "@types/jest": 29.5.13
     "@types/node": 20.16.10
@@ -10360,7 +10361,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-eslint@npm:^8.8.0":
+"typescript-eslint@npm:8.8.0":
   version: 8.8.0
   resolution: "typescript-eslint@npm:8.8.0"
   dependencies:
