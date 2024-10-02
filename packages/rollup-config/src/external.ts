@@ -1,51 +1,51 @@
 import { DependencyCategory } from './types'
 import type { IEnv, IManifestWithDependencies } from './types'
 
-const builtinModules = [
-  'assert',
-  'async_hooks',
-  'buffer',
-  'child_process',
-  'cluster',
-  'console',
-  'constants',
-  'crypto',
-  'dgram',
-  'dns',
-  'domain',
-  'events',
-  'fs',
-  'http',
-  'http2',
-  'https',
-  'inspector',
-  'module',
-  'net',
-  'os',
-  'path',
-  'perf_hooks',
-  'process',
-  'punycode',
-  'querystring',
-  'readline',
-  'repl',
-  'stream',
-  'string_decoder',
-  'timers',
-  'tls',
-  'trace_events',
-  'tty',
-  'url',
-  'util',
-  'v8',
-  'vm',
-  'wasi',
-  'worker_threads',
-  'zlib',
-]
-
-const builtinExternals: ReadonlyArray<string> = builtinModules.concat(['glob', 'sync'])
-export const builtinExternalSet: ReadonlySet<string> = new Set<string>(builtinExternals)
+export const builtinExternalSet: ReadonlySet<string> = new Set<string>([
+  ...[
+    'assert',
+    'async_hooks',
+    'buffer',
+    'child_process',
+    'cluster',
+    'console',
+    'constants',
+    'crypto',
+    'dgram',
+    'dns',
+    'domain',
+    'events',
+    'fs',
+    'http',
+    'http2',
+    'https',
+    'inspector',
+    'module',
+    'net',
+    'os',
+    'path',
+    'perf_hooks',
+    'process',
+    'punycode',
+    'querystring',
+    'readline',
+    'repl',
+    'stream',
+    'string_decoder',
+    'timers',
+    'tls',
+    'trace_events',
+    'tty',
+    'url',
+    'util',
+    'v8',
+    'vm',
+    'wasi',
+    'worker_threads',
+    'zlib',
+  ],
+  ...['glob', 'sync'],
+])
 
 export async function resolveExternal(
   manifest: IManifestWithDependencies,
@@ -82,7 +82,7 @@ export async function resolveExternal(
     }
 
     if (builtinExternalSet.has(id)) return true
-    if (/^node:[\w\S]+$/.test(id)) return true
+    if (id.startsWith('node:')) return true
 
     const m = /^([.][\s\S]*|@[^/\s]+[/][^/\s]+|[^/\s]+)/.exec(id)
     if (m == null) return false

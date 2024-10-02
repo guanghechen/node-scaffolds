@@ -19,6 +19,7 @@ export const dtsConfigMiddleware: IConfigMiddleware = ctx => next => (entry, pre
           format: 'esm',
           exports: 'named',
           file: entry.types,
+          inlineDynamicImports: ctx.env.inlineDynamicImports,
         },
       },
     ])

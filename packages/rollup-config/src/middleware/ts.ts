@@ -23,6 +23,7 @@ export const tsConfigMiddleware: IConfigMiddleware = ctx => next => (entry, prev
           exports: 'named',
           file: entry.import,
           sourcemap: ctx.env.sourcemap,
+          inlineDynamicImports: ctx.env.inlineDynamicImports,
         },
       })
     }
@@ -37,6 +38,7 @@ export const tsConfigMiddleware: IConfigMiddleware = ctx => next => (entry, prev
           interop: 'auto',
           file: entry.require,
           sourcemap: ctx.env.sourcemap,
+          inlineDynamicImports: ctx.env.inlineDynamicImports,
         },
       })
     }

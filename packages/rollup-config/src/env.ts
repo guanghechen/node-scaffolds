@@ -11,6 +11,11 @@ export interface IRawRollupConfigEnv {
    * @default true
    */
   external?: boolean
+  /**
+   * Inline dynamic imports instead of creating new chunks to create a single bundle.
+   * @see https://rollupjs.org/configuration-options/#output-inlinedynamicimports
+   */
+  inlineDynamicImports?: boolean
 }
 
 export function resolveRollupConfigEnv(rawEnv: IRawRollupConfigEnv): IEnv {
@@ -23,6 +28,7 @@ export function resolveRollupConfigEnv(rawEnv: IRawRollupConfigEnv): IEnv {
   const env: IEnv = {
     sourcemap: forceSourceMap ?? rawEnv.sourcemap ?? true,
     externalAll: forceExternalAll ?? rawEnv.external ?? true,
+    inlineDynamicImports: rawEnv.inlineDynamicImports ?? false,
   }
   return env
 }
