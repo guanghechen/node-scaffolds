@@ -53,6 +53,6 @@
     "@inquirer/confirm": "^4.0.1"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config-cli": "^6.0.0-alpha.20"
+    "@guanghechen/rollup-config-cli": "6.0.0-alpha.20"
   }
 }

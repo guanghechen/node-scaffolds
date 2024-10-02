@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import copy from '@guanghechen/rollup-plugin-copy'
 
 export default async function rollupConfig() {

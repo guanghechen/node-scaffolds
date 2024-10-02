@@ -13,7 +13,12 @@ export default [
   },
   ...ghcConfigs,
   {
-    files: ['eslint.config.js'],
+    files: [
+      'eslint.config.js',
+      'jest.config.mjs',
+      'jest.helper.mts',
+      'playground/**/*.{js,mjs,ts,mts}',
+    ],
     rules: {
       'import/no-extraneous-dependencies': 'off',
     },

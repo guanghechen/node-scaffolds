@@ -53,6 +53,6 @@
     "@guanghechen/std": "^1.0.3"
   },
   "devDependencies": {
-    "@guanghechen/rollup-config-cli": "^6.0.0-alpha.20"
+    "@guanghechen/rollup-config-cli": "6.0.0-alpha.20"
   }
 }

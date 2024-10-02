@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import type { IDesensitizer, IStringDesensitizer } from '@guanghechen/helper-jest'
 import {
   composeStringDesensitizers,
