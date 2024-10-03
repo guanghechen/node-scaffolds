@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/helper-jest",
-  "version": "6.0.0-alpha.11",
+  "version": "6.0.0",
   "description": "A collection of utility functions for jest tests",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-jest@6.0.0-alpha.11",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-jest@6.0.0",
     "directory": "packages/helper-jest"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-jest@6.0.0-alpha.11/packages/helper-jest#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/helper-jest@6.0.0/packages/helper-jest#readme",
   "keywords": [],
   "type": "module",
   "exports": {

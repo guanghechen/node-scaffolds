@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/tool-mini-copy",
-  "version": "6.0.0-alpha.30",
+  "version": "6.0.0",
   "description": "A cli tool to copy / paste with system clipboard or customized fake clipboard (file).",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@6.0.0-alpha.30",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@6.0.0",
     "directory": "packages/tool-mini-copy"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@6.0.0-alpha.30/packages/tool-mini-copy#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-mini-copy@6.0.0/packages/tool-mini-copy#readme",
   "keywords": [],
   "type": "module",
   "exports": {
@@ -46,7 +46,7 @@
     "@guanghechen/commander": "^1.0.4",
     "@guanghechen/fs": "^1.0.7",
     "@guanghechen/invariant": "^6.0.3",
-    "@guanghechen/mini-copy": "^6.0.0-alpha.18",
+    "@guanghechen/mini-copy": "^6.0.0",
     "@guanghechen/path": "^1.0.2",
     "@guanghechen/reporter": "^1.0.4",
     "@guanghechen/std": "^1.0.3",

@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/rollup-config",
-  "version": "6.0.0-alpha.10",
+  "version": "6.0.0",
   "description": "Rollup configs for bundle typescript project",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config@6.0.0-alpha.10",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config@6.0.0",
     "directory": "packages/rollup-config"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config@6.0.0-alpha.10/packages/rollup-config#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-config@6.0.0/packages/rollup-config#readme",
   "keywords": [
     "rollup",
     "typescript"
@@ -43,7 +43,7 @@
     "typescript": ">=5.0.0"
   },
   "dependencies": {
-    "@guanghechen/helper-npm": "^6.0.0-alpha.5",
+    "@guanghechen/helper-npm": "^6.0.0",
     "@rollup/plugin-commonjs": "28.0.0",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "15.3.0",

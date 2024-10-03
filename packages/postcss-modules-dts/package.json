@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/postcss-modules-dts",
-  "version": "6.0.0-alpha.9",
+  "version": "6.0.0",
   "description": "Generate `*.d.ts` files for style files (such as css, stylus and etc)",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/postcss-modules-dts@6.0.0-alpha.9",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/postcss-modules-dts@6.0.0",
     "directory": "packages/postcss-modules-dts"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/postcss-modules-dts@6.0.0-alpha.9/packages/postcss-modules-dts#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/postcss-modules-dts@6.0.0/packages/postcss-modules-dts#readme",
   "keywords": [
     "postcss",
     "typescript",
