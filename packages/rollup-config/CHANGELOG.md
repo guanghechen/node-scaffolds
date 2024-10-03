@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>6.0.1 (2024-10-03)</small>
+
+* :wrench:  chore: bump versions ([5d080d1](https://github.com/guanghechen/node-scaffolds/commit/5d080d1))
+* :wrench:  chore: fix npm scripts ([4d07de2](https://github.com/guanghechen/node-scaffolds/commit/4d07de2))
+
+
+
+
+
 ## 6.0.0-alpha.10 (2024-10-03)
 
 * :arrow_up:  chore: upgrade dependencies ([e41de75](https://github.com/guanghechen/node-scaffolds/commit/e41de75))
