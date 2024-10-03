@@ -12,7 +12,6 @@
     "noEmitOnError": true,
     "resolveJsonModule": true,
     "rootDir": "src",
-    "sourceMap": false,
     "strict": true,
   },
   "include": ["src"]

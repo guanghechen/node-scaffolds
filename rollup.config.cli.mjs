@@ -6,9 +6,9 @@ import {
   modify,
   tsPresetConfigBuilder,
 } from '@guanghechen/rollup-config'
-import copy from '@guanghechen/rollup-plugin-copy'
+// import copy from '@guanghechen/rollup-plugin-copy'
 import replace from '@rollup/plugin-replace'
-import path from 'node:path'
+import fs from 'node:fs/promises'
 
 const externals = new Set([
   ...builtinExternalSet,
@@ -26,15 +26,7 @@ const externals = new Set([
 ])
 
 export default async function () {
-  const sourcemapFromCLI = process.argv
-    .filter(arg => arg.startsWith('--sourcemap='))
-    .map(arg => arg.split('=')[1])
-  const sourcemap = sourcemapFromCLI.length > 0 ? sourcemapFromCLI[0] === 'true' : false
-
-  const { default: manifest } = await import(path.resolve('package.json'), {
-    assert: { type: 'json' },
-  })
-
+  const manifest = JSON.parse(await fs.readFile('package.json', 'utf8'))
   const configs = [
     await createRollupConfig({
       manifest: {
@@ -43,24 +35,24 @@ export default async function () {
         module: manifest.module,
         types: manifest.types,
       },
-      env: { sourcemap, inlineDynamicImports: true },
+      env: { inlineDynamicImports: true },
       presetConfigBuilders: [
         tsPresetConfigBuilder({
           typescriptOptions: {
             tsconfig: 'tsconfig.lib.json',
           },
           additionalPlugins: [
-            copy({
-              copyOnce: true,
-              silentIfNoValidTargets: true,
-              verbose: true,
-              targets: [
-                {
-                  src: 'src/boilerplates/',
-                  dest: 'lib/',
-                },
-              ],
-            }),
+            // copy({
+            //   copyOnce: true,
+            //   silentIfNoValidTargets: true,
+            //   verbose: true,
+            //   targets: [
+            //     {
+            //       src: 'src/boilerplates/',
+            //       dest: 'lib/',
+            //     },
+            //   ],
+            // }),
           ],
         }),
       ],
@@ -78,7 +70,6 @@ export default async function () {
         source: src,
         module: binPath,
       },
-      env: { sourcemap },
       presetConfigBuilders: [
         tsPresetConfigBuilder({
           typescriptOptions: {

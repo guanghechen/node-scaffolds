@@ -19,14 +19,17 @@
       "options": {
         "cwd": "packages/script-doc-link",
         "parallel": false,
-        "sourcemap": true,
-        "commands": ["rollup -c ../../rollup.config.cli.mjs"]
+        "commands": ["rollup -c ../../rollup.config.cli.mjs"],
+        "env": {
+          "NODE_ENV": "production",
+          "ROLLUP_SHOULD_SOURCEMAP": "true"
+        }
       },
       "configurations": {
         "production": {
-          "sourcemap": false,
           "env": {
-            "NODE_ENV": "production"
+            "NODE_ENV": "production",
+            "ROLLUP_SHOULD_SOURCEMAP": "false"
           }
         }
       }
@@ -36,10 +39,10 @@
       "options": {
         "cwd": "packages/script-doc-link",
         "parallel": false,
-        "sourcemap": true,
         "commands": ["rollup -c ../../rollup.config.cli.mjs -w"],
         "env": {
-          "NODE_ENV": "development"
+          "NODE_ENV": "development",
+          "ROLLUP_SHOULD_SOURCEMAP": "true"
         }
       }
     },
