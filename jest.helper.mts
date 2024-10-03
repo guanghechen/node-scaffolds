@@ -20,7 +20,6 @@ export {
   rm,
   writeFile,
 } from '@guanghechen/fs'
-export { isCI } from 'ci-info'
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 export const workspaceRootDir = __dirname
