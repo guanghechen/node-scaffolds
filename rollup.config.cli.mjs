@@ -11,8 +11,10 @@ import fs from 'node:fs/promises'
 
 const externals = new Set([
   ...builtinExternalSet,
+  '@guanghechen/cli',
   '@guanghechen/chalk',
   '@guanghechen/chalk/node',
+  '@guanghechen/exec',
   '@guanghechen/fs',
   '@guanghechen/file-split',
   '@guanghechen/filepart',
