@@ -2,37 +2,32 @@ import fs from 'node:fs'
 import path from 'node:path'
 import url from 'node:url'
 
-const __dirname: string = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '..')
+const WORKSPACE_ROOT = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '..')
+const workspaceNames = ['packages']
 
-const workspaceNames: string[] = ['packages']
 for (const workspaceName of workspaceNames) {
-  const packagesDir: string = path.resolve(__dirname, workspaceName)
+  const packagesDir = path.resolve(WORKSPACE_ROOT, workspaceName)
   if (!fs.existsSync(packagesDir) || !fs.statSync(packagesDir).isDirectory()) continue
 
-  const packageNames: string[] = fs.readdirSync(packagesDir)
+  const packageNames = fs.readdirSync(packagesDir)
   for (const packageName of packageNames) {
-    const projectPath: string = path.resolve(packagesDir, packageName, 'project.json')
+    const projectPath = path.resolve(packagesDir, packageName, 'project.json')
     if (fs.existsSync(projectPath) && !fs.statSync(projectPath).isFile()) continue
 
-    const testsPath: string = path.resolve(packagesDir, packageName, '__test__')
-    const hasTests: boolean = fs.existsSync(testsPath) && fs.statSync(testsPath).isDirectory()
+    const testsPath = path.resolve(packagesDir, packageName, '__test__')
+    const hasTests = fs.existsSync(testsPath) && fs.statSync(testsPath).isDirectory()
 
-    const isTool: boolean = /^tool-|-tool$/.test(packageName)
-    const content: string = genProjectJSON({ workspaceName, packageName, hasTests, isTool })
+    const isTool = /^tool-|-tool$/.test(packageName)
+    const content = genProjectJSON({ workspaceName, packageName, hasTests, isTool })
     fs.writeFileSync(projectPath, content, 'utf8')
   }
 }
 
-function genProjectJSON(data: {
-  workspaceName: string
-  packageName: string
-  hasTests: boolean
-  isTool: boolean
-}): string {
+function genProjectJSON(data) {
   const { workspaceName, packageName, hasTests, isTool } = data
-  const rollupConfigFilename: string = isTool ? 'rollup.config.cli.mjs' : 'rollup.config.mjs'
-  const cwd: string = `${workspaceName}/${packageName}`
-  const sourceRoot: string = `${cwd}/src`
+  const rollupConfigFilename = isTool ? 'rollup.config.cli.mjs' : 'rollup.config.mjs'
+  const cwd = `${workspaceName}/${packageName}`
+  const sourceRoot = `${cwd}/src`
 
   const json = {
     $schema: '../../node_modules/nx/schemas/project-schema.json',
