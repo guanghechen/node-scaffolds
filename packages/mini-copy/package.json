@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/mini-copy",
-  "version": "6.0.0-alpha.17",
+  "version": "6.0.0-alpha.18",
   "description": "Access system clipboard (also support to share clipboard in wsl with windows).",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/mini-copy@6.0.0-alpha.17",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/mini-copy@6.0.0-alpha.18",
     "directory": "packages/mini-copy"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/mini-copy@6.0.0-alpha.17/packages/mini-copy#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/mini-copy@6.0.0-alpha.18/packages/mini-copy#readme",
   "keywords": [
     "clipboard",
     "wsl"
@@ -42,8 +42,8 @@
     "README.md"
   ],
   "dependencies": {
-    "@guanghechen/exec": "^1.0.6",
-    "@guanghechen/fs": "^1.0.6",
+    "@guanghechen/exec": "^1.0.7",
+    "@guanghechen/fs": "^1.0.7",
     "@guanghechen/invariant": "^6.0.3",
     "@guanghechen/reporter.types": "^1.0.4",
     "clipboardy": "4.0.0"

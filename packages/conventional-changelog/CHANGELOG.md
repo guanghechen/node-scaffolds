@@ -1,5 +1,19 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## 6.0.0-alpha.4 (2024-10-03)
+
+* :arrow_up:  chore: upgrade dependencies ([e41de75](https://github.com/guanghechen/node-scaffolds/commit/e41de75))
+* :wrench:  chore: don't gen sourcemap in production env ([f7075d1](https://github.com/guanghechen/node-scaffolds/commit/f7075d1))
+
+
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

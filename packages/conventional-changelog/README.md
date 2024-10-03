@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/conventional-changelog@6.0.0-alpha.3/packages/conventional-changelog#readme">@guanghechen/conventional-changelog</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/conventional-changelog@6.0.0-alpha.4/packages/conventional-changelog#readme">@guanghechen/conventional-changelog</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/conventional-changelog">
@@ -89,6 +89,6 @@ Eslint config for jsx.
 * [conventional-changelog][]
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/conventional-changelog@6.0.0-alpha.3/packages/conventional-changelog#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/conventional-changelog@6.0.0-alpha.4/packages/conventional-changelog#readme
 [@guanghechen/conventional-changelog]: https://www.npmjs.com/package/@guanghechen/conventional-changelog
 [conventional-changelog]: https://github.com/conventional-changelog/conventional-changelog
