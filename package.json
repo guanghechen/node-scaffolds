@@ -35,7 +35,7 @@
     "test": "nx run-many --target=test --all=true --maxParallel=1",
     "test:coverage": "nx run-many --target=test --configuration=coverage --all=true --maxParallel=1",
     "test:update": "nx run-many --target=test --configuration=update --all=true --maxParallel=1",
-    "run:ts": "node --experimental-specifier-resolution=node --loader ./loader.js",
+    "run:ts": "node --experimental-specifier-resolution=node --loader ts-node/esm -r tsconfig-paths/register",
     "version": "yarn && yarn build:tool && yarn run:ts packages/script-doc-link/src/cli.ts && git stage -u yarn.lock packages/**/package.json packages/**/*.md"
   },
   "workspaces": [

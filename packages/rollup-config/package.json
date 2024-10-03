@@ -36,7 +36,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "../../node_modules/.bin/rimraf lib/ && ../../node_modules/.bin/cross-env NODE_ENV=production node --experimental-specifier-resolution=node --loader ts-node/esm -r tsconfig-paths/register script/build.ts"
+    "build": "../../node_modules/.bin/rimraf lib/ && ../../node_modules/.bin/cross-env ROLLUP_SHOULD_SOURCEMAP=false NODE_ENV=production node --experimental-specifier-resolution=node --loader ts-node/esm -r tsconfig-paths/register script/build.ts"
   },
   "peerDependencies": {
     "rollup": "^3.0.0 || ^4.0.0",
