@@ -525,26 +525,26 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/byte@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@guanghechen/byte@npm:1.0.2"
-  checksum: d317ce0605d972ea84b904c3ebc786b02c1ad90057c511b4866b94a9f15f7939eb32a896b2b8aea29620a419a504a155ba099a545ee2ab73a4ba76ae088db180
+"@guanghechen/byte@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@guanghechen/byte@npm:1.0.3"
+  checksum: d64f6e22f95bd02f38d5e9492b03bec32a9a155d1e36032ced688021f583b8dd49bdc5ba2a9d7eddb1bb289ddf5e10c8d98c90cd5db9f6c69675474ac54ddb70
   languageName: node
   linkType: hard
 
-"@guanghechen/chalk.types@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@guanghechen/chalk.types@npm:1.0.2"
-  checksum: 139189dc24190070b98642ed18129222cb2b7c01f06db7d3f5b05608af66555234895b6b4b28a9180532b1b202e0c90f5741dab9ef173d8dd84d0ea6d1d2e0db
+"@guanghechen/chalk.types@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@guanghechen/chalk.types@npm:1.0.3"
+  checksum: 4d3554b3d013f220ab0c8d94385e14950de4886dfba873ad0524175c7bd7c758c841f78689e439f375f55949089715037ff934008e927ab33d7cc6c946050b35
   languageName: node
   linkType: hard
 
-"@guanghechen/chalk@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@guanghechen/chalk@npm:1.0.2"
+"@guanghechen/chalk@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@guanghechen/chalk@npm:1.0.3"
   dependencies:
-    "@guanghechen/chalk.types": ^1.0.2
-  checksum: 1c800619327a2e40af144d33a732c555b91bdda3c00eb6ea7945557c388e3797efd701981cee49f5d385cdc2d1fac41205f389d4de9c3d59f359566ee498cecb
+    "@guanghechen/chalk.types": ^1.0.3
+  checksum: b446a03b39c83972114d114088d5d6711f0c9fc5cdcf54089b78951aa4c4662e3970d791e43e5e0fe6f8c315e5042342788add2272891a32da4cdf889c054ec3
   languageName: node
   linkType: hard
 
@@ -552,10 +552,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/cli@workspace:packages/cli"
   dependencies:
-    "@guanghechen/invariant": ^6.0.3
-    "@guanghechen/path": ^1.0.2
-    "@guanghechen/reporter.types": ^1.0.4
-    "@guanghechen/std": ^1.0.3
+    "@guanghechen/invariant": ^6.0.4
+    "@guanghechen/path": ^1.0.3
+    "@guanghechen/reporter.types": ^1.0.5
+    "@guanghechen/std": ^1.0.4
   languageName: unknown
   linkType: soft
 
@@ -565,7 +565,7 @@ __metadata:
   dependencies:
     "@guanghechen/cli": ^1.0.4
     "@guanghechen/exec": ^1.0.7
-    "@guanghechen/reporter.types": ^1.0.4
+    "@guanghechen/reporter.types": ^1.0.5
     "@inquirer/select": 3.0.1
     commander: 12.1.0
   languageName: unknown
@@ -603,35 +603,35 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/exec@workspace:packages/exec"
   dependencies:
-    "@guanghechen/reporter.types": ^1.0.4
+    "@guanghechen/reporter.types": ^1.0.5
   languageName: unknown
   linkType: soft
 
-"@guanghechen/file-split@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@guanghechen/file-split@npm:1.0.2"
+"@guanghechen/file-split@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@guanghechen/file-split@npm:1.0.3"
   dependencies:
-    "@guanghechen/filepart": ^1.0.2
-    "@guanghechen/invariant": ^6.0.3
-    "@guanghechen/stream": ^1.0.2
-  checksum: 57e9daa3661c561a455ae659c8e575cdc05e49dfe944554bd1060f49fc80d238732210eab806f94558ec0e75f347a331d46b6ea11d2f76db52342d5648213303
+    "@guanghechen/filepart": ^1.0.3
+    "@guanghechen/invariant": ^6.0.4
+    "@guanghechen/stream": ^1.0.3
+  checksum: 6b61d9a0c37206224281cf91d6915820255ed57e95dab4d2db3a57cb093e22541754cc685d8db44d8076a6809f4f315dd45affb7539852f0e8428c4f1588b8a2
   languageName: node
   linkType: hard
 
-"@guanghechen/filepart.types@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@guanghechen/filepart.types@npm:1.0.2"
-  checksum: 419f0d1ab307a2c6f0e99b739137a82452ef307613327660aa2b797251f30cd2d15c80a5e1510bfd6dc58d2a88c52f867f27f3728b1e4d39fd6863757055b086
+"@guanghechen/filepart.types@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@guanghechen/filepart.types@npm:1.0.3"
+  checksum: 2520f74a210b0b086c14e82192a2f5ffcf4c1165a6374a8b5a1e3020c0807f497aac2374ae1c52b92ca64f900c563465e40ca544871ec819e53f19550c7a22c5
   languageName: node
   linkType: hard
 
-"@guanghechen/filepart@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@guanghechen/filepart@npm:1.0.2"
+"@guanghechen/filepart@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@guanghechen/filepart@npm:1.0.3"
   dependencies:
-    "@guanghechen/filepart.types": ^1.0.2
-    "@guanghechen/invariant": ^6.0.3
-  checksum: ee9840dad23ebf730cb2a11a498360acd91e798d7afa2e2ed5831b5ee9727aac5959fd255d61695cb68ea6aee14112dfe512ff2a16abe911b9cd24006600ab0a
+    "@guanghechen/filepart.types": ^1.0.3
+    "@guanghechen/invariant": ^6.0.4
+  checksum: fdb07ab632c8537cd7a98a4c04f3ec7dba4e6cd5c72318dd160ed993e1102a8ee97241623f2ab932f55726dbed1280d46fa6648c987a899b2b4fff50b1ee612e
   languageName: node
   linkType: hard
 
@@ -639,8 +639,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/fs@workspace:packages/fs"
   dependencies:
-    "@guanghechen/invariant": ^6.0.3
-    "@guanghechen/reporter.types": ^1.0.4
+    "@guanghechen/invariant": ^6.0.4
+    "@guanghechen/reporter.types": ^1.0.5
   languageName: unknown
   linkType: soft
 
@@ -648,8 +648,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-jest@workspace:packages/helper-jest"
   dependencies:
-    "@guanghechen/reporter.types": ^1.0.4
-    "@guanghechen/std": ^1.0.3
+    "@guanghechen/reporter.types": ^1.0.5
+    "@guanghechen/std": ^1.0.4
     "@jest/globals": 29.7.0
   peerDependencies:
     jest: ^29.7.0
@@ -664,10 +664,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/invariant@npm:^6.0.3":
-  version: 6.0.3
-  resolution: "@guanghechen/invariant@npm:6.0.3"
-  checksum: 1795d8d3c718d68c49d4583ba88ff34e8dcf778629365f2205092ba12ceda8aea46c22e64f5411d46b9bca421834f1c74195108eb2afeafe72f57e5c58577e99
+"@guanghechen/invariant@npm:^6.0.4":
+  version: 6.0.4
+  resolution: "@guanghechen/invariant@npm:6.0.4"
+  checksum: 2ffb7b169fbd432351b258666716b27c91ae00c9a11f70d3d6fbd1b3c5eebdc8e992854c229513984b2e39b37933f0674cf027693ea2e3435aaa3904b3da4e6a
   languageName: node
   linkType: hard
 
@@ -675,7 +675,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/jest-config@workspace:packages/jest-config"
   dependencies:
-    json5: ^2.2.3
+    json5: 2.2.3
     prettier-2: "npm:prettier@^2"
   languageName: unknown
   linkType: soft
@@ -686,25 +686,25 @@ __metadata:
   dependencies:
     "@guanghechen/exec": ^1.0.7
     "@guanghechen/fs": ^1.0.7
-    "@guanghechen/invariant": ^6.0.3
-    "@guanghechen/reporter.types": ^1.0.4
+    "@guanghechen/invariant": ^6.0.4
+    "@guanghechen/reporter.types": ^1.0.5
     clipboardy: 4.0.0
   languageName: unknown
   linkType: soft
 
-"@guanghechen/path.types@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@guanghechen/path.types@npm:1.0.2"
-  checksum: 45a1d857507160656b0132d3131965e052ce044f5866ad49c4fe50aa86f29c42303b2ae3be0064436d7b93e7c234623955926ff57f7390f3fe07757189346d75
+"@guanghechen/path.types@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@guanghechen/path.types@npm:1.0.3"
+  checksum: 54cb323f46ba77411cb0f8b98234ae5c73406ef32207e8c2249ad29b30fb70498f8a23af2da55759fcece615fc7c60e46403277e20c41fe10816d9280857e9a8
   languageName: node
   linkType: hard
 
-"@guanghechen/path@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@guanghechen/path@npm:1.0.2"
+"@guanghechen/path@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@guanghechen/path@npm:1.0.3"
   dependencies:
-    "@guanghechen/path.types": ^1.0.2
-  checksum: f4690785d6431a17c6043f3df1634bc81bf7f2a4b29ed07fc50e67db8910c66cf6c67860f9fcd48d01dcb4b2f73aeaf01f1a68fad8f5fb7939262e7baa01daab
+    "@guanghechen/path.types": ^1.0.3
+  checksum: 18c861ca5aa597ba24604a872951838e941405bc733fd87d883d274de29e57fb88d9b94c0fa0a56060eac6007af77760eff5f94f3b8d1837c35c574f05098aca
   languageName: node
   linkType: hard
 
@@ -712,45 +712,45 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/postcss-modules-dts@workspace:packages/postcss-modules-dts"
   dependencies:
-    "@guanghechen/std": ^1.0.3
+    "@guanghechen/std": ^1.0.4
     "@types/reserved-words": 0.1.4
     reserved-words: 0.1.2
   languageName: unknown
   linkType: soft
 
-"@guanghechen/reporter.types@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "@guanghechen/reporter.types@npm:1.0.4"
-  checksum: ead1279e9e6fc9945c3cc6906cb5dab833e6a18306c229b7c4d593338eb83eb012e614b2cf3188f2b489d028f0a4ebcfd9a6477eaabb979acf63553eb83d95bd
+"@guanghechen/reporter.types@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@guanghechen/reporter.types@npm:1.0.5"
+  checksum: 06671c238c9145b39c0f323fe879a8bc9cb8e829a87e5d2c032b00a59be0f064d11c4c953519afae0503023af822b5fdacbd3121fb9b40584658fc8bae4156c2
   languageName: node
   linkType: hard
 
-"@guanghechen/reporter@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "@guanghechen/reporter@npm:1.0.4"
+"@guanghechen/reporter@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@guanghechen/reporter@npm:1.0.5"
   dependencies:
-    "@guanghechen/chalk.types": ^1.0.2
-    "@guanghechen/reporter.types": ^1.0.4
-    dayjs: ^1.11.13
-    json5: ^2.2.3
-  checksum: 8ae098460d5b4d7272acebfbd923eb4bdb43bd414ba11a6c11e6620edb93944e5bc779a6cf7c563be78eb6c0a942198505c59d2f008fe3aeac481035cf784763
+    "@guanghechen/chalk.types": ^1.0.3
+    "@guanghechen/reporter.types": ^1.0.5
+    dayjs: 1.11.13
+    json5: 2.2.3
+  checksum: 87423302226acc16c3c6d1fe88371326d9905aa46d424f5eda4aa12732a15982fef442d1d294d52317e03421781b5e5b2a92b90e1251cf71e9f3e67e4145acaa
   languageName: node
   linkType: hard
 
-"@guanghechen/resource.types@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@guanghechen/resource.types@npm:1.0.2"
-  checksum: 432ce9e4aaf16e3a13b1c075d9edcee4a32390147b20fa877f365b9ed38da947bf245208577af8b5f5ec0eb43d5c57e8387e80b0239bac660116d8b254f8a010
+"@guanghechen/resource.types@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@guanghechen/resource.types@npm:1.0.3"
+  checksum: 4f197264c7d56f7032f1cb2285b8c86e438aeab951681656a7fca19c8e59ed1e3f9b99f9f471827ef30fa6db33f068e6fcf94cd672b40109e9827a2dd0de45b1
   languageName: node
   linkType: hard
 
-"@guanghechen/resource@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@guanghechen/resource@npm:1.0.2"
+"@guanghechen/resource@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@guanghechen/resource@npm:1.0.3"
   dependencies:
-    "@guanghechen/invariant": ^6.0.3
-    "@guanghechen/resource.types": ^1.0.2
-  checksum: 66ad1d14b8112a57245171ed75a9252da285452df0ab325645f972c2651fc89f0f50a5af2762faacc139eaf0f5f5c52df70e2b8a50038c9dadecc4ce0cb595c1
+    "@guanghechen/invariant": ^6.0.4
+    "@guanghechen/resource.types": ^1.0.3
+  checksum: a756dbce1d12ecd3b71cd945964c86e9f65d143e09f38914c47a864395a0365b695e5352105e9800c26f16f79df1fd45b373b76259f83137092e307356c14e69
   languageName: node
   linkType: hard
 
@@ -774,8 +774,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy"
   dependencies:
-    "@guanghechen/chalk": ^1.0.2
-    "@guanghechen/std": ^1.0.3
+    "@guanghechen/chalk": ^1.0.3
+    "@guanghechen/std": ^1.0.4
     "@types/dir-glob": 2.0.3
     "@types/micromatch": 4.0.9
     chokidar: 4.0.1
@@ -791,11 +791,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/script-doc-link@workspace:packages/script-doc-link"
   dependencies:
-    "@guanghechen/chalk": ^1.0.2
+    "@guanghechen/chalk": ^1.0.3
     "@guanghechen/fs": ^1.0.7
-    "@guanghechen/invariant": ^6.0.3
-    "@guanghechen/reporter": ^1.0.4
-    "@guanghechen/std": ^1.0.3
+    "@guanghechen/invariant": ^6.0.4
+    "@guanghechen/reporter": ^1.0.5
+    "@guanghechen/std": ^1.0.4
     globby: 13.2.2
     minimist: 1.2.8
   bin:
@@ -803,19 +803,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/std@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "@guanghechen/std@npm:1.0.3"
-  checksum: 8802359afcdd8ada618a3993a2262350d4ada5e242d2f3ea4ea542199f04f2b8fd217fb9cdfd937107331a62ddfe28a9da8e9084e64a12945a4c6cf64a368af1
+"@guanghechen/std@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "@guanghechen/std@npm:1.0.4"
+  checksum: 31a78cfda9723885b372789435e7446417a98800e76afa5b5e0308b4f4e33bbb01898b132b3e941ca05cb5d47859a453e54661afd47f0549edf74d433e4509f0
   languageName: node
   linkType: hard
 
-"@guanghechen/stream@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@guanghechen/stream@npm:1.0.2"
+"@guanghechen/stream@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@guanghechen/stream@npm:1.0.3"
   dependencies:
-    "@guanghechen/byte": ^1.0.2
-  checksum: c5111296891c3fa508135bbd88e53cbe44c4346b4823b6018f8e5da315b7355b9a4afb558a18d1a7ce4c8617474a75746b7833e167e726c49fa3076d4fda8807
+    "@guanghechen/byte": ^1.0.3
+  checksum: 7a40c768bc034ab349628f4b8b47e6376a64f5ec3a5e4a66b0a3ba0a56fd480ccf26085d2a4785f2fc72e263ab358529107747d68e7d2e0c7214805d9301410f
   languageName: node
   linkType: hard
 
@@ -823,15 +823,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/tool-file@workspace:packages/tool-file"
   dependencies:
-    "@guanghechen/chalk": ^1.0.2
+    "@guanghechen/chalk": ^1.0.3
     "@guanghechen/commander": ^1.0.4
-    "@guanghechen/file-split": ^1.0.2
-    "@guanghechen/filepart": ^1.0.2
+    "@guanghechen/file-split": ^1.0.3
+    "@guanghechen/filepart": ^1.0.3
     "@guanghechen/fs": ^1.0.7
-    "@guanghechen/invariant": ^6.0.3
-    "@guanghechen/path": ^1.0.2
-    "@guanghechen/reporter": ^1.0.4
-    "@guanghechen/std": ^1.0.3
+    "@guanghechen/invariant": ^6.0.4
+    "@guanghechen/path": ^1.0.3
+    "@guanghechen/reporter": ^1.0.5
+    "@guanghechen/std": ^1.0.4
   bin:
     ghc-file: ./lib/esm/cli.mjs
   languageName: unknown
@@ -841,14 +841,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/tool-mini-copy@workspace:packages/tool-mini-copy"
   dependencies:
-    "@guanghechen/chalk": ^1.0.2
+    "@guanghechen/chalk": ^1.0.3
     "@guanghechen/commander": ^1.0.4
     "@guanghechen/fs": ^1.0.7
-    "@guanghechen/invariant": ^6.0.3
+    "@guanghechen/invariant": ^6.0.4
     "@guanghechen/mini-copy": ^6.0.1
-    "@guanghechen/path": ^1.0.2
-    "@guanghechen/reporter": ^1.0.4
-    "@guanghechen/std": ^1.0.3
+    "@guanghechen/path": ^1.0.3
+    "@guanghechen/reporter": ^1.0.5
+    "@guanghechen/std": ^1.0.4
     "@inquirer/confirm": 4.0.1
   bin:
     mcp: ./lib/esm/cli.mjs
@@ -3883,7 +3883,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.13":
+"dayjs@npm:1.11.13":
   version: 1.11.13
   resolution: "dayjs@npm:1.11.13"
   checksum: f388db88a6aa93956c1f6121644e783391c7b738b73dbc54485578736565c8931bdfba4bb94e9b1535c6e509c97d5deb918bbe1ae6b34358d994de735055cca9
@@ -6906,6 +6906,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"json5@npm:2.2.3, json5@npm:^2.2.2, json5@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "json5@npm:2.2.3"
+  bin:
+    json5: lib/cli.js
+  checksum: 2a7436a93393830bce797d4626275152e37e877b265e94ca69c99e3d20c2b9dab021279146a39cdb700e71b2dd32a4cebd1514cd57cee102b1af906ce5040349
+  languageName: node
+  linkType: hard
+
 "json5@npm:^1.0.2":
   version: 1.0.2
   resolution: "json5@npm:1.0.2"
@@ -6914,15 +6923,6 @@ __metadata:
   bin:
     json5: lib/cli.js
   checksum: 866458a8c58a95a49bef3adba929c625e82532bcff1fe93f01d29cb02cac7c3fe1f4b79951b7792c2da9de0b32871a8401a6e3c5b36778ad852bf5b8a61165d7
-  languageName: node
-  linkType: hard
-
-"json5@npm:^2.2.2, json5@npm:^2.2.3":
-  version: 2.2.3
-  resolution: "json5@npm:2.2.3"
-  bin:
-    json5: lib/cli.js
-  checksum: 2a7436a93393830bce797d4626275152e37e877b265e94ca69c99e3d20c2b9dab021279146a39cdb700e71b2dd32a4cebd1514cd57cee102b1af906ce5040349
   languageName: node
   linkType: hard
 
@@ -9275,11 +9275,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root@workspace:."
   dependencies:
-    "@guanghechen/chalk": ^1.0.2
+    "@guanghechen/chalk": ^1.0.3
     "@guanghechen/fs": ^1.0.6
-    "@guanghechen/path": ^1.0.2
-    "@guanghechen/reporter": ^1.0.4
-    "@guanghechen/resource": ^1.0.2
+    "@guanghechen/path": ^1.0.3
+    "@guanghechen/reporter": ^1.0.5
+    "@guanghechen/resource": ^1.0.3
     "@rollup/plugin-replace": 6.0.1
     "@types/jest": 29.5.13
     "@types/node": 20.16.10

@@ -42,7 +42,7 @@
     "README.md"
   ],
   "dependencies": {
-    "json5": "^2.2.3",
+    "json5": "2.2.3",
     "prettier-2": "npm:prettier@^2"
   }
 }

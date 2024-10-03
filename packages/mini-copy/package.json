@@ -44,8 +44,8 @@
   "dependencies": {
     "@guanghechen/exec": "^1.0.7",
     "@guanghechen/fs": "^1.0.7",
-    "@guanghechen/invariant": "^6.0.3",
-    "@guanghechen/reporter.types": "^1.0.4",
+    "@guanghechen/invariant": "^6.0.4",
+    "@guanghechen/reporter.types": "^1.0.5",
     "clipboardy": "4.0.0"
   }
 }

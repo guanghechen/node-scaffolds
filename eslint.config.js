@@ -17,6 +17,8 @@ export default [
       'eslint.config.js',
       'jest.config.mjs',
       'jest.helper.mts',
+      'rollup.config.mjs',
+      'rollup.config.cli.mjs',
       'playground/**/*.{js,mjs,ts,mts}',
     ],
     rules: {
