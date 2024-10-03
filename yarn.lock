@@ -692,6 +692,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@guanghechen/monorepo@workspace:packages/monorepo":
+  version: 0.0.0-use.local
+  resolution: "@guanghechen/monorepo@workspace:packages/monorepo"
+  languageName: unknown
+  linkType: soft
+
 "@guanghechen/path.types@npm:^1.0.3":
   version: 1.0.3
   resolution: "@guanghechen/path.types@npm:1.0.3"

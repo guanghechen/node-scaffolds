@@ -1,0 +1,33 @@
+{
+  "name": "@guanghechen/monorepo",
+  "version": "1.0.0",
+  "description": "Utils for manage monorepo",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/monorepo@1.0.0",
+    "directory": "packages/monorepo"
+  },
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/monorepo@1.0.0/packages/monorepo#readme",
+  "type": "module",
+  "module": "./src/index.mjs",
+  "exports": {
+    "import": "./src/index.mjs"
+  },
+  "types": "src/index.d.ts",
+  "source": "src/index.mjs",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 18.0.0"
+  },
+  "files": [
+    "src/",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ]
+}

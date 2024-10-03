@@ -24,6 +24,7 @@ describe('context', () => {
         "packages/rollup-plugin-copy",
         "packages/rollup-config",
         "packages/postcss-modules-dts",
+        "packages/monorepo",
         "packages/mini-copy",
         "packages/jest-config",
         "packages/helper-npm",
