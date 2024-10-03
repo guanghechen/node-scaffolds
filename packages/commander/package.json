@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/commander",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A wrapper of commander.js with some utilities",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/commander@1.0.4",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/commander@1.0.5",
     "directory": "packages/commander"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/commander@1.0.4/packages/commander#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/commander@1.0.5/packages/commander#readme",
   "keywords": [
     "commander"
   ],
@@ -41,8 +41,8 @@
     "README.md"
   ],
   "dependencies": {
-    "@guanghechen/cli": "^1.0.4",
-    "@guanghechen/exec": "^1.0.7",
+    "@guanghechen/cli": "^1.0.5",
+    "@guanghechen/exec": "^1.0.8",
     "@guanghechen/reporter.types": "^1.0.5",
     "@inquirer/select": "3.0.1",
     "commander": "12.1.0"

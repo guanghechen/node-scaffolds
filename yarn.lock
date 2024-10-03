@@ -548,7 +548,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/cli@^1.0.4, @guanghechen/cli@workspace:packages/cli":
+"@guanghechen/cli@^1.0.5, @guanghechen/cli@workspace:packages/cli":
   version: 0.0.0-use.local
   resolution: "@guanghechen/cli@workspace:packages/cli"
   dependencies:
@@ -559,12 +559,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/commander@^1.0.4, @guanghechen/commander@workspace:packages/commander":
+"@guanghechen/commander@^1.0.5, @guanghechen/commander@workspace:packages/commander":
   version: 0.0.0-use.local
   resolution: "@guanghechen/commander@workspace:packages/commander"
   dependencies:
-    "@guanghechen/cli": ^1.0.4
-    "@guanghechen/exec": ^1.0.7
+    "@guanghechen/cli": ^1.0.5
+    "@guanghechen/exec": ^1.0.8
     "@guanghechen/reporter.types": ^1.0.5
     "@inquirer/select": 3.0.1
     commander: 12.1.0
@@ -599,7 +599,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/exec@^1.0.7, @guanghechen/exec@workspace:packages/exec":
+"@guanghechen/exec@^1.0.8, @guanghechen/exec@workspace:packages/exec":
   version: 0.0.0-use.local
   resolution: "@guanghechen/exec@workspace:packages/exec"
   dependencies:
@@ -635,7 +635,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/fs@^1.0.6, @guanghechen/fs@^1.0.7, @guanghechen/fs@workspace:packages/fs":
+"@guanghechen/fs@^1.0.6, @guanghechen/fs@^1.0.8, @guanghechen/fs@workspace:packages/fs":
   version: 0.0.0-use.local
   resolution: "@guanghechen/fs@workspace:packages/fs"
   dependencies:
@@ -680,12 +680,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/mini-copy@^6.0.1, @guanghechen/mini-copy@workspace:packages/mini-copy":
+"@guanghechen/mini-copy@^6.0.2, @guanghechen/mini-copy@workspace:packages/mini-copy":
   version: 0.0.0-use.local
   resolution: "@guanghechen/mini-copy@workspace:packages/mini-copy"
   dependencies:
-    "@guanghechen/exec": ^1.0.7
-    "@guanghechen/fs": ^1.0.7
+    "@guanghechen/exec": ^1.0.8
+    "@guanghechen/fs": ^1.0.8
     "@guanghechen/invariant": ^6.0.4
     "@guanghechen/reporter.types": ^1.0.5
     clipboardy: 4.0.0
@@ -792,7 +792,7 @@ __metadata:
   resolution: "@guanghechen/script-doc-link@workspace:packages/script-doc-link"
   dependencies:
     "@guanghechen/chalk": ^1.0.3
-    "@guanghechen/fs": ^1.0.7
+    "@guanghechen/fs": ^1.0.8
     "@guanghechen/invariant": ^6.0.4
     "@guanghechen/reporter": ^1.0.5
     "@guanghechen/std": ^1.0.4
@@ -824,10 +824,10 @@ __metadata:
   resolution: "@guanghechen/tool-file@workspace:packages/tool-file"
   dependencies:
     "@guanghechen/chalk": ^1.0.3
-    "@guanghechen/commander": ^1.0.4
+    "@guanghechen/commander": ^1.0.5
     "@guanghechen/file-split": ^1.0.3
     "@guanghechen/filepart": ^1.0.3
-    "@guanghechen/fs": ^1.0.7
+    "@guanghechen/fs": ^1.0.8
     "@guanghechen/invariant": ^6.0.4
     "@guanghechen/path": ^1.0.3
     "@guanghechen/reporter": ^1.0.5
@@ -842,10 +842,10 @@ __metadata:
   resolution: "@guanghechen/tool-mini-copy@workspace:packages/tool-mini-copy"
   dependencies:
     "@guanghechen/chalk": ^1.0.3
-    "@guanghechen/commander": ^1.0.4
-    "@guanghechen/fs": ^1.0.7
+    "@guanghechen/commander": ^1.0.5
+    "@guanghechen/fs": ^1.0.8
     "@guanghechen/invariant": ^6.0.4
-    "@guanghechen/mini-copy": ^6.0.1
+    "@guanghechen/mini-copy": ^6.0.2
     "@guanghechen/path": ^1.0.3
     "@guanghechen/reporter": ^1.0.5
     "@guanghechen/std": ^1.0.4

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.0.8 (2024-10-03)</small>
+
+* :arrow_up:  chore: upgrade dependencies ([ba63623](https://github.com/guanghechen/node-scaffolds/commit/ba63623))
+
+
+
+
+
 ## <small>1.0.7 (2024-10-03)</small>
 
 * :wrench:  chore: don't gen sourcemap in production env ([f7075d1](https://github.com/guanghechen/node-scaffolds/commit/f7075d1))

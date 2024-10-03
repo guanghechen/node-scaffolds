@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/tool-file",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "A cli tool to split / merge big file.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@6.0.1",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@6.0.2",
     "directory": "packages/tool-file"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@6.0.1/packages/tool-file#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/tool-file@6.0.2/packages/tool-file#readme",
   "keywords": [],
   "type": "module",
   "exports": {
@@ -43,10 +43,10 @@
   },
   "dependencies": {
     "@guanghechen/chalk": "^1.0.3",
-    "@guanghechen/commander": "^1.0.4",
+    "@guanghechen/commander": "^1.0.5",
     "@guanghechen/file-split": "^1.0.3",
     "@guanghechen/filepart": "^1.0.3",
-    "@guanghechen/fs": "^1.0.7",
+    "@guanghechen/fs": "^1.0.8",
     "@guanghechen/invariant": "^6.0.4",
     "@guanghechen/path": "^1.0.3",
     "@guanghechen/reporter": "^1.0.5",
