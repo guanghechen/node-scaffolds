@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>6.0.3 (2024-11-06)</small>
+
+* :arrow_up:  chore: upgrade devDependencies ([76123cd](https://github.com/guanghechen/node-scaffolds/commit/76123cd))
+* :wrench:  chore: revert nx ([1f1efb3](https://github.com/guanghechen/node-scaffolds/commit/1f1efb3))
+
+
+
+
+
 ## <small>6.0.2 (2024-10-03)</small>
 
 **Note:** Version bump only for package @guanghechen/rollup-config

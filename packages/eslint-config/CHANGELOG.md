@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>7.0.11 (2024-11-06)</small>
+
+* :arrow_up:  chore: upgrade devDependencies ([76123cd](https://github.com/guanghechen/node-scaffolds/commit/76123cd))
+* improve: support to customize the lint ([92136c2](https://github.com/guanghechen/node-scaffolds/commit/92136c2))
+
+
+
+
+
 ## <small>7.0.10 (2024-10-03)</small>
 
 * :arrow_up:  chore: upgrade dependencies ([e41de75](https://github.com/guanghechen/node-scaffolds/commit/e41de75))
