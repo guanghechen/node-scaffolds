@@ -29,6 +29,7 @@ describe('context', () => {
         "packages/jest-config",
         "packages/helper-npm",
         "packages/helper-jest",
+        "packages/globby",
         "packages/fs",
         "packages/exec",
         "packages/eslint-config",

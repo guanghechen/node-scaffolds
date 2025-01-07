@@ -1,4 +1,4 @@
-import { globby } from 'globby'
+import { globby } from '@guanghechen/globby'
 import { existsSync, statSync } from 'node:fs'
 import path from 'node:path'
 import util from 'util'

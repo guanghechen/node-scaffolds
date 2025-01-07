@@ -1,4 +1,4 @@
-import type { Options as GlobbyOptions } from 'globby'
+import type { Options as GlobbyOptions } from '@guanghechen/globby'
 import type { CopyOptions, WriteFileOptions } from 'node:fs'
 
 /**

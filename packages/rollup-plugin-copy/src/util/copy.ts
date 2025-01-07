@@ -29,7 +29,7 @@ export async function copySingleItem(workspace: string, item: ICopyTargetItem): 
   if (target.transform) {
     try {
       const rawContents = await fs.readFile(srcPath)
-      const contents = await target.transform(rawContents, srcPath, destPath)
+      const contents = await target.transform(rawContents as any, srcPath, destPath)
       await writeFile(destPath, contents, target.fsOptions.writeFile)
     } catch (error) {
       console.error(error)

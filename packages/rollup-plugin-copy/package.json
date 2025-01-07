@@ -42,10 +42,10 @@
   },
   "dependencies": {
     "@guanghechen/chalk": "^1.0.3",
+    "@guanghechen/globby": "^1.0.0",
     "@guanghechen/std": "^1.0.4",
-    "chokidar": "4.0.1",
+    "chokidar": "4.0.3",
     "dir-glob": "3.0.1",
-    "globby": "13.2.2",
     "micromatch": "4.0.8"
   },
   "devDependencies": {

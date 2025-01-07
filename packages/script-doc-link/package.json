@@ -41,10 +41,10 @@
   "dependencies": {
     "@guanghechen/chalk": "^1.0.3",
     "@guanghechen/fs": "^1.0.8",
+    "@guanghechen/globby": "^1.0.0",
     "@guanghechen/invariant": "^6.0.4",
     "@guanghechen/reporter": "^1.0.5",
     "@guanghechen/std": "^1.0.4",
-    "globby": "13.2.2",
     "minimist": "1.2.8"
   }
 }
