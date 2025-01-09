@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>6.0.3 (2025-01-09)</small>
+
+**Note:** Version bump only for package @guanghechen/tool-file
+
+
+
+
+
 ## <small>6.0.2 (2024-10-03)</small>
 
 * :arrow_up:  chore: upgrade dependencies ([ba63623](https://github.com/guanghechen/node-scaffolds/commit/ba63623))

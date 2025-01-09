@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>7.0.12 (2025-01-09)</small>
+
+* :arrow_up:  chore: upgrade devDependencies ([76123cd](https://github.com/guanghechen/node-scaffolds/commit/76123cd))
+* :arrow_up: chore: upgrade dependencies & no longer rely on globby since it breaking build ([b5d0fdd](https://github.com/guanghechen/node-scaffolds/commit/b5d0fdd))
+* :bookmark:  release ([69c9a3f](https://github.com/guanghechen/node-scaffolds/commit/69c9a3f))
+* improve: support to customize the lint ([92136c2](https://github.com/guanghechen/node-scaffolds/commit/92136c2))
+
+
+
+
+
 ## <small>7.0.11 (2024-11-06)</small>
 
 * :arrow_up:  chore: upgrade devDependencies ([76123cd](https://github.com/guanghechen/node-scaffolds/commit/76123cd))

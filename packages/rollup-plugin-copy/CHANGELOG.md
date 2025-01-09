@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>6.0.3 (2025-01-09)</small>
+
+* :arrow_up: chore: upgrade dependencies & no longer rely on globby since it breaking build ([b5d0fdd](https://github.com/guanghechen/node-scaffolds/commit/b5d0fdd))
+
+
+
+
+
 ## <small>6.0.2 (2024-10-03)</small>
 
 * :arrow_up:  chore: upgrade dependencies ([ba63623](https://github.com/guanghechen/node-scaffolds/commit/ba63623))
