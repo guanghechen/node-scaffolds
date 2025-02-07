@@ -42,6 +42,6 @@
   ],
   "dependencies": {
     "fast-glob": "^3.3.3",
-    "ignore": "^7.0.0"
+    "ignore": "^7.0.3"
   }
 }
