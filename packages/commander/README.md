@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/commander@1.0.6/packages/commander#readme">@guanghechen/commander</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/commander@1.0.7/packages/commander#readme">@guanghechen/commander</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/commander">
@@ -78,6 +78,6 @@ Utility functions for creating command programs tools based on [commander.js][].
 * [commander.js][]
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/commander@1.0.6/packages/commander#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/commander@1.0.7/packages/commander#readme
 [commander.js]: https://github.com/tj/commander.js/
 

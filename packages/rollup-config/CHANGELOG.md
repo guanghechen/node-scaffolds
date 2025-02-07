@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>6.0.5 (2025-02-07)</small>
+
+* :arrow_up:  chore: upgrade devDependencies ([76123cd](https://github.com/guanghechen/node-scaffolds/commit/76123cd))
+* :arrow_up: chore: upgrade dependencies & no longer rely on globby since it breaking build ([b5d0fdd](https://github.com/guanghechen/node-scaffolds/commit/b5d0fdd))
+* :bookmark:  release ([6524942](https://github.com/guanghechen/node-scaffolds/commit/6524942))
+* :bookmark:  release ([69c9a3f](https://github.com/guanghechen/node-scaffolds/commit/69c9a3f))
+* :wrench:  chore: revert nx ([1f1efb3](https://github.com/guanghechen/node-scaffolds/commit/1f1efb3))
+
+
+
+
+
 ## <small>6.0.4 (2025-01-09)</small>
 
 * :arrow_up:  chore: upgrade devDependencies ([76123cd](https://github.com/guanghechen/node-scaffolds/commit/76123cd))

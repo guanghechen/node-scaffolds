@@ -540,7 +540,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/commander@^1.0.6, @guanghechen/commander@workspace:packages/commander":
+"@guanghechen/commander@^1.0.7, @guanghechen/commander@workspace:packages/commander":
   version: 0.0.0-use.local
   resolution: "@guanghechen/commander@workspace:packages/commander"
   dependencies:
@@ -625,7 +625,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/globby@^1.0.1, @guanghechen/globby@workspace:packages/globby":
+"@guanghechen/globby@^1.0.2, @guanghechen/globby@workspace:packages/globby":
   version: 0.0.0-use.local
   resolution: "@guanghechen/globby@workspace:packages/globby"
   dependencies:
@@ -771,7 +771,7 @@ __metadata:
   resolution: "@guanghechen/rollup-plugin-copy@workspace:packages/rollup-plugin-copy"
   dependencies:
     "@guanghechen/chalk": ^1.0.3
-    "@guanghechen/globby": ^1.0.1
+    "@guanghechen/globby": ^1.0.2
     "@guanghechen/std": ^1.0.4
     "@types/dir-glob": 2.0.3
     "@types/micromatch": 4.0.9
@@ -789,7 +789,7 @@ __metadata:
   dependencies:
     "@guanghechen/chalk": ^1.0.3
     "@guanghechen/fs": ^1.0.8
-    "@guanghechen/globby": ^1.0.1
+    "@guanghechen/globby": ^1.0.2
     "@guanghechen/invariant": ^6.0.4
     "@guanghechen/reporter": ^1.0.5
     "@guanghechen/std": ^1.0.4
@@ -820,7 +820,7 @@ __metadata:
   resolution: "@guanghechen/tool-file@workspace:packages/tool-file"
   dependencies:
     "@guanghechen/chalk": ^1.0.3
-    "@guanghechen/commander": ^1.0.6
+    "@guanghechen/commander": ^1.0.7
     "@guanghechen/file-split": ^1.0.3
     "@guanghechen/filepart": ^1.0.3
     "@guanghechen/fs": ^1.0.8
@@ -838,7 +838,7 @@ __metadata:
   resolution: "@guanghechen/tool-mini-copy@workspace:packages/tool-mini-copy"
   dependencies:
     "@guanghechen/chalk": ^1.0.3
-    "@guanghechen/commander": ^1.0.6
+    "@guanghechen/commander": ^1.0.7
     "@guanghechen/fs": ^1.0.8
     "@guanghechen/invariant": ^6.0.4
     "@guanghechen/mini-copy": ^6.0.2
