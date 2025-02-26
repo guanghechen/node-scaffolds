@@ -43,11 +43,11 @@
     "playground/*"
   ],
   "devDependencies": {
-    "@guanghechen/chalk": "^1.0.3",
+    "@guanghechen/chalk": "^1.0.4",
     "@guanghechen/fs": "^1.0.6",
     "@guanghechen/path": "^1.0.3",
-    "@guanghechen/reporter": "^1.0.5",
-    "@guanghechen/resource": "^1.0.3",
+    "@guanghechen/reporter": "^1.0.6",
+    "@guanghechen/resource": "^1.0.4",
     "@rollup/plugin-replace": "6.0.2",
     "@types/jest": "29.5.14",
     "@types/node": "20.17.19",

@@ -42,7 +42,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@guanghechen/invariant": "^6.0.4",
+    "@guanghechen/invariant": "^6.0.5",
     "@guanghechen/reporter.types": "^1.0.5"
   }
 }
