@@ -44,7 +44,7 @@
     "@guanghechen/cli": "^1.0.5",
     "@guanghechen/exec": "^1.0.8",
     "@guanghechen/reporter.types": "^1.0.5",
-    "@inquirer/select": "4.0.8",
+    "@inquirer/select": "4.0.9",
     "commander": "12.1.0"
   }
 }
