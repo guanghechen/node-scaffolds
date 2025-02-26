@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-plugin-copy@6.0.6/packages/rollup-plugin-copy#readme">@guanghechen/rollup-plugin-copy</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-plugin-copy@6.0.7/packages/rollup-plugin-copy#readme">@guanghechen/rollup-plugin-copy</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy">
@@ -357,7 +357,7 @@ copy({
 * [@guanghechen/rollup-config][]
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-plugin-copy@6.0.6/packages/rollup-plugin-copy#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/rollup-plugin-copy@6.0.7/packages/rollup-plugin-copy#readme
 [@guanghechen/rollup-config]: https://www.npmjs.com/package/@guanghechen/rollup-config
 [@guanghechen/rollup-plugin-copy]: https://www.npmjs.com/package/@guanghechen/rollup-plugin-copy
 

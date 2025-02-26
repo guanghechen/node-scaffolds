@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>7.0.15 (2025-02-26)</small>
+
+* chore: sharp dependencies ([914ba6f](https://github.com/guanghechen/node-scaffolds/commit/914ba6f))
+* chore: upgrade dependencies ([e4004a6](https://github.com/guanghechen/node-scaffolds/commit/e4004a6))
+* :bookmark:  release ([9d47297](https://github.com/guanghechen/node-scaffolds/commit/9d47297))
+
+
+
+
+
 ## <small>7.0.14 (2025-02-26)</small>
 
 * chore: sharp dependencies ([914ba6f](https://github.com/guanghechen/node-scaffolds/commit/914ba6f))

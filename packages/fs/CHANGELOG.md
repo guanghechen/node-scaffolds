@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.0.9 (2025-02-26)</small>
+
+* chore: upgrade dependencies ([e4004a6](https://github.com/guanghechen/node-scaffolds/commit/e4004a6))
+
+
+
+
+
 ## <small>1.0.8 (2024-10-03)</small>
 
 * :arrow_up:  chore: upgrade dependencies ([ba63623](https://github.com/guanghechen/node-scaffolds/commit/ba63623))

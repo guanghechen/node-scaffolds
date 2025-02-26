@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>6.0.7 (2025-02-26)</small>
+
+* chore: fix types path ([b16141d](https://github.com/guanghechen/node-scaffolds/commit/b16141d))
+* chore: upgrade dependencies ([e4004a6](https://github.com/guanghechen/node-scaffolds/commit/e4004a6))
+* :bookmark:  release ([0fbb461](https://github.com/guanghechen/node-scaffolds/commit/0fbb461))
+* :bookmark:  release ([9d47297](https://github.com/guanghechen/node-scaffolds/commit/9d47297))
+
+
+
+
+
 ## <small>6.0.6 (2025-02-26)</small>
 
 * chore: fix types path ([b16141d](https://github.com/guanghechen/node-scaffolds/commit/b16141d))

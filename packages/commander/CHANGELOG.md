@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.0.9 (2025-02-26)</small>
+
+* :bookmark:  release ([9d47297](https://github.com/guanghechen/node-scaffolds/commit/9d47297))
+* chore: sharp dependencies ([914ba6f](https://github.com/guanghechen/node-scaffolds/commit/914ba6f))
+
+
+
+
+
 ## <small>1.0.8 (2025-02-26)</small>
 
 * chore: sharp dependencies ([914ba6f](https://github.com/guanghechen/node-scaffolds/commit/914ba6f))
