@@ -645,7 +645,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/helper-npm@^6.0.2, @guanghechen/helper-npm@workspace:packages/helper-npm":
+"@guanghechen/helper-npm@^6.0.3, @guanghechen/helper-npm@workspace:packages/helper-npm":
   version: 0.0.0-use.local
   resolution: "@guanghechen/helper-npm@workspace:packages/helper-npm"
   dependencies:
@@ -753,7 +753,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@guanghechen/rollup-config@workspace:packages/rollup-config"
   dependencies:
-    "@guanghechen/helper-npm": ^6.0.2
+    "@guanghechen/helper-npm": ^6.0.3
     "@rollup/plugin-commonjs": 28.0.2
     "@rollup/plugin-json": 6.1.0
     "@rollup/plugin-node-resolve": 16.0.0
