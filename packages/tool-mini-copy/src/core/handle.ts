@@ -48,7 +48,7 @@ export async function handleCommand(
   }
 
   // Copy from stdin.
-  if (!copied && !process.stdin.isTTY && String(process.env['STDIN']) !== '0') {
+  if (!copied && !process.stdin.isTTY && String(process.env.STDIN) !== '0') {
     const stdinContent = await readFromStdin(encoding)
     if (stdinContent) {
       await safeCopy(stdinContent, { ...safeCopyOptions, from: 'stdin' })
