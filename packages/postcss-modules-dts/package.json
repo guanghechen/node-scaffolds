@@ -21,7 +21,8 @@
   "type": "module",
   "module": "./lib/esm/index.mjs",
   "exports": {
-    "import": "./lib/esm/index.mjs"
+    "import": "./lib/esm/index.mjs",
+    "types": "./lib/types/index.d.ts"
   },
   "types": "./lib/types/index.d.ts",
   "source": "./src/index.ts",

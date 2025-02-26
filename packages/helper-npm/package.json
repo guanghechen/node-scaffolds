@@ -16,10 +16,11 @@
   "type": "module",
   "module": "./src/index.mjs",
   "exports": {
-    "import": "./src/index.mjs"
+    "import": "./src/index.mjs",
+    "types": "./src/index.d.ts"
   },
-  "types": "src/index.d.ts",
-  "source": "src/index.mjs",
+  "types": "./src/index.d.ts",
+  "source": "./src/index.mjs",
   "license": "MIT",
   "engines": {
     "node": ">= 18.0.0"
