@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>6.0.6 (2025-02-26)</small>
+
+* :bookmark:  release ([6fe5681](https://github.com/guanghechen/node-scaffolds/commit/6fe5681))
+
+
+
+
+
 ## <small>6.0.5 (2025-02-07)</small>
 
 * :arrow_up:  chore: upgrade devDependencies ([76123cd](https://github.com/guanghechen/node-scaffolds/commit/76123cd))

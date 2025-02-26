@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/globby",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Utils for run command",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/globby@1.0.2",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/globby@1.0.3",
     "directory": "packages/globby"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/globby@1.0.2/packages/globby#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/globby@1.0.3/packages/globby#readme",
   "keywords": [
     "globby"
   ],
