@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "paths": {
       "@guanghechen/cli": ["packages/cli/src"],
+      "@guanghechen/command": ["packages/command/src"],
       "@guanghechen/commander": ["packages/commander/src"],
       "@guanghechen/conventional-changelog": ["packages/conventional-changelog/src"],
       "@guanghechen/exec": ["packages/exec/src"],

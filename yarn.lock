@@ -540,6 +540,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@guanghechen/command@workspace:packages/command":
+  version: 0.0.0-use.local
+  resolution: "@guanghechen/command@workspace:packages/command"
+  dependencies:
+    "@guanghechen/std": ^1.0.4
+  languageName: unknown
+  linkType: soft
+
 "@guanghechen/commander@^1.0.9, @guanghechen/commander@workspace:packages/commander":
   version: 0.0.0-use.local
   resolution: "@guanghechen/commander@workspace:packages/commander"
