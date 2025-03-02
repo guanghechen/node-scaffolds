@@ -45,27 +45,6 @@
           "ROLLUP_SHOULD_SOURCEMAP": "true"
         }
       }
-    },
-    "test": {
-      "executor": "nx:run-commands",
-      "options": {
-        "cwd": "packages/command",
-        "commands": [
-          "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir ."
-        ]
-      },
-      "configurations": {
-        "coverage": {
-          "commands": [
-            "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir . --coverage"
-          ]
-        },
-        "update": {
-          "commands": [
-            "node --experimental-vm-modules ../../node_modules/.bin/jest --config ../../jest.config.mjs --rootDir . -u"
-          ]
-        }
-      }
     }
   }
 }

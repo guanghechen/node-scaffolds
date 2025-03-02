@@ -7,36 +7,40 @@ export type ICommandArguments = Record<string, string>
 export type ICommandOptions = Record<string, ICommandOptionValue>
 
 export interface ICommandContext {
-  readonly subcommand: string | undefined
   readonly env: ICommandEnv
+}
+
+export interface ICommandState<C extends ICommandContext> {
+  readonly context: C
   readonly args: ICommandArguments
   readonly options: ICommandOptions
 }
 
-export interface ICommand {
+export interface ICommand<C extends ICommandContext> {
   readonly name: string
   readonly desc: string
   readonly path: string[]
   readonly definition: ICommandDefinition
-  readonly subcommands: IterableIterator<ICommand>
-  readonly parent: ICommand | null
+  readonly subcommands: IterableIterator<ICommand<C>>
+  readonly parent: ICommand<C> | null
   readonly usage: string
-  getSubcommand(name: string): ICommand | undefined
-  setParent(parent: ICommand): void
-  run(ctx: ICommandContext): Promise<void>
+  getSubcommand(name: string): ICommand<C> | undefined
+  setParent(parent: ICommand<C>): void
+  sharpContext(state: ICommandState<C>): C
+  run(state: ICommandState<C>): Promise<void>
 }
 
-export abstract class Command implements ICommand {
+export abstract class Command<C extends ICommandContext> implements ICommand<C> {
   public readonly definition: ICommandDefinition
-  protected readonly _subcommands: ICommand[]
-  protected readonly _subcommandMap: Map<string, ICommand>
-  protected _parent: ICommand | null
+  protected readonly _subcommands: Array<ICommand<C>>
+  protected readonly _subcommandMap: Map<string, ICommand<C>>
+  protected _parent: ICommand<C> | null
 
   constructor(definition: ICommandDefinition) {
     this.definition = definition
     this._parent = null
     this._subcommands = []
-    this._subcommandMap = new Map<string, ICommand>()
+    this._subcommandMap = new Map()
   }
 
   public get name(): string {
@@ -49,15 +53,15 @@ export abstract class Command implements ICommand {
 
   public get path(): string[] {
     const names: string[] = [this.name]
-    for (let cmd: ICommand | null = this._parent; cmd; cmd = cmd.parent) names.push(cmd.name)
+    for (let cmd: ICommand<C> | null = this._parent; cmd; cmd = cmd.parent) names.push(cmd.name)
     return names.reverse()
   }
 
-  public get subcommands(): IterableIterator<ICommand> {
+  public get subcommands(): IterableIterator<ICommand<C>> {
     return this._subcommands.values()
   }
 
-  public get parent(): ICommand | null {
+  public get parent(): ICommand<C> | null {
     return this._parent
   }
 
@@ -112,15 +116,15 @@ export abstract class Command implements ICommand {
     return this.definition.getOption(name)
   }
 
-  public getSubcommand(name: string): ICommand | undefined {
+  public getSubcommand(name: string): ICommand<C> | undefined {
     return this._subcommandMap.get(name)
   }
 
-  public setParent(parent: ICommand): void {
+  public setParent(parent: ICommand<C>): void {
     this._parent = parent
   }
 
-  public subcommand(subcommand: ICommand): this {
+  public subcommand(subcommand: ICommand<C>): this {
     if (!subcommand.name || typeof subcommand.name !== 'string') {
       const path: string = this.path.join('/')
       throw new Error(`[${path}] Bad subcommand name: ${subcommand.name}`)
@@ -136,5 +140,9 @@ export abstract class Command implements ICommand {
     return this
   }
 
-  public abstract run(ctx: ICommandContext): Promise<void>
+  public sharpContext(state: ICommandState<C>): C {
+    return state.context
+  }
+
+  public abstract run(state: ICommandState<C>): Promise<void>
 }
