@@ -20,7 +20,8 @@
   "module": "./index.mjs",
   "exports": {
     ".": {
-      "import": "./index.mjs"
+      "import": "./index.mjs",
+      "types": "./index.d.ts"
     },
     "./globals.json": {
       "import": "./globals.json",
