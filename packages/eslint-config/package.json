@@ -35,6 +35,7 @@
   "files": [
     "globals.json",
     "index.mjs",
+    "index.d.ts",
     "package.json",
     "CHANGELOG.md",
     "LICENSE",
