@@ -50,6 +50,6 @@
     "@guanghechen/path": "^1.0.3",
     "@guanghechen/reporter": "^1.0.6",
     "@guanghechen/std": "^1.0.4",
-    "@inquirer/confirm": "5.1.6"
+    "@inquirer/confirm": "5.1.8"
   }
 }

@@ -44,14 +44,14 @@
     "prettier": ">=2"
   },
   "dependencies": {
-    "@eslint/js": "9.21.0",
-    "@stylistic/eslint-plugin-ts": "4.1.0",
-    "eslint-config-prettier": "10.0.1",
+    "@eslint/js": "9.23.0",
+    "@stylistic/eslint-plugin-ts": "4.2.0",
+    "eslint-config-prettier": "10.1.1",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jest": "28.11.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
-    "eslint-plugin-prettier": "5.2.3",
+    "eslint-plugin-prettier": "5.2.5",
     "eslint-plugin-react": "7.37.4",
-    "typescript-eslint": "8.25.0"
+    "typescript-eslint": "8.28.0"
   }
 }
