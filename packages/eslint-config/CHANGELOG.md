@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>7.0.17 (2025-03-30)</small>
+
+* fix(eslint-config): add missing files ([f0de992](https://github.com/guanghechen/node-scaffolds/commit/f0de992))
+
+
+
+
+
 ## <small>7.0.16 (2025-03-30)</small>
 
 * fix(eslint-config): add declaration types ([35cc3e2](https://github.com/guanghechen/node-scaffolds/commit/35cc3e2))
