@@ -547,7 +547,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@guanghechen/commander@^1.0.9, @guanghechen/commander@workspace:packages/commander":
+"@guanghechen/commander@^1.0.10, @guanghechen/commander@workspace:packages/commander":
   version: 0.0.0-use.local
   resolution: "@guanghechen/commander@workspace:packages/commander"
   dependencies:
@@ -826,7 +826,7 @@ __metadata:
   resolution: "@guanghechen/tool-file@workspace:packages/tool-file"
   dependencies:
     "@guanghechen/chalk": ^1.0.4
-    "@guanghechen/commander": ^1.0.9
+    "@guanghechen/commander": ^1.0.10
     "@guanghechen/file-split": ^1.0.4
     "@guanghechen/filepart": ^1.0.4
     "@guanghechen/fs": ^1.0.9
@@ -844,7 +844,7 @@ __metadata:
   resolution: "@guanghechen/tool-mini-copy@workspace:packages/tool-mini-copy"
   dependencies:
     "@guanghechen/chalk": ^1.0.4
-    "@guanghechen/commander": ^1.0.9
+    "@guanghechen/commander": ^1.0.10
     "@guanghechen/fs": ^1.0.9
     "@guanghechen/invariant": ^6.0.5
     "@guanghechen/mini-copy": ^6.0.3

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>7.0.16 (2025-03-30)</small>
+
+* fix(eslint-config): add declaration types ([35cc3e2](https://github.com/guanghechen/node-scaffolds/commit/35cc3e2))
+* chore: upgrade dependencies ([a5b7a87](https://github.com/guanghechen/node-scaffolds/commit/a5b7a87))
+
+
+
+
+
 ## <small>7.0.15 (2025-02-26)</small>
 
 * chore: sharp dependencies ([914ba6f](https://github.com/guanghechen/node-scaffolds/commit/914ba6f))
