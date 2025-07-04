@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`build simple: rollup cjs 1`] = `
 "'use strict';
@@ -42,7 +42,7 @@ exports[`build simple: rollup cjs 2`] = `
   "needsCodeReference": false,
   "originalFileName": null,
   "originalFileNames": [],
-  "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":[null,null],"names":["fs","data"],"mappings":";;;;;;;;;;;;;;;;;AAQM,SAAU,UAAU,CAAE,QAAgB,EAAA;AAC1C,IAAA,IAAI,CAACA,mBAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAAE,QAAA,OAAO,KAAK;IAC1C,OAAOA,mBAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE;AACvC;;ACNA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEC,MAAI,CAAC;AAC1B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC;AAEnC,YAAA,CAAe,YAAM,EAAA,OAAAA,MAAI,CAAA,EAAA;;;;;"}",
+  "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":[null,null],"names":["fs","data"],"mappings":";;;;;;;;;;;;;;;;;AAQM,SAAU,UAAU,CAAE,QAAgB,EAAA;AAC1C,IAAA,IAAI,CAACA,mBAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAAE,QAAA,OAAO,KAAK;IAC1C,OAAOA,mBAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE;AACvC;;ACNA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEC,MAAI,CAAC;AAC1B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC;AAEnC,YAAA,CAAe,YAAA,EAAM,OAAAA,MAAI,CAAA,EAAA;;;;;"}",
   "type": "asset",
 }
 `;
@@ -80,7 +80,7 @@ exports[`build simple: rollup esm 2`] = `
   "needsCodeReference": false,
   "originalFileName": null,
   "originalFileNames": [],
-  "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":[null,null],"names":["data"],"mappings":";;;;;;;;;AAQM,SAAU,UAAU,CAAE,QAAgB,EAAA;AAC1C,IAAA,IAAI,CAAC,EAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAAE,QAAA,OAAO,KAAK;IAC1C,OAAO,EAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE;AACvC;;ACNA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEA,MAAI,CAAC;AAC1B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC;AAEnC,YAAA,CAAe,YAAM,EAAA,OAAAA,MAAI,CAAA,EAAA;;;;"}",
+  "source": "{"version":3,"file":"index.js","sources":["../../src/util.ts","../../src/index.ts"],"sourcesContent":[null,null],"names":["data"],"mappings":";;;;;;;;;AAQM,SAAU,UAAU,CAAE,QAAgB,EAAA;AAC1C,IAAA,IAAI,CAAC,EAAE,CAAC,UAAU,CAAC,QAAQ,CAAC;AAAE,QAAA,OAAO,KAAK;IAC1C,OAAO,EAAE,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC,MAAM,EAAE;AACvC;;ACNA,OAAO,CAAC,GAAG,CAAC,OAAO,EAAEA,MAAI,CAAC;AAC1B,OAAO,CAAC,GAAG,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC;AAEnC,YAAA,CAAe,YAAA,EAAM,OAAAA,MAAI,CAAA,EAAA;;;;"}",
   "type": "asset",
 }
 `;
