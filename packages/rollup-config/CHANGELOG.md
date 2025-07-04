@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>6.0.10 (2025-07-04)</small>
+
+* :bookmark:  release ([2313a96](https://github.com/guanghechen/node-scaffolds/commit/2313a96))
+* :bookmark:  release ([fbef5fd](https://github.com/guanghechen/node-scaffolds/commit/fbef5fd))
+* :white_check_mark: test: fix snapshots ([9329832](https://github.com/guanghechen/node-scaffolds/commit/9329832))
+* :white_check_mark: test: no need prettier-2 anymore ([7a4fc5e](https://github.com/guanghechen/node-scaffolds/commit/7a4fc5e))
+* :wrench: chore: fix build error ([146bbdd](https://github.com/guanghechen/node-scaffolds/commit/146bbdd))
+* :wrench: chore: upgrade dependencies ([8623304](https://github.com/guanghechen/node-scaffolds/commit/8623304))
+* chore: noPropertyAccessFromIndexSignature ([b6004a8](https://github.com/guanghechen/node-scaffolds/commit/b6004a8))
+* chore: upgrade dependencies ([a5b7a87](https://github.com/guanghechen/node-scaffolds/commit/a5b7a87))
+
+
+
+
+
 ## <small>6.0.9 (2025-03-30)</small>
 
 * chore: noPropertyAccessFromIndexSignature ([b6004a8](https://github.com/guanghechen/node-scaffolds/commit/b6004a8))

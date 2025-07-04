@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>6.0.8 (2025-07-04)</small>
+
+* :bookmark:  release ([2313a96](https://github.com/guanghechen/node-scaffolds/commit/2313a96))
+* :bookmark:  release ([fbef5fd](https://github.com/guanghechen/node-scaffolds/commit/fbef5fd))
+* :wrench: chore: fix build error ([146bbdd](https://github.com/guanghechen/node-scaffolds/commit/146bbdd))
+* :wrench: chore: upgrade dependencies ([8623304](https://github.com/guanghechen/node-scaffolds/commit/8623304))
+* chore: noPropertyAccessFromIndexSignature ([b6004a8](https://github.com/guanghechen/node-scaffolds/commit/b6004a8))
+* chore: upgrade dependencies ([a5b7a87](https://github.com/guanghechen/node-scaffolds/commit/a5b7a87))
+* chore: upgrade dependencies ([e4004a6](https://github.com/guanghechen/node-scaffolds/commit/e4004a6))
+
+
+
+
+
 ## <small>6.0.7 (2025-03-30)</small>
 
 * chore: noPropertyAccessFromIndexSignature ([b6004a8](https://github.com/guanghechen/node-scaffolds/commit/b6004a8))

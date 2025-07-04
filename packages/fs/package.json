@@ -1,6 +1,6 @@
 {
   "name": "@guanghechen/fs",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Provide some enhanced methods base on `node:fs`.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/fs@1.0.9",
+    "url": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/fs@1.0.10",
     "directory": "packages/fs"
   },
-  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/fs@1.0.9/packages/fs#readme",
+  "homepage": "https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/fs@1.0.10/packages/fs#readme",
   "keywords": [
     "url path",
     "file path"

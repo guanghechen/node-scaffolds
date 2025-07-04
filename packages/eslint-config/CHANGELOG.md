@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>7.0.18 (2025-07-04)</small>
+
+* :bookmark:  release ([d99c8b7](https://github.com/guanghechen/node-scaffolds/commit/d99c8b7))
+* :bookmark:  release ([2313a96](https://github.com/guanghechen/node-scaffolds/commit/2313a96))
+* :bookmark:  release ([fbef5fd](https://github.com/guanghechen/node-scaffolds/commit/fbef5fd))
+* :wrench: chore: fix build error ([146bbdd](https://github.com/guanghechen/node-scaffolds/commit/146bbdd))
+* :wrench: chore: the @stylistic/eslint-plugin-ts is deprecated, migrated to the @stylistic/eslint-plu ([dd741aa](https://github.com/guanghechen/node-scaffolds/commit/dd741aa))
+* :wrench: chore: upgrade dependencies ([8623304](https://github.com/guanghechen/node-scaffolds/commit/8623304))
+* fix(eslint-config): add declaration types ([35cc3e2](https://github.com/guanghechen/node-scaffolds/commit/35cc3e2))
+* fix(eslint-config): add missing files ([f0de992](https://github.com/guanghechen/node-scaffolds/commit/f0de992))
+* chore: upgrade dependencies ([a5b7a87](https://github.com/guanghechen/node-scaffolds/commit/a5b7a87))
+* chore: upgrade dependencies ([e4004a6](https://github.com/guanghechen/node-scaffolds/commit/e4004a6))
+
+
+
+
+
 ## <small>7.0.17 (2025-03-30)</small>
 
 * fix(eslint-config): add missing files ([f0de992](https://github.com/guanghechen/node-scaffolds/commit/f0de992))
