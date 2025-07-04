@@ -1,10 +1,7 @@
 import type { Config as IJestConfig } from 'jest'
 import json5 from 'json5'
 import fs from 'node:fs'
-import { createRequire } from 'node:module'
 import path from 'node:path'
-
-const require = createRequire(import.meta.url)
 
 /**
  * Calculate moduleNameMapper from tsconfig.compilerOptions.paths
@@ -101,7 +98,6 @@ export async function tsMonorepoConfig(
       },
     },
     coverageReporters: ['text', 'text-summary'],
-    prettierPath: require.resolve('prettier-2'),
   }
 
   if (useESM) {

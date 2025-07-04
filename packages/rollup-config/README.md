@@ -72,7 +72,7 @@ Rollup configs for bundle typescript project.
 
   ```javascript
   import createRollupConfig from '@guanghechen/rollup-config'
-  import manifest from './package.json' assert { type: "json" }
+  import manifest from './package.json' with { type: "json" }
 
   export default createRollupConfig({
     manifest,
@@ -94,7 +94,7 @@ Rollup configs for bundle typescript project.
   export default async function rollupConfig() {
     const { default: manifest } = await import(
       path.resolve('package.json'),
-      { assert: { type: "json" } },
+      { with: { type: "json" } },
     )
     const config = await createRollupConfig({
       manifest,

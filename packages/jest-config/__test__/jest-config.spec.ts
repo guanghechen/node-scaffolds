@@ -121,7 +121,7 @@ describe('tsMonorepoConfig', () => {
         "moduleNameMapper": {
           "^@/(.+)$": "<WORKSPACE>/fixtures/basic/src/$1",
         },
-        "prettierPath": "<WORKSPACE>/../../../node_modules/prettier-2/index.js",
+        "prettierPath": undefined,
         "roots": [
           "<rootDir>/src",
         ],
@@ -198,7 +198,7 @@ describe('tsMonorepoConfig', () => {
           "^@/(.+)$": "<WORKSPACE>/fixtures/basic/src/$1",
         },
         "preset": "ts-jest/presets/default-esm",
-        "prettierPath": "<WORKSPACE>/../../../node_modules/prettier-2/index.js",
+        "prettierPath": undefined,
         "roots": [
           "<rootDir>/src",
         ],

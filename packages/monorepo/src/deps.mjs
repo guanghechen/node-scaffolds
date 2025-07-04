@@ -13,7 +13,7 @@ export async function checkDepsInfo(WORKSPACE_ROOT, workspaceNames) {
   for (const workspaceName of workspaceNames) {
     const packagesDir = path.resolve(WORKSPACE_ROOT, workspaceName)
     const tsconfig = await import(path.resolve(WORKSPACE_ROOT, 'tsconfig.json'), {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     }).then(md => md.default)
 
     const internals = new Set(Object.keys(tsconfig.compilerOptions.paths))
@@ -23,7 +23,7 @@ export async function checkDepsInfo(WORKSPACE_ROOT, workspaceNames) {
       .filter(p => fs.existsSync(p) && fs.statSync(p).isFile())
 
     for (const packageJsonFilePath of packageJsonFilePaths) {
-      const packageJson = await import(packageJsonFilePath, { assert: { type: 'json' } }).then(
+      const packageJson = await import(packageJsonFilePath, { with: { type: 'json' } }).then(
         md => md.default,
       )
 
