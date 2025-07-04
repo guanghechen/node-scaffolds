@@ -588,7 +588,7 @@ __metadata:
   resolution: "@guanghechen/eslint-config@workspace:packages/eslint-config"
   dependencies:
     "@eslint/js": 9.30.1
-    "@stylistic/eslint-plugin-ts": 4.4.1
+    "@stylistic/eslint-plugin": ^5.1.0
     eslint-config-prettier: 10.1.5
     eslint-plugin-import: 2.32.0
     eslint-plugin-jest: 29.0.1
@@ -2372,16 +2372,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stylistic/eslint-plugin-ts@npm:4.4.1":
-  version: 4.4.1
-  resolution: "@stylistic/eslint-plugin-ts@npm:4.4.1"
+"@stylistic/eslint-plugin@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "@stylistic/eslint-plugin@npm:5.1.0"
   dependencies:
-    "@typescript-eslint/utils": ^8.32.1
-    eslint-visitor-keys: ^4.2.0
-    espree: ^10.3.0
+    "@eslint-community/eslint-utils": ^4.7.0
+    "@typescript-eslint/types": ^8.34.1
+    eslint-visitor-keys: ^4.2.1
+    espree: ^10.4.0
+    estraverse: ^5.3.0
+    picomatch: ^4.0.2
   peerDependencies:
     eslint: ">=9.0.0"
-  checksum: e12c72ec682d550cbc08970a4661d0ba765e8332494bb3cb6588be43326e40aa24c157422196a9e379a5e8607fcf8b65d8d8523cb26e3715e7a2bbc83b8e2aa0
+  checksum: 2f5b7e72f826f0e372dfee95581946b689acf47ba2038a52a32bc9f65fc462781fa7592b73a9bb72cacd6d452e39de49c76441cd7d53f776070477ff05dbe7f5
   languageName: node
   linkType: hard
 
@@ -2719,7 +2722,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:8.35.1, @typescript-eslint/types@npm:^8.35.1":
+"@typescript-eslint/types@npm:8.35.1, @typescript-eslint/types@npm:^8.34.1, @typescript-eslint/types@npm:^8.35.1":
   version: 8.35.1
   resolution: "@typescript-eslint/types@npm:8.35.1"
   checksum: c4187947f0ddffca824f6d672fffba49abdacb6ef24c229e448f97197d49a4441868d80933cfb979c854cf72b22d290ac7f0894b93791490dc728dbd36659861
@@ -2746,7 +2749,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:8.35.1, @typescript-eslint/utils@npm:^8.0.0, @typescript-eslint/utils@npm:^8.32.1":
+"@typescript-eslint/utils@npm:8.35.1, @typescript-eslint/utils@npm:^8.0.0":
   version: 8.35.1
   resolution: "@typescript-eslint/utils@npm:8.35.1"
   dependencies:
@@ -4944,7 +4947,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-visitor-keys@npm:^4.2.0, eslint-visitor-keys@npm:^4.2.1":
+"eslint-visitor-keys@npm:^4.2.1":
   version: 4.2.1
   resolution: "eslint-visitor-keys@npm:4.2.1"
   checksum: 3a77e3f99a49109f6fb2c5b7784bc78f9743b834d238cdba4d66c602c6b52f19ed7bcd0a5c5dbbeae3a8689fd785e76c001799f53d2228b278282cf9f699fff5
@@ -5001,7 +5004,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"espree@npm:^10.0.1, espree@npm:^10.3.0, espree@npm:^10.4.0":
+"espree@npm:^10.0.1, espree@npm:^10.4.0":
   version: 10.4.0
   resolution: "espree@npm:10.4.0"
   dependencies:

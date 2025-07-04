@@ -1,5 +1,5 @@
 import eslint from '@eslint/js'
-import stylisticTsPlugin from '@stylistic/eslint-plugin-ts'
+import stylisticPlugin from '@stylistic/eslint-plugin'
 import importPlugin from 'eslint-plugin-import'
 import jestPlugin from 'eslint-plugin-jest'
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y'
@@ -596,10 +596,10 @@ export function genConfigs(params) {
     {
       files: ['**/*.{ts,cts,mts,tsx,ctsx,mtsx}'],
       plugins: {
-        '@stylistic/ts': stylisticTsPlugin,
+        '@stylistic': stylisticPlugin,
       },
       rules: {
-        '@stylistic/ts/member-delimiter-style': [
+        '@stylistic/member-delimiter-style': [
           'error',
           {
             multiline: {
@@ -612,7 +612,7 @@ export function genConfigs(params) {
             },
           },
         ],
-        '@stylistic/ts/space-before-function-paren': [
+        '@stylistic/space-before-function-paren': [
           'error',
           {
             named: 'never',
@@ -620,7 +620,7 @@ export function genConfigs(params) {
             asyncArrow: 'always',
           },
         ],
-        '@stylistic/ts/type-annotation-spacing': [
+        '@stylistic/type-annotation-spacing': [
           'error',
           {
             before: false,
