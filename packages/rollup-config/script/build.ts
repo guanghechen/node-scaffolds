@@ -1,5 +1,5 @@
 import { rollup } from 'rollup'
-import manifest from '../package.json' assert { type: 'json' }
+import manifest from '../package.json' with { type: 'json' }
 import { createRollupConfig, tsPresetConfigBuilder } from '../src'
 
 async function build(): Promise<void> {

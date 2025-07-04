@@ -1,4 +1,4 @@
-import { name, version } from '../../package.json' assert { type: 'json' }
+import { name, version } from '../../package.json' with { type: 'json' }
 
 export const COMMAND_NAME = 'ghc-file'
 export const COMMAND_VERSION: string = version

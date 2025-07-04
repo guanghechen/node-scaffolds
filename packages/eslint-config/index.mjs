@@ -6,7 +6,7 @@ import jsxA11yPlugin from 'eslint-plugin-jsx-a11y'
 import prettierPlugin from 'eslint-plugin-prettier/recommended'
 import reactPlugin from 'eslint-plugin-react'
 import tseslint from 'typescript-eslint'
-import globals from './globals.json' assert { type: 'json' }
+import globals from './globals.json' with { type: 'json' }
 
 /**
  * @param {{tsconfigPath?: string}|undefined} params
