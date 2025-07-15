@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>7.0.19 (2025-07-15)</small>
+
+* :arrow_up:  chore: upgrade devDependencies ([eaaf8b2](https://github.com/guanghechen/node-scaffolds/commit/eaaf8b2))
+
+
+
+
+
 ## <small>7.0.18 (2025-07-04)</small>
 
 * :bookmark:  release ([d99c8b7](https://github.com/guanghechen/node-scaffolds/commit/d99c8b7))
