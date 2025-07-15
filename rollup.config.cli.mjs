@@ -41,6 +41,9 @@ export default async function () {
         tsPresetConfigBuilder({
           typescriptOptions: {
             tsconfig: 'tsconfig.lib.json',
+            compilerOptions: {
+              moduleResolution: 'node',
+            },
           },
           additionalPlugins: [
             // copy({
