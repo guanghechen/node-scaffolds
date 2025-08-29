@@ -28,7 +28,7 @@
   "types": "./lib/types/index.d.ts",
   "license": "MIT",
   "engines": {
-    "node": ">= 18.0.0"
+    "node": ">= 20.0.0"
   },
   "files": [
     "lib/",
@@ -50,6 +50,6 @@
     "@guanghechen/path": "^1.0.3",
     "@guanghechen/reporter": "^1.0.6",
     "@guanghechen/std": "^1.0.4",
-    "@inquirer/confirm": "5.1.13"
+    "@inquirer/confirm": "5.1.16"
   }
 }

@@ -30,7 +30,7 @@
   "types": "./lib/types/index.d.ts",
   "license": "MIT",
   "engines": {
-    "node": ">= 18.0.0"
+    "node": ">= 20.0.0"
   },
   "files": [
     "lib/",
@@ -44,7 +44,7 @@
     "@guanghechen/cli": "^1.0.7",
     "@guanghechen/exec": "^1.0.8",
     "@guanghechen/reporter.types": "^1.0.5",
-    "@inquirer/select": "4.2.4",
+    "@inquirer/select": "4.3.2",
     "commander": "12.1.0"
   }
 }
