@@ -35,7 +35,7 @@
     </a>
     <a href="https://github.com/facebook/jest">
       <img
-        alt="Eslint Version"
+        alt="ESLint Version"
         src="https://img.shields.io/npm/dependency-version/@guanghechen/cli/peer/jest"
       />
     </a>
@@ -55,7 +55,7 @@
 </header>
 <br/>
 
-Utility functions for creating command programs tools based on [commander.js][].
+Utility functions for creating command program tools based on [commander.js][].
 
 ## Install
 
@@ -70,6 +70,161 @@ Utility functions for creating command programs tools based on [commander.js][].
   ```bash
   yarn add --dev @guanghechen/cli
   ```
+
+## Usage
+
+This package provides essential utilities for building CLI applications with configuration management, command detection, and various helper functions.
+
+### Configuration Management
+
+```typescript
+import {
+  resolveCommandConfigurationOptions,
+  type ICommandConfigurationOptions,
+  type ICommandConfigurationFlatOpts
+} from '@guanghechen/cli'
+
+interface IMyOptions extends ICommandConfigurationOptions {
+  readonly input: string
+  readonly output: string
+}
+
+const resolvedOptions = resolveCommandConfigurationOptions<IMyOptions>({
+  commandName: 'my-command',
+  defaultOptions: {
+    input: './src',
+    output: './dist'
+  },
+  reporter: myReporter,
+  options: cliOptions,
+  subCommandName: 'build',
+  workspace: process.cwd()
+})
+```
+
+### Command Existence Detection
+
+```typescript
+import { commandExists, commandExistsSync } from '@guanghechen/cli'
+
+// Asynchronous check
+const hasGit = await commandExists('git')
+
+// Synchronous check  
+const hasNode = commandExistsSync('node')
+```
+
+### Configuration File Loading
+
+```typescript
+import { loadConfig, detectConfigFileType, ConfigFileType } from '@guanghechen/cli'
+
+// Load JSON configuration
+const config = loadConfig('./my-config.json')
+
+// Detect file type
+const fileType = detectConfigFileType('./config.json') // Returns ConfigFileType.JSON
+```
+
+### ANSI String Processing
+
+```typescript
+import { stripAnsi } from '@guanghechen/cli'
+
+const coloredText = '\u001b[31mRed text\u001b[0m'
+const plainText = stripAnsi(coloredText) // 'Red text'
+```
+
+### Reading from STDIN
+
+```typescript
+import { readFromStdin } from '@guanghechen/cli'
+
+const input = await readFromStdin('utf8')
+console.log('User input:', input)
+```
+
+### Option Merging
+
+```typescript
+import { merge, type IMergeStrategy, type IMergeStrategyMap } from '@guanghechen/cli'
+
+const options1 = { files: ['a.js'], verbose: false }
+const options2 = { files: ['b.js'], verbose: true }
+
+const strategyMap: Partial<IMergeStrategyMap<typeof options1>> = {
+  files: (prev, next) => [...prev, ...(next || [])]
+}
+
+const merged = merge([options1, options2], strategyMap)
+// Result: { files: ['a.js', 'b.js'], verbose: true }
+```
+
+## API Reference
+
+| Name | Signature | Description |
+|------|-----------|-------------|
+| `resolveCommandConfigurationOptions` | `<O>(params) => O & ICommandConfigurationFlatOpts` | Resolves command configuration options by merging defaults, configs, and runtime options |
+| `commandExists` | `(commandName: string) => Promise<boolean>` | Asynchronously checks if a command exists in the system PATH |
+| `commandExistsSync` | `(commandName: string) => boolean` | Synchronously checks if a command exists in the system PATH |
+| `loadConfig` | `(filepath: string, encoding?) => unknown` | Loads and parses a configuration file (currently supports JSON) |
+| `detectConfigFileType` | `(filepath: string) => ConfigFileType \| null` | Detects the configuration file type based on file extension |
+| `stripAnsi` | `(content: string) => string` | Removes ANSI escape codes from a string |
+| `readFromStdin` | `(encoding: BufferEncoding) => Promise<string>` | Reads content from standard input |
+| `merge` | `<O>(options: O[], strategyMap?, defaultStrategy?) => O` | Merges multiple option objects using custom strategies |
+
+### Detailed Interfaces
+
+#### `resolveCommandConfigurationOptions` Parameters
+
+```typescript
+interface IResolveCommandConfigurationOptionsParams<O extends ICommandConfigurationOptions> {
+  commandName: string                             // Name of the command
+  defaultOptions: O | ((params) => O)            // Default options or factory function
+  reporter: IReporter                             // Logger instance for debugging
+  options: Partial<O>                             // Runtime options to merge
+  strategyMap?: Partial<IMergeStrategyMap<O>>     // Custom merge strategies
+  subCommandName: string | false                 // Sub-command name for specific config
+  workspace: string | undefined                  // Working directory
+}
+```
+
+#### `ICommandConfigurationOptions`
+
+Base interface for command configuration options.
+
+```typescript
+interface ICommandConfigurationOptions {
+  readonly logLevel?: 'debug' | 'verbose' | 'info' | 'warn' | 'error' | ReporterLevelEnum | string
+  readonly configPath?: string[]
+  readonly parasticConfigPath?: string | null
+  readonly parasticConfigEntry?: string | null
+  readonly workspace?: string
+}
+```
+
+#### `ICommandConfiguration<IOptions>`
+
+Configuration structure supporting global and sub-command specific options.
+
+```typescript
+interface ICommandConfiguration<IOptions extends ICommandConfigurationOptions> {
+  __globalOptions__: IOptions
+  [subCommand: string]: IOptions
+}
+```
+
+#### `IMergeStrategy<T>`
+
+Strategy function for merging option values.
+
+```typescript
+type IMergeStrategy<T = unknown> = (prevValue: T, nextValue: T | null) => T
+
+type IMergeStrategyMap<O extends object> = {
+  [K in keyof O]: IMergeStrategy<O[K]>
+}
+```
 
 ## Related
 

@@ -8,7 +8,7 @@
     </a>
     <a href="https://github.com/guanghechen/node-scaffolds/search?l=typescript">
       <img
-        alt="Github Top Language"
+        alt="GitHub Top Language"
         src="https://img.shields.io/github/languages/top/guanghechen/node-scaffolds"
       />
     </a>
@@ -40,24 +40,24 @@
 </header>
 
 
-A monorepo contains some utility functions and configs for building `Node.js` / `Typescript` projects.
+A monorepo contains some utility functions and configs for building `Node.js` / `TypeScript` projects.
 
 ## Overview
 
 Package                               | Description
 :------------------------------------:|:--------------------------
 [@guanghechen/commander][]            | A wrapper of commander.js with some utilities.
-[@guanghechen/eslint-config][]        | Preset eslint configs for node.js/javascript/react/typescript project.
-[@guanghechen/fs]                     | Utilities for handling files, such as split big file or merge multiple small files.
+[@guanghechen/eslint-config][]        | Preset ESLint configurations for node.js/javascript/react/typescript projects.
+[@guanghechen/fs]                     | Utilities for handling files, such as splitting big files or merging multiple small files.
 [@guanghechen/helper-jest][]          | A collection of utility functions for jest tests.
 [@guanghechen/helper-npm][]           | Utilities for handling npm repo and `package.json`.
-[@guanghechen/jest-config][]          | Basic jest configs for typescript monorepo
+[@guanghechen/jest-config][]          | Basic Jest configurations for TypeScript monorepo
 [@guanghechen/mini-copy][]            | Access system clipboard (also support to share clipboard in wsl with windows).
 [@guanghechen/postcss-modules-dts][]  | Generate `*.d.ts` files for style files (such as css, stylus and etc)
-[@guanghechen/rollup-config][]        | Rollup config for bundle typescript project.
+[@guanghechen/rollup-config][]        | Rollup configuration for bundling TypeScript projects.
 [@guanghechen/rollup-plugin-copy][]   | Rollup plugins to copy files and folds (glob supported)
-[@guanghechen/tool-file][]            | A cli tool to split / merge big file.
-[@guanghechen/tool-mini-copy][]       | "A cli tool to copy / paste with system clipboard or customized fake clipboard (file).
+[@guanghechen/tool-file][]            | A CLI tool to split / merge big files.
+[@guanghechen/tool-mini-copy][]       | A CLI tool to copy / paste with system clipboard or custom fake clipboard (file).
 
 
 ## License

@@ -35,7 +35,7 @@
     </a>
     <a href="https://github.com/facebook/jest">
       <img
-        alt="Eslint Version"
+        alt="ESLint Version"
         src="https://img.shields.io/npm/dependency-version/@guanghechen/helper-jest/peer/jest"
       />
     </a>
@@ -74,7 +74,37 @@ A collection of utility functions for jest tests.
 
 ## Usage
 
-### Desensitizers
+## API Reference
+
+### String Desensitizers
+
+| Name | Signature | Description |
+|------|-----------|-------------|
+| `composeStringDesensitizers` | `(...desensitizers: ReadonlyArray<IStringDesensitizer>) => IStringDesensitizer` | Compose multiple desensitizers into one |
+| `createFilepathDesensitizer` | `(baseDir: string, replaceString?: string) => IStringDesensitizer` | Create a desensitizer to eliminate sensitive filepath data |
+| `createPackageVersionDesensitizer` | `(nextVersion: function, testPackageName?: function) => IStringDesensitizer` | Create a desensitizer to eliminate volatile package versions |
+
+### JSON Desensitizers
+
+| Name | Signature | Description |
+|------|-----------|-------------|
+| `createJsonDesensitizer` | `(valDesensitizers: object, keyDesensitizer?: IStringDesensitizer) => JsonDesensitizer` | Create a desensitizer to eliminate sensitive JSON data |
+
+### Snapshot Utilities
+
+| Name | Signature | Description |
+|------|-----------|-------------|
+| `fileSnapshot` | `(baseDir: string, filenames: string[], desensitize?: IStringDesensitizer, encoding?: BufferEncoding) => void` | Create snapshot for given filepaths |
+
+### Mock Utilities
+
+| Name | Signature | Description |
+|------|-----------|-------------|
+| `createConsoleMock` | `(methodNames?: ReadonlyArray<string>, desensitize?: function) => ConsoleMock` | Create mock functions on console methods |
+
+### Detailed Interfaces
+
+#### String Desensitizers
 
 * `IStringDesensitizer`: `(text: string, key?: string) => string`
 
@@ -119,7 +149,7 @@ A collection of utility functions for jest tests.
 
       - `@param packageName`:
 
-* `JsonDesensitizer`: `(json: unknown, key?: string) => unknown`
+#### JSON Desensitizers
 
   - `createJsonDesensitizer`: Create a desensitizer to eliminate sensitive
     json data.
@@ -147,9 +177,9 @@ A collection of utility functions for jest tests.
 
     * `keyDesensitizer`: Desensitizer for keys of object
 
-### snapshots
+#### Snapshot Utilities
 
-  * `fileSnapshot`: Create snapshot for give filepaths.
+  * `fileSnapshot`: Create snapshot for given filepaths.
 
     ```typescript
     fileSnapshot(
@@ -160,7 +190,7 @@ A collection of utility functions for jest tests.
     ): void
     ```
 
-### mocks
+#### Mock Utilities
 
   * `createConsoleMock`: Create mock funcs on `console`
 

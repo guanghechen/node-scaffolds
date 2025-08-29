@@ -66,7 +66,17 @@ Utilities for handling npm repo and `package.json`.
   yarn add --dev @guanghechen/helper-npm
   ```
 
-## Usage
+## API Reference
+
+| Name | Signature | Description |
+|------|-----------|-------------|
+| `detectMonorepo` | `(currentDir: string) => boolean` | Check whether it is a monorepo under the currentDir |
+| `detectPackageAuthor` | `(currentDir: string) => string \| null` | Detect package author |
+| `getDefaultDependencyFields` | `() => ReadonlyArray<string>` | Return default dependency field names |
+| `collectAllDependencies` | `(packageJsonPath: string \| null, dependenciesFields?, additionalDependencies?, isAbsentAllowed?) => string[]` | Collect all dependencies declared in package.json and their dependencies |
+| `locateLatestPackageJson` | `(currentDir: string) => string \| null` | Find the latest package.json under the given currentDir or its ancestor path |
+
+### Detailed Parameters
 
 * `detectMonorepo`: Check whether if it is a monorepo under the `currentDir`.
 

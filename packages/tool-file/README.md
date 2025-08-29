@@ -29,7 +29,7 @@
     </a>
     <a href="https://github.com/facebook/jest">
       <img
-        alt="Eslint Version"
+        alt="ESLint Version"
         src="https://img.shields.io/npm/dependency-version/@guanghechen/tool-file/peer/jest"
       />
     </a>
@@ -50,7 +50,7 @@
 <br/>
 
 
-A cli tool to split / merge big file.
+A CLI tool to split / merge big files.
 
 
 ## Install

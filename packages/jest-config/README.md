@@ -102,6 +102,22 @@ Basic jest configs for typescript monorepo.
   }
   ```
 
+## API Reference
+
+| Name | Signature | Description |
+|------|-----------|-------------|
+| `tsMonorepoConfig` | `(repositoryRootDir: string, options?: ITsMonorepoConfigOptions) => Promise<IJestConfig>` | Creates basic Jest configuration for TypeScript monorepo |
+| `resolveModuleNameMapper` | `(rootDir: string, tsconfigFilename?: string) => Promise<Record<string, string \| string[]>>` | Calculates moduleNameMapper from tsconfig.compilerOptions.paths |
+
+### Options Interface
+
+```typescript
+interface ITsMonorepoConfigOptions {
+  useESM?: boolean         // Enable ESM support (default: false)
+  tsconfigFilepath?: string // Path to tsconfig file (default: '<rootDir>/tsconfig.json')
+}
+```
+
 ## Related
 
 

@@ -35,7 +35,7 @@
     </a>
     <a href="https://github.com/facebook/jest">
       <img
-        alt="Eslint Version"
+        alt="ESLint Version"
         src="https://img.shields.io/npm/dependency-version/@guanghechen/tool-mini-copy/peer/jest"
       />
     </a>
