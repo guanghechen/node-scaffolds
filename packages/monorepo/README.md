@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/monorepo@1.0.4/packages/monorepo#readme">@guanghechen/monorepo</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/monorepo@1.0.5/packages/monorepo#readme">@guanghechen/monorepo</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/monorepo">
@@ -275,4 +275,4 @@ The dependency analysis relies on TypeScript path mappings in `tsconfig.json`:
 
 Internal dependencies (those matching path mapping keys) are excluded from the external dependency analysis.
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/monorepo@1.0.4/packages/monorepo#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/monorepo@1.0.5/packages/monorepo#readme

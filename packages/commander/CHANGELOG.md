@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.0.12 (2025-08-29)</small>
+
+* improve: refine READMEs ([c41c1f2](https://github.com/guanghechen/node-scaffolds/commit/c41c1f2))
+* :wrench: chore: upgrade dependencies & update the node requirement from ([8ddfde1](https://github.com/guanghechen/node-scaffolds/commit/8ddfde1))
+
+
+
+
+
 ## <small>1.0.11 (2025-07-04)</small>
 
 * :bookmark:  release ([2313a96](https://github.com/guanghechen/node-scaffolds/commit/2313a96))

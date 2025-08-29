@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/globby@1.0.5/packages/globby#readme">@guanghechen/globby</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/globby@1.0.6/packages/globby#readme">@guanghechen/globby</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/globby">
@@ -354,4 +354,4 @@ async function prepareDeployment() {
 - [fast-glob](https://github.com/mrmlnc/fast-glob) - The underlying glob implementation
 - [ignore](https://github.com/kaelzhang/node-ignore) - Gitignore pattern matching
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/globby@1.0.5/packages/globby#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/globby@1.0.6/packages/globby#readme

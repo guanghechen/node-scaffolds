@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/fs@1.0.10/packages/fs#readme">@guanghechen/fs</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/fs@1.0.11/packages/fs#readme">@guanghechen/fs</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/fs">
@@ -281,4 +281,4 @@ async function cleanupProject() {
 ```
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/fs@1.0.10/packages/fs#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/fs@1.0.11/packages/fs#readme

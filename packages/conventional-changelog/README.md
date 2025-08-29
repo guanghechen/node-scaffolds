@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/conventional-changelog@6.0.3/packages/conventional-changelog#readme">@guanghechen/conventional-changelog</a>
+    <a href="https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/conventional-changelog@6.0.4/packages/conventional-changelog#readme">@guanghechen/conventional-changelog</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@guanghechen/conventional-changelog">
@@ -284,6 +284,6 @@ The preset uses Handlebars templates that can be found in the `boilerplates/` di
 * [conventional-changelog][]
 
 
-[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/conventional-changelog@6.0.3/packages/conventional-changelog#readme
+[homepage]: https://github.com/guanghechen/node-scaffolds/tree/@guanghechen/conventional-changelog@6.0.4/packages/conventional-changelog#readme
 [@guanghechen/conventional-changelog]: https://www.npmjs.com/package/@guanghechen/conventional-changelog
 [conventional-changelog]: https://github.com/conventional-changelog/conventional-changelog
