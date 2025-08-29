@@ -43,7 +43,7 @@
     "@guanghechen/fs": "^1.0.11",
     "@guanghechen/globby": "^1.0.6",
     "@guanghechen/invariant": "^6.0.5",
-    "@guanghechen/reporter": "^1.0.6",
+    "@guanghechen/reporter": "^1.0.7",
     "@guanghechen/std": "^1.0.4",
     "minimist": "1.2.8"
   }

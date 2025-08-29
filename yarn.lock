@@ -740,15 +740,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/reporter@npm:^1.0.6":
-  version: 1.0.6
-  resolution: "@guanghechen/reporter@npm:1.0.6"
+"@guanghechen/reporter@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "@guanghechen/reporter@npm:1.0.7"
   dependencies:
     "@guanghechen/chalk.types": ^1.0.4
     "@guanghechen/reporter.types": ^1.0.5
-    dayjs: 1.11.13
+    dayjs: 1.11.15
     json5: 2.2.3
-  checksum: 88b2d12e36dc1d3e8316a0c73d05773095b18ae079c4476a29dff9dd4fef18579ebecef302ee0c02a06fa09cc481345ce7ca005145762e1cf005f39b35444d02
+  checksum: 776524bc8061d50c5bcbdb79d135c348abadf153b5649e3d40a662a35545e0c213c199e84a2163253b9e11bb92b297d1716f412b8057f0b9c183b2ab69d879a0
   languageName: node
   linkType: hard
 
@@ -810,7 +810,7 @@ __metadata:
     "@guanghechen/fs": ^1.0.11
     "@guanghechen/globby": ^1.0.6
     "@guanghechen/invariant": ^6.0.5
-    "@guanghechen/reporter": ^1.0.6
+    "@guanghechen/reporter": ^1.0.7
     "@guanghechen/std": ^1.0.4
     minimist: 1.2.8
   bin:
@@ -845,7 +845,7 @@ __metadata:
     "@guanghechen/fs": ^1.0.11
     "@guanghechen/invariant": ^6.0.5
     "@guanghechen/path": ^1.0.3
-    "@guanghechen/reporter": ^1.0.6
+    "@guanghechen/reporter": ^1.0.7
     "@guanghechen/std": ^1.0.4
   bin:
     ghc-file: ./lib/esm/cli.mjs
@@ -862,7 +862,7 @@ __metadata:
     "@guanghechen/invariant": ^6.0.5
     "@guanghechen/mini-copy": ^6.0.5
     "@guanghechen/path": ^1.0.3
-    "@guanghechen/reporter": ^1.0.6
+    "@guanghechen/reporter": ^1.0.7
     "@guanghechen/std": ^1.0.4
     "@inquirer/confirm": 5.1.16
   bin:
@@ -1388,9 +1388,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lerna/create@npm:8.2.3":
-  version: 8.2.3
-  resolution: "@lerna/create@npm:8.2.3"
+"@lerna/create@npm:8.2.4":
+  version: 8.2.4
+  resolution: "@lerna/create@npm:8.2.4"
   dependencies:
     "@npmcli/arborist": 7.5.4
     "@npmcli/package-json": 5.2.0
@@ -1425,7 +1425,6 @@ __metadata:
     js-yaml: 4.1.0
     libnpmpublish: 9.0.9
     load-json-file: 6.2.0
-    lodash: ^4.17.21
     make-dir: 4.0.0
     minimatch: 3.0.5
     multimatch: 5.0.0
@@ -1462,7 +1461,7 @@ __metadata:
     write-pkg: 4.0.0
     yargs: 17.7.2
     yargs-parser: 21.1.1
-  checksum: 4e8d3f1955c021e7206ebdd0f35e64e11b4396cff5e0fe12611cb5a645166512bd9105dead00f97bee61400b8bbe07dffcaf39eba69d3984e91118d50a71484a
+  checksum: 79ccd20fac694813728b6582f806f12b3549a3bc87a91d6df6260e0c623b669fa1f84815d985b1c5c9f6d717a57e7407b8e8c5e5e770d7ff39b3bdba9e91883f
   languageName: node
   linkType: hard
 
@@ -4287,10 +4286,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.11.13":
-  version: 1.11.13
-  resolution: "dayjs@npm:1.11.13"
-  checksum: f388db88a6aa93956c1f6121644e783391c7b738b73dbc54485578736565c8931bdfba4bb94e9b1535c6e509c97d5deb918bbe1ae6b34358d994de735055cca9
+"dayjs@npm:1.11.15":
+  version: 1.11.15
+  resolution: "dayjs@npm:1.11.15"
+  checksum: e7d9a0eac598b6a9c835d2f4ce11ffeeb3904a836c7eda611331ae6cdfe8bc69cc177dc7efa72bb2fec83e02a632480ed1cb1c3db39afea0d93557f2ab4fe2c0
   languageName: node
   linkType: hard
 
@@ -7374,11 +7373,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lerna@npm:8.2.3":
-  version: 8.2.3
-  resolution: "lerna@npm:8.2.3"
+"lerna@npm:8.2.4":
+  version: 8.2.4
+  resolution: "lerna@npm:8.2.4"
   dependencies:
-    "@lerna/create": 8.2.3
+    "@lerna/create": 8.2.4
     "@npmcli/arborist": 7.5.4
     "@npmcli/package-json": 5.2.0
     "@npmcli/run-script": 8.1.0
@@ -7418,7 +7417,6 @@ __metadata:
     libnpmaccess: 8.0.6
     libnpmpublish: 9.0.9
     load-json-file: 6.2.0
-    lodash: ^4.17.21
     make-dir: 4.0.0
     minimatch: 3.0.5
     multimatch: 5.0.0
@@ -7460,7 +7458,7 @@ __metadata:
     yargs-parser: 21.1.1
   bin:
     lerna: dist/cli.js
-  checksum: 450bbd422e4d4d8ae86389e03797b5330a4718614c70f5820b4dc3099869a98839a1b0bebaace049c7a65a0e31010c1d77c4892a21eedbe29e15035219ff6a17
+  checksum: ab46ecdf65a35d5171caa1d34023219c444aba328287e8ba49d22310f43918c98feb50b074c3191fa2da4102dd71f1292a4226b68083057c55aa811486c58cd8
   languageName: node
   linkType: hard
 
@@ -9850,7 +9848,7 @@ __metadata:
     "@guanghechen/chalk": ^1.0.4
     "@guanghechen/fs": ^1.0.6
     "@guanghechen/path": ^1.0.3
-    "@guanghechen/reporter": ^1.0.6
+    "@guanghechen/reporter": ^1.0.7
     "@guanghechen/resource": ^1.0.4
     "@rollup/plugin-replace": 6.0.2
     "@types/jest": 30.0.0
@@ -9861,7 +9859,7 @@ __metadata:
     husky: 9.1.7
     is-ci: 4.1.0
     jest: 30.1.1
-    lerna: 8.2.3
+    lerna: 8.2.4
     lint-staged: 16.1.5
     npm-run-all: 4.1.5
     nx: 21.4.1

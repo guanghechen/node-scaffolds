@@ -48,7 +48,7 @@
     "@guanghechen/invariant": "^6.0.5",
     "@guanghechen/mini-copy": "^6.0.5",
     "@guanghechen/path": "^1.0.3",
-    "@guanghechen/reporter": "^1.0.6",
+    "@guanghechen/reporter": "^1.0.7",
     "@guanghechen/std": "^1.0.4",
     "@inquirer/confirm": "5.1.16"
   }
